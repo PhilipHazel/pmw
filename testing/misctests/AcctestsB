@@ -1,0 +1,24 @@
+heading ""
+nocheck
+time 3/4
+notime
+notespacing *2
+justify bottom left right
+
+[staff 1 treble 1]
+(#c#]d) (#c#]e) (#c#]f) (#c#]g) (#c#]a) (#c#]b)|
+(##c##]d) (##c##]e) (##c##]f) (##c##]g) (##c##]a) (##c##]b)|
+($c$]d) ($c$]e) ($c$]f) ($c$]g) ($c$]a) ($c$]b)|
+(%c%)d) (%c%)e) (%c%)f) (%c%)g) (%c%)a) (%c%)b)|
+($$]c$$d) ($$]c$$e) ($$]c$$f) ($$]c$$g) ($$]c$$a) ($$]c$$b)|
+
+(#)c$d) (#)c$e) (#)c$f) (#)c$g) (#)c$a) (#)c$b)|
+($c#d) ($c#e) ($c#f) ($c#g) ($c#a) ($c#b)|
+
+
+q= ($c\sd\$)g$f$c')($b`\sd\$g$]f$c')($)a`\sd\$g$f$c') |
+($c\sd\g$f$)c')($b`\sd\g$f$]c')($a`\sd\g$f$c') |
+
+q= (%]c\sd\%g%f%c')(%b`\sd\%g%)f%c')(%a`\sd\%g%f%c') |
+(%c\sd\g%f%]c')(%b`\sd\g%)f%c')(%a`\sd\g%f%)c') |
+

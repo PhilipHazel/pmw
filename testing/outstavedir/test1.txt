@@ -1,0 +1,257 @@
+Initialize
+Loading AFM for Times-Roman
+Loading AFM for Times-Italic
+Loading AFM for Times-Bold
+Loading AFM for Times-BoldItalic
+Loading AFM for Symbol
+Loading UTR for Symbol
+Loading AFM for PMW-Music
+Loading UTR for PMW-Music
+PMW file assumed
+Read header directives: movement 1
+** Warning: end repeat at start of bar - misplaced bar line?
+   Detected near line 11 of stavedirtests/test1
+: :) (: // |
+---->
+
+key=2 clef=12 width=0 reset
+key=0 clef=12 width=15
+key=0 clef=12 width=12.75 reset
+key=18 clef=12 width=13.5
+key=18 clef=12 width=12.75 reset
+width of "\mf\B" = 7.6 at size 10
+key=1 clef=12 width=7.6
+width of "\rm\abc" = 13.88 at size 10
+** Warning: there is underlay or overlay text left over at the end of stave 1
+   Detected near line 105 of stavedirtests/test1
+---- End of file ----
+
+End PMW read
+
+MOVEMENT 1
+
+STAVE 0
+  All bars are empty
+
+STAVE 1
+
+BAR 0 (1)
+  "\it\abcd" flags = none
+  "\rm\def"/u2/s3 flags = none
+  "\it\xyz"/rot30 flags = none
+  "\rm\A" flags = above rehearse
+  [all]
+  [breakbarline]
+  [comma]
+  [newline]
+  [newpage]
+  [tick]
+  [unbreakbarline]
+  barline type=0 style=0
+
+BAR 1 (2)
+  barline type=0 style=3
+
+BAR 2 (3)
+  [barnumber]
+  [barnumber off]
+  [barnumber/r4/u3]
+  [beamacc 3]
+  [beamrit 2]
+  [beamacc 2]
+  [beammove 2]
+  [beamslope -0.5]
+  [bottommargin 5]
+  [topmargin 6]
+  [copyzero 3]
+  [ensure 10]
+  [olhere 1]
+  [ulhere -4]
+  [bowing above]
+  [bowing below]
+  [draw 123 "\rm\abc" x]
+  [overdraw "\rm\a" 3 4 x]
+  barline type=0 style=3
+
+BAR 3 (4)
+  "\it\fb"/s4 flags = fb
+  "\bf\text"/s2 flags = none
+  footnote = 9 "\rm\This is a footnote" 9
+  [noteheads 0]
+  [noteheads 1]
+  [noteheads 2]
+  [noteheads 3]
+  [noteheads 4]
+  [noteheads 5]
+  [noteheads 2]
+  [noteheads 0]
+  [noteheads 1]
+  [noteheads 3]
+  [justify -top]
+  [justify -right]
+  [justify +bottom]
+  [key A]
+  [key E$ nowarn]
+  [key B]
+  barline type=0 style=3
+
+BAR 4 (5)
+  [slur]
+  [slurgap/w4]
+  [slur/u4/rr6/co2]
+  [slurgap/w5.6/draw x]
+  [slur/b/i/ip]
+  [slur/=Z/1/co2]
+  [line/l/ol]
+  [linegap/w23.88/"\rm\abc"]
+  [endslur]
+  [endslur]
+  [endline]
+  [endline]
+  [endline]
+  [xline/l/x]
+  [xslur/x]
+  [endslur]
+  [endline]
+  midichange channel=3 voice=0 volume=12 note=128 transpose=0
+  midichange channel=128 voice=19 volume=128 note=128 transpose=0
+  midichange channel=128 voice=128 volume=128 note=60 transpose=0
+  midichange channel=128 voice=128 volume=128 note=128 transpose=-3
+  midichange channel=128 voice=128 volume=8 note=128 transpose=0
+  [move 1,2]
+  [rmove 3,-4]
+  barline type=0 style=3
+
+BAR 5 (5.1)
+  barline type=0 style=3
+
+BAR 6 (6)
+  barline type=0 style=3
+
+BAR 7 (7)
+  barline type=0 style=3
+
+BAR 8 (8)
+  barline type=0 style=3
+
+BAR 9 (9)
+  barline type=0 style=3
+
+BAR 10 (10)
+  [notes off]
+  [notes on]
+  [ns *0.9]
+  [ns]
+  [ns 1 2 3 0 0 0 0 0]
+  [ulevel -3]
+  [ulevel *]
+  [olevel 2]
+  [olevel *]
+  [page 6]
+  [page +2]
+  [suspend]
+  [resume]
+  [move 3]
+  [rmove 4,5]
+  [space 6]
+  [rspace 7.4]
+  [sgabove 3.3]
+  [sghere +3]
+  [sgnext -4]
+  [ssabove 4]
+  [sshere +2]
+  [ssnext -6]
+  [time 1 * 3/4]
+  [assume time 1 * 6/8]
+  [time 2 * C nowarn]
+  [tremolo/x2/j0]
+  [tremolo/x3/j2]
+  [triplets off]
+  [triplets on]
+  [triplets on]
+  [triplets on]
+  [triplets on]
+  bass
+  barline type=0 style=3
+
+STAVE 2 "\rm\abc"/s24/"\rm\pqr"/s24 "\rm\xyz"/s24  draw 123 "\rm\XXX" x
+
+BAR 0 (1)
+  treble
+  name 3
+  assume bass
+  barline type=0 style=0
+
+BAR 1 (2)
+  alto
+  barline type=1 style=0
+
+BAR 2 (3)
+  :
+  :)
+  (:
+  //
+  barline type=0 style=0
+
+BAR 3 (4)
+  {3 x=0 yl=0 yr=0 flags=0x0
+  }
+  {3 x=0 yl=0 yr=0 flags=0x42
+  }
+  barline type=0 style=0
+
+BAR 4 (5) [1]
+  alto
+  tenor
+  bass
+  nbar 2
+  nbar 3 y=4.5
+  barline type=0 style=0
+
+BAR 5 (5.1) [2]
+  tenor
+  bass
+  nbar 2
+  nbar 3 y=4.5
+  barline type=0 style=0
+
+BAR 6 (6)
+  </w7 flags=0x8001
+  </w7 flags=0xc001
+  >/u3/w5.9 SU=2 flags=0x0001
+  >/w5.9 SU=4 flags=0x4001
+  barline type=0 style=0
+
+STAVE 3
+  [stavelines 3]
+  [omitempty]
+  All bars are empty
+
+paginate() start
+width of "\rm\abc" = 13.88 at size 10
+width of "\rm\pqr" = 13.33 at size 10
+key=2 clef=12 width=0
+key=2 clef=12 width=0
+key=2 clef=12 width=0
+width of "\rm\4" = 5.9 at size 11.8
+width of "\rm\4" = 5.9 at size 11.8
+width of "\rm\4" = 5.9 at size 11.8
+width of "\rm\4" = 5.9 at size 11.8
+width of "\rm\4" = 5.9 at size 11.8
+width of "\rm\4" = 5.9 at size 11.8
+key=2 clef=12 width=0
+key=2 clef=12 width=0
+key=2 clef=12 width=0
+key=0 clef=12 width=15
+key=18 clef=12 width=13.5
+width of "\mf\B" = 7.6 at size 10
+key=1 clef=12 width=7.6
+width of "\rm\3" = 5.9 at size 11.8
+width of "\rm\4" = 5.9 at size 11.8
+width of "\rm\This" = 16.002 at size 9
+width of "\rm\This is" = 24.255 at size 9
+width of "\rm\This is a" = 30.501 at size 9
+width of "\rm\This is a footnote" = 62.748 at size 9
+paginate() end
+
+Done

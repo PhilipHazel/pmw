@@ -1,0 +1,13 @@
+magnification 0.8
+
+[stave 1 "First" "first" treble 1]
+[20] gggg|
+[newpage]
+[20] aaaa|
+[endstaff]
+
+[stave 3 treble 1]
+aaaa
+[endstaff]
+
+

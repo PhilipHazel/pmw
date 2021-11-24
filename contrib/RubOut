@@ -1,0 +1,87 @@
+@ Here is a suggestion as to how to do caesurae that wipe out the stave 
+@ lines underneath them. This makes use of a general rectangular painting 
+@ function that can be used for many purposes.
+
+
+@ This first function arranges to "erase" a rectangular area. Actually, 
+@ it's more like covering it with white paint. You can also use it to cover 
+@ rectangles with other shades of grey or black.
+
+@ You can call this function anywhere in a stave for all sorts of uses,
+@ not only the caesuara. I'll show another examples below. When you call
+@ this, you must give it five numbers. The first two specify the position
+@ of the rectangle, relative to the next note and the bottom of the stave.
+@ The next two numbers give the width and height of the rectangle,
+@ measured from the fixed position. They may be positive or negative. The 
+@ fifth number specifies the colour of the paint, with 0 being black and 1 
+@ being white. A number like 0.5 is a mid shade of gray.
+
+@ You must call this function with "overdraw" rather than "draw" to 
+@ ensure that it is called after everything else has been drawn. Otherwise 
+@ other things (especially stave lines) may go on top of what it draws.
+@ See the examples in the stave below.
+
+draw erase
+  /grey exch def
+  /bh exch def /bw exch def moveto
+  0 bh rlineto bw 0 rlineto 0 bh neg rlineto bw neg 0 rlineto
+  grey setgray fill 0 setgray
+enddraw
+
+@ This function uses the erase function to clear a rectangle, and then 
+@ draws two diagonal lines in the space. This function takes only four
+@ numbers, the position and size of the rectangle. The width and height 
+@ are expected to be positive, so the position is assumed to be the 
+@ bottom lefthand corner. You can fiddle with the numbers to change 
+@ the size of the lines and their thickness.
+
+draw caesura
+  /h exch def /w exch def /y exch def /x exch def
+  x y w h 1 draw erase
+
+  @ The first line starts 1 point in from the left. Increase the
+  @ number to move it to the right. 
+  x 1 add y moveto 
+ 
+  @ The line ends up 3 points further to the right and 7 points up.
+  @ Change these numbers to vary its length and slope. 
+  3 7 rlineto
+  
+  @ The second line starts 4 points in from the left.
+  x 4 add y moveto 
+
+  @ It has the same length and slope as the first line. You should
+  @ probably keep these values in step.  
+  3 7 rlineto
+  
+  @ The 0.5 here specifies the thickness of the line. Make it bigger
+  @ if you want a fatter line. 
+  0.5 setlinewidth stroke 
+enddraw
+
+@ This macro sets up an easy way to call the custom caesuara. It should 
+@ be called before the end of a bar. It positions the white rectangle 10 
+@ points to the left, and 13 points above the bottom of the stave (so it
+@ wipes out only the top line). The size of the rectangle is 7 points 
+@ wide and 8 points high. An extra 2 points of space are inserted in the
+@ bar. You may need to change this.
+
+*define caes [space 2 overdraw -10 13 7 8 caesura]
+
+@ The idea is that you fiddle with the numbers above until you get it 
+@ looking how you want it. Then just use &caes whenever you need it, and 
+@ they will all look the same.
+
+
+@ OK, now we've defined all this stuff, let's use it...
+
+[stave 1 treble 1]
+
+@ These bars show various ways of "painting over" rectangles
+R! [overdraw 0 0 8 8 1 erase] |
+R! [overdraw 0 0 -8 -8 0.5 erase] |
+rr [overdraw -6 6 16 4 0.75 erase] rr |
+
+@ This bar shows a regular caesura and the custom one
+a a a // a &caes | R! |
+[endstave]

@@ -1,0 +1,129 @@
+StartFontMetrics 2.0
+FontName PMW-Alpha
+FullName PMW-Alpha
+FamilyName PMW-Alpha
+Comment No bounding boxes available...
+Weight Medium
+ItalicAngle 0
+IsFixedPitch false
+FontBBox -360 -326 1324 838
+UnderlinePosition -98
+UnderlineThickness 54
+Version 51
+EncodingScheme FontSpecific
+StartCharMetrics 113
+C 32 ; WX 640 ; N space ;
+C 34 ; WX 260 ; N smsqrest ;
+C 35 ; WX 460 ; N sharp ;
+C 36 ; WX 380 ; N flat ;
+C 37 ; WX 360 ; N natural ;
+C 38 ; WX 700 ; N doubleflat ;
+C 39 ; WX 380 ; N sqrest ;
+C 40 ; WX 924 ; N leftarrow ;
+C 41 ; WX 924 ; N rightarrow ;
+C 42 ; WX 770 ; N star ;
+C 43 ; WX 640 ; N plus ;
+C 44 ; WX 260 ; N ddspace ;
+C 46 ; WX 130 ; N udot ;
+C 47 ; WX 380 ; N crest ;
+C 48 ; WX 640 ; N zero ;
+C 49 ; WX 640 ; N one ;
+C 50 ; WX 640 ; N two ;
+C 51 ; WX 640 ; N three ;
+C 52 ; WX 640 ; N four ;
+C 53 ; WX 640 ; N five ;
+C 54 ; WX 640 ; N six ;
+C 55 ; WX 640 ; N seven ;
+C 56 ; WX 640 ; N eight ;
+C 57 ; WX 640 ; N nine ;
+C 58 ; WX 260 ; N smqrest ;
+C 59 ; WX 380 ; N qrest ;
+C 60 ; WX 130 ; N dspace ;
+C 61 ; WX 564 ; N equals ;
+C 62 ; WX 130 ; N ddot ;
+C 63 ; WX 260 ; N smcrest ;
+C 66 ; WX 640 ; N bassclef ;
+C 67 ; WX 640 ; N C ;
+C 69 ; WX 380 ; N dminim ;
+C 70 ; WX 800 ; N fermata ;
+C 71 ; WX 640 ; N trebleclef ;
+C 72 ; WX 0 ; N beam1d ;
+C 74 ; WX 0 ; N beam2d ;
+C 75 ; WX 0 ; N beam15d ;
+C 76 ; WX 380 ; N cnh ;
+C 77 ; WX 380 ; N mnh ;
+C 79 ; WX 800 ; N ds1 ;
+C 80 ; WX 1400 ; N ped ;
+C 81 ; WX 640 ; N breve ;
+C 82 ; WX 380 ; N dcrotchet ;
+C 83 ; WX 720 ; N ds2 ;
+C 84 ; WX 380 ; N dquaver ;
+C 86 ; WX 640 ; N altoclef ;
+C 87 ; WX 380 ; N semibreve ;
+C 89 ; WX 380 ; N dsquaver ;
+C 91 ; WX 510 ; N lsbrest ;
+C 92 ; WX 380 ; N nspace ;
+C 93 ; WX 510 ; N lmrest ;
+C 94 ; WX 460 ; N doublesharp ;
+C 95 ; WX 530 ; N runon ;
+C 96 ; WX 700 ; N iturn ;
+C 99 ; WX 640 ; N cut ;
+C 100 ; WX 817 ; N downto ;
+C 101 ; WX 380 ; N uminim ;
+C 102 ; WX 470 ; N f ;
+C 103 ; WX 640 ; N xtclef ;
+C 104 ; WX 0 ; N beam1u ;
+C 106 ; WX 0 ; N beam2u ;
+C 107 ; WX 0 ; N beam15u ;
+C 109 ; WX 880 ; N m ;
+C 111 ; WX 760 ; N trill ;
+C 112 ; WX 690 ; N p ;
+C 113 ; WX 640 ; N xbreve ;
+C 114 ; WX 380 ; N ucrotchet ;
+C 115 ; WX 320 ; N s ;
+C 116 ; WX 380 ; N uquaver ;
+C 117 ; WX 817 ; N upto ;
+C 119 ; WX 380 ; N xsemibreve ;
+C 121 ; WX 380 ; N usquaver ;
+C 122 ; WX 420 ; N z ;
+C 123 ; WX 260 ; N sbrest ;
+C 124 ; WX 20 ; N bar ;
+C 125 ; WX 260 ; N mrest ;
+C 126 ; WX 700 ; N turn ;
+C 160 ; WX 0 ; N stave ;
+C 178 ; WX 750 ; N twothirds ;
+C 179 ; WX 750 ; N threefifths ;
+C 180 ; WX 750 ; N onefifth ;
+C 181 ; WX 750 ; N twofifths ;
+C 182 ; WX 750 ; N fourfifths ;
+C 183 ; WX 750 ; N oneseventh ;
+C 184 ; WX 750 ; N twosevenths ;
+C 185 ; WX 750 ; N onethird ;
+C 186 ; WX 750 ; N oneninth ;
+C 187 ; WX 750 ; N eightninths ;
+C 188 ; WX 750 ; N onequarter ;
+C 189 ; WX 750 ; N onehalf ;
+C 190 ; WX 750 ; N threequarters ;
+C 200 ; WX 300 ; N sup0 ;
+C 201 ; WX 300 ; N sup1 ;
+C 202 ; WX 300 ; N sup2 ;
+C 203 ; WX 300 ; N sup3 ;
+C 204 ; WX 300 ; N sup4 ;
+C 205 ; WX 300 ; N sup5 ;
+C 206 ; WX 300 ; N sup6 ;
+C 207 ; WX 300 ; N sup7 ;
+C 208 ; WX 300 ; N sup8 ;
+C 209 ; WX 300 ; N sup9 ;
+C 210 ; WX 300 ; N sub0 ;
+C 211 ; WX 300 ; N sub1 ;
+C 212 ; WX 300 ; N sub2 ;
+C 213 ; WX 300 ; N sub3 ;
+C 214 ; WX 300 ; N sub4 ;
+C 215 ; WX 300 ; N sub5 ;
+C 216 ; WX 300 ; N sub6 ;
+C 217 ; WX 300 ; N sub7 ;
+C 218 ; WX 300 ; N sub8 ;
+C 219 ; WX 300 ; N sub9 ;
+C 222 ; WX 150 ; N slash ;
+EndCharMetrics
+EndFontMetrics

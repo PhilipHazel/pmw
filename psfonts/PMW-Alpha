@@ -1,0 +1,742 @@
+%!PS-Adobe-3.0 Resource-Font
+%%Title: PostScript code for PMW-Alpha font
+%%Creator: Acorn Printer Manager (PS support, v0.23) + hand edits by PH
+%%CreationDate: 20:10:20 25-Mar-1993
+%%DocumentSuppliedResources: font PMW-Alpha
+%%EndComments
+
+
+%%BeginExitServer: 000000
+%%serverdict begin 000000 exitserver
+%%EndExitServer
+
+%%BeginSetup
+%%BeginResource: font PMW-Alpha
+
+% Renamed the font as PMW-Alpha for the port to Linux: 21-Aug-2002 (PH)
+% Removed %%BeginFont, which was accidentally left in after %%BeginResource
+% was added, and changed %%EndFont to %%EndResource: 05-Mar-2005. (PH)
+
+% These comments are historical, relating to the conversion from the original
+% Acorn font:
+
+% -------------------------------------------------------------------------
+% The name of the font has been edited to remove the DL_ that the
+% Printer Manager sticks on the front.
+%
+% The treble clefs (on characters G and g) have been fixed up by hand.
+% The Acorn outline font has half the treble clef defined on G and the
+% other half on g, to get round the 12-bit limitation on bounding box
+% size. However, each character includes the other, and this causes the
+% Printer Manager to generate PostScript for each character to include
+% the other - which causes an infinite loop when either of the characters
+% is printed; a limitcheck error results. The fix up consists of moving the
+% definition from /xtclef (g) explicitly into /trebleclef, and adjusting
+% the arguments to packedarray appropriately.
+% Philip Hazel, 15 November 1992.
+
+% The new fractions have also had to be patched up by hand because they
+% relied on the Acorn font habit of not recursing. This was tedious; try
+% not to have to do it again!
+% Philip Hazel, 25 March 1993.
+% -------------------------------------------------------------------------
+
+% Added downto and upto: 05-Jun-94 (PH)
+
+/PMW-Alpha 11 dict dup begin
+/FontInfo 10 dict dup begin
+  /Notice (Converted by MakePSFont v1.03) def
+  /FullName (DL) def
+  /FamilyName (DL) def
+  /Weight (PMW) def
+  /Version (001.001) def
+  /ItalicAngle 0.00 def
+  /isFixedPitch false def
+  /UnderlinePosition 0 def
+  /UnderlineThickness 0 def
+  /decode85 10 dict def  decode85 begin
+    /str 0 def  /ind 0 def
+    /getc {str  ind dup 1 add /ind exch store  get} bind def
+    /getn {getc 42 sub  getc 42 sub  85 mul  add  3500 sub} bind def
+    101 {exit} bind def
+    109 {getn getn moveto} bind def
+    108 {getn getn lineto} bind def
+    99 {getn getn getn getn getn getn curveto} bind def
+    112 {closepath} bind def
+    /unwind {/str exch store  /ind 0 store  {getc load exec} loop} bind def
+  end
+end def
+/FontType 3 def
+/PaintType 0 def
+/FontMatrix [.001 0 0 .001 0 0] def
+/FontBBox [-360 -326 1324 838] def
+
+/Encoding [
+% PMW-alpha_Encoding 1.00 0
+% This is the encoding vector for the font of alphanumeric
+% and small musical characters created by Richard Hallas
+% for use in text when printing music with the PMW music
+% typesetting system, and also for general use in text in
+% desktop publishers and elsewhere.
+% Encoding file updated by Philip Hazel: 25/03/93
+
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+
+/space /.notdef /smsqrest /sharp
+/flat /natural /doubleflat /sqrest
+/leftarrow /rightarrow /star /plus
+/ddspace /.notdef /udot /crest
+/zero /one /two /three
+/four /five /six /seven
+/eight /nine /smqrest /qrest
+/dspace /equals /ddot /smcrest
+
+/.notdef /.notdef /bassclef /C
+/.notdef /dminim /fermata /trebleclef
+/beam1d /.notdef /beam2d /beam15d
+/cnh /mnh /.notdef /ds1
+
+/ped /breve /dcrotchet /ds2
+/dquaver /.notdef /altoclef /semibreve
+/.notdef /dsquaver /.notdef /lsbrest
+/nspace /lmrest /doublesharp /runon
+
+/iturn /.notdef /.notdef /cut
+/downto /uminim /f /xtclef
+/beam1u /.notdef /beam2u /beam15u
+/.notdef /m  /.notdef /trill
+
+/p /xbreve /ucrotchet /s
+/uquaver /upto /.notdef /xsemibreve
+/.notdef /usquaver /z /sbrest
+/bar /mrest /turn /.notdef
+
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+
+/stave /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+
+/.notdef /.notdef /twothirds /threefifths
+/onefifth /twofifths /fourfifths /oneseventh
+/twosevenths /onethird /oneninth /eightninths
+/onequarter /onehalf /threequarters /.notdef
+
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/sup0 /sup1 /sup2 /sup3
+/sup4 /sup5 /sup6 /sup7
+/sup8 /sup9 /sub0 /sub1
+
+/sub2 /sub3 /sub4 /sub5
+/sub6 /sub7 /sub8 /sub9
+/.notdef /.notdef /slash /.notdef
+/.notdef /.notdef /.notdef /.notdef
+
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef
+] def
+
+/CharProcs 124 dict def  FontInfo /decode85 get begin  CharProcs begin
+/.notdef {pop} def
+/space
+{ 640 0 setcharwidth } /if cvx
+(e) /unwind cvx
+4 packedarray cvx bind def
+/smsqrest
+{ 260 0 setcharwidth } /if cvx
+(m6T0Xc6TiW>TYWJTQWcxT/WWUYWmUyWl5UFVlGUFVl>VPXl,VPXc{UFXYUuWEUeWc7UYWtTSW|TiWcMU~X6T?Y6T0Xpe) /unwind cvx
+    -26 -180 /translate cvx false CharProcs /smqrest /get cvx /exec cvx
+12 packedarray cvx bind def
+/sharp
+{ 460 0 setcharwidth } /if cvx
+(mlTO[llTO[pmlTO[llT`XlySLXlyS-WllTAWllT-UlySnTlySOSllTcSllT|Pl7U|Pl7UmSlbV>TlbVYQl-WYQl-WFTlwW\\TlwWyUl-WeUl-WwWlwW8XlwWWYl-WAYl-W*\\lbV*\\lbV9Yl7UjXl7UO[llTO[pm7U7Ul7U7Upm7U7Ul7UKWlbVoWlbV]Ul7U7Upe) /unwind cvx
+4 packedarray cvx bind def
+/flat
+{ 380 0 setcharwidth } /if cvx
+(mJTRVcxTEW8VWWpVfVc*XMUMUtRJT^Rc2TXR*TdR*TrRl*T?[lJT?[lJTRVpmJT{UcJTLVEU/WwUHVchVIU+UzRJTzRlJT{Upe) /unwind cvx
+4 packedarray cvx bind def
+/natural
+{ 360 0 setcharwidth } /if cvx
+(mDT*\\lyS*\\lyS[SlDTcSlPVDTlPV~PlpV~PlpVCYlNV9YlDT\\XlDT*\\pmDT-UlPVcUlPVuWlDTAWlDT-Upe) /unwind cvx
+4 packedarray cvx bind def
+/doubleflat
+{ 700 0 setcharwidth } /if cvx
+(mJT{UlJTzRc+UzRhVIUwUHVcEU/WJTLVJT{UpmJTRVlJT?[l*T?[l*TrRc*TdR2TXRJT^RcMUtR*XMUpVfVc8VWWxTEWJTRVpe) /unwind cvx
+    288 0 /translate cvx false CharProcs /flat /get cvx /exec cvx
+12 packedarray cvx bind def
+/sqrest
+{ 380 0 setcharwidth } /if cvx
+(mNT8XcNTuYBVWYaUcWcUUCWyUKW8V]WcTVuW3WVX9WfXlUWfXlTVDVl8VDVlrV{WcRVKW[UdVjT?WcZTMWNTcWNT8Xpe) /unwind cvx
+    -44 -180 /translate cvx false CharProcs /qrest /get cvx /exec cvx
+12 packedarray cvx bind def
+/leftarrow
+{ 924 0 setcharwidth } /if cvx
+(m_]hVlIWhVl<XdXl]S@Vl<XqSlIWmUl_]mUl_]hVpe) /unwind cvx
+4 packedarray cvx bind def
+/rightarrow
+{ 924 0 setcharwidth } /if cvx
+(m]ShVlsYhVl+YdXl_]@Vl+YqSlsYmUl]SmUl]ShVpe) /unwind cvx
+4 packedarray cvx bind def
+/star
+{ 770 0 setcharwidth } /if cvx
+(m_W6Xc{W6XBXoWBXUWcBX9W{WrV_WrVcEWrV~V9W~VUWc~VoWEW6X_W6Xpm,VyWc~TKWySEYCS,Xc5S_W9SAWCS~VcuSYU-U[W,V3WcFVzVJVdV>VTVc]UeUeS{U:ThTcDTTTNT>TnT0Tc0VOSuUiUdV6VctV>V/W4V7W*VcuW|TaUeS9W7ScSW/SmW-S2X7ScgYcSIW-U2X}Uc<X8VJX<VVX8VcGY{U7YSSPZ0Tc^Z6TxZFT/[^Tci[,VCYeU|X^VcvXzV1Y+W?Y1WcJZ[WO[YU}[~Vc4\\GW6\\_W}[,XcO[QY<ZGW;Y{Wc+Y.XxX2X|XFXc;YCYg[~X1[JZc~ZZZvZhZ^ZvZc3Yi[IYnXNXnXc@XnX>XrX4X~XcEW0ZiY=[2Xw[cmW,\\YW,\\;Ww[c]UC[wW0Z7W~Xc+WnXxVpXpVpXcwUpXBVe[dTvZcPTlZ@TVZ:TFZcYS-YFV;YFV@XcJV2X:V}W,VyWpe) /unwind cvx
+4 packedarray cvx bind def
+/plus
+{ 640 0 setcharwidth } /if cvx
+(m?W>ZlTV>ZlTVcWlwScWlwStVlTVtVlTVDTl?WDTl?WtVlqYtVlqYcWl?WcWl?W>Zpe) /unwind cvx
+4 packedarray cvx bind def
+/ddspace
+{ 260 0 setcharwidth } /if cvx
+(e) /unwind cvx
+4 packedarray cvx bind def
+/udot
+{ 130 0 setcharwidth } /if cvx
+(mmS]ScwSgSwS{SmS0TcaS<TOS<TAS0Tc7SyS7SiSAS]ScOSQSaSQSmS]Spe) /unwind cvx
+4 packedarray cvx bind def
+/crest
+{ 380 0 setcharwidth } /if cvx
+(mlT2RctR8T|TCUJVaScTVUSZVaSNVmSl9UCUc*TfV\\T1W6VGYlmSo[laSg[l2T?[c7U6ZRT+Y?SEWl;U-Uc[SbVQQdTbT.RcfT*RrT*RlT2Rpe) /unwind cvx
+4 packedarray cvx bind def
+/zero
+{ 640 0 setcharwidth } /if cvx
+(mpTJZc5SdX5S[UpTuSc0V`RsW`R5YuScpZ[UpZdX5YJZcsW_[0V_[pTJZpmmWHTc8XSU8XlXmWwYcMW-[VV-[6VwYckUlXkUSU6VHTcVV=SMW=SmWHTpe) /unwind cvx
+4 packedarray cvx bind def
+/one
+{ 640 0 setcharwidth } /if cvx
+(mRTFXcLT>XXT6XdTFXcEU=Y]UAY]UPXl]UNTc]U+SdTkSdT9ScWU9SDX9StX9SctXkS{W+S{WNTc{W_U{W0Z{WI[c+W5[ZV5[]UI[cMU2Z7UUYRTFXpe) /unwind cvx
+4 packedarray cvx bind def
+/two
+{ 640 0 setcharwidth } /if cvx
+(mFZ0VcHZ<V:Z<V6Z0Vc3YxRYWsU~T5UczVpV,ZNV,ZtXc,ZsYaYjZ6X5[ciUi[8T`ZmSuYc9SbX}SMW9U,XcFV\\XoURZLT{YcEU5[UWpZUW`XcUW4V*T|VSS-ScOSxRWSzR[S+ScPV?U;Y]OFZ0Vpe) /unwind cvx
+4 packedarray cvx bind def
+/three
+{ 640 0 setcharwidth } /if cvx
+(m]WzTc[W7SYUOSpT4TcyUgShV.VnT.VcUS.V9SZTJTgSckUjReWjRlXCScrZFTVZ^VpX9Wc2ZWWtZaY-YhZcmWQ[4VY[nTtZcGS6ZGSDXnTDXcXVDX@VbZpT>ZcmU3[aW|ZcW1YccW2X?W[WoU[WcrT[WrTtVoUtVcYWtV]WgU]WzTpe) /unwind cvx
+4 packedarray cvx bind def
+/four
+{ 640 0 setcharwidth } /if cvx
+(mcY9ScuY9S<Z]S3Y]Sl3YZTlJZZTlJZCUl3YCUl3YSYlvVUWlvVCUlXTCUcMU.X8XRXPX;[lKU;[cEU:ZXTUW5SCUl5SZTlvVZTlvV]SckU]S2V9SDV9SlcY9Spe) /unwind cvx
+4 packedarray cvx bind def
+/five
+{ 640 0 setcharwidth } /if cvx
+(mlTuScHV]SPV@VbT@VcUS@VnR~T*TmScdT3SgUzR~VzRcZXzRJZmSJZgUcJZOW{W-Y+UwWl9UCYc-WzXJZrXJZ3[cdXpZyUtZRTI[l}SxVc5UxVAUaWRVaWcOWaWoWlVoWgUcoW`RAUWSlTuSpe) /unwind cvx
+4 packedarray cvx bind def
+/six
+{ 640 0 setcharwidth } /if cvx
+(mwUOWc\\VPX8Z\\X8ZUUc8ZuSxXzR+WzRl~VzRcBTzRYSUUYS;WlYS;WcYS=YtTE[/WE[l/WE[c>ZE[dZLXtXLXc7WLXWWVZpX>ZcXXTZ.XjZMWjZcXVjZwU.ZwUOWpm,XtVcaW]WXVaW6VtVcmU8VqUlT8V4Tc\\VASWWAS}W4TcFXpTFXBV,XtVpe) /unwind cvx
+4 packedarray cvx bind def
+/seven
+{ 640 0 setcharwidth } /if cvx
+(m4X9Sc/WKSkUES/U1ScMU1UkW*XpXKYcOWXX{UXXPT/Yc4T7Y,TRX,T0Xc,TuWgSuWgS0XlgS;[cgSK[ySK[}S;[cFTmYkUP\\WWvZc8XFZEY2ZwY~Zc}Y5[4Z1[4ZvZc4ZyY4XRV4X9Spe) /unwind cvx
+4 packedarray cvx bind def
+/eight
+{ 640 0 setcharwidth } /if cvx
+(m/UCWcOSjVnRzR?WzRcJZzRfZLVzXCWc4ZuW|ZE[jVE[c7SE[mSwW/UCWpmYU]YcYURXvV:X*XiWczXuWaY,Z2XXZcdV+[YUbZYU]YpmyUpVcbTdV6T2TPVaScKWQS^XgS^XpTc^XoU?W@VyUpVpe) /unwind cvx
+4 packedarray cvx bind def
+/nine
+{ 640 0 setcharwidth } /if cvx
+(m0XlVcSW_U]SmU]SLXl]SLXc]S:ZxTE[|VE[l~VE[c|XE[LZCYLZ5WlLZ3WcLZ+U+YzR|VzRc~RzRQSwUxTwUcLVwUBVcS|T*TcCUgSoUSSTVSSc{WSS0XrT0XlVpmsU>Zc>V~ZKW|ZkW>Zc:XIY8X}WkW?WcMWZV<VVVsU?WcOU0XOUMYsU>Zpe) /unwind cvx
+4 packedarray cvx bind def
+/smqrest
+{ 260 0 setcharwidth } /if cvx
+(mYS0XcYSiWaSYWmSQWcFT/WzTYW;UyWl}S+Ul:T+UlaUPXlOUPXcIUFX|TuWhTeWcZTYWBTSWJTiWcpT~XYS?YYS0Xpe) /unwind cvx
+4 packedarray cvx bind def
+/qrest
+{ 380 0 setcharwidth } /if cvx
+(mySuWcySKW0T5W@T|Vc1ULV}U3WHVcWlXTKSlvTKSl+WNXldVNXc^V>X*V]WcUEWcOU3W+U+W7UKWcmU?YyS]YySuWpe) /unwind cvx
+4 packedarray cvx bind def
+/dspace
+{ 130 0 setcharwidth } /if cvx
+(e) /unwind cvx
+4 packedarray cvx bind def
+/equals
+{ 564 0 setcharwidth } /if cvx
+(mQYkWlWSkWlWS+WlQY+WlQYkWpmQYhTlWShTlWSSUlQYSUlQYhTpe) /unwind cvx
+4 packedarray cvx bind def
+/ddot
+{ 130 0 setcharwidth } /if cvx
+(mmS*ZcaSsYOSsYAS*Zc7S6Z7SFZASRZcOS^ZaS^ZmSRZcwSHZwS4ZmS*Zpe) /unwind cvx
+4 packedarray cvx bind def
+/smcrest
+{ 260 0 setcharwidth } /if cvx
+(mhT8TcQSYUtTFVoU;UcwU5U{U;UsUEUl+UFVc:TCW^TYWcU1Yl0TlZl}SfZlBTLZc~T_YVTtXeSgWl+U8VcwS?WRRyU`T4TcdT2TlT2ThT8Tpe) /unwind cvx
+4 packedarray cvx bind def
+/bassclef
+{ 640 0 setcharwidth } /if cvx
+(m{YLXckY\\XSY\\XEYLXc5Y<X5YwWEYgWcSYWWkYWW{YgWc4ZwW4Z<X{YLXpmyY^ZckYnZQYnZCY^Zc3YNZ3Y4ZCYyYcQYiYkYiYyYyYc4Z4Z4ZNZyY^Zpm]WJXc]WQW3WJV4VKUcQUlTVT:T=SqSc=SmS?SiSASeSc=U:TtVrT}WRVc\\XQWvX=YyWNZcEW;[JVE[iUC[c/UA[JTxZ*TFZccSoYYSAYYS+YcYSjX_SXXsSHXc>T0X`T4XzTJXcGUbXIUKY|TeYcbTyY<T*ZuS]Yc{S,Z>TLZLTZZcjTvZ=U5[sU5[cAW5[]WyY]WJXpe) /unwind cvx
+4 packedarray cvx bind def
+/C
+{ 640 0 setcharwidth } /if cvx
+(mJXeWcsYeW{Y,ZXXnZcEWO[0V3[MUjZcSSaYMS`VBT1UcyU0RfX3SWY|Tc]Y5U[Y9U_YCUcxXoS|VpRwUvTc=U>VCUVXsUYYcvVO[xXfZ=YWYc~XuY0X<ZSWMYcxV`X[WeWJXeWpe) /unwind cvx
+4 packedarray cvx bind def
+/dminim
+{ 380 0 setcharwidth } /if cvx
+(mESeYlESnRlWSnRlWSIYcQSMYISYYESeYpe) /unwind cvx
+    0 512 /translate cvx false CharProcs /mnh /get cvx /exec cvx
+12 packedarray cvx bind def
+/fermata
+{ 800 0 setcharwidth } /if cvx
+(m3WNXc3W.XOWgWqWgWc>XgWZX.XZXNXcZXpX>X7YqW7YcOW7Y3WpX3WNXpmGS9Wc>TFZ[UI[qWI[c2ZI[Q[FZH\\9WcH\\dZ2Z\\\\qW\\\\c[U\\\\GSdZGS9Wpe) /unwind cvx
+4 packedarray cvx bind def
+/trebleclef
+{ 640 0 setcharwidth } /if cvx
+(mvV:Zc7WVZQW~ZQWO[cQWm[AW>\\1W>\\c\\V>\\@VQ[4V~Zc{URZyU{Y*VGYcFV_YTVeYvV:Zpm9U[Sc,V?SNVKSjVWSlDV:Vc.V:VgU.VWUqUc?U[U~TlTaU8TcZTVTbTmU1UDVcOUlVyU|V:V|Vl*V0Xc]UkWGU]WzT9WcDTXV{SaU0TxTc@TDTXTsS9U[SpmaWe[cqWxZkW:ZIWQYc1WzXRVNX8V:XlHV+Wc`V+WvV+W?WrVceW^VuWLV2X*VcPXGUNXRTYWkSc`V5S0V1S7UKScVTaS*T4TeSfTcGSQUESPVHTgWcvTNXGUnXsU;YcgU>ZeUrZ,Vi[c@VH\\ZVf\\|V-]cEWb\\UW<\\aWe[pm[WNTciWtTaWIUIWkUc7W.VvV<VRV<VlxV_Sc1WgSKW*T[WNTpe) /unwind cvx
+(m~TtPc5UbPSUbPaUbPcoUbP2VdPXV~Pc|VCQ+WqQzVHRlnVGSlzVMSl3WPRc=W_Q-W-QVVjPc.VPP=UFPdTnPc4TCQ@T*RXTDRcvTbRIU`RcU@Rc4VgQiUtP~TtPpe) /unwind cvx
+6 packedarray cvx bind def
+/beam1d
+{ 0 0 setcharwidth } /if cvx
+(mRV}SlRVnRlzNnRlzN}SlRV}Spe) /unwind cvx
+4 packedarray cvx bind def
+/beam2d
+{ 0 0 setcharwidth } /if cvx
+(mRVxTlRV2VlzN2VlzNxTlRVxTpe) /unwind cvx
+    false CharProcs /beam1d /get cvx /exec cvx
+9 packedarray cvx bind def
+/beam15d
+{ 0 0 setcharwidth } /if cvx
+(mRV2Vl\\T2Vl\\TxTlRVxTlRV2Vpe) /unwind cvx
+    false CharProcs /beam1d /get cvx /exec cvx
+9 packedarray cvx bind def
+/cnh
+{ 380 0 setcharwidth } /if cvx
+(m=UKUc`TKUyS1U[S`Tc3S2T9S1SJT1ScvT1SVVGSVVZTcVV~T6VKU=UKUpe) /unwind cvx
+4 packedarray cvx bind def
+/mnh
+{ 380 0 setcharwidth } /if cvx
+(mbTrTcBTbTAS.TWSWSciS9SRT=S;U]SckUuS^VZT>VzTcwU?U7U3UbTrTpm=UKUc`TKUyS1U[S`Tc3S2T9S1SJT1ScvT1SVVGSVVZTcVV~T6VKU=UKUpe) /unwind cvx
+4 packedarray cvx bind def
+/ds1
+{ 800 0 setcharwidth } /if cvx
+(m.X;Wl.XYSc}YYS@ZAU@Z;Wl.X;WpmeW[[leWp\\l.Xp\\l.X[[cLZ[[O[uYO[WWl\\\\WWl\\\\;WlO[;WcO[pTLZ9S.X9Sl.XyQleWyQleW9ScEU9SDTrTDT;Wl9S;Wl9SWWlDTWWcDTwYIU[[eW[[pm.XWWl.X;[c}Y;[@ZSY@ZWWl.XWWpmeW;WleWYSckUYSSU?USU;WleW;WpmeWWWleW;[ckU;[SUQYSUWWleWWWpe) /unwind cvx
+4 packedarray cvx bind def
+/ped
+{ 1400 0 setcharwidth } /if cvx
+(mDb{Scvb{Svb9SBb9Scga9Sga{SDb{SpmrZSWcM[kWy[9Wy[NVcy[aUi[GUvZrTcHZmU.Z-WrZSWpmXVy[caW,\\`X*\\gYlZcJZ.ZhZ4X/YTXcTXbX@X?Y:XkYc/[`X?Yy[5Wg[cXVe[`V:ZaWVXcBXQWoWcUGW~Tc6XvTzXBTQY}Sl:ZNTcxX`VJZ{W?[{Wc4\\{Wd\\SWd\\TVcd\\XTHZjTY[,TcH\\YSo]*TY]XTc+]gUu]-Wh^oWc~^0XA_uW+_cWc9].V+_*Tg_uScD`kSb`.Tz`NTcGa~Tx`FVJ`EWcc_dX0^HZ,\\HZce[HZe[XZ,\\XZc`^XZP`EYCa]Wc2b,VoajTEa.Tc|`cS\\`=Sm_9Scn^7SF^CSu]yScr\\vR3[xRLZ.Tl|X=ScBXqS[WLT1WTTc`V,TwU9S7U9ScxT9SHT;SfTeScKUfTNV/U-W~TcIW|TIW4V-WbVccUlXDVG[`Ve[c;S?[rRnV/U9Yc;UEY;UrX;U8Xc;U/WGS^V9SDXc~RlZMUm[XVy[pe) /unwind cvx
+4 packedarray cvx bind def
+/breve
+{ 640 0 setcharwidth } /if cvx
+(m*T\\Xl*T{[lwS{[lwS\\Xl*T\\XpmjT\\XljT{[chT{[dT{[bT{[lbT\\XljT\\Xpm?Y\\Xl?Y{[l7Y{[l7Y\\Xl?Y\\Xpm*Z\\Xl*Z{[luY{[luY\\XcyY\\X{Y\\X*Z\\Xpe) /unwind cvx
+    152 0 /translate cvx false CharProcs /semibreve /get cvx /exec cvx
+12 packedarray cvx bind def
+/dcrotchet
+{ 380 0 setcharwidth } /if cvx
+(mESgYcISYYSSKYWSIYlWSnRlESnRlESgYpe) /unwind cvx
+    0 512 /translate cvx false CharProcs /cnh /get cvx /exec cvx
+12 packedarray cvx bind def
+/ds2
+{ 720 0 setcharwidth } /if cvx
+(myWDXlzZ=[lM[zZlJX*XcIYCWRZ^VRZIUcRZySeYISfX;SciW3SEW9SNVuSc0V<T,VdTBVzTcjVMUUW-UUWZTcUW2T3WsShV}Sc:XvR3YoS3YTTc3YQUgW8V-WbVlqSWSlGSmSl\\VzVcoUSWLTRXLTcYcLTRZ|T7[kUI[cPVW[]W_[HX|ZcfX`Z~XyYTXeYc{WOYOWkYOW>ZcOWbZyWnZ6XjZc|Vi[QUpZ.VmYcNV9Y+WvXyWDXpmQSCWc?S1W=ShVQSRVccS>V4T@VBTRVcVTjVXT-WBTCWc0TWWgSWWQSCWpmTZHXcBZ0X@ZoWTZUWchZCW/[?WG[UWcY[mW[[.XG[HXc/[\\XlZXXTZHXpe) /unwind cvx
+4 packedarray cvx bind def
+/dquaver
+{ 380 0 setcharwidth } /if cvx
+(mWS\\Tc.T\\TrT/UCU{Uc[UTVcUUW~TbXl~TxXc9WOUwS>TWSnRlESnRlESgYcISYYQSMYWSIYlWS\\Tpe) /unwind cvx
+    0 512 /translate cvx false CharProcs /cnh /get cvx /exec cvx
+12 packedarray cvx bind def
+/altoclef
+{ 640 0 setcharwidth } /if cvx
+(m5UE[l5UlRl>TlRl>TE[l5UE[pm5WuUljV5UcVVkU8VtVoUtVloUlRlYUlRlYUE[loUE[loU9Wc8V9WXVDXjVzXl5W:XccW7W7YEW7Y?Yc7YhZjX;[uW;[cUW;[tVxZbVJZc9WfZUW.Z;WgYc-WYYhVYYZVgYcHVyYLVBZdVdZc7W?[qWS[nX;[cLZjZ:ZLX/YiWcRXMWeW;W5WuWcfVAWdVxV5W:VceWrVRXbV/YFVc:ZcULZGSnXtRcqW`R7WpRdVMScLVmSHV6TZVHTchVXT-WXT;WHTcUW.T9WISbVgSctV9SUWvRuWvRcjXvR7YIS7YrTc7YlVcWxV5WuUpe) /unwind cvx
+4 packedarray cvx bind def
+/semibreve
+{ 380 0 setcharwidth } /if cvx
+(mxV>ZcxVm[KSm[KS>ZlKS>ZcKShXxVhXxV>Zpm{UVZciUzZSUA[nT=[c<T9[uSlZDT{YcbT?Y7UAYUUAYcBVEY>VyY{UVZpe) /unwind cvx
+4 packedarray cvx bind def
+/dsquaver
+{ 380 0 setcharwidth } /if cvx
+(m?U}WcGU6V[S_UWS^TcyS^TJTpTnT=UccU4VuUnV?UYWl?UqWcCWiU]S>TWS5SlWSnRlESnRlESgYcISUYSSMYWSIYlWS2VcmS2V>TJVPT\\Vc1U=W?U2XzT^XctTjXpTnXnTrXcxTrX;UXX?U}Wpe) /unwind cvx
+    0 512 /translate cvx false CharProcs /cnh /get cvx /exec cvx
+12 packedarray cvx bind def
+/lsbrest
+{ 510 0 setcharwidth } /if cvx
+(mBTIWlBTPXl9SPXl9SxXl7YxXl7YPXl.XPXl.XIWlBTIWpe) /unwind cvx
+4 packedarray cvx bind def
+/nspace
+{ 380 0 setcharwidth } /if cvx
+(e) /unwind cvx
+4 packedarray cvx bind def
+/lmrest
+{ 510 0 setcharwidth } /if cvx
+(m9SoUl9SBVlBTBVlBTIWl.XIWl.XBVl7YBVl7YoUl9SoUpe) /unwind cvx
+4 packedarray cvx bind def
+/doublesharp
+{ 460 0 setcharwidth } /if cvx
+(m*VTVcRVzVtVCWsWCWlsWNXlhVNXchVOWJV-WyU\\VcQU-W3UOW3UNXl}SNXl}SCWc~TCWKUzVqUTVcKU.V~TeU}SeUl}SZTl3UZTc3UYUQU{UyULVcJV{UhVYUhVZTlsWZTlsWeUctVeURV.V*VTVpe) /unwind cvx
+4 packedarray cvx bind def
+/runon
+{ 530 0 setcharwidth } /if cvx
+(mQS9Sc3UeQSWeQ5Y9ScMYMSQY9SEY~RcCWfPCUfPAS~Rc5S9S9SMSQS9Spe) /unwind cvx
+4 packedarray cvx bind def
+/iturn
+{ 700 0 setcharwidth } /if cvx
+(m~VRXl~VgYlGWgYlGW,XlhXDVc=YeU<Z7UdZ:Vc|ZrVnZgW\\Z*XcTZcW:ZCWeYCWc7YCWtXkWtX:XctXtXsYQY`ZRXc-[}W1[WW1[pVc1[?U`XsSGW;UlGW,Tl~V,Tl~VaUleUAWc=UqWhTRX*TqWcMSCW]S{UqS]UcqS}U:TFV^TFVc+UFVQU0VQUOUcQUxTbT:TuS3UcKSkUKSBVKSnVcKSbXqUcY~VRXpe) /unwind cvx
+4 packedarray cvx bind def
+/cut
+{ 640 0 setcharwidth } /if cvx
+(mXV0Tc@V@T2VXTwUvTc=U>VCUVXsUYYc2V}YHV>ZXVJZlXV0TpmWY|Tc]Y5U[Y9U_YCUcvXwSeWSSzVoSlzV\\ZceWzZxXZZ=YWYc~XuY0X<ZSWMYcxV`X[WeWJXeWcsYeW{Y,ZXXnZc:X~ZeW9[zV7[lzV~\\lXV~\\lXV3[c>V/[wU~ZMUjZcQSaYMS`VBT1UcvT*T[UISXV;SlXV=QlzV=QlzV9Sc0X9S3Y*TWY|Tpe) /unwind cvx
+4 packedarray cvx bind def
+/downto
+{ 817 0 setcharwidth } /if cvx
+(meSDZl=YKWl[W0Vll\\0VlqYHZlcY<Xl6T7[leSDZpe) /unwind cvx
+4 packedarray cvx bind def
+/uminim
+{ 380 0 setcharwidth } /if cvx
+(mVV>TlVVG[cPVG[HVG[BVG[lBVdTcJV\\TRVTTVV>Tpe) /unwind cvx
+    0 -32 /translate cvx false CharProcs /mnh /get cvx /exec cvx
+12 packedarray cvx bind def
+/f
+{ 470 0 setcharwidth } /if cvx
+(mKSSWl_S0XlKU0XlKU2Xc{U_YtV*\\xX*\\czZ*\\5[PZ<Z*Zc-YMYNXC[mYO[c.X,\\DX6ZYW0XlWY0XlEYSWlGWSWlGWQWcgU`R[SIOSQGOcwOGOQOjP@P7Qc]QoQ{QwOlPwOcZR+OQS.R;USWlKSSWpe) /unwind cvx
+4 packedarray cvx bind def
+/xtclef
+{ 640 0 setcharwidth } /if cvx
+  false CharProcs /trebleclef /get cvx /exec cvx
+7 packedarray cvx bind def
+/beam1u
+{ 0 0 setcharwidth } /if cvx
+(mQYG[lyQG[lyQ8ZlQY8ZlQYG[pe) /unwind cvx
+4 packedarray cvx bind def
+/beam2u
+{ 0 0 setcharwidth } /if cvx
+(mQY;YlQY,XlyQ,XlyQ;YlQY;Ype) /unwind cvx
+    false CharProcs /beam1u /get cvx /exec cvx
+9 packedarray cvx bind def
+/beam15u
+{ 0 0 setcharwidth } /if cvx
+(m[W;Yl[W,XlQY,XlQY;Yl[W;Ype) /unwind cvx
+    false CharProcs /beam1u /get cvx /exec cvx
+9 packedarray cvx bind def
+/m
+{ 880 0 setcharwidth } /if cvx
+(m*Z1Wc<ZiWAYCY;W1WcKWaW5WrXoUoWc?UKWfTvVXT\\VcRTNV^THVxTbVcFV0XuUlVcU<VlrTuScZT+SiU-SuUQSctV>V+W\\VcW-WcfXgWbX9WYWuScAW1SXX~RfXQSc_Y<VkY`VDZ+WcI[iWI[+WdZ~Tc.Z7SQ[<RU]`Tc[]hTS]lTM]fTc8\\QSW[_S0\\?Ul\\\\+Wcj\\[W}[KY*Z1Wpe) /unwind cvx
+4 packedarray cvx bind def
+/trill
+{ 760 0 setcharwidth } /if cvx
+(m,X=WlWWnTcMW<T6V7SqUTTcmUhTmUvTsU7UlJVUWc/WWWGWeWoW]Wc*XYW0XOW,X=WpmyS}WcyScWbTUW=UUWczTjVpTJVZTCUc@T.TPT5SQU5Sc*V5S|VMSKW2Tl9W9SlDX9Sl+Y\\Vc7Y5WWYSWoYcWc:ZwWjZkWrZWWcyYkWwYXV\\ZXVczZXV5[bVC[/WcK[KW;[yWdZ8XcgY\\XzXuWbXKWcjX.X:X6X}W6XcaW6X-W*XTV,Xl~V0Zc1WVZFVNZ2ViYlOU,XcbT0XySFXyS}Wpe) /unwind cvx
+4 packedarray cvx bind def
+/p
+{ 690 0 setcharwidth } /if cvx
+(mNVFTcNV6V.XuWpXuWc4ZuWWY:VpXjTcoWhRNV9SNVFTpmdT@PluUIScbV4RC[`RC[TVlC[VVcC[DX+YYYpVIWcpVgWDVLXgULXctTLXwSQW5S=Uc1S3U9S5U=S=UcdT}WSUeW|TLVlvRIQcFR.PsQkOMQkOcjPkOtPSO1QSOl>VSOcTVSO`VkOqUkOcWUkORTkOdT@Ppe) /unwind cvx
+4 packedarray cvx bind def
+/xbreve
+{ 640 0 setcharwidth } /if cvx
+(m*T:Rl*TYUlwSYUlwS:Rl*T:RpmjT:RljTYUchTYUdTYUbTYUlbT:RljT:Rpm?Y:Rl?YYUl7YYUl7Y:Rl?Y:Rpm*Z:Rl*ZYUluYYUluY:RcyY:R{Y:R*Z:Rpe) /unwind cvx
+    154 0 /translate cvx false CharProcs /xsemibreve /get cvx /exec cvx
+12 packedarray cvx bind def
+/ucrotchet
+{ 380 0 setcharwidth } /if cvx
+(mVV@TcTVRTHV^TBVdTlBVE[lVVE[lVV@Tpe) /unwind cvx
+    0 -32 /translate cvx false CharProcs /cnh /get cvx /exec cvx
+12 packedarray cvx bind def
+/s
+{ 320 0 setcharwidth } /if cvx
+(mNTSWcNT.X+UPXkU8XcCU8XQU1W<VSWcRV]WTV:XsULXcdTnXEScWuSPVc<TeU1U=U?ULTcUU5SqS-SOSQSc{SIS,TFTKSFTcpRFTnRaS3SESc0TPRtVMSsUMUcYU*VNTxVNTSWpe) /unwind cvx
+4 packedarray cvx bind def
+/uquaver
+{ 380 0 setcharwidth } /if cvx
+(mVV@TcTVNTJV^TBVdTlBVG[lVVG[cVV-[XV`ZlVLZcfXXX~XnVQWpTlQW-Uc<X:VLX~V,X4XcqW^X-WWYVVWYlVV@Tpe) /unwind cvx
+    0 -32 /translate cvx false CharProcs /cnh /get cvx /exec cvx
+12 packedarray cvx bind def
+/upto
+{ 817 0 setcharwidth } /if cvx
+(mgS*Tl8T9SlcY2VlqY}Sll\\@Xl[W@Xl=YzVlgS*Tpe) /unwind cvx
+4 packedarray cvx bind def
+/xsemibreve
+{ 380 0 setcharwidth } /if cvx
+(mxVqScxVKUKSKUKSqSlKSqScKSFRxVFRxVqSpm{U4TciUXTSUtTnTpTc<TlTuSJTDTYScbTrR7UtRUUtRcBVxR>VWS{U4Tpe) /unwind cvx
+4 packedarray cvx bind def
+/usquaver
+{ 380 0 setcharwidth } /if cvx
+(mVV_YcfV_YSWAYsWnXcHX:XFX_WyW+WlwWjVcaY|XlVUYVVE[lBVE[lBVdTcJV`TRVRTVV@TlVV<XcbV<X9W}WOW_WcyW|VaW<VOWcUlQWMUclX>XfV2XVV_Ype) /unwind cvx
+    0 -32 /translate cvx false CharProcs /cnh /get cvx /exec cvx
+12 packedarray cvx bind def
+/z
+{ 420 0 setcharwidth } /if cvx
+(m*TaScuSSSkSGSoS9ScqS/S}S-S0T1ScNT=S<TiSfTiScOUiSoU5SfV3Sc7W3S]W=SoWcScyW}SuWDTqWbTlaWbTcaW@TWWqS1WqSc,VqSmURTjT2TlOWqWcWW}WyWBXcWRXc=WjXMW6X-W{WcXVeWyUJXOUJXcXTJX@TiWRT/WlbT/WcdTQWnTmWAUaWcwUOW:VGWlVWWl*TaSpe) /unwind cvx
+4 packedarray cvx bind def
+/sbrest
+{ 260 0 setcharwidth } /if cvx
+(mOS7YlOS2Xl*V2Xl*V7YlOS7Ype) /unwind cvx
+4 packedarray cvx bind def
+/bar
+{ 20 0 setcharwidth } /if cvx
+(m9SM[l9SnRlMSnRlMSM[l9SM[pe) /unwind cvx
+4 packedarray cvx bind def
+/mrest
+{ 260 0 setcharwidth } /if cvx
+(mOS2XlOS-Wl*V-Wl*V2XlOS2Xpe) /unwind cvx
+4 packedarray cvx bind def
+/turn
+{ 700 0 setcharwidth } /if cvx
+(m`ZRXcsYQYtXtXtX:XctXkW7YCWeYCWc:ZCWTZcW\\Z*XcnZgW|ZrVdZ:Vc<Z7U=YeUhXDVl1WHXcyUkYKSbXKSnVcKSBVKSkUuS3UcbT:TQUxTQUOUcQU0V+UFV^TFVc:TFVqS}UqS]Uc]S{UMSCW*TqWchTRX=UqWeUAWlAWCUcZXkS1[?U1[pVc1[WW-[}W`ZRXpe) /unwind cvx
+4 packedarray cvx bind def
+/stave
+{ 0 0 setcharwidth } /if cvx
+(m9S=[lfZ=[lfZO[l9SO[l9S=[pm9SCYl9S1YlfZ1YlfZCYl9SCYpm9S7Wl9SzVlfZzVlfZ7Wl9S7Wpm9S+Ul9SnTlfZnTlfZ+Ul9S+Upm9SvRl9SdRlfZdRlfZvRl9SvRpe) /unwind cvx
+4 packedarray cvx bind def
+/fr2
+{ 750 0 setcharwidth } /if cvx
+(mYSaYlQScYcWS,ZgSNZ,ThZcZTA[UUA[.VhZcRVDZjVQYUU<Xl<TzVl.VzVcFVzVZV5WjVQWlrVMWlNVHVlQSHVlQSRVljTmWc}U+YuU{YSUHZc1UjZLTjZ,TJZcsS<ZiS.ZYSaYpe) /unwind cvx
+4 packedarray cvx bind def
+/twothirds
+{ 750 0 setcharwidth } /if cvx
+    false CharProcs /fr2 /get cvx /exec cvx
+    78 0 /translate cvx false CharProcs /fr3 /get cvx /exec cvx
+    false CharProcs /frslash /get cvx /exec cvx
+20 packedarray cvx bind def
+/fr5
+{ 750 0 setcharwidth } /if cvx
+(mGYkSc+Y}S`XQS+Y;ScOY|RTZ-S-[YScg[>Tg[QU3[0VcjZNV>ZZVaYbVlyYAWlK[AWle[{Wl_[,XcY[wWQ[qW5[qWluYqWl1Y0VcqY,VHZqUbZWUc9[+U9[0ThZ_Sc<Z3SqYMSGYkSpe) /unwind cvx
+4 packedarray cvx bind def
+/threefifths
+{ 750 0 setcharwidth } /if cvx
+    false CharProcs /fr5 /get cvx /exec cvx
+    -402 270 /translate cvx false CharProcs /fr3 /get cvx /exec cvx
+    448 -270 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+23 packedarray cvx bind def
+/onefifth
+{ 750 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    false CharProcs /fr1 /get cvx /exec cvx
+    32 0 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+    -32 0 /translate cvx false CharProcs /fr5 /get cvx /exec cvx
+25 packedarray cvx bind def
+/twofifths
+{ 750 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    false CharProcs /fr2 /get cvx /exec cvx
+    78 0 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+    -78 0 /translate cvx false CharProcs /fr5 /get cvx /exec cvx
+25 packedarray cvx bind def
+/fourfifths
+{ 750 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -426 270 /translate cvx false CharProcs /fr4 /get cvx /exec cvx
+    472 -270 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+    -46 0 /translate cvx false CharProcs /fr5 /get cvx /exec cvx
+28 packedarray cvx bind def
+/fr7
+{ 750 0 setcharwidth } /if cvx
+(m1YjVl|XpVlKYyWl*\\yWlPZ9Sl,Z9SlK[IWl{YIWcqYIWGYKW1YjVpe) /unwind cvx
+4 packedarray cvx bind def
+/oneseventh
+{ 750 0 setcharwidth } /if cvx
+    false CharProcs /fr7 /get cvx /exec cvx
+    16 0 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+    -16 0 /translate cvx false CharProcs /fr1 /get cvx /exec cvx
+23 packedarray cvx bind def
+/twosevenths
+{ 750 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    false CharProcs /fr2 /get cvx /exec cvx
+    62 0 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+    -54 0 /translate cvx false CharProcs /fr7 /get cvx /exec cvx
+25 packedarray cvx bind def
+/fr3
+{ 750 0 setcharwidth } /if cvx
+(m3YKUclZWUxZ8TFZ[ScsY3S;YASfXaScVXmS6XcSFXEScXXvR4Z~RfZ[ScK[@TU[QU@ZwUc1[PV5[=WfZaWc2Z@XfX{WJXxVlRXrVcrX_WeYkW:ZAWcfZjVBZeU3YUUl3YKUpe) /unwind cvx
+4 packedarray cvx bind def
+/onethird
+{ 750 0 setcharwidth } /if cvx
+    false CharProcs /fr3 /get cvx /exec cvx
+    false CharProcs /frslash /get cvx /exec cvx
+    -32 0 /translate cvx false CharProcs /fr1 /get cvx /exec cvx
+20 packedarray cvx bind def
+/fr9
+{ 750 0 setcharwidth } /if cvx
+(m-Y7UcYYbTVZjT~Z;UcvZpThZNTFZ,TcoYUS7Y?SnX9SlpX1Sc[Y7S@ZESvZ{Scw[zTw[lV7[WWc\\Z0XeY0X7YYWcTXtVTXgU-Y7Upm_YIUcyY/UbZ1U+[UUc/[yU1[5WdZUWcHZqWwYqW]YYWc9Y3W9YoU_YIUpe) /unwind cvx
+4 packedarray cvx bind def
+/oneninth
+{ 750 0 setcharwidth } /if cvx
+    false CharProcs /fr9 /get cvx /exec cvx
+    false CharProcs /fr1 /get cvx /exec cvx
+    false CharProcs /frslash /get cvx /exec cvx
+17 packedarray cvx bind def
+/fr8
+{ 750 0 setcharwidth } /if cvx
+(mYUdVc?ULVdTLVJTdVcyS5W}S8XdTXXcqU,X*V7WYUdVpm-U1YcqUSYuUHZWUfZc?U~ZbT~ZHTdZc,THZ,T]Y-U1YpmRTfXcMS,XGS=W}S\\VcLT8VOU8V}UdVcTV;WVV8XAUzXcBVOYPVBZ}UjZcQUA[TTA[*TlZcIS6Z[SGYRTfXpe) /unwind cvx
+4 packedarray cvx bind def
+/eightninths
+{ 750 0 setcharwidth } /if cvx
+    false CharProcs /fr8 /get cvx /exec cvx
+    16 0 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+    -16 0 /translate cvx false CharProcs /fr9 /get cvx /exec cvx
+23 packedarray cvx bind def
+/fr1
+{ 750 0 setcharwidth } /if cvx
+(maUTVc-UVVzTTVzT?WlzT?[lWSTZlWSFZcHTbZDTXZDTsYlDT?WcDTTV<TVV]STVl]SHVlaUHVlaUTVpe) /unwind cvx
+4 packedarray cvx bind def
+/onequarter
+{ 750 0 setcharwidth } /if cvx
+    false CharProcs /fr1 /get cvx /exec cvx
+    false CharProcs /fr4 /get cvx /exec cvx
+    32 0 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+20 packedarray cvx bind def
+/onehalf
+{ 750 0 setcharwidth } /if cvx
+    false CharProcs /frslash /get cvx /exec cvx
+    408 -270 /translate cvx false CharProcs /fr2 /get cvx /exec cvx
+    -408 270 /translate cvx false CharProcs /fr1 /get cvx /exec cvx
+23 packedarray cvx bind def
+/fr4
+{ 750 0 setcharwidth } /if cvx
+(mNZ=Wl\\XpTlNZpTlNZ=WpmBXpTlBXHTlNZHTlNZ9Sl|Z9Sl|ZHTla[HTla[pTl|ZpTl|Z{WlbZ{WlBXpTpe) /unwind cvx   
+4 packedarray cvx bind def
+/threequarters
+{ 750 0 setcharwidth } /if cvx
+  false CharProcs /fr4 /get cvx /exec cvx
+    -402 270 /translate cvx false CharProcs /fr3 /get cvx /exec cvx
+    448 -270 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+23 packedarray cvx bind def
+/sup0
+{ 300 0 setcharwidth } /if cvx
+(mKUlZcyU@ZuU;YuUdXcuUDX{U9WMU`Vc;UNVfTNVTT`Vc}S9W,TDX,TdXc,T;Y}S@ZRTlZcfT~Z9U~ZKUlZpmqUlZclVsYlVYWsU`VcIU8VXT8V.T`Vc7SYW7SsY.TlZcXTA[GUA[qUlZpe) /unwind cvx
+4 packedarray cvx bind def
+/sup1
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    24 0 /translate cvx false CharProcs /fr1 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sup2
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -18 0 /translate cvx false CharProcs /fr2 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sup3
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -408 270 /translate cvx false CharProcs /fr3 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sup4
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -426 270 /translate cvx false CharProcs /fr4 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sup5
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -452 268 /translate cvx false CharProcs /fr5 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sup6
+{ 300 0 setcharwidth } /if cvx
+(mFV7[c[U/[vT~Z>TFZc9SAY=SOWwSjVcXT6VQU6V*VbVc^VCW^VTX2V+Yc[UWYpTSY>T1YcDTGYFTkYpTBZcCUjZmUvZHV-[lFV7[pmWUnXc;U5YXT9Y4ThXc}S:X.T9WPTlVclTPVEUPV[UdVcyU-WyULXWUnXpe) /unwind cvx
+4 packedarray cvx bind def
+/sup7
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -472 270 /translate cvx false CharProcs /fr7 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sup8
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    false CharProcs /fr8 /get cvx /exec cvx
+9 packedarray cvx bind def
+/sup9
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -440 272 /translate cvx false CharProcs /fr9 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub0
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    0 -272 /translate cvx false CharProcs /sup0 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub1
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    24 -270 /translate cvx false CharProcs /fr1 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub2
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -18 -270 /translate cvx false CharProcs /fr2 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub3
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -408 0 /translate cvx false CharProcs /fr3 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub4
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -426 0 /translate cvx false CharProcs /fr4 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub5
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -452 0 /translate cvx false CharProcs /fr5 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub6
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    0 -272 /translate cvx false CharProcs /sup6 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub7
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -472 0 /translate cvx false CharProcs /fr7 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub8
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    0 -272 /translate cvx false CharProcs /fr8 /get cvx /exec cvx
+12 packedarray cvx bind def
+/sub9
+{ 300 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -440 0 /translate cvx false CharProcs /fr9 /get cvx /exec cvx
+12 packedarray cvx bind def
+/slash
+{ 150 0 setcharwidth } /if cvx
+(e) /unwind cvx
+    -256 0 /translate cvx false CharProcs /frslash /get cvx /exec cvx
+12 packedarray cvx bind def
+/frslash
+{ 750 0 setcharwidth } /if cvx
+(m6T+SljT+SlFZ5[leY5[l6T+Spe) /unwind cvx
+4 packedarray cvx bind def
+end end
+/BuildGlyph {
+  exch begin
+    CharProcs exch 2 copy
+    known not {pop /.notdef} if
+    get
+    true exch
+    FontInfo /decode85 get begin
+      exec
+    end
+    PaintType 0 eq
+      {eofill}
+      {StrokeWidth setlinewidth stroke} ifelse
+  end
+} bind def
+/BuildChar {
+  1 index /Encoding get
+  exch get
+  1 index /BuildGlyph get  exec
+} bind def
+end definefont pop
+%%EndResource
+
+%%EOF

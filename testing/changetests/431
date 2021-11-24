@@ -1,0 +1,37 @@
+Hea&&&
+ding "&&&
+&&&
+Title"
+Heading "&*2(abc )"
+
+*define x() &&1&&2&&1
+Heading "&*3(&x(A,B);)"
+
+*define y YY
+Heading " &*2(a&y;c&*3(x)z)"
+
+Heading "" 20
+Heading 12 "`A'\<<X\>>Y"
+
+[stave 1]
+&*4(g=x3;) |
+&*4(g=x3&,) |
+&x(a-,b-); a-R |
+[endstave]
+
+[newmovement newpage]
+Heading "HEADING"
+Footing "FOOTING"
+
+[stave 1 treble 1]
+[sgabove +20] 
+abcd |
+[newline] abcd |
+[newline]
+[sgabove +20] "sgabove +20" abcd |
+&*11([newline]abcd|)
+[newline sghere +1000] "sghere +1000" abcd |
+[newline sgabove 1000] "sgabove 1000" abcd | abcd |
+[endstave]
+
+&&&

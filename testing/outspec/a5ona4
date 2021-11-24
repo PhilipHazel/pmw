@@ -1,0 +1,100 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a5
+a5
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1&2 1
+%%BeginPageSetup
+/pagesave save def
+0 842 T -90 R
+%%EndPageSetup
+rm 17 ss(Heading 1)34 520 s(Heading 1)329.654 520 s rm 10 ss(testing)
+34 490 s mf 10 ss(!)66.67 486 s bf 11.8 ss(4)79.67 494 s(4)
+79.67 486.15 s rm 10 ss(testing)34 446 s mf 10 ss(!)66.67 442 s
+bf 11.8 ss(4)79.67 450 s(4)79.67 442.15 s mf 10 ss 16 442(@)66.67 486 b
+63.17 502 442 k
+%1/2
+(5)93.57 444 s(5)109.57 444 s 101.57 460 112.57 460 3.3 cv
+(B)126.07 442 s(@)124.07 442 s
+%1/1
+(5)93.57 488 s(5)109.57 488 s 16 458(B)126.07 486 b
+16 458(@)124.07 486 b
+(CCCCCC)66.67 486 s (C)117.57 486 s
+(CCCCCC)66.67 442 s (C)117.57 442 s
+rm 8 ss(F)34 30 s(ooting 1)-0.12 0 rs(F)369.224 30 s(ooting 1)-0.12 0 rs
+421 0 T
+rm 12 ss(Heading 2)34 520 s(Heading 2)350.344 520 s rm 10 ss(testing)
+34 495 s mf 10 ss(!)66.67 491 s bf 11.8 ss(4)79.67 499 s(4)
+79.67 491.15 s rm 10 ss(testing)34 451 s mf 10 ss(!)66.67 447 s
+bf 11.8 ss(4)79.67 455 s(4)79.67 447.15 s mf 10 ss 16 447(@)66.67 491 b
+63.17 507 447 k
+%1/2
+(5)93.57 449 s(5)109.57 449 s 101.57 465 112.57 465 3.3 cv
+(B)126.07 447 s(@)124.07 447 s
+%1/1
+(5)93.57 493 s(5)109.57 493 s 16 463(B)126.07 491 b
+16 463(@)124.07 491 b
+(CCCCCC)66.67 491 s (C)117.57 491 s
+(CCCCCC)66.67 447 s (C)117.57 447 s
+rm 8 ss(F)34 30 s(ooting 2)-0.12 0 rs(F)369.224 30 s(ooting 2)-0.12 0 rs
+pagesave restore showpage
+
+%%Page: 3&4 2
+%%BeginPageSetup
+/pagesave save def
+0 842 T -90 R
+%%EndPageSetup
+rm 12 ss(Heading 3)34 520 s(Heading 3)350.344 520 s rm 10 ss(testing)
+34 495 s mf 10 ss(!)66.67 491 s bf 11.8 ss(4)79.67 499 s(4)
+79.67 491.15 s rm 10 ss(testing)34 451 s mf 10 ss(!)66.67 447 s
+bf 11.8 ss(4)79.67 455 s(4)79.67 447.15 s mf 10 ss 16 447(@)66.67 491 b
+63.17 507 447 k
+%1/2
+(5)93.57 449 s(5)109.57 449 s 101.57 465 112.57 465 3.3 cv
+(B)126.07 447 s(@)124.07 447 s
+%1/1
+(5)93.57 493 s(5)109.57 493 s 16 463(B)126.07 491 b
+16 463(@)124.07 491 b
+(CCCCCC)66.67 491 s (C)117.57 491 s
+(CCCCCC)66.67 447 s (C)117.57 447 s
+rm 8 ss(F)34 30 s(ooting 3)-0.12 0 rs(F)369.224 30 s(ooting 3)-0.12 0 rs
+421 0 T
+rm 12 ss(Heading 4)34 520 s(Heading 4)350.344 520 s rm 10 ss(testing)
+34 495 s mf 10 ss(!)66.67 491 s bf 11.8 ss(4)79.67 499 s(4)
+79.67 491.15 s rm 10 ss(testing)34 451 s mf 10 ss(!)66.67 447 s
+bf 11.8 ss(4)79.67 455 s(4)79.67 447.15 s mf 10 ss 16 447(@)66.67 491 b
+63.17 507 447 k
+%1/2
+(5)93.57 449 s(5)109.57 449 s 101.57 465 112.57 465 3.3 cv
+(B)126.07 447 s(@)124.07 447 s
+%1/1
+(5)93.57 493 s(5)109.57 493 s 16 463(B)126.07 491 b
+16 463(@)124.07 491 b
+(CCCCCC)66.67 491 s (C)117.57 491 s
+(CCCCCC)66.67 447 s (C)117.57 447 s
+rm 8 ss(F)34 30 s(ooting 4)-0.12 0 rs(F)369.224 30 s(ooting 4)-0.12 0 rs
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 2

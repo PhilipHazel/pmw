@@ -1,0 +1,261 @@
+magnification 1.5
+stavespacing 1/0
+bracket
+brace 1-3
+textfont extra 8 "Helvetica"
+textfont extra 1 "NewCenturySchlbk-Bold"
+textsizes 10 14 8
+
+justify top left right
+
+Heading 16 "\a` \a' \a^ \a. \A` \A' \A^ \A. \e` \e' \e^ \e. \E` \E' \E^ \E."
+Heading 16 "\i` \i' \i^ \i. \I` \I' \I^ \I. \o` \o' \o^ \o. \O` \O' \O^ \O."
+Heading 16 "\u` \u' \u^ \u. \U` \U' \U^ \U. \c, \C, \n~ \N~ \` \' \\ \c)"
+
+Heading 16 "a-b a\--b a\---b a#b \124\ \fi \fl" 40
+
+Heading 16 "\*b\ \*s\ \*m\ \*c\ \*Q\ \*q\ \*#\ \*$\ \*%\ \*#*c.\ \**#**c.\" 40
+
+Heading 16 "ab a\*u\b a\*d\b a\*l\b a\*r\b a\*>\b a\*<\b" 40
+
+Heading 12 "roman \it\italic \bf\bold \bi\bolditalic \sy\symbol \mu\5 \mf\5 \xx1\xx1 \xx8\xx8 \rm\ roman" 40
+
+[stave 1 treble 1]
+"\rm\tutti"/a/box "loud"/m gggg |
+"\rm\tu\it\tti"/a/ring gggg |
+[endstave]
+
+[stave 2 treble 1]
+gggg
+[endstave]
+
+[stave 3 bass 0]
+"size 1"/s1 g "size 2"/s2/d10 g "size 3"/s3 gg |
+[endstave]
+
+
+[newmovement]
+nocheck
+heading "" 30
+systemgap 60
+
+[stave 1 treble 1 text above textfont roman]
+"rhubarb"/e "custard" a
+"pie"/e/b "crust"/b  a "end"/e  a |
+
+["A"] 
+g "\**151**152\"/d10 | [newline]
+"/u0"/u0 a "/u4"/u4 a "/u4/u2"/u4/u2 a |
+[newline]
+["A"]["B"/u10/r8] a
+[endstave]
+
+[newmovement]
+rehearsalmarks ringed 16
+[stave 1 treble 1]
+["Z"] aa
+[endstave]
+
+[newmovement]
+Heading "It's someone's `stuff' whose length we need to sort out with
+the quick brown fox and other ways of long lines
+the quick brown fox and other ways of long lines
+the quick brown fox and other ways of long lines
+the quick brown fox and other ways of long lines
+the quick brown fox and other ways of long lines
+and now the ascii \` and \' for a difference
+the quick brown fox and other ways of long lines"
+
+heading "\rm\Quanto pi\xf9\ m'arde" 20
+heading 12 "Wiggle: \mf\`````````````````````````" 20
+heading 12 "The finish of the fickle fish \mf\fish" 20
+
+heading 12 "byte a9:� UTF-8 a9:©" 20
+
+heading 12 "Unknown in roman: >\xffff\< and make the line long enough to
+justify so that we can be sure that the width has been handled correctly the 
+quick brown fox jumps over the lazy dog a few times." 12
+heading "" 6
+
+heading 12 "Unknown in music: >\mf\\xffff\\rm\< and make the line long enough
+to justify so that we can be sure that the width has been handled correctly the
+quick brown fox jumps over the lazy dog a few times." 12
+heading "" 6
+
+heading 12 "Unknown in Symbol: >\sy\\xffff\\rm\< and make the line long enough
+to justify so that we can be sure that the width has been handled correctly the
+quick brown fox jumps over the lazy dog a few times." 12
+heading "" 6
+
+[stave 1 treble 1 stems up ]
+"\rm\Quanto pi\xf9\ m'arde"/b
+[endstave]
+
+[newmovement]
+heading "Accent list with new Unicode accents"
+heading "\A' \A- \A. \A^ \A` \Ao \Au \A~" 12
+heading "\C' \C) \C, \Cv" 12
+heading "\D- \Dv" 12
+heading "\E' \E- \E. \E^ \E` \Ev" 12
+heading "\Gu" 12
+heading "\I' \I- \I. \I^ \I`" 12
+heading "\L' \L/ \Lv" 12
+heading "\N' \Nv \N~" 12
+heading "\O' \O- \O. \O/ \O^ \O` \O~" 12
+heading "\R' \Rv" 12
+heading "\S' \S, \Sv" 12
+heading "\Tv" 12
+heading "\U' \U- \U. \U^ \U` \Uo" 12
+heading "\Y' \Y." 12
+heading "\Z' \Zv" 12
+heading "\a' \a- \a. \a^ \a` \ao \au \a~" 12
+heading "\c' \c) \c, \cv" 12
+heading "\d- \dv" 12
+heading "\e' \e- \e. \e^ \e` \ev" 12
+heading "\gu" 12
+heading "\i' \i- \i. \i^ \i`" 12
+heading "\l' \l/ \lv" 12
+heading "\n' \nv \n~" 12
+heading "\o' \o- \o. \o/ \o^ \o` \o~" 12
+heading "\r' \rv" 12
+heading "\s' \s, \sv" 12
+heading "\tv" 12
+heading "\u' \u- \u. \u^ \u` \uo" 12
+heading "\y' \y." 12
+heading "\z' \zv" 20
+
+[newmovement newpage]
+heading "Now all the special characters by code number" 16
+heading "00a0\--00a7  \xa0\ \xa1\ \xa2\ \xa3\ \xa4\ \xa5\ \xa6\ \xa7\" 12
+heading "00a8\--00af  \xa8\ \xa9\ \xaa\ \xab\ \xac\ \xad\ \xae\ \xaf\" 12
+heading "00b0\--00b7  \xb0\ \xb1\ \xb2\ \xb3\ \xb4\ \xb5\ \xb6\ \xb7\" 12
+heading "00b8\--00bf  \xb8\ \xb9\ \xba\ \xbb\ \xbc\ \xbd\ \xbe\ \xbf\" 12
+heading "00c0\--00c7  \xc0\ \xc1\ \xc2\ \xc3\ \xc4\ \xc5\ \xc6\ \xc7\" 12
+heading "00c8\--00cf  \xc8\ \xc9\ \xca\ \xcb\ \xcc\ \xcd\ \xce\ \xcf\" 12
+heading "00d0\--00d7  \xd0\ \xd1\ \xd2\ \xd3\ \xd4\ \xd5\ \xd6\ \xd7\" 12
+heading "00d8\--00df  \xd8\ \xd9\ \xda\ \xdb\ \xdc\ \xdd\ \xde\ \xdf\" 12
+heading "00e0\--00e7  \xe0\ \xe1\ \xe2\ \xe3\ \xe4\ \xe5\ \xe6\ \xe7\" 12
+heading "00e8\--00ef  \xe8\ \xe9\ \xea\ \xeb\ \xec\ \xed\ \xee\ \xef\" 12
+heading "00f0\--00f7  \xf0\ \xf1\ \xf2\ \xf3\ \xf4\ \xf5\ \xf6\ \xf7\" 12
+heading "00f8\--00ff  \xf8\ \xf9\ \xfa\ \xfb\ \xfc\ \xfd\ \xfe\ \xff\" 12
+heading "0100\--0107  \x100\ \x101\ \x102\ \x103\ \x104\ \x105\ \x106\ \x107\" 12
+heading "0108\--010f  \x108\ \x109\ \x10a\ \x10b\ \x10c\ \x10d\ \x10e\ \x10f\" 12
+heading "0110\--0117  \x110\ \x111\ \x112\ \x113\ \x114\ \x115\ \x116\ \x117\" 12
+heading "0118\--011f  \x118\ \x119\ \x11a\ \x11b\ \x11c\ \x11d\ \x11e\ \x11f\" 12
+heading "0120\--0127  \x120\ \x121\ \x122\ \x123\ \x124\ \x125\ \x126\ \x127\" 12
+heading "0128\--012f  \x128\ \x129\ \x12a\ \x12b\ \x12c\ \x12d\ \x12e\ \x12f\" 12
+heading "0130\--0137  \x130\ \x131\ \x132\ \x133\ \x134\ \x135\ \x136\ \x137\" 12
+heading "0138\--013f  \x138\ \x139\ \x13a\ \x13b\ \x13c\ \x13d\ \x13e\ \x13f\" 12
+heading "0140\--0147  \x140\ \x141\ \x142\ \x143\ \x144\ \x145\ \x146\ \x147\" 12
+heading "0148\--014f  \x148\ \x149\ \x14a\ \x14b\ \x14c\ \x14d\ \x14e\ \x14f\" 12
+heading "0150\--0157  \x150\ \x151\ \x152\ \x153\ \x154\ \x155\ \x156\ \x157\" 12
+heading "0158\--015f  \x158\ \x159\ \x15a\ \x15b\ \x15c\ \x15d\ \x15e\ \x15f\" 12
+heading "0160\--0167  \x160\ \x161\ \x162\ \x163\ \x164\ \x165\ \x166\ \x167\" 12
+heading "0168\--016f  \x168\ \x169\ \x16a\ \x16b\ \x16c\ \x16d\ \x16e\ \x16f\" 12
+heading "0170\--0177  \x170\ \x171\ \x172\ \x173\ \x174\ \x175\ \x176\ \x177\" 12
+heading "0178\--017f  \x178\ \x179\ \x17a\ \x17b\ \x17c\ \x17d\ \x17e\ \x17f\" 20
+[newmovement newpage]
+heading "These are the remaining Unicode chars in the PS fonts" 16
+heading "0394  \x0394\  Delta" 10
+heading "20ac  \x20ac\  Euro" 10
+heading "0218  \x0218\  Scommaaccent" 10
+heading "021a  \x021a\  Tcommaaccent" 10
+heading "0306  \x0306\  breve" 10
+heading "030c  \x030c\  caron" 10
+heading "0302  \x0302\  circumflex" 10
+heading "0326  \x0326\  commaaccent" 10
+heading "2020  \x2020\  dagger" 10
+heading "2021  \x2021\  daggerdbl" 10
+heading "0307  \x0307\  dotaccent" 10
+heading "2026  \x2026\  ellipsis" 10
+heading "2014  \x2014\  emdash" 10
+heading "2013  \x2013\  endash" 10
+heading "fb01  \xfb01\  fi" 10
+heading "fb02  \xfb02\  fl" 10
+heading "0192  \x0192\  florin" 10
+heading "2044  \x2044\  fraction" 10
+heading "2265  \x2265\  greaterequal" 10
+heading "2039  \x2039\  guilsinglleft" 10
+heading "203a  \x203a\  guilsinglright" 10
+heading "030b  \x030b\  hungrunlaut" 10
+heading "2264  \x2264\  lessequal" 10
+heading "25ca  \x25ca\  lozenge" 10
+heading "2212  \x2212\  minus" 10
+heading "2260  \x2260\  notequal" 10
+heading "0328  \x0328\  ogonek" 10
+heading "2202  \x2202\  partialdiff" 10
+heading "2027  \x2027\  periodcentred" 10
+heading "2031  \x2031\  perthousand" 10
+heading "201e  \x201e\  quotedblbase" 10
+heading "201c  \x201c\  quotedblleft" 10                      
+heading "201d  \x201d\  quotedblright" 10                      
+heading "2018  \x2018\  quoteleft" 10
+heading "2019  \x2019\  quoteright" 10
+heading "201a  \x201a\  quotesinglbase" 10
+heading "221a  \x221a\  radical" 10
+heading "030a  \x030a\  ring" 10
+heading "0219  \x0219\  scommaaccent" 10
+heading "2211  \x2211\  summation" 10
+heading "021b  \x021b\  tcommaaccent" 10
+heading "0303  \x0303\  tilde" 10
+heading "2122  \x2122\  trademark" 10
+
+@ Some unsupported Unicode code points
+
+Heading "AሴB噸C"
+Heading "AሴB噸C香D"
+
+@ Translated Unicode code points in non-standardly encoded fonts
+
+[newmovement newpage]
+
+heading "Translated Unicode code points - Symbol font" 24
+
+heading 14 "\sy\\x0020\\x0021\\x2200\\x0023\\x2203\\x0025\\x0026\\x220d\&&&
+\x0028\&&&
+\x0029\\x2217\\x002b\\x002c\\x2212\\x002e\\x002f\\x0030\\x0031\\x0032\&&&
+\x0033\\x0034\\x0035\\x0036\\x0037\\x0038\\x0039\\x003a\\x003b\\x003c\" 24
+
+heading 14 "\sy\\x003d\\x003e\\x003f\\x224c\\x0391\\x0392\\x03a7\\x0394\&&&
+\x0395\\x03a6\\x0393\\x0397\" 24
+
+heading 14 "\sy\\x0399\\x03d1\\x039a\\x039b\\x039c\\x039d\\x039f\\x03a0\&&&
+\x0398\\x03a1\\x03a3\\x03a4\\x03a5\\x03c2\\x03a9\\x039e\\x03a8\\x0396\&&&
+\x005b\\x2234\\x005d\\x27c2\\x005f\\x03b1\\x03b2\\x03c7\\x03b4\\x03b5\" 24
+
+heading 14 "\sy\\x03c6\\x03b3\\x03b7\\x03b9\\x03d5\\x03ba\\x03bb\\x03bc\&&&
+\x03bd\\x03bf\\x03c0\\x03b8\\x03c1\\x03c3\\x03c4\\x03c5\\x03ce\\x03c9\&&&
+\x03be\\x03c8\\x03b6\" 24
+
+heading 14 "\sy\\x007b\\x007c\\x007d\\x007e\\x20ac\\x03d2\\x2032\\x2264\\x2215\&&&
+\x221e\\x0192\\x2663\\x2666\\x2665\\x2660\\x2194\\x2190\\x2191\\x2192\&&&
+\x2193\\x00b0\\x00b1\\x2033\\x2265\\x00d7\\x221d\\x2202\\x2022\\x00f7\"24
+
+heading 14 "\sy\\x2260\\x2261\\x2245\\x0eaf\\x23d0\\x23af\\x240d\\x05d0\&&&
+\x1d574\\x1d57d\\x2118\\x2297\\x2295\\x2205\\x2229\\x222a\\x2283\\x2287\" 24
+
+heading 14 "\sy\\x2284\\x2282\\x2286\\x2208\\x2209\\x2220\\x2207\\x00ae\\x00a9\\x2122\&&&
+\x220f\\x221a\\x00b7\\x00ac\\x2227\\x2228\\x21d4\\x21d0\\x21d1\\x21d2\" 24
+
+heading 14 "\sy\\x21d3\\x25ca\\x2039\\x2211\\x239b\\x239c\\x239d\\x23a1\&&&
+\x23a2\\x23a3\\x23a7\\x23a8\\xa3a9\\x23aa\\x203a\\x222b\\x2320\\x23ae\&&&
+\x2321\\x239e\\x239f\\x23a0\\x23a4\\x23a5\\x23a6\\x23ab\\x23ac\\x23ad\" 40
+
+heading  12 "Translated Unicode code points - PMW-Music font" 30
+
+Heading 14 "\mu\&&&
+\x1D11E\ \x1D122\ \x1D121\ \x1D1AF\ \x0266F\ \x1D12A\ \x0266D\ \x0266E\ &&&
+\x1D110\  \x1D13A\ \x1D13B\ \x1D13C\ \x1D13D\ \x1D13E\ \x1D111\  \x1D129\" 40
+
+Heading 14 "\mu\&&&
+\x1D15C\ \x1D15D\ \x1D15E\ \x1D15F\ \x1D160\ \x1D161\ \x1D100\ \x1D101\&&&
+\x1D11A\ \x1D116\ \x1D16E\ \x1D165\ \x1D158\ \x1D157\ \x1D112\ \x1D197\" 40
+
+Heading 14 "\mu\&&&
+\x1D17D\ \x1D181\ \x1D113\ \x1D19C\ \x1D17E\ \x1D104\ \x1D134\ \x1D135\&&&
+\x1D10C\ \x1D10B\ \x1D1AA\ \x1D1AB\ \x1D199\ \x1D1BA\ \x1D1B9\ \x1D11C\" 40
+
+Heading 14 "\mu\&&&
+\x1D1A0\ \x1D196\ \x1D10D\ \x1D167\ \x1D1C8\ \x1D1C9\ \x1D1AE\ \x1D117\&&&
+\x1D118\ \x1D119\ \x1D11B\ \x1D125\ \x1d198\" 40
+

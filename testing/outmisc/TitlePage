@@ -1,0 +1,44 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+rm 20 ss(JOED Music)252.06 730 s rm 15 ss
+(Renaissance polyphonic choral music)190.892 660 s rm 25 ss
+(T)184.862 580 s(om\341s Luis de )-2 0 rs(V)-1.25 0 rs(ictoria )
+-1.5 0 rs rm 15 ss(\(1548-1611\))266.507 520 s rm 25 ss(Masses)
+267.2 460 s rm 15 ss(V)273.092 400 s(olume 4:)-1.935 0 rs rm 25 ss
+(Missa )163.3 330 s(A)-1.375 0 rs(v)-1.85 0 rs(e Re)-0.375 0 rs
+(gina coelorum)-0.375 0 rs rm 15 ss(\(SA)256.225 270 s(TB+SA)-1.665 0 rs
+(TB\) )-1.665 0 rs(T)193.24 210 s(ranscribed and edited by Jon Dixon)
+-0.525 0 rs rm 10 ss(\251 1991)288.95 150 s(JOED )282.17 90 s(V19)
+-0.5 0 rs
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

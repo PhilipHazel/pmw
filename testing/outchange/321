@@ -1,0 +1,68 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+1.1 dup scale
+%%EndPageSetup
+mf 10 ss(!)30.909 690 s bf 11.8 ss(3)43.909 698 s(2)43.909 690.15 s
+%1/1
+mf 10 ss(-)58.809 694 s(\()71.801 684 s(=)76.051 684 s(7)76.051 684 s(.)
+91.017 694 s(,)104.698 698 s(,)129.781 698 s(@)153.864 690 s
+%2/1
+(-)161.704 694 s(=w=)178.946 684 s(J)178.946 682 s(JL)178.946 680 s(\()
+192.938 690 s(3)197.188 690 s 181.946 678 199.188 685 -4.172 cv(5)
+222.271 690 s 200.188 688 225.271 688 -5 cv(')232.973 692 s(5)
+237.473 692 s(5)252.674 686 s 240.473 689 255.674 684 -3.56 cv rm 10 ss(3)
+238.222 707 s 236.722 710.5 221.771 710.5 2 221.771 708.5 0.3 ll
+259.674 708.5 259.674 710.5 2 244.722 710.5 0.3 ll mf 10 ss
+(@)267.875 690 s rm 8 ss(2)153.864 714 s
+%3/1
+bf 11.8 ss(5)270.959 698 s(4)270.959 690.15 s mf 10 ss(%)281.307 698 s(8)
+286.307 698 s(.)300.988 694 s(-)314.669 694 s(,)332.912 698 s(6)
+356.995 696 s(@)375.237 690 s rm 8 ss(3)267.875 714 s
+%4/1
+bf 11.8 ss(4)378.321 698 s(4)378.321 690.15 s mf 10 ss(2)390.04 696 s
+359.995 703 393.04 703 5 cv(@)438.382 690 s rm 8 ss(4)375.237 714 s
+%5/1
+bf 11.8 ss(3)441.466 698 s(4)441.466 690.15 s mf 10 ss(+)473.689 698 s
+(@)507.912 690 s rm 8 ss(5)438.382 714 s bf 11.8 ss(4)511.912 698 s(4)
+511.912 690.15 s mf 10 ss
+(FFFFCCCCCCCCC)30.909 690 s (C)511.818 690 s
+(!)30.909 646 s bf 11.8 ss(4)43.909 654 s(4)43.909 646.15 s
+%6/1
+bf 10 ss(2)76.309 664 s mf 10 ss(0)63.809 652 s(@)107.809 646 s rm 8 ss(6)
+30.909 670 s
+%8/1
+bf 11.8 ss(2)110.809 654 s(4)110.809 646.15 s mf 10 ss(+)127.259 654 s
+(B)144.209 646 s(@)142.209 646 s rm 8 ss(8)107.809 670 s mf 10 ss
+(FC)30.909 646 s (C)135.709 646 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

@@ -1,0 +1,322 @@
+#! /bin/sh
+
+# This is a script for the use of PMW maintainers. It configures and rebuilds
+# PMW with a variety of configuration options, and in each case runs the tests
+# to ensure that all goes well. This script must be run in the PMW source
+# directory.
+
+# While debugging, it is sometimes useful to be able to cut out some of the
+# tests, in order to run those that are giving errors. The following options
+# do this:
+#
+# -noasan         skip the test that uses -fsanitize=address
+# -nousan         skip the test that uses -fsanitize=undefined
+# -nomain         skip the main set of tests
+# -notmp          skip the test in a temporary directory
+# -novalgrind     skip all the valgrind tests
+
+# Alternatively, if any of those names are given with '+' instead of '-no',
+# only those groups named with '+' are run (e.g. +jit). If -dummy is given,
+# no tests are actually run - this provides a means of testing the selectors.
+
+useasan=1
+useusan=1
+usemain=1
+usetmp=0    # PRO TEM - out-of-source build doesn't yet work.
+usevalgrind=1
+
+dummy=0
+seenplus=0
+verbose=0
+
+while [ $# -gt 0 ] ; do
+  case $1 in
+    +*) if [ $seenplus -eq 0 ]; then
+          useasan=0
+          useusan=0
+          usemain=0
+          usevalgrind=0
+          usetmp=0
+          seenplus=1
+        fi;;
+  esac
+
+  case $1 in
+    -dummy)          dummy=1;;
+    -v)              verbose=1;;
+    -noasan)         useasan=0;;
+    -nousan)         useusan=0;;
+    -nomain)         usemain=0;;
+    -notmp)          usetmp=0;;
+    -novalgrind)     usevalgrind=0;;
+    +asan)           useasan=1;;
+    +usan)           useusan=1;;
+    +main)           usemain=1;;
+    +tmp)            usetmp=1;;
+    +valgrind)       usevalgrind=1;;
+    *)               echo "Unknown option '$1'"; exit 1;;
+  esac
+  shift
+done
+
+# This is in case the caller has set aliases (as I do - PH)
+
+unset cp ls mv rm
+
+# This is a temporary directory for testing out-of-line builds
+
+tmp=/tmp/pmwtesting
+
+# Don't bother with compiler optimization for most tests; it just slows down
+# compilation a lot (and running the tests themselves is quick). However, one
+# special test turns optimization on, because it can provoke some compiler
+# warnings.
+
+CFLAGS="-g"
+OFLAGS="-O0"
+ISGCC=0
+
+# If the compiler is gcc, add a lot of warning switches.
+
+cc --version >/tmp/pcre2ccversion 2>/dev/null
+if [ $? -eq 0 ] && grep GCC /tmp/pcre2ccversion >/dev/null; then
+  ISGCC=1
+  CFLAGS="$CFLAGS -Wall"
+  CFLAGS="$CFLAGS -Wno-overlength-strings"
+  CFLAGS="$CFLAGS -Wpointer-arith"
+  CFLAGS="$CFLAGS -Wwrite-strings"
+  CFLAGS="$CFLAGS -Wundef -Wshadow"
+  CFLAGS="$CFLAGS -Wmissing-field-initializers"
+  CFLAGS="$CFLAGS -Wunused-parameter"
+  CFLAGS="$CFLAGS -Wextra -Wformat"
+  CFLAGS="$CFLAGS -Wbad-function-cast"
+  CFLAGS="$CFLAGS -Wmissing-declarations"
+  CFLAGS="$CFLAGS -Wnested-externs"
+  CFLAGS="$CFLAGS -pedantic"
+  CFLAGS="$CFLAGS -Wuninitialized"
+  CFLAGS="$CFLAGS -Wmaybe-uninitialized"
+  CFLAGS="$CFLAGS -Wmissing-prototypes"
+  CFLAGS="$CFLAGS -Wstrict-prototypes"
+fi
+rm -f /tmp/pmwccversion
+
+# This function runs a single test with the set of configuration options that
+# are in $opts. The source directory must be set in srcdir. The function must
+# be defined as "runtest()" not "function runtest()" in order to run on
+# Solaris.
+
+runtest()
+  {
+  testcount=`expr $testcount + 1`
+
+  if [ "$opts" = "" ] ; then
+    echo "[$testcount/$testtotal] Configuring with: default settings"
+  else
+    echo "[$testcount/$testtotal] Configuring with:"
+    echo "  $opts"
+  fi
+
+  if [ $dummy -eq 1 ]; then return; fi
+
+  CFLAGS="$CFLAGS" \
+    $srcdir/configure $opts >/dev/null 2>teststderrM
+  if [ $? -ne 0 ]; then
+    echo " "
+    echo "******** Error while configuring ********"
+    cat teststderrM
+    exit 1
+  fi
+
+# There is an infelicity in the Autotools world (as of October 2015) which
+# causes the message
+#
+# ar: `u' modifier ignored since `D' is the default (see `U')
+#
+# to be output while linking. This triggers an unwanted error report from this
+# script, because it expects no stderr output while making. To get round this
+# we filter the stderr output through sed, removing all occurrences of the
+# above lines. Just for paranoia, check that sed is available before doing
+# this.
+
+  echo "Making"
+  make clean
+  make -j >/dev/null 2>teststderrM
+  makeRC=$?
+  if command -v sed >/dev/null 2>&1 ; then
+    sed "/\`u' modifier ignored since \`D' is the default/ d" \
+      teststderrM > teststderrMM
+    mv -f teststderrMM teststderrM
+  fi
+  if [ $makeRC -ne 0 -o -s teststderrM ]; then
+    echo " "
+    echo "******** Errors or warnings while making ********"
+    echo " "
+    cat teststderrM
+    exit 1
+  fi
+
+  echo "Running PMW tests $withvalgrind"
+  pushd $srcdir/testdist >/dev/null
+  ./RunTests $valgrind >teststdoutM 2>teststderrM
+
+  if [ $? -ne 0 -o -s teststderrM ]; then
+    echo " "
+    echo "**** Test failed ****"
+    if [ -s teststderrM ] ; then
+      cat teststderrM
+    else
+      cat teststdoutM
+    fi
+    exit 1
+  fi
+  
+  popd >/dev/null
+  }
+
+# Update the total count whenever a new test is added; it is used to show
+# progess as each test is run.
+
+testtotal=`expr 0 + \
+  1 \* $ISGCC \* $usemain + \
+  1 \* $ISGCC \* $usemain \* $useasan + \
+  1 \* $ISGCC \* $usemain \* $useusan + \
+  3 \* $usemain + \
+  1 \* $usevalgrind + \
+  1 \* $usetmp`
+
+testcount=0
+
+if [ $testtotal -eq 0 ] ; then
+  echo "** No tests selected"
+  exit 1
+fi
+
+valgrind=
+jrvalgrind=
+withvalgrind=
+srcdir=.
+export srcdir
+
+# If gcc is in use, run a maximally configured test with -O2, because that can
+# throw up warnings that are not detected with -O0. Then run a second test with
+# -fsanitize=address, which also may throw up new warnings as well as checking
+# things at runtime. Finally, run another test using -fsanitize=undefined
+# -std-gnu99 to check for runtime actions that are not well defined. However,
+# we also use -fno-sanitize=shift to avoid warnings for shifts of negative
+# numbers.
+
+if [ $ISGCC -ne 0 -a $usemain -ne 0 ]; then
+  echo "---------- Test with -O2 ----------"
+  SAVECFLAGS="$CFLAGS"
+  CFLAGS="-O2 $CFLAGS"
+  echo "CFLAGS=$CFLAGS"
+  opts=""
+  runtest
+  if [ $useasan -ne 0 ]; then
+    echo "---------- Test with -fsanitize=address ----------"
+# Following a kernel change, sanitize address doesn't work unless the extra
+# PIE options are also set.
+    CFLAGS="$OFLAGS $SAVECFLAGS -no-pie -fno-PIE -fsanitize=address"
+    echo "CFLAGS=$CFLAGS"
+    opts=""
+    runtest
+  fi
+# This also seems to be the case for sanitize undefined.
+  if [ $useusan -ne 0 ]; then
+    echo "------- Test with -fsanitize=undefined -fno-sanitize=shift -fno-sanitize=alignment -std=gnu99 -------"
+    CFLAGS="$OFLAGS $SAVECFLAGS -no-pie -fno-PIE -fsanitize=undefined -fno-sanitize=shift -fno-sanitize=alignment -std=gnu99"
+    echo "CFLAGS=$CFLAGS"
+    opts=""
+    runtest
+  fi
+  CFLAGS="$OFLAGS $SAVECFLAGS"
+fi
+
+# This set of tests builds PMW and runs the tests with a variety of configure
+# options, in the current (source) directory. The empty configuration builds
+# with all the default settings.
+
+echo "---------- CFLAGS for the remaining tests ----------"
+echo "CFLAGS=$CFLAGS"
+
+if [ $usemain -ne 0 ]; then
+
+  echo "---------- Tests in the current directory ----------"
+  for opts in \
+    "" \
+    "--enable-b2pf" \
+    "--disable-pmwrc"
+  do
+    runtest
+  done
+fi
+
+# Now re-run some of the tests under valgrind.
+
+if [ $usevalgrind -ne 0 ]; then
+  echo "---------- Tests in the current directory using valgrind ----------"
+  valgrind=valgrind
+  withvalgrind="with valgrind"
+
+  for opts in \
+    "--enable-b2pf --disable-pmwrc"
+  do
+    opts="$opts"
+    runtest
+  done
+
+fi
+
+valgrind=
+withvalgrind=
+
+# Clean up the distribution and then do at least one build and test in a
+# directory other than the source directory. It doesn't work unless the
+# source directory is cleaned up first.
+
+if [ -f Makefile ]; then
+  echo "Running 'make distclean'"
+  make distclean >/dev/null 2>&1
+  if [ $? -ne 0 ]; then
+    echo "** 'make distclean' failed"
+    exit 1
+  fi
+fi
+
+echo "---------- End of tests in the source directory ----------"
+echo "Removing teststdoutM and teststderrM"
+rm -rf teststdoutM teststderrM
+
+if [ $usetmp -ne 0 ]; then
+  echo "---------- Tests in the $tmp directory ----------"
+  srcdir=`pwd`
+  export srcdir
+
+  if [ ! -e $tmp ]; then
+    mkdir $tmp
+  fi
+
+  if [ ! -d $tmp ]; then
+    echo "** Failed to create $tmp or it is not a directory"
+    exit 1
+  fi
+
+  cd $tmp
+  if [ $? -ne 0 ]; then
+    echo "** Failed to cd to $tmp"
+    exit 1
+  fi
+
+  for opts in \
+    ""
+  do
+    runtest
+  done
+
+  echo "Removing $tmp"
+  rm -rf $tmp
+fi
+
+echo "---------- All done ----------"
+
+# End

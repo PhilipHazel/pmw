@@ -1,0 +1,81 @@
+Heading 20 "|\bf\NoKey Testing"
+
+Sheetsize A4
+Linelength 550
+Barnumbers 1 8 italic
+magnification 1
+
+Heading 15 "\bf\Scale transposed from Cm"
+
+*define scale [Key Cm] Cde|fga%b|C'%ba|gfed|C+||
+
+[stave 1 treble 2 text underlay]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +1]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -1]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +2]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -2]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +3]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -3]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +4]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -4]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +5]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -5]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +6]
+&scale
+[endstave]
+

@@ -1,0 +1,154 @@
+nocheck
+unfinished
+magnification 1.5
+justify top left
+
+Heading ""
+
+[stave 1 treble 1]
+gggg
+[endstave]
+
+[stave 2 bass 0]
+dddd
+[endstave]
+
+[stave 3 hclef 1]
+gggg
+[endstave]
+
+[newmovement]
+startlinespacing 2
+
+[stave 1 treble 1]
+gggg
+[endstave]
+
+[stave 2 bass 0]
+dddd
+[endstave]
+
+[stave 3 hclef 1]
+gggg
+[endstave]
+
+
+[newmovement]
+notime
+breakbarlines 6
+bracket 1-6
+join 1-6
+
+[stave 1/1 hclef 1] R! | b c'\su\ d'\su\ a\sd\ |
+e'\. su\ f'\. su\ g'\. su\ a'\. su\ b'\.su\ c''\.su\
+[endstave]
+
+[stave 2/2 hclef 1] R! | b c'\su\ d'\su\ a\sd\ |
+e'\. su\ f'\. su\ g'\. su\ a'\. su\ b'\.su\ c''\.su\
+[endstave]
+
+[stave 3/3 hclef 1] R! | b c'\su\ d'\su\ a\sd\ |
+e'\. su\ f'\. su\ g'\. su\ a'\. su\ b'\.su\ c''\.su\
+[endstave]
+
+[stave 4/4 hclef 1] R! | b c'\su\ d'\su\ a\sd\ |
+e'\. su\ f'\. su\ g'\. su\ a'\. su\ b'\.su\ c''\.su\
+[endstave]
+
+[stave 5/5 hclef 1] R! | b c'\su\ d'\su\ a\sd\ |
+e'\. su\ f'\. su\ g'\. su\ a'\. su\ b'\.su\ c''\.su\
+[endstave]
+
+[stave 6/6 hclef 1] R! | b c'\su\ d'\su\ a\sd\ |
+e'\. su\ f'\. su\ g'\. su\ a'\. su\ b'\.su\ c''\.su\
+[endstave]
+
+[stave 7/0 noclef 1] G+ | b c'\su\ d'\su\ a\sd\ |
+e'\. su\ f'\. su\ g'\. su\ a'\. su\ b'\.su\ c''\.su\
+[endstave]
+
+[newmovement]
+
+draw thing
+  0 0 moveto 0 -20 rlineto stavestart 0 rlineto stroke
+enddraw
+
+draw thing2   
+  0 0 moveto 0 exch rlineto stavestart 0 rlineto stroke
+enddraw
+
+[stave 1 "Text" "" draw thing treble 1]
+[draw thing] gggg | [name 2] R!
+[endstave]
+
+[stave 2 draw -10 thing2 "text2" treble 1]
+gggg | [newline name 2] R! |
+[endstave]
+
+[stave 3 "Text+draw" draw thing treble 1]
+gggg
+[endstave]
+
+[newmovement]
+nocheck
+unfinished
+justify top left
+breakbarlines
+
+Heading ""
+
+copyzero 2 4
+suspend 2
+
+[stave 0 treble 1]
+"\rm\text"/a0 Q! | ["A"] Q! | [1st] Q! |
+[2nd] Q! |
+[endstave]
+
+[stave 1 treble 1]
+R! | [copyzero 10] R! | 
+[endstave]
+
+[stave 2 bass 0]
+R! | R! | 
+[endstave]
+
+[stave 3 hclef 1]
+[copyzero -4] R! | R! | R! |  
+[copyzero 10]  R! | 
+[endstave]
+
+[stave 4 alto 1]
+R! | R! | 
+[endstave]
+
+
+[newmovement]
+copyzero 1
+
+[stave 0 treble 1]
+"\rm\text"/a0 Q! | ["A"] Q! | [1st] Q! |
+[2nd] Q! |
+[endstave]
+
+[stave 1 treble 1]
+[copyzero 8] R! | R! | 
+[endstave]
+
+[stave 2 bass 0]
+R! | R! | 
+[endstave]
+
+[stave 3 hclef 1]
+R! | R! | [copyzero 4] R! |  
+[endstave]
+
+[stave 4 alto 1]
+R! | R! | 
+[endstave]
+
+
+
+
+
+

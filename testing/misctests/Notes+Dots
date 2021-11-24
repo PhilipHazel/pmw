@@ -1,0 +1,47 @@
+magnification 1.5
+heading ""
+nocheck
+notime
+unfinished
+
+[stave 1 treble 1]
+F++. F+. F. f. f-. f=. 
+f=-. f==.;
+
+f-.;
+f=.;
+f=-.;
+f==.  |
+
+[stems down octave 2] 
+F++. F+. F. f. f-. f=. 
+f=-. f==.;
+
+f-.;
+f=.;
+f=-.;
+f==.  | [newline]
+R++. R+. R. r. r-. r=.
+r=-. r==. |
+[newline]
+G+.+ g.+
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+b. c.. e f|
+[endstave]
+
+[newmovement]
+dotspacefactor 1.5
+[stave 1 treble 1]
+b. c.. ef |
+[dots below] f.g. f.\:\ g.\:\ |
+[dots above] f.g. f.\:\ g.\:\ |
+
+ab [noteheads cross] ab [noteheads harmonic] ab
+[noteheads none] ab [noteheads normal] ab |
+[noteheads only] ab [o] |
+
+ab [x] ab [h] ab [z] ab [o] ab |
+[endstave]

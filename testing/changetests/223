@@ -1,0 +1,73 @@
+unfinished
+
+heading 25 "\it\This is a long heading line that is going to
+be split over several lines \bf\by the paragraph splitting
+mechanism that PMW has for handling such things.
+\rm\We expect font changes to persist over line breaks."
+
+doublenotes
+[stave 1 treble 1]
+[footnote 12 "\it\This is a long footnote line that is going to
+be split over several lines \bf\by the paragraph splitting
+mechanism that PMW has for handling such things.
+\rm\We expect font changes to persist over line breaks." ]
+R+ | gggg | R! | 
+[endstave]
+
+[newmovement]
+breverests
+doublenotes
+[stave 1 treble 1]
+R+ | gggg | R! | 
+[endstave]
+  
+[newmovement]
+halvenotes
+[stave 1 treble 1]
+R+ | gggg | R! | 
+[endstave]
+
+[newmovement]  
+unfinished
+nocheck
+justify top left
+
+[stave 1 treble 1]
+[barlinestyle 0]
+g | | |
+[barlinestyle 1] 
+g | Q! |1 g 
+[endstave]
+
+[stave 2 treble 1]
+g | g | g | g | g | g |
+[endstave]
+
+[newmovement]
+shortenstems 12
+
+[stave 1 treble 1]
+[stems up] c'd'e'f'g'a' | [3] c'd'e'f'g'a' | [6] c'd'e'f'g'a' |
+a [bass 0] | g [treble 1] | g
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+sluroverwarnings
+
+justify top left right
+[stave 1 treble 1]
+[4] gggg | [slur] gggg_ | [newline time 4/4] g [es]
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+justify top left
+
+[stave 1 treble 1]
+gggg | [slur] ggg(gd')_ | [newline] [time 4/4] (gd') [es]
+[slur/b] b`\u.\b`\.\ [es]
+[slur]g'\d.\g'\.\[es]
+

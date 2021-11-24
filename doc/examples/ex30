@@ -1,0 +1,3 @@
+heading 12.5     "    This 10-point font is neither stretched nor compressed." 15
+heading 12.5/1.2 "   This 10-point font is stretched horizontally by 1.2." 15
+heading 12.5/0.8 "     This 10-point font is compressed horizontally by 0.8."

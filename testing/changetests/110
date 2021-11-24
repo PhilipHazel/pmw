@@ -1,0 +1,71 @@
+nocheck
+stavespacing 1/46
+stavesizes 3/0.6 4/0.6
+
+textfont extra 12 "Helvetica"
+
+[stave 1 treble 1]
+[couple down]
+[stems below]
+e-b`-\su\f-b`-\su\g-b`-\su\ |
+e e\su\ |
+[beamslope 0.1]
+e-b``-\su\f-b``-\su\g-b``-\su\ |
+e=b`=\su\f=b`=\su\g=b`=\su\ |             
+[endstave]                                 
+
+[stave 2 bass]
+[endstave]
+
+[stave 3 treble 1]
+[couple down]
+[stems below]
+e-b`-\su\f-b`-\su\g-b`-\su\ |
+e e\su\ |
+[beamslope 0.1]
+e-b``-\su\f-b``-\su\g-b``-\su\ |
+e=b`=\su\f=b`=\su\g=b`=\su\ |             
+[endstave]                                 
+
+[stave 4 bass]
+[endstave]
+
+[newmovement]
+stavespacing 60.5, 1/44
+
+[stave 1 treble 1]
+R+
+[endstave]
+
+[stave 2 treble 1]
+R+ |
+[endstave]
+
+[stave 3 bass]
+R+
+[endstave]
+
+[newmovement]
+longrestfont 8 italic
+repeatbarfont 20 bold
+
+
+textsizes 10 10 10 10 10 10 10 10 10 10 10 24
+
+
+[stave 1 treble 1]
+[5] R! | [1st] R! |
+[all]
+"hello"/a/c (d'\>\g') 
+"a"/a g'\>\ |
+"\xx12\abcde" gggg |
+"a"/s12 g
+
+
+
+
+
+
+
+
+

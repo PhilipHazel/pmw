@@ -1,0 +1,144 @@
+nocheck
+magnification 1.5
+heading ""
+
+draw test
+  -10 0 moveto 10 0 lineto stroke
+  0 0 moveto 0 10 lineto stroke
+enddraw    
+
+draw test2
+  linegapx neg linegapy neg moveto
+  0 10 rlineto 
+  linegapx linegapy moveto
+  0 10 rlineto
+  0 0 moveto 0 10 rlineto  
+  stroke
+enddraw     
+
+draw cross
+  -5 5 moveto 5 -5 lineto
+  -5 -5 moveto 5 5 lineto 
+  0.4 setlinewidth stroke
+enddraw    
+
+draw bra
+  -5 -2 moveto "("/s2 show
+enddraw
+
+draw ket
+  4 -2 moveto ")"/s2 show
+enddraw      
+
+textsizes 10 6
+
+
+[stave 1 treble 1]
+[slur]GGGGGGGGGGG[es] |
+[newline]
+[slur]GGG[slurgap/w20] GGGGG[slurgap/w40/draw test]GGG[es] |
+[newline]
+[slur]GGG[slurgap/h0.205/w20] GGGGG[slurgap/w40/draw test2]GGG[es] |
+[newline]
+[slur slurgap/h/w30]GGGGGGGGGGG[es] |
+[newline]
+[slur]GGGGG [slurgap/w30] G GGGGG[es] |
+[newline]
+[slur]C\sd\ c\sd\ G' [es] |
+[slur]C\sd\ [slurgap] c\sd\ G' [es]
+[slur]G`+ [space -10] [slurgap/w30/r10] | 
+[key e$]
+c G' [es]
+[slur]G`\sd\ [slurgap/w30/r10/draw test2] | 
+[key e$]
+c\sd\ G' [es] |
+
+[slur/b]GGGGGGGGGGG[es] |
+[newline]
+[slur/b]GGG[slurgap/w20] GGGGG[slurgap/w40/draw test]GGG[es] |
+[newline]
+[slur/b]GGG[slurgap/h0.205/w20] GGGGG[slurgap/w40/draw test2]GGG[es] |
+[newline]
+[slur/b slurgap/h/w30]GGGGGGGGGGG[es] |
+[newline]
+[slur/b]GGGGG [slurgap/w30] G GGGGG[es] |
+[newline]
+[slur/b]C\sd\ c\sd\ G' [es] |
+[slur/b]C\sd\ [slurgap] c\sd\ G' [es]
+[slur/b]G`\sd\ [slurgap/w30/r10] | 
+[key e$]
+[sghere +20]
+c'\sd\ G' [es] |
+[newline]
+[slur/b]G`\sd\ [slurgap/w30/r10/draw test2] | 
+[sghere +20]
+[key e$]
+c'\sd\ G' [es] |
+
+[slur slurgap/h/w0/draw cross] GGGGGGG [es] |
+
+[slur/u4 slurgap/h0/w0/draw bra slurgap/h1/w0/draw ket] GGG [es] |
+
+[slur/co10 slurgap/h/w0/draw cross] GGGGGGG [es] |
+[slur/clu20/cll50] GGGGGGG [es] |
+[slur/clu20/cll50 slurgap/h/w0/draw cross] GGGGGGG [es] |
+
+[slur/clu20/cll50/cru20/crr50
+slurgap/h0/w0/draw bra 
+slurgap/h1/w0/draw ket] GGGGGGG [es] |
+
+[slur slurgap/h0.25/draw cross] GGGG |
+[newline slurgap/h0.75/draw cross]
+GGGG [es] |
+
+[slur/w/co8 slurgap/h0.25/draw cross slurgap/h0.75/draw cross] 
+[stems down] g`g`g` [stems up]g'g'g'[stems auto]
+[es] |
+
+[slur/e slurgap/h0.25/draw cross] GGGGGGG [es] |
+
+[slur/e/w/co8 slurgap/h0.25/draw cross slurgap/h0.75/draw cross] 
+[stems down] g`g`g` [stems up]g'g'g'[stems auto]
+[es] |
+
+[slur/b/e/w/co8 slurgap/h0.25/draw cross slurgap/h0.75/draw cross] 
+[stems up] g'g'g' [stems down]g`g`g`[stems auto]
+[es] |
+
+[slur/i slurgap/w20/h0.25/draw cross] GGGGGGG [es] |
+[slur/ip slurgap/w20/h0.25/draw cross] GGGGGGG [es] |
+[slur/i/w slurgap/w20/h0.25/draw cross] 
+C\sd\C\sd\C\sd\C\sd\G'\su\G'\su\G'\su\ [es] |
+
+[line] GGGGGGG [el] |
+[line/i/u2] GGGGGGG [el] |
+[line/ip/u4] GGGGGGG [el] |
+
+[line/b] GGGGGGG [el] |
+[line/b/i/d2] GGGGGGG [el] |
+[line/b/ip/d4] GGGGGGG [el] |
+
+[line/u2 linegap/h/draw cross] GGGGGGG [el] |
+[line/u2/i/ru8 linegap/h/draw cross] GGGGGGG [el] |
+[line/u2/ip/lu8 linegap/h/w20/draw cross] GGGGGGG [el] |
+[endstave]
+
+[newmovement]
+nocheck
+heading ""
+
+endlineslurstyle 1
+endlinetiestyle 1
+
+[stave 1 treble 1]
+[slur] GGGG  | [newline] GGGG [es] |
+[slur] 
+GABC' | [newline] C'BAG_ [es] |
+[newline] G |
+[slur]
+CABC' | [newline] C'BAG [es] (CEGC')_ |
+[newline] (cegc')
+
+[endstave]
+
+

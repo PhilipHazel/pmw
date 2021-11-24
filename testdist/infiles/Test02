@@ -1,0 +1,56 @@
+@ Example for IMS Handbook of Musical Codes
+@ PMS input by Philip Hazel, September 1992
+
+Heading "|Mozart: Second trio from Clarinet Quintet" 35
+
+*Define p "\bi\p"/b
+
+Magnification 1
+Linelength 440
+Barnumbers line 9
+Bracket 1-5
+Time 3/4
+Tripletfont 8 italic
+Key A
+Startlinespacing 3 0 3
+Unfinished
+
+[stave 1 "\it\clarinet in A" treble 2]
+[key C nocount nocheck]&p [slur/co2] c-e- | @0
+g-e-c' [endslur][slur] g-e- | @1
+d-f-a [endslur][slur] f-d- | @2
+c-b`-e-d-g-f- [endslur] | @3
+#d_e [slur] c-e- | g-e-c' [endslur][slur] g-e- | @5
+%d-f-a [endslur] r | R! | @7
+rr [slur/b] {/d8/r2 d`-a``-f``-} | @8
+a``- [endslur] [\.\] d`-f`-a`-d-f- [\\] | @9
+[slur] a-g-f-e-\.\f-\.\d- [endslur] | @10
+[slur] Ce-d- [endslur] | cr :)(: r | @12
+[endstave]
+
+[stave 2 "\it\violino I" treble 1]
+[nocheck] r | r &p aa | raa | rgg | [2] raa | @5
+fr [slur] c'-#a- | b-d'-f' [endslur][slur] c'-#a- | @7
+b-d'-f' [endslur] r | [2] R! | @10
+[slur/b] c-e-c-e-d-e- [endslur] | @11
+cr :)(: [slur] e-g- | @12
+[endstave]
+
+[stave 3 "\it\violino II" treble 1]
+[nocheck] r | r &p ee | rff | rdd | rcc | ree | @5
+dr [slur/b] %g | F%g | F [endslur] r | [2] R! | @10
+A`_#g` | a`r :)(: r | @12
+[endstave]
+
+[stave 4 "\it\viola" alto 1]
+[nocheck] r | r &p cc | [2] rb`b` | ra`a` | rcc | @5
+b`r [slur] e | De | D [endslur] r | [2] R! | @10
+E`._ | e`r :)(: r | @12
+[endstave]
+
+[stave 5 "\it\violoncello" bass 0]
+[nocheck] r | &p arr | drr | err | frr | crr | @5
+drr | [4] R! | [slur/b] e`\.\e`\.\e`\.\ [endslur] | @11
+a`r :)(: r | @12
+[endstave]
+

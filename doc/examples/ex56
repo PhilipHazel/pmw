@@ -1,0 +1,19 @@
+Justify left
+Bracket
+Magnification 1.1
+stavespacing 40
+
+*define 3a()  [slur/a] {/u6 &&1-&&2-&&3-}; [endslur]
+
+Key B$
+Time 2/4
+Notespacing *2
+Unfinished
+
+[stave 1 treble 2 triplets above nobracket]
+&3a(f,e,f,) &3a(d,c,b`) | &3a(f,e,f,) &3a(d,c,b`) |
+[endstave]
+
+[stave 2 bass 0]
+"Default"/a/u8 f-.g=; a-.b=; | [tripletize] "Tripletized"/a/u8 f-.g=; a-.b=; |
+[endstave]

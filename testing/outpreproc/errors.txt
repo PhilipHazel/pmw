@@ -1,0 +1,79 @@
+** Error: pre-processing directive expected
+   Detected near line 3 of preproctests/errors
+*(missing)
+->
+
+** Error: unknown pre-processing directive "unrecognized"
+   Detected near line 5 of preproctests/errors
+*unrecognized
+------------->
+
+** Error: numbers out of order
+   Detected near line 9 of preproctests/errors
+*if staves 6-3
+----------->
+
+** Error: stave number too large - maximum is 63
+   Detected near line 12 of preproctests/errors
+*if staff 64
+---------->
+
+** Error: closing bracket missing in macro argument list
+   Detected near line 16 of preproctests/errors
+*comment buggy comment &x(1,2
+----------------------->
+
+buggy comment 
+** Error: the name "x" is already defined
+   Detected near line 18 of preproctests/errors
+*define x
+--------->
+
+** Error: the name "y" has not been defined
+   Detected near line 20 of preproctests/errors
+*comment undefined &y
+------------------->
+
+undefined 
+** Error: macro name or string repetition expected after "&"
+   Detected near line 22 of preproctests/errors
+*comment syntax &()
+---------------->
+
+syntax ()
+** Error: a &* replication must have only one argument - others ignored
+   Detected near line 24 of preproctests/errors
+*comment &*2(a,b)
+--------->
+
+aa
+** Error: closing bracket missing in macro argument list
+   Detected near line 28 of preproctests/errors
+*comment 1. &z(&z(ab)
+------------>
+
+1. >>ab<<
+2. >()<
+** Error: macro name or string repetition expected after "&"
+   Detected near line 32 of preproctests/errors
+*comment 3. &z(&&())
+------------>
+
+3. >()<
+4. >aa<
+** Error: after &* unsigned number followed by "(" expected
+   Detected near line 36 of preproctests/errors
+*comment 5. &z(&*(a))
+------------>
+
+5. >*(a)<
+** Error: word expected
+   Detected near line 38 of preproctests/errors
+*if
+--->
+
+** Error: missing "*fi" at end of file
+   Detected near line 41 of preproctests/errors
+---- End of file ----
+
+** No output generated

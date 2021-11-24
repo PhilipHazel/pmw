@@ -1,0 +1,9 @@
+unfinished
+nocheck
+notime
+notespacing *1.2
+
+[stave 1 treble 1 text underlay]
+"long=" b=a=g=a=; b=a=g=a= "= time" g g
+[endstave]
+

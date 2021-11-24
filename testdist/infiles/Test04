@@ -1,0 +1,163 @@
+Heading 14 "|\it\G\o.tterd\a.mmerung, \rm\Act I"
+Heading 12 "||Wagner"
+
+*Define ps "\mf\\163\"/b/d6
+*Define pe "\mu\$"/b/d6
+*Define ts [triplets on]
+*Define te [triplets off]
+
+*Define P  "\bi\p"
+*Define FF "\bi\ff"/d2
+
+*Define one "\rm\1"/fb
+*Define two "\rm\2"/fb
+*Define four "\rm\4"/fb
+*Define five "\rm\5"/fb
+
+
+Linelength 540
+notespacing 30 20 16 12 10 10 10 10
+notespacing *0.75
+
+staffspacing 1/80 2/0 3/56 4/0
+startlinespacing 2 0 2
+systemgap 68
+
+
+notime unfinished
+Breakbarlines 1
+bracket brace 2-5
+bracestyle 1
+Underlaysize 9.5
+Underlaydepth 10
+Tripletfont 9 italic
+Fbsize 7
+Clefsize 0.8
+
+
+
+[staff 1 treble 1][text underlay]
+"\bf\Br\u.nnh."/a
+
+"ge-denk' der Lie-=be der wir le-=ben:"
+"\it\the love we live= for aye re-mem-=ber:"
+rr-a-a.#f'- | #d'_E'a | rAa | G'+_ | G'.a-[space 2]r- ||
+
+[key E$]
+"Br\u.nn-hil-de brennt= dann e-wig hei-=lig"
+"\it\Br\u.nn-hil-de then= will burn for e-=ver"
+$g'F'f' | f'_$F'e' | E'.a | $C'+_ | $C'E |
+[endstaff]
+
+
+
+
+[staff 2 treble 1][stems up]
+[slur/a/ru14/co4] #e'-#f'-qq{/xq-q-q-} [es] | @1
+[slur/a/d1] g'.[space 2]#f'=-g'=-a'=-g'=-e''.[move 7]b'- | @2
+d''[es]qqq | @3
+
+[slur/a/ld4/co6]
+[move 6](e'.g'.)[space 10]#f'=-g'=-a'=-g'=-[space 2]e''.[space 8]e'- [space 1] | @4
+g'-#f'=-g'=-a'=-g'=-_/b [space 1]g'\sd\q-qq- || @5
+
+[key E$]
+qQ[xslur/a/ld10/rd10][xslur/b](ff')[es] | @6
+
+(ff') [es][es] ($F$F')[slur/=A/a/d12](ee') | @7
+
+[slur/=B/a/co4][slur/=C/b/w/ld14/rd60] e'.[es/=A]q-e''.a'- [es/=C] | @8
+
+$c''-&two;/u31 %d'[space 3]%f' a'-_/a; {/b/n/r3/u20 a'-b'-c''-_/a}[es/=B] | @9
+
+[slur/a/ru1]
+[triplets off]{$c''e''-}[triplets on]
+a''.&five;/u49$g''-; {/u2&four;/u45e''-c''-b'-} [es] | @10
+[endstaff]
+
+
+
+
+[staff 3 treble 1][stems down]
+&P;/d4
+[slur/b/ll16/u12]a[es] b'.a'-; {f'-#c'-d'-} | @1
+
+< #d'&one/u30 e'<> &one/u15/r2 g'_/b {/a/n/r3 g'-#f'-#e'-_/b} > | @2
+
+&P;/d4
+[slur/a/lr4/ru4/co8]
+e'-#f'- [move -6]a-\g/\ (d'.\ar\f'.b'.)a'-;
+{/a/n/r4/d3 f'-&one/u2 %e'- &two/u2 d'-} [es] | @3
+
+"\it\########cresc.-====== #"/ul "\it\poco accel."/a/l12/u18
+(g\ar\d')&one/u10/r2 #C'[move -2]d' | @4
+
+$e'(g'g'')_(g'-g''-)(g'g'')($g'-$g''-)_/a || @5
+[key E$]
+"\it\pi\u` \bi\f"/d6
+(g'g'')(%F'%F'')[move 7]$<d'-[space 7]%c'- [space 1]| @6
+
+&FF;/d4
+[slur/a/ll2/lu16/ru16/rl6]
+[move 7]$<C'.[xslur/b/ll7/ru12][move 7]a-[es][space 7]c'-_/b | @7
+
+$c'[reset](e-$c'-)[es]
+q %d'=-;
+"\it\^dim.#e#rall.-===== #"/ul
+e'=-$f'=-&one;/u31e'=-_/b E' | @8
+
+$c'[space 2][slur/b/u12/ll14]&one/u31 D'._/b[es] | @9
+&P;/d2
+{/u2 %d'-"dolce"/r8/d5 e'-$g'-} $?C''g' | @10
+[endstaff]
+
+
+
+
+[staff 4 bass 0]
+&ps;
+[slur/b/rd8]a`=\su\d=#f=a=; d=f=a=d'=;
+f=a=d'=#f'=; a=d'=f'= &pe;[space 2]a'=[es] | @1
+[slur/a/lu7]
+&ps;
+{/b/n/r3/u3 a`-e-g-}; &te; {#c'-g-e-}; {e'-c'-g-}; &pe; {g'-d'-&ps;/l10
+[xslur/a/rr15/rd4][xslur/b/rr20/u18](b-#g'-)} [es][es][es] | @2
+[slur/a/co12]
+a`=d=&pe;#f=a=; &ps/u4 d=f=a=d'=; f=a=d'=#f'=; a=d'=f'=&pe;[space 2]a'=[es] | @3
+
+[stems up]
+r=-\l8\g=-e=-g=-; e-.\m\; [tremolo/j0/x3] g-.\m\;
+r=-\l8\g=-e=-g=-; e-.\m\; [tremolo/j0/x3] g-.\m\; | @4
+
+r=-\l8\g=-[space 1]$e=-g=-;
+e-.\m\; [tremolo/x3/j0] g-.\m\;
+r=-\l8\[space 2]a=-e=-a=-;  e-.\m\; [tremolo/x3/j0] g-.\m\ || @5
+
+[key E$]
+$D\sd\$D\sd\ [reset]
+[slur/a/ld12/co2] E'%d'[space 5]$d'-%c'- [es] | @6
+
+r-\l12\a_/a$c'-; r-\l12\ a-_/a[space 4]c'- r-\l12\ | @7
+&ps;
+q-a' e'$c'&pe;[xslur/a/h/d14/rl8]a- | @8
+
+[move 7]A+\tr\ [es] %g=\g\_a=\g\ | @9
+&ps;/r6
+[slur/ld4/rd2/rr25/co4]$g[stems down]$c'e'$g'&pe;/l12
+[move 2][treble][es] | @10
+[endstaff]
+
+
+
+
+[staff 5 bass 0][stems down]
+[3] Q! | [slur/b/u4]A`$B` | %B`[es]C || @5
+
+[key E$]
+{6/d3 r=\l8\ [space 2]$c'=a=c'=a=c'=}; [space 2]
+{6/n/d3 a-.\m\; [tremolo/j0/x3] c'-.\m\};
+[space 8]{6/d3 r=\l8\[space 1]c'=a=c'=a=c'=}; [space -1](f\ar\a) | @6
+
+[slur/b/lu4/rd4/co2]%DE | $F+ [es] | @8
+(%<F+%D'+) | $g`qqq | @10
+[endstaff]

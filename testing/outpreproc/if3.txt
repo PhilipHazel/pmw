@@ -1,0 +1,13 @@
+--- Options: -s 1-2,3 ---
+not score
+part
+not only stave 1
+exactly staves 1-2,3
+not myformat
+not any format
+part and not myformat
+neither score nor myformat
+either not score or myformat
+macro x is not defined
+defining macro x
+macro x is defined

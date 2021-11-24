@@ -1,0 +1,52 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Helvetica-Oblique 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music Utopia-Bold 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Helvetica-Oblique
+/it /itX /Helvetica-Oblique inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font Utopia-Bold
+/xx2 /xx2X /Utopia-Bold inf
+%%EndSetup
+
+%%Page: 3 1
+%%BeginPageSetup
+/pagesave save def
+0 400 T -90 R
+1.1 dup scale
+%%EndPageSetup
+rm 17 ss(Unadorned heading)45.6 216.909 s(Centre)250.211 216.909 s(Right)
+462.354 216.909 s rm 12 ss(Unicode \341 \347 )45.6 199.909 s rmX 12 ss(p)
+sh rm 10 ss(Accents \341 )45.6 187.909 s rmX 10 ss([)sh rm 10 ss( )sh
+rmX 10 ss(])sh rm 10 ss( )sh rmX 10 ss(c)sh rm 8 ss
+(Escapes | and " vertical and quote)45.6 177.909 s rm 10 ss(Escapes )
+45.6 169.909 s bf 10 ss( )80.31 169.909 s bfX 10 ss(\216)sh bf 10 ss
+( )sh bfX 10 ss(\214)sh bf 10 ss( \\ 3 3)sh rm 11 ss(Comment backslash)
+45.6 159.909 s rm 8 ss(Music )45.6 148.909 s mf 7.2 ss(\200)
+65.224 147.309 s rm 8 ss(Symbol )45.6 135.909 s sy 8 ss({\204)
+72.496 135.909 s rm 8 ss(Numeric {\205)45.6 127.909 s rmX 8 ss
+(\241)45.6 119.909 s rm 8 ss(Quoted)sh rmX 8 ss(\242)sh rm 8 ss
+( and )sh rmX 8 ss(\216)sh rm 8 ss( ligature)sh(C -> D  C# -> E)
+45.6 111.909 s mf 7.2 ss('y)97.288 111.909 s rm 8 ss(  G$ -> A)
+100.168 111.909 s mf 7.2 ss('y)130.896 111.909 s rm 8 ss(C -> D)
+45.6 103.909 s mf 7.2 ss('y)67.888 103.909 s rm 8 ss(  C# -> D  G$ -> G)
+70.768 103.909 s(C -> C)45.6 95.909 s mf 7.2 ss('y)67.448 95.909 s
+rm 8 ss(  C# -> C  G$ -> F)70.328 95.909 s bf 8 ss(Bold Footing)
+45.6 32.728 s
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

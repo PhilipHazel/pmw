@@ -1,0 +1,5 @@
+** Warning: stave 50 specified (or defaulted) more than once in "stavespacing" directive
+   Detected near line 52 of changetests/300
+            57/0,58/0,50/0,
+-------------------------->
+

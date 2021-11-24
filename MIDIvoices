@@ -1,0 +1,225 @@
+# This file contains translations between names and MIDI voice
+# numbers. Lines that begin with #, and blank lines, are ignored.
+
+# The default file supplied with PMS contains associations that
+# correspond to the General MIDI specification. However, the names
+# of the instruments don't seem to be standardised, especially
+# for some of the "effects". Hence more than one name is given for
+# some of them. I have used the names from the Casio CTK-650 for the
+# effects.
+
+# ...Names from the Yamaha TG100 added by Richard Hallas.
+
+# Lines must begin with three digits, followed by a space, and then
+# the instrument name, without any trailing spaces.
+
+001 piano
+001 acoustic grand piano
+002 hard piano
+002 bright acoustic piano
+003 studio piano
+003 electric grand piano
+004 honky-tonk piano
+005 electric piano 1
+006 electric piano 2
+007 harpsichord
+008 clavelectro
+008 clavichord
+
+009 celesta
+010 glockenspiel
+011 music box
+012 vibraphone
+013 marimba
+014 xylophone
+015 tubular bells
+016 dulcimer
+
+017 electric organ
+017 drawbar organ
+018 jazz organ
+018 percussion organ
+019 rock organ
+020 church organ
+021 reed organ
+022 accordion
+023 harmonica
+024 bandoneon
+024 tango accordion
+
+025 gut guitar
+025 acoustic nylon guitar
+026 acoustic guitar
+026 acoustic steel guitar
+027 jazz guitar
+027 electric jazz guitar
+028 electric guitar
+028 electric clean guitar
+029 mute guitar
+029 electric muted guitar
+030 overdriven guitar
+030 distortion guitar 1
+031 distortion guitar 2
+032 guitar harmonics
+
+033 wood bass
+033 acoustic bass
+034 electric bass 1
+034 electric bass fingered
+035 electric bass 2
+035 electric bass picked
+036 fretless bass
+037 slap bass 1
+038 slap bass 2
+039 synth bass 1
+040 synth bass 2
+
+041 violin
+042 viola
+043 cello
+044 contrabass
+045 tremolo strings
+046 pizzicato strings
+047 harp
+047 orchestral harp
+048 timpani
+
+049 strings 1
+049 strings ensemble 1
+050 strings 2
+050 strings ensemble 2
+051 synth strings 1
+052 synth strings 2
+053 choir
+053 choir aahs
+054 moon voice
+054 voice oohs
+054 choir oohs
+055 synth voice
+056 orchestra hit
+056 orchestral hit
+
+057 trumpet
+058 trombone
+059 tuba
+060 mute trumpet
+060 muted trumpet
+061 french horn
+062 brass
+062 brass section
+063 synth brass 1
+064 synth brass 2
+
+065 soprano sax
+065 soprano saxophone
+066 alto sax
+066 alto saxophone
+067 tenor sax
+067 tenor saxophone
+068 baritone sax
+068 baritone saxophone
+069 oboe
+070 english horn
+071 bassoon
+072 clarinet
+
+073 piccolo
+074 flute
+075 recorder
+076 pan flute
+077 blown bottle
+077 bottle blow
+078 shakuhachi
+079 whistle
+080 ocarina
+
+081 synth lead 1
+081 square
+082 synth lead 2
+082 saw tooth
+083 synth lead 3
+083 calliope
+084 synth lead 4
+084 power lead
+084 chiff
+085 synth lead 5
+085 metal lead
+085 charang
+086 synth lead 6
+086 angel choir
+086 voice
+087 synth lead 7
+087 fifth lead
+087 fifths
+088 synth lead 8
+088 bass lead
+088 bass+lead
+
+089 fantasy
+089 new age
+090 warm strings
+090 warm
+091 synth ensemble
+091 polysynth
+092 space chorus
+092 choir
+093 glass harmonica
+093 bowed
+094 illusion
+094 metallic
+095 country farm
+095 halo
+096 synth pad
+096 sweep
+
+097 pearl drop
+097 rain
+098 soundtrack
+099 crystal
+100 atmosphere
+101 brightness
+102 labyrinth
+102 goblins
+103 echoes
+104 cosmic sound
+104 sci-fi
+
+105 sitar
+106 banjo
+107 shamisen
+108 koto
+109 thumb piano
+109 kalimba
+110 bagpipe
+110 bag pipe
+111 fiddle
+112 shanai
+
+113 bells
+113 tinkle bell
+114 agogo
+115 steel drum
+116 wood block
+116 woodblock
+117 taiko
+117 taiko drum
+118 tom
+118 melodic tom
+119 electric tom
+119 synth drum
+120 reverse cymbal
+
+121 guitar fret noise
+122 breath
+122 breath noise
+123 seashore
+124 bird
+124 bird tweet
+125 telephone
+125 telephone ring
+126 helicopter
+127 applause
+128 gunshot
+128 gun shot
+
+# End of MIDI voice names file.

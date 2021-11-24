@@ -1,0 +1,88 @@
+justify top left
+nocheck                   
+unfinished
+notime
+*define n a
+
+vertaccsize 7
+
+[stave 1 treble 1]
+&n #o&n ##o&n $o&n $$o&n %o&n |
+&n #u&n ##u&n $u&n $$u&n %u&n |
+&n #o)&n ##o)&n $o)&n $$o)&n %o)&n |
+&n #u)&n ##u)&n $u)&n $$u)&n %u)&n |
+&n #o]&n ##o]&n $o]&n $$o]&n %o]&n |
+&n #u]&n ##u]&n $u]&n $$u]&n %u]&n |
+
+#o&n #o/u4&n #o/d4&n #o/l4&n #o/r4&n |
+
+($ogb) (%ubg) |
+[endstave]
+
+[newmovement]
+Heading 10 "Ten point stretched 1.0"
+Heading 10/0.8 "Ten point stretched 0.8"
+Heading 10/1/20 "Sheared 20"
+Heading 10/1.5 "Ten point stretched 1.5" 30
+
+rehearsalmarks plain 10/1.6/20
+barnumbers 3 15/0.5
+textsize 10/2.5/10 8/4
+underlaysize 8/3
+trillstring 8/1.5 "\it\tr"
+
+longrestfont 16/0.4 roman
+tripletfont 6/2 italic
+
+[stave 1 "test"/s2 treble 1]
+[sghere +16]
+["a"] g 
+"\rm\abcdefg"/a g "xyz"/b/s2/e |
+[newline]
+"the"/ol "the"/ul g "quick"/ul g |
+g\tr\ | R! | R! | {ggg}
+[endstave]
+
+[newmovement]
+heading "" 40
+nocheck                   
+unfinished
+breakbarlines
+bracket 1-2
+brace 3-4
+textsizes 10 8/2 8/3
+
+draw thing
+  0 -4 moveto "abcd"/rot-45 show 10 0 rlineto
+  "vert"/c/rot270 show 8 0 rmoveto 20 0 rlineto
+  "end"/e/rot-20/s2 show stroke
+enddraw  
+
+[stave 1 treble 1]
+[sshere 130]
+"\rm\abc"
+"\mf\\131\     \33\\48\"/a/rot90
+"\rm\abc\it\xyz"/rot180  g "\mf\\131\"/a/l6 r 
+"\rm\abc\bf\d"/rot90/d10 
+"\rm\abc\it\xyz\*c\zyx  \**145**145**145**131\              \**33**48\"/rot45/r2
+"\rm\abc"/rot45/s2/d2
+"\rm\abc\it\xyz\*c\zyx  \**145**145**145**131\              \**33**48\"/s2
+"\rm\abc\it\xyz\*c\"/rot-90
+g |
+[endstave]
+
+[stave 2 "Vertical text"/v/s3 bass 0]
+[draw thing] rrr
+[endstave]
+
+[stave 3 "Piano"/m/v treble 1]
+[endstave]
+
+[stave 4 bass 0]
+[endstave]
+
+[newmovement]
+stavesize 1/0.8
+
+[stave 1 treble 1]
+r-. #g

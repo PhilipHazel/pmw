@@ -1,0 +1,266 @@
+** Error: header directive expected
+   Detected near line 12 of misctests/Errors
++abc
+>
+
+** Error: unknown pre-processing directive "unknown"
+   Detected near line 3 of misctests/Errors.inc
+*unknown preprocessing directive
+--------->
+
+** Error: unrecognized escape sequence
+   Detected near line 20 of misctests/Errors
+heading "ABC\qDEF"
+------------->
+
+** Error: hexadecimal number expected - skipping to end of string
+   Detected near line 21 of misctests/Errors
+heading "ABC\xZYZ"
+------------->
+
+** Error: after \* or \** a music character code or number is expected - skipping to end of string
+   Detected near line 22 of misctests/Errors
+heading "ABC\*ZZZ"
+-------------->
+
+** Error: unrecognized escape sequence
+   Detected near line 23 of misctests/Errors
+heading "ABC\zXYZ"
+-------------->
+
+** Error: number expected
+   Detected near line 27 of misctests/Errors
+-xyz
+->
+
+** Error: unknown header directive "xyz"
+   Detected near line 27 of misctests/Errors
+-xyz
+---->
+
+** Error: bracestyle value is too big (max 1)
+   Detected near line 28 of misctests/Errors
+bracestyle 100
+-------------->
+
+** Error: caesurastyle value is too big (max 1)
+   Detected near line 29 of misctests/Errors
+caesurastyle 4
+-------------->
+
+** Error: /nc or /ne expected
+   Detected near line 34 of misctests/Errors
+  "abc"/nx
+--------->
+
+** Error: error in note expression or ornament
+   Detected near line 42 of misctests/Errors
+[nocheck] a\a11\ a\a0\ b\. ..\  [\.. .\] [\\] |
+-------------->
+
+** Error: error in note expression or ornament
+   Detected near line 42 of misctests/Errors
+[nocheck] a\a11\ a\a0\ b\. ..\  [\.. .\] [\\] |
+------------------->
+
+** Error: can't have both staccato and staccatissimo
+   Detected near line 42 of misctests/Errors
+[nocheck] a\a11\ a\a0\ b\. ..\  [\.. .\] [\\] |
+----------------------------->
+
+** Error: can't have both staccato and staccatissimo
+   Detected near line 42 of misctests/Errors
+[nocheck] a\a11\ a\a0\ b\. ..\  [\.. .\] [\\] |
+--------------------------------------->
+
+** Error: incorrect bar length: too short by 1 crotchet
+   Detected near line 45 of misctests/Errors
+[time 3/4] aa | aaaa |
+--------------->
+
+** Error: incorrect bar length: too long by 1 crotchet
+   Detected near line 45 of misctests/Errors
+[time 3/4] aa | aaaa |
+---------------------->
+
+** Error: /u, /d, /l, or /r expected
+   Detected near line 48 of misctests/Errors
+b\sp/)\ a\.!/(\ (g\ar/b\e) |
+----->
+
+** Error: /u, /d, /l, or /r expected
+   Detected near line 48 of misctests/Errors
+b\sp/)\ a\.!/(\ (g\ar/b\e) |
+---------------------->
+
+** Error: macro name or string repetition expected after "&"
+   Detected near line 51 of misctests/Errors
+&. &unknown R! | a\su sd\ b\~.~~\ r_ |
+>
+
+** Error: the name "unknown" has not been defined
+   Detected near line 51 of misctests/Errors
+&. &unknown R! | a\su sd\ b\~.~~\ r_ |
+--->
+
+** Error: unexpected character '.'
+   Detected near line 51 of misctests/Errors
+.  R! | a\su sd\ b\~.~~\ r_ |
+>
+
+** Error: conflicting stem direction requests 
+   Detected near line 51 of misctests/Errors
+.  R! | a\su sd\ b\~.~~\ r_ |
+-------------->
+
+** Warning: tie after rest ignored
+   Detected near line 51 of misctests/Errors
+.  R! | a\su sd\ b\~.~~\ r_ |
+--------------------------->
+
+** Error: a chord may not contain a rest
+   Detected near line 52 of misctests/Errors
+(arb) R | R {a-b-c- |
+-->
+
+** Error: incomplete irregular note group at end of bar
+   Detected near line 52 of misctests/Errors
+(arb) R | R {a-b-c- |
+--------------------->
+
+** Error: missing backslash after note options - skipping to end of bar or newline
+   Detected near line 55 of misctests/Errors
+c.\su c-;b`-a`- | g`rr | G`. | rr-a`-; < x2 </h0.99 |
+-->
+
+** Error: error in note expression or ornament
+   Detected near line 56 of misctests/Errors
+d\ax\ ab | rrr |
+-->
+
+** Error: error in note expression or ornament
+   Detected near line 57 of misctests/Errors
+d\azq\ ab | rrr |
+-->
+
+** Error: error in note expression or ornament
+   Detected near line 58 of misctests/Errors
+[\azz\]
+-->
+
+** Error: error in note expression or ornament
+   Detected near line 59 of misctests/Errors
+[\.\] [\.]
+--------->
+
+** Error: the name "nonexist" has not been defined
+   Detected near line 60 of misctests/Errors
+&nonexist abc |
+>
+
+** Error: the name "xxx" has not been defined
+   Detected near line 61 of misctests/Errors
+&xxx(y,z) abc |
+>
+
+** Error: note letter  expected
+   Detected near line 61 of misctests/Errors
+(y,z) abc |
+->
+
+** Error: a &* replication must have only one argument - others ignored
+   Detected near line 62 of misctests/Errors
+&*2(g,z) g |
+>
+
+** Error: no options are allowed after "x" note repetition
+   Detected near line 64 of misctests/Errors
+g\.\ x\x\ a
+------->
+
+** Error: no options are allowed after "x" note repetition
+   Detected near line 65 of misctests/Errors
+g\.\ x3\x\ a |
+-------->
+
+** Error: follow-on string not permitted here
+   Detected near line 68 of misctests/Errors
+"a"/F a "a" "b"/F/a a "a" "b"/F/h a |
+---->
+
+** Warning: follow-on ignored for string with explicit positioning
+   Detected near line 68 of misctests/Errors
+"a"/F a "a" "b"/F/a a "a" "b"/F/h a |
+------------------->
+
+** Warning: follow-on ignored for string with explicit positioning
+   Detected near line 68 of misctests/Errors
+"a"/F a "a" "b"/F/a a "a" "b"/F/h a |
+--------------------------------->
+
+** Warning: follow-on ignored for string with explicit positioning
+   Detected near line 69 of misctests/Errors
+"a" "b"/F/rc0.5 a "a" "b"/F/ps a "a"/ps "b"/F a |
+--------------->
+
+** Error: /a, /ao, /b, /bar, /box, /bu, /d, /e, /F, /fb, /h, /l, /m, /ol, /r, /ring, /s, /u or /ul expected
+   Detected near line 69 of misctests/Errors
+"a" "b"/F/rc0.5 a "a" "b"/F/ps a "a"/ps "b"/F a |
+---------------------------->
+
+** Error: /a, /ao, /b, /bar, /box, /bu, /d, /e, /F, /fb, /h, /l, /m, /ol, /r, /ring, /s, /u or /ul expected
+   Detected near line 69 of misctests/Errors
+"a" "b"/F/rc0.5 a "a" "b"/F/ps a "a"/ps "b"/F a |
+------------------------------------->
+
+** Warning: follow-on ignored for boxed or ringed string
+   Detected near line 70 of misctests/Errors
+"a" "b"/F/ring a "a"/box "b"/F a a |
+-------------->
+
+** Error: follow-on string not permitted here
+   Detected near line 70 of misctests/Errors
+"a" "b"/F/ring a "a"/box "b"/F a a |
+----------------------------->
+
+** Error: /ts expected
+   Detected near line 73 of misctests/Errors
+"a"/ty b_/x b (ap) z
+----->
+
+** Error: /a /b /e /g /i /p or /s expected
+   Detected near line 73 of misctests/Errors
+"a"/ty b_/x b (ap) z
+---------->
+
+** Error: 'p' cannot be used as part of a chord
+   Detected near line 73 of misctests/Errors
+"a"/ty b_/x b (ap) z
+---------------->
+
+** Error: unexpected character 'z'
+   Detected near line 73 of misctests/Errors
+"a"/ty b_/x b (ap) z
+------------------->
+
+** Error: a, b, n, x, u, d, l or r expected
+   Detected near line 74 of misctests/Errors
+[slur/=0] [slur/=x] {/q abc } / </q |
+---------------------->
+
+** Error: '/' (to make // for caesura) expected
+   Detected near line 74 of misctests/Errors
+[slur/=0] [slur/=x] {/q abc } / </q |
+------------------------------->
+
+** Error: /u, /d, /l, /r, /a, /b, /m, /w, /slu, /sru or /h expected
+   Detected near line 74 of misctests/Errors
+[slur/=0] [slur/=x] {/q abc } / </q |
+---------------------------------->
+
+** Error: incorrect bar length: too long by 3 crotchets
+   Detected near line 74 of misctests/Errors
+[slur/=0] [slur/=x] {/q abc } / </q |
+------------------------------------->
+
+** No output generated

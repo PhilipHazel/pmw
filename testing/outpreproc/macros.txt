@@ -1,0 +1,7 @@
+X(a) X(b) X(a) X(a)
+comment "quotes with @ in them" "abcd
+[draw 0.4 circlenote]  [draw 0.4 circlenote] g [draw 0.5 circlenote] a
+jumps over the   (cow, )purple) and the br,(own elephant
+abcabc
+"ABA;ABA;ABA;"
+" aYYcxxxzaYYcxxxz"

@@ -1,0 +1,167 @@
+
+[stave 1 treble 1]
+(c=gc'e')(d..#fa) (Gbd) | R! | G+ | G+\C\ | R!\C\ | S! |
+[time 8/4] G++\C\ |
+[time 2/4] G\C\ |
+[time 1/4] g\C\ |
+[endstave]
+
+[stave 2 bass 0]
+[4] R! | R!\C\ | S! | [3] R! | 
+[endstave]
+
+[newmovement]
+nocheck
+[stave 1 treble 1]
+a P P+ p-. p\.\ | #c' p |
+(cc') p. p-p-; p-p-_p |
+($d#f%a) p |
+[transpose 2]
+($d#f%a) p_ p |
+[transpose -1]
+
+(#c#g) p | (#^##c#^##g) p | 
+
+[transpose -1]
+(gd') x2 c' | g- x3; x4 |
+(d.#fa) p-x2 r |
+(d#fa)x2 (e#g$b) p_ | (egb) R. |
+
+[key E$]
+R (e#g$b) p | {gx2}_p-
+[endstave]
+
+[newmovement]
+nocheck
+notespacing *2
+breakbarlines
+stavesizes 2/0.7
+justify top left
+
+[stave 1 treble 1]
+[rmove 6] a [move 6] a [reset stems down] g g [stems auto] |
+a [move 0,8 treble] a |?
+[move 0,4 key E$] | [move 0,4 time 3/4] |
+[newline] a [space 10] a |
+[newline] a [rspace 10] a |
+aa | aa | [rsmove 6] a a [reset stems down] g | aa
+[endstave]
+
+[stave 2 treble 1]
+[rmove 6] a [move 6] a [reset stems down] g g [stems auto] |
+a [move 0,8 treble ] a |?
+[move 0,4 key e$] | [move 0,4 time 3/4] |
+aa | aa |
+[newline] a [space 10] a |
+[newline] a [rspace 10] a | a a | [rsmove 6] a a [reset stems down] g 
+[endstave]
+
+[newmovement]
+nocheck
+
+Heading "heading"
+pageheading "page heading"
+pagefooting "page footing"
+lastfooting "last footing"
+
+[stave 1 treble 1]
+a |
+[newpage] a
+[endstave]
+
+[newmovement newpage uselastfooting]
+
+pageheading "" 0
+pagefooting ""
+lastfooting "new last footing"
+
+[stave 1 treble 1]
+a
+[endstave]
+
+[newmovement uselastfooting]
+heading "new heading" 800
+
+
+[newmovement]
+nocheck
+clefstyle 0
+
+[stave 1]
+q [soprano] q [mezzo] q [alto] q [tenor] 
+q [baritone] q [bass] q [soprabass] q [contrabass] q [deepbass] |?
+[endstave]
+
+[newmovement]
+clefstyle 1
+
+[stave 1]
+q [soprano] q [mezzo] q [alto] q [tenor] 
+q [baritone] q [bass] q [soprabass] q [contrabass] q [deepbass] |?
+[endstave]
+
+
+[newmovement]
+clefstyle 2
+
+[stave 1]
+q [soprano] q [mezzo] q [alto] q [tenor] 
+q [baritone] q [bass] q [soprabass] q [contrabass] q [deepbass] |?
+[endstave]
+
+
+[newmovement]
+clefstyle 3
+
+[stave 1]
+q [soprano] q [mezzo] q [alto] q [tenor] 
+q [baritone] q [bass] q [soprabass] q [contrabass] q [deepbass] |?
+[endstave]
+
+
+[newmovement]
+staffsizes 2/1
+startlinespacing 2
+
+[stave 1 treble 1]
+AaAa |
+[endstave]
+
+[stave 2 alto 0]
+E'f'e'_aa |
+[endstave]
+
+[stave 3 bass 0]
+AdAd
+[endstave]
+
+[newmovement]
+heading "" -40
+clefstyle 0
+[stave 1 bass 0]
+AdAd
+[endstave]
+
+[newmovement]
+nocheck
+
+transposedkey b  use c$
+transposedkey g$ use f#
+transposedkey d$ use c#
+transposedkey G#m use A$m
+transposedkey E$m use D#m
+transposedkey B$m use A#m
+
+transposedkey D use A
+
+[stave 1]
+[treble 1 key C$] a |
+[alto 0 key A$m] a |
+[tenor 0 key C$] a |
+[bass 0 key C$] a |
+[treble 1 transpose 2 key C$] a |
+[key a] a | [key e] e | [key b] b |
+[key f#m] f | [key C#m] c | [key g#m] g |
+[key c] cde#^-f g |
+
+

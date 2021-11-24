@@ -1,0 +1,61 @@
+magnification 1.5
+justify top left
+nocheck 
+unfinished
+
+stavespacing 1/0
+
+[stave 1 treble 1 ties above]
+[smove 5]g. [smove 5]g._ [smove 5]g3.5>._[smove 5]g |
+[smove 5](g.b.d'.)_[smove 5](gbd') |
+r. r>.\l4\ r-. | 
+[endstave]
+
+[stave 2 treble 1 stems down ties below]
+f.f>.f8.5>._f | (d>.f.)_(df) | d.> e. r-.> |
+[endstave]
+
+[newmovement]
+stavespacing 1/44
+unfinished
+
+[stave 1 treble 1]
+(f.a.c'.d'.\::\) (e.g.b.c'.\::\)(e.\:\g.\:\b.c'.)
+(f.g.b.d'.)(e.f.a.c'.) |
+[transpose 2]
+(f.a.c'.d'.\::\) (e.g.b.c'.\::\)(e.\:\g.\:\b.c'.)
+(f.g.b.d'.)(e.f.a.c'.) |
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+
+[stave 1 treble 1]
+{/a/u1 (c''-#f'-)(b'-#d'-)(g'-e'-)}; #f-;>/d8
+[space 6]#f'- |
+[endstave]
+
+
+[stave 2 bass 0]
+d'-;
+[line/a/ol/or/i/lr4/ld3/ru22/rl13]
+[line/a/ol/or/i/lr4/ld3/ru11/rl13]
+[line/a/ol/or/i/lr4/ld3/ru04]
+[line/a/ol/or/i/lr4/ld3/rd06]
+f'- [notes off] #f' [el el el el] [notes on] |
+[endstave]
+
+[newmovement]
+
+*Define a "\mf\wCCCCC{{{{{{{{{{{{{{{{zzxxxxxx\rm\Meane\mf\zz{{{{{{{{{wwwwwww#xxy}3z    \rm\Soprano "
+*Define b "\mf\wCCCCC{{{{{{{{{{{{{{{{zzxxxxxx\rm\Contra tenor\mf\zz{{{{{{{{{{{{{{{{wwwwww#~zzzz3~z    \rm\Alto"
+*Define c "\mf\wCCCCC{{{{{{{{{{{{{{{{zzxxxxxx\rm\Tenor\mf\zz{{{{{{{{wwwwwz#zzzzwvv3zx~    \rm\Tenor"
+*Define d "\mf\wCCCCC{{{{{{{{{{{{{{{{zzxxxxxx\rm\Base\mf\{{{{{{wwwwwwzz\34\xzz~3~z    \rm\Bass"
+@------------------------------------------------------------------------------
+[staff 1 &a][treble 1][text underlay][endstave]
+[staff 2 &b][treble 1][text underlay][endstave]
+[staff 3 &c][trebletenor 1][text underlay][endstave]
+[staff 4 &d][bass][text underlay][endstave]
+
+

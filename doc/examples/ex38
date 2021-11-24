@@ -1,0 +1,10 @@
+nocheck
+notime
+unfinished
+
+[stave 1 treble 1]
+[beamslope 0.1]  [beamacc] {5/x g-g-g-g-g-} |
+[beamslope -0.1] [beamrit] {5/x g-g-g-g-g-} |
+
+[beamslope 0.1]  [beamacc 2] {5/x g-g-g-g-g-} |
+[beamslope -0.1] [beamrit] {5/x g-g-g-g-g-} |

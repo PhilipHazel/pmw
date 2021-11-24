@@ -1,0 +1,52 @@
+
+@ This is A6!
+
+Sheetwidth 297.5
+Sheetdepth 421
+Linelength 240
+Pagelength 301
+
+*define top     72
+*define bottom -48
+*define left   -29
+*define right   29
+*define space   0
+*define line    30
+
+Draw onecrop
+   /y exch def /x exch def
+   dup &space mul y add x exch moveto &line mul y add x exch lineto
+   dup &space mul x add y moveto &line mul x add y lineto
+   0.2 setlinewidth stroke
+Enddraw
+@
+Draw crops
+   -1 -1 &left 20 &bottom add draw onecrop
+   -1  1 &left 20 &top pagelength add add draw onecrop
+    1 -1 &right linelength add 20 &bottom add draw onecrop
+    1  1 &right linelength add 20 &top pagelength add add draw onecrop
+Enddraw
+@
+Footing draw crops 0
+Pagefooting draw crops 0
+
+Heading 28 "|\bf\A6" 40
+
+Pageheading 12 ">>\pe\||\po\<<" 28
+Pagefooting ">>||<<"
+Heading 12 "|\it\Dedication" 28
+Heading 24 "|TITLE" 50
+Heading 12 "||\bf\Composer" 30
+Footing 10 "© somebody"
+Key C
+Time 4/4
+
+page 2
+
+[Staff 1] [Treble 1]
+[endstaff]
+
+[Staff 2] [Treble 1]
+[endstaff]
+
+[newmovement newpage]

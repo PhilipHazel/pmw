@@ -1,0 +1,166 @@
+nocheck
+textsizes 10 8/2 8
+
+page 2 2
+
+draw x
+  0 0 moveto   0 10 lineto   10 10 lineto   10 0 lineto  0 0 lineto
+  setgray fill
+  0 0 moveto "x" show
+  6 0 moveto "x"/rot30/s2 show  
+enddraw
+
+draw y
+  0 0 moveto   10 10 lineto   1 setlinewidth setgray stroke
+enddraw       
+
+
+[stave 1 treble 1]
+[draw 0.2 x] a [draw 0.2 x] a [draw 0.4 x draw 1 y] a [overdraw 0.6 x] a 
+[draw 0.8 x overdraw 1 y] a [overdraw 1 x] a
+[endstave]
+
+[newmovement]
+
+draw demo
+  /left leftbarx 10 add def 
+  /right -10 def
+  left -4 moveto 0 24 rlineto right 20 lineto 
+  0 -24 rlineto left -4 lineto 
+  1 setgray fillretain 
+  0 setgray 0.4 setlinewidth stroke
+  left right add 2 div 10 moveto
+  show 0 -10 rmoveto show 
+enddraw
+
+*define comment("","") Q! [space 40 overdraw &&2/c/s3 &&1/c/s3 demo]
+
+draw testbox
+  0 0 moveto 0 24 rlineto 50 0 rlineto 0 -24 rlineto -50 0 rlineto
+  0.4 setlinewidth stroke
+  25 10 moveto show
+enddraw     
+
+heading draw "heading"/c testbox
+heading "" 20
+
+[stave 1 "                      " draw "stave"/c testbox treble 1]
+&comment("Over-drawing", "demo") | 
+[line/h] gab | 
+&comment("one line") | 
+[linegap/w0/draw "linegap"/c testbox] bag [el]
+[endstave]
+
+
+[newmovement]
+
+suspend 2
+
+[stave 1 "1" "1" treble 1]
+[4] gggg [suspend] |
+[newline]
+[4] R! |
+[endstave]
+
+[stave 2 "2" "2" bass 0]
+[4] R! | [4] gggg |
+[endstave]
+
+
+
+[newmovement]
+layout 3,4
+heading "3,4"
+[stave 1 treble 1]
+[15] gggg |
+[endstave]
+
+
+[newmovement]
+layout 2(3),4
+heading "2(3),4"
+[stave 1 treble 1]
+[20] gggg |
+[endstave]
+
+[newmovement]
+layout 1,2,3,4,5; 2(3,3(4),5;)
+heading "1,2,3,4,5; 2(3,3(4),5;)"
+[stave 1 treble 1]
+[80] gggg |
+[endstave]
+
+
+[newmovement]
+heading "3 4 \\n 5 6"
+layout 3 4
+5 6
+[stave 1 treble 1]
+[20] gggg |
+[endstave]
+
+[newmovement]
+layout 10
+heading "10"
+[stave 1 treble 1]
+[20] gggg |
+[endstave]
+
+[newmovement]
+layout 4 11
+heading "4 11"
+justify left
+[stave 1 treble 1]
+[4] gggg | [key E$] [12] aaaa
+[endstave]
+
+
+[newmovement]
+nocheck
+justify top bottom left right
+
+heading "\pe\||\po\"
+pageheading "\pe\||\po\"
+
+
+[stave 1 treble 1]
+aa |
+[newpage]
+aa |
+[newpage]
+aa
+[endstave]
+
+[newmovement newpage]
+
+heading "New Movement"
+
+nocheck
+unfinished
+notime
+
+[Staff 1] [Bass] [Ulevel -16]
+"have mer-cy_up-on us. ^abc def"/ul
+r r- b`-; c-d- | E._ | E. | E. | E. |
+[newline]
+"\xx1\have mer-cy_up-on us. ^\xx1\abc def"/ul
+r r- b`-; c-d- | E._ | E. | E. | E.
+[endstave]
+
+
+[newmovement]
+unfinished
+
+time 6/8
+
+[stave 1 treble 1]
+a. b-a-g- | [time 12/8] g-a-b-; b-a-g-; ga-; b. |
+[endstave]
+
+[stave 2 bass 0]
+[time 2/4 -> 6/8]
+c-d-; e-f- | [time 4/4 -> 12/8] c=d=e=f=; e f-g-; g-f-
+[endstave]
+
+
+

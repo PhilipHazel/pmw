@@ -1,0 +1,11 @@
+bracket
+brace 1-2
+nocheck
+notime
+unfinished
+[stave 1 treble 1 couple down assume time 6/8]
+g`-f`-a-\sd\ | e`-\su\f`-g`-g-\sw\a-b-
+[endstave]
+[stave 2 bass 0]
+q-q-q- | Q! |
+[endstave]

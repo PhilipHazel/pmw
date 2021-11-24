@@ -1,0 +1,2 @@
+*comment --- Options: -s 1-2,3 ---
+*include "if.inc"

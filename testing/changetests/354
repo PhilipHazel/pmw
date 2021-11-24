@@ -1,0 +1,87 @@
+nocheck
+
+
+key e
+clefwidths 32 16 16 16 16
+
+[stave 1 treble 1]
+a | [newline] b
+[endstave]
+
+[stave 2 bass 0]
+a [treble 1] | b
+[endstave]
+
+[newmovement]
+
+
+key g
+justify top left
+
+clefwidths 16 16 16 16 16
+
+[stave 1 treble 1]
+a | [newline] b
+[endstave]
+
+[stave 2 bass 0]
+a [treble 1] | b
+[endstave]
+
+
+[newmovement]
+key f
+
+
+[stave 1 treble 1]
+a | [newline noclef] b |
+[newline hclef] b |
+[newline alto] b
+[endstave]
+
+[stave 2 bass 0]
+a | [noclef 1] b |
+[hclef 1] b |
+[alto] b
+[endstave]
+ 
+[newmovement]
+
+
+nocheck
+notime
+key B$
+
+[stave 1 treble 1]
+(: abcd [reset] R!| g | aaaa
+[endstave]
+
+[stave 2 bass 0]
+(: R! | g | R!
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+(: r(g`-.g-.);a=; a-.; a=; c'=-; a=-; r=r- |
+g==; g'==
+[endstave]
+
+[stave 2 bass 0]
+(: R! |
+[endstave]
+
+
+[newmovement]
+stemlengths 0 0 0 8 4 8
+
+[stave 1 treble 1]
+(: r(g`-.g-.);a=; a-.; a=; c'=-; a=-; r=r- |
+g==; g'==
+[endstave]
+
+[stave 2 bass 0]
+(: R! |
+[endstave]
+
+
+

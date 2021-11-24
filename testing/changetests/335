@@ -1,0 +1,137 @@
+key E
+linelength +30
+notespacing *0.85
+startlinespacing 4 0 4
+stavespacing 1/0 2/44 3/0 4/56 5/0 6/44 7/0
+systemgap 54
+time C
+notime
+
+Heading "<||>"
+
+justify top left
+
+[stave 1 treble 2]
+%g=%c'=b=a=; g=c'=b=a=; g=%f=e=f=; g=f=e=f= | 
+%g=a=g=%f=; e=a=g=f=; e=%d=%c=d=; g\su\ |
+[endstave]
+
+[stave 2 stems down ties below]
+[assume treble 2] Q! |
+qqq e=%?d=%?c=d= |
+[endstave]
+
+[stave 3 treble 2]
+e=%c=e=c=; e=c=e=c=; e=%d=%c=d=; e=d=c=d= |
+e=%f=e=%d=; %c=f=e=d=; c=b`=a`=b`=; c=b`=a`=b`= |
+[endstave]
+
+
+
+[newmovement]
+justify top right left
+key E
+
+[stave 1 treble 2]
+%g=%c'=b=a=; g=c'=b=a=; g=%f=e=f=; g=f=e=f= | 
+%g=a=g=%f=; e=a=g=f=; e=%d=%c=d=; g\su\ |
+[endstave]
+
+[stave 2 stems down ties below]
+[assume treble 2] Q! |
+qqq e=%?d=%?c=d= |
+[endstave]
+
+[stave 3 treble 2]
+e=%c=e=c=; e=c=e=c=; e=%d=%c=d=; e=d=c=d= |
+e=%f=e=%d=; %c=f=e=d=; c=b`=a`=b`=; c=b`=a`=b`= |
+[endstave]
+
+
+
+[newmovement]
+key E
+
+[stave 1 "first stave" treble 2]
+%g=%c'=b=a=; g=c'=b=a=; g=%f=e=f=; g=f=e=f= | 
+%g=a=g=%f=; e=a=g=f=; e=%d=%c=d=; g\su\ |
+[endstave]
+
+[stave 2 stems down ties below]
+[assume treble 2] Q! |
+qqq e=%?d=%?c=d= |
+[endstave]
+
+[stave 3 treble 2]
+e=%c=e=c=; e=c=e=c=; e=%d=%c=d=; e=d=c=d= |
+e=%f=e=%d=; %c=f=e=d=; c=b`=a`=b`=; c=b`=a`=b`= |
+[endstave]
+
+
+
+[newmovement]
+key E
+
+[stave 1 "test" treble 2]
+%g=%c'=b=a=; g=c'=b=a=; g=%f=e=f=; g=f=e=f= | 
+%g=a=g=%f=; e=a=g=f=; e=%d=%c=d=; g\su\ |
+[key E$] gggg
+[endstave]
+
+[stave 2 stems down ties below]
+[assume treble 2] Q! |
+qqq e=%?d=%?c=d= |
+[Key e$]
+[endstave]
+
+[stave 3 treble 2]
+e=%c=e=c=; e=c=e=c=; e=%d=%c=d=; e=d=c=d= |
+e=%f=e=%d=; %c=f=e=d=; c=b`=a`=b`=; c=b`=a`=b`= |
+[endstave]
+
+
+
+[newmovement]
+key E
+
+stavesizes 1/0.7 2/0.7 3/0.7
+
+[stave 1 "test" treble 2]
+%g=%c'=b=a=; g=c'=b=a=; g=%f=e=f=; g=f=e=f= | 
+%g=a=g=%f=; e=a=g=f=; e=%d=%c=d=; g\su\ |
+[key E$] gggg
+[endstave]
+
+[stave 2 stems down ties below]
+[assume treble 2] Q! |
+qqq e=%?d=%?c=d= |
+[endstave]
+
+[stave 3 treble 2]
+e=%c=e=c=; e=c=e=c=; e=%d=%c=d=; e=d=c=d= |
+e=%f=e=%d=; %c=f=e=d=; c=b`=a`=b`=; c=b`=a`=b`= |
+[endstave]
+
+[newmovement]
+nocheck
+stavesizes 1/1 2/1
+stavespacing 44
+
+[stave 1 treble 1]
+f=f=#f=#f=; g-($e-#g); g-($e-#g)
+[endstave]
+
+[stave 2 bass 0]
+g-($e-#g); f=f=#f=#f=; f=f=f=f=
+[endstave]
+
+[newmovement]
+nocheck
+heading "<||>"
+[stave 1 treble 1]
+g | ggggggggggggg
+
+
+
+
+

@@ -1,0 +1,4 @@
+** Warning: in one or more non-standardly encoded fonts, the following
+unsupported Unicode code points have been changed to a font-specific code point
+or to 0x24 in the Music font: U+FC75 U+FC50
+

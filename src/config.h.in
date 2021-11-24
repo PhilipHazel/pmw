@@ -1,0 +1,10 @@
+/* Configuration header file for PMW. The original is config.h.in, which is
+used as a basis for config.h. */
+
+/* Define NO_PMWRC non-zero to disable support for .pmwrc files. */
+#define NO_PMWRC @NO_PMWRC@
+
+/* Define SUPPORT_B2PF non-zero to include support for B2PF text processing. */
+#define SUPPORT_B2PF @SUPPORT_B2PF@
+
+/* End of config.h */

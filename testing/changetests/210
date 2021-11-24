@@ -1,0 +1,186 @@
+magnification 1.5
+unfinished
+nocheck
+landscape
+
+*define abc     "the quick brown fox"
+*define xyz()   jumps over the &&1 and the &&2;
+*define zzz(123)  another &&1 macro
+*define a((a), b&&))  two &&2 one &&1
+*define b(,c)   first &&1; second &&2
+
+heading &abc 
+heading "&xyz(  (cow, &)purple),br&,&(own) elephant"
+heading "&xyz"
+heading "&xyz()"
+heading "&zzz  &zzz(999)"
+heading "&b"
+heading "&b(1)"
+heading "&a" 40
+
+*define hang(g')  [slur&&2/rr15] &&1 [es]
+
+[stave 1 treble 1]
+&hang  &hang(,/b) &hang(e')  &hang(g,/b) &hang((g$&)bd'))
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+
+draw test1
+  /abc exch def 0 0 moveto 0 abc neg lineto stroke
+enddraw  
+
+draw test2
+  0 0 moveto 0 -2 lineto stroke
+enddraw  
+
+heading draw -10 test1 20
+heading draw test2 30
+
+[stave 1 treble 1]
+[draw test2] g[draw 5 test1] gg [draw +10 test1] |
+[line/h] gggg [linegap/draw -10 test1] ggg [el]
+[endstave]
+
+
+[newmovement]
+unfinished
+nocheck
+
+heading "!||!"
+heading "||S\sc\MALL CAPS \it\M\sc\ORE"
+heading "M\sc\ANY | SMALL | CAPS" 20
+heading 12/1.4 "U\sc\NISON" 30
+
+[stave 1 treble 1]
+"S\sc\MALL CAPS\rm\ Normal"/b/rot30 g 
+"A\sc\BOVE"/a/e "ABOVE"/a/e
+[endstave]
+
+[newmovement]
+unfinished
+check
+doublenotes
+
+[stave 1 treble 1]
+g.g-gg | [time C] abcd-e- |
+[endstave]
+
+[newmovement]
+unfinished
+halvenotes
+
+[stave 1 treble 1]
+g.g-gg | [time 2/2] abcd-e- |
+[endstave]
+
+[newmovement]
+draw test
+  0 0 moveto 0 3 gaptype mul rlineto stroke
+enddraw
+
+heading draw test
+time 3/4
+rehearsalmarks 15 bolditalic
+
+[stave 1 treble 1]
+[line/a] a [linegap/draw test] aa [el] | ["I"]
+[line/b] a [linegap/draw test] aa [el] |
+g-\M\ b-; g- b-\M\; g-\M\b-\M\ |
+[text underlay]
+"the-"/" -" aaa  | a "#"  r "cat" c 
+[endstave]
+
+[newmovement]
+nocheck
+unfinished
+underlaystyle 1
+
+[stave 1 treble 1][text underlay]
+"The quick= brown-= foxes"
+"The quick= brown-= foxes"/ol
+aaaaaa
+[endstave]
+
+[newmovement]
+unfinished
+underlaystyle 0
+
+[stave 1 treble 1][text underlay]
+"The quick= brown-= foxes"
+aaaaaa
+[endstave]
+
+[newmovement]
+unfinished
+underlaystyle 1
+
+[stave 1 treble 1][text underlay]
+"The qu^ick= brown^-= foxes"
+aaaaaa
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+
+draw c 0 0 moveto "1234"/c show enddraw
+draw nc 0 0 moveto "1234"/c/nc show enddraw
+draw e 0 0 moveto "1234"/e show enddraw
+draw ne 0 0 moveto "1234"/e/ne show enddraw
+
+heading draw c 15
+heading draw nc 15
+heading draw e 15
+heading draw ne 15
+
+[stave 1 treble 1]
+"abcd" gaa 
+"abcd"/c gaa
+"abcd"/c/nc gaa
+"abcd"/e gaa
+"abcd"/e/ne gaa
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+linelength 480
+
+footing "This is a very long footing paragraph, to check that it gets
+split up as it should be. Is this long enough?"
+
+heading 17 "The quick brown fox jumps over the lazy dog now."
+heading 17 "The quick brown fox jumps over the lazy dog now and again.
+A newline in a string counts as a space."
+heading 12 "<||>"
+heading 10 "This is a very long heading at a smaller type size. We
+want to see if it gets correctly split up into a justified paragraph.
+PMW is supposed to do this, splitting at a space character and stretching
+all but the last line of the paragraph."
+
+heading "" 6
+heading 10/1.2 "This is a very long heading at a smaller type size. We
+want to see if it gets correctly split up into a justified paragraph.
+PMW is supposed to do this, splitting at a space character and stretching
+all but the last line of the paragraph."
+heading "" 6
+heading 10 "OK, we are back in an untransformed font now. This should be
+similar to the heading of the last but one paragraph."
+
+[newmovement]
+heading "The quick brown fox jumps over the lazy dog now and again. And
+sometimes even more frequently than that."
+heading 12 "<||>"
+
+[newmovement newpage]
+heading "The \it\quick, justi\fied, italic brown fox \rm\jumps over the lazy
+dog for a crotchet \*c\ and other things again and again and again. Hey, you
+do need quite a lot of text to fill up the lines."
+
+lastfooting "This is a last footing; it should be split and justi\fied like
+the other footings that are sufficiently long. Make sure this one is
+long enough!"
+

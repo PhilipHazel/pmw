@@ -1,0 +1,44 @@
+nocheck
+magnification 1.5
+systemgap 60
+heading ""
+
+[stave 1 treble 1 stems down]
+[slur/e/clu10/cru10] gabc'd'e'f'g' [es] |
+
+[slur/e/clu4/cru40] gabc'd'e'f'g' [es] |
+[slur/e/cld20/cru40] gabc'd'e'f'g' [es] |
+[slur/e/cld20/cru40/crr20] gabc'd'e'f'g' [es] |
+[slur/e/cll20/cru40/crr20] gabc'd'e'f'g' [es] |
+
+[stems up]
+[slur/b/e/clu4/crd40] gabc'd'e'f'g' [es] |
+[slur/b/e/cld20/cru40/d12] gabc'd'e'f'g' [es] |
+[slur/b/e/cld20/crd40/crr20] gabc'd'e'f'g' [es] |
+[slur/b/e/cll20/cru40/crr20/u12] gabc'd'e'f'g' [es] |
+
+[stems down]
+[slur/clu4/cru4] gabc'd'e'f'g' [es] |
+[slur/i/clu4/cru40] gabc'd'e'f'g' [es] |
+
+[slur/w/u20/co8] gabc'def [es] |
+[slur/w/u20/co8/i] gabc'def [es] |
+[slur/w/u20/co8/e] gabc'def [es] |
+
+
+[stems auto]
+[slur/i] cdefgabc' [es] |
+[slur/i/cru25] cdefgabc' [es] |
+[slur/i/b/crd25] cdefgabc' [es] |
+[slur/ip] cdefgabc' [es] |
+[slur/b/ip] cd [es] |
+[line/i] cdefgabc' [es] |
+[line/ip] cdefgabc' [es] |
+[line/b/ip] cdefgabc' [es] |
+c_c  c_/e c  c'_/e c' c_/i c  c_/ip c  |
+(cgc')_p  p_/e p  p_/i p  p_/ip p |
+c_g  c_/e g  c_/i g  c_/ip g |
+[slur/e/1/clu8] c_/g g  c_/e/g g  c_/i/g g  c_/ip/g g  |
+c_/e |
+[newline]
+c c_/g c' [es]

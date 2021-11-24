@@ -1,0 +1,9 @@
+unfinished
+nocheck
+notime
+notespacing *1.2
+
+[stave 1 treble 1]
+"\it\cresc.-"/ul/" ."/u1.5  gc'ga | gf "#"/ul gr |
+[endstave]
+

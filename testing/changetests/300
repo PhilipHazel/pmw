@@ -1,0 +1,372 @@
+unfinished
+nocheck
+justify top left
+
+@ playtempo 100
+suspend 2-30, 33-62
+breakbarlines 32
+
+bracket 1-60
+brace 61-63
+stavesizes 61/0.8
+
+[stave 1 "1" treble 1]
+gggc'
+[endstave]
+
+[stave 31 "31" treble 1]
+aaaa
+[endstave]
+
+[stave 32 "32" treble 1]
+bbbb
+[endstave]
+
+[stave 61 "61" treble 1]
+dddd
+[endstave]
+
+[stave 63 "63" treble 1]
+dddd
+[endstave]
+
+
+
+[newmovement]
+stavesizes 61/1
+
+stavespacing 1/0, 2/0, 3/0,
+             5/0, 6/0, 7/0,
+             9/0,10/0,11/0,
+            13/0,14/0,15/0,
+            17/0,18/0,19/0,
+            21/0,22/0,23/0,
+            25/0,26/0,27/0,
+            29/0,30/0,31/0,
+            33/0,34/0,35/0,
+            37/0,38/0,39/0,
+            41/0,42/0,43/0,
+            45/0,46/0,47/0,
+            49/0,50/0,51/0,
+            53/0,54/0,55/0,
+            57/0,58/0,50/0,
+            61/0,62/0              
+
+
+[stave 1 treble 1]
+aa
+[endstave]
+
+[stave 2 treble 1]
+aa
+[endstave]
+
+[stave 3 treble 1]
+aa
+[endstave]
+
+[stave 4 treble 1]
+aa
+[endstave]
+
+[stave 5 treble 1]
+aa
+[endstave]
+
+[stave 6 treble 1]
+aa
+[endstave]
+
+[stave 7 treble 1]
+aa
+[endstave]
+
+[stave 8 treble 1]
+aa
+[endstave]
+
+[stave 9 treble 1]
+aa
+[endstave]
+
+[stave 10 treble 1]
+aa
+[endstave]
+
+
+[stave 11 treble 1]
+aa
+[endstave]
+
+[stave 12 treble 1]
+aa
+[endstave]
+
+[stave 13 treble 1]
+aa
+[endstave]
+
+[stave 14 treble 1]
+aa
+[endstave]
+
+[stave 15 treble 1]
+aa
+[endstave]
+
+[stave 16 treble 1]
+aa
+[endstave]
+
+[stave 17 treble 1]
+aa
+[endstave]
+
+[stave 18 treble 1]
+aa
+[endstave]
+
+[stave 19 treble 1]
+aa
+[endstave]
+
+[stave 20 treble 1]
+aa
+[endstave]
+
+
+[stave 21 treble 1]
+aa
+[endstave]
+
+[stave 22 treble 1]
+aa
+[endstave]
+
+[stave 23 treble 1]
+aa
+[endstave]
+
+[stave 24 treble 1]
+aa
+[endstave]
+
+[stave 25 treble 1]
+aa
+[endstave]
+
+[stave 26 treble 1]
+aa
+[endstave]
+
+[stave 27 treble 1]
+aa
+[endstave]
+
+[stave 28 treble 1]
+aa
+[endstave]
+
+[stave 29 treble 1]
+aa
+[endstave]
+
+[stave 30 treble 1]
+aa
+[endstave]
+
+
+[stave 31 treble 1]
+aa
+[endstave]
+
+[stave 32 treble 1]
+aa
+[endstave]
+
+[stave 33 treble 1]
+aa
+[endstave]
+
+[stave 34 treble 1]
+aa
+[endstave]
+
+[stave 35 treble 1]
+aa
+[endstave]
+
+[stave 36 treble 1]
+aa
+[endstave]
+
+[stave 37 treble 1]
+aa
+[endstave]
+
+[stave 38 treble 1]
+aa
+[endstave]
+
+[stave 39 treble 1]
+aa
+[endstave]
+
+[stave 40 treble 1]
+aa
+[endstave]
+
+
+[stave 41 treble 1]
+aa
+[endstave]
+
+[stave 42 treble 1]
+aa
+[endstave]
+
+[stave 43 treble 1]
+aa
+[endstave]
+
+[stave 44 treble 1]
+aa
+[endstave]
+
+[stave 45 treble 1]
+aa
+[endstave]
+
+[stave 46 treble 1]
+aa
+[endstave]
+
+[stave 47 treble 1]
+aa
+[endstave]
+
+[stave 48 treble 1]
+aa
+[endstave]
+
+[stave 49 treble 1]
+aa
+[endstave]
+
+[stave 50 treble 1]
+aa
+[endstave]
+
+
+[stave 51 treble 1]
+aa
+[endstave]
+
+[stave 52 treble 1]
+aa
+[endstave]
+
+[stave 53 treble 1]
+aa
+[endstave]
+
+[stave 54 treble 1]
+aa
+[endstave]
+
+[stave 55 treble 1]
+aa
+[endstave]
+
+[stave 56 treble 1]
+aa
+[endstave]
+
+[stave 57 treble 1]
+aa
+[endstave]
+
+[stave 58 treble 1]
+aa
+[endstave]
+
+[stave 59 treble 1]
+aa
+[endstave]
+
+[stave 60 treble 1]
+aa
+[endstave]
+
+[stave 61 treble 1]
+aa
+[endstave]
+
+[stave 62 treble 1]
+aa
+[endstave]
+
+[stave 63 treble 1]
+aa
+[endstave]
+
+[newmovement]
+nocheck
+unfinished
+
+gracesize 6
+
+@ This file contains a set of functions concerned with the drawing of
+@ circles.
+@
+@ Philip Hazel
+@ October 1993
+
+@ This function draws a circle. It must be called with four values on
+@ the stack: the thickness of the line, the radius, and the coordinates 
+@ of the centre. For example:
+@   heading draw 0.4 20 24 0 circle
+@ The variables xx1 - xx4 are used as local variables.
+
+draw circle
+  moveto 1.414 div 
+  dup 0.6 mul /xx1 exch def dup 1.4 mul /xx2 exch def
+  dup 0.5 mul /xx3 exch def dup 2.0 mul /xx4 exch def
+  neg dup rmoveto
+  xx1 xx3 neg xx2 xx3 neg xx4 0 rcurveto
+  xx1 xx1 xx1 xx2 0 xx4 rcurveto
+  xx1 neg xx3 xx2 neg xx3 xx4 neg 0 rcurveto
+  xx1 neg xx1 neg xx1 neg xx2 neg 0 xx4 neg rcurveto
+  setlinewidth stroke
+enddraw    
+
+@ This function draws a circle round the next notehead. It must be called
+@ with the line thickness value on the stack. For example:
+@   [draw 0.5 circlenote] g
+@ This works for chords as well as notes, and is best called via a macro
+@ with the note as its argument. The following macro has an optional
+@ second argument for changing the line thickness, which defaults to 0.4.
+
+*define circ(,0.4)  [draw &&2 circlenote] &&1
+
+@ Accidentals are accounted for, and this works OK for single notes. For
+@ some chords, however, the radius may turn out to be too big. The variables
+@ xx1 - xx4 are used as local variables (because it calls the circle function).
+
+draw circlenote
+  headtop headbottom sub 2 div /xx1 exch def
+  xx1 3.5 add accleft add
+  headright headleft add 2 div 0.25 add headbottom xx1 add
+  draw circle
+enddraw   
+
+@ End of circles functions.
+
+
+[stave 1 treble 1]
+&circ g  [space 8] 
+&circ g\g\
+[move 8 cue] &circ g 
+
+
+

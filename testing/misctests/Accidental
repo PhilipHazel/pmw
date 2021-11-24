@@ -1,0 +1,30 @@
+magnification 1.5
+notespacing *1.5     
+nocheck
+justify top left
+
+[stave 1 treble 1]
+#g #<g #<<g #<7.5g | #)g #]g ##)g
+(#f#c') (#<f#c') (#f#<c') ($c#f#g%b##c')
+[endstave]
+
+[newmovement]
+[stave 1 "default" treble 1]
+#G++ $G+ | 
+##g $g $$g  %g #g
+[endstave]
+
+[newmovement]
+accadjusts -10 3
+[stave 1 "accadjusts" 1 treble 1]
+
+#G++ $G+ |
+[endstave]
+
+
+[newmovement]
+accspacing 8 9 10 11 12
+
+[stave 1 "accspacing" treble 1]
+##g $g $$g  %g #g
+[endstave]

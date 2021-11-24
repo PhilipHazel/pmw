@@ -1,0 +1,247 @@
+unfinished
+nocheck
+key A$
+thinbracket 3-4
+
+[stave 1 "left" "S"/e treble 1]
+F'+ |  [newline] G+
+[endstave]
+ 
+[stave 2 "right-you-are"/e "A"/e treble 1]
+F'+ | G+
+[endstave]
+ 
+[stave 3 "mid|middle"/c "Piano" treble 1]
+F'+ | G+
+[endstave]
+ 
+[stave 4 "very-very-long-on-the-left" treble 1]
+F'+ [suspend] | R+
+[endstave]
+ 
+[newmovement]
+
+nocheck
+key A$
+thinbracket 3-4
+barlinestyle 2
+breakbarlines 1
+stavespacing 7/32
+
+[stave 1 omitempty barlinestyle 0]
+ | [treble 1] g+ || g+ |
+g+ |4 g+ |5 g+ |5 g+
+[endstave]
+ 
+[stave 2 treble 1 barlinestyle 1]
+f'+ | f+ |0 g+ | R |5 R
+[endstave]
+ 
+[stave 3 treble 1]
+f'+ |  |1 g+ |0 g+ |? G |4
+[endstave]
+ 
+[stave 4 treble 1]
+f'+ | f+ |1 r+ |0
+[endstave]
+
+[stave 5 treble 1 barlinestyle 3]
+G | G [breakbarline] | G |
+[endstave]
+
+[stave 6 treble 1 barlinestyle 0]
+R | R | R
+[endstave]
+ 
+[stave 7 treble 1]
+R | R | R |
+[endstave]
+
+[stave 8 treble 1]
+R | R | R |
+[endstave]
+
+[newmovement]
+
+nocheck
+beamendrests
+barlinestyle 0
+justify top left
+
+[stave 1 treble 1]
+a-g- r-\m l-4\ q- g-a- | rrrr
+[endstave]
+
+[stave 2 bass 0]
+rrr | r-\m l4\q-a-g-r-\m l4\q- g |
+[endstave]
+
+[newmovement]
+check
+
+[stave 1 treble 1]
+g\M\ g\m.\ g\m-.\ g\m..\ |
+g.\M\ g.\m.\ r\m.\ |
+g\m.+\ R.\m..\
+[endstave]
+
+[newmovement]
+nocheck
+
+[stave 1 treble 1]
+{ggg}  {/u4 ggg} {/lu4 ggg} {/u4/lu4 ggg}
+{/ru4 ggg} {/u4/ru4 ggg} {/u4/ru4/ld4 ggg} |
+{/a4 ggg} {/a4 bbb} {/a4/ru4 ggg}
+{/b12 ggg}
+[endstave]
+
+[newmovement]
+nocheck
+hairpinwidth 20
+notime
+
+[stave 1 treble 1]
+</a gggg < </w4/a gggg < >/w10/a gggg > |
+< gggg < </w4 gggg < >/w10 gggg > |
+[newline hairpinwidth 7]
+< gggg <  </w4/l9 </l9 >/w4/r4 >/r6 g
+[endstave] 
+
+[newmovement]
+barnumberlevel +4
+barnumbers boxed 1
+heading ""
+
+[stave 1 treble 1]
+gggg | g'gg | c'c'c'c' | bbbb |
+[endstave]
+
+
+[newmovement]
+hairpinwidth 7
+barnumbers 1000
+nocheck
+justify top left
+notime
+systemgap 60
+
+[stave 1 treble 1]
+</a bbbb < | </a10 bbbb < | </a10/u4 bbbb < | 
+>/b b\sd\bbb > | >/b10 bbbb > | >/b10/d4 bbbb > |
+>/b10/d4 bbbb >/u8 |
+
+[hairpins below 10] > bbbb > | >/d4 bbbb >/u8 |
+[hairpins above 10] 
+< bbbb < | </a bbbb < | [hairpins above] < bbbb < |
+[hairpins above +4] < bbbb < | < b\su\bbb < |
+</a bbbb | [hairpins above -8] > bbbb > |
+[endstave]
+
+
+[newmovement]
+[stave 1 treble 1 hairpins middle]
+> bbbb > |
+[hairpins middle +8] > bbbb > | >  e\sd\eee >
+[endstave]
+
+[stave 2 bass 0]
+dddd | dddd
+[endstave]
+
+[newmovement]
+nocheck
+justify top left
+notime
+systemgap 60
+
+[stave 1 treble 1]
+{ggg} [triplets above] {ggg} 
+[triplets above +10] {ggg} {/a ggg} {ggg} |
+[triplets auto] {ggg} {/b ggg} 
+[triplets below +4] {ggg} | [triplets nobracket] {ggg} |
+[triplets auto]
+{ggg} | [triplets above 10] {g'\su\g'g'} |
+{/u4 g'\su\g'g'} | {ggg} |
+[triplets below 10] {g\sd\gg} |
+[triplets auto] {ggg}
+[endstave]
+
+[newmovement]
+nocheck
+notime
+
+[stave 1 treble 1]
+D
+[ensure 32]
+G | ggg [ensure 20] g
+[endstave]
+
+[stave 2 treble 1]
+gggg |
+[ensure 10] gggg | 
+[endstave]
+
+[newmovement]
+nobeamendrests
+
+[stave 1 treble 1]
+r-b'-a'-g'-; f'-e'-d'-c'- |
+b-b'-a'-f'-; g'-d'-e'-c'- | 
+b-b'-a'-g'-; f'-e'-d'-c'- |
+b-b'-g'-a'-; f'-d'-e'-c'- |
+d'-b-d'-f'-; #e'-d'-c'-b- | 
+a-f-a-c'-; d'-b-d'-f'- |
+e'-b-e'-g'-; %a'-g'-f'-e'- |
+d'-b-d'-f'-; g'-f'-g'-#a'- |
+b'-b-d'-f'-; #e'-d'-c'-b- |
+a-f-a-c'-; d'-b-d'-f'- |
+e'-b-e'-g'-; %a'-g'-f'-e'- |
+d'-b-d'-f'-; b'r |
+
+b-b'-a'-f'- | f'-c-d-b- | c`-d'''-d'''-d'''- |
+d'''-\su\c`-c`-c`- | f-f'-f'-f'- | f'-\su\f-f-f- |
+g-\sd\b=b=; f-\sd\b=b=; | e-\sd\b=b=; e-b=b= |
+b'-\su\b=b=; f'-\su\b=b=; | d'-\su\b=b=; c'-\su\b=b= |
+b-\su\b=b=; | a-\su\b=b=; g-\su\b=b=; f-\su\b=b= |
+{b=\su\c'=b=}d-; {b=\su\c'=b=}d-c-; | 
+{b=\su\c'=b=},e=d=c=; {b=\su\b=b=}d-; {f=\sd\e=f=}c'- | 
+b-\su\c'-b-d-; f-\sd\e-f-c'-;  b-\sd\c'-b-d- | 
+a-\su\f-a-c'-; a-\sd\f-a-c'- | d'-c'-b-c'-; d'-\su\c'-b-c'- |
+e'=d'=e'=d'=; |
+
+[stems down]
+f-e-f-c'-; a-f-a-c'- | f-r-r-c'-; a-r-r-c'- |
+
+[stems up]
+c''-a`-; a`-c''-; | f-f-; f-g-; f-a-; f-b-; b |
+f-c'-; c' f-d'-; d' f-e'-; e' f-f'- f' | f-g'-; g' f-a'- a' |
+[stems down]
+f'-b- b f'-a- a f'-g- g f'-f- f |
+[endstave]
+
+
+[newmovement]
+stavespacing 2/0
+
+[stave 1 treble 1]
+gggg | 
+[key E$] 
+gggg |
+[endstave]
+
+[stave 2 treble 1]
+bbbb | [key E$] bbbb |
+[endstave]
+
+[stave 3 treble 1]
+gggg | 
+[key E$] 
+gggg |
+[endstave]
+
+
+
+
+ 
+ 
+ 

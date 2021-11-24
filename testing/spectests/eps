@@ -1,0 +1,11 @@
+nocheck
+justify bottom left right
+
+heading "heading"
+
+[stave 1 treble 1]
+a b c d |
+[newline]
+ a b  r  d |
+[newline]
+abcd 

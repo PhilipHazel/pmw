@@ -1,0 +1,23 @@
+notime
+justify top     
+@pagelength 200
+pagelength 150
+heading 10 "|-----"
+footing "-----------"
+pagefooting "----------------"
+
+unfinished
+
+[stave 1 treble 1]
+aaaa | [newline]
+aaaa | 
+[endstave]
+
+
+[newmovement]
+justify bottom left
+[stave 1 treble 1]
+@[justify +right -left]
+aaaa |
+[newpage]
+aaaa

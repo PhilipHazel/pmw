@@ -1,0 +1,268 @@
+nocheck
+magnification 1.1
+justify top left
+
+[stave 1 treble 1]
+a\..\ d'\..\ |
+[\..\] cdefgabc'd'e'f'g' [\\] |
+a\..!\ d'\..!\ |
+[\..!\] cdefgabc'd'e'f'g' [\\] |
+a\..-\ e'\..-\ a\.-\ e'\.-\ |
+
+a\../d6\ a\../d6-\
+[endstave]
+
+[newmovement]
+
+breakbarlines
+barnumbers boxed line
+bracket 1-3
+brace 2-3
+
+stavespacing 1/65 2/50
+underlaysize 9.0
+notespacing *1.3
+
+layout 4
+
+key B$
+time 4/4
+
+[stave 1 trebletenor 1 text underlay]
+[ulevel -25]
+[sshere -10]
+
+@ Bar 1 - Verse 1
+[2] R! | 
+"I went out to the ha-=zel= wood, Be-"
+[slur] f. a- b a- b- | d'- c'-; b- a- b [es] r- [slur] a- |
+[endstave]
+
+[stave 2 "Piano"/m "Piano"/m treble 1 ]
+(D B) F\~\ | r r- c- D |
+b`-\g\ c-\g\ d\g\ f- d- c. d-; f- b- |
+A.\sd\ q [reset] q  d- c-_ c f- d- |
+[endstave]
+
+[stave 3 bass 0]
+b` f c' f | "mf"/a15 b` f b f |
+b` d- c- d b` | d f. a- b |
+[endstave]
+
+
+[newmovement]
+notespacing *1.3
+layout 4
+
+key B$
+time 4/4
+
+[stave 1 trebletenor 1 text underlay]
+[ulevel -25]
+[sshere -10]
+
+[2] R! | 
+"I went #out to the# ha-=zel= wood, Be-"
+[slur] f. a- b a- b- | d'- c'-; b- a- b [es] r- [slur] a- |
+[endstave]
+
+[stave 2 "Piano"/m "Piano"/m treble 1 ]
+(D B) F\~\ | r r- c- D |
+b`-\g\ c-\g\ d\g\ f- d- c. d-; f- b- |
+A.\sd\ q [reset] q  d- c-_ c f- d- |
+[endstave]
+
+[stave 3 bass 0]
+b` f c' f | "mf"/a15 b` f b f |
+b` d- c- d b` | d f. a- b |
+[endstave]
+
+[newmovement]
+draw xxx
+  0 0 moveto   "Level" show 
+               "/d10"/d10 show 
+               "/u20"/u20 show
+               "Level"/u-10 show
+  0 -20 moveto "Level/r10"/r10 show
+  0 -40 moveto "Level/l10"/l10 show
+  0 -60 moveto "Level/l-10"/l-10 show
+  0 -80 moveto show show show show
+  0 -100 moveto "Level" show 23 ""/d5 cvs show 
+enddraw
+
+heading draw "/d4/d6->Level"/d4/d6 "/u20"/u20 "/d10"/d10 "Level" xxx 140  
+
+justify top left right
+stavespacing 44
+
+[stave 1 treble 1]
+aaaa ||| [4] bbbb |
+[endstave]
+
+[stave 2 treble 1]
+aaaa ||| [4] bbbb |
+[endstave]
+
+
+[newmovement]
+breakbarlines 1
+
+[stave 1 treble 1]
+aaaa ||| [4] bbbb |
+[endstave]
+
+[stave 2 treble 1]
+aaaa ||| [4] bbbb |
+[endstave]
+
+
+[newmovement]
+breakbarlines 1
+
+[stave 1 treble 1]
+aaaa ||| [newline] [4] bbbb |
+[endstave]
+
+[stave 2 treble 1]
+aaaa ||| [4] bbbb |
+[endstave]
+
+
+[newmovement]
+breakbarlines 3
+
+[stave 1 treble 1]
+aaaa :) ||| bbbb :)|| bbbb :)| [2] bbbb |
+[endstave]
+
+[stave 2 treble 1]
+aaaa :)||| bbbb :)|| bbbb :)| [2] bbbb |
+[endstave]
+
+
+[newmovement]
+barlinestyle 1
+
+[stave 1 treble 1]
+aaaa :) ||| bbbb :)|| bbbb :)| [2] bbbb |
+[endstave]
+
+[stave 2 treble 1]
+aaaa :)||| bbbb :)|| bbbb :)| [2] bbbb |
+[endstave]
+
+[newmovement]
+justify top left right
+systemgap 65
+barlinestyle 0
+
+[stave 1 treble 1]
+a\./(\ b\./)\ c'\./b\ d'\./b/u8/l4\ |
+a\!./(\ b\!./)\ c'\!./b\ d'\!./b/u8/l4\ |
+a\./[\ b\./]\ c'\./B\ d'\./B/u8/l4\ |
+a\!./[\ b\!./]\ c'\!./B\ d'\!./B/u8/l4\ |
+
+a\../(\ b\../)\ c'\../b\ d'\../b/u8/l4\ |
+a\!../(\ b\!../)\ c'\!../b\ d'\!../b/u8/l4\ |
+a\../[\ b\../]\ c'\../B\ d'\../B/u8/l4\ |
+a\!../[\ b\!../]\ c'\!../B\ d'\!../B/u8/l4\ |
+
+a\o/(\ b\o/)\ c'\o/b\ d'\o/b/u8/l4\ |
+a\!o/(\ b\!o/)\ c'\!o/b\ d'\!o/b/u8/l4\ |
+a\o/[\ b\o/]\ c'\o/B\ d'\o/B/u8/l4\ |
+a\!o/[\ b\!o/]\ c'\!o/B\ d'\!o/B/u8/l4\ |
+
+a\-/(\ b\-/)\ c'\-/b\ d'\-/b/u8/l4\ |
+a\!-/(\ b\!-/)\ c'\!-/b\ d'\!-/b/u8/l4\ |
+a\-/[\ b\-/]\ c'\-/B\ d'\-/B/u8/l4\ |
+a\!-/[\ b\!-/]\ c'\!-/B\ d'\!-/B/u8/l4\ |
+
+a\>/(\ b\>/)\ c'\>/b\ d'\>/b/u8/l4\ |
+a\!>/(\ b\!>/)\ c'\!>/b\ d'\!>/b/u8/l4\ |
+a\>/[\ b\>/]\ c'\>/B\ d'\>/B/u8/l4\ |
+a\!>/[\ b\!>/]\ c'\!>/B\ d'\!>/B/u8/l4\ |
+
+a\v/(\ b\v/)\ c'\v/b\ d'\v/b/u8/l4\ |
+a\!v/(\ b\!v/)\ c'\!v/b\ d'\!v/b/u8/l4\ |
+a\v/[\ b\v/]\ c'\v/B\ d'\v/B/u8/l4\ |
+a\!v/[\ b\!v/]\ c'\!v/B\ d'\!v/B/u8/l4\ |
+
+a\V/(\ b\V/)\ c'\V/b\ d'\V/b/u8/l4\ |
+a\!V/(\ b\!V/)\ c'\!V/b\ d'\!V/b/u8/l4\ |
+a\V/[\ b\V/]\ c'\V/B\ d'\V/B/u8/l4\ |
+a\!V/[\ b\!V/]\ c'\!V/B\ d'\!V/B/u8/l4\ |
+
+a\'/(\ b\'/)\ c'\'/b\ d'\'/b/u8/l4\ |
+a\!'/(\ b\!'/)\ c'\!'/b\ d'\!'/b/u8/l4\ |
+a\'/[\ b\'/]\ c'\'/B\ d'\'/B/u8/l4\ |
+a\!'/[\ b\!'/]\ c'\!'/B\ d'\!'/B/u8/l4\ |
+
+a\d/(\ b\d/)\ c'\d/b\ d'\d/b/u8/l4\ |
+a\!d/(\ b\!d/)\ c'\!d/b\ d'\!d/b/u8/l4\ |
+a\d/[\ b\d/]\ c'\d/B\ d'\d/B/u8/l4\ |
+a\!d/[\ b\!d/]\ c'\!d/B\ d'\!d/B/u8/l4\ |
+
+a\u/(\ b\u/)\ c'\u/b\ d'\u/b/u8/l4\ |
+a\!u/(\ b\!u/)\ c'\!u/b\ d'\!u/b/u8/l4\ |
+a\u/[\ b\u/]\ c'\u/B\ d'\u/B/u8/l4\ |
+a\!u/[\ b\!u/]\ c'\!u/B\ d'\!u/B/u8/l4\ |
+
+a\f/(\ b\f/)\ c'\f/b\ d'\f/b/u8/l4\ |
+a\!f/(\ b\!f/)\ c'\!f/b\ d'\!f/b/u8/l4\ |
+a\f/[\ b\f/]\ c'\f/B\ d'\f/B/u8/l4\ |
+a\!f/[\ b\!f/]\ c'\!f/B\ d'\!f/B/u8/l4\ |
+
+a\~|/(\ b\~|/)\ c'\~|/b\ d'\~|/b/u8/l4\ |
+a\!~|/(\ b\!~|/)\ c'\!~|/b\ d'\!~|/b/u8/l4\ |
+a\~|/[\ b\~|/]\ c'\~|/B\ d'\~|/B/u8/l4\ |
+a\!~|/[\ b\!~|/]\ c'\!~|/B\ d'\!~|/B/u8/l4\ |
+
+a\~~|/(\ b\~~|/)\ c'\~~|/b\ d'\~~|/b/u8/l4\ |
+a\!~~|/(\ b\!~~|/)\ c'\!~~|/b\ d'\!~~|/b/u8/l4\ |
+a\~~|/[\ b\~~|/]\ c'\~~|/B\ d'\~~|/B/u8/l4\ |
+a\!~~|/[\ b\!~~|/]\ c'\!~~|/B\ d'\!~~|/B/u8/l4\ |
+
+a\~/(\ b\~/)\ c'\~/b\ d'\~/b/u8/l4\ |
+a\!~/(\ b\!~/)\ c'\!~/b\ d'\!~/b/u8/l4\ |
+a\~/[\ b\~/]\ c'\~/B\ d'\~/B/u8/l4\ |
+a\!~/[\ b\!~/]\ c'\!~/B\ d'\!~/B/u8/l4\ |
+
+a\~~/(\ b\~~/)\ c'\~~/b\ d'\~~/b/u8/l4\ |
+a\!~~/(\ b\!~~/)\ c'\!~~/b\ d'\!~~/b/u8/l4\ |
+a\~~/[\ b\~~/]\ c'\~~/B\ d'\~~/B/u8/l4\ |
+a\!~~/[\ b\!~~/]\ c'\!~~/B\ d'\!~~/B/u8/l4\ |
+
+a\t/(\ b\t/)\ c'\t/b\ d'\t/b/u8/l4\ |
+a\!t/(\ b\!t/)\ c'\!t/b\ d'\!t/b/u8/l4\ |
+a\t/[\ b\t/]\ c'\t/B\ d'\t/B/u8/l4\ |
+a\!t/[\ b\!t/]\ c'\!t/B\ d'\!t/B/u8/l4\ |
+
+a\t|/(\ b\t|/)\ c'\t|/b\ d'\t|/b/u8/l4\ |
+a\!t|/(\ b\!t|/)\ c'\!t|/b\ d'\!t|/b/u8/l4\ |
+a\t|/[\ b\t|/]\ c'\t|/B\ d'\t|/B/u8/l4\ |
+a\!t|/[\ b\!t|/]\ c'\!t|/B\ d'\!t|/B/u8/l4\ |
+
+a\tr/(\ b\tr/)\ c'\tr/b\ d'\tr/b/u8/l4\ |
+a\!tr/(\ b\!tr/)\ c'\!tr/b\ d'\!tr/b/u8/l4\ |
+a\tr/[\ b\tr/]\ c'\tr/B\ d'\tr/B/u8/l4\ |
+a\!tr/[\ b\!tr/]\ c'\!tr/B\ d'\!tr/B/u8/l4\ |
+
+a\tr#/(\ b\tr#/)\ c'\tr#/b\ d'\tr#/b/u8/l4\ |
+a\!tr#/(\ b\!tr#/)\ c'\!tr#/b\ d'\!tr#/b/u8/l4\ |
+a\tr#/[\ b\tr#/]\ c'\tr#/B\ d'\tr#/B/u8/l4\ |
+a\!tr#/[\ b\!tr#/]\ c'\!tr#/B\ d'\!tr#/B/u8/l4\ |
+
+a\tr$/(\ b\tr$/)\ c'\tr$/b\ d'\tr$/b/u8/l4\ |
+a\!tr$/(\ b\!tr$/)\ c'\!tr$/b\ d'\!tr$/b/u8/l4\ |
+a\tr$/[\ b\tr$/]\ c'\tr$/B\ d'\tr$/B/u8/l4\ |
+a\!tr$/[\ b\!tr$/]\ c'\!tr$/B\ d'\!tr$/B/u8/l4\ |
+
+a\tr%/(\ b\tr%/)\ c'\tr%/b\ d'\tr%/b/u8/l4\ |
+a\!tr%/(\ b\!tr%/)\ c'\!tr%/b\ d'\!tr%/b/u8/l4\ |
+a\tr%/[\ b\tr%/]\ c'\tr%/B\ d'\tr%/B/u8/l4\ |
+a\!tr%/[\ b\!tr%/]\ c'\!tr%/B\ d'\!tr%/B/u8/l4\ |
+
+d'\../(\ d'\../u3\ d'\../u3\ [\\] d'\../)\ |
+d'\../(\ d'\..\ d'\..\ [\\] d'\../)\ |
+[endstave]
+

@@ -1,0 +1,85 @@
+magnification 4
+nocheck
+heading ""
+pageheading ""
+justify top left right
+notime
+@bracket
+@join
+thinbracket 2-3
+
+draw test
+   -10 16 moveto
+   0  8 rlineto
+   8  0 rlineto  
+   0  8 rlineto
+   6 -8 rlineto
+   stroke
+enddraw       
+
+[stave 1 treble 1]
+["A"] gggg [draw test] | 
+[endstave]
+
+[stave 2 treble 1]
+[line/h] [line/h/b]
+bbbb [el el] |
+[endstave]
+
+[stave 3 treble 1]
+bbbb |
+[endstave]
+
+[stave 4 treble 1]
+{/a bbb} {/b bbb} |
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+[slur/1/clu20] gggg | [newline] gggg [es] | 
+[endstave]
+
+[newmovement]
+justify top left
+[stave 1 treble 1]
+g :)(: g :)|(: g
+[endstave]
+
+[newmovement]
+repeatstyle 1
+[stave 1 treble 1]
+g :)(: g :)|(: g
+[endstave]
+
+[newmovement]
+repeatstyle 2
+[stave 1 treble 1]
+g :)(: g :)|(: g
+[endstave]
+
+[newmovement]
+repeatstyle 3
+[stave 1 treble 1]
+g :)(: g :)|(: g
+[endstave]
+
+[newmovement]
+linelength 540
+suspend 2 
+
+repeatstyle 4
+[stave 1 treble 1]
+g :)(: g :)|(: g | g :)| g |(: g :)|(: g
+[endstave]
+
+[stave 2 treble 1]
+Q! | Q! | g :)| g |(: g :)|(: g
+[endstave]
+
+
+[newmovement]
+[stave 1 "Soprano|Alto"/c/e treble 1] g [endstave]
+[stave 2 "Tenor|Bass"/c/e bass 0] g [endstave]
+
+
+

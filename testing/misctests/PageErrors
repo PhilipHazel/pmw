@@ -1,0 +1,13 @@
+@ This test should have been created ages ago, to check error messages. I'm
+@ starting it now with a few that have changed. Adding others should be done
+@ as time permits. These errors are those that are detected while paginating.
+@ Errors while reading are in the Errors test.
+
+
+@ ----- Bar length -----
+
+nocheck
+[stave 1 treble 1] ggg  [endstave]
+[stave 2 treble 1] ggg- [endstave]
+
+

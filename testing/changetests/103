@@ -1,0 +1,157 @@
+nocheck
+breakbarlines 2
+justify top left right
+
+draw rule
+  0 0 moveto linelength 0 rlineto
+  1 setlinewidth 
+stroke
+enddraw
+
+
+heading draw rule 11
+heading "<|^|>" 30
+
+
+[stave 1 "1" "1" treble 1]
+< g e-\g\f-\g\gge-\g sd\f-\g\g < | </m gggg < |
+[newline]
+ffff
+[endstave]
+
+[stave 2 "2" "2" treble 1]
+d\c\ d\c h\ R |
+[couple down]
+c'\c\ q R
+[suspend] |
+[endstave]
+
+[stave 3 "3" "3" bass]
+q- g-\c\ q R |
+[couple up]
+q c\c\ R
+[suspend] |
+[endstave]
+
+[stave 4 "4" "4" bass]
+[endstave]
+
+[newmovement]
+cuesize 8
+[stave 1 treble 1]
+> gabc' > | [hairpins above] < gabc' < |
+</b gabc' < | [hairpins below] > gabc' > |
+</a gabc' < |
+[newline]
+<ggg< </d4 ggg < | <ggg</d8 </d8 ggg </u8 | < ggg |
+[newline]
+ggg < | </d4 ggg |
+[newline]
+ggg < | </sld8 ggg |
+[newline]
+ggg < | </srd8 ggg |
+[newline]
+ggg < | </sru4 ggg |
+[newline]
+ggg </d8 | >/h GGG > | > GGG >/h | >/h GGG >/h |
+> GGG >/h0.2 | < GGG |  G</h G > GGG | >/h GG > G | >/h GG |
+[newline]
+>/h GGG > >/h/l6 GGG > | > GGG |
+[newline]
+GG> >GGG>| <GGG< < GG |
+[newline]
+GG< | [sl -4] gg g\sl4\ [sl 4] gg\sl-4\ [sl 0] g |
+"a"/a c'\g\
+"a"/a c'\su\
+[cue] "a"/a c'\su\
+[endstave]
+
+[newmovement]
+time 2/4
+check
+
+[stave 1 treble 1]
+[beamslope 0.1] [beamacc]
+{5/x g-g-g-g-g-} |
+[beamslope -0.1] [beamrit]
+{5/x g-g-g-g-g-} |
+[ns *1.5]
+[beamslope 0.1] [beamacc]
+{5/x g-g-g-g-g-} |
+[beamslope -0.1] [beamrit]
+{5/x g-g-g-g-g-} |
+[endstave]
+
+[stave 2 bass 0]
+g g-g- [treble 1] |
+[beamacc beammove 2]
+{6/x d-f-$a-b-#c'-d'-}
+[endstave]
+
+[newmovement]
+nocheck
+stavesizes 2/0.8
+textsizes 10 9
+
+[stave 1 treble 1]
+"a"/a g "a"/a10 g "a"/b g "a"/b16 g
+"a"/b16/u4 g "a"/b16 g\sd\ "a"/b g\sd\ |
+"a"/b16 "b" g ||
+[text below 16]
+"a" "^" g "a" "b"/b g |
+[text below]
+"a" "b" g |
+[text above 10]
+"^" "a" g "b" "a"/a g "b"/u2 g
+[endstave]
+
+[stave 2 treble 1]
+"a"/a g "a"/a10 g "a"/b g "a"/b16 g  "\?Que?"/b ggg |
+[textfont symbol]
+"abcd" g || "\mf\!"/d10/s2 g "\mf\!"/d10 g |
+[textfont roman] "!" g |
+[endstave]
+
+[newmovement]
+nocheck
+textsizes 10 8 11
+
+draw dot
+  0 headbottom  2 linebottom sub add moveto
+  "\mf\?" show
+enddraw
+
+draw string
+  0 0 moveto
+  0 -12 lineto 4 0 rlineto
+  0 -3 rmoveto
+  "  the \it\fox " show
+  0 3 rmoveto 4 0 rlineto
+  0 12 rlineto
+  0.5 setlinewidth
+  stroke
+enddraw
+
+draw centre
+  0 0 moveto 0 -10 lineto 0 -6 rmoveto "cen"/c/s3 show
+  0 -6 rlineto stroke
+enddraw
+
+draw ended
+  0 -10 moveto "end"/e/s2 show 0 -6 rlineto stroke
+enddraw
+
+[stave 1 treble 1]
+"abcde" g qq "abcde"/e g qq "abcde"/c g qq "abcde"/c |
+R! |
+[draw string] a |
+[notes off]
+[draw dot] a- [notes on] g |
+[notes off] [draw dot] g- [notes on] a |
+[draw centre] g [draw ended] |
+
+
+
+
+
+

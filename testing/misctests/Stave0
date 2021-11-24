@@ -1,0 +1,12 @@
+Magnification 1.3
+
+[staff 0 bass][key e$ time c]
+"\rm\Allegro"/a R+ | R "rit."/a [\\] R |
+[endstaff]
+
+[stave 1 treble 1]
+aaaa | "XXXX" gggg |
+[endstaff]
+
+[stave 2 bass]
+aaaa | gggg

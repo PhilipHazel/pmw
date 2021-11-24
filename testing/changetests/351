@@ -1,0 +1,14 @@
+magnification 1.5
+unfinished
+nocheck
+
+[stave 1 treble 1]
+gg | [assume bass 0] "bass 0" gg | [key e$] gg | [newline] gg |
+[assume baritone] "baritone" gg | [key e$] gg | [newline] gg |
+[assume deepbass] "deepbass" gg | [key e$] gg | [newline] gg |
+[assume hclef] "hclef" gg | [key e$] gg | [newline] gg |
+[assume noclef] "noclef" gg | [key e$] gg | [newline] gg |
+[assume trebletenorb] "trebletenorb" gg [key e$] gg | | [newline] gg |
+[assume bass] "bass" gg | [key e$] gg | [newline] gg |
+[line/e] gg [el] [line/i/e] gg [el] [line/ip/e] gg [el] 
+[slur/i/e] gggg [es] [slur/ip/e] gggg [es]

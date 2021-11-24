@@ -1,0 +1,151 @@
+heading "" 40
+
+barnumbers boxed line
+nocheck
+unfinished
+startlinespacing 4 0 4
+
+key G
+
+[stave 1 treble 1]
+[5] G+ | 
+[newline]
+[key C key F]
+[24]G+ |
+[endstave]
+
+[newmovement]
+
+heading "" 20
+
+barnumbers boxed line
+nocheck
+unfinished
+startlinespacing 4 0 4
+
+key G
+
+[stave 1 treble 1]
+| (f#d#c#b`#a`) [couple down] (f#d#c#b`#a`) [couple off]
+[endstave]
+
+[stave 2 bass 0]
+(fab#d'f') (fab#d'\c\f'\c\) (fab#<0d'\c\f'\c\) (fab$c'#c'\c\f'\c\) 
+(fa#c'#c'\c\f'\c\) (fa#c'#c'\c\#f'\c\) (fab#c'#c'\c\#f'\c\) |
+[endstave]
+
+[newmovement]
+heading "" 40
+
+nocheck
+unfinished
+startlinespacing 4 0 4
+
+[stave 0]
+"stave 0 at ts"/ts/a aaaa |
+"stave 0 at ts"/ts/a aaaa |
+"stave 0 at ts"/ts/a aaaa |
+"stave 0 at ts"/ts/a aaaa |
+[endstave]
+
+[stave 1 treble 1]
+"stave 1 at ts"/ts [time 2/2] gggg |
+"stave 1 at ts"/ts [time 2/2] gggg |
+[newline]
+"stave 1 at ts"/ts [time 2/2] gggg |
+[newline]
+"stave 1 at ts"/ts gggg |
+[endstave]
+
+[stave 2 treble 1]
+"stave 2 at ts"/ts gggg | 
+"stave 2 at ts"/ts gggg | 
+"stave 2 at ts"/ts gggg | 
+"stave 2 at ts"/ts gggg | 
+[endstave]
+
+
+[newmovement]
+
+heading "" 40
+
+nocheck
+unfinished
+startlinespacing 4 0 4
+
+[stave 1 treble 1 text underlay ns *2]
+"1.##All^=" gg
+"1.##^All^=" gg
+"1.##All^-right" gg
+"1.##^All^-right" gg
+[endstave]
+
+[newmovement]
+nocheck
+unfinished
+stavesizes 2/0.8
+breakbarlines
+
+[stave 1 treble 1 text underlay]
+g-.g=; g=g-.
+[endstave]
+[stave 2 treble 1 text underlay]
+g-.g=; g=g-.
+[endstave]
+
+[newmovement]
+beamflaglength 8
+[stave 1 treble 1 text underlay]
+g-.g=; g=g-.
+[endstave]
+
+[stave 2 treble 1 text underlay]
+g-.g=; g=g-.
+[endstave]
+
+[newmovement]
+
+nocheck
+unfinished
+beamflaglength 5
+startlinespacing 4 0 4
+
+[stave 1 treble 1]
+g-\sd\f-f-g-f-e-;
+g-f-f-g-f-e- |
+
+g-\sd\f-f-; g-\sd\f-e-;
+g-f-f-; g-f-e- |
+
+e-\sd\f-g-f-f-g-;
+e-f-g-f-f-g- |
+
+g-\sd\f-e-;
+g-f-e- |
+
+e-\sd\f-g-;
+e-f-g- |
+
+c-\sd\g-g'-d'-;
+c-\sd\g-g'-a-;
+c-\sd\g-g'-g-;
+g-\su\f-f-c-f-e- |
+
+g-g=r=g- |  g-g=r= |= g-; g-g=r= |= [newline] g-
+[endstave]
+
+[newmovement]
+beamendrests
+
+[stave 1 treble 1]
+g-g=r=; g-g=,r=; g-g-r=; g-g-g=; g-g= |= [newline] g=;
+g-g= |= g= |
+
+g=\g\b=\g\ 
+f-\sd\g-c'-g=\g\b=\g\e'-c'-c'-;
+f-\sd\g-c'-g=\g\b=\g\e'-d'-c'-;
+f-\sd\g-c'-g=\g\b=\g\e'-d'-c'-b-;
+g-\su\c'-e'-c'-b-
+
+
+

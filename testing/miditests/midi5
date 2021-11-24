@@ -1,0 +1,8 @@
+[stave 1 treble 1]
+[midichannel 2 midivoice "flute"] 
+[miditranspose 12]
+[midivolume 6]
+[midipitch "hi bongo"]
+cdef | cdef |
+[endstave]
+

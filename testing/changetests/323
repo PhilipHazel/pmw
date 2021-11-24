@@ -1,0 +1,82 @@
+nocheck
+justify top left
+
+[stave 1 treble 1]
+e''-a'-e'-b'-a'-e'-; |
+e''-\su\a'-e'-b'-a'-e'-; |
+e''-a'-e'-b'-a'-d'-; |
+e''-a'-d'-b'-a'-e'-; |
+e'-b-a-e-b-a-; |
+a-b-a-e'-e'-a'-; |
+e-a-c'-g-a-c'-; |
+e-\sd\a-c'-g-a-c'-; |
+[endstave]
+
+[newmovement]
+bracestyle 1
+bracket brace 1-2
+
+[stave 1 treble 1]
+R! |
+[endstave]
+
+[stave 2 bass 0]
+R! |
+[endstave]
+
+[newmovement]
+barnumbers 1
+
+
+[stave 1 "xxxx" "X" treble 1]
+gggg [suspend] | [newline] [40] R! |
+[newline] 
+gggg |
+[endstave]
+
+[stave 2 "yyyy" "Y" treble 1]
+gggg [suspend] | [40] R! |
+gggg |
+[endstave]
+
+[stave 3 "zzzz" "Z" treble 1]
+[10] aaaa
+[endstave]
+
+
+[newmovement]
+selectstaff 1
+
+[stave 1 "xxxx" "X" treble 1]
+gggg [suspend] | [newline] [40] R! |
+[newline] 
+gggg |
+[endstave]
+
+[stave 2 "yyyy" "Y" treble 1]
+gggg [suspend] | [40] R! |
+gggg |
+[endstave]
+
+[stave 3 "zzzz" "Z" treble 1]
+[10] aaaa
+[endstave]
+
+[newmovement]
+
+stavesizes 1/0.8 2/0.8
+stavespacing 1/35.2
+
+[stave 1 "xxxx" "X" treble 1]
+[couple down]
+g-e-c-f`-. |
+
+[endstave]
+
+[stave 2 "yyyy" "Y" bass 0]
+Q! | c-e-g-c'-e'-.\c\
+[endstave]
+
+
+
+

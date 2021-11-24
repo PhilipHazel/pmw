@@ -1,0 +1,236 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 17 ss(Heading)42.666 503.333 s mf 10 ss(!)42.666 469.333 s bf 11.8 ss(4)
+55.666 477.333 s(4)55.666 469.483 s
+%1/1
+mf 10 ss(5)69.566 471.333 s(5)85.566 471.333 s(5)101.566 471.333 s(5)
+117.566 471.333 s(@)133.566 469.333 s
+(CCCCCCCCC)42.666 469.333 s (C)123.566 469.333 s
+(!)42.666 420.905 s
+%2/1
+(5)63.666 424.905 s(5)79.666 424.905 s(5)95.666 424.905 s(5)
+111.666 424.905 s(@)127.666 420.905 s rm 10 ss(2)42.666 444.905 s
+mf 10 ss
+(CCCCCCCC)42.666 420.905 s (C)117.666 420.905 s
+(!)42.666 372.477 s
+%3/1
+(5)63.666 376.477 s(5)79.666 376.477 s(5)95.666 376.477 s(5)
+111.666 376.477 s(@)127.666 372.477 s rm 10 ss(3)42.666 396.477 s
+mf 10 ss
+(CCCCCCCC)42.666 372.477 s (C)117.666 372.477 s
+(!)42.666 324.049 s
+%4/1
+(5)63.666 328.049 s(5)79.666 328.049 s(5)95.666 328.049 s(5)
+111.666 328.049 s(@)127.666 324.049 s rm 10 ss(4)42.666 348.049 s
+mf 10 ss
+(CCCCCCCC)42.666 324.049 s (C)117.666 324.049 s
+(!)42.666 275.621 s
+%5/1
+(5)63.666 279.621 s(5)79.666 279.621 s(5)95.666 279.621 s(5)
+111.666 279.621 s(@)127.666 275.621 s rm 10 ss(5)42.666 299.621 s
+mf 10 ss
+(CCCCCCCC)42.666 275.621 s (C)117.666 275.621 s
+(!)42.666 227.193 s
+%6/1
+(5)63.666 231.193 s(5)79.666 231.193 s(5)95.666 231.193 s(5)
+111.666 231.193 s(@)127.666 227.193 s rm 10 ss(6)42.666 251.193 s
+mf 10 ss
+(CCCCCCCC)42.666 227.193 s (C)117.666 227.193 s
+(!)42.666 178.765 s
+%7/1
+(5)63.666 178.765 s(5)79.666 182.765 s(5)95.666 182.765 s(5)
+111.666 182.765 s(@)127.666 178.765 s rm 10 ss(7)42.666 202.765 s
+mf 10 ss
+(CCCCCCCC)42.666 178.765 s (C)117.666 178.765 s
+(!)42.666 130.337 s
+%8/1
+(=)63.666 124.337 s(5)63.666 124.337 s(5)79.666 134.337 s(5)
+95.666 134.337 s(5)111.666 134.337 s(@)127.666 130.337 s rm 10 ss(8)
+42.666 154.337 s mf 10 ss
+(CCCCCCCC)42.666 130.337 s (C)117.666 130.337 s
+rm 9 ss
+(OK, this is a test footnote. It should be printed at the bottom of the )
+0.706 42.666 105.337 ws rmX 9 ss(\216)0.706 wsh rm 9 ss(rst page, suitably)
+0.706 wsh
+(placed between the )1.174 42.666 96.337 ws rmX 9 ss
+(\216)1.174 wsh rm 9 ss
+(nal system on the page and the footing lines. )1.174 wsh
+(The positioning is)1.174 -0.162 0 wrs
+(something which we will ha)42.666 87.337 s(v)-0.18 0 rs
+(e to tak)-0.135 0 rs(e care to get right.)-0.09 0 rs
+rm [12 0 0 8 0 0] sm
+(This is a second footnote, also for the )1.114 42.666 74.337 ws
+rmX [12 0 0 8 0 0] sm(\216)1.114 wsh rm [12 0 0 8 0 0] sm
+(rst page. )1.114 wsh(W)1.114 -0.36 0 wrs(e w)1.114 -0.96 0 wrs(ant to see)
+1.114 -0.12 0 wrs(ho)42.666 64.337 s
+(w the spacing and positioning of this w)-0.3 0 rs(orks out.)-0.12 0 rs
+rm 9 ss
+(This is a third footnote, also for the )0.979 42.666 50.337 ws rmX 9 ss
+(\216)0.979 wsh rm 9 ss(rst page. )0.979 wsh
+(W)0.979 -0.27 0 wrs(e w)0.979 -0.72 0 wrs
+(ant to try to force the number of)0.979 -0.09 0 wrs
+(systems on the page to be reduced because of the great number of footnotes that are)
+1.254 42.666 41.337 ws(present in this particularly silly e)
+42.666 32.337 s(xample.)-0.135 0 rs rm 8 ss(<)42.666 20 s(F)190.278 20 s
+(ooting)-0.12 0 rs(>)358.154 20 s
+pagesave restore showpage
+
+%%Page: 2 2
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+mf 10 ss(!)42.666 503.333 s
+%9/1
+(=w=w=)63.666 497.333 s(J)63.666 495.333 s(JL)63.666 489.333 s(5)
+79.666 507.333 s(5)95.666 507.333 s(5)111.666 507.333 s
+(@)127.666 503.333 s rm 10 ss(9)42.666 527.333 s mf 10 ss
+(CCCCCCCC)42.666 503.333 s (C)117.666 503.333 s
+(!)42.666 455.708 s
+%10/1
+(5)63.666 461.708 s(5)79.666 461.708 s(5)95.666 461.708 s(5)
+111.666 461.708 s(@)127.666 455.708 s rm 10 ss(10)42.666 479.708 s
+mf 10 ss
+(CCCCCCCC)42.666 455.708 s (C)117.666 455.708 s
+(!)42.666 408.083 s
+%11/1
+(5)63.666 414.083 s(5)79.666 414.083 s(5)95.666 414.083 s(5)
+111.666 414.083 s(@)127.666 408.083 s rm 10 ss(11)42.666 432.083 s
+mf 10 ss
+(CCCCCCCC)42.666 408.083 s (C)117.666 408.083 s
+rm 12 ss(A ne)42.666 360.458 s(w mo)-0.3 0 rs(v)-0.18 0 rs(ement)
+-0.18 0 rs mf 10 ss(!)42.666 331.458 s bf 11.8 ss(4)55.666 339.458 s(4)
+55.666 331.608 s
+%1/1
+mf 10 ss(5)69.566 333.458 s(5)85.566 333.458 s(5)101.566 333.458 s(5)
+117.566 333.458 s(@)133.566 331.458 s
+(CCCCCCCCC)42.666 331.458 s (C)123.566 331.458 s
+(!)42.666 283.833 s
+%2/1
+(5)63.666 287.833 s(5)79.666 287.833 s(5)95.666 287.833 s(5)
+111.666 287.833 s(@)127.666 283.833 s rm 10 ss(2)42.666 307.833 s
+mf 10 ss
+(CCCCCCCC)42.666 283.833 s (C)117.666 283.833 s
+(!)42.666 236.208 s
+%3/1
+(5)63.666 240.208 s(5)79.666 240.208 s(5)95.666 240.208 s(5)
+111.666 240.208 s(@)127.666 236.208 s rm 10 ss(3)42.666 260.208 s
+mf 10 ss
+(CCCCCCCC)42.666 236.208 s (C)117.666 236.208 s
+(!)42.666 188.583 s
+%4/1
+(5)63.666 192.583 s(5)79.666 192.583 s(5)95.666 192.583 s(5)
+111.666 192.583 s(@)127.666 188.583 s rm 10 ss(4)42.666 212.583 s
+mf 10 ss
+(CCCCCCCC)42.666 188.583 s (C)117.666 188.583 s
+(!)42.666 140.958 s
+%5/1
+(5)63.666 144.958 s(5)79.666 144.958 s(5)95.666 144.958 s(5)
+111.666 144.958 s(@)127.666 140.958 s rm 10 ss(5)42.666 164.958 s
+mf 10 ss
+(CCCCCCCC)42.666 140.958 s (C)117.666 140.958 s
+(!)42.666 93.333 s
+%6/1
+(5)63.666 97.333 s(5)79.666 97.333 s(5)95.666 97.333 s(5)
+111.666 97.333 s(@)127.666 93.333 s rm 10 ss(6)42.666 117.333 s mf 10 ss
+(CCCCCCCC)42.666 93.333 s (C)117.666 93.333 s
+rm 9 ss
+(This footnotes is with bar 9, which is the bar that gets pushed o)
+0.628 42.666 72.333 ws(v)0.628 -0.135 0 wrs(er onto the ne)
+0.628 -0.135 0 wrs(xt page.)0.628 -0.135 0 wrs
+(See if we can mak)0.855 42.666 63.333 ws
+(e it long enough to push bar 19 o)0.855 -0.09 0 wrs
+(v)0.855 -0.135 0 wrs(er onto page three. Hmm. It will)
+0.855 -0.135 0 wrs
+(ha)0.519 42.666 54.333 ws
+(v)0.519 -0.18 0 wrs
+(e to be quite long in order to do that. Here are a fe)
+0.519 -0.135 0 wrs(w more sentences that might just)0.519 -0.225 0 wrs
+(do the trick if we are luck)42.666 45.333 s(y)-0.135 0 rs(.)-0.585 0 rs
+(This is the )42.666 32.333 s rmX 9 ss(\216)sh rm 9 ss
+(rst footnote of a ne)sh(w mo)-0.225 0 rs(v)-0.135 0 rs(ement.)
+-0.135 0 rs rm 8 ss(<)42.666 20 s(F)190.278 20 s(ooting)-0.12 0 rs(>)
+358.154 20 s
+pagesave restore showpage
+
+%%Page: 3 3
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+mf 10 ss(!)42.666 503.333 s
+%7/1
+(5)63.666 507.333 s(5)79.666 507.333 s(5)95.666 507.333 s(5)
+111.666 507.333 s(@)127.666 503.333 s rm 10 ss(7)42.666 527.333 s
+mf 10 ss
+(CCCCCCCC)42.666 503.333 s (C)117.666 503.333 s
+(!)42.666 459.333 s
+%8/1
+(5)63.666 463.333 s(5)79.666 463.333 s(5)95.666 463.333 s(5)
+111.666 463.333 s(@)127.666 459.333 s rm 10 ss(8)42.666 483.333 s
+mf 10 ss
+(CCCCCCCC)42.666 459.333 s (C)117.666 459.333 s
+(!)42.666 415.333 s
+%9/1
+(5)63.666 419.333 s(5)79.666 419.333 s(5)95.666 419.333 s(5)
+111.666 419.333 s(@)127.666 415.333 s rm 10 ss(9)42.666 439.333 s
+mf 10 ss
+(CCCCCCCC)42.666 415.333 s (C)117.666 415.333 s
+(!)42.666 371.333 s
+%10/1
+(5)63.666 375.333 s(5)79.666 375.333 s(5)95.666 375.333 s(5)
+111.666 375.333 s(@)127.666 371.333 s rm 10 ss(10)42.666 395.333 s
+mf 10 ss
+(CCCCCCCC)42.666 371.333 s (C)117.666 371.333 s
+(!)42.666 327.333 s
+%11/1
+(5)63.666 331.333 s(5)79.666 331.333 s(5)95.666 331.333 s(5)
+111.666 331.333 s(@)127.666 327.333 s rm 10 ss(11)42.666 351.333 s
+mf 10 ss
+(CCCCCCCC)42.666 327.333 s (C)117.666 327.333 s
+(!)42.666 283.333 s
+%12/1
+(=)63.666 277.333 s(5)63.666 277.333 s(=)79.666 277.333 s(5)
+79.666 277.333 s(=)95.666 277.333 s(5)95.666 277.333 s(=)
+111.666 277.333 s(5)111.666 277.333 s(B)128.166 283.333 s
+(@)126.166 283.333 s rm 10 ss(12)42.666 307.333 s mf 10 ss
+(CCCCCCCC)42.666 283.333 s (C)119.666 283.333 s
+rm 12 ss(This footnote is with the last bar of the mo)42.666 258.333 s
+(v)-0.18 0 rs(ement.)-0.18 0 rs rm 8 ss
+(Should be a bigger g)42.666 234.333 s
+(ap abo)-0.04 0 rs(v)-0.12 0 rs(e this one, and a line belo)-0.12 0 rs(w)
+-0.2 0 rs(.)-0.52 0 rs 42.666 226.333 Mt 142.666 226.333 Lt 0.5 Slw S(<)
+42.666 20 s(F)190.278 20 s(ooting)-0.12 0 rs(>)358.154 20 s
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 3

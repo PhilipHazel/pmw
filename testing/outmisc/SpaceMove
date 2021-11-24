@@ -1,0 +1,67 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+1.3 dup scale
+%%EndPageSetup
+mf 10 ss(!)49.231 582.307 s bf 11.8 ss(4)62.231 590.307 s(4)
+62.231 582.457 s mf 10 ss(!)49.231 538.307 s bf 11.8 ss(4)
+62.231 546.307 s(4)62.231 538.457 s mf 10 ss
+16 538.307(@)49.231 582.307 b 45.731 598.307 538.307 k
+%1/2
+(5)76.131 542.307 s(5)92.131 542.307 s(5)118.131 542.307 s(5)
+134.131 542.307 s(5)150.131 542.307 s(5)166.131 542.307 s(5)
+182.131 542.307 s(5)198.131 542.307 s(5)208.131 542.307 s(5)
+224.131 542.307 s(@)240.131 538.307 s
+%1/1
+(5)76.131 586.307 s(5)92.131 586.307 s(5)118.131 586.307 s(5)
+134.131 586.307 s(5)153.131 586.307 s(5)166.131 586.307 s(5)
+179.131 586.307 s(5)198.131 586.307 s(5)208.131 586.307 s(5)
+224.131 586.307 s 16 554.307(@)240.131 582.307 b
+%2/2
+(@)284.131 538.307 s
+%2/1
+(6)246.131 582.307 s(6)268.131 582.307 s(5)252.131 584.307 s(5)
+268.131 586.307 s 16 554.307(@)284.131 582.307 b
+(FFCCC)49.231 582.307 s (C)274.131 582.307 s
+(FFCCC)49.231 538.307 s (C)274.131 538.307 s
+(!)49.231 494.307 s(!)49.231 450.307 s 16 450.307(@)49.231 494.307 b
+45.731 510.307 450.307 k
+%3/2
+(5)70.231 454.307 s(5)96.231 454.307 s(B)112.731 450.307 s
+(@)110.731 450.307 s
+%3/1
+(5)70.231 498.307 s(5)96.231 498.307 s 16 466.307(B)112.731 494.307 b
+16 466.307(@)110.731 494.307 b
+(CCCCCC)49.231 494.307 s (C)104.231 494.307 s
+(CCCCCC)49.231 450.307 s (C)104.231 450.307 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

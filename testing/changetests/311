@@ -1,0 +1,22 @@
+nocheck
+unfinished
+magnification 1.5
+justify top left
+breakbarlines
+
+stavespacing 1/0
+suspend 2 3
+
+[stave 1 treble 1]
+(F'\!-\D') [slur] A | 
+[newline] Q! |
+q b (ea) [es] r | gg "middle"/m gg |
+[endstave]
+
+[stave 2 treble 1]
+[endstave]
+
+[stave 3 treble 1]
+[endstave]
+
+

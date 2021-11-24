@@ -1,0 +1,210 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+it 25 ss(This is a long heading line that is going to be)2.717 64 760 ws
+(split o)10.491 64 735 ws(ver se)10.491 -0.25 0 wrs(ver)
+10.491 -0.375 0 wrs(al lines )10.491 -0.375 0 wrs bf 25 ss
+(by the paragraph)10.491 336.889 735 ws
+(splitting mechanism that PMW has f)13.21 64 710 ws(or)
+13.21 -0.625 0 wrs(handling such things. )1.7 64 685 ws rm 25 ss
+(W)1.7 302.525 685 ws(e e)1.7 -2 0 wrs(xpect font changes)
+1.7 -0.375 0 wrs(to persist o)64 660 s(v)-0.375 0 rs(er line breaks.)
+-0.375 0 rs mf 10 ss(!)64 618 s bf 11.8 ss(4)77 626 s(2)77 618.15 s
+%1/1
+mf 10 ss(*)100.4 626 s(@)123.9 618 s
+%2/1
+(3)129.9 620 s(3)151.9 620 s(3)173.9 620 s(3)195.9 620 s(@)217.9 618 s
+%3/1
+(+)232.9 626 s(@)253.9 618 s
+(FCCCCCCCC)64 618 s (C)243.9 618 s
+(!)64 574 s bf 11.8 ss(4)77 582 s(2)77 574.15 s
+%1/1
+mf 10 ss(*)100.4 582 s(@)123.9 574 s
+%2/1
+(3)129.9 576 s(3)151.9 576 s(3)173.9 576 s(3)195.9 576 s(@)217.9 574 s
+%3/1
+(*)233.9 582 s(B)254.4 574 s(@)252.4 574 s
+(FCCCCCCCCC)64 574 s (C)245.9 574 s
+(!)64 530 s bf 11.8 ss(4)77 538 s(8)77 530.15 s
+%1/1
+mf 10 ss(,)94.9 538 s(@)112.9 530 s
+%2/1
+-1.8 161.15 548 124.75 548 m(5)118.9 532 s(5)130.9 532 s(5)142.9 532 s(5)
+154.9 532 s(@)166.9 530 s
+%3/1
+(+)178.9 538 s(B)195.4 530 s(@)193.4 530 s
+(FCCC)64 530 s (C)186.9 530 s
+(!)64 486 s bf 11.8 ss(4)77 494 s(4)77 486.15 s mf 10 ss(!)64 442 s
+bf 11.8 ss(4)77 450 s(4)77 442.15 s mf 10 ss 16 442(@)64 486 b
+60.5 502 442 k
+%1/2
+(5)90.9 444 s(@)106.9 442 s
+%1/1
+(5)90.9 488 s 16 458(@)106.9 486 b
+%2/2
+(5)112.9 444 s(@)128.9 442 s
+%2/1
+16 458(@)128.9 486 b
+%3/2
+(5)134.9 444 s(@)150.9 442 s
+%3/1
+16 458(@)150.9 486 b
+%4/2
+(5)156.9 444 s(@)172.9 442 s
+%4/1
+(5)156.9 488 s 173.1 502.2 173.1 458.2 0.4 [1.4 1.4] dl
+%5/2
+(5)178.9 444 s(@)208.9 442 s
+%5/1
+209.1 502.2 209.1 458.2 0.4 [1.4 1.4] dl
+%6/2
+(5)214.9 444 s(@)230.9 442 s
+%6/1
+(5)214.9 488 s 231.1 502.2 231.1 458.2 0.4 [1.4 1.4] dl
+(FCCCCCC)64 486 s (C)220.9 486 s
+(FCCCCCC)64 442 s (C)220.9 442 s
+(!)64 398 s bf 11.8 ss(4)77 406 s(4)77 398.15 s
+%1/1
+mf 10 ss(xxxq|q|q|q|q|q)90.9 405.5 s(qL)90.9 406 s(xxxq|q|q|q|q|q)
+106.9 407 s(qL)106.9 408 s(xxxq|q|q|q|q|q)122.9 408.5 s(qL)122.9 410 s
+(xxxq|q|q|q|q|q)138.9 410 s(qL)138.9 412 s(xxxq|q|q|q|q)154.9 411.5 s(qL)
+154.9 414 s(=)170.9 416 s(xxxq|q|q|q|q)170.9 413 s(qL)170.9 416 s
+(@)186.9 398 s
+%2/1
+(xxxq|q|q|q|q|q)192.9 405.5 s(qL)192.9 406 s(xxxq|q|q|q|q|q)208.9 407 s(qL)
+208.9 408 s(xxxq|q|q|q|q|q)224.9 408.5 s(qL)224.9 410 s(xxxq|q|q|q|q|q)
+240.9 410 s(qL)240.9 412 s(xxxq|q|q|q|q)256.9 411.5 s(qL)256.9 414 s(=)
+272.9 416 s(xxxq|q|q|q|q)272.9 413 s(qL)272.9 416 s(@)288.9 398 s
+%3/1
+(xxxq|q|q|q|q|q)294.9 405.5 s(qL)294.9 406 s(xxxq|q|q|q|q|q)310.9 407 s(qL)
+310.9 408 s(xxxq|q|q|q|q|q)326.9 408.5 s(qL)326.9 410 s(xxxq|q|q|q|q|q)
+342.9 410 s(qL)342.9 412 s(xxxq|q|q|q|q)358.9 411.5 s(qL)358.9 414 s(=)
+374.9 416 s(xxxq|q|q|q|q)374.9 413 s(qL)374.9 416 s(@)390.9 398 s
+%4/1
+(xxxq|q|q|q|q|q)396.9 405.5 s(qL)396.9 406 s(xxxq|q|q|q|q|q)412.9 407 s(qL)
+412.9 408 s(xxxq|q|q|q|q|q)428.9 408.5 s(qL)428.9 410 s(xxxq|q|q|q|q|q)
+444.9 410 s(qL)444.9 412 s(xxxq|q|q|q|q)460.9 411.5 s(qL)460.9 414 s(=)
+476.9 416 s(xxxq|q|q|q|q)476.9 413 s(qL)476.9 416 s(@)492.9 398 s
+(FFFFCC)64 398 s (C)482.9 398 s
+(!)64 354 s
+%5/1
+(xxxq|q|q|q|q|q)85 361.5 s(qL)85 362 s(xxxq|q|q|q|q|q)101 363 s(qL)
+101 364 s(xxxq|q|q|q|q|q)117 364.5 s(qL)117 366 s(xxxq|q|q|q|q|q)
+133 366 s(qL)133 368 s(xxxq|q|q|q|q)149 367.5 s(qL)149 370 s(=)165 372 s
+(xxxq|q|q|q|q)165 369 s(qL)165 372 s(@)181 354 s
+%6/1
+(xxxq|q|q|q|q|q)187 361.5 s(qL)187 362 s(xxxq|q|q|q|q|q)203 363 s(qL)
+203 364 s(xxxq|q|q|q|q|q)219 364.5 s(qL)219 366 s(xxxq|q|q|q|q|q)
+235 366 s(qL)235 368 s(xxxq|q|q|q|q)251 367.5 s(qL)251 370 s(=)267 372 s
+(xxxq|q|q|q|q)267 369 s(qL)267 372 s(@)283 354 s
+%7/1
+(xxxq|q|q|q|q|q)289 361.5 s(qL)289 362 s(xxxq|q|q|q|q|q)305 363 s(qL)
+305 364 s(xxxq|q|q|q|q|q)321 364.5 s(qL)321 366 s(xxxq|q|q|q|q|q)
+337 366 s(qL)337 368 s(xxxq|q|q|q|q)353 367.5 s(qL)353 370 s(=)369 372 s
+(xxxq|q|q|q|q)369 369 s(qL)369 372 s(@)385 354 s
+%8/1
+(xxxq|q|q|q|q|q)391 361.5 s(qL)391 362 s(xxxq|q|q|q|q|q)407 363 s(qL)
+407 364 s(xxxq|q|q|q|q|q)423 364.5 s(qL)423 366 s(xxxq|q|q|q|q|q)
+439 366 s(qL)439 368 s(xxxq|q|q|q|q)455 367.5 s(qL)455 370 s(=)471 372 s
+(xxxq|q|q|q|q)471 369 s(qL)471 372 s(@)487 354 s
+(FFFFCC)64 354 s (C)477 354 s
+(!)64 310 s
+%9/1
+(xxxq|q|q|q|q|q)85 317.5 s(qL)85 318 s(xxxq|q|q|q|q|q)101 319 s(qL)
+101 320 s(xxxq|q|q|q|q|q)117 320.5 s(qL)117 322 s(xxxq|q|q|q|q|q)
+133 322 s(qL)133 324 s(xxxq|q|q|q|q)149 323.5 s(qL)149 326 s(=)165 328 s
+(xxxq|q|q|q|q)165 325 s(qL)165 328 s(@)181 310 s
+%10/1
+(xxxq|q|q|q|q|q)187 317.5 s(qL)187 318 s(xxxq|q|q|q|q|q)203 319 s(qL)
+203 320 s(xxxq|q|q|q|q|q)219 320.5 s(qL)219 322 s(xxxq|q|q|q|q|q)
+235 322 s(qL)235 324 s(xxxq|q|q|q|q)251 323.5 s(qL)251 326 s(=)267 328 s
+(xxxq|q|q|q|q)267 325 s(qL)267 328 s(@)283 310 s
+%11/1
+(5)289 314 s(")298.5 310 s(@)314 310 s
+%12/1
+(xxxq|q|q|q|q|q)320 320.5 s(qL)320 322 s(!)331 310 s(@)345 310 s
+%13/1
+(5)351 312 s(B)367.5 310 s(@)365.5 310 s
+(FFF)64 310 s (C)359 310 s
+(!)64 266 s bf 11.8 ss(4)77 274 s(4)77 266.15 s
+%1/1
+mf 10 ss(5)90.9 268 s(5)111.327 268 s(5)131.755 268 s(5)152.183 268 s
+(@)172.611 266 s
+%2/1
+(5)180.271 268 s(5)200.698 268 s(5)221.126 268 s(5)241.554 268 s
+(@)261.982 266 s
+%3/1
+(5)269.642 268 s(5)290.069 268 s(5)310.497 268 s(5)330.925 268 s
+(@)351.353 266 s
+%4/1
+(5)359.013 268 s(5)379.44 268 s(5)399.868 268 s(5)420.296 268 s
+(@)440.724 266 s
+%5/1
+(5)448.384 268 s(5)468.811 268 s(5)489.239 268 s(5)509.667 268 s
+456.384 284 544 284 8 cv 512.667 265 543 265 -5 cv(@)530.095 266 s
+bf 11.8 ss(4)534.095 274 s(4)534.095 266.15 s mf 10 ss
+(FFFFCCCCCCCC)64 266 s
+(!)64 222 s bf 11.8 ss(4)77 230 s(4)77 222.15 s
+%6/1
+mf 10 ss(5)90.9 224 s 83.9 221 93.9 221 -3 cv 83.4 240 93.9 240 3.15 cv
+(@)106.9 222 s
+(CCCC)64 222 s (C)96.9 222 s
+(!)64 178 s bf 11.8 ss(4)77 186 s(4)77 178.15 s
+%1/1
+mf 10 ss(5)90.9 180 s(5)106.9 180 s(5)122.9 180 s(5)138.9 180 s
+(@)154.9 178 s
+%2/1
+(5)160.9 180 s(5)176.9 180 s(5)192.9 180 s(xxxq|q|q|q|q|q)208.9 187 s(qL)
+208.9 188 s(xxxq|q|q|q|q|q)208.9 179 s(qL)208.9 180 s
+168.9 196 240.9 203 6 cv 216.4 194 239.9 194 5 cv 211.9 177 239.9 177
+-5 cv(@)224.9 178 s bf 11.8 ss(4)228.9 186 s(4)228.9 178.15 s mf 10 ss
+(FCCCCCCC)64 178 s (C)229.8 178 s
+(!)64 134 s bf 11.8 ss(4)77 142 s(4)77 134.15 s
+%3/1
+mf 10 ss(xxxq|q|q|q|q|q)90.9 143 s(qL)90.9 144 s(xxxq|q|q|q|q|q)
+90.9 135 s(qL)90.9 136 s 83.9 150 93.9 150 3 cv 83.9 133 93.9 133 -3 cv
+83.4 159 93.9 159 3.15 cv(=)106.9 128 s(5)106.9 126 s(>)106.9 118 s(g)
+106.9 152 s(=)122.9 128 s(5)122.9 126 s(>)122.9 118 s
+109.9 121 125.9 121 -4.8 cv(6)139.9 150 s(>)139.9 150 s(e)139.9 160 s(6)
+155.9 150 s(>)155.9 150 s 142.9 163 158.9 159 4.8 cv(@)171.9 134 s
+(F)64 134 s (C)161.9 134 s
+it 12 ss
+(This is a long footnote line that is going to be split o)0.765 64 99 ws
+(ver se)0.765 -0.12 0 wrs(ver)0.765 -0.18 0 wrs(al lines )
+0.765 -0.18 0 wrs bf 12 ss(by the paragraph splitting)
+0.765 407.347 99 ws(mechanism that PMW has f)0.412 64 87 ws
+(or handling such things. )0.412 -0.3 0 wrs rm 12 ss
+(W)0.412 336.024 87 ws(e e)0.412 -0.96 0 wrs
+(xpect font changes to persist o)0.412 -0.18 0 wrs(v)0.412 -0.18 0 wrs
+(er line)0.412 -0.18 0 wrs(breaks.)64 75 s
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

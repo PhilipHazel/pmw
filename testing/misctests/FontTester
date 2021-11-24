@@ -1,0 +1,43 @@
+Heading "" 10
+Key C
+Time C
+Breverests
+Stemlengths 0 0 0 0 4 8
+@Printtime 8/4 "\mu\È" "\mu\Ä"
+Textfont extra 1 "PMW-Alpha"
+Timefont extra 1
+Hairpinwidth 6 @ 7 is default
+Hairpinlinewidth 0.5 @ 0.2 is default
+Startlinespacing 4 0 4
+Justify left right top bottom
+Linelength 520
+Magnification 2
+Notespacing *1
+
+[Staff 1] [Treble 1]
+"\mf\\163\"/b "\mf\c"/a #f "\mf\j"/a #g "\mf\k"/a #a "\mf\s"/a #b | @1
+"\mf\$"/b %f %g %a %b | @2
+$f $g $a $b | @3
+"\mf\\192\ \193\ \194\ \195\ \196\ \197\ \198\ \199\ \200\ \201\"/b/d4 
+  ##f ##g ##a ##b | @4
+$$f $$g $$a $$b [comma] [soprano] | @5
+[newline] [time 8/4] R! | @6
+[alto] R+ [mezzo] R [tenor] r r- r= r=- r== q== | @7
+D++ [bass 0] | @8
+[newline] G+\f\ G+\!f\ | @9
+[time A] G g g- g= g=- g== q== | @10
+[noteheads cross] A g` g- g= g=- g== q== | @11
+[noteheads harmonic] G g g- g= g=- g== q== | @12
+A` a` a`- a`= a`=- a`== q== | @13
+[noteheads normal] 
+  "\mf\\222\\222\"/b A` "\mf\\222\"/b a` "\mf\\186\\222\"/b/l8 a`- 
+  "\mf\\186\\170\"/b/l4 a`= "\mf\\170\"/b a`=- "\mf\\170\\170\"/b a`== q== 
+  [trebletenor 1] | @14
+"\mf\\167\\170\"/b f\/\ "\mf\\170\\171\"/b f\//\ 
+  "\mf\\167\\170\\171\"/b f\///\ "\mf\\170\\222\"/b f\.\ | @15
+f\~\ f\~|\ f\~~\ f\~~|\ | @16
+"\mf\a"/a f\-\ "\mf\b"/a f\>\ f\d\ "\mf\f"/b/u4 f | @17
+f\a4\ f\!a4\ f\a5\ f\!a5\ | @18
+f\g\ f\t\ f\g/\ "\mf\i"/a f f-\g\ f\tr#\ f-\g/\ f\tr$\ | @19
+f\tr%\ f\tr\ g-.\u\;"\mf\h"/b/u4 g-.\:\ "\mf\d"/a f-\o\ | @20
+[endstaff]

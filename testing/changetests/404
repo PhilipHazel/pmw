@@ -1,0 +1,54 @@
+breakbarlines
+
+heading "++\tA++\tB++\tC++\tD++\tE++\tF++\tG++"
+heading "++\tA#++\tB$++\tC%++\tD++\tE++\tF++\tG++"
+heading "" 20
+
+[stave 1 treble 1]
+"\rm\++\tA++\tB++\tC++\tD++\tE++\tF++\tG++"/a
+"\rm\++\tA#++\tB$++\tC%++\tD++\tE++\tF++\tG++"/b
+G+ 
+[endstave]
+
+
+[newmovement]
+
+heading "++\tA++\tB++\tC++\tD++\tE++\tF++\tG++"
+heading "++\tA#++\tB$++\tC%++\tD++\tE++\tF++\tG++"
+heading "" 20
+
+transpose 1
+
+heading "++\tA++\tB++\tC++\tD++\tE++\tF++\tG++"
+heading "++\tA#++\tB$++\tC%++\tD++\tE++\tF++\tG++"
+heading "" 20
+
+
+[stave 1 treble 1]
+"\rm\++\tA++\tB++\tC++\tD++\tE++\tF++\tG++"/a
+"\rm\++\tA#++\tB$++\tC%++\tD++\tE++\tF++\tG++"/b
+G+ 
+[endstave]
+
+[stave 2 treble 1 key Cm]
+"\rm\\tC \tF#" #F+ |
+[transpose -2 key Cm] "\rm\\tB$" $B+ |
+[transpose -1 key C] "\rm\\tB$" $B+ |
+[transpose +1 key B] "\rm\\tB$" $B+ |
+[endstave]
+
+[newmovement]
+
+transposedkey G$ use F#
+
+key F
+
+transpose 1
+
+[stave 1 treble 1]
+"\rm\\tF \tF#" F+
+[endstave]
+
+
+
+

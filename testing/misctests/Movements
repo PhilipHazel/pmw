@@ -1,0 +1,31 @@
+nocheck
+justify top left
+linelength 350
+
+
+[stave 1 "111111" treble 1]
+aaaa
+[endstave]
+
+[stave 2 treble 1]
+bbbb
+[endstave]
+
+[newmovement thisline]
+justify top right
+
+[stave 1 treble 1]
+aaaa | [newline] [time 3/4] aaa [justify +left]
+[endstave]
+
+[stave 2 treble 1]
+bbbb
+[endstave]
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+magnification 1.5
+
+time 3/4
+key E$
+
+[stave 1/1 hclef 1 key C]
+bbb | R! | brb | g\su\R
+[endstave]
+
+[newmovement]
+[stave 1/1 noclef 1 key C]
+bbbb |
+[endstave]
+
+[stave 2 treble 1]
+dddd

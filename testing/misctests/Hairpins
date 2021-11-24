@@ -1,0 +1,34 @@
+magnification 1.5
+nocheck
+systemgap 60
+
+[stave 1 treble 1]
+< aaaa < | < aaa`a < |
+</d10 aaa`a < |
+< a`ceg </u10 |
+> geca` > |
+>/u10 geca` >/d10 |
+[hairpins above]
+< aaaa <
+[endstave]
+
+[newmovement]
+hairpinlinewidth 1
+hairpinwidth 12
+
+[stave 1 treble 1]
+< aaaa < | > aaaa | > aaaa | < aaaa |
+[newline] < aaaa |
+[hairpins above] < aaaa <
+[endstave]
+
+[newmovement]
+hairpinwidth 20
+notime
+
+[stave 1 treble 1]
+</a gggg < </w4/a gggg < >/w10/a gggg > |
+< gggg < </w4 gggg < >/w10 gggg > |
+[newline hairpinwidth 7]
+< gggg <  </w4/l9 </l9 >/w4/r4 >/r6 g
+

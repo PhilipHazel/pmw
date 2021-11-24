@@ -1,0 +1,93 @@
+unfinished
+nocheck
+barnumbers ringed line 12 italic
+magnification 2
+textfont extra 1 "PMW-Alpha"
+
+[stave 1 treble 1]
+gggg |
+[newline]
+gggg
+[endstave]
+
+
+[newmovement]
+barnumbers boxed line
+time 3/4
+
+[stave 1 bass 1]
+($d$e) (#d#e) (%d%e) (##d##e) ($$d$$e) ($b`%e) |
+[newline]
+ggg
+[endstave]
+
+[newmovement]
+barnumbers 2 8 extra 1
+time 5/4
+
+[stave 1 treble 1]
+ | aaaaa | bbbbb |
+[endstave]
+
+
+[newmovement]
+unfinished
+nocheck
+
+[stave 1 treble 1]
+[slur/b/u10 slur] (e'g') | [newline] (d'f') [es es]
+[slur/b/u10/1/rd5 slur] (e'g')  "  it's meant to be down at the end"/a |
+[newline] (d'f') [es es]
+[slur/b/u10/2/ld5 slur] (e'g') |
+"  it's meant to be down at the start"/a [newline] (d'f') [es es]
+(#c-%e-) [slur/d11] (c-e-)[space 5] | [newline] (e-g-) [es]
+ e-
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+breakbarlines 1
+stavesizes 1/0.8
+stavesizes 1/0.8
+clefsize 0.7
+time C
+
+[stave 1 treble 1]
+"lunga"/a/e  "pausa"/a/e g |
+#F$F%F [treble] | [3] R! | [time 4/4] A
+[endstave]
+
+[stave 2 treble 1]
+"lunga"/a/e "pausa"/a/e g |
+#F$F%F [treble] | [3] R! | [time 4/4] A
+[endstave]
+
+[newmovement]
+check
+time 2/4
+
+[stave 0] gg | gg | gg | [endstave]
+[stave 1 treble 1 endstave]
+[stave 2 bass endstave]
+[stave 3 bass]
+[time 4/8] | g-g-g-g- | "text" [endstave]
+
+
+[newmovement]
+unfinished
+nocheck
+
+[stave 1 treble 1]
+ggg |
+[newline]
+[ssnext 60] [sshere 60] #g\>!\ggg |
+[endstave]
+
+[stave 2 treble 1]
+[endstave]
+
+
+
+
+

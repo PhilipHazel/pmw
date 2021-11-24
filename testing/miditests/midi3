@@ -1,0 +1,8 @@
+midistart 176 10 0  177 10 40  178 10 80  179 10 120
+
+[stave 1 treble 1]
+[midichannel 1] g
+[midichannel 2] g
+[midichannel 3] g
+[midichannel 4] g
+[endstave]

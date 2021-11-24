@@ -1,0 +1,40 @@
+@ Test errors relating to preprocessing
+
+*(missing)
+
+*unrecognized
+
+@ *verylongverylongverylongverylongverylongverylongverylongverylong
+
+*if staves 6-3
+*fi
+
+*if staff 64
+*fi
+
+*define x()
+*comment buggy comment &x(1,2
+
+*define x
+
+*comment undefined &y
+
+*comment syntax &()
+
+*comment &*2(a,b)
+
+*define z() >&&1< 
+*define y() [&&1]
+*comment 1. &z(&z(ab)
+
+*comment 2. &z(())
+
+*comment 3. &z(&&())
+
+*comment 4. &z(&*2(a))
+
+*comment 5. &z(&*(a))
+
+*if @missing fi
+
+@End

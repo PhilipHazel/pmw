@@ -1,0 +1,142 @@
+
+Time 3/4
+
+Stavespacing 1/50 2/0 3/44 4/0 5/44 6/0
+
+
+*define s1 g-;r-r-c'-;r-r-
+*define s2 g-;r-c'-;r-d'-;r-
+*define s3 g'-;r-r-d'-;r-r-
+*define s4 e'-;r-b-;r-c'-;r-
+
+[stave 1 treble 1]
+[slur/b]%b-g-%e-[es]#f [slur/b] b-  |=
+g-%e-[es]#f[slur/b]%b- g-           |=
+[smove 3] %e-;[es] [slur/b]a-#f-d-;[es] e- g- | 
+&s4 | &s4 | &s1 |  
+[endstave]
+
+
+[stave 2 treble 2]
+%e_%b`-#c[slur]e-_;  |
+e-%b`-[es]#c%e_      |
+%b`-; [slur]a-#f-d-;[es] b`-%)c- |     
+
+[stems up ties above]
+[slur]d'-b-g-[es]a [slur] d'-  |=
+b-g-[es]a [slur]d'-b-          |=
+g-;[es] [slur]f'-d'-b-;[es]g-a- | 
+[endstave]
+
+[stave 3 treble 2 stems down ties below]
+Q! | Q! | Q! | 
+[slur/b] a-f-d-[es]%e[slur/b]a-  |=
+f-d-[es]%e[slur/b]a-f-           |=
+d-;[es][slur/b]c'-a-f-;[es]d-%e- |
+[endstave]
+
+
+[stave 4 treble 1]
+c'-;r-g-;r-a-;r-  |
+c'-;r-g-;r-a-;r-  |
+c'-; [slur]a'-#f'-d'-;[es]%b-;r- | 
+[ stems up ties above]
+a[slur]d'-b-g-;[es] a-_;   |=
+a-; [slur]d'-b-g-;[es] [slur]f'-d'- |= 
+b-;[es]g-a-_a. | 
+[endstave]
+
+
+
+[stave 5 treble 1 stems down ties below]
+Q! | Q! | Q! |
+e[slur/b]a-f-d-;[es]%e-_;   |          
+e-; [slur/b]a-f-d-;[es] [slur/b]c'-a-  |=
+f-;[es] d-%e-_e. |
+[endstave]
+
+
+
+*define b1 g`-;r-r-c-;r-r-
+*define b2 g`-;r-c-;r-d-;r-       
+*define b3 g-;r-r-d-;r-r-               
+*define b4 e-;r-b`-;r-c-;r-
+*define b5 c-;r-g`-;r-a`-;r-         
+*define b6 d-\sd\;r-r-g-;r-r-
+*define b7 d-\sd\;r-g-;r-a-;r-
+
+
+[stave 6 bass 0]
+&b5  | 
+&b5  |
+c-; [slur]a-#f-d-;[es] %b`-a`- | 
+&b4 | &b4 | &b1 |
+[endstave]
+
+[newmovement]
+nocheck
+
+[stave 1 treble 1]
+g`- |= a'- |= g-\sd\; [reset]
+c'=\su\g=,r= |=
+[newline]
+"a"/b e= c=; c-b-;
+c'=\su\g=,r= |=
+[newline]
+[beamslope 0 beammove 10]
+"b"/b e= c=; c-b-;
+
+c'=\su\g=r= |=
+[newline]
+"c"/b e= c=; c-b-;
+
+c'=\su\g=r= |=
+[newline]
+"d"/b e=; c=; c-b-; |
+[newline]
+"e"/b e g-; |
+
+c'-\su\g-r- |=
+[newline]
+"f"/b e=; c=; c-b-;
+
+c'=\su\g= |=
+[newline]
+"g"e c=; c-b-
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+f-g-a-a-g- |
+f-g-a- |= a-g-; f-g-a- ||= a-g-; f-g-a- |?= a-g- |
+
+[newline]
+a- |= g-
+[endstave]
+
+
+[newmovement]
+[stave 1 treble 1]
+[text underlay]
+"The=" g_g r g "The=" g_g |
+[newline]
+r g |
+
+"The=" "And-="
+g_g |
+[newline]
+r g |
+"one" "two" g
+
+"The=" "And-="
+g_g |
+[newline]
+g r g|
+"one" "two" g |
+
+[noteheads harmonic]
+[noteheads only]
+g-g=g-
+[o] ggg [noteheads only] g-g- |
+[newline]
+g=g-

@@ -1,0 +1,12 @@
+boxdepth 16;
+boxwidth 40;
+arrowwidth 6;
+ibox width 72 "top of stack";
+arrow right 40;
+ibox;
+down;
+box "2";
+box "3";
+ibox;
+arrow back left 40;
+ibox width 80 "bottom of stack";

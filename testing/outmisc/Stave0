@@ -1,0 +1,59 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+1.3 dup scale
+%%EndPageSetup
+mf 10 ss(!)49.231 582.307 s bf 11.8 ss(4)65.231 590.307 s(4)
+65.231 582.457 s mf 10 ss(")48.731 538.307 s bf 11.8 ss(4)
+65.231 546.307 s(4)65.231 538.457 s mf 10 ss
+16 538.307(@)49.231 582.307 b 45.731 598.307 538.307 k
+%1/2
+(6)79.131 552.307 s(6)95.131 552.307 s(6)111.131 552.307 s(6)
+127.131 552.307 s(@)143.131 538.307 s
+%1/1
+(5)79.131 586.307 s(5)95.131 586.307 s(5)111.131 586.307 s(5)
+127.131 586.307 s 16 554.307(@)143.131 582.307 b
+%1/0
+rm 10 ss(Alle)104.131 602.307 s(gro)-0.15 0 rs
+%2/2
+mf 10 ss(6)149.131 550.307 s(6)165.131 550.307 s(6)181.131 550.307 s(6)
+197.131 550.307 s(B)213.631 538.307 s(@)211.631 538.307 s
+%2/1
+it 10 ss(XXXX)149.131 572.307 s mf 10 ss(5)149.131 584.307 s(5)
+165.131 584.307 s(5)181.131 584.307 s(5)197.131 584.307 s
+16 554.307(B)213.631 582.307 b 16 554.307(@)211.631 582.307 b
+%2/0
+it 10 ss(rit.)182.131 602.307 s mf 10 ss
+(FCCCCCC)49.231 582.307 s (C)205.131 582.307 s
+(FCCCCCC)49.231 538.307 s (C)205.131 538.307 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

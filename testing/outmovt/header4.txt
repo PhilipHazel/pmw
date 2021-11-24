@@ -1,0 +1,27 @@
+
+GLOBAL VALUES
+  font 0: Times-Roman
+  font 1: Times-Italic
+  font 2: Times-Bold
+  font 3: Times-BoldItalic
+  font 4: Symbol
+  font 5: PMW-Music
+    rm = 0
+    it = 1
+    bf = 2
+    bi = 3
+    sy = 4
+    mf = 5
+  kerning = true
+  landscape = false
+  magnification = 1
+  maxvertjustify = 60
+  midifornotesoff = false
+  note spacing = 30 30 22 16 12 10 10 10
+  page = 1 1
+  pagelength = 1060
+  righttoleft = false
+  sheetdepth = 1190
+  sheetsize = a3
+  sheetwidth = 842
+  transposedacc = force

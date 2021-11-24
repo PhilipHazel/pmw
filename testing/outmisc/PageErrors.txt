@@ -1,0 +1,4 @@
+** Warning: unexpected bar length of 5 quavers
+   On an earlier stave this bar's length is 3 crotchets
+   Detected in bar 1 stave 2
+

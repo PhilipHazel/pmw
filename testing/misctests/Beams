@@ -1,0 +1,25 @@
+magnification 1.5
+nocheck
+*if old
+  oldbeambreak   
+  *define X !
+*else
+  *define X
+*fi
+
+[stave 1 treble 1]
+g-e-; f- a-; b- a- |
+g= b= c'=, e'=d'=&X;c'= |
+c- r- e'-; c- r c'- 
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+g=a=b=c'=; g=a=,b=c'= | 
+[beamslope 0] g=a=b=c'=; g=a=b=c'= |
+[beammove 4] g=a=b=c'=; [beammove -4] g=a=b=c'= |
+c=\su\d=d''=\sw\e''= |
+
+"notes off"/b [notes off] g-a-b-c'-; 
+[notes on] g-a-b-c'- |
+

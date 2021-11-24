@@ -1,0 +1,50 @@
+magnification 1.5
+nocheck
+stavespacing 3/0
+
+textsizes 10 16 8
+
+[stave 1 "first" treble 1] 
+g 
+[endstave]
+
+[stave 2 "second"/s3 bass 0]
+g
+[endstave]
+
+[stave 3 "third"/s2/m contrabass 0]
+g
+[endstave]
+
+[stave 4 contrabass 0]
+g
+[endstave]
+
+[stave 5 treble 1]
+g
+[endstave]
+
+[newmovement]
+[stave 1 "1/1" "1/2" "1/3" treble 1]
+a | [newline]
+a | [newline]
+a | [newline]
+[name 3]
+a | [newline]
+a | [newline]
+[name 1]
+a | [newline]
+a |
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+[name "A" "B"]
+a | [newline] a
+
+
+
+
+
+
+

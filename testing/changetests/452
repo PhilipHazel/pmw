@@ -1,0 +1,28 @@
+nocheck
+transpose 2
+
+[stave 1 treble 1 key N]
+#c_ | c %^%c
+[endstave]
+
+[newmovement]
+
+barnumbers 1
+
+[stave 0]
+"Test only"
+[endstave]
+
+[stave 1 treble 1 key A]
+abcd | a'bcd | [newline] a'bcd |
+[endstave]
+
+[newmovement]
+
+[stave 0]
+[endstave]
+
+[stave 1 trebledescant 1 key A]
+abcd | [newline] a'bcd |
+[endstave]
+

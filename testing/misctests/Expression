@@ -1,0 +1,54 @@
+magnification 1.5
+justify top left
+nocheck
+systemgap 60
+stavespacing 1/50
+
+[stave 1 treble 1][text below textfont roman]
+[bowing below]
+g\/\ g\//\ g\///\ | f'\/\ f'\//\ f'\///\ |
+g\~\ g\~|\ g\~~\ g\~~|\ |
+g\.\ g.\:\ g\-\ g\>\ |
+
+"a1" g\a1\ "a2" g\a2\ "a3" g\a3\ "a4" g\a4\
+"a5" g\a5\ "a6" g\a6\ "a7" g\a7\ "a8" g\a8\ "a9" g\a9\ "a10" g\a10\ |
+
+[octave 2]
+"a1" c\a1\ "a2" c\a2\ "a3" c\a3\ "a4" c\a4\
+"a5" c\a5\ "a8" c\a8\ "a9" c\a9\ "a10" c\a10\ |
+[octave 1]
+
+g\d\ g\f\ g-\g\; g-\g/\ g\o\ g\t\ g\tr\ |
+g\tr#\ g\tr$\ g\tr%\ g\u\ |
+g\.-\ |
+[dots below] g. g.\:\ [dots above] g. |
+
+[endstave]
+
+[stave 2 treble 1][text below textfont roman]
+[\!\]
+f\/\ f\//\ f\///\ | e'\/\ e'\//\ e'\///\ |
+g\~\ g\~|\ g\~~\ g\~~|\ |
+g\.\ g.\:\ g\-\ g\>\ |
+
+"a1" g\a1\ "a2" g\a2\ "a3" g\a3\ "a4" g\a4\
+"a5" g\a5\ "a6" g\a6\ "a7" g\a7\ "a8" g\a8\ "a9" g\a9\ "a10" g\a10\ |
+
+[octave 2]
+"a1" c\a1\ "a2" c\a2\ "a3" c\a3\ "a4" c\a4\
+"a5" c\a5\ "a8" c\a8\ "a9" c\a9\ "a10" c\a10\ |
+[octave 1]
+
+g\d\ g\f\ g-\g\; g-\g/\ g\o\ g\t\ g\tr\ |
+g\tr#\ g\tr$\ g\tr%\ g\u\ |
+g\.x\ |
+(c.f.g.) [dots below] (c.f.g.) [dots above] (c.f.g.)
+
+[endstave]
+
+
+
+
+
+
+

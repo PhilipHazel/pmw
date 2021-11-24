@@ -1,0 +1,18 @@
+Heading "|National Anthem"
+breakbarlines
+Key G
+Time 3/4
+
+
+[stave 1 treble 1 text underlay]
+"God save our gra-cious Queen,"
+g g a | f. g- a |
+"Long live our no-ble Queen,"
+b b c' | b. a- g |
+"God save the Queen."
+a g f | G. |
+[endstave]
+
+[stave 2 bass]
+g` b` c | d. e- f | g e c | d. #d- e | c d d | G`. |
+[endstaff]

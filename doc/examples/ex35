@@ -1,0 +1,12 @@
+unfinished
+draw cross
+  -4  0 rmoveto 8 0 rlineto
+  -4 -4 rmoveto 0 8 rlineto
+  stroke
+enddraw
+draw crosses
+   -4 -6 moveto draw cross
+   10 -6 moveto draw cross
+enddraw
+[stave 1 treble 1]
+[draw crosses] gabc'

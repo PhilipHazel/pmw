@@ -1,0 +1,29 @@
+linelength 250
+pagelength 300
+justify bottom top right left
+notime
+unfinished
+heading 15 "Left|1|Right"
+pageheading 15 "Left|2|Right"
+footing "Left||Right"
+pagefooting "Left||Right"
+
+[stave 1 treble 1]
+[3] gggg | [newline]
+[3] gggg | [newline]
+[3] gggg | [newline]
+[3] gggg | [newline]
+[3] gggg |
+[newpage]
+[3] gggg | [newline]
+[justify -right]
+[3] gggg | [newline]
+[3] gggg | [newline]
+[1] gggg |
+[endstave]
+[newmovement]
+notime
+unfinished
+heading "|New"
+[stave 1 treble 1]
+[3]gggg 

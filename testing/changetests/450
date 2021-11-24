@@ -1,0 +1,26 @@
+[stave 1 treble 1]
+["A"] abcd |
+[endstave]
+
+[newmovement]
+rehearsalmarks linestartleft
+
+[stave 1 treble 1]
+["A"] abcd |
+[endstave]
+
+[newmovement]
+rehearsalmarks ringed 9 italic
+
+[stave 1 treble 1]
+["A"] abcd |
+[endstave]
+
+
+[newmovement]
+rehearsalmarks nolinestartleft plain 10 bold
+
+[stave 1 treble 1]
+["A"] abcd |
+[endstave]
+

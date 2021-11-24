@@ -1,0 +1,199 @@
+# This file contains translations from Unicode code points to the 256 code
+# points in the PostScript "Symbol" font's default encoding. Some of these
+# are null translations, but all are listed for completeness. Symbol font
+# names are in lower case; Unicode names (where given) are in upper case.
+
+# Created by Philip Hazel, June 2020
+
+0020 32 space
+0021 33 exclam
+2200 34 universal
+0023 35 numbersign
+2203 36 existential
+0025 37 percent
+0026 38 ampersand
+220d 39 suchthat SMALL CONTAINS AS MEMBER
+0028 40 parenleft
+0029 41 parenright
+2217 42 asteriskmath
+002b 43 plus
+002c 44 comma
+2212 45 minus
+002e 46 period
+002f 47 slash
+0030 48 zero
+0031 49 one
+0032 50 two
+0033 51 three
+0034 52 four
+0035 53 five
+0036 54 six
+0037 55 seven
+0038 56 eight
+0039 57 nine
+003a 58 colon
+003b 59 semicolon
+003c 60 less
+003d 61 equal
+003e 62 greater
+003f 63 question
+224c 64 congruent
+0391 65 Alpha
+0392 66 Beta
+03a7 67 Chi
+0394 68 Delta
+0395 69 Epsilon
+03a6 70 Phi
+0393 71 Gamma
+0397 72 Eta
+0399 73 Iota
+03d1 74 theta1
+039a 75 Kappa
+039b 76 Lambda
+039c 77 Mu
+039d 78 Nu
+039f 79 Omicron
+03a0 80 Pi
+0398 81 Theta
+03a1 82 Rho
+03a3 83 Sigma
+03a4 84 Tau
+03a5 85 Upsilon
+03c2 86 sigma1
+03a9 87 Omega
+039e 88 Xi
+03a8 89 Psi
+0396 90 Zeta
+005b 91 bracketleft
+2234 92 therefore
+005d 93 bracketright
+27c2 94 perpendicular
+005f 95 underscore
+# 96 radicalex
+03b1 97 alpha
+03b2 98 beta
+03c7 99 chi
+03b4 100 delta
+03b5 101 epsilon
+03c6 102 phi
+03b3 103 gamma
+03b7 104 eta
+03b9 105 iota
+03d5 106 phi1
+03ba 107 kappa
+03bb 108 lambda
+03bc 109 mu
+03bd 110 nu
+03bf 111 omicron
+03c0 112 pi
+03b8 113 theta
+03c1 114 rho
+03c3 115 sigma
+03c4 116 tau
+03c5 117 upsilon
+03ce 118 omega1
+03c9 119 omega
+03be 120 xi
+03c8 121 psi
+03b6 122 zeta
+007b 123 braceleft
+007c 124 bar
+007d 125 braceright
+007e 126 similar
+20ac 160 Euro
+03d2 161 Upsilon1
+2032 162 minute
+2264 163 lessequal
+2215 164 fraction DIVISION SLASH
+221e 165 infinity
+0192 166 florin LATIN SMALL LETTER F WITH HOOK
+2663 167 club
+2666 168 diamond
+2665 169 heart
+2660 170 spade
+2194 171 arrowboth
+2190 172 arrowleft
+2191 173 arrowup
+2192 174 arrowright
+2193 175 arrowdown
+00b0 176 degree
+00b1 177 plusminus
+2033 178 second
+2265 179 greaterequal
+00d7 180 multiply
+221d 181 proportional
+2202 182 partialdiff
+2022 183 bullet
+00f7 184 divide
+2260 185 notequal
+2261 186 equivalence
+2245 187 approxequal
+0eaf 188 ellipsis
+23d0 189 arrowvertex VERTICAL LINE EXTENSION
+23af 190 arrowhorizex HORIZONTAL LINE EXTENSION
+240d 191 carriagereturn
+05d0 192 aleph
+1d574 193 Ifraktur
+1d57d 194 Rfraktur
+2118 195 weierstrass
+2297 196 circlemultiply
+2295 197 circleplus
+2205 198 emptyset
+2229 199 intersection
+222a 200 union
+2283 201 propersuperset SUPERSET OF
+2287 202 reflexsuperset SUPERSET OF OR EQUAL TO
+2284 203 notsubset NOT A SUBSET O
+2282 204 propersubset SUBSET OF
+2286 205 reflexsubset SUBSET OF OR EQUAL TO
+2208 206 element
+2209 207 notelement
+2220 208 angle
+2207 209 gradient NABLA
+00ae 210 registerserif REGISTERED SIGN
+00a9 211 copyrightserif
+2122 212 trademarkserif TRADE MARK SIGN
+220f 213 product N-ARY PRODUCT
+221a 214 radical SQUARE ROOT
+00b7 215 dotmath
+00ac 216 logicalnot
+2227 217 logicaland
+2228 218 logicalor
+21d4 219 arrowdblboth LEFT RIGHT DOUBLE ARROW
+21d0 220 arrowdblleft LEFTWARDS DOUBLE ARROW
+21d1 221 arrowdblup UPWARDS DOUBLE ARROW
+21d2 222 arrowdblright RIGHTWARDS DOUBLE ARROW
+21d3 223 arrowdbldown DOWNWARDS DOUBLE ARROW
+25ca 224 lozenge
+2039 225 angleleft SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+# 226 registersans  Unicode has only one register code
+# 227 copyrightsans Unicode has only one copyright code
+# 228 trademarksans Unicode has only one trade mark code
+2211 229 summation N-ARY SUMMATION
+239b 230 parenlefttp LEFT PARENTHESIS UPPER HOOK
+239c 231 parenleftex LEFT PARENTHESIS EXTENSION
+239d 232 parenleftbt LEFT PARENTHESIS LOWER HOOK
+23a1 233 bracketlefttp LEFT SQUARE BRACKET UPPER CORNER
+23a2 234 bracketleftex LEFT SQUARE BRACKET EXTENSION
+23a3 235 bracketleftbt LEFT SQUARE BRACKET LOWER CORNER
+23a7 236 bracelefttp LEFT CURLY BRACKET UPPER HOOK
+23a8 237 braceleftmid LEFT CURLY BRACKET MIDDLE PIECE
+a3a9 238 braceleftbtLEFT CURLY BRACKET LOWER HOOK
+23aa 239 braceex CURLY BRACKET EXTENSION
+203a 241 angleright SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+222b 242 integral
+2320 243 integraltp TOP HALF INTEGRAL
+23ae 244 integralex INTEGRAL EXTENSION
+2321 245 integralbt BOTTOM HALF INTEGRAL
+239e 246 parenrighttp RIGHT PARENTHESIS UPPER HOOK
+239f 247 parenrightex RIGHT PARENTHESIS EXTENSION
+23a0 248 parenrightbt RIGHT PARENTHESIS LOWER HOOK
+23a4 249 bracketrighttp RIGHT SQUARE BRACKET UPPER CORNER
+23a5 250 bracketrightex RIGHT SQUARE BRACKET EXTENSION
+23a6 251 bracketrightbt RIGHT SQUARE BRACKET LOWER CORNER
+23ab 252 bracerighttp RIGHT CURLY BRACKET UPPER HOOK
+23ac 253 bracerightmid RIGHT CURLY BRACKET MIDDLE PIECE
+23ad 254 bracerightbt RIGHT CURLY BRACKET LOWER HOOK
+# -1  apple Not encoded by default in Symbol
+
+# End

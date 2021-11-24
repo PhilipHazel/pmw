@@ -1,0 +1,85 @@
+@ This is an example PMS input file showing how the drawing facilities
+@ can be used to draw crop marks on pages. Philip Hazel, July 1994.
+@ Revised to do a better job, July 1995.
+@ ... and again, August 1995!
+
+@ These four definitions specify the position of the crop marks relative to the 
+@ area in which PMS prints music. Zero-level for the bottom is the lowest 
+@ possible position for a stave; the zero top level is pagelength points above.
+@ Note that if a heading is printed at the top of the page, its baseline is at
+@ the top zero level, so the actual printing extends a bit higher. The left-hand 
+@ zero is the start of systems with no preceding text; the right-hand zero is 
+@ linelength points to the right.
+
+@ Increase "top" to move the upper marks upwards; decrease "bottom" to move the 
+@ bottom marks down, and similarly for left and right.
+
+*define top     72.5
+*define bottom -47.5
+*define left   -40
+*define right   40
+
+@ Those values are, in fact, the correct values for B5 page images, when the
+@ following values are also set:
+
+@ Sheetwidth 499
+@ Sheetdepth 709
+@ Linelength 420
+@ Pagelength 590
+
+@ If the line length or page length is changed, then the top/bottom/left/right
+@ values must also be changed correspondingly.
+
+@ The next two definitions specify the size of the crop marks in terms of a 
+@ distance from the defining point and the length of the line. Adjust to
+@ taste.
+
+*define space 10
+*define line  30
+
+@ This drawing routine draws one crop mark at a position and orientation
+@ specified on the stack.
+
+draw onecrop
+   /y exch def /x exch def 
+   /s &space magnification div def
+   /l &line magnification div def  
+   dup s mul y add x exch moveto 
+   l mul y add x exch lineto dup s mul x add y moveto 
+   l mul x add y lineto stroke
+enddraw
+
+@ This drawing routing draws four crop marks at positions defined above, in 
+@ the appropriate orientations, when called in a heading directive.
+
+draw crops
+   topleft translate
+   -1  1 &left  magnification div &top magnification div draw onecrop
+   -1 -1 &left  magnification div &bottom magnification div pagelength sub draw onecrop
+    1  1 &right magnification div linelength add &top magnification div draw onecrop
+    1 -1 &right magnification div linelength add &bottom magnification div pagelength sub draw onecrop
+enddraw
+
+@ These heading directives cause crop marks to be drawn on all pages.
+
+heading draw crops 0
+pageheading draw crops 0
+
+@ The remainder of this file consists of some test heading directives to print 
+@ in relation to the crop marks. The linelength, pagelength, and sheet 
+@ parameters are appropriate for B5 page images. To print these on A4 pages 
+@ and have all the crop marks showing you will need to use the image 
+@ adjustment feature of the print configuration dialogue box.
+
+@ Replace what follows with your own PMS input file.
+    
+Sheetwidth 499
+Sheetdepth 709
+Linelength 420
+Pagelength 590
+heading "<|heading|>"
+pageheading "<|heading|>"
+footing "<|footing|>"
+pagefooting "<|footing|>"
+
+[newmovement newpage]  @ force there to be two pages for testing

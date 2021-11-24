@@ -1,0 +1,14 @@
+textfont extra 1 "Courier"
+
+notime
+nocheck
+unfinished
+
+
+
+[stave 1 treble 1 text underlay underlayfont extra 1]
+"g_ c' g_/a c' f_/g e' (fbc')_ (fac')"
+g_c' q- g_/a c' q- f_/g e' (fbc')_(fac')
+
+[endstave]
+

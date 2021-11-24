@@ -1,0 +1,94 @@
+Nocheck
+
+Unfinished
+Magnification 1.1
+
+[Stave 1 treble 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 2 soprano 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 3 mezzo 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 4 alto 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 5 tenor 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 6 baritone 0]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 7 bass 0]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 8 deepbass 0]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 9 hclef 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 10 noclef 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 11 trebledescant 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 12 trebletenor 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 13 trebletenorB 1]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 14 soprabass 0]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]
+
+[Stave 15 contrabass 0]
+cdefgabc'  |
+[key g]  c | [key d]  c | [key a]  c | [key e]  c | [key b]  c | [key f#] c |
+[key f]  c | [key b$] c | [key e$] c | [key a$] c | [key d$] c | [key g$] c |
+[endstave]

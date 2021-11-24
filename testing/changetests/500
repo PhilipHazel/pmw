@@ -1,0 +1,48 @@
+nocheck
+textsizes 10 8
+
+Heading 12 "Some new escapes: \O" \U" \o" \u""
+Heading 10 "Try repeat number not in stave: \r\" 20
+
+[stave 1 treble 1]
+ggg | [3] "\rm\\r\"/a/c/s2 R! | "\r\"/a ggg |
+[bass 0] [4] "\rm\\r\"/a/c R! |
+[3] g-g- "\rm\\r\"/a/c/s2 g g-g- |
+G | "1-3"/c/a [3] "\r2\"/c/a R! | G |
+[endstave]
+
+
+[newmovement]
+startbracketbar 2
+
+[stave 1 treble 1]
+[4] R! | G+
+[endstave]
+
+[stave 2 treble 1]
+[4] R! | G+
+[endstave]
+
+
+[newmovement]
+
+[stave 1 treble 1]
+G g g-; g=; g=-; g== | g-g- |
+[endstave]
+
+[newmovement]
+stemlengths -2 -2 -2 -2 0 2
+
+[stave 1 treble 1]
+G g g-; g=; g=-; g== | g-g- |
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+
+[stave 1 treble 1]
+G | [nocount barnumber] G | [barnumber] G | 
+g [move 5,20] r |
+g [move 5,20] r\l-10\ |
+[endstave]

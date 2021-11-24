@@ -1,0 +1,166 @@
+@ PMS2 3.32
+@
+@ Banks style: TITLE (even caps) and \bf\Composer (bold face)
+@ B5 (17.6cm W by 25cm H) with crop marks
+@
+
+sheetsize B5
+
+@Sheetwidth 499
+@Sheetdepth 709
+@Linelength 420
+@Pagelength 590
+@
+Draw divider
+  60 0 moveto
+  0 0.375 rlineto
+  linelength 120 sub 2 div 1.675 rlineto
+  linelength 120 sub 2 div -1.675 rlineto
+  0 -0.375 rlineto
+  @ top half done
+  0 -0.375 rlineto
+  linelength 120 sub 2 div neg -1.675 rlineto
+  linelength 120 sub 2 div neg 1.675 rlineto
+  0 0.375 rlineto
+  1 setlinewidth fill
+Enddraw
+@
+@ Crop marks:
+@
+*define top     72
+*define bottom -48
+*define left   -40
+*define right   40
+@*define space   10
+*define space   0
+*define line    30
+@
+Draw onecrop
+   /y exch def /x exch def
+   dup &space mul y add x exch moveto &line mul y add x exch lineto
+   dup &space mul x add y moveto &line mul x add y lineto
+   0.2 setlinewidth stroke
+Enddraw
+@
+Draw crops
+   -1 -1 &left 20 &bottom add draw onecrop
+   -1  1 &left 20 &top pagelength add add draw onecrop
+    1 -1 &right linelength add 20 &bottom add draw onecrop
+    1  1 &right linelength add 20 &top pagelength add add draw onecrop
+Enddraw
+@
+Footing draw crops 0
+Pagefooting draw crops 0
+Lastfooting draw crops 0
+@
+Heading 28 "|\bf\Eboracum Choral Series" 16
+Heading 10 "|General Editor: \bf\Francis Jackson" 14
+Heading 12 "|Banks Music Publications, The Old Forge, Sand Hutton, York YO4 1LB" 10
+Heading draw divider 32
+Heading 10 "S.A.T.B.||ECS ###" 10
+Heading 10 "(unacc.)" -8
+@
+Pageheading 12 "\pe\||\po\" 28
+Heading 12 "|\it\Dedication" 28
+Heading 24 "|TITLE" 50
+Heading 12 "||\bf\Composer" 30
+Footing "" 20
+Footing 10 "© Banks Music Publications 1995"
+LastFooting "" 10
+LastFooting 8 "||Typesetting by \it\KeyNote" 10
+LastFooting 8 "||Huddersfield, HD4 5PN"
+Key C
+Time 4/4
+Timefont extra 1
+Longrestfont 12 extra 1
+Repeatbarfont 10 extra 1
+Repeatstyle 4
+@ Rehearsalmarks boxed 12 extra 1
+@
+@ Staffspacing 1/44
+@ Systemgap 44
+@ Breakbarlines 1
+@ Barnumbers line 8  @ 8 is the size. Can replace 'line' by interval
+@ Bracket
+@ Brace 1-2
+@ Thinbracket
+Copyzero 1
+@ Breverests
+Clefsize 0.9
+Vertaccsize 8
+OldBeamBreak
+Beamthickness 2
+Maxbeamslope 0.2 0.2
+Shortenstems 2
+Sluroverwarnings
+@ Nospreadunderlay
+@ Nocheck
+@ Unfinished
+@
+Hairpinwidth 6 @ 7 is default
+Hairpinlinewidth 0.5 @ 0.2 is default
+Startlinespacing 4 0 4
+Bracestyle 1
+Tripletfont 8 bolditalic @ Default size is 10, roman
+Tripletlinewidth 0.4
+Textsizes 10 8 12 7
+Extenderlevel 1.3
+Hyphenthreshold 60
+Underlaystyle 1
+Underlaysize 10
+Overlaysize 10
+Footnotesize 10
+Justify left right top bottom
+Topmargin 0
+Magnification 1
+Notespacing *1
+
+*Define Ped()    "\mf\£"/b&&1
+*Define PedUp()  "\mf\$"/s4/b&&1/e/u1
+*Define PedB()   "\rm\(\mf\£"/b&&1/l3
+*Define PedUpB() "\mf\$"/s4/b&&1/e/u1 "\rm\)"/b&&1/e/r2
+
+*Define pppv @[playvolume 2]
+*Define ppv  @[playvolume 3]
+*Define pv   @[playvolume 5]
+*Define mpv  @[playvolume 7]
+*Define mfv  @[playvolume 9]
+*Define fv   @[playvolume 11]
+*Define ffv  @[playvolume 13]
+*Define fffv @[playvolume 14]
+*Define sfv  @[playvolume 15]
+
+*Define ppp &pppv "\x1\ppp"/a/u2/e
+*Define pp  &ppv  "\x1\pp"/a/u2/e
+*Define p   &pv   "\x1\p"/a/u2/e
+*Define mp  &mpv  "\x1\mp"/a/u2/e
+*Define mf  &mfv  "\x1\mf"/a/u2/e
+*Define f   &fv   "\x1\f"/a/u2/e
+*Define ff  &ffv  "\x1\ff"/a/u2/e
+*Define fff &fffv "\x1\fff"/a/u2/e
+*Define sf  &sfv  "\x1\sf"/a/u2/e
+
+Textfont extra 1 "PMW-Alpha"
+
+@Midichannel 1 "piano"/15 1-2
+@Playtempo 120
+
+Page 1
+
+[Staff 1] [Treble 1] [Stems above] [Ties above] [Dots above]
+
+[endstaff]
+
+[Staff 2] [Treble 1] [Stems below] [Ties below] [Dots below]
+
+[endstaff]
+
+[Staff 3] [Bass] [Stems above] [Ties above] [Dots above]
+
+[endstaff]
+
+[Staff 4] [Bass] [Stems below] [Ties below] [Dots below]
+
+[endstaff]
+
+[newmovement newpage]

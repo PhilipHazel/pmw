@@ -1,0 +1,43 @@
+nocheck
+notime
+unfinished
+repeatstyle 0
+[stave 1 noclef 1]
+g "style 0"/c :)|(: g :)|
+[endstave]
+
+[newmovement thisline]
+nocheck
+notime
+unfinished
+repeatstyle 1
+[stave  1 "                              " noclef 1]
+g "style 1"/c :)|?(: g :)|
+[endstave]
+
+[newmovement thisline]
+nocheck
+notime
+unfinished
+repeatstyle 2
+[stave  1 "                                                              " noclef 1]
+g "style 2"/c :)|?(: g :)|?
+[endstave]
+
+[newmovement thisline]
+nocheck
+notime
+unfinished
+repeatstyle 3
+[stave  1 "                                                                                              " noclef 1]
+g "style 3"/c :)|?(: g :)|
+[endstave]
+
+[newmovement thisline]
+nocheck
+notime
+unfinished
+repeatstyle 4
+[stave  1 "                                                                                                                              " noclef 1]
+g "style 4"/c :)|?(: g :)|
+[endstave]

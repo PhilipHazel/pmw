@@ -1,0 +1,236 @@
+.TH PMW 1
+.SH NAME
+pmw - a program for typesetting music
+.SH SYNOPSIS
+.B pmw [options] [input file]
+.SH DESCRIPTION
+.rs
+.sp
+PMW (Philip's Music Writer) is a program for typesetting music. It is not
+an interactive program; instead, it reads a description of the music from a
+textual input file, which can be prepared by any text editor. The output from
+PMW is a PostScript file of page images of typeset music. This output uses
+the PMW-Music PostScript font, which must therefore be available for viewing or
+printing. A secondary output in the form of a MIDI file can be requested.
+
+A full description of PMW and its markup language is given in the reference
+manual. This man page just summarizes the command line options.
+.in 0
+.SH OPTIONS
+.rs
+.TP 10
+\fB-a4ona3\fR
+The pages are A4-sized; print them 2-up, assuming A3 paper.
+.TP
+\fB-a5ona4\fR
+The pages are A5-sized; print them 2-up, assuming A4 paper.
+.TP
+\fB-a4sideways\fR
+The paper is A4, but the printer feeds it sideways, so rotate the page images
+before printing.
+.TP
+\fB-c\fR \fI<number>\fR
+Arrange to print \fI<number>\fR copies. This number is honoured by PostScript
+printers. It may not be honoured by other programs that interpret PostScript.
+.TP
+\fB-d<\fIoptions\fR>\fR
+Write general debugging information to stderr. This option is of use only to
+the program maintainer.
+.TP
+\fB-dbd\fR [[\fI<movement>\fR,]\fI<stave>\fR,]\fI<bar>\fR
+Write debugging data for the bar to stderr. This option is of use only to the
+program maintainer.
+.TP
+\fB-drawbarlines\fR
+Instead of using characters from the music font to print bar lines, generate
+PostScript drawing instructions. Some PostScript interpreters do not display
+the font bar line characters correctly on the screen when several of them are
+used to generate a long vertical line; drawing them instead may give a better
+result. \fB-dbl\fR is an abbreviation for \fB-drawbarlines\fR.
+.TP
+\fB-drawstavelines\fR [\fI<thickness>\fR]
+Instead of using characters from the music font to print stave lines, generate
+PostScript drawing instructions. Some PostScript interpreters do not display
+the font stave characters correctly on the screen; drawing them instead may
+give a better result. The default thickness of drawn stave lines is 0.3 points,
+scaled according to relative stave size and overall magnification. An integer
+number given with this option specifies the thickness in tenths of a point.
+\fB-dsl\fR is an abbreviation for \fB-drawstavelines\fR.
+.TP
+\fB-dtp\fR \fI<bar>\fR
+Write debugging positioning data for the bar to stderr. If there is more than
+one movement (not likely while debugging at this level), the data is output for
+every bar with the given number. If the number is -1, data is output for all
+bars. This option is of use only to the program maintainer.
+.TP
+\fB-duplex\fR
+This option sets the PostScript option for duplex printing (see also
+\fB-tumble\fR).
+.TP
+\fB-eps\fR
+Write the output as encapsulated PostScript (useful if this is an illustration
+that is going to be included in some other document).
+.TP
+\fB-errormaximum\fR \fI<number>\fR
+Set the maximum number of errors before the program gives up. The default is
+40. This option is provided mainly so that an error test can generate a large
+number of errors. \fB-em\fR is an abbreviation for \fB-errormaximum\fR.
+.TP
+\fB-F\fR \fI<directory-list>\fR
+Search the given colon-separated list of directories for fontmetrics files,
+before searching the default directory that was set up when PMW was built.
+These directories are also searched for optional Unicode translation (.utr)
+files for fonts that do not use Adobe standard encoding, and for any special
+text fonts (.pfa files) that are requested to be included in the output.
+.TP
+\fB-f\fR \fI<name>\fR
+Specifies a format name, used when the input file is set up to output in
+several different formats.
+.TP
+\fB-H\fR \fI<file>\fR
+Use the given file as the PostScript header file, instead of the default that
+was set up when PMW was built.
+.TP
+\fB-help\fR or \fB--help\fR
+Output a list of options, then stop. No file is read.
+.TP
+\fB-incPMWfont\fR or \fB-incpmwfont\fP or \fB-ipf\fP
+This option causes PMW to include the music font within the PostScript output
+that it generates. (If the PMW-Alpha font is used, that is also included.) If
+you use this option, there is no need to install the PMW music font(s) for
+GhostScript (or any other display program) to find.
+.TP
+\fB-MF\fR \fI<directory>\fR
+Search the given colon-separated list of directories for PMW's music fonts,
+before searching the default directory that was set up when PMW was built.
+.TP
+\fB-MP\fR \fI<file>\fR
+Use the given file as the MIDIperc file, instead of the default that was set
+up when PMW was built. This file translates between names and "pitches" for
+untuned percussion voices.
+.TP
+\fB-MV\fR \fI<file>\fR
+Use the given file as the MIDIvoices file, instead of the default that was set
+up when PMW was built. This file translates voice names to MIDI voice numbers.
+.TP
+\fB-manualfeed\fR
+Set the `manualfeed' option in the generated PostScript. Most PostScript
+printers interpret this to mean that the paper should be taken from an
+alternate input tray or slot. Some also require the user to push a button
+before each page is printed.
+.TP
+\fB-midi\fR \fI<file>\fR
+Write MIDI output to the given file (in addition to the normal PostScript
+output). The stave selection (see \fB-s\fR below) also applies to MIDI output.
+.TP
+\fB-midibars\fR \fI<range>\fR
+If \fB-midi\fR is given, write only the given bars to the MIDI output. The
+range can be two numbers separated by a hyphen or a single number for just one
+bar. A single number followed by a hyphen plays from that bar to the end of the
+movement. \fB-mb\fR is an abbreviation for \fB-midibars\fR.
+.TP
+\fB-midimovement\fR \fI<number>\fR
+For a multi-movement input file, this specifies the movement that is to be
+output as MIDI when \fB-midi\fR is given. The default is the first movement.
+\fB-mm\fR is an abbreviation for \fB-midimovement\fR.
+.TP
+\fB-noid\fR
+Do not show version number for error output. This is useful to a maintainer
+when comparing output from different versions.
+.TP
+\fB-norc\fR or \fB-nopmwrc\fP
+Do not read the caller's \fI.pmwrc\fR file. This must be the first option
+given.
+.TP
+\fB-norepeats\fR
+When generating a MIDI output file, do not repeat repeated sections of the
+music. \fB-nr\fR is an abbreviation for \fB-norepeats\fR.
+.TP
+\fB-nowidechars\fR
+This option stops PMW from using the 100-point wide stave characters when
+printing staves. Instead, staves are constructed entirely from the 10-point
+wide characters. This option is provided because it seems that some PostScript
+interpreters cannot deal correctly with the very wide characters. \fB-nw\fR is
+an abbreviation for \fB-nowidechars\fR. The \fB-drawstavelines\fP option
+overrides this option.
+.TP
+\fB-o\fR \fI<file>\fR
+Send the output to the given file, or, if "-" is given, to stdout. The default
+file name is the input file with the extension ".ps" replacing any existing
+extension, or being added if there is no extension. If there is no input file
+(input from stdin) the default output is to stdout.
+.TP
+\fB-p\fR \fI<list>\fR
+Output only the specified pages. These can be individual page numbers, or pairs
+of numbers separated by a hyphen, to specify a range. Use commas to separate
+items in the list.
+.TP
+\fB-pamphlet\fR
+Output pages in pamphlet order. This is usually used in conjunction with
+\fB-a5ona4\fR or \fB-a4ona3\fR.
+.TP
+\fB-printadjust\fR \fI<x>\fR \fI<y>\fR
+Move the image on the page by (\fIx,y\fR) points.
+.TP
+\fB-printgutter\fR \fI<x>\fR
+This option specifies a distance by which righthand (recto) page images are
+moved to the right, and lefthand (verso) page images are moved to the left,
+thus creating a "gutter" for binding when the images are printed doublesided.
+The \fB-printgutter\fR setting applies only when pages are being printed 1-up.
+It is ignored for any of the 2-up printing styles.
+.TP
+\fB-printscale\fR \fI<n>\fR
+Scale the output image by \fI<n>\fR.
+.TP
+\fB-printside\fR \fI<n>\fR
+Output only odd or only even pages; \fI<n>\fR must either be 1 or 2.
+.TP
+\fB-reverse\fR
+Output the pages in reverse order.
+.TP
+\fB-s\fR \fI<list>\fR
+Output only the specified staves. These can be individual stave numbers, or
+pair of numbers separated by a hyphen, to specify a range. Use commas to
+separate items in the list.
+.TP
+\fB-t\fR \fI<number>\fR
+Specify a transposition, in semitones.
+.TP
+\fB-tumble\fR
+When \fB-duplex\fR is set, \fB-tumble\fR causes the PostScript option for
+"tumbled" duplex printing.
+.TP
+\fB-V\fR or \fB--version\fR
+Output the PMW version number to stdout, then stop. No file is read.
+.TP
+\fB-v\fR
+Output verification information about the typesetting to stderr.
+.
+.
+.SH "DIAGNOSTICS AND RETURN CODES"
+.rs
+.sp
+Error messages are written to the standard error stream. The return code is the
+C return code EXIT_SUCCESS (usually 0) for success, even if there were some
+warnings, and EXIT_FAILURE (usually 1) otherwise.
+
+.
+.
+.SH EXAMPLES
+.rs
+.sp
+  pmw myscore
+  pmw -format A5 -a5ona4 -pamphlet myscore
+  pmw -s 3 -o quartet-viola.ps quartet.pmw
+.
+.SH AUTHOR
+.rs
+.sp
+  Philip Hazel
+  Email local part: \fIPhilip.Hazel\fR
+  Email domain: \fIgmail.com\fR
+.sp
+.in 0
+Last updated: 24 November 2021
+.br
+Copyright (c) 2021 Philip Hazel

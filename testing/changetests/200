@@ -1,0 +1,46 @@
+magnification 2
+@nokerning
+
+textfont extra 1 "Utopia-Regular"
+
+heading 10 "WW WA 11 ."
+heading 10 "the 11 quick brown foxes" 20
+heading 20 "\it\l' \rm\Yorkshire" 20
+heading 10/1.5 "Yorkshire" 20
+heading 10 "\mf\abcdefg" 20
+
+heading 10 "\xx1\Yorkshire YL" 20
+
+heading 10 "\sy\Yorkshire" 20
+
+heading 10 "\rm\11\rm\1" 20
+
+[stave 1 treble 1]
+gggg "\rm\Yorkshire"/e/rot-45 "\rm\Yorkshire"/a/e
+[endstave]
+
+[newmovement]
+nocheck
+heading ""
+
+[stave 1 treble 1]
+[slur/a] e=\sd\g=; d'=\su\g'=; 
+(e''-\!.su\d''-) [es] |
+[3] R! |
+[endstave]
+
+[newmovement]
+breakbarlines 1
+stavesizes 1/0.7
+
+[stave 1 treble 1]
+>/r8 c''\tr\ | R! > |
+[endstave]
+
+[stave 2 treble 1]
+[slur/a/h] [slur/b/h] c''\tr\ |
+[newline] Q! [es es] |
+(d''-\su\e''-);r (d''-e''-) |
+(f`-\sd\g`-)
+
+[endstave]

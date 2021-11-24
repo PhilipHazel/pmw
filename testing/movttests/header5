@@ -1,0 +1,3 @@
+@ Test musicfont separately because it confuses things.
+musicfont "PMW-Alpha"  @ Nonsense, but OK for testing "musicfont"
+@ End

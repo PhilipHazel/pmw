@@ -1,0 +1,52 @@
+heading "" 40
+
+nocheck
+unfinished
+startlinespacing 4 0 4
+
+[stave 1 treble 1]
+(G\///\D) x p 
+[\///\] (DG) x p p-\x\ x [\\] |
+
+(d\.\g) x p- 
+[\.\] (dg) x p- [\\] |
+d\.\ x p- |
+(D\f/r5\G) x | (D\ar\GBD') x p |
+(D\ar f\GBD') x p |
+(D\ar f\GBD') x2 p x3 |
+
+(E++G++B++) p[space 4] (F++G++B++) p [space 8]
+(F++\sd\G++B++) p [space 4] 
+(F++\su\G++) p [space 4]
+(F++\sd\G++) p [space 4] |
+
+(E+G+B+) p p- (egb) (EGB) p (EGB) P+ P++ |
+[endstave]
+
+[newmovement]
+
+heading "" 140
+
+
+@draw drawfiles
+@  0 10 moveto 20 0 rlineto
+@  1.5 "drawfiles.drawfile" drawfile
+@  350 -50 rmoveto 
+@  0.3 "drawfiles.drawfile2" drawfile 
+@  1 setlinewidth stroke
+@  0 0 moveto
+@  0 -20 lineto
+@  0 setlinewidth stroke     
+@enddraw
+@
+@heading draw drawfiles
+
+nocheck
+unfinished
+startlinespacing 4 0 4
+
+[stave 1 treble 1]
+[line/a/h/i] aaaa [el] [line/a/ip] aaa [el]
+
+
+

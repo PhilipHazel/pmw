@@ -1,0 +1,69 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
+%1/1
+mf 10 ss(%)91.5 756 s(5)96.5 756 s(@)112.5 760 s
+%2/1
+(5)118.5 756 s 99.5 754 121.5 754 -5 cv(\()130.25 756 s(5)134.5 756 s
+(B)151 760 s(@)149 760 s
+(CCCCCCCC)64 760 s (C)142.5 760 s
+(!)64 716 s(%)77 730 s(%)82 724 s(%)87 732 s bf 11.8 ss(4)92 724 s(4)
+92 716.15 s
+%1/1
+mf 10 ss(5)105.9 720 s(5)121.9 722 s(=)137.9 710 s(5)137.9 710 s(5)
+153.9 712 s(@)169.9 716 s
+%1/0
+it 10 ss(T)169.9 706 s(est only)-0.92 0 rs
+%2/1
+mf 10 ss(=)175.9 734 s(6)175.9 734 s(6)191.9 722 s(=)206.9 710 s(5)
+206.9 710 s(5)222.9 712 s(@)238.9 716 s rm 10 ss(2)169.9 744 s mf 10 ss
+(FCCCCCCC)64 716 s (C)228.9 716 s
+(!)64 672 s(%)77 686 s(%)82 680 s(%)87 688 s
+%3/1
+(=)100 690 s(6)100 690 s(6)116 678 s(=)131 666 s(5)131 666 s(5)147 668 s
+(B)163.5 672 s(@)161.5 672 s rm 10 ss(3)64 696 s mf 10 ss
+(F)64 672 s (C)155 672 s
+(!)64 628 s(])70 651 s(%)77 642 s(%)82 636 s(%)87 644 s bf 11.8 ss(4)
+92 636 s(4)92 628.15 s
+%1/1
+mf 10 ss(5)105.9 632 s(5)121.9 634 s(=)137.9 622 s(5)137.9 622 s(5)
+153.9 624 s(@)169.9 628 s
+(F)64 628 s (C)159.9 628 s
+(!)64 584 s(])70 607 s(%)77 598 s(%)82 592 s(%)87 600 s
+%2/1
+(=)100 602 s(6)100 602 s(6)116 590 s(=)131 578 s(5)131 578 s(5)147 580 s
+(B)163.5 584 s(@)161.5 584 s rm 10 ss(2)79 608 s mf 10 ss
+(F)64 584 s (C)155 584 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

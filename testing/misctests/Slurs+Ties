@@ -1,0 +1,48 @@
+magnification 1.5
+justify top left
+
+[stave 1 treble 1]
+[slur/b/w] gggg [es] |
+[slur/w] gggg [es] |
+
+[slur/b/w/i] gggg [es] |
+[slur/w/i] gggg [es] |
+
+[slur/b/w] gggg |
+[newline]
+g` [es] ggg | [slur/w] gggg |
+[newline]
+g` [es] ggg
+[endstave]
+
+[newmovement]
+nocheck
+[stave 1 treble 1]
+g_g g_c' g_/a g g_/a c' |
+g_/g c' g_/g/s/a c' ||
+
+[ties above] g_g (ceg)_(ceg) (ceg)_/2a (ceg) |
+[ties below] g_g (ceg)_(ceg) (ceg)_/2a (ceg) |
+[endstave]
+
+
+[newmovement]
+[stave 1 treble 1]
+[slur/b/=A][slur/=B]gab[es/=A]c'[es/=B]  [slur/co4]gabc'[endslur] |
+[slur/e]gggg[es] | [line]gabc'[el] |
+[line/h]gabc'[el] [line/h/ol]gabc'[el] |
+[line/h/or]gabc'[endline]
+[endstave]
+
+
+
+[newmovement]
+time 2/4
+endlineslurstyle 1
+
+[stave 1 treble 1]
+[slur/a slur/b] gg |
+[newline] gg |
+[newline] gg [es es] |
+[endstave]
+

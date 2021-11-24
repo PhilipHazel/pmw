@@ -1,0 +1,14 @@
+notime
+unfinished
+draw triangle
+  3 -4 moveto       @ move to apex
+  -3 -6 rlineto     @ line to bottom left
+  6 0 rlineto       @ horizontal line to bottom right
+  -3 6 rlineto      @ line back to apex
+  fill              @ fill it in (solid triangle)
+enddraw
+
+[stave 1 treble 1]
+c'f [draw triangle] g a | c'-b- [draw triangle] a-g- fg |
+[endstave]
+

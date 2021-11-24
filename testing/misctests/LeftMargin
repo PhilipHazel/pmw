@@ -1,0 +1,12 @@
+heading "*||*"
+leftmargin 50
+
+[stave 1 treble 1]
+aaaa
+[endstave]
+              
+[newmovement]
+linelength 200
+heading "*||*"
+[stave 1 treble 1]
+aaaa

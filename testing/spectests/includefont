@@ -1,0 +1,6 @@
+Heading "Test for included font"
+
+[stave 1 treble 1]
+abcd | efgr |
+[endstave]
+

@@ -1,0 +1,13 @@
+linelength -240
+pagelength -600
+
+page 5
+
+heading "left |\p\| right"
+footing "L||R"
+
+[newmovement]
+linelength +10
+
+
+heading "left || right"

@@ -1,0 +1,210 @@
+nocheck
+
+heading "HEADING|CENTRE|RIGHT"
+
+barnumbers 1
+
+[stave 1 "one|two longer" treble 1 key A]
+abcd | [nocount] abcd | abcd |
+[endstave]
+
+[stave 2 "bass"/v bass 0 key E$]
+abcd
+[endstave]
+
+[stave 3 "abc|abcde|xy"/c/e alto 0 key G]
+abcd | [key C] ggg
+[endstave]
+
+
+[newmovement]
+
+[stave 1 treble 1]
+r r- r= r=- r== | R | S+ | S! | | Q |
+[endstave]
+
+
+[newmovement]
+
+[stave 1 treble 1]
+a | [3] b |
+b |3 [skip 4] c | d
+[endstave]
+
+[stave 2 bass 0]
+abc
+[endstave]
+
+
+[newmovement]
+barnumbers 1000
+
+[stave 1 treble 1]
+(ceg) (g'-e'c'b) | #-g #g ##g $-g $g $$g |
+#-)g #)g ##)g $-)g $)g $$)g |
+#-]g #]g ##]g $-]g $]g $$]g |
+[cue] g #g- | 
+g. g.. G++. g.+ a. |
+g\)\ |
+
+a\./d4\ | a\-/d4\ a\a10\ a\o\ a\>\ a\V\ a\..\ a\v\ a\d\ a\u\ |
+a\/\ a\//\ a\///\ a\~\ a\~|\ a\~~\ a\~~|\ |
+a\f\ a\f!\ a\t\ a\t|\ a\tr\ a\tr#\ a\tr$\ a\tr%\ |
+
+%ug #-ug #ug ##ug $-ug $ug $$ug |
+%o)g' #-o)g' #o)g' ##o)g' $-o)g' $o)g' $$o)g' |
+
+(c\ar\eg) (c\ard\eg) (c\aru\eg) (c\sp\eg) |
+[endstave]
+
+
+[newmovement]
+halfsharpstyle 1
+halfflatstyle 1
+
+[stave 1 treble 1]
+#-ug $-ug |
+%o]g' #-o]g' #o]g' ##o]g' $-o]g' $o]g' $$o]g' |
+g-\g\a g=\g\a=\g\b |
+
+a < bcd < | g > ab > |
+c [tremolo] c c' [tremolo/x4/j1] c' |
+g_g c'_c' c_g c_/g g (c'e'g')_x |
+(ceg)_(cg) |
+[slur] ceg [es]
+[slur/b] ceg [es] |
+[line] ceg [el]
+[line/b] ceg [el] |
+
+[slur/e] ceg [es]
+[slur/i] ceg [es]
+[slur/i/e] ceg [es] |
+
+[slur] ceg [slurgap] gec [es]
+[slur] ceg [slurgap] gec [slurgap] ceg [es]
+[line] ceg [linegap] gec [linegap/"text"] ceg [endline] |
+
+[line] cc gg [linegap/"abc"] c'c' b'b' [el] |
+[slur] cc gg [slurgap/"abc"] c'c' b'b' [es] |
+
+[slur] abc | [newline] def [endslur] |
+G_ | [newline] G |
+(ceg)_ | [newline] (ceg) |
+c_/g | [newline] c' |
+
+(ceg)_ | [newline]  |
+c_/g | [newline] |
+
+g_ r g r |
+
+< abc | [newline] def < |
+
+g [bass 0] g [assume treble 1] g |
+[newline] g |
+[key a] g [assume key b] g |
+[newline] g |
+[time 3/4] g [assume time 5/4] g |
+[newline] g |
+
+(: abc :)(: cba :) | (: abc :) | 
+g [comma] g [tick] g // g |
+g' [comma] g' [tick] g' // g' |
+b' [comma] b' [tick] b' // b' |
+[endstave]
+
+[newmovement]
+breakbarlines 2
+
+[stave 1 treble 1]
+A | [breakbarline] B | C |
+[endstave]
+
+[stave 2 bass 0]
+G | [unbreakbarline] G | G |
+[endstave]
+
+[stave 3 treble 1]
+A | B | C |
+[endstave]
+
+[newmovement]
+textsizes 10 13 12/2/30
+fbsize 8
+
+[stave 1 omitempty treble 1]
+A | | ||  C | | ||| C | | |4 C |
+[newline]
+G+10>. |
+c'\su\ [reset] g\sd\ |
+
+[1st] ab | [2nd 3rd] de | [all] fg | R! | [1st/"\it\ONE"] ab |
+[newline] cd | [all] de |
+g-g-g-; [beammove 4] g-g-g-; [beammove -4] g-g-g-; |
+[beamacc] g=g=g=; [beamrit] g=g=g= |
+
+[newline]
+"TS"/ts
+"abc" g | "\rm\above"/a g "\bi\above 10"/a10 g |
+"below 20"/b20 g | "TS"/ts g "\rm\end" | ["A"] R! |
+"a" "b"/F/s2 g | R! | "abcd"/c g g "xyz"/e |
+"fb"/fb g | "\rm\abc"/s3 g | R! |
+"xyz"/rot-20 g |
+[endstave]
+
+[newmovement]
+nocheck
+rehearsalmarks ringed italic
+
+[stave 1 treble 1]
+A | ["B"] B |
+"abc"/rot-30/box G | "xyz"/rot30/ringed G |
+
+"The quick brown= fox jum-ped"/ul efgabc'd' |
+"Over the lay-zee=== dog"/ol efgabc'd'e'f'g' |
+
+"End==="/ul g [space 10] |
+[newline]
+gabc' "="/ul r d'e' "cat-=tle"/ul f' |
+[newline]
+e'd' |
+
+"End==="/ol g [space 10] |
+[newline]
+gabc' "="/ol r d'e' "cat-=tle"/ol f' |
+[newline]
+e'd' |
+
+"Verse 1"/ul "Verse 2"/ul
+"Verse 1"/ol "Verse 2"/ol
+abcd |
+
+[newline]
+[3]R! | R! || b |
+[3]R! | R! :)| b |
+[3]R! | R! |? b |
+[3]R! | R! [bass 0] | b |
+[3]R! | R! [bass 0] :) | G |
+
+abc | 
+[newline key a] abc |
+[newline time 3/4] abc |
+[newline key E$ time 5/4] abc |
+[endstave]
+
+[newmovement]
+copyzero 1 2
+
+[stave 0]
+[2] "XX" rr | 
+[endstave]
+
+[stave 1 treble 1]
+ab | [copyzero -2] ab |
+[endstave] 
+
+[stave 2 bass 0]
+ab | ab |
+[endstave]
+
+
+

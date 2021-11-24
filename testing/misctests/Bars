@@ -1,0 +1,91 @@
+magnification 1.2
+time 2/4
+
+bar 4             
+barnumbers boxed line 16
+
+[stave 1 treble 1]
+g-g-g-g- | g-g-g-g- | | a-a- : b-b- | [8] S! |
+[endstave]
+
+[newmovement]
+nocheck
+barlinespace 20
+barlinestyle 1
+[stave 1 treble 1]
+g-g-g-g- | g-g-g-g- |
+[endstave]
+
+[newmovement]
+barlinespace 20
+barlinestyle 0
+[stave 1 treble 1]
+g-g-g-g- | g-g-g-g- |
+[endstave]
+
+
+[newmovement]
+barlinespace *
+barnumbers ringed 2 8
+
+[stave 1 treble 1]
+g-g-g-g- || g-g-g-g- | [18] S! |
+[barnumber] S! | [barnumber off] S! |
+[barnumber/u10/r10] S! |
+[endstave]
+
+[newmovement]
+barlinespace 0
+[stave 1 treble 1]
+g-g-g-g- |? g-g-g-g- |?
+[endstave]
+
+[newmovement]
+barlinespace *
+[stave 1 treble 1]
+g-g-g-g- ||
+[endstave]
+
+[newmovement]
+justify top left
+linelength 350
+
+
+[stave 1 treble 1]
+aaaa | [breakbarline] aaa | 
+a[breakbarline] : [unbreakbarline] aa | aaa |
+[endstave]
+
+[stave 2 treble 1]
+bbbb
+[endstave]
+
+[newmovement]
+breakbarlines
+
+[stave 1 treble 1]
+aaaa | [unbreakbarline] aaa || a
+[unbreakbarline] : [breakbarline] aa | aaa 
+[unbreakbarline] |
+[endstave]
+
+[stave 2 treble 1]
+bbbb
+[endstave]
+
+[newmovement]
+nocheck
+barlinestyle 2
+breakbarlines 63
+
+[stave 1 treble 1]
+gg | [4] R! | abc
+[endstave]
+
+
+[stave 2 bass 0]
+gg | [4] R! | abc
+[endstave]
+
+
+

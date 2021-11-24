@@ -1,0 +1,32 @@
+nocheck
+notespacing *1.9
+notime
+textfont extra 1 "Courier"
+textsizes 10 8
+underlaysize 8
+unfinished
+
+[stave 1 treble 1 text underlay underlayfont extra 1]
+"g\\/\\ g\\//\\ g\\///\\ g\\~\\ g\\~|\\ g\\~~\\ g\\~~|\\"
+ g\/\   g\//\   g\///\   g\~\   g\~|\   g\~~\   g\~~|\
+
+"d'\\.\\  e'\\..\\ d'.\\:\\ c'.\\::\\ e'\\\-\\ e'\\>\\ e'\\'\\"
+d'\.\     e'\..\   d'.\:\   c'.\::\   e'\-\      e'\>\   e'\'\  
+|
+
+"(e\\ar\\gbe') (e\\ard\\gbe') (e\\aru\\gbe')"
+(e\ar\gbe')    (e\ard\gbe')   (e\aru\gbe')
+
+"e'\\d\\ e'\\f\\ g\\f!\\ a\-\\g\\g a\-\\g/\\g"
+e'\d\    e'\f\   g\f!\   a-\g\g   a-\g/\g
+
+"d'\\o\\ a\\sd\\ d'\\su\\"
+d'\o\    a\sd\   d'\su\   
+
+[sghere +10] |
+
+"g\\sl4\\  g\\sl\-4\\ (e\\sp\\gbe') e'\\t\\ e'\\t|\\"
+g\sl4\    g\sl-4\       (e\sp\gbe')   e'\t\   e'\t|\
+
+"c'\\tr\\ c'\\tr#\\ c'\\tr$\\ c'\\tr%\\ c'\\u\\ c'\\v\\ c'\\V\\"
+c'\tr\    c'\tr#\   c'\tr$\   c'\tr%\   c'\u\   c'\v\   c'\V\

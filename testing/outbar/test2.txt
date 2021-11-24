@@ -1,0 +1,23 @@
+** Error: tie or glissando precedes empty bar (will carry over to next note)
+   Detected near line 95 of bartests/test2
+(ceg)_ | [newline]  |
+--------------------->
+
+** Error: tie or glissando precedes empty bar (will carry over to next note)
+   Detected near line 96 of bartests/test2
+c_/g | [newline] |
+------------------>
+
+** Error: tie or glissando precedes rest (will carry over to next note)
+   Detected near line 98 of bartests/test2
+g_ r g r |
+--->
+
+** Warning: unexpected bar length of 3 crotchets
+   On an earlier stave this bar's length is 1 semibreve
+   Detected in bar 1.1 stave 3 movement 1
+
+** Warning: unexpected bar length of 3 crotchets
+   On an earlier stave this bar's length is 1 crotchet
+   Detected in bar 1 stave 2 movement 3
+

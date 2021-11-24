@@ -1,0 +1,19 @@
+magnification 1.5     
+nocheck
+unfinished
+
+[stave 1 treble 1]
+[couple down]
+c-b`-a`- [couple off] b`-a`-c-;
+[couple down]
+c-b`-b`-\h\a`-c-\c\c``-;
+c-c-\c\e-e-\c\ |
+[endstave]
+
+[stave 2 bass 0]
+Q! | 
+[couple up]
+b-c'-d'-e'- [couple off] c'-d'-e'-;
+[couple up]
+c'-\c\d'-\h\a-\c\
+[endstave]

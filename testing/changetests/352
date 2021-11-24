@@ -1,0 +1,44 @@
+nocheck
+barlinesize 1
+stavesizes 1/0.7 3/1.5
+breakbarlines 2
+stavespacing 1/24
+justify left top
+
+[stave 1 treble 1]
+gggg :)| 
+S! |(: S! :)|(: S! ||
+S! :)|
+[endstave]
+
+[stave 2 bass 0]
+gggg :)| 
+S! |(: S! :)|(: S! ||
+S!:)|
+[endstave]
+
+[stave 3 bass 0]
+gggg :)| 
+S! |(: S! :)|(: S! ||
+S!:)|
+[endstave]
+
+[newmovement]
+nocheck
+justify left top
+stavesizes 1/1 3/1
+
+[stave 1 treble 1]
+gggg | [1st/u8/r16] gggg | [newline] [2nd/l8/"\bf\second"] gggg | [all] gggg |
+[1st 2nd] gggg | [all] gggg |
+[1st/"first"/u4 2nd/"second"] gggg | [all] gggg |
+[endstave]
+
+[newmovement]
+repeatbarfont 8 italic
+[stave 1 treble 1]
+gggg | [1st/"primero"] gggg
+[endstave]
+
+
+

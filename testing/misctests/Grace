@@ -1,0 +1,60 @@
+magnification 1.5
+nocheck unfinished
+justify top left
+
+[stave 1 treble 1]
+b=\g\a=\g\ g g-\g\ g |
+[endstave]
+
+[stave 2 bass 0]
+g g
+[endstave]
+
+
+[newmovement]
+unfinished
+gracespacing 10
+
+[stave 1 treble 1]
+b=\g\a=\g\ g g-\g\ g |
+[endstave]
+
+[stave 2 bass 0]
+g g
+[endstave]
+
+
+[newmovement] 
+unfinished
+gracesize 10
+gracespacing 6
+
+[stave 1 treble 1]
+b=\g\a=\g\ g g-\g\ g |
+[endstave]
+
+[stave 2 bass 0]
+g g
+[endstave]
+
+
+[newmovement] 
+unfinished
+gracesize 10
+gracespacing 10
+gracestyle 1
+
+[stave 1 treble 1]
+b=\g\a=\g\ g g-\g\ g  g |
+[endstave]
+
+[stave 2 bass 0]
+g g g
+[endstave]
+
+
+
+
+
+
+

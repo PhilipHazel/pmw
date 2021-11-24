@@ -1,0 +1,98 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+rm 17 ss(++A++B++C++D++E++F++G++)64 760 s rm 12 ss(++A)64 743 s
+mf 10.8 ss(~%|y)86.2 743 s rm 12 ss(++B)91.6 743 s mf 10.8 ss('y)
+113.14 743 s rm 12 ss(++C++D++E++F++G++)117.46 743 s mf 10 ss(!)64 694 s
+bf 11.8 ss(4)77 702 s(4)77 694.15 s
+%1/1
+rm 10 ss(++A++B++C++D++E++F++G++)90.9 714 s(++A)90.9 684 s mf 9 ss(~%|y)
+109.4 684 s rm 10 ss(++B)113.9 684 s mf 9 ss('y)131.85 684 s rm 10 ss
+(++C++D++E++F++G++)135.45 684 s mf 10 ss(2)90.9 696 s(B)121.4 694 s
+(@)119.4 694 s
+(CCCCC)64 694 s (C)112.9 694 s
+rm 12 ss(++A++B++C++D++E++F++G++)64 650 s rm 10 ss(++A)64 638 s mf 9 ss
+(~%|y)82.5 638 s rm 10 ss(++B)87 638 s mf 9 ss('y)104.95 638 s rm 10 ss
+(++C++D++E++F++G++)108.55 638 s rm 8 ss(++B)64 608 s mf 7.2 ss('y)
+78.36 608 s rm 8 ss(++C++D)81.24 608 s mf 7.2 ss('y)110.4 608 s rm 8 ss
+(++E)113.28 608 s mf 7.2 ss('y)127.192 608 s rm 8 ss(++F++G)
+130.072 608 s mf 7.2 ss('y)158.344 608 s rm 8 ss(++A)161.224 608 s
+mf 7.2 ss('y)176.024 608 s rm 8 ss(++)178.904 608 s(++B++C)64 600 s
+mf 7.2 ss('y)92.72 600 s rm 8 ss(++D)95.6 600 s mf 7.2 ss('y)110.4 600 s
+rm 8 ss(++E)113.28 600 s mf 7.2 ss('y)127.192 600 s rm 8 ss(++F++G)
+130.072 600 s mf 7.2 ss('y)158.344 600 s rm 8 ss(++A)161.224 600 s
+mf 7.2 ss('y)176.024 600 s rm 8 ss(++)178.904 600 s mf 10 ss(!)64 555 s(')
+77 561 s(')81.5 567 s(')86 559 s(')90.5 565 s(')95 557 s bf 11.8 ss(4)
+99.5 563 s(4)99.5 555.15 s mf 10 ss(!)64 511 s(%)77 525 s(%)82 519 s(%)
+87 527 s(%)92 521 s bf 11.8 ss(4)99.5 519 s(4)99.5 511.15 s mf 10 ss
+16 511(@)64 555 b 60.5 571 511 k
+%1/2
+rm 10 ss(C)119.25 501 s mf 9 ss(~%|y)125.92 501 s rm 10 ss( G)
+130.42 501 s mf 10 ss(&)114 511 s(2)119.25 511 s(@)198.834 511 s
+%1/1
+rm 10 ss(++B)119.25 575 s mf 9 ss('y)137.2 575 s rm 10 ss(++C++D)
+140.8 575 s mf 9 ss('y)177.25 575 s rm 10 ss(++E)180.85 575 s mf 9 ss('y)
+198.24 575 s rm 10 ss(++F++G)201.84 575 s mf 9 ss('y)237.18 575 s
+rm 10 ss(++A)240.78 575 s mf 9 ss('y)259.28 575 s rm 10 ss(++)
+262.88 575 s(++B++C)119.25 545 s mf 9 ss('y)155.15 545 s rm 10 ss(++D)
+158.75 545 s mf 9 ss('y)177.25 545 s rm 10 ss(++E)180.85 545 s mf 9 ss('y)
+198.24 545 s rm 10 ss(++F++G)201.84 545 s mf 9 ss('y)237.18 545 s
+rm 10 ss(++A)240.78 545 s mf 9 ss('y)259.28 545 s rm 10 ss(++)
+262.88 545 s mf 10 ss(2)119.25 559 s(@)198.834 555 s
+%2/2
+(A)198.834 511 s(%)204.822 525 s(%)209.822 519 s rm 10 ss(A)
+233.109 501 s mf 10 ss(\()228.859 515 s(2)233.109 515 s(@)312.514 511 s
+%2/1
+(@)312.514 555 s
+%3/2
+(A)312.514 511 s(')318.502 517 s(')323.002 523 s rm 10 ss(A)
+346.016 501 s mf 9 ss('y)353.236 501 s mf 10 ss(')341.516 515 s(2)
+346.016 515 s(@)425.421 511 s
+%3/1
+(@)425.421 555 s
+%4/2
+(A)425.421 511 s(')431.409 517 s(')435.909 523 s rm 10 ss(A)462.53 501 s
+mf 10 ss(')454.53 517 s(')458.43 517 s(2)462.53 517 s(B)542.496 511 s
+(@)540.496 511 s
+%4/1
+(B)542.496 555 s(@)540.496 555 s
+(FFFFCCCCCCC)64 555 s (C)533.996 555 s
+(FFFFCCCCCCC)64 511 s (C)533.996 511 s
+(!)64 467 s(%)77 481 s(%)82 475 s(%)87 483 s(%)92 477 s(%)97 471 s(%)
+102 479 s bf 11.8 ss(4)107 475 s(4)107 467.15 s
+%1/1
+rm 10 ss(F)120.9 457 s mf 9 ss(~%|y)126.46 457 s rm 10 ss( G)
+130.96 457 s mf 10 ss(2)120.9 467 s(B)151.4 467 s(@)149.4 467 s
+(CCCCCCCC)64 467 s (C)142.9 467 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

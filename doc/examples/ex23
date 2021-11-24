@@ -1,0 +1,9 @@
+unfinished
+nocheck
+notime
+notespacing *1.2
+
+[stave 1 treble 1 text underlay]
+"glo-" g=a=b=g=; a=b=c'=a=; b-. "ri-a" g= g
+[endstave]
+

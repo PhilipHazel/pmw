@@ -1,0 +1,119 @@
+@ This set of macros shows one way of handling figured bass notation in PMW.
+@ Philip Hazel, February 1994. Updated February, April 1998, March 1999.
+
+@ There is a basic macro called b, which prints its argument below the stave, at 
+@ the underlay level, using text size 2. This can be used directly if required, 
+@ in simple cases, for example:
+@    &b(4) g &b(5) a
+@ To cope with two numbers in a vertical stack, the macro d is defined to move 
+@ down an appropriate amount; it is used after the second call to b, for example,
+
+@    &b(7)&b(9)&d
+
+@ prints a 9 below a 7 under the next note.
+
+textsizes 10 9 2.5
+*define d    /d9
+*define b()  "\rm\&&1"/bu/s2
+
+@ The effect of using the underlay level is that all the figurings on a given 
+@ line are printed at the same level. If you don't want this, then "bu" can be 
+@ changed to "b" to print below each individual note. If you do this, the d 
+@ macro becomes irrelevant, since PMW automatically prints multiple 
+@ non-underlay strings below each other. Either remove the references to &d 
+@ below, or define it to be null, for example:
+
+@ *define d
+@ *define b()  "\rm\&&1"/b/s2
+
+@ The remaining macros are all defined in terms of b and d. Note that, because 
+@ macros are handled in a single pass in PMW, you cannot nest macro calls. That 
+@ is, you cannot use a call to one macro inside the argument of a call to 
+@ another. That is why the accidental strings are written out explicitly in 
+@ several cases.
+
+@ When accidentals occur as part of the figuring, they have to be printed at an 
+@ appropriate size and positioned nicely with respect to any adjacent figures.
+@ These three macros are defined in terms of the b macro, and print solitary 
+@ accidentals, at available sizes that I think look reasonable. This is a fudge 
+@ to avoid having to define different text strings in order to use other sizes. 
+@ The sharp and natural use the full-size music font, but reduced to the "small 
+@ cap" size, while the flat uses the reduced music font.
+
+@ These define a flat, natural, and sharp, respectively. The same strings are
+@ used when an accidental is required in one of the composite figures defined 
+@ afterwards.
+
+*define bf   &b(\mu\z~v')
+*define bn   &b(\mf\\sc\zxv\40\)
+*define bs   &b(\mf\\sc\zxv%)
+
+@ These are shorthands for common figurings. Well, they were common in a set of 
+@ examples that I happened to be printing when I originally defined these, and 
+@ they have been added to subsequently. You can easily extend them further by 
+@ copying and modifying.
+
+*define 3    &b(3)
+*define 3f   &b(3\mu\z~v')
+*define 3n   &b(3\mf\\sc\zxv\40\)
+*define 4    &b(4)
+*define 42   &b(4)&b(2)&d
+*define 4c2  &b(\mf\k)&b(2)&d
+@ This version built from a 4 and a +
+*define 4cp2  &b(4\mu\yy\135\)&b(2)&d
+*define 43   &b(4)&b(3)&d
+*define 4f   &b(4\mu\z~v')
+*define 4f3  &b(4\mu\z~v')&b(3)&d
+*define 4n2  &b(4\mf\\sc\zxv\40\)&b(2)&d
+*define 4n3  &b(4\mf\\sc\zxv\40\)&b(3)&d
+*define 4s   &b(4\mf\\sc\zxv%)
+*define 5    &b(5)
+*define 53   &b(5)&b(3)&d
+*define 54   &b(5)&b(4)&d
+*define 5c   &b(\mf\\179\)
+@ This version uses a 5 and a +
+*define 5cp  &b(5\mu\x~vyyy\135\)
+*define 5csb &b(\mf\\179\)&bs&d
+@ This version uses a 5 and a +
+*define 5cpsb &b(5\mu\x~vyyy\135\)&bs&d
+*define 5f   &b(5\mu\z~v')
+*define 5sb  &b(5)&bs&d
+*define 6    &b(6)
+*define 6c   &b(\mf\s)
+@ This version uses a 6 and a rotated thick barline
+@ *define 6cp  &b(6)&b(\mf\\66\)/s3/u4.5/r3.9/rot70
+@ This version uses a 6 and a rotated +
+*define 6cp  &b(6)&b(\mu\\135\)/u3.5/r2/rot25
+*define 64   &b(6)&b(4)&d
+*define 64c  &b(6)&b(\mf\k)&d
+@ This version uses a 4 and a +
+*define 64cp &b(6)&b(4\mu\yy\135\)&d
+*define 642  &b(6)&b(4)&d&b(2)&d&d
+*define 65   &b(6)&b(5)&d
+*define 6f   &b(6\mu\z~v')
+*define 6fb  &b(6)&bf&d
+*define 6f4  &b(6\mu\z~v')&b(4)&d
+*define 6n   &b(6\mf\\sc\zxv\40\)
+*define 6s   &b(6\mf\\sc\zxv%)
+*define 7    &b(7)
+*define 72f  &b(7)&b(2\mu\z~v')&d
+*define 742  &b(7)&b(4)&d&b(2)&d&d
+*define 75   &b(7)&b(5)&d
+*define 75c2 &b(7)&b(\mf\\179\)&d&b(2)&d&d
+@ This version uses a 5 and a +
+*define 75cp2 &b(7)&b(5\mu\x~vyyy\135\)&d&b(2)&d&d
+*define 7c   &b(\mf\j)
+*define 7nb  &b(7)&bn&d
+*define 7s   &b(7\mf\\sc\zxv%)
+*define 7sb  &b(7)&bs&d
+*define 7s3  &b(7)&bs/l4&d&b(3)&d
+*define 7u   &b(7_)
+*define 86   &b(8)&b(6)&d
+*define 95   &b(9)&b(5)&d
+*define 97   &b(9)&b(7)&d
+*define 9fsb &b(9\mu\z~v')&bs&d
+  
+*define bu   &b(\mf\~\rm\_)           
+*define bus  &b(\mf\~\rm\_)&bs&d
+
+@ End of figured bass macros.

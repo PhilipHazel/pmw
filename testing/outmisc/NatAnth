@@ -1,0 +1,78 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+rm 17 ss(National )245.681 760 s(Anthem)-0.935 0 rs mf 10 ss(!)64 726 s(%)
+80 740 s bf 11.8 ss(3)85 734 s(4)85 726.15 s mf 10 ss(")63.5 682 s(%)
+80 692 s bf 11.8 ss(3)85 690 s(4)85 682.15 s mf 10 ss 16 682(@)64 726 b
+60.5 742 682 k
+%1/2
+(5)98.9 680 s(5)122.077 684 s(5)145.254 686 s(@)168.431 682 s
+%1/1
+rm 10 ss(God)93.29 710 s mf 10 ss(5)98.9 728 s rm 10 ss(sa)116.367 710 s
+(v)-0.2 0 rs(e)-0.15 0 rs mf 10 ss(5)122.077 728 s rm 10 ss(our)
+141.589 710 s mf 10 ss(5)145.254 730 s(@)168.431 726 s
+%2/2
+(6)177.121 688 s(?)185.521 690 s(8)204.933 690 s(6)232.585 692 s
+(@)255.762 682 s
+%2/1
+rm 10 ss(gra)173.736 710 s mf 10 ss(5)177.121 726 s(?)185.521 726 s
+rm 10 ss(-)190.277 710 s(cious)197.378 710 s mf 10 ss(7)204.933 728 s
+rm 10 ss(Queen,)221.285 710 s mf 10 ss(5)232.585 730 s(@)255.762 726 s
+%3/2
+(6)264.452 694 s(6)287.629 690 s(5)310.806 686 s(@)333.983 682 s
+%3/1
+rm 10 ss(Long)256.897 710 s mf 10 ss(6)264.452 732 s rm 10 ss(li)
+283.329 710 s(v)-0.25 0 rs(e)-0.15 0 rs mf 10 ss(6)287.629 732 s
+rm 10 ss(our)307.141 710 s mf 10 ss(6)310.806 734 s(@)333.983 726 s
+%4/2
+(5)342.673 688 s(?)351.073 690 s(%)364.985 688 s(7)370.485 688 s(6)
+393.644 690 s(@)416.821 682 s
+%4/1
+rm 10 ss(no)340.673 710 s mf 10 ss(5)342.673 732 s(?)351.073 734 s
+rm 10 ss(-)357.359 710 s(ble)367.375 710 s mf 10 ss(7)370.485 730 s
+rm 10 ss(Queen,)382.344 710 s mf 10 ss(5)393.644 728 s(@)416.821 726 s
+%5/2
+(5)425.511 686 s(5)448.688 688 s(5)471.865 688 s(@)495.042 682 s
+%5/1
+rm 10 ss(God)419.901 710 s mf 10 ss(5)425.511 730 s rm 10 ss(sa)
+442.978 710 s(v)-0.2 0 rs(e)-0.15 0 rs mf 10 ss(5)448.688 728 s rm 10 ss
+(the)468.755 710 s mf 10 ss(5)471.865 726 s(@)495.042 726 s
+%6/2
+(3)503.732 680 s(?)512.132 682 s(B)542.496 682 s(@)540.496 682 s
+%6/1
+rm 10 ss(Queen.)492.432 710 s mf 10 ss(3)503.732 728 s(?)512.132 730 s
+(B)542.496 726 s(@)540.496 726 s
+(FFFFCCCCCCC)64 726 s (C)533.996 726 s
+(FFFFCCCCCCC)64 682 s (C)533.996 682 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

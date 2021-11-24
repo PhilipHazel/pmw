@@ -1,0 +1,38 @@
+magnification 1.5
+pagelength 200
+linelength 200
+
+heading "heading 1"
+heading 6 "heading 2 20" 0
+heading 8 "||heading 8 after zero"
+
+pageheading "page heading"
+
+footing "footing 1"
+footing "footing 2"
+
+pagefooting "pagefooting"
+
+lastfooting "lastfooting"
+
+[stave 1 treble 1]
+aaaa |
+[newpage]
+aaaa |
+[newpage]
+aaaa |
+[newpage]
+aaaa
+[endstave]
+
+[newmovement newpage]
+heading "" -20
+heading "moved up"
+
+[newmovement]
+heading "New heading 1"
+heading "New heading 2"
+
+@[stave 1 treble 1] aaaa
+
+

@@ -1,0 +1,25 @@
+*define x(a) X(&&1)
+*comment &x &x(b) &x() &x;
+
+*define comment  comment @this is a comment
+*define quoted   "quotes with @ in them" @comment
+*define quoted2  "abcd
+
+*comment &comment &quoted &quoted2
+
+*define circ(,0.4)  [draw &&2 circlenote] &&1
+*comment &circ &circ(g) &circ(a,0.5)
+
+*define xyz()   jumps over the &&1 and the &&2;
+*comment &xyz(  (cow, &)purple),br&,&(own) elephant
+
+*comm&&&
+ent &*2(abc)
+
+*define z() &&1&&2&&1
+*comment "&*3(&z(A,B);)"
+
+*define y YY
+*comment " &*2(a&y;c&*3(x)z)"
+
+&&&

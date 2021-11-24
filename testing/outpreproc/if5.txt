@@ -1,0 +1,12 @@
+--- Options: -f anotherformat ---
+score
+not part
+not only stave 1
+not exactly staves 1-2,3
+not myformat
+any format
+score or myformat
+score and not myformat
+macro x is not defined
+defining macro x
+macro x is defined

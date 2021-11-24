@@ -1,0 +1,5 @@
+miditranspose 1/-3
+
+[stave 1 treble 1]
+gggg | [miditranspose 3 midivolume 8] gggg |
+[endstave]

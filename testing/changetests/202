@@ -1,0 +1,39 @@
+unfinished
+nocheck
+justify top left
+
+
+[stave 1 treble 1]
+"^alongstringoftext-="/ol
+"the quick brown fox"/ul
+gggg | ggg "#"/ol g |
+[endstave]
+
+[newmovement]
+unfinished
+
+[stave 1 treble 1]
+"^alongstringoftext-="/ul
+"the quick brown fox"/ol
+gggg | ggg "#"/ul g |
+[endstave]
+
+[newmovement]
+unfinished
+
+[stave 1 treble 1]
+"the veryquick brown fox"/ol
+"the quicker brown fox"/ul
+gggg | gggg |
+[endstave]
+
+[newmovement]
+unfinished
+
+[stave 1 treble 1]
+"the veryquick brown fox"/ul
+"the quicker brown fox"/ol
+gggg | gggg | (c\ar\eg) (c\aru\eg) (c\ard\eg) |
+g\v\ g\V\ g\'\ g\a9\ g'\v\ g'\V\ g'\'\ c'\'\ c'\su '\ g\u\ g\d\ |
+[endstave]
+

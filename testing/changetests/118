@@ -1,0 +1,21 @@
+justify top left
+
+[stave 1 treble 1]
+R! | R! | [time 3/4] 
+R! | R! [alto] | R! | [treble] R! | R! |
+[endstave]
+
+[newmovement]
+Time 2/4
+
+[Staff 0]
+[5] Q! | 
+[endstaff]
+
+[Staff 1 "Viola"] [Alto 1]
+[time 7/8] R! | R! [alto] |
+[endstaff]
+
+
+
+

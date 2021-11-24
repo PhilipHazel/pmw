@@ -1,0 +1,198 @@
+justify left top
+nocheck                   
+unfinished
+
+
+[stave 0]
+[endstave]
+
+[stave 1 treble 1]
+[4] Q! | abcd |
+[newline] ["A"] gggg | ["B"] gggg |
+[newline]
+G++ G+ G g g- g= g=- g== r | 
+[newline]
+[ns 5 5 5 5 5 5 5 5]
+G++ G+ G g g- g= g=- g== r |
+[newline]
+[ns -5 -5 -5 -5 -5 -5 -5 -5]
+G++ G+ G g g- g= g=- g== r |
+[newline]
+"abcd-="/ul  gggggggg "#"/ul gg |
+[newline]
+"abcd-="/ul  gggggggg "#"/ul/l40 gg |
+[newline]
+"abcd-="/ul  gggggggg "<"/ul/l40 gg |
+
+[newline]
+[slur/a] gabc' |
+[newline]
+rqr e' [es] |
+[slur/a] gabc' |
+[newline]
+rr\l10\r e' [es] |
+{grg} {gr\l10\g} |
+[endstave]
+
+[newmovement]
+systemgap 80
+overlaysize 8
+overlaydepth 9
+
+[stave 1 treble 1 ns *1.3]
+"The quick= br-own= fox"/ul
+cde
+"jumps o-ver"/ol
+"and un-der"/ul
+f
+"la-=zy"/ol
+g | 
+[newline] [olhere +10] abc'd' |
+"syl-la-=ble"/ol
+[newline sghere -30 sgnext -30]
+d' d'\.\ | [newline]  d'_d' |
+[newline]
+"syl-la"/ol d'e' |
+[newline][oltextsize 1]
+"a-gain"/ol d'#f' "not ao"/a "be-low"/ul c "ao"/ao [space 6] #c
+
+[overlayfont italic]
+"hel-"/ul/" ." 
+ggg "o"/ul g
+"hel-"/ul/" ."/u4 
+ggg "o"/ul g |
+[newline]
+"cresc-=en-=do"/ul/" ."/u2 ggggg |
+"cresc-=en-=do"/ol/" ."/u2 ggggg |
+"\*136\-"/ol/s1/"\*96\"/s2/"\*136\"/s2 gg | gg "#"/ol/r10 g |
+
+"\it\8va-"/s1/ol/"\rm\ -| \**159\"/u0.3/"\it\8"/s3 ggggggg |
+[newline] gggg | 
+[newline] gg "#"/ol/r8
+"\rm\- - \**161\"
+g |
+[endstave]
+
+
+[newmovement]
+systemgap 50
+nocheck                   
+unfinished
+notime
+heading ""
+
+draw blip1
+  linegapx linegapy moveto
+  0 linegapx 2 mul lineto
+  linegapx neg linegapy neg lineto
+  0.3 setlinewidth stroke
+  originx originy
+enddraw  
+
+draw blip2
+  linegapx linegapy moveto
+  0 linegapx 2 mul lineto
+  linegapx neg linegapy neg lineto
+  0.3 setlinewidth stroke
+  
+  originy sub exch originx sub
+  dup 3 1 roll exch
+  moveto
+  2 div dup -15 3 -1 roll -15 0 0 curveto
+  stroke
+enddraw  
+
+draw text
+  0 -2 moveto
+  "abc"/c show
+enddraw  
+
+draw ped
+  0 0 moveto "\**163\ "show
+enddraw  
+
+draw vert
+  0 0 moveto 0 10 lineto stroke
+enddraw  
+
+[stave 1 "test" treble 1 ns *1.3]
+
+[line/a/u4/h/=A]
+[line/a] g [linegap/l10] [linegap/=A/w0/draw vert] a
+[linegap/=A/w20] [linegap]  
+be'\su\ 
+[reset] q[linegap]qqe'\su\
+[el] [el] |
+[newline]
+[line/a linegap/h/w20/draw text] g 
+[line/b/h/ol/d4 linegap/h0/w30/draw ped] 
+a 
+[linegap/draw blip1] 
+b b [linegap/draw blip2] a [linegap/draw blip1] | 
+g [el][el] |
+
+[newline]
+[line/a/=X line/a/h] c  
+[linegap/w10 linegap/=X/w10/draw blip1] g a' [el][el] |
+[slur/a] [line/a] cga' [el][es]
+
+[beamrit] e-f-g-a-; [beamrit 2] e-f-g-a-; |
+[beamrit] e-f-g-a-; [beamrit 3] e-f-g-a-; |
+[beamacc] e-f-g-a-; [beamacc 2] e-f-g-a-; |
+[beamacc] e-f-g-a-; [beamacc 3] e-f-g-a-; |
+[endstave]
+
+[newmovement]
+nocheck                   
+unfinished
+notime
+beamendrests
+suspend 2
+barnumbers 1
+
+[stave 1 "test" treble 1 ns *1.3]
+
+r-c-c-c-r-; | r-\l-8\c-c-r-\l-8\ | r=g-g-r= |
+r=g=g-; g=r=; r=g-g=r= |
+
+r-g'-g'-g'-r-; r=g'-g'=r= |
+r=g'=g'-; r=c=c= | g'=r=; g'=; r= | 
+g-r-r-;  b=f=r=r- |
+
+[beamacc] r-g-a-b-c'-; r-g- |= g-g-r-; g- |= r-r- |
+r-(c'-\.\b'-); r=\l8\(c''=g''=)r-; |
+r=\l8\(c''=g''=)  r-; 
+r=(c''=g''=)r-;
+c''=(c''=g''=)r-;  | Q! |
+[endstave]
+
+[stave 2 bass 0]
+[13] Q! |
+r=g``=(#c'-\c sd\d''-\c\);
+r=d`=b'=-\c sd\#f''=-\c sd\#c'=-#e=- |
+[endstave]
+
+[newmovement]
+
+[stave 1 "test" treble 1 ns *1.3]
+[line/a4/co1]
+[line/b4]
+gg[linegap]gg'
+[el][el] | [line/a4] ggg |
+[newline]
+g' [el] [line/a-2] gg [el]
+[slur/a4/co1]
+[slur/b4]
+gggg'
+[el][el] | [slur/a4] ggg |
+[newline]
+g' [el] [slur/a8/w] ggg [el] |
+
+"under"/ul "abd"/ol gg "a"/bu gg` |
+[newline]
+[line/bu] g"a"/ul gc"#"/ul a` [el] |
+[slur/ao] f'g'a' [es]
+[endstave]
+
+
+

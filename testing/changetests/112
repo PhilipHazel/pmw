@@ -1,0 +1,25 @@
+       
+[stave 2 treble 1]
+gggg |
+"text" g "text"/fb g
+"text" g "text"/fb g |
+"1" "2" g ggg
+[endstave]
+
+[stave 4 bass 0]
+gggg | "abcd" Q+ [reset] AA | "abcd" R! | "abcd"/c R! |
+"abcd" q [reset] Q! [reset] a |
+[endstave]
+
+[newmovement]
+nocheck
+[stave 1 treble 1]
+a- b-\g\a- b-\g\#a- g-\g\(#f-#a-) |
+a-c'-\g\ 
+b-\g\a- c'-\g\b-\g\#a- a-\g\g-\g\(#f-#a-) |
+[endstave]
+
+[stave 2 bass 0]
+g- (#e-#g-) (#e-#g-)(#e-#g-) |
+g- (#e-#g-) (#e-#g-)(#e-#g-) |
+

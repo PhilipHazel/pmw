@@ -1,0 +1,22 @@
+magnification 1.5
+nocheck
+
+[stave 1 treble 1]
+g [soprano] g [mezzo] g [alto] g [tenor] g [bass] g`
+[trebletenor] g [trebledescant] g
+[soprabass] g` [contrabass] g` |
+[newline]
+[noclef]
+g
+[endstave]
+
+[newmovement]
+clefsize 0.5
+stavesizes 2/1.5
+breakbarlines
+[stave 1 treble 1]
+a [treble] b | c [alto] d | [bass] g` |
+[endstave]
+
+[stave 2 treble 1]
+a [treble] b | c [alto] d | [bass] g` |

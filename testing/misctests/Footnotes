@@ -1,0 +1,58 @@
+draw pic
+0 0 moveto 100 0 rlineto stroke
+enddraw
+
+magnification 1.5
+unfinished
+nocheck
+
+Heading "Heading"
+PageFooting "<|Footing|>"
+Barnumbers 1
+
+
+[stave 1 treble 1]
+gggg | @1
+[newline]
+[footnote "OK, this is a test footnote. It should be printed at
+the bottom of the first page, suitably placed between the final
+system on the page and the footing lines. The positioning is
+something which we will have to take care to get right."]
+aaaa | @2
+[newline]
+[footnote 8/1.5 "This is a second footnote, also for the first page. We
+want to see how the spacing and positioning of this works out." 10]
+aaaa | @3
+[newline]
+[footnote "This is a third footnote, also for the first page. We
+want to try to force the number of systems on the page to be reduced
+because of the great number of footnotes that are present in this
+particularly silly example."]
+aaaa | @4
+[newline] aaaa | @5
+[newline] aaaa | @6
+[newline] faaa | @7
+[newline] caaa | @8
+[newline] 
+[footnote "This footnotes is with bar 9, which is the bar that
+gets pushed over onto the next page. See if we can make it long
+enough to push bar 19 over onto page three. Hmm. It will have
+to be quite long in order to do that. Here are a few more
+sentences that might just do the trick if we are lucky."] 
+f`aaa | @9
+[2] [newline] bbbb | @11
+[endstave]
+
+[newmovement]
+heading "A new movement"
+
+[stave 1 treble 1]
+[footnote "This is the first footnote of a new movement." ]
+gggg |
+[10] [newline] aaaa |
+[newline] [justify -bottom]
+[footnote 12 "This footnote is with the last bar of the movement." 20]
+[footnote 8 "Should be a bigger gap above this one, and a line below."]
+[footnote draw pic]
+cccc
+[endstave]

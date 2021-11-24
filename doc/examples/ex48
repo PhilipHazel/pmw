@@ -1,0 +1,22 @@
+bracket
+notespacing *1.05
+stavespacing 1/36
+systemgap 40
+textfont extra 1 "Courier"
+notime
+unfinished
+nocheck
+
+[stave 1 treble 1]
+{/a "\xx1\{gab}"/m gab} |
+{2 "\xx1\{2 g-a-}"/m g-a-} [space 6] |
+{7 "\xx1\{7 f-g-...}"/m f-g-a-b-f-a-g-} |
+{3/7 "\xx1\{3/7 f-g-...}"/m f-g-a-b-f-a-g-} |
+{11 "\xx1\{11 g-g-...}"/m g-g-g-g-g-g-g-g-g-g-g-} |
+{3/11 "\xx1\{3/11 g-g-...}"/m g-g-g-g-g-g-g-g-g-g-g-} |
+{12/11 "\xx1\{12/11 g-g-...}"/m g=g=g=g=g=g=g=g=g=g=g=} [space 2] |
+[endstave]
+
+[stave 2 bass 0]
+gg | g-g-g- | gg | ggg | gggg | ggg | ggg |
+[endstave]

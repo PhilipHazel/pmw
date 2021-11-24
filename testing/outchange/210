@@ -1,0 +1,282 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+0 842 T -90 R
+1.5 dup scale
+%%EndPageSetup
+rm 17 ss(the quick bro)44.999 340.666 s(wn fox)-0.425 0 rs rm 12 ss
+(jumps o)44.999 323.666 s
+(v)-0.18 0 rs(er the   \(co)-0.18 0 rs
+(w)-0.3 0 rs(, \)purple\) and the br)-0.78 0 rs(,\(o)-0.48 0 rs
+(wn elephant)-0.3 0 rs rm 10 ss(jumps o)44.999 311.666 s(v)-0.15 0 rs
+(er the  and the )-0.15 0 rs rm 8 ss(jumps o)44.999 301.666 s
+(v)-0.12 0 rs(er the  and the )-0.12 0 rs
+(another 123 macro  another 999 macro)44.999 293.666 s rmX 8 ss
+(\216)44.999 285.666 s rm 8 ss(rst  second c)sh rmX 8 ss(\216)
+44.999 277.666 s rm 8 ss(rst 1 second c)sh(tw)44.999 269.666 s
+(o  b\) one \(a\))-0.08 0 rs mf 10 ss(!)44.999 212.666 s bf 11.8 ss(4)
+57.999 220.666 s(4)57.999 212.816 s
+%1/1
+mf 10 ss(6)71.899 228.666 s 74.899 234.666 89.899 234.666 4.5 cv(6)
+87.899 228.666 s 90.899 215.666 100.899 215.666 -3 cv(6)
+103.899 224.666 s 106.899 230.666 121.899 230.666 4.5 cv(5)
+118.899 214.666 s 121.899 211.666 136.899 211.666 -4.5 cv(5)
+136.549 222.666 s(\215)126.749 220.666 s(')130.249 218.666 s(\216)
+134.749 220.666 s(5)136.549 218.666 s(5)136.549 214.666 s
+144.549 238.666 154.549 238.666 3 cv(@)152.549 212.666 s
+(F)44.999 212.666 s (C)142.549 212.666 s
+44.999 108.666 Mt 44.999 118.666 Lt 0.5 Slw S 44.999 88.666 Mt
+44.999 86.666 Lt 0.5 Slw S(!)44.999 41.666 s bf 11.8 ss(4)
+57.999 49.666 s(4)57.999 41.816 s
+%1/1
+71.899 41.666 Mt 71.899 39.666 Lt 0.5 Slw S mf 10 ss(5)71.899 43.666 s
+87.899 41.666 Mt 87.899 36.666 Lt 0.5 Slw S(5)87.899 43.666 s(5)
+103.899 43.666 s 119.899 41.666 Mt 119.899 31.666 Lt 0.5 Slw S
+(@)119.899 41.666 s
+%2/1
+(5)125.899 43.666 s(5)141.899 43.666 s(5)157.899 43.666 s(5)
+173.899 43.666 s(5)189.899 43.666 s(5)205.899 43.666 s(5)
+221.899 43.666 s 190.899 62.666 125.899 62.666 0.3 l
+125.899 59.666 125.899 62.816 0.3 l 192.899 62.666 Mt 192.899 72.666 Lt
+0.5 Slw S 228.899 62.666 194.899 62.666 0.3 l
+228.899 59.666 228.899 62.816 0.3 l(@)237.899 41.666 s
+(FCCCCCCCCC)44.999 41.666 s (C)227.899 41.666 s
+
+pagesave restore showpage
+
+%%Page: 2 2
+%%BeginPageSetup
+/pagesave save def
+0 842 T -90 R
+1.5 dup scale
+%%EndPageSetup
+rm 12 ss(!)44.999 340.666 s(!)521.003 340.666 s rm 10 ss(S)
+456.663 328.666 s rm 7 ss(MALL CAPS )462.223 328.666 s it 10 ss(M)
+503.061 328.666 s it 7 ss(ORE)511.391 328.666 s rm 8 ss(M)
+44.999 318.666 s rm 5.6 ss(ANY )52.111 318.666 s( SMALL )
+274.111 318.666 s( CAPS)509.595 318.666 s rm [16.799 0 0 12 0 0] sm(U)
+44.999 298.666 s rm [11.759 0 0 8.4 0 0] sm(NISON)57.128 298.666 s
+mf 10 ss(!)44.999 251.666 s bf 11.8 ss(4)57.999 259.666 s(4)
+57.999 251.816 s
+%1/1
+it [8.66 4.999 -4.999 8.66 0 0] sm(S)71.899 241.666 s
+it [6.062 3.499 -3.499 6.062 0 0] sm(MALL CAPS)76.229 244.165 s
+rm [8.66 4.999 -4.999 8.66 0 0] sm( Normal)107.721 262.346 s mf 10 ss(5)
+71.899 253.666 s it 10 ss(A)65.254 271.666 s it 7 ss(BO)71.364 271.666 s
+(VE)-0.35 0 rs it 10 ss(ABO)57.739 281.666 s(VE)-0.5 0 rs mf 10 ss
+(@)87.899 251.666 s
+(CCCC)44.999 251.666 s (C)77.899 251.666 s
+(!)44.999 183.666 s bf 11.8 ss(4)57.999 191.666 s(2)57.999 183.816 s
+%1/1
+mf 10 ss(3)71.899 185.666 s(?)80.299 187.666 s(5)98.299 185.666 s(3)
+114.299 185.666 s(3)136.299 185.666 s(@)158.299 183.666 s
+%2/1
+(^)161.299 187.666 s(3)173.799 187.666 s(3)195.799 189.666 s(=)
+217.799 177.666 s(3)217.799 177.666 s(5)239.799 179.666 s(5)
+255.799 181.666 s(@)271.799 183.666 s
+(FFCC)44.999 183.666 s (C)261.799 183.666 s
+(!)44.999 115.666 s bf 11.8 ss(4)57.999 123.666 s(8)57.999 115.816 s
+%1/1
+-1.8 114.549 133.666 77.749 133.666 m
+-1.8 92.549 130.666 87.549 130.666 m mf 10 ss(5)71.899 117.666 s(?)
+80.299 119.666 s(5)86.299 117.666 s(5)96.299 117.666 s(5)
+108.299 117.666 s(@)120.299 115.666 s
+%2/1
+bf 11.8 ss(2)123.299 123.666 s(4)123.299 115.816 s
+-1.8 186.449 137.666 140.049 137.666 m
+-1.8 186.449 134.666 176.049 134.666 m mf 10 ss(J)134.199 121.666 s(JL)
+134.199 119.666 s(5)146.199 121.666 s(=)158.199 109.666 s(Jww|J)
+158.199 121.666 s(JL)158.199 109.666 s(Jww|J)170.199 121.666 s(L)
+170.199 111.666 s(J)180.199 121.666 s(JL)180.199 113.666 s
+(@)190.199 115.666 s
+(FCCCC)44.999 115.666 s (C)180.199 115.666 s
+44.999 47.666 Mt 44.999 47.666 Lt 0.5 Slw S(!)44.999 30.666 s bf 11.8 ss(3)
+57.999 38.666 s(4)57.999 30.816 s
+%1/1
+mf 10 ss(5)71.899 34.666 s(5)96.96 34.666 s(5)122.021 34.666 s
+97.96 53.666 71.899 53.666 0.3 l 71.899 50.666 71.899 53.816 0.3 l
+99.96 53.666 Mt 99.96 56.666 Lt 0.5 Slw S
+129.021 53.666 101.96 53.666 0.3 l 129.021 50.666 129.021 53.816 0.3 l
+(@)147.082 30.666 s
+%2/1
+bi 15 ss(I)147.082 54.666 s 154.167 52.666 145.082 52.666 145.082 68.666
+154.167 68.666 154.167 52.666 5 145.082 52.666 1 ll mf 10 ss(5)
+156.479 34.666 s(5)181.54 34.666 s(5)206.601 34.666 s
+182.54 25.666 156.479 25.666 0.3 l 156.479 28.666 156.479 25.516 0.3 l
+184.54 25.666 Mt 184.54 22.666 Lt 0.5 Slw S
+213.601 25.666 186.54 25.666 0.3 l 213.601 28.666 213.601 25.516 0.3 l
+(@)231.662 30.666 s
+%3/1
+-1.838 266.104 52.749 246.909 48.757 m(J)241.059 32.757 s(JM)
+241.059 32.666 s(5)259.854 36.666 s
+-1.838 303.694 52.749 284.499 48.757 m(J)278.649 32.757 s(JL)
+278.649 32.666 s(3)297.444 36.666 s
+-1.838 341.285 52.749 322.09 48.757 m(J)316.24 32.757 s(JM)
+316.24 32.666 s(3)335.035 36.666 s(@)353.83 30.666 s
+%4/1
+rm 10 ss(the)360.117 15.666 s mf 10 ss(5)363.227 34.666 s(5)
+388.288 34.666 s(5)413.349 34.666 s(@)438.41 30.666 s
+%5/1
+(5)447.807 34.666 s rm 10 ss( - - - - - - - - - - - - - - - - - -)
+372.337 15.666 s( )475.618 15.666 s mf 10 ss(-)473.868 34.666 s rm 10 ss
+(cat)495.099 15.666 s mf 10 ss(=)497.929 24.666 s(5)497.929 24.666 s
+(B)523.495 30.666 s(@)521.495 30.666 s
+(FFFFCCCCCCC)44.999 30.666 s (C)514.995 30.666 s
+
+pagesave restore showpage
+
+%%Page: 3 3
+%%BeginPageSetup
+/pagesave save def
+0 842 T -90 R
+1.5 dup scale
+%%EndPageSetup
+mf 10 ss(!)44.999 340.666 s bf 11.8 ss(4)57.999 348.666 s(4)
+57.999 340.816 s
+%1/1
+rm 10 ss(The)67.124 329.666 s(The)67.124 364.666 s mf 10 ss(5)
+71.899 344.666 s rm 10 ss(quick)87.899 329.666 s(quick)87.899 364.666 s
+mf 10 ss(5)87.899 344.666 s(5)103.899 344.666 s rm 10 ss(bro)
+119.899 329.666 s(wn)-0.25 0 rs(bro)119.899 364.666 s(wn)-0.25 0 rs
+mf 10 ss(5)119.899 344.666 s(5)135.899 344.666 s rm 10 ss(-)
+144.784 329.666 s(fox)147.699 329.666 s(es)-0.15 0 rs(-)
+144.784 364.666 s(fox)147.699 364.666 s(es)-0.15 0 rs mf 10 ss(5)
+155.454 344.666 s(@)171.454 340.666 s
+(FCC)44.999 340.666 s (C)161.454 340.666 s
+(!)44.999 263 s bf 11.8 ss(4)57.999 271 s(4)57.999 263.15 s
+%1/1
+rm 10 ss(The)67.124 252 s mf 10 ss(5)71.899 267 s rm 10 ss(quick)
+85.174 252 s mf 10 ss(5)93.284 267 s rm 10 ss(_)108.394 252 s(_)
+109.284 252 s mf 10 ss(5)109.284 267 s rm 10 ss(bro)115.634 252 s(wn)
+-0.25 0 rs mf 10 ss(5)125.284 267 s(5)141.284 267 s rm 10 ss(-)
+143.566 252 s(fox)149.529 252 s(es)-0.15 0 rs mf 10 ss(5)157.284 267 s
+(@)173.284 263 s
+(FCC)44.999 263 s (C)163.284 263 s
+(!)44.999 185.334 s bf 11.8 ss(4)57.999 193.334 s(4)57.999 185.484 s
+%1/1
+rm 10 ss(The)67.124 174.334 s mf 10 ss(5)71.899 189.334 s rm 10 ss(quick)
+85.899 174.334 s mf 10 ss(5)87.899 189.334 s(5)103.899 189.334 s
+rm 10 ss(bro)110.619 174.334 s(wn)-0.25 0 rs mf 10 ss(5)
+120.269 189.334 s(5)136.269 189.334 s rm 10 ss(-)138.551 174.334 s(fox)
+144.514 174.334 s(es)-0.15 0 rs mf 10 ss(5)152.269 189.334 s
+(@)168.269 185.334 s
+(FCC)44.999 185.334 s (C)158.269 185.334 s
+rm 10 ss(1234)34.999 107.668 s(1234)44.999 92.668 s(1234)24.999 77.668 s
+(1234)44.999 62.668 s mf 10 ss(!)44.999 30.668 s bf 11.8 ss(4)
+57.999 38.668 s(4)57.999 30.818 s
+%1/1
+it 10 ss(abcd)71.899 20.668 s mf 10 ss(5)71.899 32.668 s(5)
+102.105 34.668 s(5)132.312 34.668 s it 10 ss(abcd)155.799 20.668 s
+mf 10 ss(5)162.519 32.668 s(5)192.725 34.668 s(5)222.932 34.668 s
+it 10 ss(abcd)253.139 20.668 s mf 10 ss(5)253.139 32.668 s(5)
+283.345 34.668 s(5)313.552 34.668 s it 10 ss(abcd)330.319 20.668 s
+mf 10 ss(5)343.759 32.668 s(5)373.965 34.668 s(5)404.172 34.668 s
+it 10 ss(abcd)434.379 20.668 s mf 10 ss(5)434.379 32.668 s(5)
+464.585 34.668 s(5)494.792 34.668 s(@)524.999 30.668 s
+(FFFFCCCCCCCC)44.999 30.668 s
+
+pagesave restore showpage
+
+%%Page: 4 4
+%%BeginPageSetup
+/pagesave save def
+0 842 T -90 R
+1.5 dup scale
+%%EndPageSetup
+rm 17 ss(The quick bro)1.282 124.999 340.666 ws
+(wn fox jumps o)1.282 -0.425 0 wrs(v)1.282 -0.255 0 wrs(er the lazy dog)
+1.282 -0.255 0 wrs(no)124.999 323.666 s(w)-0.425 0 rs(.)-1.105 0 rs
+(The quick bro)1.282 124.999 306.666 ws(wn fox jumps o)
+1.282 -0.425 0 wrs(v)1.282 -0.255 0 wrs(er the lazy dog)
+1.282 -0.255 0 wrs(no)0.509 124.999 289.666 ws
+(w and ag)0.509 -0.425 0 wrs(ain. )0.509 -0.085 0 wrs
+(A ne)0.509 -0.935 0 wrs(wline in a string counts as)0.509 -0.425 0 wrs
+(a space.)124.999 272.666 s rm 12 ss(<)124.999 255.666 s(>)
+438.231 255.666 s rm 10 ss
+(This is a v)1.454 124.999 243.666 ws
+(ery long heading at a smaller type size. )1.454 -0.15 0 wrs
+(W)1.454 -0.3 0 wrs(e w)1.454 -0.8 0 wrs(ant to see if it gets)
+1.454 -0.1 0 wrs
+(correctly split up into a justi)2.5 124.999 233.666 ws rmX 10 ss
+(\216)2.5 wsh rm 10 ss(ed paragraph. PMW is supposed to do this,)2.5 wsh
+(splitting at a space character and stretching all b)
+0.078 124.999 223.666 ws(ut the last line of the paragraph.)
+0.078 -0.2 0 wrs rm [11.999 0 0 10 0 0] sm
+(This is a v)0.572 124.999 207.666 ws
+(ery long heading at a smaller type size. )0.572 -0.179 0 wrs
+(W)0.572 -0.359 0 wrs(e w)0.572 -0.959 0 wrs(ant to see)
+0.572 -0.119 0 wrs
+(if it gets correctly split up into a justi)2.547 124.999 197.666 ws
+rmX [11.999 0 0 10 0 0] sm(\216)2.547 wsh rm [11.999 0 0 10 0 0] sm
+(ed paragraph. PMW is)2.547 wsh
+(supposed to do this, splitting at a space character and stretching all)
+0.004 124.999 187.666 ws(b)124.999 177.666 s
+(ut the last line of the paragraph.)-0.239 0 rs rm 10 ss
+(OK, we are back in an untransformed font no)0.953 124.999 161.666 ws
+(w)0.953 -0.25 0 wrs(. )0.953 -0.65 0 wrs(This should be similar to the)
+0.953 -0.18 0 wrs(heading of the last b)124.999 151.666 s
+(ut one paragraph.)-0.2 0 rs rm 12 ss
+(The quick bro)0.227 124.999 141.666 ws
+(wn fox jumps o)0.227 -0.3 0 wrs(v)0.227 -0.18 0 wrs
+(er the lazy dog no)0.227 -0.18 0 wrs(w and ag)0.227 -0.3 0 wrs(ain. )
+0.227 -0.06 0 wrs(And)0.227 -0.66 0 wrs
+(sometimes e)124.999 129.666 s(v)-0.3 0 rs(en more frequently than that.)
+-0.18 0 rs(<)124.999 117.666 s(>)438.231 117.666 s rm 8 ss
+(This is a v)1.095 124.999 17.333 ws
+(ery long footing paragraph, to check that it gets split up as it should be. Is this long)
+1.095 -0.12 0 wrs(enough?)124.999 9.333 s
+pagesave restore showpage
+
+%%Page: 5 5
+%%BeginPageSetup
+/pagesave save def
+0 842 T -90 R
+1.5 dup scale
+%%EndPageSetup
+rm 12 ss(The )0.319 124.999 340.666 ws it 12 ss
+(quic)0.319 146.978 340.666 ws(k, justi)0.319 -0.24 0 wrs itX 12 ss
+(\216)0.319 wsh it 12 ss(ed, italic br)0.319 wsh(own fox )
+0.319 -0.54 0 wrs rm 12 ss(jumps o)0.319 302.797 340.666 ws
+(v)0.319 -0.18 0 wrs(er the lazy dog for a)0.319 -0.18 0 wrs(crotchet )
+1.133 124.999 328.666 ws mf 10.8 ss(5)1.133 167.784 328.666 ws rm 12 ss
+( and other things ag)1.133 176.856 328.666 ws
+(ain and ag)1.133 -0.06 0 wrs(ain and ag)1.133 -0.06 0 wrs(ain. He)
+1.133 -0.06 0 wrs(y)1.133 -0.18 0 wrs(, you)1.133 -0.78 0 wrs
+(do need quite a lot of te)124.999 316.666 s(xt to )-0.18 0 rs rmX 12 ss
+(\216)sh rm 12 ss(ll up the lines.)sh rm 8 ss
+(This is a last footing; it should be split and justi)
+0.09 124.999 17.333 ws rmX 8 ss
+(\216)0.09 wsh rm 8 ss
+(ed lik)0.09 wsh(e the other footings that are suf)0.09 -0.08 0 wrs
+rmX 8 ss(\216)0.09 wsh rm 8 ss(ciently long.)0.09 wsh
+(Mak)124.999 9.333 s(e sure this one is long enough!)-0.08 0 rs
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 5

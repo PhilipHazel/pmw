@@ -1,0 +1,15 @@
+notespacing *1
+
+notime
+nocheck
+unfinished
+
+
+
+[stave 1 treble 1]
+[slur]
+d-. [slur] d=_; d=c=a`-; [endslur]
+[slur/b] %d'\-\ a-\sd\ b_b- [es]
+[es]
+[endstave]
+

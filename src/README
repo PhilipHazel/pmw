@@ -1,0 +1,51 @@
+The PMW source files
+--------------------
+
+The original implementation of this program was written in BCPL, and ran on
+several different operating systems (IBM's MVS, Acorn's PANOS, Acorn's early
+versions of Risc OS). It was therefore designed with system-specific code in
+separate functions.
+
+The second implementation was in C (in the early 1990s), as a proper
+application for Acorn's Risc OS system, but I kept the separate
+system-dependent functions, just in case. The application was long-running,
+capable of handling different source files in sequence, and displaying output
+on the screen. That is, it was written in the style of a windowing application,
+though it could also be run as a single, non-windowing command to generate
+PostScript (useful for testing).
+
+Because Risc OS was a co-operative multi-tasking OS, the code had to be
+arranged so that it gave up control from time to time as it was processing, in
+order to let other tasks use the processor. This made for an unusual control
+structure.
+
+The program also had to remain active after processing a file, so that it could
+interact with the user during display, and possibly be given more files to
+process. For this reason, the initialization of global variables had to be
+active instead of just giving a value in the definition, because they had to be
+reset for each new file.
+
+For the port to Unix-like systems, I made fairly minimal changes at first
+(February 2003). I removed the windowing stuff, but otherwise left the control
+structures and variable initialization unchanged. Later (February 2004), I
+rewrote the code for driving a MIDI interface on the Acorn so that it produced
+a MIDI file instead.
+
+Later still (August 2008) I did a comprehensive spring clean, removing a lot of
+redundant code, adjusting some of the control structures, and tidying up the
+comments.
+
+A long time later (2021) I completely re-built the code, incorporating some
+features that had been somewhat bolted-on in a more uniform way (half
+accidentals and custom key signatures) and generally improving and tidying the
+code. The handling of text strings was also completely revised. Nevertheless,
+the code is still somewhat strange for a program that just reads an input
+stream and produces an output stream.
+
+This was the first program of any size that I ever wrote in C. Some of the
+oddities are also due to that! The internals are still insufficiently
+documented, and there are not enough comments about what various data fields
+are used for.
+
+Philip Hazel
+October 2021

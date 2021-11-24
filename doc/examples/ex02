@@ -1,0 +1,13 @@
+notespacing 20 20 20 20 20 20 20 20
+linelength 280
+textfont extra 1 "Courier"
+
+notime
+nocheck
+unfinished
+
+[stave 1 treble 1 text underlay]
+"\xx1\G++ G+ G g g\- g\= g\=\- g\=\="
+[space 8] G++ G+ G g g-; g=; g=-; g==
+[endstave]
+

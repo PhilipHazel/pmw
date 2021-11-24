@@ -1,0 +1,66 @@
+magnification 1.5
+nocheck
+key E
+justify top left
+
+[stave 1 treble 1]
+gggg | [key C][key E$] gggg |
+[key g] (: gg :) |
+[newline] gg | (: [key b$] g
+[endstave]
+
+[newmovement]
+keysinglebar
+nokeywarn
+[stave 1 treble 1]
+gg | [key F#] g |
+[newline]
+[key Fm] gg
+[endstave]
+
+[newmovement]
+keydoublebar      
+keywarn
+[stave 1 treble 1]
+gg | [key F#] g |
+[newline]
+[key fM] gg
+[endstave]
+
+[newmovement]
+@ Tests for custom key signatures
+
+nocheck
+nokeywarn
+notime
+
+makekey X1 #1$4
+makekey X2 $$2 $-6
+makekey X3 ##3 #-9
+makekey X4 %3#8
+makekey X5 $4 $7 #8 #5
+
+[stave 1]
+[treble 1 key X1] ab |
+[soprano 1 key X1] ab |
+[mezzo 1 key X1] ab |
+[alto 1 key X1] ab |
+[tenor 1 key X1] ab |
+[cbaritone 0 key X1] ab |
+[baritone 0 key X1] ab |
+[bass 0 key X1] ab |
+[deepbass 0 key X1] ab |
+[trebledescant 1 key X1] ab |
+[trebletenor 1 key X1] ab |
+[trebletenorB 1 key X1] ab |
+[soprabass 0 key X1] ab |
+[contrabass 0 key X1] ab |
+
+[treble 1 key X2] ab |
+[treble 1 key X3] ab |
+[treble 1 key X10] ab |
+[treble 1 key X4] ab |
+[treble 1 key X5] ab |
+[endstave]
+
+

@@ -1,0 +1,29 @@
+justify top left
+nocheck
+
+[stave 1 treble 1]
+G+\M++\ g-\m\
+g [tremolo] b
+G [tremolo/x3/j3] B |
+g\M sl4\ [tremolo/x3/j3] B\sl4\ |
+g [tremolo/j1] b |
+
+G [tremolo] G
+G [tremolo/j2] G
+G [tremolo] E     |
+
+G [tremolo/j3/x3] E
+G [tremolo] B |
+             
+G' [tremolo] G'
+G' [tremolo] E'
+G' [tremolo/j2] E'
+C' [tremolo/j2] E'
+
+G+ [tremolo] E+ |   
+
+G'\sd\ [tremolo/j2] E
+
+G\su\ [tremolo/j2] E'
+
+

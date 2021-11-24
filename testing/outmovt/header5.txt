@@ -1,0 +1,150 @@
+
+GLOBAL VALUES
+  font 0: Times-Roman
+  font 1: Times-Italic
+  font 2: Times-Bold
+  font 3: Times-BoldItalic
+  font 4: Symbol
+  font 5: PMW-Music
+  font 6: PMW-Alpha
+    rm = 0
+    it = 1
+    bf = 2
+    bi = 3
+    sy = 4
+    mf = 6
+  kerning = true
+  landscape = false
+  magnification = 1
+  maxvertjustify = 60
+  midifornotesoff = false
+  note spacing = 30 30 22 16 12 10 10 10
+  page = 1 1
+  pagelength = 720
+  righttoleft = false
+  sheetdepth = 842
+  sheetsize = a4
+  sheetwidth = 595
+  transposedacc = force
+
+MOVEMENT 1
+  accadjusts = none
+  accspacing = 4.8 4.25 5 5 5.25 4.5 4.5 8
+  barlinesize = 0
+  barlinespace = default
+  barlinestyle = 0
+  barnumberlevel = 0
+  barnumbers = none
+  baroffset = 0
+  beamflaglength = 5
+  beamthickness = 1.8
+  bottommargin = 0
+  bracelist = none
+  bracestyle = 0
+  bracketlist = 1-63
+  breakbarlines = none
+  breveledgerextra = 2.3
+  caesurastyle = 0
+  clefstyle = 0
+  clefwidths = 15 16 16 15 16 16 15 15 0 16 15 15 13 13 13 13
+  copyzero = 1/0
+  dotspacefactor = 1.2
+  endlinesluradjust = 0
+  endlineslurstyle = 0
+  endlinetieadjust = 0
+  endlinetiestyle = 0
+  extenderlevel = 0
+  flags = 0x0060e1cc
+  fontsizes
+    barnumber 10
+    cue 7
+    cuegrace 5
+    fbass 10
+    footnotes 9
+    grace 7
+    init 10
+    midclefs 10
+    music 10
+    olay 10
+    rehearse 12
+    repno 10
+    restct 10
+    time 11.8
+    trill 10
+    triplet 10
+    ulay 10
+    vertacc 10
+    text 1 10
+    text 2 10
+    text 3 10
+    text 4 10
+    text 5 10
+    text 6 10
+    text 7 10
+    text 8 10
+    text 9 10
+    text 10 10
+    text 11 10
+    text 12 10
+    text 13 10
+    text 14 10
+    text 15 10
+    text 16 10
+    text 17 10
+    text 18 10
+    text 19 10
+    text 20 10
+  fonttype_barnumber = roman
+  fonttype_longrest = bold
+  fonttype_rehearse = roman
+  fonttype_repeatbar = roman
+  fonttype_time = bold
+  fonttype_triplet = roman
+  footnotesep = 4
+  gracespacing = 6 6
+  gracestyle = 0
+  hairpinlinewidth = 0.2
+  hairpinwidth = 7
+  halfflatstyle = 0
+  halfsharpstyle = 0
+  hyphenstring = "\rm\-"
+  hyphenthreshold = 50
+  joinlist = 1-63
+  joindottedlist = none
+  justify = all
+  key = C
+  layout = none
+  ledgerstyle = 0
+  leftmargin = unset
+  linelength = 480
+  maxbeamslope = 0.31 0.33
+  midistart = unset
+  miditempo = 120
+  midkeyspacing = 0
+  midtimespacing = 0
+  note scaling = 1/1
+  note spacing = 30 30 22 16 12 10 10 10
+  overlaydepth = 11
+  rehearsalstyle = boxed
+  repeatstyle = 0
+  smallcapsize = 0.7
+  select_staves = all
+  shortenstems = 0
+  startbracketbar = 0
+  startlinespacing = 0 0 0 0
+  stavesizes (varied) = none
+  stavespacing = 44
+  stemlengths = 0 0 0 0 2 4
+  stemswap = default
+  stemswaplevel = 0
+  systemgap = 44
+  thinbracketlist = none
+  topmargin = 10
+  transpose = none
+  trillstring = "\mf\\x88\"
+  tripletlinewidth = 0.3
+  time = 1 * 4/4
+  time_unscaled = 1 * 4/4
+  underlaydepth = 11
+  underlaystyle = 0
+  suspend_staves = none

@@ -1,0 +1,30 @@
+unfinished
+nocheck
+maxbeamslope 0.2 0.2
+vertaccsize 8
+
+[stave 0]
+"abcd-="/ol/" ."  gg | R! | "#"/ol g
+[endstave]
+
+[stave 1 treble 1]
+gg | grrg | g |
+[transpose +5] $oe_|
+e#oe_ | e $^?e_ e
+
+[endstave]
+
+
+[newmovement]
+[stave 1 treble 1]
+c''-\//\g'-\//\e'-\//\ c''\//\ g'\//\ e'\//\ |
+c''\// sl8\ f`-\//\d-\//\f-\//\ | #oG\f!\ #uG\f\ |
+"Alphabet"/ul
+#oF'+_ | F'+ | 
+"\rm\|"/h "\rm\|"/h/r10 g [space 20] 
+"\rm\|"/h0.75 "\rm\X"/h/bar g [space 20] g
+"\rm\|"/h |
+"abcd"/h "dcba"/h/e "xyz"/h/c g [space 20] g |
+
+"^the quick brown"/ul/h "\rm\|"/h/d10 G [space 20] G [space 10] G
+

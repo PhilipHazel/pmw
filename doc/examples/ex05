@@ -1,0 +1,18 @@
+textfont extra 1 "Courier"
+
+notime
+nocheck
+unfinished
+
+
+
+[stave 1 treble 1 text underlay underlayfont extra 1]
+[ulhere -8]
+"{f'\- g'\- f'\-}; {/a#f'\- g'\- f'\-};"
+{f'-g'-f'-}; {/a f'-g'-f'-};
+
+"{/b#f'\- g'\- f'\-}; g\- {/a#a\= c'\= a\=}" 
+{/b f'-g'-f'-};
+g-{/a a=c'=a=}
+[endstave]
+

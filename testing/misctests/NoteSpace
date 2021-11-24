@@ -1,0 +1,37 @@
+nocheck   
+justify top left
+
+[stave 1 treble 1]
+G++ G+ G g g- g= g=- g==
+[endstave]
+
+[newmovement]
+notespacing *1.5
+[stave 1 treble 1]
+G++ G+ G g g- g= g=- g==
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+G++ G+ G g g- g= g=- g==
+[endstave]
+
+[newmovement]
+notespacing 10 10 10 10 10 10 10 10
+[stave 1 treble 1]
+G++ G+ G g g- g= g=- g==
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+G++ G+ G g g- g= g=- g==
+[endstave]
+
+[newmovement]
+heading "within bars"
+notespacing 30 30 22 16 12 10 10 10
+
+[stave 1 treble 1]
+aaaa | [ns *3/4] aaaa | [ns] aaaa |
+[notespacing 0 0 0 -2.5] aaaa
+

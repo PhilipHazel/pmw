@@ -1,0 +1,13 @@
+magnification 1.5
+nocheck
+
+
+[stave 1 treble 1]
+aa // b // | "text"// a [comma] a [tick] a
+[endstaff]
+
+[newmovement]
+caesurastyle 1
+[stave 1 treble 1]
+aa // b //
+[endstave]

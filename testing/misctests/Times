@@ -1,0 +1,63 @@
+magnification 1.3
+nocheck
+
+printtime 8/8 "3+3+2" "8"
+printtime 3/2 "\**147\"/s1 ""
+
+
+[stave 1 treble 1]
+a | [time 8/8] a | [time 3/2] a
+[endstave]
+
+[newmovement]
+timefont 16 bolditalic
+printtime 5/16 "2+2+1" "\rm\5"
+
+[stave 1 treble 1]
+a | [time 5/16] a
+[endstave]
+
+
+[newmovement]
+notime
+[stave 1 treble 1]
+a | [time 3/4] aaa |
+[newline]
+[time 5/4] aaa
+[endstave]
+
+[newmovement]
+notimebase
+[stave 1 treble 1]
+a | [time 3/4] aaa |
+[newline]
+[time 5/4] aaa
+[endstave]
+
+[newmovement]
+notimewarn
+startnotime
+timebase
+[stave 1 treble 1]
+a | [time 3/4] aaa |
+[newline]
+[time 5/4] aaa
+[endstave]
+
+[newmovement]
+timewarn
+startnotime
+timebase
+[stave 1 treble 1]
+a | [time 3/4] aaa |
+[newline]
+[time 5/4 nowarn] aaa
+[endstave]
+
+
+
+
+
+
+
+

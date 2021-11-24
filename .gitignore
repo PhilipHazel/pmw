@@ -1,0 +1,22 @@
+# Public .gitignore file for PMW
+
+*.o
+*~
+
+INSTALL
+Makefile
+config.guess
+config.log
+config.status
+configure
+doc/spec.pdf
+doc/spec.ps
+doc/spec.xml
+doc/postscript
+fontextra
+src/config.h
+src/pmw
+testdist/test*
+testing/test*
+
+# End

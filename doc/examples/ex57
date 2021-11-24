@@ -1,0 +1,12 @@
+Textsizes 10 13
+Bracket
+Brace 1-2
+Unfinished
+
+[stave 1 "1"/e/"Horns in F"/m/s2 treble 1]
+gabc' |
+[endstave]
+
+[stave 2 "2"/e treble 1]
+gabc' |
+[endstave]

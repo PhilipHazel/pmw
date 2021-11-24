@@ -1,0 +1,18 @@
+nocheck
+unfinished
+magnification 1.5
+justify top left
+
+Heading ""
+Gracespacing +2
+Hairpinlinewidth +0.8
+Hairpinwidth +4
+Hyphenthreshold +10
+
+[stave 1 treble 1]
+f'=-\g\
+g'=-\g\
+a'=-\g\
+b'=-\g\c''=-\g\d''=-\g\e''=-\g\ f''=-\g\g''=-\g\a''=-\g\ b''-|
+< gggg < |
+

@@ -1,0 +1,3 @@
+** Error: insufficient space to print notes on opposite sides of beam
+   Detected in bar 1 stave 1
+

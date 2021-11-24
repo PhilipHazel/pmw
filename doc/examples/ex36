@@ -1,0 +1,7 @@
+unfinished
+draw astline
+  leftbarx -15 moveto
+  leftbarx neg "*" stringwidth pop div
+  0.5 add { "*" show } repeat
+enddraw
+[stave 1 bass 0] gddg | de [draw astline] fg |

@@ -1,0 +1,50 @@
+#! /bin/sh
+
+BINDIR=$1
+DATADIR=$2
+MANDIR=$3
+
+cat <<End
+
+------------------------------------------------------------------------------
+The pmw command has been installed in $BINDIR. The PostScript header 
+file, the PostScript music fonts, and the fontmetrics files have been 
+installed in $DATADIR. The man page has been installed in 
+$MANDIR.
+
+Checking to see if you have GhostScript installed...
+End
+
+gs=`which gs`
+if [ "$?" !=  0 ]; then
+  gs=""
+fi
+
+if [ "gs" = "" ]; then
+  echo "You do not seem to have GhostScript installed."
+else
+  echo "GhostScript appears to be installed as $gs."
+  echo ""
+  echo "If you use the -incPMWfont option with the pmw command, the output file"
+  echo "includes the PMW-Music font (and the PMW-Alpha font, if it was referenced),"
+  echo "and you should be able to view the output using Ghostscript without any"
+  echo "special configuration."  
+  echo ""
+  echo "If you want to be able to use GhostScript to view music without having"
+  echo "to include the music fonts in every output file, you have to make the"
+  echo "fonts available to Ghostscript. To do this, run the command"
+  echo ""
+  echo "  $gs -h"
+  echo ""
+  echo "and find a suitable font directory in the 'Search path' data. Then"
+  echo ""
+  echo "  ln -s $DATADIR/psfonts/PMW-alpha /that/dir/PMW-Alpha"  
+  echo "  ln -s $DATADIR/psfonts/PMW-Music.pfa /that/dir/PMW-Music.pfa"  
+  echo ""
+  echo "If that does not work, you may have an older version of Ghostscript."
+  echo "Refer to the PMW manual for further information."  
+fi
+
+echo "------------------------------------------------------------------------------"
+
+# End

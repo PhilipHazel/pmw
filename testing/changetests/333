@@ -1,0 +1,65 @@
+unfinished nocheck
+
+
+[stave 1 treble 1]
+[slur/u10/lu10/rd5/1/d5/rd5/cru5/2/d10/lr10/co8/4/ru5/ll10] aaaa |
+[3] [newline] abc'd'e'f'g' |
+c'bag [es] |
+[slur/ao/3/d5 stems up] c'd' |
+[newline] gg |
+[newline] d'e'f' |
+[newline] cc [es] | [slur/b4/3/co8/cll8 stems down] gg |
+[newline] cc |
+[newline] gg |
+e'e' [es] |
+[stems auto] [slur/i] gabc' |
+[newline] c'bag |
+[newline] ggg [es] |
+[slur/w] gabc' |
+[newline] c'bag |
+[newline] ggg [es] |
+
+[ns *2] (g\sp\b)(g\sp\c')(g\sp\d')(g\sp\e')(g\sp\f')(g\sp\g')
+(g\sp\a')(g\sp\b')(g\sp\c'')
+
+[endstave]
+
+[newmovement]
+time 3/4
+
+[stave 1 treble 1]
+ggg | 
+[time 6/8] g. a. | [newline] [time 3/4] ggg |
+[time 6/8] g. a. | [newline] [time 3/4 nowarn] ggg |
+[endstave]
+
+[stave 2 bass 0]
+[5] C.
+[endstave]
+
+[newmovement]
+nocheck
+justify top left
+key E$
+startlinespacing 4 4 4 0
+midkeyspacing 6
+midtimespacing 4
+
+[stave 1 treble 1]
+gggg | [treble key e$ time 3/4] gggg |
+[time 4/4] gggg | [key e$] gggg |
+[key e$ time 3/4] gggg |
+[key e$ time 3/4] [6] gggg |
+[endstaff]
+
+[newmovement]
+
+[Staff 1 Omitempty] [Skip 2]
+[Treble 1] [Key B$] 
+"\rm\A"/b1/bar/e/l4
+"\rm\S"/b0/u9/bar/e/l4.5 
+"\rm\X"/b0/u17/bar/c
+f-f- | 
+[endstaff]
+
+

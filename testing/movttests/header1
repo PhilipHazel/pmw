@@ -1,0 +1,13 @@
+@ Check new movement flags
+
+[newmovement]
+
+[newmovement newpage nopageheading]
+@ Should get reset for next movement
+notime
+startnotime
+unfinished
+
+[newmovement thispage uselastfooting]
+
+[newmovement thisline]

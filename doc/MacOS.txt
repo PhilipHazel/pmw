@@ -1,0 +1,65 @@
+This short README file tries to give a quick overview how to install, compile
+and run PMW music notation software under OS X on Macintosh.
+
+IMPORTANT: This README is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY!
+
+Requirements:
+
+- Any Mac running a MAC OS X should be up to the job, but older MAC OS machines
+before OS X will not work. You need the Darwin-BSD Clone to have the full Unix
+compatibility!
+
+- A basic understanding of how to operate a Unix/BSD/Linux command line through
+a shell/console is compulsory.
+
+Tested environment was MAC OS 10.9.5 on Intel architecture.
+
+First steps:
+
+- make sure you have the console/shell easily ready, you will need it
+permanently (add it to the dock)
+
+- MAC OS X is very reluctant to give the user freedom about usage of his
+computer resources, so in most cases you need to create or make visible the
+admin account for smoother operation
+
+- when creating the directories to store the downloaded installation files, set
+the file permissions in a way so that anyone can read/write/alter the files
+(i.e. do a chmod 777): sounds harmful, but it is not and saves you a lot of
+trouble later on
+
+- whenever you encounter "access denied" problems, you forgot the chmod 777
+for that particular file or directory
+
+- download the latest PMW tarball and save it to the specifically created
+directory with the matching file permissions
+
+- find out your OS version (Finder -> About this Computer)
+
+- go to App Store and download the matching XCode package for your OS version
+and install it as admin, accessible for all users. Without the XCode package,
+the gcc C compiler is missing and you cannot compile the PMW sources
+
+- follow the PMW instructions to expand the tar and zip compressed suite of
+files and go through the make routine as described in the PMW documentation
+
+If you do not encounter any error message, you should end up with a working PMW
+system.
+
+Possible errors:
+
+- operation stops because of file permissions: see above for curing this.
+
+- compiler gives back error messages: check if you end up with a PMW program
+anyway. The gcc is a bit verbose in regard of warnings and error messages. If
+it fails, try to conclude what went wrong, fix this and go back to the make
+routine.
+
+- earlier OS X versions might require manual hacks for the correct font
+handling, 10.9.5 did it correctly from the scratch.
+
+Extra tip: get yourself an editor which can be tailored to your needs when
+using PMW!
+
+Good luck and enjoy PMW!

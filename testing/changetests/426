@@ -1,0 +1,162 @@
+key G
+time 3/4
+unfinished
+[stave 1 alto 1]
+"Both wanted"/a
+b`_g`r | rr$b` | [slur/a] a`-#c-d-e-f-d- [es] |
+d'\.\ f\.\ g\.\ | ac'_b | re(cd) |
+[nocheck] (b`d) r [sghere +4] "Fine"/b/e |
+[newline]
+[key D]
+[time 3/4]
+[nocheck nocount] "\rm\TRIO"/a2/l16 r |
+[2] [slur/b/co4] d-a`-d-a`-d-a`- [es] |
+[slur/b/co4] c-a`-c-a`-c-a`- [es] | [slur/a] c-e-c-e-c-e- [es] |
+[endstave]
+
+[newmovement]
+key G
+time 3/4
+unfinished
+[stave 1 alto 1]
+"Key suppressed"/a
+b`_g`r | rr$b` | [slur/a] a`-#c-d-e-f-d- [es] |
+d'\.\ f\.\ g\.\ | ac'_b | re(cd) |
+[nocheck] (b`d) r [sghere +4] "Fine"/b/e |
+[newline]
+[key D nowarn]
+[time 3/4]
+[nocheck nocount] "\rm\TRIO"/a2/l16 r |
+[2] [slur/b/co4] d-a`-d-a`-d-a`- [es] |
+[slur/b/co4] c-a`-c-a`-c-a`- [es] | [slur/a] c-e-c-e-c-e- [es] |
+[endstave]
+
+[newmovement]
+key G
+time 3/4
+unfinished
+[stave 1 alto 1]
+"Time suppressed"/a
+b`_g`r | rr$b` | [slur/a] a`-#c-d-e-f-d- [es] |
+d'\.\ f\.\ g\.\ | ac'_b | re(cd) |
+[nocheck] (b`d) r [sghere +4] "Fine"/b/e |
+[newline]
+[key D]
+[time 3/4 nowarn]
+[nocheck nocount] "\rm\TRIO"/a2/l16 r |
+[2] [slur/b/co4] d-a`-d-a`-d-a`- [es] |
+[slur/b/co4] c-a`-c-a`-c-a`- [es] | [slur/a] c-e-c-e-c-e- [es] |
+[endstave]
+
+[newmovement]
+key G
+time 3/4
+unfinished
+[stave 1 alto 1]
+"Both suppressed"/a
+b`_g`r | rr$b` | [slur/a] a`-#c-d-e-f-d- [es] |
+d'\.\ f\.\ g\.\ | ac'_b | re(cd) |
+[nocheck] (b`d) r [sghere +4] "Fine"/b/e |
+[newline]
+[key D nowarn]
+[time 3/4 nowarn]
+[nocheck nocount] "\rm\TRIO"/a2/l16 r |
+[2] [slur/b/co4] d-a`-d-a`-d-a`- [es] |
+[slur/b/co4] c-a`-c-a`-c-a`- [es] | [slur/a] c-e-c-e-c-e- [es] |
+[endstave]
+
+[newmovement]
+key G
+time 3/4
+unfinished
+nokeywarn
+[stave 1 alto 1]
+"Key auto suppressed"/a
+b`_g`r | rr$b` | [slur/a] a`-#c-d-e-f-d- [es] |
+d'\.\ f\.\ g\.\ | ac'_b | re(cd) |
+[nocheck] (b`d) r [sghere +4] "Fine"/b/e |
+[newline]
+[key D]
+[time 3/4]
+[nocheck nocount] "\rm\TRIO"/a2/l16 r |
+[2] [slur/b/co4] d-a`-d-a`-d-a`- [es] |
+[slur/b/co4] c-a`-c-a`-c-a`- [es] | [slur/a] c-e-c-e-c-e- [es] |
+[endstave]
+
+[newmovement]
+key G
+time 3/4
+unfinished
+notimewarn
+keywarn
+[stave 1 alto 1]
+"Time auto suppressed"/a
+b`_g`r | rr$b` | [slur/a] a`-#c-d-e-f-d- [es] |
+d'\.\ f\.\ g\.\ | ac'_b | re(cd) |
+[nocheck] (b`d) r [sghere +4] "Fine"/b/e |
+[newline]
+[key D]
+[time 3/4]
+[nocheck nocount] "\rm\TRIO"/a2/l16 r |
+[2] [slur/b/co4] d-a`-d-a`-d-a`- [es] |
+[slur/b/co4] c-a`-c-a`-c-a`- [es] | [slur/a] c-e-c-e-c-e- [es] |
+[endstave]
+
+[newmovement]
+key G
+time 3/4
+unfinished
+nokeywarn notimewarn
+[stave 1 alto 1]
+"Both auto suppressed"/a
+b`_g`r | rr$b` | [slur/a] a`-#c-d-e-f-d- [es] |
+d'\.\ f\.\ g\.\ | ac'_b | re(cd) |
+[nocheck] (b`d) r [sghere +4] "Fine"/b/e |
+[newline]
+[key D]
+[time 3/4]
+[nocheck nocount] "\rm\TRIO"/a2/l16 r |
+[2] [slur/b/co4] d-a`-d-a`-d-a`- [es] |
+[slur/b/co4] c-a`-c-a`-c-a`- [es] | [slur/a] c-e-c-e-c-e- [es] |
+[endstave]
+
+[newmovement]
+codemultirests
+justify top left
+notime
+
+[stave 1 treble 1]
+G+ | R! | [newline]
+G+ | [2]R! | [newline]
+G+ | [3]R! | [newline]
+G+ | [4]R! | [newline]
+G+ | [5]R! | [newline]
+G+ | [6]R! | [newline]
+G+ | [7]R! | [newline]
+G+ | [8]R! | [newline]
+G+ | [9]R! |
+[endstave]
+
+[newmovement]
+justify top left right
+notime
+
+[stave 1 treble 1]
+R! | 
+""[2]R! |
+""[3]R! | 
+""[4]R! | 
+""[5]R! | 
+""[6]R! | 
+""[7]R! | 
+""[8]R! | 
+""[9]R! |
+[endstave]
+
+[newmovement]
+notime
+nocodemultirests
+
+[stave 1 treble 1]
+[3]R! |
+[endstave]

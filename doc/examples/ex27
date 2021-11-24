@@ -1,0 +1,12 @@
+unfinished
+nocheck
+notime
+notespacing *1.2
+
+[stave 1 treble 1]
+*define s8 "\it\8va-"/ol/" -| \mf\\159\"/u0.3
+*define e8 "#"/ol/r8
+
+&s8 c'.d'-e'd' | g'g' &e8 G' |
+[endstave]
+

@@ -1,0 +1,23 @@
+@ This file illustrates how to generate repeat marks with "wings" above and 
+@ below. 
+
+breakbarlines 1
+bracket
+brace 2-3
+
+*define leftwingtop "\mf\\176\"/bar/b0
+*define leftwingbot "\mf\\177\"/bar/b0
+*define rightwingtop "\mf\\177\"/a0/rot180/r2
+*define rightwingbot "\mf\\176\"/a0/rot180/r2
+
+[staff 1 treble 1]
+G B | (: &leftwingtop &leftwingbot C' C | G B :) &rightwingtop &rightwingbot | (: &leftwingtop &leftwingbot C' C | G B :) &rightwingtop &rightwingbot | C'+ |
+[endstaff]
+
+[staff 2 treble 1]
+R! | (: &leftwingtop R! | R! :) &rightwingtop | (: &leftwingtop R! | R! :) &rightwingtop | R! |
+[endstaff]
+
+[staff 3 bass 1]
+R! | (: &leftwingbot R! | R! :) &rightwingbot | (: &leftwingbot R! | R! :) &rightwingbot | R! |
+[endstaff]

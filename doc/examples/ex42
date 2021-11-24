@@ -1,0 +1,35 @@
+justify top left
+nocheck
+notespacing *1.7
+notime
+unfinished
+
+[stave 1 noclef]
+[alto]  q
+[baritone] q
+[bass] q
+[cbaritone] q
+[contrabass] q
+[deepbass] q
+[hclef] q
+[mezzo] q
+[soprabass] q
+[soprano] q
+[tenor] q
+[treble] q
+[trebledescant] q
+[trebletenor] q
+[trebletenorb] qq
+|?
+[endstave]
+
+[newmovement thisline]
+clefstyle 3
+justify top right
+notespacing *1.5
+notime
+
+[stave 1 noclef]
+[alto] qq-
+[move -12] [bass]
+|?

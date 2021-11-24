@@ -1,0 +1,10 @@
+unfinished
+nocheck
+notime
+notespacing *1.2
+
+[stave 1 treble 1]
+"\it\cresc-==en-==do"/ul gc'ga | gfgr |
+"\it\dim.-"/ul gfef | G "#"/ul/r6 G |
+[endstave]
+

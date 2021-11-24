@@ -1,0 +1,46 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+mf 10 ss(!)64 760 s bf 11.8 ss(4)80 768 s(4)80 760.15 s mf 10 ss(")
+63.5 704 s bf 11.8 ss(4)80 712 s(4)80 704.15 s mf 10 ss
+16 704(@)64 760 b 60.5 776 704 k
+%1/2
+-1.835 119.4 734.005 99.75 730.075 m(J)93.9 714.075 s(JL)93.9 708 s(.)
+106.9 708 s(=yy{=)118.25 754 s(K)118.25 744.125 s(K{yyL)118.25 752 s(=)
+118.25 754 s(K)118.25 746.125 s(KL)118.25 754 s(@)130.25 704 s
+%1/1
+16 720(@)130.25 760 b
+(CCCCCC)64 760 s (C)120.25 760 s
+(CCCCCC)64 704 s (C)120.25 704 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

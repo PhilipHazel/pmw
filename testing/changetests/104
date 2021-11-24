@@ -1,0 +1,23 @@
+nocheck
+
+[stave 1 "1A" "1B" "1C" treble 1]
+g |
+[newline]
+g |
+[newline]
+[name 3]
+g |
+[endstave]
+
+[stave 2 "2A" "2B" "2C" bass 0]
+g |
+g | g |
+[name 3]
+g
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+aaa [suspend] | [skip 40] ggg |
+[newline]
+fff

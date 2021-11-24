@@ -1,0 +1,26 @@
+notespacing *1.
+
+time 3/4
+
+
+
+bracket
+brace 1-4
+stavespacing 1/0 2/48 3/0
+
+[staff 1 "Piano"/m treble 1 stems up ties above]
+Ae' | d'_af | e_fe | D. |
+[endstaff]
+
+[staff 2 treble 1 stems down ties below]
+e_da | A#d | [smove 6]%<d_#cc | D. |
+[endstaff]
+
+[staff 3 bass 0 stems up ties above]
+Ac' | D'b | g_ag | F. |
+[endstaff]
+
+[staff 4 bass 0 stems down ties below]
+[smove 6]Gg | Fb` | $b`_a`a` | D. |
+[endstaff]
+

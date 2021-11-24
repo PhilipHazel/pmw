@@ -1,0 +1,14 @@
+magnification 1.25
+nocheck
+heading ""
+notespacing *1.5
+
+[stave 1 treble 1 text underlay]
+[\//\] (dg) [\.\] aa [\\]
+d-\m\
+@ ignores the x3 unless previous has a beam break;
+[tremolo/j1/x3] 
+g-\m\;
+d- [tremolo/j1/x3] g-;
+
+

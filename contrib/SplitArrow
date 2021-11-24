@@ -1,0 +1,23 @@
+@ These are some drawing functions contributed by Richard Hallas. They draw
+@ end-of-line splitting arrows which are different in style to the ones in
+@ the PMW font.
+
+Draw SplitUp
+  @ Diagonal splitting arrow to be used at the end of a system
+  @
+  0 8 moveto
+  8 8 rlineto               @ draw diagonal
+  -4 0 rmoveto
+  4 0 rlineto 0 -4 rlineto  @ draw arrowhead
+  0.5 setlinewidth stroke
+Enddraw
+
+Draw SplitDown
+  @ Diagonal splitting arrow to be used at the end of a system
+  @
+  0 8 moveto
+  8 -8 rlineto             @ draw diagonal
+  -4 0 rmoveto
+  4 0 rlineto 0 4 rlineto  @ draw arrowhead
+  0.5 setlinewidth stroke
+Enddraw

@@ -1,0 +1,47 @@
+justify left top
+[stave 1 treble 1 key C]
+               #fga$b |
+[transpose 11] #fga$b |
+[transpose 1]  #fga$b |
+[transpose -2] #fga$b |
+[endstave]
+
+
+[newmovement]
+nocheck
+
+[stave 1 treble 1]
+g\)\ q a.\)\ q #g\)\ q $g\)\ q | 
+%g\)\ q g..\)\ q g.+\)\ q (af\)\) q|
+
+[stems up]
+(cc'\)\) q (c\)\c') q | 
+(cc'\)sm\) q (c\)sm\c') q | 
+
+[stems down]
+(cc'\)\) q (c\)\c') q | 
+(cc'\)sm\) q (c\)sm\c') q | 
+[stems auto]
+
+(gf\)\) q (g\)\f) q |
+
+G+\)\ q (C+c'\)\) q (C+c'\)sm\) q 
+[endstave]
+
+
+[newmovement]
+nocheck
+
+[stave 1 treble 1]
+(C+c') (C+c'\sm\) (C+c'\)sm\) C+\sm\ C+\sm)\ G+\sm\ | 
+[newline] (C++c') (C++c'\sm\) (C++c'\sm)\) C++\sm\ C++\sm)\ G++\sm\ | 
+[noteheads only]
+[newline] (cc') (cc'\sm\) (cc'\sm)\) c\sm\ c\sm)\ g\sm\ |
+[newline]
+C++\sm\ [reset] G++ [reset]C'++\sm\| 
+[newline]
+C+\sm\ [reset] G+ [reset]C'+\sm\| 
+[newline]
+C\sm\ [reset] G [reset]C'\sm\| 
+[endstave]
+

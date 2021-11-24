@@ -1,0 +1,13 @@
+magnification 1.3 
+nocheck
+justify top left
+
+[stave 1 treble 1]
+aa[space 10]aa[move 3]aa[move -3] aa [space -6] aa |
+f\sd\ f\sd\ [reset] [smove 6]ga |
+[newline]
+a [space 5][space 5] a
+[endstave]
+
+[stave 2 treble 1]
+aaaaaaaaaa  | | a [space 5] a

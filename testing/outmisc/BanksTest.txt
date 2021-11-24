@@ -1,0 +1,10 @@
+** Warning: invalid UTF-8 byte 0xA9 interpreted as a single-byte character
+   Detected near line 68 of misctests/BanksTest
+Footing 10 "© Banks Music Publications 1995"
+------------>
+
+** Warning: "oldbeambreak" is obsolete and has no effect
+   Detected near line 92 of misctests/BanksTest
+Beamthickness 2
+>
+

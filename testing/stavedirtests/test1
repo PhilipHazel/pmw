@@ -1,0 +1,104 @@
+draw x enddraw
+printkey B treble "B"
+nocheck
+
+[stave 2 "abc"/"pqr" treble 1]
+[name "xyz" draw 123 "XXX" x]
+[name 3]
+[assume bass 0]
+|
+[alto] ||
+: :) (: // |
+{ }
+{/b}
+|
+[alto] [2] [tenor]
+[bass] [2nd]
+[3rd/u4.5]
+|
+< < 
+[hairpins below hairpinwidth 5.9]
+>/u3/slu2/sru4 >
+[endstave]
+
+[stave 3/3 omitempty]
+[endstave]
+
+
+[stave 1]
+"abcd" "\rm\def"/u2/s3 "xyz"/rot30
+["A"]
+[all breakbarline comma newline newpage tick unbreakbarline]
+|
+[barlinestyle 3]
+|
+[barnumber] [barnumber off] [barnumber/u3/r4]
+[beamacc beamrit 2 beamacc]
+[beammove 2 beamslope -0.5 bottommargin 5 topmargin 6]
+[copyzero 3] [ensure 10 olhere 1 ulhere -4]
+[bowing above] [bowing below]
+[cue dots below] [endcue]
+[draw 123 "abc" x] [overdraw "a" 3 4 x]
+|
+[fbfont italic fbtextsize 4] "fb"/fb
+[underlayfont bolditalic ultextsize 2] "ul"/ul
+[overlayfont extra 1 oltextsize 3] "ol"/ol
+[textfont bold textsize 2] "text"
+
+[footnote "This is a footnote"]
+[noteheads normal noteheads cross noteheads harmonic noteheads none
+ noteheads only noteheads direct] [h o x z]
+
+[justify -top -right +bottom]
+
+[key A] [key E$ nowarn] [key B]
+|
+[slur] [slurgap]
+[slur/u4/rr6/co2] 
+[slurgap/w5.6/draw x]
+[slur/b/ip][slur/=Z/a/1/co2] 
+[line/ol]
+[linegap/"abc"]
+[es] [endslur] [el] [endline] [el]
+
+[xline] [xslur] [es el]
+
+[midichannel 3 "piano"/12]
+[midivoice "church organ"]
+[midipitch "hi bongo"]
+[miditranspose -3 midivolume 8]
+[move 1,2] [rmove 3,-4]
+|
+[nocount]
+|
+[skip 3]
+|
+[notes off] [notes on]
+[notespacing *0.9] [ns] [ns 1 2 3] [octave 2]
+[ulevel -3 ulevel *] [olevel 2 olevel *]
+[page 6] [page +2]
+[printpitch A] [printpitch *]
+[suspend resume]
+
+[smove 3] [rsmove 4,5] [space 6] [rspace 7.4]
+[sgabove 3.3] [sghere +3 sgnext -4]
+[stemlength -2]
+[ssabove 4/4] [sshere +2 ssnext -6]
+
+[stems up stems down stems auto]
+[ties above ties below ties auto]
+
+[text underlay] 
+[text overlay]
+[text fb]
+[text above 4]
+[text below 6]
+[text above]
+
+[time 3/4] [assume time 6/8->2/4] [time 2*C nowarn]
+
+[transpose 2] [transposedacc force]
+[tremolo tremolo/x3/j2]
+
+[triplets off] [triplets above +6] [triplets below -4]
+[triplets above 7] [triplets on bass 0]

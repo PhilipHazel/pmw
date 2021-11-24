@@ -1,0 +1,62 @@
+@ This is a demonstration file showing how to draw a squiggly line vertically
+@ through a system, with a bit of white space on either side, in order to 
+@ indicate that two bars are not consecutive. It is easiest to position it
+@ by reference to a bar line (which gets wiped out). The drawing function
+@ must be called from the bottom stave of the system.
+
+@ Philip Hazel, March 1997
+
+heading ""
+
+
+draw squiggle
+  systemdepth 19 add /h exch def      @ h is the total height including the top system 
+                                      @ plus extra to cover the width of the top
+                                      @ the and bottom stave lines.
+  /w 12 def                           @ w is width of white space required.
+   
+  w 2 div neg -2 moveto 0 h rlineto   @ Define rectangle to whitewash.
+  w 0 rlineto
+  0 h neg rlineto w neg 0 rlineto       
+  1 setgray fill                      @ Whitewash it.
+  
+  3 -3 moveto                         @ Squiggle prints 3 points to the left,
+                                      @ so move it 3 points right to print at
+                                      @ our origin, and start it a bit below.
+  h 2 add 4 div 1 add                 @ Compute number to print (each is 4 pts high).
+  { "\*145\"/c show 0 4 rmoveto }     @ Print the squiggly line by repeated printing;
+  repeat                              @ the /c prevents the current point moving
+                                      @ automatically because if that is done, rounding
+                                      @ errors build up and the line ends up too short,
+                                      @ so instead we explicitly advance 4 points each time.  
+enddraw
+
+
+[stave 1 treble 1]
+gggg | gggg ||
+[endstave]
+
+[stave 2 bass 0]
+gggg [space 4 overdraw squiggle] | [space 8] gggg ||
+[endstave]
+
+
+[newmovement]
+heading "Just to prove it works for any system"
+
+[stave 1 treble 1]
+gggg | gggg ||
+[endstave]
+
+[stave 2 treble 1]
+gggg | gggg ||
+[endstave]
+
+[stave 3 alto 1]
+gggg | gggg ||
+[endstave]
+
+[stave 4 bass 0]
+gggg [space 4 overdraw squiggle] | [space 8] gggg ||
+[endstave]
+

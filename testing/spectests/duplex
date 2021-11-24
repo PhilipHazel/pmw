@@ -1,0 +1,6 @@
+Heading "Test for duplex"
+
+[stave 1 treble 1]
+abcd | efgr |
+[endstave]
+

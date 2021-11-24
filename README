@@ -1,0 +1,64 @@
+PHILIP'S MUSIC WRITER
+---------------------
+
+Copyright (c) 2021 Philip Hazel
+
+
+UNIX AND UNIX-LIKE SYSTEMS
+--------------------------
+
+I hope that this version of the program will run without problems on all Unix
+and Unix-like systems. To install PMW should just be a matter of typing:
+
+  ./configure
+  make
+  make install
+
+You will probably need root privileges in order to run the install command,
+unless your system gives you write access to the relevant directories.
+
+There is a man page that lists the PMW command arguments. However, the main
+documentation is provided only as a PDF file in the doc directory. The reason
+for this is that characters from the music font appear in the text, and I don't
+know of any other way of providing text of this kind.
+
+
+OTHER SYSTEMS
+-------------
+
+PMW consists almost entirely of Standard C code, and so it should be possible
+to compile it on any system with a Standard C compiler and library. There is
+just one small code section that is Unix-dependent; this is the code that looks
+for default options in the user's .pmwrc file. This code can be disabled by
+defining -DNO_PMWRC when compiling the init.c module. If you are in an
+environment where ./configure can be used, running it as
+
+  ./configure --disable-pmwrc
+
+will have the desired effect. Neil Killeen has kindly provided instructions for
+building PMW under Windows, using the Cygwin environment. His notes are in the
+file Cygwin.txt in the doc directory of the PMW distribution. Another PMW user
+has provided notes for building in Apple Macintosh environments, available in
+the file MacOS.txt in the doc directory.
+
+Philip Hazel <Philip.Hazel [AT] gmail.com>
+January 2021
+
+
+LICENCE
+-------
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
+Street, Fifth Floor, Boston, MA 02110-1301  USA
+
+--

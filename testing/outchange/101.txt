@@ -1,0 +1,9 @@
+** Error: tie or glissando precedes empty bar (will carry over to next note)
+   Detected near line 20 of changetests/101
+G_ |  |
+------->
+
+** Warning: one or more coupled notes were encountered where the stave spacing
+was not a multiple of 4 points (scaled to the size of the staves)
+
+

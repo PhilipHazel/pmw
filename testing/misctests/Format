@@ -1,0 +1,12 @@
+*if big1
+  magnification 2
+  *comment magnification 2
+*fi
+
+*if small1
+  magnification 0.7
+  *comment magnification 0.7
+*fi
+
+[stave 1 treble 1] gggg [endstave]
+

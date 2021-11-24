@@ -1,0 +1,103 @@
+heading "" 
+
+nounderlayextenders
+
+[stave 1 treble 1 text underlay]
+"The=== quick, brown== vix-en=="
+gggg | gggg | gggg |
+[endstave]
+
+[newmovement]
+underlayextenders
+
+[stave 1 treble 1 text underlay]
+"The=== quick, brown== vix-en=="
+gggg | gggg | gggg |
+[endstave]
+
+[newmovement]
+heading "" 
+
+stavesizes 1/0.8 2/0.6
+barlinesize 0.8
+
+[stave 1 treble 1]
+gggg | gggg [breakbarline] | gg::gg |
+[endstave]
+
+[stave 2 treble 1]
+gggg | gggg [breakbarline] | gg::gg |
+[endstave]
+
+[stave 3 bass 0]
+gggg | gggg | gg::gg |
+[endstave]
+
+[newmovement]
+heading "" -40
+barlinesize 0.6
+
+[stave 1 treble 1]
+gggg | gggg [breakbarline] | gg::gg |
+[endstave]
+
+[stave 2 treble 1]
+gggg | gggg [breakbarline] | gg::gg |
+[endstave]
+
+[stave 3 bass 0]
+gggg | gggg | gg::gg |
+[endstave]
+
+[newmovement]
+heading "" -40
+barlinesize 1
+
+[stave 1 treble 1]
+gggg | gggg [breakbarline] | gg::gg |
+[endstave]
+
+[stave 2 treble 1]
+gggg | gggg [breakbarline] | gg::gg |
+[endstave]
+
+[stave 3 bass 0]
+gggg | gggg | gg::gg |
+[endstave]
+
+[newmovement]
+heading "" 
+nocheck
+
+[stave 1 treble 1]
+"normal" abcd |
+[noteheads direct] 
+"direct"
+a-b-c-d-; a b | e`g`a'c'' |
+[x] "cross" a-b- c d |
+[h] "harmonic"/d4 a-b- c d |
+[noteheads only]
+"only" a-b- cd |
+[noteheads none]
+"none" a-b- cd |
+[noteheads normal]
+"normal"
+abcd
+[endstave]
+
+[newmovement]
+heading "" 
+
+draw test
+  0 16 moveto
+  0 16 rlineto
+  0.9 setgray stroke
+enddraw      
+
+nocheck
+
+[stave 1 treble 1]
+[overdraw test] c' g-a-b-c- g_g |
+[newline]
+c' g-a-b-c- g_g |
+[endstave]

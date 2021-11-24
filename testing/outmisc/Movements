@@ -1,0 +1,65 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+rm 10 ss(111111)129 764 s mf 10 ss(!)165 760 s bf 11.8 ss(4)178 768 s(4)
+178 760.15 s mf 10 ss(!)165 716 s bf 11.8 ss(4)178 724 s(4)178 716.15 s
+mf 10 ss 16 716(@)165 760 b 161.5 776 716 k
+%1/2
+(5)191.9 722 s(5)207.9 722 s(5)223.9 722 s(5)239.9 722 s(B)256.4 716 s
+(@)254.4 716 s
+%1/1
+(5)191.9 764 s(5)207.9 764 s(5)223.9 764 s(5)239.9 764 s
+16 732(B)256.4 760 b 16 732(@)254.4 760 b
+(CCCCCCCCC)165 760 s (C)247.9 760 s
+(CCCCCCCCC)165 716 s (C)247.9 716 s
+(!)374.2 760 s bf 11.8 ss(4)387.2 768 s(4)387.2 760.15 s mf 10 ss(!)
+374.2 716 s bf 11.8 ss(4)387.2 724 s(4)387.2 716.15 s mf 10 ss
+16 716(@)374.2 760 b 370.7 776 716 k
+%1/2
+(5)401.1 722 s(5)417.1 722 s(5)433.1 722 s(5)449.1 722 s(@)465.1 716 s
+%1/1
+(5)401.1 764 s(5)417.1 764 s(5)433.1 764 s(5)449.1 764 s
+16 732(@)465.1 760 b bf 11.8 ss(3)469.1 768 s(4)469.1 760.15 s mf 10 ss
+(F)374.2 760 s (C)470 760 s
+(F)374.2 716 s (C)470 716 s
+(!)129 672 s bf 11.8 ss(3)142 680 s(4)142 672.15 s mf 10 ss(!)129 628 s
+16 628(@)129 672 b 125.5 688 628 k
+%2/2
+(B)204.4 628 s(@)202.4 628 s
+%2/1
+(5)155.9 676 s(5)171.9 676 s(5)187.9 676 s 16 644(B)204.4 672 b
+16 644(@)202.4 672 b
+(CCCCCCC)129 672 s (C)195.9 672 s
+(CCCCCCC)129 628 s (C)195.9 628 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

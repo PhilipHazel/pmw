@@ -1,0 +1,33 @@
+@ This input file demonstrates some of the text features that are now available
+@ in PMW, after the upgrade to Unicode characters.
+
+textfont extra 8 "Helvetica"
+textsizes 10 14
+
+heading 14 "|Fancy font and character demonstration" 16
+
+
+Heading 10 "Ten point stretched 1.0"
+Heading 10/0.8 "Ten point stretched 0.8"
+Heading 10/1.5 "Ten point stretched 1.5"
+Heading 10/1/20 "Ten pointSheared 20" 30
+
+heading 14 "Dvo\rv\a'k, Gli\e`re, Faur\e', Lopes Gra\c,a, von Preu\ssen, 
+Backer Gr\o/ndahl" 20
+
+heading 14 "Bullet \xb7\ and dagger \x2020\ and lozenge \x25ca\
+\xx8\and another typeface" 40
+
+heading 12 "\bf\The following can appear only on staves \-- this stave is 
+invisible!" 30
+
+notime
+nocheck
+[stave 1/0 "Vertical"/v noclef]
+"Rotated"/s2/rot45 Q
+"Rotated"/s2/rot-45/u28/r12  Q Q Q
+
+"square"/u30 "square"/F/rot270 "square"/F/rot180 "square"/F/rot90 Q Q Q
+
+|? [endstave]
+

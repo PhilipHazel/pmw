@@ -1,0 +1,13 @@
+startbracketbar 1
+unfinished
+
+[stave 1 soprano 1 key F time C nocheck]
+A |
+[treble 1 key a$ time c]
+Rc'd' | [nocheck] q |?
+[endstave]
+
+[stave 2 tenor 1 key F time C nocheck]
+C\M+\ |
+[treble 1 key a$ time c]
+Ead' | [nocheck] q |?

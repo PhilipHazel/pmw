@@ -1,0 +1,5 @@
+** Warning: there is underlay or overlay text left over at the end of stave 1
+   Detected near line 150 of changetests/322
+[endstave]
+--------->
+

@@ -1,0 +1,71 @@
+
+*Define testing  Testing
+*define comment  comment @this is a comment
+*define quoted   "quotes with @ in them" @comment
+*define quoted2  "abcd
+
+*comment &testing &comment &quoted &quoted2
+
+*if score
+*comment score
+*else
+*comment not score
+*fi
+
+
+*if part
+*comment part
+*else
+*comment not part
+*fi
+
+*if staves 1-2
+*comment staves 1-2
+*fi
+
+*if staff 5
+*comment staff 5
+*fi
+
+*if undef junk
+*comment undef junk
+*fi
+
+*if undef quoted
+*comment undef quoted
+*else
+*comment def quoted
+*fi
+
+*if special
+*comment special
+*fi
+
+*if special
+*if score
+*comment special && score
+*fi
+*fi
+
+*if not special
+*comment not special
+*fi
+
+*if not staves 4-6
+*comment not staves 4-6
+*fi
+
+nocheck
+
+[stave 1
+*if score
+"score"
+*else
+"part"
+*fi
+treble 1]
+
+gg
+
+
+

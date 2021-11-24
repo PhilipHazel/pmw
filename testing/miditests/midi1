@@ -1,0 +1,357 @@
+heading "|April 29"
+heading "Text by Rebecca Elson||Music by Neil Killeen (2003,2005)"
+heading "|"
+breakbarlines
+underlaysize 9.5
+notespacing *1.0
+barnumbers line
+
+@ Layout
+stavespacing 1/50 2/50 3/50
+magnification 1.2
+topmargin 20
+@Pages 1        2        3        4        5        6
+layout 6, 6, 6; 6, 4, 4; 4, 5, 5; 6, 7, 7; 6, 5, 6; 5, 5, 5;
+@ 8, 7, 8, 4, 6, 6; 6, 6, 8; 6, 6, 8; 8, 6, 6; 5, 7, 6
+
+@ Midi controls
+miditempo 110 23/90 41/110 57/120 79/110
+midivolume 15 1/15 2/15 3/15 4/10
+@
+key C
+time A
+
+@
+@ Soprano
+@
+[stave 1 "Soprano" treble 1 text underlay]
+[ulevel -20]
+[midivoice "synth voice"]
+
+@ Part 0; bar 0
+"\rm\ With Transparence (\*m\=55)"/a/bar/r20 R! | 
+R! | R! | R! | R! | R! | R! | R! |
+
+@ Part 1; bar 9
+R! | R! | R! | R! | R! | R! | R! | 
+R! | R! | R! | R! | R! | R! | R! ||
+
+@ Part 2; bar 23
+"\rm\ Somewhat slower"/a/bar/r20 R! | R! |
+
+@ bar 25
+"Who=    would have thought,"
+B+_    | B b b | B+_ | B. r |
+
+@ bar 29
+"I'd be the first to= go."
+r b b. b- | B. b-_ a- | B+ | R! |
+
+@ bar 33
+"Of all of us, the first de-par-ture,"
+r b b #c' | D'+ | r d' d' e' | #f' F'. |
+
+@ bar 37
+"first=== death.="
+r [slur] D' #c' | D' E' [es] | E'+_ | E'+ ||
+
+@ part 3; bar 41
+"And ten= years to con-tem=-plate,"
+"\rm\ Tempo I"/a/bar/r10
+r e' e'_ d' | C' B | B a_ g | G. r |
+
+@ bar 45
+"the==== go=-ing.="
+[slur] f e- f- g a [es] | B._ d' | E'+_ | E'+ |
+
+@ bar 49
+"Why me to face= all this?="
+d' C' c' | c'_ $B g | C'+_ | C'+ |
+
+@ bar 53
+"Why?====="
+[slur] $E' d' c' | G'+_/b | G'+_/b | G'+ [es] ||
+
+@ Part 4; bar 57
+"Ah==="
+"\rm\ A little faster"/a10/bar/r10
+[slur] C'+ | D'+ | E'+_/b | E'+ [es] |
+
+@ bar 61
+"Ah==="
+[slur] D'+ | E'+ | C'+ | B+ [es] |
+
+@ bar 65
+"Ah====="
+[slur] a c'_ c' c' | c' D'. [es] |
+"Ah======== Ah========"
+[slur] d' e'_ e' e' | e' f'_ f' g'_ | 
+{5 g' [es] [slur] f' e' b c'} | {5 e' d' c' g a} [es] |
+
+@ bar 71
+"Ah======="
+[slur] e' d' a b | d' c' g a\f!\ [es] |
+
+@ Part 5; bar 73
+"Can't I= just go back="
+"\rm\ Unacceptingly"/a15/bar/r5
+e' d'_/b d'\f\ d' | d' c'_ C'\f\ |
+
+@ bar 75
+"to the moun-tains?==="
+C' #A | #a #g_ G | #G+_ | #G+ ||
+
+@ Part 6; bar 79
+"The lakes, the= moun-tains."
+"\rm\ Tempo I"/a/bar/r10
+A+ | E'+ | B+_ | D'+ | E'+ | [time 3/2] #D'.\f\ R r |
+
+@ bar 85
+"The lakes, the ri-vers= and the moun=-tains.="
+[time A] R r e' | E'. e' | E' D'_ | D' #c'. d'- | E'+_ | E'+ | #E'+_ | E'+\f\ ||
+
+[endstave]
+
+
+
+@
+@ Mezzo
+@
+[stave 2 "Mezzo" treble 1 text underlay]
+[ulevel -20]
+[midivoice "synth voice"]
+
+@ Part0; bar 0
+R! | R! | R! | R! | R! | R! | R! | R! |
+
+@ Part 1; bar 9
+"Time==                   Ah==                       For=    love and"
+[slur] #C'. b | A+ [es] | [slur /b] A. g | F+ [es] | r #F_ #g | A. a |
+
+@ bar 15
+"giv=-ing.     Ah==                     my   sor=-row    hes-i-tates.="
+A._ b | C'+ | [slur] C'. d' | E'. [es] e' | e'_ D' c' | B A | B+_ | B+\f!\ ||
+
+@ Part 2; bar 23
+R! | R! | R! | R! |
+
+@ bar 27
+"would have thought, I'd be the first to go."
+R a #g | [space 3] #F. r | r #f f f | D. e |  E+ | R! |
+
+@ bar 33
+"Of us= Ah= First= death.=="
+r #G. | B_ A | #F+_ | B+ | r #F._ | A+ | [slur] #C'+ | B A [es] ||
+
+@ bar 41
+"And ten= years to con-tem-plate,"
+r a a_ b | A G | E E | E. r |
+
+@ bar 45
+"the= go=-ing.==="
+C._ d | F_ A | [slur] B A | G E [es] |
+
+@ bar 49
+"Why face this?"
+$A+ | F+ | %A+ |
+
+@ bar 52
+"Ah== Why?======="
+[slur] d E f [es] | [slur] $A F_ | 
+F c'- d'-_/b d' | C'+_/b | C'+ [es] ||
+
+@ Part 4; bar 57
+"Ah==="
+[slur] A+_ | A+ | G+ | F+ [es] |
+"Ah==="
+[slur] G+ | A+ | G+ | F+ [es] |
+
+@ bar 65
+"Ah==="
+[slur] F+_ | F+ | G+ | F+ [es] |
+"Ah==="
+[slur] E+ | F+ | F+_ |  F+\f!\ [es] |
+
+@ Part 5; bar 73
+"I= go= too.= Can't I?="
+r $b_ B\f!\ | $A+_ | $A #F_ | #F+ | #F D'_ | D'+\f\ ||
+
+@ Part 6; bar 79
+"To the= lakes, to the lakes, the ri-vers and the moun-tains. The"
+#F e_ f | #G+ | #f e f #g | a b #c'. d'- | 
+%C'+ | [time 3/2] #A.\f!\ R #f |
+
+@ bar 85
+"lakes,= the ri-vers= and the moun=-tains.="
+[time A] %A+_ | A. a | B B_ | B #c'. b- | %C'+_ | 
+C'+ | #C'+_ | C'+\f\ ||
+
+
+[endstave]
+
+
+@
+@ Alto
+@
+[stave 3 "Alto" treble 1 text underlay]
+[ulevel -20]
+[midivoice "synth voice"]
+
+@ Part0; bar 0
+R! | R! | R! | R! | R! | R! | R! | R! |
+
+@ Part 1; bar 9
+"Time==                    Ah=="
+[slur /b] A E | #F+ [es] | [slur /b] %F C | D+ [es] |
+
+@ Part 1; bar 11
+"For=      love and giv=-ing."
+r #C_ d | #C. c | %C_ F | E+ |
+
+@ Part 1; bar 17
+"Ah====                        I= hes-i-tate.="
+[slur /b] e d e b` | C+ [es] | F_ D | D D | E+_ | E+\f!\ ||
+
+@ bar 23
+"would have thought,"
+R! | R! | R! | R! | R #c b` | B`. r |
+
+@ bar 29
+"I'd be the first to= go."
+r d #c b` | A`. b`-_ #c- | E+ | R! |
+
+@ bar 33
+"Of us, the de-par-ture,"
+r D. | E+ | r #F #c | d D. |
+
+@ bar 37
+"first=== death.=="
+r [slur] D e | #F #G [es] | [slur] A+ | D #C [es] ||
+
+@ bar 41
+"And ten years to con-tem=-plate,"
+r f F | G D | D c_ b` | B`. r |
+
+@ bar 45
+"the= go=-ing.==="
+A`._ c | D_ C | [slur] G E | B` C [es] |
+
+@ bar 49
+"Why face this?"
+C+ | D+ | E+ |
+
+@ bar 52
+"Ah== Why?========="
+[slur] d E d [es] |
+[slur] C d- $e-_ e_ | $e f g f | %E+_ | E+ [es] ||
+
+@ Part 4; bar 57
+"Ah==="
+[slur] f E. | e D. [es] |
+"Ah==="
+[slur] d C. | c B`. [es] |
+"Ah==="
+[slur] e D. | c A`. [es] |
+"Ah==="
+[slur] b` D. | c E. [es] |
+
+@ bar 65
+"Ah===="
+[slur] D+ | B`+_ | B`+ | C D [es] |
+"Ah==="
+[slur] C+ | A`+ | D+ | C+\f!\ [es] |
+
+@ Part 5; bar 73
+"I= go= too.= Can't I?="
+R F_ | F $E_ | $E #C_ | #C+ | B` #F_ | #F+\f!\ ||
+
+@ Part 6; bar 79
+"To the= lakes, to the lakes, the ri-vers and the moun-tains."
+#C c_ d | #C+ | d #c d b` | g g g. #f- | G+ | [time 3/2] #F.\f!\ R r |
+
+@ Bar 85
+"The lakes, the ri-vers= and moun=-tains.="
+[time A] R r #f | #F. f | G  #F_ | F G | G+_ | G+ | #A+_ | A+\f!\ ||
+
+[endstave]
+
+
+
+@
+@ Cello
+@
+[stave 4 "Cello" bass 0]
+[midivoice "cello"]
+
+@ Part0; bar 0
+#f` (#C A) b | (#F #C') e' d' |  d` (A` %F) g | (D A) C' |
+
+@ bar 5
+#f`- a`- (#C A) #g | (#C. A.) (c a) | f` (%C A) b | (E+ C'+) |
+
+@ Part1; bar 9
+#f` #c a #c | a #c #f` c | d` a`  f a` | f a` d` a` |
+
+@ Part1; bar 13
+#f` #c A_/b | a #c A | f` %c A_/b | a b C' |
+
+@ Part1; bar 17
+a` (E A) g | (e a) C a` | d` a` F_ | f E d | e` b` e a | B+\f\ ||
+
+@ Part 2; bar 23
+e`- b`- e- a-; b- d'- e' |
+e` b`- e- a-; b- a- d- |
+e`- b`- e- a-; b- d'- e' |
+e`- b`- e- a-; b- d'- b- a- ||
+
+@  bar 27
+#f`- b`- d- e-; #f- a- b |
+#f`- d- #f- b-; d'- e'- #f' |
+d`- a`- d- e-; #f-\sd\ e- d- a`- |
+d`- a`- d- #f-; a- b- d' |
+e`- b`- e- a-; b- d'- e' |
+c` (a` e) b` g` | 
+
+@ bar 33
+e`- b`- e- a-; b- d'- e' |
+e- b-  a- d-; r- b`- a`- b`- |
+r- #f`-\sd\ b- a-; b- d'- b |
+#f`-\sd\ d- #f- b-; d'- e'- #f' |
+
+@ bar 37
+d`- a`- d- #f-; a- b- d' |
+d`- a`- d- #f-; a- b- a |
+a` e- e'- d' #c' | a e #c b` ||
+
+@ bar 41
+f`. %c. a | f`. c. a | 
+c`. g`. e | c`. g`. e |
+f`. c. a | f`. c. a | 
+c`. g`. e | C` (G` E) |
+
+@ bar 49
+$a`. $e. $a | $a`. d. $b |
+%a`. e. c' | a`. (e. c'.)_ (e c') |
+$a`. $e. c' | $A` ($E C') | c`. g`. %e | (C`+ G`+ E+) ||
+
+@ Part 4; bar 67
+R! | R! | R! | R! |
+R! | R! | R! | R! |
+R! | R! | R! | R! |
+R! | R! | R! | R! |
+
+@  bar 73
+$b` d F | $a` $e g e | #f` #c #f c | 
+e` b` #g b` | e` b` #g b` | #G+\f\ ||
+
+@ Part 6; bar 79
+d` (A`. #F.) | #c` (#G` E) #c | B` A` | G` #F` | c` g` e d | 
+[time 3/2] #f` #c #A\f\ R |
+
+@ Part 6; bar 85
+[time A] {d` a` d} e #f | #f. e- {f g a} |
+{g` e g} {g a b} | g d {d e #f} | {c` g` e} e d |
+{e c b`} {c g` a`} | {#f` #c #f} #f #g | #A+\f\ ||
+
+
+[endstave]

@@ -1,0 +1,8 @@
+magnification 1.3
+barnumbers boxed 1
+
+[stave 1 treble 1]
+gggg | 
+[skip 20] [assume time 3/4] [assume key B] 
+[assume bass 0]aaa |
+[newline] aaa

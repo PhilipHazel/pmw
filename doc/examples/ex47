@@ -1,0 +1,10 @@
+justify top left
+key G
+
+printkey G treble  "\37\" "\40\"
+printkey E$ treble "x~\39\x~\191\ww\191\"
+printkey E$ bass   "~\39\x~\191\ww\191\"
+
+[stave 1 treble 1] 
+GG | [key C] GG | [key E$] GG [bass 0] | [key E$] GG || 
+[endstave]

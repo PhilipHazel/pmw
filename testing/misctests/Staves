@@ -1,0 +1,31 @@
+magnification 1.5 
+nocheck
+breakbarlines
+
+stavesizes 0/0.5 1/0.8 3/1.1
+selectstaves 1-3
+                 
+[stave 0]
+"Stave 0 text"/a/u20
+[endstave]
+
+[stave 1 "1" treble 1]
+gggg |
+[endstave]
+
+[stave 2 "2" treble 1]
+gggg |
+[endstave]
+
+
+[stave 3 "3" treble 1]
+gggg |
+[endstave]
+
+[stave 4 "4" treble 1]
+gggg |
+[endstave]
+
+
+
+

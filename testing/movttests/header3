@@ -1,0 +1,148 @@
+@ Check header settings.
+*comment *** Header settings ***
+
+accadjusts  0 0.1 0, 0 0 -0.5  
+accspacing 5.3 4.4 7.9 4.24 5.1 4.2
+bar 45
+barlinesize 0.9
+barlinespace 4.6
+barlinestyle 4
+barnumberlevel +0.4
+barnumbers boxed line italic
+beamendrests breverests nocheck
+beamflaglength 5.8
+beamthickness 1.6
+bottommargin 20
+brace 2-3, 5-6
+bracestyle 1
+bracket 10-12
+breakbarlines
+breakbarlines 1,4-6
+breakbarlinesx 1 6,7
+breveledgerextra 2.9
+caesurastyle 1
+check
+clefsize 0.7
+clefstyle 3
+clefwidths 26 36, 24
+copyzero 4 5/1.5,7/-3.4
+cuesize 7.5
+cuegracesize 6
+dotspacefactor 1.1
+doublenotes doublenotes
+endlinesluradjust 1.1
+endlineslurstyle 1
+endlinetieadjust -1.1
+endlinetiestyle 1
+fbsize 9.4
+footing "\bf\Bold Footing" 4
+footnotesep 4.7
+footnotesize 9.5
+gracesize 6.5
+gracespacing +0.2 6.2
+gracestyle 1
+hairpinlinewidth 0.9
+hairpinwidth 6
+halfflatstyle 1
+halfsharpstyle 1
+halvenotes
+heading "Unadorned heading|Centre|Right"
+heading "Unicode á ç Ű"
+heading "Accents \a' \s' \s^ \t,"  
+heading "Escapes \| and \" vertical and quote"
+heading 10 "Escapes \bf\ \fi \--- \\ \p\ \po\" 
+heading 11 "Comment \@ Ignored until \backslash"
+heading "Music \*123**124*x80\" 13
+heading "Symbol \s123\\sx84\"
+heading "Numeric \123\\x85\"
+heading "`Quoted' and fi ligature"
+hyphenstring "\--"
+hyphenthreshold 45
+join 1-4
+joindotted 5-8
+justify bottom right
+key E
+keytranspose X3 1=X10/1 -2=G/5  9=X3/6
+landscape
+lastfooting "\xx3\Last footing"
+layout 2(3,4) 5; 6
+ledgerstyle 1
+leftmargin 45.6
+linelength 500
+longrestfont 13 bolditalic
+magnification 1.1
+makekey X3 #4 %6 $-8
+makekey X10 ##3 $$5 $-2 $-6
+maxbeamslope 0.4 0.5
+maxvertjustify 89
+midichannel 3  "piano"/8 3-4 
+midichannel 10 "" 10 "cowbell"
+midifornotesoff
+midistart 176 10 0  177 10 40  178 10 80  179 10 120
+miditempo 45 9/56 13/110
+miditranspose 2/3 7/-1
+midivolume 15 5/9
+midkeyspacing 2.3
+midtimespacing -1.1
+@ musicfont is tested separately
+nocheckdoublebars
+nokerning
+nokeywarn
+notespacing *0.9
+overlaysize 9.5
+page 3 2
+pagefooting "||\pe\"
+pageheading "|\p\"
+pagelength -10
+printkey E$ treble "key special"
+printtime 4/4 "four" "\it\four"/s2
+printtime 3*C "three" "*cee"
+rehearsalmarks boxed 13.2/1.1/0.6 italic
+rehearsalmarks linestartleft ringed extra 3
+repeatbarfont italic
+repeatstyle 3
+@ righttoleft is tested separately
+selectstaff 28-32 63
+selectstaff 3
+selectstaves 4-7
+sheetdepth 600
+sheetwidth 400
+shortenstems 2
+smallcapsize 0.75
+startbracketbar 3
+startlinespacing 1.4 -3.2 +2
+startnotime
+startnotime unfinished
+stavesizes 3/0.9 39/1.5
+stavespacing 50 1/44 9/8/48 63/20
+stemlengths 0.5 0 0.7 1 -0.3
+stemswap left
+stemswaplevel 1 3/0 4/-1
+suspend 5
+systemgap 64
+textfont italic "Helvetica-Oblique"
+textfont extra 2 "Utopia-Bold"
+textsizes 10 11 12 13
+thinbracket 3,4 5-9,10
+time 3/8
+timefont bolditalic
+topmargin 25
+transpose +2
+transposedacc force
+transposedkey G$ use F#
+transposedkey B$ use F
+trillstring "\bf\test"
+tripletfont 8.5 italic
+tripletlinewidth 0.4
+underlaydepth 12
+underlaysize 9.2
+underlaystyle 1
+vertaccsize 9
+
+heading "C -> \tC  C# -> \tC#  G$ -> \tG$"
+transpose -1
+heading "C -> \tC  C# -> \tC#  G$ -> \tG$"
+transpose -2
+heading "C -> \tC  C# -> \tC#  G$ -> \tG$"
+
+@ End

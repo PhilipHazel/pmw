@@ -1,0 +1,35 @@
+magnification 1.5
+nocheck
+notime
+justify top left
+stavesize 1/0.8
+
+[stave 1 treble 1 textfont roman]
+G++ | C++ | A`++ |
+[cue] C++ | [cue] A`++ |
+C''++ | [cue] C''++ |
+S! |
+[time 4/2] "4/2" S! |
+[time 6/2] "6/2" S! |
+[time 3/2] "3/2" S! |
+[time 3/4] "3/4" S! |
+[time 4/4] "4/4" S! |
+[endstave]
+
+[newmovement]
+notime
+breverests
+@breveledgerextra 4
+stavesize 1/1.0
+[stave 1 treble 1 textfont roman]
+G++ | C++ | A`++ |
+[cue] C++ | [cue] A`++ |
+C''++ | [cue] C''++ |
+S! |
+[time 4/2] "4/2" S! |
+[time 6/2] "6/2" S! |
+[time 3/2] "3/2" S! |
+[time 3/4] "3/4" S! | "R." R. |
+[time 4/4] "4/4" S! |           
+[time 2*3/4] "2*3/4" S! |
+[endstave]

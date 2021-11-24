@@ -1,0 +1,149 @@
+righttoleft
+layout 4 4
+unfinished
+time 6/4
+key E$
+
+printkey E$ treble "x\191\xx\191\w|\39\"
+printkey E$ bass   "\191\xx\191\w|\39\"
+
+Heading "Left|Centre|Right" 30
+
+
+[stave 1 treble 1]
+a.b-c'._b- A [comma] |
+c'.a- b._a- G [comma] |
+ab [slur/a] c'-b- a b-a- [es] g-f- |
+a b-_a- [slur/b] g.f-G [es comma] |
+
+f.e- f_g F [comma] |
+a.f-; [slur/b] g-f-b-a- [es] G [comma] |
+b d'-_c'- [slur/a] c'. b-; c'-b- [es] a |
+b-_a- g [slur/a] c'-.b=; a=b=a=g= F [es] [comma] |
+[endstave]
+
+
+[stave 2 treble 1]
+f.f-GF [comma] |
+f.f-FD [comma] |
+ffF_dd |
+ffD_E [comma] |
+
+R! |
+f.c-DC [comma] |
+dfE_dd |
+dd [slur/b] g-.f= e C [es] [comma] |
+[endstave]
+
+
+[stave 3 bass 0]
+c'.c'-C'C' [comma] |
+a.c'- b._c'- B [comma] |
+d'b [slur/a] a-g- f g-a- [es] b-c- |
+d' a-_g- B_C' [comma] |
+
+a.g-a_bA [comma] |
+f.a-; [slur/a] b-a-g-f- [es] E [comma] |
+ff G_ff |
+gg [slur/a] e-.g= bA [es] [comma] |
+[endstave]
+
+
+[stave 4 bass 0]
+f.f-EF [comma] |
+f.e-DD [comma] |
+ddC_dd | 
+ddD_C [comma] |
+
+R! |
+R! |
+b` b`-_a`- [slur/b] G`a`-b`- [es] c |
+g`-_a`- b` [slur/a] c-.d= c F [es] [comma] |
+[endstave]
+
+
+
+[newmovement]
+
+key B$
+bracket
+brace 1-2
+
+[stave 1 treble 1]
+> G+ | g=; g=; g- > [line] ggg [el] | R! |
+[endstave]
+
+[stave 2 bass 0]
+"\bi\ff" C+ | R! | g\)\ g'\)\ rr |
+[endstave]
+
+
+
+[newmovement]
+
+key A
+barlinestyle 1
+
+[stave 1 treble 1]
+R! | R! | G+ ||
+[endstave]
+
+[stave 2 bass 0]
+R! | R! | G+ ||
+[endstave]
+
+
+
+[newmovement]
+
+barlinestyle 0
+key C
+time C
+
+[stave 1 treble 1]
+(dfgb) (d\sd\fgb) (c\ar\egc') g'\tr\ |
+g\f\ g\.\ g\>\ g\/\ |
+[stems down] g\f\ g\.\ g\>\ g\/\ |
+[stems auto] #g $g %g #og |
+
+[text underlay ties above nocheck]
+"0" b\su\_b
+"2" b\sd\_b
+"4" b\su\_b\sd\
+"6" b\sd\_b\su\
+[ties below]
+"1" b\su\_b 
+"3" b\sd\_b
+"5" b\su\_b\sd\
+"7" b\sd\_b\su\
+| [nocheck]
+(ceg)_p 
+(ceg)_/ap
+(c\sd\eg)_/ap\su\
+(c\sd\eg)_/bp\su\
+
+(c\su\eg)_/bp\sd\
+(c\su\eg)_/ap\sd\
+
+(c\sd\eg)_/bp\sd\
+(c\sd\eg)_/ap\sd\
+[endstave]
+
+[newmovement]
+nocheck
+unfinished
+heading "Yorkshire" 30
+
+[stave 1 treble 1]
+"\bf\\*c\ 104 ="/a/ts 
+#)g $)g #]g $]g %)g %]g
+#-)g #-]g $-)g $-]g "D.C. al Fine"/e |
+[endstave]
+
+[newmovement]
+justify top left
+[stave 1 treble 1]
+[slur/b] gggg [es] | [slur/a] gggg [es] |
+[octave 2]
+[slur/b] gggg [es] | [slur/a] gggg [es] |
+[endstave]

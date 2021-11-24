@@ -1,0 +1,32 @@
+unfinished
+nocheck
+notime
+
+
+draw save
+  headbottom originx
+enddraw
+
+draw connect
+  originx sub 3 add dup 3 add 2 div 
+  3 1 roll exch 2 sub moveto
+  -12 lineto
+  3 headbottom 2 sub lineto
+  stroke  
+enddraw
+
+
+[stave 1 treble 1]
+b
+[draw save]
+e c'-g-a-b-
+[draw connect]
+ag |
+
+
+
+
+
+
+
+

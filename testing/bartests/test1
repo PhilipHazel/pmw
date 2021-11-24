@@ -1,0 +1,41 @@
+nocheck
+
+[stave 1 treble 1]
+a #-a #a ##a $$b $b $-b | @1
+#)c' $$]c $?d #<e #<<e #<6.2e | @2
+%of %uf #og #ug | @3
+
+R! | T! | Q R S T | qrst | @7
+A++ B`+ C. d.. c'- | r-. b= a=- g== | @9
+f>. g6.2>. | G! | @11
+
+g\/\ g\//u2\ g\//\ g\///u0.2\ g\///\ g\////d1\ | @12
+
+g\~\ g\~|\ g\~~\ g\~~|\ | @13
+
+g\.\ g\.!\ g\..\  g.\:\ a.\::\ | @14
+
+g\-\ g\>\ g\'\ g\)\ g\a2\ g\d\ g\f\ g\f!\ | @15
+g\o\ g\t\ g\t|\ g\tr\ g\tr#\ g\tr$\ g\u\ g\v\ g\V\ | @16
+
+[\.-\] g g\x\ g\x.\ [\\] g\sl4\ g\sl-2\ | @17
+
+gx2 P\f\ g\sd\ c'\su\ || @18
+
+g\M\ g\m-\ g\M+.\ g\nh\ g\nx\ g\g\ g\g/\ g\sm\ | @19
+
+a-b-;c-d-; a-b-,c-d- | @20
+
+(c\ar\eg) (c'\aru\e'g') (e\ard\gc) (g'\sp\c'e') | @21
+
+[endstave]
+
+[newmovement]
+[stave 1 treble 1 couple down]
+g` g`\h\ c c\c\
+[endstave]
+
+[stave 2 bass 0 couple up]
+d' d'\h\ b b\c\
+
+[endstave]

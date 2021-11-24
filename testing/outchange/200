@@ -1,0 +1,110 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music Utopia-Regular 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font Utopia-Regular
+/xx1 /xx1X /Utopia-Regular inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+2 dup scale
+%%EndPageSetup
+rm 10 ss(WW )32 375 s(W)-0.3 0 rs(A 11 .)-1.2 0 rs
+(the 11 quick bro)32 365 s(wn fox)-0.25 0 rs(es)-0.15 0 rs it 20 ss(l)
+32 345 s itX 20 ss(\242)sh it 20 ss( )-2.22 0 rs rm 20 ss(Y)47 345 s
+(orkshire)-2.2 0 rs rm [15 0 0 10 0 0] sm(Y)32 325 s(orkshire)-1.65 0 rs
+mf 10 ss(abcdefg)32 305 s xx1 10 ss(Y)32 285 s(or)-0.9 0 rs(kshir)
+-0.06 0 rs(e )-0.2 0 rs(YL)-0.6 0 rs sy 10 ss(Yorkshire)32 265 s
+rm 10 ss(111)32 245 s mf 10 ss(!)32 208 s bf 11.8 ss(4)45 216 s(4)
+45 208.15 s
+%1/1
+mf 10 ss(5)58.9 210 s(5)74.9 210 s(5)90.9 210 s(5)106.9 210 s
+rm [7.07 -7.07 7.07 7.07 0 0] sm(Y)87.01 198 s(orkshire)-0.777 0.777 rs
+rm 10 ss(Y)87.01 228 s(orkshire)-1.1 0 rs mf 10 ss(B)123.4 208 s
+(@)121.4 208 s
+(CCCCCCCCC)32 208 s (C)114.9 208 s
+(!)32 124 s bf 11.8 ss(4)45 132 s(4)45 124.15 s
+%1/1
+1.818 87.525 113.986 59.65 110 m 1.818 87.525 116.986 59.65 113 m
+mf 10 ss(6)58.9 122 s(K)86.375 125.928 s(KL)86.375 126 s
+-1.841 146.503 156.086 118.627 150.093 m
+-1.841 146.503 153.086 118.627 147.093 m(J)112.777 134.093 s(JL)
+112.777 134 s(5)140.253 140 s(=}=)167.729 142 s(=}=)167.729 146 s(=}=)
+167.729 150 s(EJ)167.729 154 s(J}L)167.729 150 s(>)167.729 166 s(=x=)
+167.729 142 s(J)167.729 152 s(JL)167.729 148 s 61.9 130 170.729 174 8 cv
+(@)201.799 124 s
+%2/1
+bf 10 ss(3)234.399 142 s 259.999 132 213.799 132 3 l
+213.799 136 213.799 128 0.3 l 259.999 136 259.999 128 0.3 l mf 10 ss
+(B)270.499 124 s(@)268.499 124 s
+(FFCCC)32 124 s (C)261.999 124 s
+mf 7 ss(!)32.21 69 s bf 8.26 ss(4)45 74.6 s(4)45 69.073 s mf 10 ss(!)
+32 25 s bf 11.8 ss(4)45 33 s(4)45 25.15 s mf 7 ss 11.2 25(@)32 69 b
+28.5 80.2 25 k
+%1/2
+mf 10 ss(=x=)58.9 43 s(K)58.9 45 s(KL)58.9 47 s(\210)58.9 55 s
+61.9 32 74.9 32 -3.9 cv 61.9 53 74.9 53 3.9 cv(@)74.9 25 s
+%1/1
+mf 7 ss(=x=)58.9 81.6 s(K)58.9 83 s(KL)58.9 84.4 s mf 10 ss(\210)
+58.9 90 s mf 7 ss(@)74.9 69 s
+(CCCCCC)32 69 s (C)67.9 69 s
+mf 10 ss
+(CCCC)32 25 s (C)64.9 25 s
+
+pagesave restore showpage
+
+%%Page: 2 2
+%%BeginPageSetup
+/pagesave save def
+2 dup scale
+%%EndPageSetup
+mf 7 ss(!)32.21 375 s mf 10 ss(!)32 331 s mf 7 ss 11.2 331(@)32 375 b
+28.5 386.2 331 k
+%2/2
+45.5 330 64 330 -5.55 cv 45.5 348 64 348 5.55 cv mf 10 ss(@)83 331 s
+%2/1
+mf 7 ss(+)61.9 380.6 s 66.1 370.8 50.2 373.6 0.2 l
+66.1 370.8 50.2 368 0.2 l(@)83 375 s
+%3/2
+mf 10 ss(=}=)89 349 s(=}=)89 353 s(=}=)89 357 s(EJ)89 361 s(J}L)89 357 s
+(=x=)89 349 s(J)89 359 s(JL)89 355 s(-)102.4 335 s(=yy{=)117.4 349 s(=yy{=)
+117.4 353 s(HK)117.4 351 s(K{yyL)117.4 355 s(=x=x=)117.4 349 s(K)
+117.4 353 s(KL)117.4 357 s(@)129.4 331 s
+%3/1
+mf 7 ss(@)129.4 375 s
+%4/2
+mf 10 ss(=yy{=)137.5 325 s(=yy{=)137.5 321 s(yy{=)137.5 317 s(HK)
+137.5 317 s({yyL)137.5 317 s(=w=)137.5 325 s(6)137.5 319 s(B)150 331 s
+(@)148 331 s
+%4/1
+mf 7 ss(B)150.45 375 s(@)149.05 375 s
+(FCCCCCCC)32 375 s (C)144.5 375 s
+mf 10 ss
+(FC)32 331 s (C)141.5 331 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 2

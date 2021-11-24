@@ -1,0 +1,57 @@
+@ This file contains a set of functions concerned with the drawing of
+@ circles.
+@
+@ Philip Hazel
+@ October 1993
+@ Fixed to work with grace notes 4/6/94
+@ Added fanciful demo November 2021
+
+@ This function draws a circle. It must be called with four values on
+@ the stack: the thickness of the line, the radius, and the coordinates 
+@ of the centre. For example:
+@   heading draw 0.4 20 24 0 circle
+@ The variables xx1 - xx4 are used as local variables.
+
+draw circle
+  moveto 1.414 div 
+  dup 0.6 mul /xx1 exch def dup 1.4 mul /xx2 exch def
+  dup 0.5 mul /xx3 exch def dup 2.0 mul /xx4 exch def
+  neg dup rmoveto
+  xx1 xx3 neg xx2 xx3 neg xx4 0 rcurveto
+  xx1 xx1 xx1 xx2 0 xx4 rcurveto
+  xx1 neg xx3 xx2 neg xx3 xx4 neg 0 rcurveto
+  xx1 neg xx1 neg xx1 neg xx2 neg 0 xx4 neg rcurveto
+  setlinewidth stroke
+enddraw    
+
+@ This function draws a circle round the next notehead. It must be called
+@ with the line thickness value on the stack. For example:
+@   [draw 0.5 circlenote] g
+@ Accidentals are accounted for, and this works OK for single notes. For
+@ some chords, however, the radius may turn out to be too big. The variables
+@ xx1 - xx4 are used as local variables (because it calls the circle function).
+
+draw circlenote
+  headtop headbottom sub 2 div /xx1 exch def
+  xx1 3.5 add accleft add
+  headright headleft add 2 div 0.25 add
+  headbottom xx1 add
+  draw circle
+enddraw
+
+@ This macro packages up calling the above function to circle a notehead. Its
+@ first argument is the note. There is an optional second argument for changing
+@ the line thickness, which defaults to 0.4.
+
+*define circ(,0.4)  [draw &&2 circlenote] &&1
+
+@ End of circles functions. Here's a fanciful demonstration.
+
+justify top
+notime
+magnification 1.2
+heading draw 0.3 30 200 -8 circle
+
+[stave 1 noclef 1 nocheck] 
+&circ(g) &circ(g') |?
+[endstave]

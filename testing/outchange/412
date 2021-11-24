@@ -1,0 +1,55 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+rm 17 ss(Sonata in C minor)64 760 s rm 12 ss(Sonata in E)64 743 s
+rm 10 ss(Sonata in C minor)64 731 s rm 8 ss(Sonata in E)64 721 s
+mf 10 ss(!)64 696 s(')77 702 s(')81.5 708 s(')86 700 s bf 11.8 ss(4)
+90.5 704 s(4)90.5 696.15 s
+%1/1
+it 10 ss(Cm)104.4 686 s mf 10 ss(5)104.4 698 s(5)120.4 698 s it 10 ss(E)
+136.4 686 s mf 10 ss(5)136.4 698 s(5)152.4 698 s(B)168.9 696 s
+(@)166.9 696 s
+(F)64 696 s (C)160.4 696 s
+rm 12 ss(Sonata in D)64 652 s mf 10.8 ss('y)120.664 652 s rm 12 ss( minor)
+124.984 652 s rm 10 ss(Sonata in F)64 640 s rm 8 ss(Sonata in C)64 630 s
+mf 7.2 ss(~%|y)101.336 630 s rm 8 ss( minor)104.936 630 s(Sonata in E)
+64 622 s mf 7.2 ss(~%|y)100.888 622 s mf 10 ss(!)64 597 s(%)77 611 s(%)
+82 605 s(%)87 613 s(%)92 607 s bf 11.8 ss(4)97 605 s(4)97 597.15 s
+%1/1
+it 10 ss(C)110.9 587 s mf 9 ss(~%|y)117.57 587 s it 10 ss(m)122.07 587 s
+mf 10 ss(5)110.9 599 s(5)126.9 599 s it 10 ss(E)142.9 587 s mf 9 ss(~%|y)
+149.01 587 s mf 10 ss(5)142.9 599 s(5)158.9 599 s(B)175.4 597 s
+(@)173.4 597 s
+(FC)64 597 s (C)166.9 597 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

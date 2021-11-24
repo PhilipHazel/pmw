@@ -1,0 +1,27 @@
+stavespacing 1/0 2/40 3/50 4/50/0
+systemgap 40
+justify top left
+barnumbers boxed line
+
+[stave 1 "1" ">1" treble 1]
+[50] S! |
+[endstaff]
+
+[stave 2 "|2" "|>2" treble 1]
+[sghere +10] S! |
+[47] S! | [sshere -20] S! | S! |
+[endstaff]
+
+[stave 3 "3" "3>" treble 1]
+[20] S! [suspend] |
+[endstaff]
+
+[stave 4 "4" "4>" treble 1]
+[50] S! |
+[endstaff]
+
+
+
+
+
+

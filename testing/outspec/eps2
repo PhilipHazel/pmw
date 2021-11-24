@@ -1,0 +1,40 @@
+%%BoundingBox: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
+%1/1
+rm 10 ss(gyHpq)80.29 721 s(ABCD)80.01 820 s mf 10 ss(=w=w=w=)90.9 754 s
+(Jww|J)90.9 752 s(JL)90.9 740 s it 10 ss(abcdefgh)106.9 750 s mf 10 ss
+(@)106.9 760 s
+(CCCC)64 760 s (C)96.9 760 s
+
+pagesave restore showpage
+
+%%Trailer
+%%BoundingBox: 54 717 143.56 830

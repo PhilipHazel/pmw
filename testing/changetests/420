@@ -1,0 +1,117 @@
+*define s8 "\it\8va-"/ol/" -| \mf\\159\"/u0.3
+*define e8 "#"/ol/r8
+
+[stave 1 treble 1]
+(F`+B`+D+) |(d. b.) &s8 (f'- d''-) (e' c'') (d' b') |
+(c' a') (A F')  &e8 (f c') |
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+cdef > | [6] cdef |
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+cdef > | 
+[16] cdef |
+cdef >
+[endstave]
+
+[newmovement]
+nocheck
+unfinished
+
+[stave 1 treble 1]
+(gg'\sm\) (g\sm\g') (g\su\g'\sm\) (g\su sm\g')
+(g.g'\sm\) (g.\sm\g') (g.\su\g'\sm\) (g.\su sm\g')
+(gbg'\sm\) (g\sm\bg') (g\su\bg'\sm\) (g\su sm\bg')
+(gb\sm\g') (g\su\b\sm\g')
+(ga\sm\g') (g\su\a\sm\g')
+(g\sd\a\sm\g') (g\sm sd\ag')
+|
+ab c\sm\ d ab c'\sm\ d' 
+[x] ab c\sm\ d ab c'\sm\ d' 
+[endstave]
+
+[newmovement]
+ledgerstyle 1
+
+[stave 1 treble 1]
+g'a'b'c''d'' | dcb`a`g`
+[endstave]
+
+[newmovement]
+ledgerstyle 0
+
+[stave 1 treble 1]
+g'a'b'c''d'' | dcb`a`g`
+[endstave]
+
+[newmovement]
+nocheck
+
+[stave 1 treble 1]
+#-g #-)g #-]g $-g $-)g $-]g | 
+#-og #-o)g #-o]g #-ug #-u)g #-u]g |
+$-og $-o)g $-o]g $-ug $-u)g $-u]g |
+[endstave]
+
+[newmovement]
+halfsharpstyle 1
+
+[stave 1 treble 1]
+#-g #-)g #-]g $-g $-)g $-]g | 
+#-og #-o)g #-o]g #-ug #-u)g #-u]g |
+$-og $-o)g $-o]g $-ug $-u)g $-u]g |
+[endstave]
+
+[newmovement]
+halfflatstyle 1
+
+[stave 1 treble 1]
+#-g #-)g #-]g $-g $-)g $-]g | 
+#-og #-o)g #-o]g #-ug #-u)g #-u]g |
+$-og $-o)g $-o]g $-ug $-u)g $-u]g |
+[endstave]
+
+[newmovement]
+halfsharpstyle 0
+
+[stave 1 treble 1]
+#-g #-)g #-]g $-g $-)g $-]g | 
+#-og #-o)g #-o]g #-ug #-u)g #-u]g |
+$-og $-o)g $-o]g $-ug $-u)g $-u]g |
+[endstave]
+
+[newmovement]
+nocheck
+unfinished
+transposedkey G$ use F#
+
+[stave 1 treble 1]
+#g $g #-g $-g #c #-c | 
+[transpose 1] #g $g #-g $-g [transpose 5] #c #-c |
+[endstave]
+
+[newmovement]
+justify top left
+stavesize 2/0.8
+breakbarlines 1
+nocheck
+unfinished
+key E$
+
+printkey E$ treble "x~\39\x~\191\ww\191\ww\191\x~\191\x~\191\x~\191\ww\191\"
+printkey E$ bass   "~\39\x~\191\ww\191\"
+
+printkey G treble "\37\"
+printkey F bass   "\rm\roman!"
+
+[stave 1 treble 1]
+gg | [key G] gg [bass 0] | [key E$] gg | [key F] gg |
+[endstave]
+
+[stave 2 treble 1]
+gg | [key G] gg [bass 0] | [key E$] gg | [key F] gg |
+[endstave]

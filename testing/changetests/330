@@ -1,0 +1,20 @@
+nocheck
+justify top left right
+sheetsize A5
+
+barnumbers 1
+
+Heading "Heading 1||Heading 1"
+Footing "Footing 1||Footing 1"
+
+[newmovement newpage]
+Heading "Heading 2||Heading 2"
+Footing "Footing 2||Footing 2"
+
+[newmovement newpage]
+Heading "Heading 3||Heading 3"
+Footing "Footing 3||Footing 3"
+
+[newmovement newpage]
+Heading "Heading 4||Heading 4"
+Footing "Footing 4||Footing 4"

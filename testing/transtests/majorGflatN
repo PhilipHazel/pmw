@@ -1,0 +1,81 @@
+Heading 20 "|\bf\NoKey Testing"
+
+Sheetsize A4
+Linelength 550
+Barnumbers 1 8 italic
+magnification 1
+
+Heading 15 "\bf\Scale transposed from G flat using N"
+
+*define scale [Key N] $G`$a`$b`|$c$d$e$f|$G$f$e|$d$c$b`$a`|$G`+||
+
+[stave 1 treble 2 text underlay]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +1]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -1]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +2]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -2]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +3]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -3]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +4]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -4]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +5]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose -5]
+&scale
+[endstave]
+[newmovement]
+
+[stave 1 treble 2 text underlay]
+[transpose +6]
+&scale
+[endstave]
+

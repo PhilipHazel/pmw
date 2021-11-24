@@ -1,0 +1,77 @@
+@ This test should have been created ages ago, to check error messages. I'm
+@ starting it now with a few that have changed. Adding others should be done
+@ as time permits. Because these are errors during reading, pagination won't
+@ be attempted, so errors that are detected there won't show up here. There's
+@ a separate test for them.
+
+@ 2010-Dec-01 Still not many tests here!
+@ 2019-Nov-23 Still not! But added -em to PMW so that this test can be run
+@   with more than 40 errors.
+@ 2020-Apr-15 Added some more after getting confused with "skipping" errors.
+
++abc
+
+@ Test error messages from included file
+
+*include "Errors.inc"
+
+@ ----- String escape errors -----
+
+heading "ABC\qDEF"
+heading "ABC\xZYZ"
+heading "ABC\*ZZZ"
+heading "ABC\zXYZ"
+
+@ ----- Other heading directive errors -----
+
+-xyz
+bracestyle 100
+caesurastyle 4
+
+@ ----- Draw errors -----
+
+draw bad
+  "abc"/nx
+enddraw    
+
+@ ----- Stave errors -----
+
+[stave 1 treble 1]
+
+@ 2010-Dec-01 Accent changes
+[nocheck] a\a11\ a\a0\ b\. ..\  [\.. .\] [\\] |
+
+@ 2010-Dec-08 Long/Short bars
+[time 3/4] aa | aaaa |
+
+@ Disallowed ornament brackets
+b\sp/)\ a\.!/(\ (g\ar/b\e) |
+
+@ 2019-Jan-07 Added a few more chosen at random
+&. &unknown R! | a\su sd\ b\~.~~\ r_ |
+(arb) R | R {a-b-c- |
+
+@ Recovery after accent/ornament errors
+c.\su c-;b`-a`- | g`rr | G`. | rr-a`-; < x2 </h0.99 |
+d\ax\ ab | rrr |
+d\azq\ ab | rrr |
+[\azz\]
+[\.\] [\.]
+&nonexist abc |
+&xxx(y,z) abc |
+&*2(g,z) g |
+[nocheck]
+g\.\ x\x\ a
+g\.\ x3\x\ a |
+
+@ Follow-on text errors
+"a"/F a "a" "b"/F/a a "a" "b"/F/h a |
+"a" "b"/F/rc0.5 a "a" "b"/F/ps a "a"/ps "b"/F a |
+"a" "b"/F/ring a "a"/box "b"/F a a |
+
+@ Miscellaneous errors
+"a"/ty b_/x b (ap) z
+[slur/=0] [slur/=x] {/q abc } / </q |
+
+[endstave]
+@ End

@@ -1,0 +1,83 @@
+magnification 1.3
+justify top left right
+
+[stave 1 treble 1]
+aaaa | [4] R! |
+(: R! | [10] R! | R! :) | [6] R! |
+[newline]
+(: S! | [10] R! | S! :) | [6] R! |
+"G.P." S! | [4] R! |
+[time 3/4] R! | R! | [key E$] R! | R! |
+[endstave]
+
+[newmovement]
+[stave 1 treble 1] [10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] [key E$][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] [space 100][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] [space 200][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] [space -20][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [key E$][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [key E$ space 100][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [move -100 key E$ space 100][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [move -100 key E$ space 100 move -50][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [move 20 key E$ space -20 move 10][10]R! [endstave]
+
+
+[newmovement]
+stavesizes 1/0.8
+[stave 1 treble 1] [10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] [key E$][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] [space 100][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] [space 200][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] [space -20][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [key E$][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [key E$ space 100][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [move -100 key E$ space 100][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [move -100 key E$ space 100 move -50][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] Q! | [move 20 key E$ space -20 move 10][10]R! [endstave]
+
+[newmovement]
+[stave 1 treble 1] A+ | [10]R! | [endstave]
+
+[newmovement]
+[stave 1 treble 1] A+ | [space 100][10]R! | [endstave]
+
+[newmovement]
+[stave 1 treble 1] A+ | [space 200][10]R! | [endstave]
+

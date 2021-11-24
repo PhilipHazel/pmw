@@ -1,0 +1,86 @@
+key C
+nocheck
+
+[stave 1 treble 1]
+
+(#a`-d-)_  p_ P+._ | (A`+.D+.) |
+(#a`-d-)_; p_ P+._ | (A`+.D+.) |
+
+(#a`-d-)_  "x" x_ "x" x_ | (A`+.D+.) |
+(#a`-d-)_; "x" x_ "x" x_ | (A`+.D+.) |
+
+a p (ce) | p g "x" x (ge) | "x" x |
+a_ p (ce)_ | p g "x" x (ge)_ | "x" x |
+(cegc')_ | "x" x | P | P. | p- |
+
+(#a`-d-)_  p_ P+._ | P+. |
+(#a`-d-)_; p_ P+._ | P+. |
+
+#g p | P "x2" x2 | (#c$e%g) p | P p | p "x" x "x" x |
+"x" x "x" x | P |
+
+#g p_ | P "x" x2 | (#c$e%g) p_ | P p | p_ "x" x "x" x_ |
+"x" x "x" x | P |
+
+#g_ | "x" x "x" x "x" x |
+#g_ | p p p_ | P P P |
+#g p_ | P "x2" x2 |
+
+#g p_ | p "x" x |
+(#g#e)_ | p "x" x |
+(#g#e)_ | p p |
+(#g#e) | "x" x
+[endstave]
+
+[newmovement]
+
+justify top left right
+
+[stave 1 treble 2]
+g a-\g\g b-\g\a-\g\g g
+[endstaff]
+
+[newmovement]
+gracespacing 12 8
+
+[stave 1 treble 2]
+g a-\g\g b-\g\a-\g\g g
+[endstaff]
+
+[newmovement]
+gracespacing -4
+
+[stave 1 treble 2]
+g a-\g\g b-\g\a-\g\g g
+[endstaff]
+
+[newmovement]
+gracespacing -2, +2
+
+[stave 1 treble 2]
+g a-\g\g b-\g\a-\g\g g
+[endstaff]
+
+
+[newmovement]
+gracespacing 16 4
+
+[stave 1 treble 2]
+g a-\g\g g g | g g g g | g g g | 
+[endstave]
+
+[stave 2 treble 2] 
+g b-\g\a-\g\ g g g |
+[endstaff]
+
+[newmovement]
+nocheck
+
+[stave 1 treble 1]
+[transpose 12] cdef |
+[transpose -12] c'd'e'f' |
+[transpose -12] c'd'e'f' |
+[endstave]
+
+
+

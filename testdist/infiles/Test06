@@ -1,0 +1,635 @@
+@ Boyce - Symphony 1
+@ Notated by Philip Hazel, September 1994.
+
+*define ff   "\bi\ff"
+*define f    "\bi\f"
+*define mf   "\it\m\bi\f\"
+*define mp   "\it\m\bi\p\"
+*define p    "\bi\p"
+*define pp   "\bi\pp"
+*define ppp  "\bi\ppp"
+
+*if staff 1 
+  *define instr Violin I
+  notespacing *0.9 
+*fi
+
+*if staves 1-2
+  *define instr Violins
+*fi   
+
+*if staff 2
+  *define instr Violin II
+*fi
+
+*if staff 3
+  *define instr Viola
+  notespacing *1.3 
+*fi
+
+*if staff 4
+  *define instr Cello/Bass
+  notespacing *1.25 
+*fi
+
+*if score
+  Pageheading "" -30
+  Pageheading "\mf\{{{{{{\rm\\pe\ || \po\\mf\{{{{{" 20
+  footing "||Computer typesetting by Philip Hazel"
+  barnumbers boxed line
+  bottommargin 10
+*else
+  magnification 1.4
+  linelength 520 
+  barnumbers boxed line 8.5
+  heading 12 "&instr" 0
+  Pageheading "" -30
+  Pageheading "&instr|[\p\]" 20
+  footing "" 8 
+  footing "||Computer typesetting by Philip Hazel"
+*fi
+
+heading 18 "|Symphony 1" 30
+heading 12 "||William Boyce (1711\--1779)" 20
+heading 12 "|I" 30
+
+Key B$
+Time 4/4
+Repeatstyle 4
+tripletfont 9 italic
+copyzero 1/6
+
+
+*if harpsichord
+  midichannel 1 "harpsichord" 1-4
+*fi   
+
+*if piano
+  midichannel 1 "piano" 1-4
+*fi   
+
+*if brass
+  midichannel 1 "trumpet" 1-2
+  midichannel 2 "trombone" 3
+  midichannel 3 "french horn" 4
+*fi   
+
+
+
+[stave 0]
+"\bf\Allegro"/a/ts
+[19] Q! |
+["A"]
+[11] Q! |
+[endstave]
+
+
+
+[stave 1 treble 1]
+*if score
+  [name "Violin I"/c]
+*fi   
+&f d' c'-b=a=; b=a=b-; r-f- | @1
+g=a=b=a=; a=b=c'=b=; b=a=b-; r-f'- | @2
+g-g'-; a=b=c'=b=; b=c'=d'=c'=; c'=d'=e'=d'= | @3
+d'=f'=b'-; e'=d'=c'=b=; a=g=f-; r- f'-\.\ | @4
+f' f-\.\f'-\.\; f' c'-\.\f'-\.\ | @5
+f'=g'=f'=e'=; d'=c'=d'=b=; a=b=a=g=; f-; f'-_ | @6
+
+f'=g'=f'=e'=; d'-g'-_; g'=a'=g'=f'=; %e'-a'-_ | @7
+a'=b'=a'=g'=; f'-b'-\.\; b'-b-_; b=d'=c'=b= | @8
+a' g'-f'=%e'=; f'=e'=f'-; r-c'- | @9
+d'=%e'=f'=e'=; e'=f'=g'=f'=; f'=e'=f'-; r- c''- | @10
+d'-d''-; %e'=f'=g'=f'=; f'=g'=a'=g'=; g'=b=a=g= | @11
+a-g=f=; gfr :)| @12
+
+&p f'-.\tr\%e'=-f'=-; $a'-\.\c'-\.\;  %b-.\tr\c'=; d'=b=c'=d'= | @13
+c'=%b=c'=g'=; f'=e'=f'=d'=; e'=f'=e'=d'=; c'=g'=f'=g'=; | @14
+$a'=g'=a'=g'=; f'=e'=d'=c'=; %b=c'=b=%)a=; g-g'-\.\ | @15
+g'g-\.\g'-\.\ g' r= $a'=g'=f'= | @16
+
+e'=d'=e'=c'=; f'=e'=f'=d'=; g'-c''-; b'=-$a'=-; r= g'=-f'=-; r= | @17
+e'-.f'=; d'e'-g'=%b=; c'-\.\f'-\.\ | @18
+e'-.f'= d'c' r= g'=f'=e'= | @19
+
+*if part
+  [copyzero -4]
+*fi   
+d'-c'=b=; e'-d'=c'=; d'=c'=d'=b=; f'_ | @20
+f'-%e'=d'=; e'=c'=g'=b=_; b-a=g=; a-f'-_ | @21
+f'-%e'=d'=; e'=c'=b'=b=_; b-a=g=; a-$e'-_ | @22
+e'-d'=c'=; d'=b=f'=$a=_; a-g=f=; g-e'-_ | @23
+
+e'-d'=c'=; d'=c'=d'=b=; a=g=f-r | @24
+&ff
+d'' c''-b'=a'=; b'=a'=b'-; r- $a'- | @25
+g' f'-e'=d'=; e'=d'=e'-_; e'=f'=g'=f'=; | @26
+e'=d'=e'=f'=; e'=g'=f'=e'=; d'=c'=d'=b=; e'=d'=e'=c'=; | @27
+f'-b=c'=; c'\tr\ b- b'a'=g'= | @28
+
+f'=e'=f'=d'=; g'=d'=c'=b=; a=f=f'=a=; b-b'- | @29
+f-b=c'=; c'\tr\ b r | @30
+[endstave]
+
+
+
+[stave 2 treble 1]
+*if score
+  [name "Violin II"/c]
+*fi   
+&f bfd-b-; b`-d- | b`-e-; c-a-; f-d-; b`-b-_ | b-e'-; f-a-; f- ba- | @3
+b-f'-; b-g-; c-b`-; c-; c'-\.\ | @4
+d'=c'=d'=e'=; f'=e'=f'=d'=; c'=d'=c'=b=; a=b=c'=a= | @5
+d'=e'=d'=c'=; b=a=b=d=; c=d=c=b`=; a`-c'-; | @6
+
+d'=e'=d'=c'=; b-d'-; %e'=f'=e'=d'=; c'-e'- | @7
+f'=g'=f'=%e'=; d'-f'-; g'-; %e-; f-g- | @8
+f'-c'-; b a-f'-; f-a- | @9
+f-b-; g-%d'-; c'-a-; f-f'-_ | @10
+f'-b'-; c'-b-; a-d'-; g-%e- | @11
+f-f%e-fr :)| @12
+
+&p r- [\.\] $a-c'-a-; r- d-%b-%b`- [\\] | @13
+r-c' %b- c' r=e'=d'=e'= | @14
+c'-.$)b=; $a [\.\] g-d-; %b`-; d'- [\\] | @15
+e'=f'=e'=d'=; c'=%b=c'=e'=; d'=e'=d'=c'=; b-d'- | @16
+g-; c' %b-; c'-g'-; c'_ | @17
+c'=%b=; c' b-; c'-e=d=; c-c'-_ | @18
+
+c'=%b=; c' b- c' r=e'=d'=c'= | @19
+$)b=a= b a- b r=c'=b=a= | @20
+b.%e-c.c'=a= | @21
+f.%e-c.c'=a= | @22
+f.d-b`.b=g= | @23
+
+*if part
+  [newline]
+*fi
+   
+a-g-_; f=e=f=d= cr | @24
+
+&ff b'f' d'=c'=d'=e'=; f'-d'- | @25
+
+*if part
+  [newline]
+*fi   
+b-e'-; b g-b-; c'=d'=e'=d'= | @26
+c'=b=c'=d'=; c'=e'=d'=c'=; b=a=b=g=; a-c'-_ | @27
+c'=a=; b a-; d'=e'=f'=e'=; e'-c'-_ | @28
+c'-; bg-; f-.e=; d-g'- | @29
+d=b`=; b a- br | @30
+[endstave]
+
+
+
+
+[stave 3 alto 1]
+*if score
+  [name "Viola"/c]
+*fi   
+&f ff-c-; b`-d-; f-b`- | gfb`-f-; d-b`-; | @2
+ecdg-f- | fe-g-fr-a- | @4
+b=a=b=c'=; d'=c'=d'=b=; a=b=a=g=; f=g=a=f= | @5
+br-f-f.c'- | f-b-; r-b-; g-c'-; r-c'- | @7
+a-d'-; r-d'-; g-g-; f-%e- | @8
+
+c'-$)e-; d-c-; f-a-; c-f- | @9
+dcf-c'-; a-f-; | bg-%e-; f-f-; c-c- | @11
+cd-c-cr :) | @12
+
+&p r- [\.\] f`-f-f`-; r- f`-f-f`- | @13
+g`-g-; d-g-; g\x\ g-g- | @14
+f\x\ c-f- d\x\ d-%b`- [\\] | @15
+
+c=%b`=c=d=; e=d=e=c=; %)b`=c=b`=a`=; [\.\] g`-b`- | @16
+c-g-; d-f-; e-c-; f-c'-; | @17
+g-c-; $a-g-; g-.f=; e-a- | @18
+g-c'-; $a-g-; g-e-; c-%a- | @19
+
+f-f-; g-f- [\\] fr-f- | @20
+g.g-f.c- | g.g-f.c- | @22
+b`.d-e.e- | c-f-; b-f-; fr | @23
+&ff
+ff-c-; b` b-f- | e-bf-; e-g-; g-b- | @26
+c'af-b-; c'-a- | f-d-; g-f-; f-d'-; g-c'- | @28
+
+f-d-; e-.d=; c-d=c=; b`-b`- | b`-d-; g-f- fr | @30
+[endstave]
+
+
+
+
+
+[stave 4 bass 0]
+*if score
+  [name "Cello|Bass"/c]
+*fi   
+&f b`-b-; a-f-; g`-g-; d-b`- | e-c-; f-e-; d-b`-; g-d- | @2
+e-c-; f-e-; d-b-; e-f- | b-d-; g-e-; f-g-; a-f- | @4
+b=a=b=c'=; d'=c'=d'=b=; a=b=a=g=; f=g=a=f= | @5
+b.b`-; f\>\_f=g=a=f= | @6
+b_b=a=b=g= c'_c'=b=c'=a= | d'_d'=c'=d'=b=; %e'-c'-; d'-e'- | @8
+
+f'-a-; b-c'-; d-d'-; a-f- | b-g-; c'-b-; a-f-; d'-a- | @10
+b-g-; c'-c-; d-b- %e-c- | @11
+f-a`-; b`-c-; f` r :)| @12
+
+&p [\.\] r-f-f'-f-; r-f-f'-f- | e-e'-; d'-g-; c'-g-; e-c- | @14
+f-g-; $a-f-; [\\] g_g=%a=%b=g= | @15
+c'=%b=c'=d'=; e'=d'=e'=c'=; b=c'=%)b=a=; [\.\] g-%)b- | @16
+
+c'-c-; d-d'-; e'-e-; f-$a- | g-$a-; f-g-; c-g-; a-f- | @18
+g-$a-; f-g-; c-c'-; %a-f- | @19
+
+b-d-; c-f-; [\\] b`r-d- | g.c-f_f=g=a=f= | @21
+g.c-f_f=g=a=f= | b.b`-e_e=f=g=e= | @23
+f-a-; b-b`-; f-.g=; f=e=d=c= | @24
+&ff
+b`-b-; a-f-; g`-g-; d-b`- | e-e'-; d'-b-; c-g-; c'-g- | @26
+a-g-; a-f-; b-g-; c'-c- | d-g-; e-f-; b`-d-; c-e- | @28
+d-b-; e-c'-; f-d-; g-e- | d-g-; e-f-; b` r | @30
+[endstave]
+
+
+
+
+*if bass
+[stave 5 bass 0]
+*if score
+  [name "Cello|Bass"/c]
+*fi   
+&f b`-b-; a-f-; g`-g-; d-b`- | e-c-; f-e-; d-b`-; g-d- | @2
+e-c-; f-e-; d-b-; e-f- | b-d-; g-e-; f-g-; a-f- | @4
+b=a=b=c'=; d'=c'=d'=b=; a=b=a=g=; f=g=a=f= | @5
+b.b`-; f\>\_f=g=a=f= | @6
+b_b=a=b=g= c'_c'=b=c'=a= | d'_d'=c'=d'=b=; %e'-c'-; d'-e'- | @8
+
+f'-a-; b-c'-; d-d'-; a-f- | b-g-; c'-b-; a-f-; d'-a- | @10
+b-g-; c'-c-; d-b- %e-c- | @11
+f-a`-; b`-c-; f` r :)| @12
+
+&p [\.\] r-f-f'-f-; r-f-f'-f- | e-e'-; d'-g-; c'-g-; e-c- | @14
+f-g-; $a-f-; [\\] g_g=%a=%b=g= | @15
+c'=%b=c'=d'=; e'=d'=e'=c'=; b=c'=%)b=a=; [\.\] g-%)b- | @16
+
+c'-c-; d-d'-; e'-e-; f-$a- | g-$a-; f-g-; c-g-; a-f- | @18
+g-$a-; f-g-; c-c'-; %a-f- | @19
+
+b-d-; c-f-; [\\] b`r-d- | g.c-f_f=g=a=f= | @21
+g.c-f_f=g=a=f= | b.b`-e_e=f=g=e= | @23
+f-a-; b-b`-; f-.g=; f=e=d=c= | @24
+
+&ff
+b`-b-; a-f-; g`-g-; d-b`- | e-e'-; d'-b-; c-g-; c'-g- | @26
+a-g-; a-f-; b-g-; c'-c- | d-g-; e-f-; b`-d-; c-e- | @28
+d-b-; e-c'-; f-d-; g-e- | d-g-; e-f-; b` r | @30
+[endstave]
+*fi
+
+
+
+
+
+
+[newmovement]
+
+heading 12 "|II" 40
+
+*if stave 3
+  notespacing *1.3
+*fi   
+
+*if stave 4
+  notespacing *1.3
+*fi   
+
+Key B$
+Time 3/8
+*if stave 4
+  Copyzero 4/10
+*else
+  Copyzero 1/20
+*fi   
+
+
+[stave 0]
+"\bf\Moderato e dolce"/a/ts
+Q! |
+[endstave]
+
+
+
+[stave 1 treble 1]
+*if score
+  [name "Violin I"/c]
+*fi   
+&p
+d' {/a b'=a'=b'=} | #f'-\tr\g'-r- | e'-; {/a/u5 d'=c'=b=}; {/a a=g=#f=} | @3
+g=.a=-; b-a- | @4
+[triplets off]
+{b=g=d'=}; d'-.g'= | {#f'=d'=a'=}; a'-.c''= | @6
+{b'=g'=d''=}; {c''=b'=a'=}; {b'=a'=g'=} | @7
+
+g'-\tr\#f'- r- | b'-_; {b'=a'=b'=}; {f'=e'=d'=} | @9
+{e'=f'=g'=}; f'-.e'= | @10
+{d'=e'=c'=}; b=c'=c'-\tr\ | br- :)| @12
+
+d'-_; {d'=f'=g'=}; {$a'=g'=f'=} | @13
+{e'=d'=e'=}; {f'=e'=f'=}; {g'=e'=c'=}| @14
+{d'=e'=f'=}; {e'=c'=e'=}; {d'=c'=%b=} | @15
+%b-c' | e'-_; {e'=g'=f'=}; {e'=d'=c'=} | @17
+
+{d'=c'=d'=}; {e'=d'=e'=}; {f'=b=b'=} | @18
+{g'=f'=e'=}; d'-c'- | @19
+b-; d'-.%e'=-f'=- | @20
+
+%e'=.g'=-#f'=.g'=-; g'=.f'==g'== | @21
+{a'=d'=c''=}; c''-.b'=-a'=- | @22
+{b'=g'=d''=}; {c''=b'=a'=}; {b'=a'=g'=} | @23
+g'-#f'-r- | d'-_; {d'=g'=a'=}; {b'=a'=b'=} | @25
+c'-_; {c'=#f'=g'=}; {a'=g'=a'=} | @26
+
+b-c'-a- | g=.g'=-; {b'=a'=g'=}; {f'=g'=e'=} | @28
+d'-_; {d'=%e'=#f'=}; {g'=a'=b'=} | @29
+c'=.c''=-; c''-.b'=-a'=- | @30
+{d''=b'=g'=}; b'-a'-\tr\ | g'r- | @32
+[endstave]
+
+
+
+[stave 2 treble 1]
+*if score
+  [name "Violin II"/c]
+*fi   
+&p
+d' {/a b'=a'=b'=} | #f'-\tr\g'-r- | e'-; {/a/u5 d'=c'=b=}; {/a a=g=#f=} | @3
+g=.a=-; b-a- | @4
+[triplets off]
+{b=g=d'=}; d'-.g'= | {#f'=d'=a'=}; a'-.c''= | @6
+{b'=g'=d''=}; {c''=b'=a'=}; {b'=a'=g'=} | @7
+
+g'-\tr\#f'- r- | b'-_; {b'=a'=b'=}; {f'=e'=d'=} | @9
+{e'=f'=g'=}; f'-.e'= | @10
+{d'=e'=c'=}; b=c'=c'-\tr\ | br- :)| @12
+
+d'-_; {d'=f'=g'=}; {$a'=g'=f'=} | @13
+{e'=d'=e'=}; {f'=e'=f'=}; {g'=e'=c'=}| @14
+{d'=e'=f'=}; {e'=c'=e'=}; {d'=c'=%b=} | @15
+%b-c' | e'-_; {e'=g'=f'=}; {e'=d'=c'=} | @17
+
+{d'=c'=d'=}; {e'=d'=e'=}; {f'=b=b'=} | @18
+{g'=f'=e'=}; d'-c'- | @19
+b-; d'-.%e'=-f'=- | @20
+
+%e'=.g'=-#f'=.g'=-; g'=.f'==g'== | @21
+{a'=d'=c''=}; c''-.b'=-a'=- | @22
+{b'=g'=d''=}; {c''=b'=a'=}; {b'=a'=g'=} | @23
+g'-#f'-r- | d'-_; {d'=g'=a'=}; {b'=a'=b'=} | @25
+c'-_; {c'=#f'=g'=}; {a'=g'=a'=} | @26
+
+b-c'-a- | g=.g'=-; {b'=a'=g'=}; {f'=g'=e'=} | @28
+d'-_; {d'=%e'=#f'=}; {g'=a'=b'=} | @29
+c'=.c''=-; c''-.b'=-a'=- | @30
+{d''=b'=g'=}; b'-a'-\tr\ | g'r- | @32
+[endstave]
+
+
+
+
+
+[stave 3 alto 1]
+*if score
+  [name "Viola"/c]
+*fi   
+&p
+r-g-d- | c-d-r- | gc- | b`-g-#f- | r-g-b- | r-d'-#f- | g-a-g- | b-a-r- | @8
+r-f-d- | c-c'-c'- | b=.g=-; f-e- | dr- :) | @12
+
+r-f-d- | g-%b-c'- | $a-g-f- | e-g-e- | @16
+r-c'-%)a- | f-a-b-_ | b=g=; f-e- | d-f-b- | @20
+g-c'-b- | a-#f-a- | d=.b=-; a-g- | b-a-#f- | @24
+g-c-d- | #f-a-f- | g-a-#f- | g-d'-c'- | @28
+b-g-d'- | #f-a-f- | g-g-#f- | gr- | @32
+[endstave]
+
+
+
+
+[stave 4 bass 0]
+*if score
+  [name "Cello|Bass"/c]
+*fi   
+&p
+r-b-g- | a-b-r- | c'-d'-d- | e-c-d- | r-b-g- | r-#f-d- | @6
+g-#f-g- | d- "C.B."/a/c (d`-d-)r- | @8
+r-d'-b- | c'-a-f- | b=.e=-; f-f`- | b`r- :) | @12
+
+r-d'-%b- | c-d-e- | f-g-; g`- | c-; e'-c'- | @16
+r- %)a-f- | b`-c-d- | e-; f-f`- | b`-; b-g- | @20
+c'=.b=-a-g- | #f-d-f- | g-#f-g- | d-; d'-c'- | @24
+b-a-g- | a-#f-d- | g-c-d- | b`-g`-a`- | @28
+b`-b-g- | a-#f-d- | @29
+b`=.c=-d-; "C.B."/a/c (d`-d-) | @30
+@ d`-\sl16\ [reset] q [cue noteheads only move 0.8 draw notebracket] d- [o] | @30
+g`r- | @32
+[endstave]
+
+
+
+
+*if stave 3
+  [newmovement newpage]
+*else
+  [newmovement]
+*fi      
+
+heading 12 "|III" 40
+
+*if stave 1
+  heading "" -15
+  notespacing *0.8
+*fi   
+
+*if stave 2
+  heading "" -15
+  notespacing *0.94
+*fi   
+
+*if stave 3
+  notespacing *1.15
+*fi   
+
+*if stave 4
+  notespacing *1.1
+*fi   
+
+*if score
+  notespacing *1.1
+*fi   
+
+Key B$
+Time 6/8
+
+*if stave 2
+  Copyzero 2/4
+*else   
+  Copyzero 1/15
+*fi   
+
+
+[stave 0]
+"\bf\Allegro"/a/ts
+[32] Q! | ["A"] [14] Q! | ["B"] Q! |
+[endstave]
+
+
+
+[stave 1 treble 1]
+*if score
+  [name "Violin I"/c]
+*fi   
+&f
+b'\.\d'-\.\; e'-d'-c'- | @1
+b-d'-f'-; e'-c'-g'- | f'-a'-b'-; e'-d'-c'- | b.r-r-f'- | @4
+[\.\]g'-g'-g'-; g'\x\ b'-\x\ | f'-f'-f'- [\\] f'b'- | @6
+e'-d'-c'-; d'-b-f'- | d'c'-; r-r-f- | @8
+[\.\] g-g-g- g\x\b-\x\ | f-f-f- [\\] fb- | @10
+e-d-c-; d-f-b- | dc-; r-r- c'-\.\ | @12
+d'-\.\a-b-; %e'-\.\a-b- | f'-\.\a-b-; g'-\.\a-b- | @14
+a'-\.\%e'-f'-; d'-b'-g'- | f'%e'-; r-r- g'- | @16
+
+c''a'-; b'-a'-g'- | a'-f'-%e'-; f'-c'-d'- | @18
+a-b-a-g. | F. :)| @20
+
+*if score
+  [newline]
+*fi   
+
+[space 2] f'\.\a-\.\; b-a-g- | f-a-c'-; b-g-d'- | @22
+c'-%e'-f'-; b-a-g- | F. | b'\.\d'-\.\; e'-d'-c'- | @25
+b-d'-f'-; e'-c'-g'- | f'-a'-b'-; e'-d'-c'- | @27
+b._bb'- | a'-b'-a'-; g'-#f'-g'- | #f'-a'-d'-c'. | @30
+
+b-a-g-; b-d'-c'- | d'._d'a'-\.\ | @32
+[copyzero -6]
+[\.\] b'\x\ g'-a'd'- | c''\x\a'-b'd'- | @34
+d''\x\ b'-; [\\] c''-b'-a'- | b'._b'-a'-g'- | @36
+#f'-d'-g'-; b-c'-a- | G. | [\.\] g'-g'-g'-g'\x\b'-\x\ | @39
+f'-f'-f'- [\\] f'b'- | e'-d'-c'-; d'-b-f'- | d'c'-r. | @42
+
+[\.\] g-g-g-g\x\b-\x\ | f-f-f- [\\] fb- | @44
+e-d-c-; d-f-b- | dc-r. | @46
+[copyzero -6]
+b'\.\d'-\.\; e'-d'-c'- | b-d'-f'-; e'-c'-g'- | @48
+f'-a'-b'-; g'\.\c''-\.\ | b'-a'-g'-\.\f'$a'- | @50
+
+g'-e'-g'-\.\; f'-d'-f'-\.\ | e'-c'-e'-\.\d'\.\f'-\.\ | @52
+g-e'-d'-; c'-b-a- | b\.\d'-\.\; f'-f-$a- | @54
+
+*if score
+  [newline]
+*fi
+   
+g-g'-f'-; e'-d'-c'- | b-d'-c'-; b-a-g- | @56
+f-e-d-; e-d-c- | B`. | @58
+[endstave]
+
+
+
+
+[stave 2 treble 1]
+*if score
+  [name "Violin II"/c]
+*fi
+[copyzero 8]   
+&f
+b'\.\d'-\.\; e'-d'-c'- | @1
+b-d'-f'-; e'-c'-g'- | f'-a'-b'-; e'-d'-c'- | b.r-r-d'- | @4
+[\.\]e'-e'-e'-; e'.\x\ | d'-d'-d'- [\\] d'. | @6
+a.bc'- | ba-; r-r-d- | @8
+[\.\] e-e-e- e.\x\ | d-d-d- [\\] d. | @10
+a`.b`d- | b`a`-; r-r- c'-\.\ | @12
+d'-\.\a-b-; %e'-\.\a-b- | f'-\.\a-b-; g'-\.\a-b- | @14
+a'-\.\%e'-f'-; fb- | ag-; r-r- g'- | @16
+
+g'-c'-f'-f'%e'- | f'b-c'f- | @18
+f.%e. | F. :)| @20
+
+f'\.\a-\.\; b-a-g- | f-a-c'-; b-g-d'- | @22
+c'-%e'-f'-; b-a-g- | F. | b'\.\d'-\.\; e'-d'-c'- | @25
+b-d'-f'-; e'-c'-g'- | f'-a'-b'-; e'-d'-c'- | @27
+b._bb'- | a'-b'-a'-; g'-#f'-g'- | #f'-a'-d'-c'. | @30
+
+bg-e. | d._d#f'-\.\ | @32
+[\.\] g'\x\ %e'-#f'd'- | a'\x\d'-d'b- | @34
+b'\x\ g'-; [\\] a'-g'-#f'- | g'._g'-%)f'-e'- | @36
+d'g-g#f- | G. | [\.\] e'-e'-e'-e'.\x\ | @39
+d'-d'-d'- [\\] d'. | a.bd'- |ba-r. | @42
+
+[\.\] e-e-e-e.\x\ | d-d-d- [\\] d. | @44
+a`.b`d- | b`a`-r. | @46
+[copyzero 5]
+b'\.\d'-\.\; e'-d'-c'- | b-d'-f'-; e'-c'-g'- | @48
+f'-a'-b'-; g'\.\e'-\.\ | c'. r-r-f'- | @50
+
+bg'-; f'-d'-f'-\.\ | e'-c'-e'-\.\d'\.\f'-\.\ | @52
+g-e'-d'-; c'-b-a- | b\.\d'-\.\; f'-f-$a- | @54
+*if part
+  [newline]
+*fi   
+g-g'-f'-; e'-d'-c'- | b-d'-c'-; b-a-g- | @56
+f-e-d-; e-d-c- | B`. | @58
+[endstave]
+
+
+
+[stave 3 alto 1]
+*if score
+  [name "Viola"/c]
+*fi   
+[copyzero -6]
+&f
+f.a. | f.a. | bf-; g-f-e- | @3
+de-fb- | B. | b`._b`r- | c.f. | fc-f`b`- | @8
+B`. | b`._b`f- | c.f`. | f`a`-; c-b`-a`- | B`. | b`._b`g- | @14
+c.b`d-\.\ | c%e-; g-f-e- | @16
+ac'-db`- | cg-ff- | c.c. | C. :)| @20
+
+c.%e. | c.%e. | fc-d%e- | fa`-b`c- | @24
+db-ac'- | f.a. | bf-; g-f-e- | de-; f-e-d- | @28
+e.c'. | a._aa- | d.g. | A. | [copyzero -12] D. | @33
+#fa-g. | r.r-r-d'- | d'.d'g- | dc'-dd- | @37
+
+d._db`- | B. | b`._b`f- | c.f. | f.r. | @42
+B`. | b`._b`f- | c.f`. | f`a`-; c-b`-a`- | @46
+[copyzero -12]
+db-ac'- | f.a. | b.bg- | f.r-r-f- | @50
+e.b. | a.bd- | b`-g-f-; e-d-c- | d. r-r- f- | @54
+b`.a`e- | d.fb`- | b`.a`. | B`. | @58
+[endstave]
+
+
+
+[stave 4 bass 0]
+*if score
+  [name "Cello|Bass"/c]
+*fi   
+&f
+b`.c. | d.c. | d.ef- | b`c-; d-c-b`- | e._eg- | @5
+b._bd- | c.b`. | f`f-; d-c-b`- | e._eg- | b._bd- | @10
+c.b`. | ff`-; a`-g`-f`- | b`.c. | d.%e. | f.b. | @15
+c'-c-c'-; b-a-g- | a.g. | fg-ab- | c'.c. | F`. :) | @20
+
+f.g. | a.g. | a.bc'- | fe-dc- | b`.c. | d.c. | d.ef- | @27
+b`c-; d-c-b`- | c.e. | d._d-%e-#f- | g._gg- | @31
+#f-a-g-; f-%e-d- | @32
+
+[copyzero -8]
+D'. | d-%e-#f-g. | r.r-r-d- | @34
+
+g-g`-a`-b`c- | de-d "C.B."/a/c (d`-d-) | g`d-gf- | @38
+e._eg- | b._bd- | c.b`. | f.r. | e._eg- | b._bd- | c.b`. | @45
+f`f-; e-d-c- | [copyzero -12] b`.c. | d.c. | d.e. | f.rd- | @50
+
+e.d. | c.b`. | e.f. | b`.rd- | e.f. | g.de- | f.f`. | B`. | @58
+[endstave]

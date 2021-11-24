@@ -1,0 +1,15 @@
+notime 
+nocheck
+
+makekey X1 #2
+makekey X2 $3
+makekey X3 $-3
+
+[stave 1 treble 1 key x1]
+[octave 1] cdefgabc' | [octave 2] defgabc' |
+[key X2]
+[octave 1] cdefgabc' | [octave 2] defgabc' |
+[key X3]
+[octave 1] cdefgabc' | [octave 2] defgabc' |
+
+[endstave]

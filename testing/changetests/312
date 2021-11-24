@@ -1,0 +1,73 @@
+Nocheck
+
+Unfinished
+Magnification 1.1
+Justify top left
+Systemgap 60
+
+[Stave 1 treble 1]
+"bar"/a8/bar "time"/a/ts
+gg |
+"bar"/a8/bar "time"/a/ts
+gg |
+[key E$]
+"bar"/a8/bar "time"/a/ts
+gg |
+[key F# time 4/4]
+"bar"/a8/bar "time"/a/ts
+gg |
+[time 6/8]
+"bar"/a8/bar "time"/a/ts
+gg |
+[newline time 5/4 key G]
+"bar"/a8/bar "time"/a/ts
+gg |
+[newline]
+"bar"/a8/bar "time"/a/ts
+gg |
+[newline key C]
+"bar"/a8/bar "time"/a/ts
+gg |
+[endstave]
+
+[newmovement]
+Justify top right
+
+[Stave 1 treble 1]
+"bar"/a8/bar "time"/a/ts
+gg |
+"bar"/a8/bar "time"/a/ts
+gg |
+[key E$]
+"bar"/a8/bar "time"/a/ts
+gg |
+[key F# time 4/4]
+"bar"/a8/bar "time"/a/ts
+gg |
+[time 6/8]
+"bar"/a8/bar "time"/a/ts
+gg |
+[newline time 5/4 key G]
+"bar"/a8/bar "time"/a/ts
+gg |
+[newline]
+"bar"/a8/bar "time"/a/ts
+gg |
+[newline key C]
+"bar"/a8/bar "time"/a/ts
+gg |
+[endstave]
+
+[newmovement]
+Stavespacing 1/20
+
+[stave 1 treble 1]
+[sshere +10] [ssnext +10]
+[couple down]
+g`-b`-g'-\sd\r- | [newline] gg |
+[endstave]
+
+[stave 2 bass 0]
+[endstave]
+
+

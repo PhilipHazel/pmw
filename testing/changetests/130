@@ -1,0 +1,77 @@
+justify left top
+nocheck                   
+unfinished
+pagelength 120
+
+Heading "first"
+pageheading "|\p\"
+
+[stave 1 "name" treble 1]
+gggg |
+[newpage]
+gggg
+[endstave]
+
+[newmovement newpage]
+Heading "second movement"
+[stave 1 treble 1]
+gggg |
+[newpage]
+gggg
+[endstave]
+
+[newmovement newpage]
+[stave 1 treble 1]
+"third" gggg |
+[newpage]
+gggg
+[endstave]
+
+[newmovement]
+Heading "fourth movement"
+[stave 1 treble 1]
+gggg |
+[newpage]
+gggg
+[endstave]
+[newmovement]
+
+[stave 1 treble 1]
+"fifth" gggg |
+[newpage]
+gggg
+[endstave]
+[newmovement]
+
+
+[newmovement]
+Heading "" -30
+Heading "sixth movement"
+[stave 1 treble 1]
+gggg |
+[newline]
+gggg
+[endstave]
+[newmovement]
+
+[stave 1 treble 1]
+"seventh" gggg |
+[newpage]
+gggg
+[endstave]
+
+[newmovement nopageheading]
+Heading "eighth movement"
+[stave 1 treble 1]
+gggg |
+[newpage]
+gggg
+[endstave]
+
+[newmovement nopageheading newpage]
+Heading "ninth movement"
+[stave 1 trebletenorB 1]
+gggg |
+[newpage]
+gggg
+[endstave]

@@ -1,0 +1,83 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music Helvetica-Bold Helvetica 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font Helvetica-Bold
+/xx1 /xx1X /Helvetica-Bold inf
+%%IncludeResource: font Helvetica
+/xx2 /xx2X /Helvetica inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+1.1 dup scale
+%%EndPageSetup
+mf 10 ss(")57.682 690 s(%)74.182 700 s bf 11.8 ss(4)79.182 698 s(4)
+79.182 690.15 s xx2 [21.759 0 0 27.2 0 0] sm(T)61.382 654 s xx2 17.6 ss(B)
+65.702 654 s 61.382 654 Mt 74.676 654 Mt 65.702 654 Mt 77.441 654 Mt
+67.782 673.2 Mt 78.182 661.2 Lt 1.6 Slw S mf 10 ss 16 654(@)58.182 690 b
+0.099 51.182 680 br
+%1/2
+xx1 8.8 ss(5)106.582 663.6 s(5)150.999 663.6 s(5)183.238 657.2 s(4)
+207.416 663.6 s
+%1/1
+mf 10 ss(B)93.082 690 s(@)96.582 690 s(xI)98.182 690 s(4)105.582 702 s(6)
+149.999 702 s 1.823 207.566 687.981 182.988 684 m(6)182.238 696 s(K)
+206.416 699.916 s(KL)206.416 700 s(@)230.595 690 s
+%2/2
+xx1 8.8 ss(5)239.15 663.6 s(5)283.477 663.6 s(5)315.715 663.6 s(4)
+339.894 663.6 s
+%2/1
+mf 10 ss(4)238.15 702 s(6)282.477 702 s
+1.805 340.044 687.968 315.465 689.958 m(K)314.715 701.958 s(KL)
+314.715 702 s(6)338.894 700 s(@)363.073 690 s
+%3/2
+xx1 8.8 ss(2)371.628 663.6 s(2)415.955 663.6 s(2)447.186 657.2 s(5)
+471.365 657.2 s
+%3/1
+mf 10 ss(4)370.628 698 s(6)414.955 698 s
+-1.823 476.615 712.065 452.036 708.084 m(J)446.186 692.084 s(JL)
+446.186 692 s(5)470.365 696 s(@)494.543 690 s
+(FFFFCCC)58.182 690 s (C)484.543 690 s
+mf 16 ss
+(\371\371\253\253\253\253\253\253\253)58.182 654 s (\253)478.543 654 s
+mf 10 ss(")57.682 610 s(%)74.182 620 s xx2 [21.759 0 0 27.2 0 0] sm(T)
+61.382 574 s xx2 17.6 ss(B)65.702 574 s 61.382 574 Mt 74.676 574 Mt
+65.702 574 Mt 77.441 574 Mt 67.782 593.2 Mt 78.182 581.2 Lt 1.6 Slw S
+mf 10 ss 16 574(@)58.182 610 b 0.099 51.182 600 br
+%4/2
+xx1 8.8 ss(2)88.182 583.6 s(2)123.382 583.6 s(2)148.982 583.6 s(5)
+168.182 577.2 s
+%4/1
+mf 10 ss(4)87.182 618 s(6)122.382 618 s
+1.809 168.332 603.959 148.732 605.958 m(K)147.982 617.958 s(KL)
+147.982 618 s(6)167.182 616 s(@)186.382 610 s
+(FCC)58.182 610 s (C)176.382 610 s
+mf 16 ss
+(\253\253\253\253\253\253\253\253)58.182 574 s (\253)170.382 574 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

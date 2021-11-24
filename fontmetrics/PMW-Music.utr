@@ -1,0 +1,171 @@
+# This file contains translations from Unicode code points to some of the 256
+# code points in the PMW-Music PostScript font that is part of the PMW music
+# typesetting application. Only a subset of the PMW font's characters  have
+# Unicode equivalents. The names in upper case are Unicode names.
+
+# It seems that Unicode has code points for notes and their accents only for
+# notes with stems up and accents below. PMW accents are positioned above, so
+# mapping the Unicode code points to them isn't strictly correct.
+
+# Created by Philip Hazel, June 2020
+
+1D11E 33 MUSICAL SYMBOL G CLEF
+1D122 34 MUSICAL SYMBOL F CLEF
+1D121 35 MUSICAL SYMBOL C CLEF
+1D1AF 36 MUSICAL SYMBOL PEDAL UP MARK
+0266F 37 MUSIC SHARP SIGN
+1D12A 38 MUSICAL SYMBOL DOUBLE SHARP
+0266D 39 MUSIC FLAT SIGN
+0266E 40 MUSIC NATURAL SIGN
+1D110 41 MUSICAL SYMBOL FERMATA
+1D13A 42 MUSICAL SYMBOL MULTI REST (breve rest)
+1D13B 43 MUSICAL SYMBOL WHOLE REST (semibreve rest)
+1D13C 44 MUSICAL SYMBOL HALF REST (minim rest)
+1D13D 45 MUSICAL SYMBOL QUARTER REST (crotchet rest)
+1D13E 46 MUSICAL SYMBOL EIGHTH REST (quaver rest)
+1D111 47 MUSICAL SYMBOL FERMATA BELOW
+1D129 48 MUSICAL SYMBOL MULTIPLE MEASURE REST
+1D15C 49 MUSICAL SYMBOL BREVE
+1D15D 50 MUSICAL SYMBOL WHOLE NOTE (semibreve)
+1D15E 51 MUSICAL SYMBOL HALF NOTE (minim, stem up)
+# 52 (minim, stem down)
+1D15F 53 MUSICAL SYMBOL QUARTER NOTE (crotchet, stem up)
+# 53 (crotchet, stem down)
+1D160 55 MUSICAL SYMBOL EIGHTH NOTE (quaver, stem up)
+# 56 (quaver, stem down)
+1D161 57 MUSICAL SYMBOL SIXTEENTH NOTE (semiquaver, stem up)
+# 58 (semiquaver, stem down)
+# 59 (up semiquaver tail)
+# 60 (down semiquaver tail)
+# 61 (ledger line)
+# 62 (dot above note)
+# 63 (horizontal dot)
+1D100 64 MUSICAL SYMBOL SINGLE BARLINE
+1D101 65 MUSICAL SYMBOL DOUBLE BARLINE
+# 66 (thick barline)
+1D11A 67 MUSICAL SYMBOL FIVE-LINE STAFF
+1D116 68 MUSICAL SYMBOL ONE-LINE STAFF
+1D16E 69 MUSICAL SYMBOL COMBINING FLAG-1 (up quaver tail)
+# 70 (long 5-line stave)
+# 71 (long 1-line stave)
+# 72 (down quaver tail)
+# 73 (repeat dots)
+1D165 74 MUSICAL SYMBOL COMBINING STEM (upward note stem)
+# 75 (downward note stem)
+1D158 76 MUSICAL SYMBOL NOTEHEAD BLACK
+1D157 77 MUSICAL SYMBOL VOID NOTEHEAD (minim notehead)
+1D112 78 MUSICAL SYMBOL BREATH MARK (comma)
+# 79 (mordent)
+# 80 (double mordent)
+# 81 (inverted mordent)
+# 82 (double inverted mordent)
+1D197 83 MUSICAL SYMBOL TURN
+1D17D 84 MUSICAL SYMBOL COMBINING TENUTO
+1D181 85 MUSICAL SYMBOL COMBINING ACCENT-STACCATO (stress accent)
+1D113 86 MUSICAL SYMBOL CAESURA
+1D19C 87 MUSICAL SYMBOL ORNAMENT STROKE-2 (hat accent, above)
+# 88 (inverted hat accent)
+# 89 (staccatissimo above)
+1D17E 90 MUSICAL SYMBOL COMBINING STACCATISSIMO (staccatissimo below)
+1D104 91 MUSICAL SYMBOL DASHED BARLINE
+# 92 (single line caesura)
+# 93 (small figure 8)
+1D134 94 MUSICAL SYMBOL COMMON TIME
+1D135 95 MUSICAL SYMBOL CUT TIME
+# 96 (tilde for following trill)
+# 97 (cello thumb above)
+# 98 (cello thumb below)
+1D10C 99 MUSICAL SYMBOL CODA
+1D10B 100 MUSICAL SYMBOL SEGNO
+1D1AA 101 MUSICAL SYMBOL COMBINING DOWN BOW (above note)
+# 102 (down bow below)
+1D1AB 103 MUSICAL SYMBOL COMBINING UP BOW (above note)
+# 104 (up bow below)
+1D199 105 MUSICAL SYMBOL TURN SLASH (inverted turn)
+# 106 (7 with stroke)
+# 107 (4 with stroke)
+1D1BA 108 MUSICAL SYMBOL SEMIBREVIS BLACK (diamond crotchet notehead)
+1D1B9 109 MUSICAL SYMBOL SEMIBREVIS WHITE (diamond minim notehead)
+# 110 (cross notehead)
+# 111 (upstem for cross)
+# 112 (downstem for cross)
+# 113 (upstem fragment)
+# 114 (downstem fragment)
+# 115 (6 with stroke)
+# 116 (dot for guitar grid)
+# 117 (circle for guitar grid)
+# 118-126 effect movement without printing anything
+# 127 (unassigned)
+# 128 (tick)
+# 129 (accaciatura bar for upstem)
+# 130 (accaciatura bar for downstem)
+1D11C 131 MUSICAL SYMBOL SIX-STRING FRETBOARD (guitar grid)
+1D1A0 132 MUSICAL SYMBOL ORNAMENT STROKE-6 (very short barline)
+# 133 (breath)
+# 134 (vertical ring)
+# 135 (cross)
+1D196 136 MUSICAL SYMBOL TR (trill)
+# 137 (short vertical caesura)
+# 138 (long vertical caesura)
+# 139 (square bra for accidentals)
+# 140 (square ket for accidentals)
+# 141 (round bra for accidentals)
+# 142 (round ket for accidentals)
+1D10D 143 MUSICAL SYMBOL REPEATED FIGURE-1 (bar for repetition)
+# 144 (dots for repetition)
+# 145 (vertical tilde)
+1D167 146 MUSICAL SYMBOL COMBINING TREMOLO-1 (tremelo bar)
+1D1C8 147 MUSICAL SYMBOL TEMPUS PERFECTUM CUM PROLATIONE IMPERFECTA (circle)
+1D1C9 148 MUSICAL SYMBOL TEMPUS PERFECTUM CUM PROLATIONE PERFECTA DIMINUTION-1 (cut cirle)
+# 149 (short slur below)
+# 150 (longer slur below)
+# 151 (arrow NE)
+# 152 (arrow SE)
+# 153 (inverted common time)
+# 154 (inverted cut time)
+# 155 (unison breve)
+# 156 (short line accent)
+# 157 (small bra for 8)
+# 158 (small ket for 8)
+# 159 (NE corner)
+# 160 (NW corner)
+# 161 (SE corner)
+# 162 (SW corner)
+1D1AE 163 MUSICAL SYMBOL PEDAL MARK ("Ped")
+# 164 (vertical tilde with up arrow)
+# 165 (vertical tilde with down arrow)
+# 166 (nail symbol)
+# 167 (NE corner, long tail)
+# 168 (SE corner, long tail)
+1D117 169 MUSICAL SYMBOL TWO-LINE STAFF
+1D118 170 MUSICAL SYMBOL THREE-LINE STAFF
+1D119 171 MUSICAL SYMBOL FOUR-LINE STAFF
+1D11B 172 MUSICAL SYMBOL SIX-LINE STAFF
+1D125 173 MUSICAL SYMBOL DRUM CLEF-1 (H clef)
+# 174 (old-style F clef)
+# 175 (old-style C clef)
+# 176 (top of system bracket)
+# 177 (bottom of system bracket)
+# 178 ("direct" symbol)
+# 179 (5 with stroke)
+# 180 (major chord sign (jazz) - up pointing triangle)
+# 181 (diminished chord sign - circle)
+# 182 (half diminished chord sign - crossed circle)
+# 183 (small cross for guitar grid)
+# 184 (thicker ledger line)
+# 185-188 effect movement without any printing
+# 189 (half sharp, Egyptian style)
+# 190 (half sharp, Turkish style)
+# 191 (half flat, Egyptian style)
+# 192 (half flat, Turkish style)
+# 193 (inverted musical comma)
+# 194 (teardrop accent above)
+# 195 (teardrop accent below)
+1D198 196 MUSICAL SYMBOL INVERTED TURN (reversed turn)
+# 197 (reversed turn with slash)
+# 198 (top half circle)
+# 199 (bottom half circle)
+# 200-246 are undefined
+# 247-250 are long versions of 2,3,4,6-staves
+# 251-255 are undefined
+# End

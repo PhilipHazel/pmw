@@ -1,0 +1,16 @@
+notime
+nocheck
+unfinished
+
+[stave 1 treble 1]
+"\rm\Style 0" #-g $-g |?
+[endstave]
+
+[newmovement thisline]
+halfsharpstyle 1
+halfflatstyle 1
+notime
+
+[stave 1 "                     " noclef 1]
+"\rm\Style 1" #-g $-g |?
+[endstave]

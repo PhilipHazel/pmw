@@ -1,0 +1,25 @@
+notime
+nocheck
+[stave 1][treble 1]
+
+r=[slur]#c`=a`=$b`=%g=e=; [es]
+#d'=\- sd\%d'=\-\,#c'=\-\[z]e=,[o]g'=\g\_#f'=_e'= |
+
+[newline]
+r=#c`=a`=$b`=%g=e=;
+#d'=\- sd\%d'=\-\,#c'=\-\[z]e=,[o]g'=\g\_#f'=_e'= |
+
+[newline stems down]
+#c'=e=,g'=\g\#f'=_e'= | 
+
+@ It's the grace note that is doing it.
+
+[newline stems down]
+#c'=e=,#f'=_e'=  |
+
+[newline stems down]
+#c'=e=,g'=\g sd\#f'=_e'=  |
+
+[newline stems down]
+#c'=e=g'=\g\#f'=_e'=  |
+

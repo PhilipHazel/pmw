@@ -1,0 +1,55 @@
+justify top left
+gracespacing 20
+       
+[stave 1 treble 1][text underlay]
+"co-s\i` l\i^b" a b c d |
+g b-\g\ g R
+[endstave]
+
+[stave 2 bass -1]
+R! | g(#e#g) R
+[endstave]
+
+[newmovement]
+gracespacing 6
+time 2/4
+[stave 1 treble 1]
+gb-\g\g 
+[endstave]
+[stave 2 bass 0]
+g(#e#g)
+[endstave]
+
+[newmovement]
+suspend 1
+key A
+       
+[stave 1 treble 1]
+abcd
+[endstave]
+
+[newmovement]
+[stave 1 treble 1][key A]
+abcd [suspend] | 
+[newline] R! |
+[newline] G+ |
+[endstave]
+
+[stave 2 treble 1]
+R! | R! | R! |
+[endstave]
+
+
+[newmovement]
+
+[stave 0]
+["A"] Q! | [1st] Q! |
+[endstave]
+
+[stave 1 treble 1]
+gggg | gggg |
+[endstave]
+
+[stave 2 treble 1]
+gggg | gggg |
+[endstave]

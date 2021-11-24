@@ -1,0 +1,6 @@
+@ This file contains miscellaneous tests that are not actual pieces. 
+@ The first test used to work on 32-bit systems but not on 64-bit ones.
+
+[stave 1 treble 1]
+(E`+\ard f\ A`+ C+ E+)
+[endstave]

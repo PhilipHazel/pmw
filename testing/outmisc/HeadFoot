@@ -1,0 +1,93 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 17 ss(heading 1)135.999 503.333 s rm 6 ss(heading 2 20)
+135.999 486.333 s rm 8 ss(heading 8 after zero)205.58 486.333 s mf 10 ss(!)
+135.999 461.333 s bf 11.8 ss(4)148.999 469.333 s(4)148.999 461.483 s
+%1/1
+mf 10 ss(5)162.899 465.333 s(5)189.507 465.333 s(5)216.115 465.333 s(5)
+242.723 465.333 s(@)269.332 461.333 s
+(FCCC)135.999 461.333 s (C)259.332 461.333 s
+rm 8 ss(footing 1)135.999 366.667 s(footing 2)135.999 358.667 s
+pagesave restore showpage
+
+%%Page: 2 2
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 10 ss(page heading)135.999 513.333 s mf 10 ss(!)135.999 476.333 s
+%2/1
+(5)156.999 480.333 s(5)185.082 480.333 s(5)213.165 480.333 s(5)
+241.248 480.333 s(@)269.332 476.333 s
+(FCCC)135.999 476.333 s (C)259.332 476.333 s
+rm 8 ss(pagefooting)135.999 366.667 s
+pagesave restore showpage
+
+%%Page: 3 3
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 10 ss(page heading)135.999 513.333 s mf 10 ss(!)135.999 476.333 s
+%3/1
+(5)156.999 480.333 s(5)185.082 480.333 s(5)213.165 480.333 s(5)
+241.248 480.333 s(@)269.332 476.333 s
+(FCCC)135.999 476.333 s (C)259.332 476.333 s
+rm 8 ss(pagefooting)135.999 366.667 s
+pagesave restore showpage
+
+%%Page: 4 4
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 10 ss(page heading)135.999 513.333 s mf 10 ss(!)135.999 476.333 s
+%4/1
+(5)156.999 480.333 s(5)184.575 480.333 s(5)212.152 480.333 s(5)
+239.729 480.333 s(B)267.832 476.333 s(@)265.832 476.333 s
+(FCCC)135.999 476.333 s (C)259.332 476.333 s
+rm 8 ss(pagefooting)135.999 366.667 s
+pagesave restore showpage
+
+%%Page: 5 5
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 10 ss(page heading)135.999 513.333 s(mo)135.999 513.333 s(v)
+-0.15 0 rs(ed up)-0.15 0 rs rm 12 ss(Ne)135.999 503.333 s(w heading 1)
+-0.3 0 rs rm 10 ss(Ne)135.999 491.333 s(w heading 2)-0.25 0 rs rm 8 ss
+(lastfooting)135.999 366.667 s
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 5

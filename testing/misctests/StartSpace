@@ -1,0 +1,10 @@
+magnification 1.5
+key E$
+
+[stave 1 treble 1] gggg [endstave]
+
+[newmovement]    
+startlinespacing 4 4 4 4
+key E$
+
+[stave 1 treble 1] gggg [endstave]

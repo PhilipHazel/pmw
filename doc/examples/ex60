@@ -1,0 +1,10 @@
+nocheck
+unfinished
+Textsizes 10 14
+Notime
+notespacing *2
+
+[stave 1 noclef octave 1]
+"small"/a " BIG "/s2/F "small"/F a
+"square" "square"/F/rot270 "square"/F/rot180 "square"/F/rot90 a [space 30] |?
+[endstave]

@@ -1,0 +1,43 @@
+#! /bin/sh
+
+rc=0
+valgrind=
+vopt=
+
+if [ "$1" = "valgrind" ]; then
+  valgrind=valgrind
+  vopt=-q 
+fi   
+
+/bin/rm -f test.*
+/bin/rm -f test-*
+
+echo "*** Running distributed tests ***"
+
+for x in infiles/* ; do
+  file=`basename $x`
+  $valgrind $vopt ../src/pmw -norc -testing -F ../fontmetrics -H ../PSheader \
+    -MF ../psfonts -o test.ps infiles/$file
+
+  diff -u outfiles/$file.ps test.ps >test.diff
+  if [ $? != 0 ] ; then
+    mv test.diff test-$file.diff
+    echo "*** $file test failed - see test-$file.diff ***"
+    rc=1
+  else
+    echo $file test succeeded
+  fi
+done
+
+if [ $rc = 0 ]; then
+  /bin/rm -f test.*
+  /bin/rm -f test-*
+  if [ -x ../testing/RunTests ]; then
+    (cd ../testing; RunTests nob2pf $valgrind)
+  rc=$?   
+  fi    
+fi
+
+exit $rc
+
+# End

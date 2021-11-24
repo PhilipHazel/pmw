@@ -1,0 +1,405 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music NewCenturySchlbk-Bold Helvetica 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font NewCenturySchlbk-Bold
+/xx1 /xx1X /NewCenturySchlbk-Bold inf
+%%IncludeResource: font Helvetica
+/xx8 /xx8X /Helvetica inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 16 ss(\340 \341 \342 \344 )42.666 513.333 s(\300 )-0.88 0 rs
+(\301 )-0.88 0 rs(\302 )-0.88 0 rs(\304 \350 \351 \352 \353 \310 \311 \312 \313)
+-0.88 0 rs(\354 \355 \356 \357 \314 \315 \316 \317 \362 \363 \364 \366 \322 \323 \324 \326)
+42.666 497.333 s(\371 \372 \373 \374 \331 \332 \333 \334 \347 \307 \361 \321 ` ' \\ \251)
+42.666 481.333 s(a-b a)42.666 465.333 s rmX 16 ss(\215)sh rm 16 ss
+(b a)sh rmX 16 ss(\214)sh rm 16 ss(b a#b | )sh rmX 16 ss(\216)sh
+rm 16 ss( )sh rmX 16 ss(\217)sh mf 14.4 ss(1)42.666 425.333 s rm 16 ss( )
+61.962 425.333 s mf 14.4 ss(2)65.962 425.333 s rm 16 ss( )
+78.058 425.333 s mf 14.4 ss(3)82.058 425.333 s rm 16 ss( )
+94.154 425.333 s mf 14.4 ss(5)98.154 425.333 s rm 16 ss( )
+110.25 425.333 s mf 14.4 ss(7)114.25 425.333 s rm 16 ss( )
+131.53 425.333 s mf 14.4 ss(9)135.53 425.333 s rm 16 ss( )
+152.81 425.333 s mf 14.4 ss(%)156.81 425.333 s rm 16 ss( )
+165.45 425.333 s mf 14.4 ss(')169.45 425.333 s rm 16 ss( )
+176.65 425.333 s mf 14.4 ss(\()180.65 425.333 s rm 16 ss( )
+187.13 425.333 s mf 14.4 ss(%5?)191.13 425.333 s rm 16 ss( )
+217.626 425.333 s mf 16 ss(%5?)221.626 425.333 s rm 16 ss(ab a)
+42.666 385.333 s(b a)68.874 388.213 s(b a)87.978 385.333 s(b a)
+102.33 385.333 s(b a)129.354 385.333 s(b a)149.898 385.333 s(b)
+167.562 385.333 s rm 12 ss(roman )42.666 345.333 s it 12 ss(italic )
+76.326 345.333 s bf 12 ss(bold )103.998 345.333 s bi 12 ss(bolditalic )
+129.678 345.333 s sy 12 ss(symbol )178.686 345.333 s mf 10.8 ss(5 )
+223.83 345.333 s mf 12 ss(5 )241.002 345.333 s xx1 12 ss(xx1 )
+260.082 345.333 s xx8 12 ss(xx8 )285.078 345.333 s rm 12 ss( roman)
+307.086 345.333 s mf 10 ss(!)42.666 288.333 s bf 11.8 ss(4)
+58.666 296.333 s(4)58.666 288.483 s mf 10 ss(!)42.666 288.333 s
+bf 11.8 ss(4)58.666 296.333 s(4)58.666 288.483 s mf 10 ss(")
+42.166 244.333 s bf 11.8 ss(4)58.666 252.333 s(4)58.666 244.483 s
+mf 10 ss 16 244.333(@)42.666 288.333 b 0.115 35.666 274.333 br
+%1/3
+it 10 ss(size 1)72.566 234.333 s mf 10 ss(6)72.566 256.333 s it 14 ss
+(size 2)106.964 221.333 s mf 10 ss(6)106.964 256.333 s it 8 ss(size 3)
+141.362 234.333 s mf 10 ss(6)141.362 256.333 s(6)175.76 256.333 s
+(@)210.158 244.333 s
+%1/2
+(5)72.566 290.333 s(5)106.964 290.333 s(5)141.362 290.333 s(5)
+175.76 290.333 s 16 260.333(@)210.158 288.333 b
+%1/1
+rm 10 ss(tutti)72.566 310.333 s 90.186 308.333 70.566 308.333
+70.566 319.333 90.186 319.333 90.186 308.333 5 70.566 308.333 0.666 ll
+it 10 ss(loud)72.566 272.333 s mf 10 ss(5)72.566 290.333 s(5)
+106.964 290.333 s(5)141.362 290.333 s(5)175.76 290.333 s
+(@)210.158 288.333 s
+%2/3
+(B)361.164 244.333 s(@)359.164 244.333 s
+%2/2
+16 260.333(B)361.164 288.333 b 16 260.333(@)359.164 288.333 b
+%2/1
+rm 10 ss(tu)223.056 310.333 s it 10 ss(tti)230.836 310.333 s
+221.056 319.333 Mt 226.661 324.938 235.071 324.938 240.676 319.333 Ct
+243.533 316.476 243.533 311.19 240.676 308.333 Ct
+235.071 302.728 226.661 302.728 221.056 308.333 Ct
+218.199 311.19 218.199 316.476 221.056 319.333 Ct 0.666 Slw S mf 10 ss(5)
+223.056 290.333 s(5)257.454 290.333 s(5)291.852 290.333 s(5)
+326.25 290.333 s(B)361.164 288.333 s(@)359.164 288.333 s
+(FFFC)42.666 288.333 s (C)352.664 288.333 s
+(FFFC)42.666 244.333 s (C)352.664 244.333 s
+(!)42.666 153.333 s bf 11.8 ss(4)55.666 161.333 s(4)55.666 153.483 s
+%1/1
+rm 10 ss(rhubarb)44.466 175.333 s(custard)69.566 185.333 s mf 10 ss(5)
+69.566 157.333 s rm 10 ss(pie)79.346 143.333 s(crust)85.566 133.333 s
+mf 10 ss(5)85.566 157.333 s rm 10 ss(end)93.126 175.333 s mf 10 ss(5)
+101.566 157.333 s(@)117.566 153.333 s
+%2/1
+rm 12 ss(A)117.566 175.333 s 127.63 173.333 115.566 173.333
+115.566 186.333 127.63 186.333 127.63 173.333 5 115.566 173.333 0.8 ll
+mf 10 ss(5)123.566 155.333 s(\227\230)139.566 163.333 s
+(@)139.566 153.333 s
+(CCCCCCCCC)42.666 153.333 s (C)129.566 153.333 s
+(!)42.666 93.333 s
+%3/1
+rm 10 ss(/u0)63.666 115.333 s mf 10 ss(5)63.666 97.333 s rm 10 ss(/u4)
+79.666 119.333 s mf 10 ss(5)79.666 97.333 s rm 10 ss(/u4/u2)
+95.666 121.333 s mf 10 ss(5)95.666 97.333 s(@)111.666 93.333 s
+(CCCCCC)42.666 93.333 s (C)101.666 93.333 s
+(!)42.666 33.333 s
+%4/1
+rm 12 ss(A)63.666 57.333 s 73.73 55.333 61.666 55.333 61.666 68.333
+73.73 68.333 73.73 55.333 5 61.666 55.333 0.8 ll(B)71.666 79.333 s
+81.07 77.333 69.666 77.333 69.666 90.333 81.07 90.333 81.07 77.333
+5 69.666 77.333 0.8 ll mf 10 ss(5)63.666 37.333 s(B)80.166 33.333 s
+(@)78.166 33.333 s
+(CCC)42.666 33.333 s (C)71.666 33.333 s
+
+pagesave restore showpage
+
+%%Page: 2 2
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+mf 10 ss(!)42.666 503.333 s bf 11.8 ss(4)55.666 511.333 s(4)
+55.666 503.483 s
+%1/1
+rm 16 ss(Z)69.566 529.333 s 67.566 544.333 Mt
+71.273 548.04 76.835 548.04 80.542 544.333 Ct
+85.113 539.762 85.113 531.904 80.542 527.333 Ct
+76.835 523.626 71.273 523.626 67.566 527.333 Ct
+62.995 531.904 62.995 539.762 67.566 544.333 Ct 1.066 Slw S mf 10 ss(5)
+69.566 507.333 s(5)85.566 507.333 s(B)102.066 503.333 s
+(@)100.066 503.333 s
+(CCCCCC)42.666 503.333 s (C)93.566 503.333 s
+rm 12 ss(It)1.414 42.666 443.333 ws rmX 12 ss
+(\242)1.414 wsh rm 12 ss
+(s someone)1.414 -0.66 0 wrs rmX 12 ss
+(\242)1.414 wsh rm 12 ss
+(s )1.414 -0.66 0 wrs rmX 12 ss
+(\241)1.414 wsh rm 12 ss(stuf)1.414 wsh
+(f)1.414 -0.3 0 wrs rmX 12 ss(\242)1.414 0.66 0 wrs rm 12 ss
+( whose length we need to sort out with the)1.414 -0.888 0 wrs
+(quick bro)0.23 42.666 431.333 ws
+(wn fox and other w)0.23 -0.3 0 wrs(ays of long lines the quick bro)
+0.23 -0.12 0 wrs(wn fox)0.23 -0.3 0 wrs
+(and other w)0.771 42.666 419.333 ws
+(ays of long lines the quick bro)0.771 -0.12 0 wrs(wn fox and other w)
+0.771 -0.3 0 wrs(ays)0.771 -0.12 0 wrs
+(of long lines the quick bro)0.317 42.666 407.333 ws
+(wn fox and other w)0.317 -0.3 0 wrs(ays of long lines the)
+0.317 -0.12 0 wrs
+(quick bro)0.7 42.666 395.333 ws
+(wn fox and other w)0.7 -0.3 0 wrs(ays of long lines and no)
+0.7 -0.12 0 wrs(w the ascii `)0.7 -0.3 0 wrs
+(and ' for a dif)0.639 42.666 383.333 ws
+(ference the quick bro)0.639 -0.3 0 wrs(wn fox and other w)
+0.639 -0.3 0 wrs(ays of long)0.639 -0.12 0 wrs(lines)42.666 371.333 s
+rm 10 ss(Quanto pi\371 m)42.666 359.333 s rmX 10 ss(\242)sh rm 10 ss(arde)
+sh rm 12 ss(W)42.666 339.333 s(iggle: )-0.48 0 rs mf 12 ss
+(`````````````````````````)83.85 339.333 s rm 12 ss
+(The )42.666 319.333 s rmX 12 ss(\216)sh rm 12 ss(nish of the )sh
+rmX 12 ss(\216)sh rm 12 ss(ckle )sh rmX 12 ss(\216)sh rm 12 ss(sh )sh
+mf 12 ss(fish)174.666 319.333 s rm 12 ss(byte a9:\251 UTF-8 a9:\251)
+42.666 299.333 s
+(Unkno)0.415 42.666 279.333 ws
+(wn in roman: >\244< and mak)0.415 -0.3 0 wrs
+(e the line long enough to justify)0.415 -0.12 0 wrs
+(so that we can be sure that the width has been handled correctly)
+1.172 42.666 267.333 ws
+(the quick bro)42.666 255.333 s
+(wn fox jumps o)-0.3 0 rs(v)-0.18 0 rs(er the lazy dog a fe)-0.18 0 rs
+(w times.)-0.3 0 rs(Unkno)0.05 42.666 237.333 ws(wn in music: >)
+0.05 -0.3 0 wrs mf 12 ss($)0.05 146.952 237.333 ws rm 12 ss
+(< and mak)0.05 158.952 237.333 ws(e the line long enough to justify)
+0.05 -0.12 0 wrs
+(so that we can be sure that the width has been handled correctly)
+1.172 42.666 225.333 ws
+(the quick bro)42.666 213.333 s
+(wn fox jumps o)-0.3 0 rs(v)-0.18 0 rs(er the lazy dog a fe)-0.18 0 rs
+(w times.)-0.3 0 rs(Unkno)2.555 42.666 195.333 ws(wn in Symbol: >)
+2.555 -0.3 0 wrs mf 12 ss($)2.555 163.143 195.333 ws rm 12 ss
+(< and mak)2.555 175.143 195.333 ws(e the line long enough to)
+2.555 -0.12 0 wrs
+(justify so that we can be sure that the width has been handled)
+2.17 42.666 183.333 ws
+(correctly the quick bro)2.79 42.666 171.333 ws
+(wn fox jumps o)2.79 -0.3 0 wrs(v)2.79 -0.18 0 wrs(er the lazy dog a fe)
+2.79 -0.18 0 wrs(w)2.79 -0.3 0 wrs(times.)42.666 159.333 s mf 10 ss(!)
+42.666 124.333 s bf 11.8 ss(4)55.666 132.333 s(4)55.666 124.483 s
+%1/1
+rm 10 ss(Quanto pi\371 m)71.566 114.333 s rmX 10 ss(\242)sh rm 10 ss(arde)
+sh mf 10 ss(B)70.066 124.333 s(@)68.066 124.333 s
+(CC)42.666 124.333 s (C)61.566 124.333 s
+
+pagesave restore showpage
+
+%%Page: 3 3
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 12 ss(Accent list with ne)42.666 503.333 s(w Unicode accents)
+-0.3 0 rs rm 10 ss(\301 )42.666 491.333 s rmX 10 ss(\000)-0.55 0 rs
+rm 10 ss( )sh(\304 )-0.55 0 rs(\302 )-0.55 0 rs(\300 )-0.55 0 rs(\305 )
+-0.55 0 rs rmX 10 ss(\002)-0.55 0 rs rm 10 ss( )sh(\303)-0.55 0 rs
+rmX 8 ss(\006)42.666 479.333 s rm 8 ss( \251 \307 )sh rmX 8 ss(\014)sh(\020)
+42.666 467.333 s rm 8 ss( )sh rmX 8 ss(\016)sh rm 8 ss(\311 )
+42.666 455.333 s rmX 8 ss(\022)sh rm 8 ss( \313 \312 \310 )sh rmX 8 ss(\032)
+sh(\036)42.666 443.333 s rm 8 ss(\315 )42.666 431.333 s rmX 8 ss(*)sh
+rm 8 ss( \317 \316 \314)sh rmX 8 ss(9)42.666 419.333 s rm 8 ss( )sh
+rmX 8 ss(A)sh rm 8 ss( )sh rmX 8 ss(=)sh(C)42.666 407.333 s rm 8 ss( )sh
+rmX 8 ss(G)sh rm 8 ss( \321)sh(\323 )42.666 395.333 s rmX 8 ss(L)sh
+rm 8 ss( \326 \330 \324 \322 \325)sh rmX 8 ss(T)42.666 383.333 s rm 8 ss
+( )sh rmX 8 ss(X)sh(Z)42.666 371.333 s rm 8 ss( )sh rmX 8 ss(^)sh
+rm 8 ss( )sh rmX 8 ss(`)sh(d)42.666 359.333 s rm 8 ss(\332 )
+42.666 347.333 s rmX 8 ss(j)sh rm 8 ss( \334 \333 \331 )sh rmX 8 ss(n)sh
+rm 8 ss(\335 )42.666 335.333 s rmX 8 ss(x)-0.72 0 rs(y)42.666 323.333 s
+rm 8 ss( )sh rmX 8 ss(})sh rm 8 ss(\341 )42.666 311.333 s rmX 8 ss
+(\001)sh rm 8 ss( \344 \342 \340 \345 )sh rmX 8 ss(\003)sh rm 8 ss( \343)
+sh rmX 8 ss(\007)42.666 299.333 s rm 8 ss( \251 \347 )sh rmX 8 ss(\015)
+sh(\021)42.666 287.333 s rm 8 ss( )sh rmX 8 ss(\017)sh rm 8 ss(\351 )
+42.666 275.333 s rmX 8 ss(\023)sh rm 8 ss( \353 \352 \350 )sh rmX 8 ss(\033)
+sh(\037)42.666 263.333 s rm 8 ss(\355 )42.666 251.333 s rmX 8 ss(+)sh
+rm 8 ss( \357 \356 \354)sh rmX 8 ss(:)42.666 239.333 s rm 8 ss( )sh
+rmX 8 ss(B)sh rm 8 ss( )sh rmX 8 ss(>)sh(D)42.666 227.333 s rm 8 ss( )sh
+rmX 8 ss(H)sh rm 8 ss( \361)sh(\363 )42.666 215.333 s rmX 8 ss(M)sh
+rm 8 ss( \366 \370 \364 \362 \365)sh rmX 8 ss(U)42.666 203.333 s rm 8 ss
+( )sh rmX 8 ss(Y)sh([)42.666 191.333 s rm 8 ss( )sh rmX 8 ss(_)sh
+rm 8 ss( )sh rmX 8 ss(a)sh(e)42.666 179.333 s rm 8 ss(\372 )
+42.666 167.333 s rmX 8 ss(k)sh rm 8 ss( \374 \373 \371 )sh rmX 8 ss(o)sh
+rm 8 ss(\375 \377)42.666 155.333 s rmX 8 ss(z)42.666 143.333 s rm 8 ss( )
+sh rmX 8 ss(~)sh
+pagesave restore showpage
+
+%%Page: 4 4
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 12 ss(No)42.666 503.333 s(w all the special characters by code number)
+-0.3 0 rs rm 10 ss(00a0)42.666 487.333 s rmX 10 ss(\215)sh rm 10 ss
+(00a7  \240 \241 \242 \243 \244 \245 \246 \247)sh rm 8 ss
+(00a8)42.666 475.333 s rmX 8 ss(\215)sh rm 8 ss(00af  \250 \251 \252 \253 \254 \255 \256 \257)
+sh(00b0)42.666 463.333 s rmX 8 ss(\215)sh rm 8 ss(00b7  \260 \261 \262 \263 \264 \265 \266 \267)
+sh(00b8)42.666 451.333 s rmX 8 ss(\215)sh rm 8 ss(00bf  \270 \271 \272 \273 \274 \275 \276 \277)
+sh(00c0)42.666 439.333 s rmX 8 ss(\215)sh rm 8 ss(00c7  )sh
+(\300 )-0.44 0 rs(\301 )-0.44 0 rs(\302 )-0.44 0 rs(\303 )-0.44 0 rs
+(\304 )-0.44 0 rs(\305 \306 \307)-0.44 0 rs(00c8)42.666 427.333 s
+rmX 8 ss(\215)sh rm 8 ss(00cf  \310 \311 \312 \313 \314 \315 \316 \317)
+sh(00d0)42.666 415.333 s rmX 8 ss(\215)sh rm 8 ss(00d7  \320 \321 \322 \323 \324 \325 \326 \327)
+sh(00d8)42.666 403.333 s rmX 8 ss(\215)sh rm 8 ss(00df  \330 \331 \332 \333 \334 )
+sh(\335 \336 \337)-0.72 0 rs(00e0)42.666 391.333 s rmX 8 ss
+(\215)sh rm 8 ss(00e7  \340 \341 \342 \343 \344 \345 \346 \347)sh
+(00e8)42.666 379.333 s rmX 8 ss(\215)sh rm 8 ss(00ef  \350 \351 \352 \353 \354 \355 \356 \357)
+sh(00f0)42.666 367.333 s rmX 8 ss(\215)sh rm 8 ss(00f7  \360 \361 \362 \363 \364 \365 \366 \367)
+sh(00f8)42.666 355.333 s rmX 8 ss(\215)sh rm 8 ss(00f)sh
+(f  \370 \371 \372 \373 \374 \375 \376 \377)-0.2 0 rs
+(0100)42.666 343.333 s rmX 8 ss(\215)sh rm 8 ss(0107  )sh rmX 8 ss
+(\000)-0.44 0 rs rm 8 ss( )sh rmX 8 ss(\001)sh rm 8 ss( )sh rmX 8 ss
+(\002)-0.44 0 rs rm 8 ss( )sh rmX 8 ss(\003)sh rm 8 ss( )sh rmX 8 ss
+(\004)-0.44 0 rs rm 8 ss( )sh rmX 8 ss(\005)sh rm 8 ss( )sh rmX 8 ss(\006)
+sh rm 8 ss( )sh rmX 8 ss(\007)sh rm 8 ss(0108)42.666 331.333 s rmX 8 ss
+(\215)sh rm 8 ss(010f  )sh rmX 8 ss(\010)sh rm 8 ss( )sh rmX 8 ss
+(\011)sh rm 8 ss( )sh rmX 8 ss(\012)sh rm 8 ss( )sh rmX 8 ss(\013)sh
+rm 8 ss( )sh rmX 8 ss(\014)sh rm 8 ss( )sh rmX 8 ss(\015)sh rm 8 ss( )sh
+rmX 8 ss(\016)sh rm 8 ss( )sh rmX 8 ss(\017)sh rm 8 ss
+(0110)42.666 319.333 s rmX 8 ss(\215)sh rm 8 ss(0117  )sh rmX 8 ss
+(\020)sh rm 8 ss( )sh rmX 8 ss(\021)sh rm 8 ss( )sh rmX 8 ss(\022)sh
+rm 8 ss( )sh rmX 8 ss(\023)sh rm 8 ss( )sh rmX 8 ss(\024)sh rm 8 ss( )sh
+rmX 8 ss(\025)sh rm 8 ss( )sh rmX 8 ss(\026)sh rm 8 ss( )sh rmX 8 ss(\027)
+sh rm 8 ss(0118)42.666 307.333 s rmX 8 ss(\215)sh rm 8 ss
+(011f  )sh rmX 8 ss(\030)sh rm 8 ss( )sh rmX 8 ss(\031)sh rm 8 ss
+( )sh rmX 8 ss(\032)sh rm 8 ss( )sh rmX 8 ss(\033)sh rm 8 ss( )sh
+rmX 8 ss(\034)sh rm 8 ss( )sh rmX 8 ss(\035)sh rm 8 ss( )sh rmX 8 ss(\036)
+sh rm 8 ss( )sh rmX 8 ss(\037)sh rm 8 ss(0120)42.666 295.333 s rmX 8 ss
+(\215)sh rm 8 ss(0127  )sh rmX 8 ss( )sh rm 8 ss( )sh rmX 8 ss
+(!)sh rm 8 ss( )sh rmX 8 ss(")sh rm 8 ss( )sh rmX 8 ss(#)sh rm 8 ss
+( )sh rmX 8 ss($)sh rm 8 ss( )sh rmX 8 ss(%)sh rm 8 ss( )sh rmX 8 ss(&)
+sh rm 8 ss( )sh rmX 8 ss(')sh rm 8 ss(0128)42.666 283.333 s rmX 8 ss
+(\215)sh rm 8 ss(012f  )sh rmX 8 ss(\()sh rm 8 ss( )sh rmX 8 ss
+(\))sh rm 8 ss( )sh rmX 8 ss(*)sh rm 8 ss( )sh rmX 8 ss(+)sh rm 8 ss
+( )sh rmX 8 ss(,)sh rm 8 ss( )sh rmX 8 ss(-)sh rm 8 ss( )sh rmX 8 ss(.)
+sh rm 8 ss( )sh rmX 8 ss(/)sh rm 8 ss(0130)42.666 271.333 s rmX 8 ss
+(\215)sh rm 8 ss(0137  )sh rmX 8 ss(0)sh rm 8 ss( )sh rmX 8 ss
+(1)sh rm 8 ss( )sh rmX 8 ss(2)sh rm 8 ss( )sh rmX 8 ss(3)sh rm 8 ss
+( )sh rmX 8 ss(4)sh rm 8 ss( )sh rmX 8 ss(5)sh rm 8 ss( )sh rmX 8 ss(6)
+sh rm 8 ss( )sh rmX 8 ss(7)sh rm 8 ss(0138)42.666 259.333 s rmX 8 ss
+(\215)sh rm 8 ss(013f  )sh rmX 8 ss(8)sh rm 8 ss( )sh rmX 8 ss
+(9)sh rm 8 ss( )sh rmX 8 ss(:)sh rm 8 ss( )sh rmX 8 ss(;)sh rm 8 ss
+( )sh rmX 8 ss(<)sh rm 8 ss( )sh rmX 8 ss(=)sh rm 8 ss( )sh rmX 8 ss(>)
+sh rm 8 ss( )sh rmX 8 ss(?)sh rm 8 ss(0140)42.666 247.333 s rmX 8 ss
+(\215)sh rm 8 ss(0147  )sh rmX 8 ss(@)sh rm 8 ss( )sh rmX 8 ss
+(A)sh rm 8 ss( )sh rmX 8 ss(B)sh rm 8 ss( )sh rmX 8 ss(C)sh rm 8 ss
+( )sh rmX 8 ss(D)sh rm 8 ss( )sh rmX 8 ss(E)sh rm 8 ss( )sh rmX 8 ss(F)
+sh rm 8 ss( )sh rmX 8 ss(G)sh rm 8 ss(0148)42.666 235.333 s rmX 8 ss
+(\215)sh rm 8 ss(014f  )sh rmX 8 ss(H)sh rm 8 ss( )sh rmX 8 ss
+(I)sh rm 8 ss( )sh rmX 8 ss(J)sh rm 8 ss( )sh rmX 8 ss(K)sh rm 8 ss
+( )sh rmX 8 ss(L)sh rm 8 ss( )sh rmX 8 ss(M)sh rm 8 ss( )sh rmX 8 ss(N)
+sh rm 8 ss( )sh rmX 8 ss(O)sh rm 8 ss(0150)42.666 223.333 s rmX 8 ss
+(\215)sh rm 8 ss(0157  )sh rmX 8 ss(P)sh rm 8 ss( )sh rmX 8 ss
+(Q)sh rm 8 ss( )sh rmX 8 ss(R)sh rm 8 ss( )sh rmX 8 ss(S)sh rm 8 ss
+( )sh rmX 8 ss(T)sh rm 8 ss( )sh rmX 8 ss(U)sh rm 8 ss( )sh rmX 8 ss(V)
+sh rm 8 ss( )sh rmX 8 ss(W)sh rm 8 ss(0158)42.666 211.333 s rmX 8 ss
+(\215)sh rm 8 ss(015f  )sh rmX 8 ss(X)sh rm 8 ss( )sh rmX 8 ss
+(Y)sh rm 8 ss( )sh rmX 8 ss(Z)sh rm 8 ss( )sh rmX 8 ss([)sh rm 8 ss
+( )sh rmX 8 ss(\\)sh rm 8 ss( )sh rmX 8 ss(])sh rm 8 ss( )sh rmX 8 ss(^)
+sh rm 8 ss( )sh rmX 8 ss(_)sh rm 8 ss(0160)42.666 199.333 s rmX 8 ss
+(\215)sh rm 8 ss(0167  )sh rmX 8 ss(`)sh rm 8 ss( )sh rmX 8 ss
+(a)sh rm 8 ss( )sh rmX 8 ss(b)sh rm 8 ss( )sh rmX 8 ss(c)sh rm 8 ss
+( )sh rmX 8 ss(d)-0.144 0 rs rm 8 ss( )sh rmX 8 ss(e)sh rm 8 ss( )sh
+rmX 8 ss(f)sh rm 8 ss( )sh rmX 8 ss(g)sh rm 8 ss
+(0168)42.666 187.333 s rmX 8 ss(\215)sh rm 8 ss(016f  )sh rmX 8 ss
+(h)sh rm 8 ss( )sh rmX 8 ss(i)sh rm 8 ss( )sh rmX 8 ss(j)sh rm 8 ss
+( )sh rmX 8 ss(k)sh rm 8 ss( )sh rmX 8 ss(l)sh rm 8 ss( )sh rmX 8 ss(m)
+sh rm 8 ss( )sh rmX 8 ss(n)sh rm 8 ss( )sh rmX 8 ss(o)sh rm 8 ss
+(0170)42.666 175.333 s rmX 8 ss(\215)sh rm 8 ss(0177  )sh rmX 8 ss
+(p)sh rm 8 ss( )sh rmX 8 ss(q)sh rm 8 ss( )sh rmX 8 ss(r)sh rm 8 ss
+( )sh rmX 8 ss(s)sh rm 8 ss( )sh rmX 8 ss(t)sh rm 8 ss( )sh rmX 8 ss(u)
+sh rm 8 ss( )sh rmX 8 ss(v)sh rm 8 ss( )sh rmX 8 ss(w)sh rm 8 ss
+(0178)42.666 163.333 s rmX 8 ss(\215)sh rm 8 ss(017f  )sh rmX 8 ss
+(x)-0.72 0 rs rm 8 ss( )sh rmX 8 ss(y)sh rm 8 ss( )sh rmX 8 ss(z)sh
+rm 8 ss( )sh rmX 8 ss({)sh rm 8 ss( )sh rmX 8 ss(|)sh rm 8 ss( )sh
+rmX 8 ss(})sh rm 8 ss( )sh rmX 8 ss(~)sh rm 8 ss( )sh rmX 8 ss(\177)sh
+pagesave restore showpage
+
+%%Page: 5 5
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 12 ss(These are the remaining Unicode chars in the PS fonts)
+42.666 512.333 s rm 10 ss(0394  )42.666 496.333 s rmX 10 ss(\200)sh
+rm 10 ss(  Delta)sh rm 8 ss(20ac  )42.666 486.333 s rmX 8 ss(\201)sh
+rm 8 ss(  Euro)sh(0218  )42.666 476.333 s rmX 8 ss(\202)sh rm 8 ss
+(  Scommaaccent)sh(021a  )42.666 466.333 s rmX 8 ss(\203)-0.144 0 rs
+rm 8 ss(  )sh(Tcommaaccent)-0.144 0 rs(0306  )42.666 456.333 s rmX 8 ss
+(\204)sh rm 8 ss(  bre)sh(v)-0.2 0 rs(e)-0.12 0 rs(030c  )
+42.666 446.333 s rmX 8 ss(\205)sh rm 8 ss(  caron)sh(0302  )
+42.666 436.333 s rmX 8 ss(\206)sh rm 8 ss(  circumfle)sh(x)-0.12 0 rs
+(0326  )42.666 426.333 s rmX 8 ss(\207)sh rm 8 ss(  commaaccent)sh
+(2020  )42.666 416.333 s rmX 8 ss(\210)sh rm 8 ss(  dagger)sh
+(2021  )42.666 406.333 s rmX 8 ss(\211)sh rm 8 ss(  daggerdbl)sh
+(0307  )42.666 396.333 s rmX 8 ss(\212)sh rm 8 ss(  dotaccent)sh
+(2026  )42.666 386.333 s rmX 8 ss(\213)sh rm 8 ss(  ellipsis)sh
+(2014  )42.666 376.333 s rmX 8 ss(\214)sh rm 8 ss(  emdash)sh
+(2013  )42.666 366.333 s rmX 8 ss(\215)sh rm 8 ss(  endash)sh(fb01  )
+42.666 356.333 s rmX 8 ss(\216)sh rm 8 ss(  )sh rmX 8 ss(\216)sh rm 8 ss
+(fb02  )42.666 346.333 s rmX 8 ss(\217)sh rm 8 ss(  fl)sh(0192  )
+42.666 336.333 s rmX 8 ss(\220)sh rm 8 ss(  florin)sh(2044  )
+42.666 326.333 s rmX 8 ss(\221)sh rm 8 ss(  fraction)sh
+(2265  )42.666 316.333 s rmX 8 ss(\222)sh rm 8 ss(  greaterequal)sh
+(2039  )42.666 306.333 s rmX 8 ss(\223)sh rm 8 ss(  guilsinglleft)sh
+(203a  )42.666 296.333 s rmX 8 ss(\224)sh rm 8 ss(  guilsinglright)sh
+(030b  )42.666 286.333 s rmX 8 ss(\225)sh rm 8 ss(  hungrunlaut)sh
+(2264  )42.666 276.333 s rmX 8 ss(\226)sh rm 8 ss(  lessequal)sh
+(25ca  )42.666 266.333 s rmX 8 ss(\227)sh rm 8 ss(  lozenge)sh
+(2212  )42.666 256.333 s rmX 8 ss(\230)sh rm 8 ss(  minus)sh
+(2260  )42.666 246.333 s rmX 8 ss(\231)sh rm 8 ss(  notequal)sh
+(0328  )42.666 236.333 s rmX 8 ss(\232)sh rm 8 ss(  ogonek)sh
+(2202  )42.666 226.333 s rmX 8 ss(\233)sh rm 8 ss(  partialdif)sh(f)
+-0.2 0 rs(2027  )42.666 216.333 s rmX 8 ss(\234)sh rm 8 ss(  periodcentred)
+sh(2031  )42.666 206.333 s rmX 8 ss(\235)sh rm 8 ss(  perthousand)sh
+(201e  )42.666 196.333 s rmX 8 ss(\236)sh rm 8 ss(  quotedblbase)sh
+(201c  )42.666 186.333 s rmX 8 ss(\237)sh rm 8 ss(  quotedblleft)sh
+(201d  )42.666 176.333 s rmX 8 ss(\240)sh rm 8 ss(  quotedblright)sh
+(2018  )42.666 166.333 s rmX 8 ss(\241)sh rm 8 ss(  quoteleft)sh
+(2019  )42.666 156.333 s rmX 8 ss(\242)sh rm 8 ss(  quoteright)
+-0.592 0 rs(201a  )42.666 146.333 s rmX 8 ss(\243)sh rm 8 ss
+(  quotesinglbase)sh(221a  )42.666 136.333 s rmX 8 ss(\244)sh rm 8 ss
+(  radical)sh(030a  )42.666 126.333 s rmX 8 ss(\245)sh rm 8 ss(  ring)sh
+(0219  )42.666 116.333 s rmX 8 ss(\246)sh rm 8 ss(  scommaaccent)sh
+(2211  )42.666 106.333 s rmX 8 ss(\247)sh rm 8 ss(  summation)sh
+(021b  )42.666 96.333 s rmX 8 ss(\250)sh rm 8 ss(  tcommaaccent)sh
+(0303  )42.666 86.333 s rmX 8 ss(\251)sh rm 8 ss(  tilde)sh
+(2122  )42.666 76.333 s rmX 8 ss(\252)sh rm 8 ss(  trademark)sh(A\244B\244C)
+42.666 66.333 s(A\244B\244C\244D)42.666 58.333 s
+pagesave restore showpage
+
+%%Page: 6 6
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+rm 12 ss(T)42.666 512.333 s(ranslated Unicode code points - Symbol font)
+-0.42 0 rs sy 14 ss( !"#$%&'\(\)*+,-./0123456789:;<)42.666 488.333 s
+(=>?@ABCDEFGH)42.666 464.333 s(IJKLMNOPQRSTUVWXYZ[\\]^_abcde)
+42.666 440.333 s(fghijklmnopqrstuvwxyz)42.666 416.333 s
+({|}~\240\241\242\243\244\245\246\247\250\251\252\253\254\255\256\257\260\261\262\263\264\265\266\267\270)
+42.666 392.333 s(\271\272\273\274\275\276\277\300\301\302\303\304\305\306\307\310\311\312)
+42.666 368.333 s(\313\314\315\316\317\320\321\322\323\324\325\326\327\330\331\332\333\334\335\336)
+42.666 344.333 s(\337\340\341\345\346\347\350\351\352\353\354\355\356\357\361\362\363\364\365\366\367\370\371\372\373\374\375\376)
+42.666 320.333 s rm 12 ss(T)42.666 280.333 s
+(ranslated Unicode code points - PMW)-0.42 0 rs(-Music font)-0.78 0 rs
+mf 12.6 ss(! " # $ % & ' \( \)  * + , - . /)2.744 42.666 250.333 ws(0)
+42.666 210.333 s(1 2 3 5 7 9 @ AC D E J L M N S)42.666 170.333 s
+(T U V W Z [ ^ _c d e g i l m \203)42.666 130.333 s
+(\204 \210 \217 \222 \223 \224 \243 \251\252 \253 \254 \255 \304)
+42.666 90.333 s
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 6

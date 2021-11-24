@@ -1,0 +1,17 @@
+@ Test for gutter setting
+
+heading 20 "This is the first page"
+
+[stave 1 treble 1]
+cdef | gabc' | c'bag | fedc | 
+cdef | gabc' | c'bag | fedc | 
+[endstave]
+
+[newmovement newpage]
+
+heading 20 "This is the second page"
+
+[stave 1 treble 1]
+cdef | gabc' | c'bag | fedc | 
+cdef | gabc' | c'bag | fedc | 
+[endstave]

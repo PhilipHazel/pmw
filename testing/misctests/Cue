@@ -1,0 +1,6 @@
+magnification 1.3
+nocheck
+
+[stave 1 treble 1]
+[cue] A+ g-c-d- A\f\ a` | aa |
+aa [cue] ab-\g\a-\g\a [endcue] aa |

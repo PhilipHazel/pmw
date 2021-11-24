@@ -1,0 +1,14 @@
+magnification 1.3
+nocheck
+justify left top
+
+suspend 2
+
+[stave 1 "1" "1" treble 1]
+[4][newline] A | [newline] A [suspend] |
+[5] R |
+[endstave]
+
+[stave 2 "2" "2" treble 1]
+[3][newline] R |
+[7][newline] A |

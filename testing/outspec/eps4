@@ -1,0 +1,76 @@
+%%BoundingBox: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+595 0 T -1 1 scale
+1.8 dup scale
+%%EndPageSetup
+mf 10 ssr(!)48.655 417.777 s bf 11.8 ssr(4)54.384 425.777 s(4)
+54.384 417.927 s
+%1/1
+mf 10 ssr(5)69.455 421.777 s(5)88.26 423.777 s(=)107.065 411.777 s(5)
+107.065 411.777 s(5)125.87 413.777 s(@)138.076 417.777 s
+%2/1
+(5)151.727 421.777 s(5)170.532 423.777 s(=)189.337 411.777 s(5)
+189.337 411.777 s(5)208.142 413.777 s(@)220.348 417.777 s
+%3/1
+(5)233.999 421.777 s(5)252.804 423.777 s(=)271.609 411.777 s(5)
+271.609 411.777 s(5)290.414 413.777 s(@)302.62 417.777 s
+(FFCCCCCC)295.555 417.777 s (C)302.22 417.777 s
+(!)48.655 373.777 s
+%4/1
+(5)63.555 377.777 s(5)82.822 379.777 s(=)102.09 367.777 s(5)
+102.09 367.777 s(5)121.358 369.777 s(@)134.026 373.777 s
+%5/1
+(5)147.851 377.777 s(5)167.118 379.777 s(=)186.386 367.777 s(5)
+186.386 367.777 s(5)205.654 369.777 s(@)218.322 373.777 s
+%6/1
+(5)232.147 377.777 s(5)251.414 379.777 s(=)270.682 367.777 s(5)
+270.682 367.777 s(5)289.95 369.777 s(@)302.618 373.777 s
+(FFCCCCCC)295.555 373.777 s (C)302.218 373.777 s
+(!)48.655 329.777 s
+%7/1
+(5)63.555 333.777 s(5)82.822 335.777 s(=)102.09 323.777 s(5)
+102.09 323.777 s(5)121.358 325.777 s(@)134.026 329.777 s
+%8/1
+(5)147.851 333.777 s(5)167.118 335.777 s(=)186.386 323.777 s(5)
+186.386 323.777 s(5)205.654 325.777 s(@)218.322 329.777 s
+%9/1
+(5)232.147 333.777 s(5)251.414 335.777 s(=)270.682 323.777 s(5)
+270.682 323.777 s(5)289.95 325.777 s(@)302.618 329.777 s
+(FFCCCCCC)295.555 329.777 s (C)302.218 329.777 s
+(!)48.655 285.777 s
+%10/1
+(5)63.555 289.777 s(5)79.555 291.777 s(=)95.555 279.777 s(5)
+95.555 279.777 s(5)111.555 281.777 s(B)123.055 285.777 s
+(@)119.455 285.777 s
+(CCCCCCCC)115.555 285.777 s (C)122.555 285.777 s
+
+pagesave restore showpage
+
+%%Trailer
+%%BoundingBox: 43.804 456.798 549.001 838.398

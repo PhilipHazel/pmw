@@ -1,0 +1,7 @@
+Testing comment "quotes with @ in them" "abcd
+score
+not part
+undef junk
+def quoted
+not special
+not staves 4-6

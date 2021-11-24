@@ -1,0 +1,130 @@
+Key B$
+Time C
+MIDItempo 80
+Tripletfont italic
+Justify top left right
+
+*define 3a()  [slur/a] {&&1-&&2-&&3-}; [endslur]
+
+[stave 1 treble 2 tripletize]
+[nocount nocheck triplets above nobracket] 
+&3a(/u5 d,e,d) &3a(/u4 c,d,b`) | @0
+[triplets off]
+f.r=d=; &3a(e,f,g) &3a(f,g,e) | d.r=f=; &3a(g,f,g) &3a(e,d,c) | @2
+&3a(f,e,f,) &3a(d,c,b`) &3a(e,f,e) &3a(d,c,d) | @3
+[nocheck] C :) | 
+[endstave]
+
+[stave 2 treble 1 tripletize]
+[nocheck] f-.f=;f-.b= | a-.b=;c'-.d'=; g-.g=;c'-.c'= | @1
+b-.a=;b-.d'=; b.r=c'= | c'.r=f=; g-.f=;f-.b= | @3
+[nocheck] a-.g=f :) | @4
+[endstave]
+
+[stave 3 alto 1 tripletize]
+[nocheck] b`-.b`=; f-.%e= | cf-.f=;$)e-.e=; f-.a= | @1
+f-.e=; f-.f=; e.r=g= | f.r=f=;e-.c=; b`-.f= | @3
+[nocheck] ff`-.a`= :) | @4
+[endstave]
+
+[stave 4 bass 0]
+[tripletize nocheck] b`-.b=; a-.g= | f-.g=; a-.b=; c'-.b=; a-.f= | @1
+b-.c'=; d'-.b= e'.r=e= | d.r=d=; c-.a=; b-.b`= | @3
+[nocheck] f-.e=;d-.c= :) | @4
+[endstave]
+
+
+[newmovement]
+[stave 1 treble 2 triplets off]
+&3a(f,e,f,) &3a(d,c,b`) &3a(e,f,e) &3a(d,c,d) |
+&3a(f,e,f,) &3a(d,c,b`) &3a(e,f,e) &3a(d,c,d) |
+[endstave]
+
+[stave 2 bass 0]
+f-.g=; [tripletize on] a-.b=; c'-.b=; [tripletize off] a-.f= |
+[tripletize] (f-.a-.)(g=b); a-.b=; c'-.b=; a-.f= |
+[endstave]
+
+[newmovement newpage]
+doublenotes
+[stave 1 treble 1]
+a-b-c-d-; a-b-c-d- |
+[endstave]
+
+[newmovement]
+time 8/4
+[stave 1 treble 1]
+abcd; abcd |
+{a-a-a-;} { b-b-b-; } e=e=, e=e= rR+ |
+[endstave]
+
+[newmovement]
+time 8/4
+halvenotes
+[stave 1 treble 1]
+abcd; abcd |
+[endstave]
+
+[newmovement]
+time 4/4
+[stave 1 treble 1 halvenotes]
+abcd; abcd |
+[endstave]
+
+[newmovement]
+time 6/4
+halvenotes
+[stave 1 treble 1 halvenotes]
+abc; abc,abc; abc |
+[time 4/4]
+abcd; abcd |
+[endstave]
+
+[newmovement]
+time 2/4
+[stave 1 treble 1 halvenotes]
+abcd | [doublenotes] ab |
+[endstave]
+
+[stave 2 bass 0]
+ab | [halvenotes] abcd |
+[endstave]
+
+[newmovement]
+key G
+printtime 4/4 "9" "9"
+printkey G treble  "\37\"
+[stave 1 treble 1]
+abcd
+[endstave]
+
+[newmovement]
+key G
+[stave 1 treble 1]
+abcd
+[endstave]
+
+[newmovement]
+key G
+printtime 4/4 "4" "4"
+printkey G treble ""
+[stave 1 treble 1]
+abcd
+[endstave]
+
+[newmovement]
+Printkey G treble "\37\" "\40\"
+Printkey A treble "'x'"
+Key G
+[stave 1 treble 1]
+abcd | [key C] abcd | [key A] abcd | [key C] abcd |
+[key G] abcd | [newline key C] abcd |
+[key A] abcd | [newline key C] abcd |
+[endstave]
+
+[newmovement]
+Printkey C treble  "\37\"
+Printkey Am treble  "'"
+[stave 1 treble 1]
+abcd | [key Am] abcd
+[endstave]

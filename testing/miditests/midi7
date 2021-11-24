@@ -1,0 +1,61 @@
+@midichannel 1 "violin" 1-2
+@midichannel 2 "viola" 3
+@midichannel 3 "cello" 4
+midivolume 8
+
+*define sa()   [slur/a&&1]
+*define sb()   [slur/b&&1]
+*define es     [endslur]
+
+barnumbers boxed line
+bottommargin 10
+stavespacing 40
+notespacing *0.98
+
+Key B$
+Time C
+MIDItempo 80
+
+[stave 0]
+"Dolce"/ts/a/u2
+[endstave]
+
+
+[stave 1 treble 2]
+[nocount nocheck] d=e= | d-d-d-;d=e=; d-d-d-;d- | g-f-e-d-; e-.f=; e-;c=d= | @2
+e-e-e-; c=d=; e-e-e-; d=c= | d-.%e=; e-.\tr\d=-e=-f. :)(: a`=b`= | @4
+c-c-d-c-; r-e-d-c- | r-d-c-e-; d-c-f_ | f-;f`=g`=; a`=b`=c-; d-c-e_ | @7
+e-d-; b`-a`=\tr\g`=; g`r-g`=a`= | b`-x2; g`=a`=; b`-x2; d- | @9
+
+c-b`=_a`=; b`=d=c=b`=; a`=b`=a`=g`=; f`-; d=e= | @10
+d-d-d-; d=e=; d-d-d-;d- | g-f-e-d-; e-.f=; e-;c=d= | @12
+e-e-e-; c=d=; e-e-e-; &sa d=-e=-f= &es | @13
+[nocheck] d-\tr\c=b`=; f`-a`-b`. :) | @14
+[endstave]
+
+
+[stave 2 treble 1]
+[nocheck] f- | br-b-br-b- | e'-d'-c'-%b-; c'-.d'=; c'-g- | @2
+c'r-$)b-ar-c'- | b-b=a=; g-a=b=; a. :)(: f=g= | @4
+a-a-b-a-; r-c'-b-a- | r-b-a-c'-; b-a-;r-b- | c'r-c'-; b-a-; r-g- | @7
+a-b=_g=; g-#f-; d-c-b`-d- | gr-f-%er-f- | f-f-f-%e- fr-f- | @10
+br-b-br-b- | e'-d'-c'-%b-; c'-.d'=; c'-g- | @12
+c'r-$)b-ar-c'- | [nocheck] b-g-f-f-f. :) | @14
+[endstave]
+
+
+[stave 3 alto 1]
+[nocheck]b`- | fr-f-gr-g- | g-$a-g-g-; x4 | fr-g-cr-f- | @3
+f-g-g-c-c. :)(: r- | frfr | frfr-b`- | fr-f-; f-f-;r-c- | @7
+c-g`-d-d-; b`-a`-g`-b`- | cr-d-g`r-b`- | c-d-d-%e-; c-a`-a`-b`- | @10
+fr-f-gr-g- | g-$a-g-g-; x4 | fr-g-cr-f- | [nocheck] f-g-; a`-c-d. :) | @14
+[endstave]
+
+
+[stave 4 bass 0]
+[nocheck] b`- | br-a-gr-f- | e-f-g-;g`-; c-g-c'-b- | ar-g-fr-a- | @3
+b-g-c'-c-f. :)(: r- | f`rfr | f`rfr-g- | ar-a-; b-f-; r-c'- | @7
+#f-g-; d-d`-; g`-d-g-%f- | %er-d-cr-b`- | @9
+a`-d-g`-c-; f`-;f=e=; d=c=b`- | br-a-gr-f- | e-f-g-;g`-; c-g-c'-b- | @10
+ar-g-fr-a- | [nocheck] b-e-; f-f`-b`. :) | @14
+[endstave]

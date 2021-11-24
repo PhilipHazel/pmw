@@ -1,0 +1,139 @@
+nocheck
+
+*define 8va "macro name starts with digit"
+
+[stave 1 treble 1]
+&8va/a/u4
+g-a-f-e-d-c-; c-d-e-f-a-g-; c-d-e-f-g-g-; c-d-e-f-f-g-; |
+c'-b-e'-f'-g'-a'-; a'-g'-f'-e'-b-c'-; a'-g'-f'-e'-c'-c'-; a'-g'-f'-e'-d'-c'- |
+c-\sd\r-r-c'-; c-\su\r-r-c'- |
+
+g=-g=-g=-,2 g=-g=-g=- |
+g=-,2 g=-g=-g=-g=-g=- |
+g=-g=-g=-g=-g=-,2 g=- |
+g=-g=-g=-, g=-g=-g=- |
+g=-,g=-g=-g=-g=-g=- |
+g=-g=-g=-g=-g=-,g=- |
+g=-g=-g=-,3 g=-g=-g=- |
+g=-a=-b=-,0 e'=-f'=-g'=- |
+g=-\sd\a=-b=-; e'=-f'=-g'=- |
+g=-a=-b=-,1 e'=-f'=-g'=- |
+[\.\] g (gbd') (g\x\bd')
+[endstave]
+
+[newmovement]
+nocheck
+
+textsizes 10, 15
+
+draw test1
+ 0 -20 moveto
+ 123.4 ""/s2/rot20/c cvs show
+enddraw 
+
+draw test2
+ 0 -15 moveto
+ barnumber ""/ring cvs show
+enddraw   
+
+draw test3
+ 0 8 moveto
+ barnumber ""/rot90 cvs show
+enddraw   
+
+draw test4
+ 0 stavespace 16 sub 2 div 3 add neg moveto
+ barnumber ""/box cvs show
+enddraw   
+
+draw test5
+  0 0 moveto "page " show pagenumber ""/s2 cvs show
+  "       " show "abc\*u*u*u\de width = " dup stringwidth 3 -1 roll show
+  exch "" cvs show " height = " show "" cvs show
+  "       " show "abcde width = "/rot20 dup stringwidth 3 -1 roll show
+  exch "" cvs show "  height = "/rot20 show "" cvs show
+enddraw
+
+draw test6
+  0 -15 moveto
+  dup fontsize exch show "" cvs show
+enddraw     
+
+draw test7
+  0 -15 moveto
+  ">" show false not { "text" show } if
+  "< " show 0 -10 rmoveto  
+  true {barnumber 1 eq { "text 2" show}{ "text 3" show} ifelse } if
+  0 -10 rmoveto " end" show  
+enddraw   
+
+draw test8
+  0 exch moveto
+  2 copy exch "" cvs show " " show "" cvs show " " show 
+  2 copy eq {"eq "}{"not eq "} ifelse show 
+  2 copy ne {"ne "}{"not ne "} ifelse show 
+  2 copy ge {"ge "}{"not ge "} ifelse show 
+  2 copy gt {"gt "}{"not gt "} ifelse show 
+  2 copy le {"le "}{"not le "} ifelse show 
+  2 copy lt {"lt "}{"not lt "} ifelse show 
+enddraw
+
+draw test9
+  0 exch moveto
+  2 copy exch "" cvs show " " show "" cvs show " " show 
+  2 copy and {"true "}{"false "} ifelse show  
+  2 copy or  {"true "}{"false "} ifelse show  
+  2 copy xor {"true "}{"false "} ifelse show  
+enddraw
+
+draw test10
+  0 -15 moveto
+  5 {"a" show} repeat
+  0 -25 moveto
+  0 {"b" show 1 add dup 4 gt {exit}if} loop
+  " " show "" cvs show 
+enddraw   
+
+heading draw test2 40
+heading draw test5 40
+footing draw test2
+
+
+[stave 1 "   " draw test3 "   " draw test3 treble 1]
+[nocount] [draw test2] G+ |
+[draw test1] G+ [draw test2] G+ |
+[draw test2] G+ |
+[nocount] [draw test2] G+ |
+[nocount] [draw test2] G+ |
+[draw test2] G+ |
+[newline]
+[draw test2] G+ |
+[draw test2] G+ |
+[endstave]
+
+[newmovement]
+bracket brace 1-2
+[stave 1 " " draw test4 treble 1]
+G+ |
+[endstave]
+
+[stave 2 bass 0]
+[draw "one "/s1 test6] G+ |
+[draw "two "/s2 test6] G+ |
+[endstave]
+
+
+[newmovement]
+[stave 1 treble 1]
+[2] [draw test7] G+ |
+[draw 5 5 -15 test8] G+ |
+[draw 5 6 -25 test8] G+ |
+[draw 51.5 6 -35 test8] G+ |
+[draw 0 0 -15 test9] G+ |
+[draw 0 1 -25 test9] G+ |
+[draw 1 0 -15 test9] G+ |
+[draw 1 1 -25 test9] G+ [sghere +20] |
+[newline]
+[draw test10] G+ |
+
+

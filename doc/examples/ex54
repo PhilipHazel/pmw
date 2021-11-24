@@ -1,0 +1,18 @@
+justify top left
+codemultirests
+nocheck
+notime
+unfinished
+
+[stave 1 noclef 1]
+[space -10] q |
+""[2]R! |
+""[3]R! | 
+""[4]R! | 
+""[5]R! | 
+""[6]R! | 
+""[7]R! | 
+""[8]R! | 
+""[9]R! |
+[space -8] q |?
+[endstave]

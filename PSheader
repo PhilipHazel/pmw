@@ -1,0 +1,372 @@
+%%Header file for PMW PostScript output
+% Last modified for Acorn version: 23 February 1997
+% Last modified for Linux version: 28 August 2003
+% Re-jigged for Unicode and more than 256 chars per font support: August 2005
+% Added extra functions for right-to-left printing: January 2009
+% Added function for drawing staves: January 2012
+% Made top comment above a %% comment: January 2012
+% Updated for remaining Latin Extended-A characters: December 2013
+
+
+% For fonts that use Adobe's standard encoding (that is, normal text fonts),
+% we are going to bind each font twice, to give us 512 characters to play with.
+% This is sufficient to encode all existing characters in the normal fonts.
+
+% Here are the two encoding vectors. The first 256 characters are encoded with
+% the Unicode encoding.
+
+/LowerEncoding 256 array def
+LowerEncoding 0 [
+% 00 - 0F
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+% 10 - 1F
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+% 20 - 2F
+/space/exclam/quotedbl/numbersign
+/dollar/percent/ampersand/quotesingle
+/parenleft/parenright/asterisk/plus
+/comma/hyphen/period/slash
+% 30 - 3F
+/zero/one/two/three
+/four/five/six/seven
+/eight/nine/colon/semicolon
+/less/equal/greater/question
+% 40 - 4F
+/at/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O
+% 50 - 5F
+/P/Q/R/S/T/U/V/W/X/Y/Z/bracketleft
+/backslash/bracketright/asciicircum/underscore
+% 60 - 6F
+/grave/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o
+% 70 - 7F
+/p/q/r/s/t/u/v/w/x/y/z/braceleft
+/bar/braceright/asciitilde/currency
+% 80 - 8F
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+% 90 - 9F
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+/currency/currency/currency/currency
+% A0 - AF
+/space/exclamdown/cent/sterling
+/currency/yen/brokenbar/section
+/dieresis/copyright/ordfeminine/guillemotleft
+/logicalnot/hyphen/registered/macron
+% B0 - BF
+/degree/plusminus/twosuperior/threesuperior
+/acute/mu/paragraph/bullet
+/cedilla/onesuperior/ordmasculine/guillemotright
+/onequarter/onehalf/threequarters/questiondown
+% C0 - CF
+/Agrave/Aacute/Acircumflex/Atilde
+/Adieresis/Aring/AE/Ccedilla
+/Egrave/Eacute/Ecircumflex/Edieresis
+/Igrave/Iacute/Icircumflex/Idieresis
+% D0 - DF
+/Eth/Ntilde/Ograve/Oacute
+/Ocircumflex/Otilde/Odieresis/multiply
+/Oslash/Ugrave/Uacute/Ucircumflex
+/Udieresis/Yacute/Thorn/germandbls
+% E0 - EF
+/agrave/aacute/acircumflex/atilde
+/adieresis/aring/ae/ccedilla
+/egrave/eacute/ecircumflex/edieresis
+/igrave/iacute/icircumflex/idieresis
+% F0 - FF
+/eth/ntilde/ograve/oacute
+/ocircumflex/otilde/odieresis/divide
+/oslash/ugrave/uacute/ucircumflex
+/udieresis/yacute/thorn/ydieresis
+]putinterval
+
+% The next encoding vector uses Unicode for the first 128 characters (Latin
+% Extended-A). Not all of these characters are in older Adobe-encoded fonts.
+% The remaining code points in the vector are used arbitrarily for the
+% remaining Adobe standardly encoded characters. This latter part of the
+% encoding must be kept in step with the appropriate table in the code.
+
+/UpperEncoding 256 array def
+UpperEncoding 0 [
+% 100 - 10F
+/Amacron/amacron/Abreve/abreve
+/Aogonek/aogonek/Cacute/cacute
+/Ccircumflex/ccircumflex/Cdotaccent/cdotaccent
+/Ccaron/ccaron/Dcaron/dcaron
+% 110 - 11F
+/Dcroat/dcroat/Emacron/emacron
+/Ebreve/ebreve/Edotaccent/edotaccent
+/Eogonek/eogonek/Ecaron/ecaron
+/Gcircumflex/gcircumflex/Gbreve/gbreve
+% 120 - 12F
+/Gdotaccent/gdotaccent/Gcommaaccent/gcommaaccent
+/Hcircumflex/hcircumflex/Hbar/hbar
+/Itilde/itilde/Imacron/imacron
+/Ibreve/ibreve/Iogonek/iogonek
+% 130 - 13f
+/Idotaccent/dotlessi/IJ/ij
+/Jcircumflex/jcircumflex/Kcommaaccent/kcommaaccent
+/kgreenlandic/Lacute/lacute/Lcommaaccent
+/lcommaaccent/Lcaron/lcaron/Ldot
+% 140 - 14F
+/ldot/Lslash/lslash/Nacute
+/nacute/Ncommaaccent/ncommaaccent/Ncaron
+/ncaron/napostrophe/Eng/eng
+/Omacron/omacron/Obreve/obreve
+% 150 - 15F
+/Ohungarumlaut/ohungarumlaut/OE/oe
+/Racute/racute/Rcommaaccent/rcommaaccent
+/Rcaron/rcaron/Sacute/sacute
+/Scircumflex/scircumflex/Scedilla/scedilla
+% 160 - 16F
+/Scaron/scaron/Tcedilla/tcedilla
+/Tcaron/tcaron/Tbar/tbar
+/Utilde/utilde/Umacron/umacron
+/Ubreve/ubreve/Uring/uring
+% 170 - 17F
+/Uhungarumlaut/uhungarumlaut/Uogonek/uogonek
+/Wcircumflex/wcircumflex/Ycircumflex/ycircumflex
+/Ydieresis/Zacute/zacute/Zdotaccent
+/zdotaccent/Zcaron/zcaron/longs
+
+% --------------------------------------------------------------------
+% These are the remaining characters in the Adobe standard encoding,
+% in alphabetic order (seems as good as any other).
+% --------------------------------------------------------------------
+% 180 - 18F
+/Delta/Euro/Scommaaccent/Tcommaaccent
+/breve/caron/circumflex/commaaccent
+/dagger/daggerdbl/dotaccent/ellipsis
+/emdash/endash/fi/fl
+% 190 - 19F
+/florin/fraction/greaterequal/guilsinglleft
+/guilsinglright/hungarumlaut/lessequal/lozenge
+/minus/notequal/ogonek/partialdiff
+/periodcentered/perthousand/quotedblbase/quotedblleft
+% 1A0 - 1AF
+/quotedblright/quoteleft/quoteright/quotesinglbase
+/radical/ring/scommaaccent/summation
+/tcommaaccent/tilde/trademark/infinity
+]putinterval
+
+
+% Straightforward abbreviations
+
+/F/fill load def
+/GS/gsave load def
+/GR/grestore load def
+/Mt/moveto load def/Lt/lineto load def
+/R/rotate load def
+/Rl/rlineto load def/Rm/rmoveto load def
+/Ct/curveto load def/Rc/rcurveto load def
+/S/stroke load def
+/Slw/setlinewidth load def
+/Slc/setlinecap load def
+/Slj/setlinejoin load def
+/Sg/setgray load def
+/Sd/setdash load def
+/T/translate load def
+
+% Additional control values for slurs: normally zero
+/clx 0 def/cly 0 def/crx 0 def/cry 0 def
+
+% For EPS files we must define *all* variables before defining the
+% procedures (PRM p. 715) in case they are previously defined.
+
+%EPS /u 0 def /v 0 def /w 0 def /x 0 def /y 0 def /z 0 def
+%EPS /x0 0 def /x1 0 def /x2 0 def /y0 0 def /y1 0 def /y2 0 def
+%EPS /t1 0 def /t2 0 def /t 0 def /gg 0 def /newfont 0 def
+%EPS /a 0 def /b 0 def /c 0 def
+
+
+% Routine to find a font and re-encode it if it has the standard encoding.
+% On the stack we should have two names, for the two differently encoded
+% versions of the font. When the font is not re-encoded, the two will end up
+% the same. Following the two names is the font name.
+
+% We find the font first, and then look to see if it's in the directory,
+% to cope with the case of loading from an auxiliary store.
+
+/inf{dup dup findfont 3 1 roll FontDirectory exch known {pop}{(**** Font ")print
+100 string cvs print (" is not loaded ****\r\n)print stop}ifelse
+
+% At this point we have on the stack the two names, followed by the font.
+% Duplicate it, and test to see whether it uses the Adobe Standard encoding.
+
+dup dup/Encoding get StandardEncoding eq
+
+% If the result is true, we obey the following.
+
+% Find the maximum length of the font's dictionary, and make two new 
+% dictionaries of the same length.
+
+{maxlength dup dict/newfont0 exch def dict/newfont1 exch def
+
+% Copy the original font into the two new ones, ommitting only the FID.
+
+dup
+{1 index/FID eq{pop pop}{newfont0 3 1 roll put}ifelse}forall
+{1 index/FID eq{pop pop}{newfont1 3 1 roll put}ifelse}forall
+
+% Now set up the two new encodings and define the names.
+
+newfont1/Encoding UpperEncoding put dup newfont1 definefont def
+newfont0/Encoding LowerEncoding put dup newfont0 definefont def
+}
+
+% If the font does not use the Standard Encoding, we set both names to
+% the unmodified font.
+
+{3 1 roll def def}ifelse
+
+}bind def
+
+
+% Font selection
+/ss{scalefont setfont}bind def
+
+% Transformed font selection
+/sm{makefont setfont}bind def
+
+% Reversed font selections
+/ssr{scalefont [-1 0 0 1 0 0] makefont setfont}bind def
+/smr{makefont [-1 0 0 1 0 0] makefont setfont}bind def
+
+% Print deep bar line: char-height, ybot, char, x, ytop
+/b{/y exch def/x exch def/w exch def/z exch def/v exch def
+{x y Mt w show
+y z gt{/y y v sub def y z lt{/y z def}if}
+{exit}ifelse}loop}bind def
+
+% Print brace: scale, x, ymid
+/br{gsave translate dup 0.11 gt {0.11}{dup 2.0 div 0.055 add}ifelse
+exch scale 2{0.0 0.0 Mt 100.0 20.0 -50.0 245.0 60.0 260.0
+curveto -50.0 245.0 60.0 20.0 0.0 0.0
+curveto fill 1.0 -1.0 scale}repeat grestore}bind def
+
+% Print alternate brace: scale, x, ymid
+/br2{gsave translate dup 0.11 gt {0.11}{dup 2.0 div 0.055 add}ifelse
+exch scale 2{0.0 0.0 Mt 95.0 40.0 -43.0 218.0 37.0 256.0
+curveto -59.0 219.0 66.0 34.0 0.0 0.0
+curveto fill 1.0 -1.0 scale}repeat grestore}bind def
+
+% Coordinate setup for slurs: x0 y0 x1 y1 "depth"
+/cc{/u exch def/y1 exch def/x1 exch def/y0 exch def/x0 exch def
+/w y1 y0 sub dup mul x1 x0 sub dup mul add sqrt 2 div def
+/v w 2 mul 3 div dup 10 gt {pop 10} if def
+x0 x1 add 2.0 div y0 y1 add 2.0 div translate
+y1 y0 sub x1 x0 sub atan rotate}bind def
+
+% Set up additional control for slurs: clx cly crx cry
+/cA{/cry exch def/crx exch def/cly exch def/clx exch def}bind def
+
+% Draw ordinary slur or tie in preset coordinate system
+/cd{w neg 0.05 moveto v w sub clx add u cly add w v sub crx add u cry add
+w 0.05 curveto w -0.05 lineto w v sub crx add u cry add 1 sub v w sub clx add
+u cly add 1 sub w neg -0.05 curveto closepath fill}bind def
+
+% Print tie or ordinary slur
+/cv{gsave cc cd grestore}bind def
+
+% Draw wiggly ordinary slur in preset coordinate system
+/cwd{w neg 0.05 moveto v w sub clx add u cly add w v sub crx add cry u sub
+w 0.05 curveto w -0.05 lineto w v sub crx add cry u sub 1 sub v w sub clx add
+u cly add 1 sub w neg -0.05 curveto closepath fill}bind def
+
+% Print wiggly ordinary slur
+/cvw{gsave cc cwd grestore}bind def
+
+% Print editorial marking on slur; trivial when the y control point movements
+% are equal; very messy otherwise. On stack: length-adjust, wiggle value (1, -1)
+/cem{dup 1 eq cly cry eq and{pop 0 u cly add 0.75 mul /t2 0 def}
+{/x1 v w sub clx add def /x2 w v sub crx add def
+/y1 u cly add def u mul cry add /y2 exch def
+
+/t 0.5 def
+
+% Put x value on stack; dx value in /t1
+/a 2 w mul x1 x2 sub 3 mul add def
+/b x2 2 x1 mul sub w sub 3 mul def
+/c x1 w add 3 mul def 
+a t mul b add t mul c add t mul w sub
+/t1 a 3 mul t mul b 2 mul add t mul c add def
+
+% Put y value on stack; dy value in /t2
+/a y1 y2 sub 3 mul def
+/b 3 y2 mul 6 y1 mul sub def
+/c 3 y1 mul def
+a t mul b add t mul c add t mul
+/t2 a 3 mul t mul b 2 mul add t mul c add def
+}ifelse 
+translate t2 0 ne {t2 t1 atan rotate} if
+0 2 moveto 4 add neg 0 exch rlineto 0.4 Slw stroke}bind def
+
+% Print editorial slur
+/cve{gsave cc cd 0.8 1 cem grestore}bind def
+
+% Print wiggly editorial slur
+/cvwe{gsave cc cwd 0.8 -1 cem grestore}bind def
+
+% Print straight dashed line: x1 y1 x0 y0 width [dash1 dash2]
+% Do some device-specific stuff on the width, as this is used
+% for dotted bar lines, which must all look the same width.
+/dl{gsave 0 Sd 0 dtransform exch floor exch idtransform pop
+Slw Mt Lt stroke grestore}bind def
+
+% Print system bracket: x, ytop, ybot
+/k{/y1 exch def/y2 exch def/x exch def
+currentfont mf
+y2 y1 sub dup 16 gt {pop 16}if 
+dup 1 sub /y exch def
+dup y2 exch sub /y2 exch def
+16 div 10 mul ss
+x y2 Mt
+(\260) show
+{/y2 y2 y sub def 
+y2 y1 le {exit}if x y2 Mt (B)show}loop
+x y1 Mt (\261)show
+setfont}bind def
+
+% Print straight line: x1 y1 x0 y0 width
+/l{Slw Mt Lt stroke}bind def
+
+% Print sequence of straight lines: xn yn ... count x0 y0 width
+/ll{Slw Mt 1 1 3 -1 roll{pop Lt}for stroke}bind def
+
+% Print beam: z x1 y1 x0 y0
+/m{/y0 exch def/x0 exch def/y1 exch def/x1 exch def/z exch def
+x0 y0 Mt x1 y1 Lt x1 y1 z add Lt x0 y0 z add Lt fill}bind def
+
+% Print string relative to current point: string x y
+/rs{rmoveto show}bind def
+
+% Print string: string x y
+/s{moveto show}bind def
+
+% Print string at current point: string
+/sh{show}bind def
+
+% Print string relative to current point, widening spaces: string w x y
+/wrs{rmoveto 0 32 4 -1 roll widthshow}bind def
+
+% Print string, widening spaces: string w x y
+/ws{moveto 0 32 4 -1 roll widthshow}bind def
+
+% Print string at current point, widening spaces: string w
+/wsh{0 32 4 -1 roll widthshow}bind def
+
+% Print a stave: x y w t g n
+/ST{/n exch def/g exch def/t exch def/w exch def/y exch def/x exch def
+1 1 n {pop x y transform round exch round exch itransform Mt 
+w 0 Rl y g add /y exch def}for t Slw S}bind def
+
+% End of PostScript header for PMW

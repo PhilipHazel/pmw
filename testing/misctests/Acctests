@@ -1,0 +1,57 @@
+heading ""
+nocheck
+time 3/4
+notime
+notespacing *2
+
+[staff 1 treble 1]
+#g ##g $g $$g %g |
+#)g ##)g $)g $$)g %)g |
+#]g ##]g $]g $$]g %]g |
+#g_/g #g' #<g_/g #<g' |
+
+(#c#d) (#c#e) (#c#f) (#c#g) (#c#a) (#c#b)|
+(##c##d) (##c##e) (##c##f) (##c##g) (##c##a) (##c##b)|
+($c$d) ($c$e) ($c$f) ($c$g) ($c$a) ($c$b)|
+(%c%d) (%c%e) (%c%f) (%c%g) (%c%a) (%c%b)|
+($$c$$d) ($$c$$e) ($$c$$f) ($$c$$g) ($$c$$a) ($$c$$b)|
+
+(#c$d) (#c$e) (#c$f) (#c$g) (#c$a) (#c$b)|
+($c#d) ($c#e) ($c#f) ($c#g) ($c#a) ($c#b)|
+
+(#c%d) (#c%e) (#c%f) (#c%g) (#c%a) (#c%b)|
+($c%d) ($c%e) ($c%f) ($c%g) ($c%a) ($c%b)|
+(%c#d) (%c#e) (%c#f) (%c#g) (%c#a) (%c#b)|
+(%c$d) (%c$e) (%c$f) (%c$g) (%c$a) (%c$b)|
+
+(##c#d) (##c#e) (##c#f) (##c#g) (##c#a) (##c#b)|
+(##c$d) (##c$e) (##c$f) (##c$g) (##c$a) (##c$b)|
+
+(#c##d) (#c##e) (#c##f) (#c##g) (#c##a) (#c##b)|
+($c##d) ($c##e) ($c##f) ($c##g) ($c##a) ($c##b)|
+
+
+($c\sd\$g$f$c')($b`\sd\$g$f$c')($a`\sd\$g$f$c') |
+($c\sd\g$f$c')($b`\sd\g$f$c')($a`\sd\g$f$c') |
+
+(%c\sd\%g%f%c')(%b`\sd\%g%f%c')(%a`\sd\%g%f%c') |
+(%c\sd\g%f%c')(%b`\sd\g%f%c')(%a`\sd\g%f%c') |
+
+(#c\sd\#g#f#c')(#b`\sd\#g#f#c')(#a`\sd\#g#f#c') |
+(#c\sd\g#f#c')(#b`\sd\g#f#c')(#a`\sd\g#f#c') |
+
+(##c\sd\##g##f##c')(##b`\sd\##g##f##c')(##a`\sd\##g##f##c') |
+(##c\sd\g##f##c')(##b`\sd\g##f##c')(##a`\sd\g##f##c') |
+
+($$c\sd\$$g$$f$$c')($$b`\sd\$$g$$f$$c')($$a`\sd\$$g$$f$$c') |
+($$c\sd\g$$f$$c')($$b`\sd\g$$f$$c')($$a`\sd\g$$f$$c') |
+
+(#F%A#C') (%A%D'#F') | (#F%A$E') (#FA#C'#F') |
+(#F$G$B)  (%F$GD'%F') | (%F$A$B) (#FA$E'#F') |
+
+(#F#A#C'#F') (%F$A$D'$G') | (#D#G#D'#F') ($A`$E%C'$A')|
+(%G$B%C'$E') (%G$B$D'$E') | (%E%G%B%D'%E') ($D%F$A%C'$E') |
+
+(#D#F%B#D'#F') (%G$B$D'$E'%G') |
+
+($D%F$A$D'%F'$A')

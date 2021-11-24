@@ -1,0 +1,39 @@
+@barlines
+
+stavesizes 1/1 2/1.25 3/0.85
+breakbarlines 2 3 
+barlinesize 1
+stavespacing 2/20
+
+[staff 1 treble 1]
+g g g g ||
+g g g g |[endstaff]
+
+[staff 2 treble 1]
+g g g g ||
+g g g g |[endstaff]
+
+[staff 3/1
+noclef 1]
+b b b b ||
+b b b b |[endstaff]
+
+[newmovement]
+nocheck
+
+[stave 1 treble 1]
+r-d'\g\c'-b\g\a- |
+r-d'\g\c'- c'-\g\b-\g\ a- |
+r-d'\g\c'- c'-\g\b-\g\ r- |
+r-d'-\g\c'- c'-\g\b-\g\ r- [bass 0] |
+(g`\su\g)_/b g`-;
+g`-_/b (g`\su\g)
+(g\su\g`)_/b g`-
+(gg`)_/b g`-
+(g\sd\g`)_/b g`-
+(g\sd\g`)_/b g-
+(gg`)_/b g- |
+(gcg`)_/b c- |
+[endstave]
+
+

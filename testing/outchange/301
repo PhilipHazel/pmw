@@ -1,0 +1,62 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+mf 10 ss(!)42.666 469.333 s bf 11.8 ss(4)55.666 477.333 s(4)
+55.666 469.483 s
+%1/1
+-1.297 145.941 513.202 73.661 495.205 m
+-1.297 145.941 511.102 73.661 493.105 m
+-1.297 145.941 509.002 73.661 491.005 m mf 7 ss(J)69.566 484.061 s(JL)
+69.566 483.933 s(J)77.566 486.053 s(JL)77.566 485.933 s(=)
+85.566 487.933 s(J)85.566 488.045 s(JL)85.566 487.933 s(=)
+93.566 487.933 s(J)93.566 490.037 s(JL)93.566 489.933 s(=)
+101.566 487.933 s(=)101.566 491.933 s(J)101.566 492.029 s(JL)
+101.566 491.933 s(=)109.566 487.933 s(=)109.566 491.933 s(J)
+109.566 494.021 s(JL)109.566 493.933 s(=)117.566 487.933 s(=)
+117.566 491.933 s(=)117.566 495.933 s(J)117.566 496.013 s(JL)
+117.566 495.933 s(=)125.566 487.933 s(=)125.566 491.933 s(=)
+125.566 495.933 s(J)125.566 498.005 s(JL)125.566 497.933 s(=)
+133.566 487.933 s(=)133.566 491.933 s(=)133.566 495.933 s(=)
+133.566 499.933 s(J)133.566 499.997 s(JL)133.566 499.933 s(=)
+141.566 487.933 s(=)141.566 491.933 s(=)141.566 495.933 s(=)
+141.566 499.933 s(J)141.566 501.989 s(JL)141.566 501.933 s mf 10 ss
+(=x=x=x=x=)149.566 487.333 s(HKxx~K)149.566 489.333 s(KL)
+149.566 503.333 s(@)161.566 469.333 s
+%2/1
+(5)167.566 471.333 s(5)183.566 471.333 s(5)199.566 471.333 s(5)
+215.566 471.333 s 221.566 466.833 167.566 461.333 1 l
+221.566 455.833 167.566 461.333 1 l(@)231.566 469.333 s
+(FCCCCCCCC)42.666 469.333 s (C)221.566 469.333 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

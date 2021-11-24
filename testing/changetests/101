@@ -1,0 +1,33 @@
+@ Changes made from 1.00 to 1.01
+
+nocheck
+magnification 1.5
+
+[stave 1 "title" treble 1 text underlay]
+"some text"/a/bar
+"the cat=" ggg |
+[newline]
+"sat on=" ggg |
+[newline]
+"= the mat" ggg | [\.\] grg [\\] [bass 0] | (#F'E'D'B) |
+{11 ggggggggggg} [treble 1] | (f%b$b)  [slur/rd20/2/ru20] gg |
+[newline]
+gg [es] (cfg)_ "that slur is meant to droop!"/a |
+[newline]
+(ceg) | (f-c'-)(f-\!>\g-); q g\!>d\ f'\-\_g' |
+
+@ Must be at end
+G_ |  |
+[endstave]
+
+[newmovement]
+stavesizes 1/0.8 2/0.8
+
+[stave 1 treble 1 couple down]
+g=a=b-; d''=-$d''=-c''=-$b'=-a'=-#g'=-#f'=-%f'=-e'=- |
+c'-g-e-c-g`-e`-c`-; c'-\sd\g-g`-\sw\e`-c`-
+[endstave]
+
+[stave 2 bass 0]
+[endstave]
+

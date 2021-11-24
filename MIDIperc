@@ -1,0 +1,89 @@
+# This file contains translations between names and MIDI "pitches"
+# for untuned percussion voices. Lines that begin with #, and blank
+# lines, are ignored.
+
+# The default file supplied with PMS contains associations that
+# correspond to the General MIDI specification.
+
+# Lines must begin with three digits, followed by a space, and then
+# the instrument name, without any trailing spaces.
+
+
+
+# The following appear on the Yamaha TG100:
+
+029 scratch push
+030 scratch pull
+031 stick
+032 click noise
+033 metronome click
+034 metronome bell
+
+# General MIDI:
+
+035 acoustic bass drum
+036 bass drum 1
+037 side stick
+038 acoustic snare
+039 hand clap
+040 electric snare
+041 low floor tom
+042 closed hi hat
+043 high floor tom
+044 pedal hi hat
+045 low tom
+046 open hi hat
+047 low mid tom
+048 hi mid tom
+049 crash cymbal 1
+050 high tom
+051 ride cymbal 1
+052 chinese cymbal
+053 ride bell
+054 tambourine
+055 splash cymbal
+056 cowbell
+057 crash cymbal 2
+058 vibraslap
+059 ride cymbal 2
+060 hi bongo
+061 low bongo
+062 mute hi conga
+063 open hi conga
+064 low conga
+065 high timbale
+066 low timable
+067 high agogo
+068 low agogo
+069 cabasa
+070 maracas
+071 short whistle
+072 long whistle
+073 short guiro
+074 long guiro
+075 claves
+076 hi wood block
+077 low wood block
+078 mute cuica
+079 open cuica
+080 mute triangle
+081 open triangle
+
+# The following are not listed as General Midi but are on the
+# Casio CTK-650 keyboard (names invented):
+
+082 shake
+083 morris bells
+084 drumsticks
+085 short disc wipe
+086 double disc wipe
+087 long disc wipe
+
+# The following are on the Yamaha TG100:
+
+082 shaker
+085 castanets
+086 taiko-drum high
+087 taiko-drum low
+
+# End of MIDI names file.

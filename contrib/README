@@ -1,0 +1,42 @@
+The files in this directory are contributed examples of how to do certain 
+things in PMW. Each contains some explanatory comments.
+
+Brackets
+  Some draw functions for bracketing notes and noteheads.
+
+Circles
+  A draw function for drawing a circle, and another for using this to encircle
+  noteheads. There is a small demonstration.
+
+CropMarks
+  Draw functions for drawing crop marks.
+
+FigBass
+  Macros for convenient handling of figured bass notation.
+
+HandBells
+  Some functions for drawing handbell signs.
+
+MacroCollection  
+  Macros that are described in the manual.
+  
+RubOut
+  Macros that can "rub out" rectangular areas. One use is for caesurae that 
+  clear the bit of stave underneath them. 
+  
+SplitArrow
+  Drawing functions for end-of-line splitting arrows that are different in 
+  style to those in the PMW font. 
+
+TAB
+  Macros that show one way of generating guitar tablature on a 4-line stave,
+  along with a test. 
+
+Vsquiggle
+  How to split and divide a system vertically with a squiggly line.
+  
+WingedRepeats
+  How to generate repeat marks with small "wings" above and below by employing
+  the music characters used for system brackets.
+
+----

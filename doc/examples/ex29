@@ -1,0 +1,23 @@
+unfinished
+nocheck
+notime
+notespacing *1.2
+
+draw blip
+  linegapx linegapy moveto
+  0 linegapx 2 mul lineto
+  linegapx neg linegapy neg lineto
+  0.3 setlinewidth stroke
+enddraw  
+
+draw ped
+  0 0 moveto "\**163\ " show
+enddraw  
+
+*define ped  [line/=P/b/h/ol/d4 linegap/h0/w30/draw ped]   
+*define blip [linegap/=P/draw blip] 
+*define ep   [endline/=P]
+
+[stave 1 bass 0]
+r- &ped %a &blip b-_; b-; e &blip a`-_ |
+a`- G` &ep r-r |

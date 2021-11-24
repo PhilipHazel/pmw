@@ -1,0 +1,14 @@
+nocheck
+justify top left
+
+[staff 1 treble 1]
+[couple down]
+"\bi\a"/s12/a
+g`_g` | g`_/a g` |
+(g`b`d)_(g`b`d) | qq |
+[endstave]
+
+[stave 2 bass 0]
+[couple up]  
+g'_g' | g'_/b g' | qq | (bd'f')_(bd'f')
+

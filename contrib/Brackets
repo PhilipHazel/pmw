@@ -1,0 +1,74 @@
+@ Drawing procedure for bracketing a note or a chord.
+@ The brackets increase their curvature and thickness in the middle
+@ in proportion to the note they surround.
+@ Contributed by Richard Hallas, January 1993.
+@ Square brackets and RH and LH brackets contributed by Richard
+@ Hallas, October 1994.
+@ Minor correction from Richard Hallas incorporated March 1995
+
+Draw Bracket
+  @ Square left-bracket enclosing note or chord
+  @
+  -1 headleft sub accleft sub headbottom linebottom add moveto
+  -2 0 rlineto
+  -3 headleft sub accleft sub headtop linetop sub lineto
+  2 0 rlineto
+  0.5 setlinewidth stroke
+Enddraw
+
+Draw Rightbracket
+  @ Square right-bracket enclosing note or chord
+  @
+  1 headright add headbottom linebottom add moveto
+  2 0 rlineto
+  3 headright add headtop linetop sub lineto
+  -2 0 rlineto
+  0.5 setlinewidth stroke
+Enddraw
+
+Draw Notebracket
+  @ Pair of round parentheses enclosing note or chord
+  @ Width in the centre auto-adjusts according to size of bracket
+  @
+  @ Left bracket (inside):
+  -1 headleft sub accleft sub  stembottom 1 sub moveto @ Bottom
+  -1 headleft sub accleft sub stemtop stembottom sub 8 div 1 add sub  stembottom stemtop stembottom sub 4 div add @ bezier point 1 (lower)
+  -1 headleft sub accleft sub stemtop stembottom sub 8 div 1 add sub  stemtop stemtop stembottom sub 4 div sub @ bezier point 2 (upper)
+  -1 headleft sub accleft sub  stemtop 1 add curveto @ Top
+  @ Left bracket (outside):
+  -1 headleft sub accleft sub stemtop stembottom sub 8 div dup 2 1 roll 0.25 mul 1.5 add add sub  stemtop stemtop stembottom sub 4 div sub @ bezier point 1 (upper)
+  -1 headleft sub accleft sub stemtop stembottom sub 8 div dup 2 1 roll 0.25 mul 1.5 add add sub  stembottom stemtop stembottom sub 4 div add @ bezier point 2 (lower)
+  -1 headleft sub accleft sub  stembottom 1 sub curveto @ Bottom
+  0.5 setlinewidth fill @ Left bracket complete
+  @
+  @ Right bracket (inside):
+  1 headright add  stembottom 1 sub moveto @ Bottom
+  1 headright add stemtop stembottom sub 8 div 1 add add  stembottom stemtop stembottom sub 4 div add @ bezier point 1 (lower)
+  1 headright add stemtop stembottom sub 8 div 1 add add  stemtop stemtop stembottom sub 4 div sub @ bezier point 2 (upper)
+  1 headright add  stemtop 1 add curveto @ Top
+  @ Right bracket (outside):
+  1 headright add stemtop stembottom sub 8 div dup 2 1 roll 0.25 mul 1.5 add add add  stemtop stemtop stembottom sub 4 div sub @ bezier point 1 (upper)
+  1 headright add stemtop stembottom sub 8 div dup 2 1 roll 0.25 mul 1.5 add add add  stembottom stemtop stembottom sub 4 div add @ bezier point 2 (lower)
+  1 headright add  stembottom 1 sub curveto @ Bottom
+  0.5 setlinewidth fill @ Right bracket complete
+Enddraw
+
+Draw RHbracket
+  @ Square left-bracket with jog at bottom only, for piano RH on lower stave
+  @ Requires one argument to specify length of main part of bracket
+  @
+  -1 headleft sub accleft sub headbottom linebottom add moveto
+  -2 0 rlineto
+  0 exch rlineto
+  0.5 setlinewidth stroke
+Enddraw
+
+Draw LHbracket
+  @ Square left-bracket with jog at top only, for piano LH on upper stave
+  @ Requires one argument to specify length of main part of bracket
+  @
+  -1 headleft sub accleft sub headtop linetop sub moveto
+  -2 0 rlineto
+  0 exch sub 0 exch rlineto
+  0.5 setlinewidth stroke
+Enddraw

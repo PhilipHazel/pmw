@@ -1,0 +1,21 @@
+Heading "|Happy Birthday"
+Breakbarlines
+Underlaysize 9.5
+Notespacing *1.1
+Key F
+Time 3/4
+Unfinished
+
+[stave 1 treble 1 text underlay]
+"Hap-py birth-day to you,
+hap-py birth-day to you.
+Hapy-py"
+[nocheck] c-. c= | dcf | 
+E c-. c= | dcg | F c-. c= |
+[endstave]
+
+[stave 2 bass 0]
+[nocheck] r | F. | C. | 
+c d e | F. |
+[endstave]
+

@@ -1,0 +1,141 @@
+@ These are some drawing functions for handbell signs. (The circle is a
+@ general function also present in the Circles file.)
+
+heading "" 
+
+@ This function draws a circle. It must be called with four values on
+@ the stack: the thickness of the line, the radius, and the coordinates 
+@ of the centre. For example:
+@   heading draw 0.4 20 24 0 circle
+@ The variables xx1 - xx4 are used as local variables.
+
+draw circle
+  moveto 1.414 div 
+  dup 0.6 mul /xx1 exch def dup 1.4 mul /xx2 exch def
+  dup 0.5 mul /xx3 exch def dup 2.0 mul /xx4 exch def
+  neg dup rmoveto
+  xx1 xx3 neg xx2 xx3 neg xx4 0 rcurveto
+  xx1 xx1 xx1 xx2 0 xx4 rcurveto
+  xx1 neg xx3 xx2 neg xx3 xx4 neg 0 rcurveto
+  xx1 neg xx1 neg xx1 neg xx2 neg 0 xx4 neg rcurveto
+  setlinewidth stroke
+enddraw    
+
+@ Damp Sign:
+@ Three arguments: x and y position of the centre, and the
+@ scale, which is the length from the centre to the end of
+@ the cross arms.
+
+draw dampsign
+  /s exch def                 @ s is the scale
+  translate
+  0 s moveto 0 s 2 mul neg rlineto
+  s 0 moveto s 2 mul neg 0 rlineto
+  0.3 setlinewidth stroke
+  0.3 s 0.66 mul 0 0 draw circle
+  0.3 s 0.33 mul 0 0 draw circle
+enddraw
+
+@ Echo:
+@ Eight arguments: x and y position of the centre of the semicirle, the
+@ radius of the semicircle, the length of the left-hand extension, the
+@ length of the right-hand extension, the width of the arrow, the
+@ length of the arrow, and the width of the line.
+
+draw echo
+  /w exch def                                    @ line width
+  /al exch def                                   @ arrow length
+  /aw exch 0.5 mul def                           @ 1/2 arrow width
+  /rl exch def                                   @ right extension
+  /ll exch def                                   @ left extension   
+  /r exch def                                    @ radius
+   
+  translate                                      @ to centre of semicircle
+  r neg 0 moveto 0 ll rlineto                    @ draw left extension
+  r 0 moveto 0 rl rlineto currentpoint           @ draw right extension
+  w setlinewidth stroke                          @ vertical lines
+   
+  moveto aw 0 rlineto aw neg al rlineto          @ triangle
+  aw neg al neg rlineto fill 
+  
+  r neg 0 moveto                                 @ curved bit
+  0 r 1.4 mul neg r 2 mul r 1.4 mul neg 
+  r 2 mul 0 rcurveto stroke
+enddraw  
+
+@ Gyro:
+@ Three arguments: x and y position of the centre of the cirle, and the
+@ scale, which is the radius of the semicircle.
+
+draw gyro
+  /r exch def 
+  /t r 0.2 mul def 
+  translate
+  0.3 r 0 0 draw circle
+  
+  currentgray
+  currentlinewidth 
+  0 r moveto
+  r 0.25 mul neg   0
+  r 0.4 mul neg   r 0.03 mul neg
+ 
+  r 0.8 mul neg r 0.4 mul neg rcurveto 
+  
+  1 setgray
+  1 setlinewidth 
+  stroke 
+  setlinewidth 
+  setgray 
+  
+  0 r 0.99 mul t sub moveto
+  0 t 2 mul rlineto
+  t 2.5 neg t neg rlineto
+  t 2.5 t neg rlineto
+  fill    
+enddraw    
+
+@ Martellato:
+@ Three arguments: x and y position of the tip, plus a scale value,
+@ which is half the width of the triangle.
+
+draw mart
+  /s exch def
+  translate 
+  0 0 moveto s s 3 mul rlineto s 2 mul neg 0 rlineto fill
+enddraw
+
+
+@ Macro to call signs with default positioning
+
+*define ds(24,6)    [draw 3 &&1 &&2 dampsign] 
+
+@ Eight arguments: x and y position of the centre of the semicirle, the
+@ radius of the semicircle, the length of the left-hand extension, the
+@ length of the right-hand extension, the width of the arrow, the
+@ length of the arrow, and the width of the line.
+
+
+@ Macro argument gives vertical position                      
+*define echo(24)    [draw 3 &&1 1.6 2 8.5 3 3 0.3 echo]
+@                         |  |   |  |  |  | |  |
+@                         |  |   |  |  |  | |  -> width of line
+@                         |  |   |  |  |  | ----> length of arrow
+@                         |  |   |  |  |  ------> width of arrow
+@                         |  |   |  |  ---------> right-hand length
+@                         |  |   |  ------------> left-hand length
+@                         |  |   ---------------> radius
+@                         |  -------------------> y coordinate
+@                         ----------------------> x coordinate
+
+*define gyro(24,5)  [draw 3 &&1 &&2 gyro]
+*define mart(24,2)  [draw 3 &&1 &&2 mart]
+
+
+@ Testing...
+
+Magnification 1.5
+
+[stave 1 treble 1]
+g &ds g &ds g &echo g | &echo(4) q 
+&gyro g &mart gg |
+[endstave]   

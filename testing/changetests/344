@@ -1,0 +1,42 @@
+heading "" 40
+
+nocheck
+startlinespacing 2 2 2
+
+
+[stave 1 treble 1]
+cegc'
+[endstave] 
+
+[stave 2 cbaritone]
+cegc'
+[endstave]
+
+[stave 3 baritone]
+cegc'
+[endstave]
+
+[stave 4 bass]
+cegc'
+[endstave]
+
+[newmovement]
+
+clefstyle  3
+
+[stave 1 treble 1]
+cegc'
+[endstave] 
+
+[stave 2 cbaritone]
+cegc'
+[endstave]
+
+[stave 3 baritone]
+cegc'
+[endstave]
+
+[stave 4 bass]
+cegc'
+[endstave]
+

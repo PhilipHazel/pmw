@@ -1,0 +1,129 @@
+@ Sample for Computing in Musicology 1991
+@ Philip Hazel, June 1991
+
+Heading 13 "|Mahler"
+Heading 13 "|\it\Das Lied von der Erde, \rm\Der Abschied" 30
+
+*Define F     "\bi\f"/s2
+*Define FP    "\bi\fp"/s2
+*Define SFPP  "\it\s\bi\f  pp"/s2
+*Define P     "\bi\p"/s2
+
+Linelength 400
+Pagelength 575
+
+Justify top left right
+Notime
+Unfinished
+
+Staffspacing 1/66 2/0 3/58 4/0
+Systemgap 54
+
+Tripletfont 9 italic
+Textsizes 10 12
+Underlaysize 9.5
+Startlinespacing 0 0 0 -1
+NoSpreadUnderlay
+
+Bracket
+Brace 2-5
+Breakbarlines 1
+
+Key B$
+Time 3/4
+
+
+[staff 1 treble 1][hairpins above]
+[slur/ll20] "\rm\- ses."/l8 "\it\- len."/l8 $G [es] r | @1
+
+"\rm\do not hurry"/a/u1 "\rm\nicht eilen"/a R! | @2
+R! | ["33"] R! | [4] R! | @8
+
+[text underlay]
+"O beau-ty! O life of end-less love-=ing,="
+"\it\O Sch\o.n-heit! O e-=wi-gen Lie-=bens,="
+
+r "\it\appassionato"/a/l20 r </r6/d4 f_/g/s c'-\g/\ < | @9
+
+"\bi\(f)"/a/l8/s2
+"\rm\steady"/a/r8/d8 
+"\rm\nicht eilen"/a 
+
+C'._ | B. | rrf | [sshere +11] {4/a g_abc'} | @13
+["34"/d2/l11] {2/a/u2 e'\M\_c'\M\} | {2/a/u2 #c'\M\_d'\M\} | @15
+[endstaff]
+
+
+
+[staff 2 treble 1][stems up][ties above]
+[slur/ll20/d12] f'-[es]e'-d'-c'-%b-.[slur/rd6]a= | @1
+[xslur/rd6/co2]%A'._[es] | @2
+{4/a a'#g'[es]f'[slur/b/co2/rd4/rr2]#c'}[space 1]#c''-\g/\[es] | @3
+
+#C''._ | C''._ | c''#C''\>!\ | @6
+#C''.\>!\_ | c''\sd\ [stems auto] < D''_ </r20 | @8
+
+d''=%c''= "veloce"/a "cresc. molto"/b/u2
+b'=a'=; g'=f'=e'=d'=; c'=b=a=[slur/b/co2/rd4]g=\f\ [space 12] c''-\g/\[es] | @9
+
+C''._ | B'._ | B'\su\ [stems up] %f'_ | @12
+
+{3/5/a/d1 f'g'a'b'c''} | @13
+
+[stems down]
+{2/a/u5 (e'\>M\e'')(d'\>M\d'')} | @14
+{2/a/u5 (#c'\>M\#c'')(d'\>M\d'')} @15
+[endstaff]
+
+
+[staff 3 treble 1][stems down][ties below][hairpins below]
+(F.%B.) | @1
+[slur/b/ld2]D'e\>!\_ | @2
+"\it\ cresc.  -  -  -"/s1/r10/d13 {2/b e\M\[es]b\M\} | @3
+
+&SFPP;/l20/d7 {4/b/u4 r\l-12\ [slur/b/u8/rd4/co4]#C.\>!\_} | @4
+{4/b/d3 c"espr."/a/d11 d[es]ef}_ | @5
+
+f[space 2] "\it\cresc.  -"/s1/l3/d4.5 #f\>!\ g\>!\_ | @6
+
+"-   -   -   -   -   - "/b/d16/l6 {4/b/u4 g%f\>!\ %e\>!\ "#"/ul $e\>!\} | @7
+&P; q  Q  | Q! | &FP/d2 Q! | @10
+
+{4/b/lx/u4 [move 6] q "\it\^cresc.-"/ul/s1/d2 #fba} | @11
+#F "#"/ul g_ | {4/b/u5 ga\>!\ d'\>!\ &F/d3 c'\>!\} | @13
+
+{2/x &P; q "cresc."/l2 q } | Q! | @15
+[endstaff]
+
+
+[staff 4 bass 0][stems up][ties above]
+[slur/ll20/d14] {4/a/d2 $)g\>!\[es]%g\>!\%a\>!\%b\>!\} | @1
+[5]Q! | F`. | @7
+r\l20\ r\l20\ [slur/ru2] d'_ | @8
+
+[beammove -4]
+d'-e'-[es]f'-\>!\(a-\!>\#f'-)a'-\!>\g'-\!>\ | @9
+%E'_%f'_ | [move 6]f'[space 6]qq | @11
+
+r\l20\$E'_ | e'-d'-c'-b-a-g- | @13
+(F.B.D'.F'.)_/a | (F.B.D'.F'.) | @15
+[endstaff]
+
+
+[staff 5 bass 0][stems down][ties auto]
+%G`. | (C.E.$G.$B.) | (%A`.E.%G.#C'.) | (B`.F.) | (%B`.F.$A.) | @5
+
+[slur/a/rr36][slur/a/rr36/lr8/d10]
+[slur/b/rr41/lr6/u20][slur/b/rr41/u12]
+(C.F.%A.E'.)[es][es][es][es] | @6
+
+Q! | {2/b (b`\M\fb) (%b`\M\f$a) } | @8
+(C.E.G.) | (D.F.B.) | @10
+
+[newline]
+
+[slur/b/u18/ru2/lr6/rl4][slur/b/u24/ru2/lr6] (DFBF')(#cfb%e')[es][es] | @11
+(%C.%F.B.) | (F`.A.) | @13
+
+{2/b r\Ml-8\ (b``\M\b`)}_/b | {2/b (b``\M\b`)($a``\M\$a`)} | @15
+[endstaff]

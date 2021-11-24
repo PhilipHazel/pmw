@@ -1,0 +1,73 @@
+magnification 1.25
+nocheck
+heading ""
+notime
+textsizes 10 10/1.5 12
+
+draw thing
+ 0 10 moveto 0 -10 lineto -10 0 moveto 10 0 lineto 
+ 1 setlinewidth stroke 
+enddraw
+
+[stave 1 treble 1]
+[line linegap/h/"brown fox"] gggggg [el] |
+[slur slurgap/h/"brown fox"] gggggg [es] |
+[newline]
+[line linegap/h/"brown fox"/s2] gggggg [el] |
+[slur slurgap/h/"brown fox"/s2] gggggg [es] |
+[newline]
+[line/u4 linegap/h/"brown fox"] gggggg [el] |
+[slur/u4 slurgap/h/"brown fox"] gggggg [es] |
+[newline]
+[line/u4 linegap/h/w0/"brown fox"/u4/l10] gggggg [el] |
+[slur/u4 slurgap/h/w0/"brown fox"/d6/r10] gggggg [es] |
+[newline]
+[line/u4/ld20 linegap/h/"brown fox"/s3] g`\sd\a`\sd\b`\sd\ceg' [el] |
+[slur/u4 slurgap/h/"brown fox"] g`\sd\a`\sd\b`\sd\ceg [es] |
+[newline]
+[line/u4/ld20 linegap/h/"brown fox"/d6] g`\sd\a`\sd\b`\sd\ceg' [el] |
+[slur/u4 slurgap/h/"brown fox"/u2] g`\sd\a`\sd\b`\sd\ceg [es] |
+[newline]
+[line/u4/ld20 linegap/h/"brown fox"/box] g`\sd\a`\sd\b`\sd\ceg' [el] |
+[slur/u4 slurgap/h/"brown fox"/ring] g`\sd\a`\sd\b`\sd\ceg [es] |
+[newline]
+[line/u4/ld20 linegap/h/draw thing/"brown fox"] g`\sd\a`\sd\b`\sd\ceg' [el] |
+[slur/u4 slurgap/h/draw thing/"brown fox"] g`\sd\a`\sd\b`\sd\ceg [es] |
+
+[newline]
+[line/b linegap/h/"brown fox"] gggggg [el] |
+[slur/b slurgap/h/"brown fox"] gggggg [es] |
+[newline]
+[line/b linegap/h/"brown fox"/s2] gggggg [el] |
+[slur/b slurgap/h/"brown fox"/s2] gggggg [es] |
+[newline]
+[line/b/d4 linegap/h/"brown fox"] gggggg [el] |
+[slur/b/d4 slurgap/h/"brown fox"] gggggg [es] |
+[newline]
+[line/b/d4 linegap/h/w0/"brown fox"/u4/l10] gggggg [el] |
+[slur/b/d4 slurgap/h/w0/"brown fox"/d6/r10] gggggg [es] |
+[newline]
+[line/b/u4/ld16 linegap/h/"brown fox"/s3] g`\sd\a`\sd\b`\sd\ceg' [el] |
+[slur/b/d4 slurgap/h/"brown fox"] g`\sd\a`\sd\b`\sd\ceg [es] |
+[newline]
+[line/b/u4/ld16 linegap/h/"brown fox"/d6] g`a`b`ceg' [el] |
+[slur/b/d4 slurgap/h/"brown fox"/u2] g`\sd\a`\sd\b`\sd\ceg [es] |
+[newline]
+[line/b/u4/ld16 linegap/h/"brown fox"/box] g`a`b`ceg' [el] |
+[slur/b/d4 slurgap/h/"brown fox"/ring] g`\sd\a`\sd\b`\sd\ceg [es] |
+[newline]
+[line/b/u4/ld16 linegap/h/draw thing/"brown fox"] g`a`b`ceg' [el] |
+[sghere +20]
+[slur/b/d4 slurgap/h/draw thing/"brown fox"] g`\sd\a`\sd\b`\sd\ceg [es] |
+
+[newline]
+[slur/u6 slurgap/h0/w0/"(  " slurgap/h1/w0/"   )"] gggggg [es] |
+[slur/u2 slurgap/h0/w0/"( " slurgap/h1/w0/" )"] gggggg[es] |
+
+[slur slurgap/h/"3"] {/x ggg} [es]
+[slur/u4 slurgap/h/w0/"3"/d6] {/x ggg} [es] |
+
+[notespacing *1.5 text underlay]
+"the the^#fox brown#^the^#fox red^#the ^fox brown#^^fox" gggggg
+
+

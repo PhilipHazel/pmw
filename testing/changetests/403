@@ -1,0 +1,19 @@
+*define a       AAA
+*define b()     &&1
+*define c(X,Y)  &&1 + &&2
+
+heading ">&b(1)<"
+heading ">&b(&a)<"
+heading ">&c<"
+heading ">&c(A1)<"
+heading ">&c(A1,A2)<"
+heading ">&c(,A2)<"
+heading ">&c(&a,&b(**))"
+heading ">&c(&a,&b(**&a**))"
+
+nocheck
+notime
+[stave 1 treble 1]
+b.\su\ [cue] b. b-. b [reset] [cue] e.\sd\ |
+[newline]
+b.\su\ [cue/dotalign] b. b-. b [reset] [cue/dotalign] e.\sd\ |

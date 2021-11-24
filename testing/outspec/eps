@@ -1,0 +1,49 @@
+%%BoundingBox: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+rm 17 ss(heading)64 172 s mf 10 ss(!)64 138 s bf 11.8 ss(4)77 146 s(4)
+77 138.15 s
+%1/1
+mf 10 ss(5)90.9 142 s(5)106.9 144 s(=)122.9 132 s(5)122.9 132 s(5)
+138.9 134 s(@)154.9 138 s
+(CCCCCCCCC)64 138 s (C)144.9 138 s
+(!)64 94 s
+%2/1
+(5)85 98 s(5)101 100 s(-)118 98 s(5)133 90 s(@)149 94 s
+(CCCCCCCC)64 94 s (C)139 94 s
+(!)64 50 s
+%3/1
+(5)85 54 s(5)101 56 s(=)117 44 s(5)117 44 s(5)133 46 s(B)149.5 50 s
+(@)147.5 50 s
+(CCCCCCCC)64 50 s (C)141 50 s
+
+pagesave restore showpage
+
+%%Trailer
+%%BoundingBox: 54 18 158.9 189

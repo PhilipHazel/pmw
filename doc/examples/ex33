@@ -1,0 +1,18 @@
+unfinished
+nocheck
+notime
+textsizes 9
+
+[stave 1 treble 1]
+S! "style 0  "/b/m/e |0 
+S! "style 1  "/b/m/e |1 
+S! "style 2  "/b/m/e |2 
+S! "style 3  "/b/m/e |3 
+S! "style 4  "/b/m/e |4 
+S! "style 5  "/b/m/e |5 
+S! ||
+[endstave]
+
+[stave 2 bass 0]
+
+S! |0 S! |1 S! |2 S! |3 S! |4 S! |5 S! ||

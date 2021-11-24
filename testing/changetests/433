@@ -1,0 +1,121 @@
+justify top left right
+Textsizes 10 14
+
+[stave 1]
+[treble 1]
+"W"/lc1 "Y"/rc1 r a b-b- "X"/lc0.5 c |
+"A"/rc0.333 "B"/rc0.666/r6 {a-b-c-} de "Z"/rc0.25 f |
+[endstave]
+
+[newmovement]
+[stave 1 "abc"/"wxyz"/m/s2/"      pqr""def" treble 1]
+abcd |
+[newline]
+abcd
+[endstave]
+
+[stave 2]
+[endstave]
+
+[newmovement]
+nocheck
+heading "" 40
+
+[stave 1 treble 1]
+"abc" "xyz"/F a 
+"abc"/a "xyz"/s2/F "pqr"/F b
+"square" "square"/F/rot270 "square"/F/rot180 "square"/F/rot90 c
+d |
+"a" "b"/F/d2 "c"/F "d"/r2/F a |
+
+[textfont roman]
+"abc" " "/F "d"/F "abc" " "/F "d"/F R! |
+</rc1 GG | GG </lc3 |
+
+[endstave]
+
+
+[newmovement]
+heading "" 40
+stavespacing 30
+
+[stave 1 treble 1]
+gggg |
+[endstave]
+
+[stave 2 treble 1]
+gggg [ssabove 40] |
+[endstave]
+
+[stave 3 treble 1]
+gggg |
+[endstave]
+
+
+[newmovement]
+stavespacing 30 2/50/30
+
+[stave 1 treble 1]
+gggg |
+[endstave]
+
+[stave 2 treble 1]
+gggg [ssabove 40] |
+[endstave]
+
+[stave 3 treble 1]
+gggg |
+[endstave]
+
+
+[newmovement]
+stavespacing 30 2/50/30
+
+[stave 1 treble 1]
+gggg |
+[endstave]
+
+[stave 2 treble 1]
+gggg [ssabove -10] |
+[endstave]
+
+[stave 3 treble 1]
+gggg |
+[endstave]
+
+
+[newmovement]
+nocheck
+suspend 2
+
+[stave 1 "Title"/m treble 1]
+E+ [reset] q-q== <  < | G+ |
+[endstave]
+
+[stave 2 treble 1]
+[2]R! |
+[endstave]
+
+[stave 3 "Three" bass 0]
+g\nx\ g\nh\ (gb\nh\) g |
+[x] g\nx\ g\nh\ (gb\nh\) g [o] |
+[endstave]
+
+[newmovement]
+nocheck
+justify left top
+[stave 1 treble 1]
+"default" g [slur] abc' [es] de |
+"/rrc0.5" g [slur/rrc0.5] abc' [es] de |
+"/rrc0.9" g [slur/rrc0.9] abc' [es] de |
+"/llc0.5" g [slur/llc0.5] abc' [es] de |
+"/lrc0.5/rlc0.5" g [slur/lrc0.5/rlc0.5] abc' [es] de |
+"/lrc0.5/rlc0.5/rr4" g [slur/lrc0.5/rlc0.5/rr4] abc' [es] de |
+[newline]
+"default" g [line] abc' [el] de |
+"/rrc0.5" g [line/rrc0.5] abc' [el] de |
+"/rrc0.9" g [line/rrc0.9] abc' [el] de |
+"/llc0.5" g [line/llc0.5] abc' [el] de |
+"/lrc0.5/rlc0.5" g [line/lrc0.5/rlc0.5] abc' [el] de |
+"/lrc0.5/rlc0.5/rr4" g [line/lrc0.5/rlc0.5/rr4] abc' [el] de |
+[endstave]

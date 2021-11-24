@@ -1,0 +1,18 @@
+textfont extra 1 "Courier"
+systemgap 50
+
+notime
+nocheck
+unfinished
+
+[stave 1 treble 2 text underlay underlayfont extra 1]
+[space 8]
+"f'\\.\\ f'\\..\\ f'\\\-\\ f'\\>\\ f'\\~\\ f'\\~|\\ f'\\/\\ f'\\//\\ f'\\///\\"
+f\.\ f\..\ f\-\ f\>\ f\~\ f\~|\ f\/\ f\//\ f\///\ [space -8] |
+[space 8]
+"#f'\\v\\ f'\\V\\ f'\\'\\ f'\\f\\ f'\\o\\"
+f\v\ f\V\ f\'\ f\f\ f\o\
+"f'\\t\\ f'\\tr\\ f'\\u\\ f'\\d\\"
+f\t\ f\tr\ f\u\ f\d\  [space -8] |
+[endstave]
+

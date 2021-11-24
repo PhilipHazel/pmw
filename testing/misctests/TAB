@@ -1,0 +1,90 @@
+@ This set of macros shows one way of causing PMS to print guitar
+@ tablature. The example is for a 4-line bass guitar stave; a similar
+@ approach can also be used for a 6-line stave. This is a complete
+@ PMS input file that can be processed and printed, to show how the
+@ macros are used. PMS version 3.10 or greater is required.
+@ Philip Hazel, June 1994.
+
+@ Looks good at this size
+
+magnification 1.1
+
+@ Define some additional fonts. Helvetica-Bold is used for the numbers 
+@ printed on the tab stave, and Helvetica is used for the TAB logo.
+@ Also define the required font sizes. The numbering size, 5.5, seems
+@ small, but the whole stave is to be magnified (see stavesizes below).
+
+textfont extra 1 "Helvetica-Bold"
+textfont extra 2 "Helvetica"
+textsizes 10 5.5 17/0.8 11
+
+@ This draws the "TAB" logo, consisting of overlapping T, A, and B
+@ characters. The T and the B are printed as characters, with a single
+@ stroke to complete the notional A. All dimensions are multiplied by
+@ the relative stave size, so that it should work for any size of
+@ 4-line stave. Note the use of s3 and s4 to obtain fonts of the right
+@ size for the T and the B.
+
+draw tab
+  stavestart 2.0 stavesize mul add 0 moveto "\xx2\T"/s3 show
+  stavestart 4.7 stavesize mul add 0 moveto "\xx2\B"/s4 show
+  stavestart 6 stavesize mul add 12 stavesize mul moveto
+  6.5 stavesize mul -7.5 stavesize mul rlineto
+  1 setlinewidth stroke 
+enddraw         
+
+@ This set of macros is used to print numbers on the stave. Each macro's
+@ name starts with a letter identifying the note length, and a number
+@ identifying the stave line, counting from the bottom. The argument is
+@ the digit to be printed. Macros for crotchets, minims, and quavers are
+@ shown here - other note lengths can be handled similarly. The effect of
+@ each macro is to print its argument, centred on the appropriate line,
+@ and then move on, by way of an invisible note of the right length.
+
+*define c1()   "\xx1\&&1"/s2/b0/d2 q
+*define c2()   "\xx1\&&1"/s2/b0/u2 q
+*define c3()   "\xx1\&&1"/s2/b0/u6 q
+*define c4()   "\xx1\&&1"/s2/b0/u10 q
+                   
+*define m1()   "\xx1\&&1"/s2/b0/d2 Q
+*define m2()   "\xx1\&&1"/s2/b0/u2 Q
+*define m3()   "\xx1\&&1"/s2/b0/u6 Q
+*define m4()   "\xx1\&&1"/s2/b0/u10 Q
+                   
+*define q1()   "\xx1\&&1"/s2/b0/d2 q-
+*define q2()   "\xx1\&&1"/s2/b0/u2 q-
+*define q3()   "\xx1\&&1"/s2/b0/u6 q-
+*define q4()   "\xx1\&&1"/s2/b0/u10 q-
+
+@ Other parameters - the stavespacing can be adjusted to taste, of course.
+@ The tab stave is magnified relative to the conventional stave.
+
+stavespacing 1/36
+stavesizes 2/1.6
+breakbarlines 
+bracket
+brace 1-2
+unfinished
+
+@ This is for the tab stave, where we don't want a time signature
+
+printtime 8/8  "" "" 
+
+@ Sample bars in conventional notation
+
+[stave 1 bass 0 key G]
+(: Ggd-f- | Ggg-f- | Eeb`-d- | Eee-d- |
+[endstave]
+
+@ Tablature for the above. Note the use of "draw tab" as a stave title.
+@ It is given twice, because the first stave title is printed on the 
+@ first system, and the second one on subsequent systems.
+
+[stave 2/4 draw tab draw tab noclef] @ set 4-line stave and no clef
+[time 8/8]                           @ this will print as blank
+[barlinestyle 3]                     @ all bar lines invisible
+&m3(5) &c3(5) &q2(5) &q3(4) | 
+&m3(5) &c3(5) &q3(5) &q3(4) |
+&m3(2) &c3(2) &q2(2) &q2(5) |
+&m3(2) &c3(2) &q3(2) &q2(5) |
+[endstave]

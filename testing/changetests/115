@@ -1,0 +1,88 @@
+nocheck
+justify top 
+
+[staff 1 treble 1][text underlay]
+"Sing-" ggg[line/h]gg |
+[newline] gg[el]gg |
+[newline] "ing" ggg |
+"Sing=" ggg[slur]gg |
+[newline] gg[es] gg |
+[newline] "= ing" ggg |
+[justify +left newline]
+"Sing-" ggg[line/h]gg |
+[newline] gg[el]gg |
+[newline] "ing" ggg |
+"Sing=" ggggg |
+[newline] gggg |
+[newline] "= ing" ggg |
+[endstave]
+
+[newmovement]
+systemgap 70
+justify top left
+
+[staff 1 treble 1]
+"f" a "f" a\d\ "f" a\> d\ "f" #f "f" #f\d\ "f" #f\>\ "f" f\>\|
+[bowing below]
+"f" a "f" a\d\ "f" #a\d\ "f" #f "f" #f\d\ "f" f\d\                                              
+[text above octave 2]
+"f" a "f" a\d\ "f" a\> d\ "f" #f "f" #f\d\ "f" #f\>\ "f" f\>\|
+[bowing below]
+"f" a "f" a\d\ "f" #a\d\ "f" #f "f" #f\d\ "f" f\d\ |
+[endstave]
+
+[newmovement]
+[stave 1 bass 0]
+(%f\.d\f`) (%f\>d\e`) (%f\.d\d`) (%f\>d\c`) (%f\.sl4 d\c`)
+[endstave]
+
+[newmovement]
+[staff 1 treble 1][stems up]
+c\!-\d\!-\e\!-\f\!-\g\!-\a\!-\b\!-\c'\!-\d'\!-\e'\!-\ |
+[stems auto]
+c'\-\d'\-\e'\-\f'\-\g'\-\a'\-\ |
+c'\!-\d'\!-\e'\!-\f'\!-\g'\!-\a'\!-\ |
+b'\su -\ c''\su -\ |
+$b\su d\ b\d\ g'\d\ $g'\d\ |
+$d'\-u\ d'\-u\ |
+
+[stems down]
+g\-\_g a\-\_a
+b\-\_b c'\-\_c' d'\-\_d' e'\-\_e' f'\-\_f' d'\-\_ |
+[newline]
+d' [stems up]
+c\-\_c d\-\_d e\-\_e f\-\_f g\-\_g a\-\_a b\-\_b c'\-\_c' |
+[stems auto]
+(b`f)_(fb)_(fd') 
+(gc'\su\e')_/1a(C'+\su\E'+)_(c'\su\e')
+[endstave]
+
+[newmovement]
+
+[staff 1 treble 1]
+g\.\ g\./d6\ g\.\ g\./r5\ |
+a\-\ g\-/u24\ a\-\ |
+b\a4\ b\a4/d10/r8\ b\a4\ |
+c'\a5\ c'\a5/l8/u10\ c'\a5\ |
+d'\d\ d'\d/u5\ d'\d\ |
+e'\u\ e'\u/u5/r6\ e'\u\ |
+g\o\ g\o/d4\ g\o\
+
+g\a8\ g\//\ g\!./u4\ g\/!.\
+
+(c\./d10\e) 
+[notes off] g\>/d10\ [notes on] g\>\
+[endstave]
+         
+[newmovement]
+stavesizes 1/0.8
+
+[stave 1 treble 1]
+c'\su ./d4\ 
+
+
+
+
+
+
+

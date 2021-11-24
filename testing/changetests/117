@@ -1,0 +1,58 @@
+Nocheck
+justify top left
+
+selectstaves 1, &&&
+ 2
+
+*if part
+  heading "part"
+*fi
+
+[stave 1 treble 1]
+gggg | gggg_/a |
+[newline] g._/a |
+[newline] g
+[endstave]
+
+[stave 2 bass 0]
+gggg |? gggg |
+[endstave]
+
+[newmovement]
+bracket
+brace 1-3
+suspend 1
+stavespacing 2/0
+
+[stave 1 treble 1]
+R! | [newline] g 
+[endstave]
+
+[stave 2 bass 0]
+R! | 
+[endstave]
+
+[stave 3 bass 0]
+R! |   
+[endstave]
+
+[stave 4 bass 0]
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+c'_b-\.\ d'\.\_e'-
+g\.\_f- f_g-\.\ |
+c'_/b b-\.\ d'\.\_/b e'-
+g\.\_/a f- f_/a g-\.\ |
+G [tremolo] E
+G [tremolo/j3/x3] E
+
+G' [tremolo] E'
+G' [tremolo/j2] E'
+
+G+ [tremolo] E+ |   
+
+G'\sd\ [tremolo/j2] E
+
+G\su\ [tremolo/j2] E'

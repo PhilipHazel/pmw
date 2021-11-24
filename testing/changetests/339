@@ -1,0 +1,77 @@
+nocheck
+
+[stave 1 treble 1]
+[slur] gabc' | [newline] g [es] |
+[endstave]
+
+[stave 2 treble 1]
+gabc'_ | [newline] g |
+[endstave]
+
+[stave 3 treble 1]
+gab(cegc')_ | [newline] (cegc') |
+[endstave]
+
+[stave 4 treble 1]
+gabc'_/g | [newline] g |
+[endstave]
+
+[newmovement]
+endlinesluradjust -8
+endlinetieadjust 8
+
+[stave 1 treble 1]
+[slur] gabc' | [newline] g [es] |
+[endstave]
+
+[stave 2 treble 1]
+gabc'_ | [newline] g |
+[endstave]
+
+[stave 3 treble 1]
+gab(cegc')_ | [newline] (cegc') |
+[endstave]
+
+[stave 4 treble 1]
+gabc'_/g | [newline] g |
+[endstave]
+
+[newmovement]
+stavesize 1/2
+systemgap 88
+heading ""
+
+[stave 1/0 noclef 1 notes off]
+"abcd"/a/rot0/ring a
+a
+"abcd"/a/rot0/box a
+a
+"abcd"/a/rot45/ring a
+a
+"abcd"/a/rot45/box a
+a
+"abcd"/a/rot90/ring a
+a
+"abcd"/a/rot90/box a |?
+
+"abcd"/a/rot-45/ring a
+a
+"abcd"/a/rot-45/box a
+a
+"abcd"/a/rot-90/ring a
+a
+"abcd"/a/rot-90/box a |?
+a
+"abcd"/a/rot10/ring a
+a
+"abcd"/a/rot10/box a |?
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+aa | [ns *2] aa | [ns] aa |
+[newline] aa-a-a-aaaaaaa | 
+[ns 0 0 0 32 -4] a-a-a |
+
+
+

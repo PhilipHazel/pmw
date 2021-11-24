@@ -1,0 +1,20 @@
+magnification 1.3
+nocheck
+
+[stave 1 treble 1]
+
+e'\su\ c\sd\ |
+[stems up] bc'd' |
+[stems down] bc'd' |
+[stems auto] g_g c'\su\_c' | c'\su\_d' |
+abc' | c'ba | bc' | ba |
+(ff') (fc') (af')
+[endstave]
+
+
+[newmovement]
+stemswaplevel 1
+
+[stave 1 treble 1] gabc'd' [endstave]
+[stave 2 treble 1] gabc'd' [endstave]
+[stave 3 treble 1] gabc'd' [endstave]

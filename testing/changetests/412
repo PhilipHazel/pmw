@@ -1,0 +1,26 @@
+heading "Sonata in \tC minor"
+heading "Sonata in \tE"
+key Cm
+heading "Sonata in \tC minor"
+heading "Sonata in \tE"
+
+[stave 1 treble 1]
+"\tCm" gg "\tE"gg
+[endstave]
+
+
+[newmovement]
+
+transpose +1
+
+heading "Sonata in \tC minor"
+heading "Sonata in \tE"
+key Cm
+heading "Sonata in \tC minor"
+heading "Sonata in \tE"
+
+[stave 1 treble 1]
+"\tCm" gg "\tE"gg
+[endstave]
+
+

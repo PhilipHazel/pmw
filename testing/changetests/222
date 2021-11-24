@@ -1,0 +1,307 @@
+magnification 1.5
+repeatstyle 0
+
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+[newmovement]
+
+repeatstyle 0
+unfinished
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+
+[newmovement]
+
+repeatstyle 1
+
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+[newmovement]
+
+repeatstyle 1
+unfinished
+
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+[newmovement]
+
+repeatstyle 2
+
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+[newmovement]
+
+repeatstyle 2
+unfinished
+
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+[newmovement]
+
+repeatstyle 3
+
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+[newmovement]
+
+repeatstyle 3
+unfinished
+
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+[newmovement]
+
+repeatstyle 4
+
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+[newmovement]
+
+repeatstyle 4
+unfinished
+
+[stave 1 treble 1]
+gggg :)|
+[endstave]
+
+[newmovement]
+unfinished
+startnotime
+justify top left right
+
+[stave 1 treble 1]
+S! [space -12] | S! [space -12] | G+ [space -12] | 
+S! [space -12] | [key A time 3/4] G. | [newline]
+S! [space -12] | S! [space -12] | G. [space -12] | 
+S! [space -12] | [key A time 3/4] ggg | [newline]
+
+S! [space -12] | S! [space -12] | G. [space -12] | 
+S! [space -12] | [key A] G. | [newline]
+S! [space -12] | S! [space -12] | G. [space -12] | 
+S! [space -12] | [key A] ggg | [newline]
+
+S! [space -8] | S! [space -8] | G. [space -8] | 
+S! [space -8] | [time 3/4] G. | [newline]
+S! [space -8] | S! [space -8] | G. [space -8] | 
+S! [space -8] | [time 3/4] ggg | [newline]
+
+S! |  [key A time 3/4] G. | [newline]
+S! || [key A time 3/4] G. 
+[endstave]
+
+[newmovement]
+startlinespacing 4 0 4 
+unfinished
+Key A
+
+[stave 1 treble 1]
+S! | [key A time 3/4] G. | [newline] 
+
+S! [space -12] | S! [space -12] | G. [space -12] | 
+S! [space -12] | [key A time 3/4] G. | [newline]
+S! [space -12] | S! [space -12] | G. [space -12] | 
+S! [space -12] | [key A time 3/4] ggg |
+[endstaff]
+
+[newmovement]
+unfinished
+startnotime
+justify top left right
+
+[stave 1 treble 1]
+[slur/i] [slur/b/i] (B`+G'+) | 
+B`+ [es] | G'+ [es] | [slur/b/i] b`b`[es] R
+[endstave]
+
+[newmovement]
+heading "" 30
+unfinished
+nocheck
+startnotime
+justify top left
+stavesize 2/0.5 3/0.8
+breakbarlines
+
+[stave 1 bass 0]
+(fabd')_(fabd') | (f\su\abd')_(fabd') | (d-g-a-)_/1a (dga) |
+(d-g-a-)_/1a | (dga) |
+(d=g=a=)_; (d=g=a=); (d=g=a=)_(d=g=a=)_/1a, (d=g=a=)_(d=g=a=) |
+g=g=_,g=g=
+[endstave]
+
+[stave 2 bass 0]
+(fabd')_(fabd') | (f\su\abd')_(fabd') | (d-g-a-)_/1a (dga) |
+(d-g-a-)_/1a | (dga) |
+(d=g=a=)_; (d=g=a=); (d=g=a=)_(d=g=a=)_/1a, (d=g=a=)_(d=g=a=) |
+g=g=_,g=g=
+[endstave]
+
+[stave 3 bass 0]
+(fabd')_(fabd') | (f\su\abd')_(fabd') | (d-g-a-)_/1a (dga) |
+(d-g-a-)_/1a | (dga) |
+(d=g=a=)_; (d=g=a=); (d=g=a=)_(d=g=a=)_/1a, (d=g=a=)_(d=g=a=) |
+g=g=_,g=g=
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+
+[stave 1 treble 1]
+g [ensure 40] g [ensure 40] |
+[endstave]
+
+[stave 2 bass 0]
+g g-g-
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+startnotime
+
+[stave 1 treble 1 stems up]
+abc'd'e'f'g'a'b'c''d''e''f''g''a''b''c'''
+[endstave]
+
+[newmovement]
+shortenstems 4
+unfinished
+startnotime
+
+[stave 1 treble 1 stems up]
+abc'd'e'f'g'a'b'c''d''e''f''g''a''b''c'''
+[endstave]
+
+[newmovement]
+shortenstems 99
+unfinished
+startnotime
+
+[stave 1 treble 1 stems up]
+abc'd'e'f'g'a'b'c''d''e''f''g''a''b''c'''
+[endstave]
+
+[newmovement]
+shortenstems 0
+unfinished
+startnotime
+
+[stave 1 treble 1 stems down]
+c'bagfedcb`a`g`f`e`d`c`b``a``g``
+[endstave]
+
+[newmovement]
+shortenstems 4
+unfinished
+startnotime
+
+[stave 1 treble 1 stems down]
+c'bagfedcb`a`g`f`e`d`c`b``a``g``
+[endstave]
+
+
+[newmovement]
+shortenstems 99
+unfinished
+startnotime
+
+[stave 1 treble 1 stems down]
+c'bagfedcb`a`g`f`e`d`c`b``a``g``
+[endstave]
+
+
+[newmovement]
+shortenstems 99
+unfinished
+startnotime
+
+[stave 1 treble 1 stems down]
+c'\sl-4\bagfedcb`a`g`f`e`d`c`b``a``g``\sl10\
+[endstave]
+
+[newmovement]
+heading "" 20
+shortenstems 4
+unfinished
+startnotime
+
+[stave 1 treble 1 stems up]
+(fa)(gb)(ac')(bd')(c'e')(f'd')(e'g')(a'f')(g'b')(a'c'')(b'd'')(c''e'')(d''f'')
+(e''g'')(f''a'')(g''b'')(a''c''') |
+
+c'-c''-; [stems down] c'-c-
+[endstave]
+
+[newmovement thisline]
+shortenstems 2
+unfinished
+startnotime
+
+[stave 1 "                                " treble 1]
+[stems up] c'-c''-; [stems down] c'-c-
+[endstave]
+
+[newmovement thisline]
+shortenstems 0
+unfinished
+startnotime
+
+[stave 1 "                                                                " treble 1]
+[stems up] c'-c''-; [stems down] c'-c- [sghere 60] |
+[newline]
+R! | R! | R! || R! | R! |
+[stems up]
+(d'-\ard\e'-f'-g'-a'-$b'-c''-) [space 6]
+(d'-\ard\e'-f'-g'-a'-b'-c''-);
+[stems down]
+
+(d'-\ard\e'-f'-g'-a'-$b'-c''-) [space 6]
+(d'-\ard\e'-f'-g'-a'-b'-c''-)
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+
+[stave 1 treble 1]
+{ggg}
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+tripletlinewidth 1
+[stave 1 treble 1]
+{ggg}
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+
+[stave 1 treble 1]
+c-g-c'-e'-; c-e'-
+[endstave]
+
+[newmovement]
+unfinished
+nocheck
+maxbeamslope 0.8 0.2
+tripletlinewidth 1
+[stave 1 treble 1]
+c-g-c'-e'-; c-e'-; [beamslope 0.2] c-e'-
+[endstave]
+
+
+
+

@@ -1,0 +1,36 @@
+bracket 1-4, 5-6
+brace 1-2 7-8
+joindotted 1-4
+join 1-2, 3-4 7,8
+breakbarlines 1,3,5 6
+@breakbarlinesx 2
+
+[stave 1 treble 1] S! | S! [endstave]
+[stave 2 treble 1] S! | S! [endstave]
+[stave 3 treble 1] S! | S! [endstave]
+[stave 4 treble 1] S! | S! [endstave]
+[stave 5 treble 1] S! | S! [endstave]
+[stave 6 treble 1] S! | S! [endstave]
+[stave 7 treble 1] S! | S! [endstave]
+[stave 8 treble 1] S! | S! [endstave]
+
+[newmovement] 
+bracket 1-2
+brace
+join 1-2      
+nocheck
+startnotime
+startbracketbar 1
+
+[stave 1 soprano 1]
+[noteheads only] cc' [o] |
+
+[treble] ggg
+
+[endstave]
+
+
+[stave 2 alto 1]
+[noteheads only] a`a [o] |
+[treble] ggg
+

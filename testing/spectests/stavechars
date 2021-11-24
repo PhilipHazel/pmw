@@ -1,0 +1,5 @@
+heading "Use only narrow stave characters"
+
+[stave 1 treble 1]
+[45] gggg |
+[endstave]

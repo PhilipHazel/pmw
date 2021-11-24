@@ -1,0 +1,59 @@
+magnification 1.5
+justify top left
+underlaysize 9.5
+underlaydepth 9
+
+Heading "Underlay Tests"
+
+[stave 1 treble 1 text underlay]
+"The quick brown fox jumps==="
+aaaa | aaaa |
+[endstave]
+
+[newmovement]
+extenderlevel 2.5
+hyphenstring "\--"
+hyphenthreshold 20
+[stave 1 treble 1 text underlay]
+"jumps=== o-ver"
+aaaa | a[space 40]aaa |
+[newline]
+"the fox"
+[ulhere -10]
+aaaa | [newline]
+"the fox"
+aaaa | 
+"un\-split un-equals\=split end" aaaa |
+"\#A" AA |
+[endstave]
+
+
+[newmovement]
+heading "" 10
+@nospreadunderlay
+hyphenstring "-"
+[stave 1 treble 1 text underlay]
+"The quick brown fox jumps "
+"The second verse"
+"The third verse"
+"The fourth verse"
+"The fifth verse"
+"The sixth verse"
+"The seventh verse"
+"The eighth verse"
+"The ninth verse"
+"This is ri-di-cu-lous!"
+aaaa | aaaa |
+[endstave]
+
+
+[newmovement]
+nocheck
+heading "" 80
+textsizes 10 15
+
+[stave 1 treble 1]
+"AB-"/ol/"=|+"/"XY"/s2
+G+ | [newline] ggg "#"/ol g |
+[endstave]
+

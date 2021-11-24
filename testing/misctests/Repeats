@@ -1,0 +1,96 @@
+magnification 1.5
+nocheck
+justify top left
+footing "footing"
+
+[stave 1 treble 1]
+a :)|
+[newline][time 4/4]
+a |(: a :)| G++ | a (: b :) c :)|
+[endstave]
+
+[newmovement]
+repeatstyle 1
+[stave 1 treble 1]
+a |(: a :)| G++ |  a (: b :) c :)|
+[endstave]
+
+[newmovement]
+repeatstyle 2
+[stave 1 treble 1]
+a |(: a :)| G++ |  a (: b :) c :)|
+[endstave]
+
+[newmovement]
+repeatstyle 3
+[stave 1 treble 1]
+a |(: a :)| G++ |  a (: b :) c :)|
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+a |(: a :)| G++ |  a (: b :) c :)|
+[endstave]
+
+
+[newmovement]
+repeatstyle 0
+unfinished
+[stave 1 treble 1]
+a |(: a :)| G++ | a (: b :) c :)|
+[endstave]
+
+[newmovement]
+repeatstyle 1
+unfinished
+[stave 1 treble 1]
+a |(: a :)| G++ |  a (: b :) c :)|
+[endstave]
+
+[newmovement]
+repeatstyle 2
+unfinished
+[stave 1 treble 1]
+a |(: a :)| G++ |  a (: b :) c :)|
+[endstave]
+
+[newmovement]
+repeatstyle 3
+unfinished
+[stave 1 treble 1]
+a |(: a :)| G++ |  a (: b :) c :)|
+[endstave]
+
+[newmovement]
+unfinished
+[stave 1 treble 1]
+a |(: a :)| G++ |  a (: b :) c :)|
+[endstave]
+
+
+[newmovement]
+repeatstyle 0
+[stave 1 treble 1]
+a | [time 4/4] (: aa | aa | (: [time 4/4] aa | aa |
+[key E$] (: a a| a a| (: [key E$] aa | aa ||
+[endstave]
+
+[newmovement]
+[stave 1 treble 1]
+aa | [1st] aa :) | [2nd][3rd] aa |
+[endstave]
+
+[newmovement]
+breakbarlines 1
+[stave 1 treble 1]
+aa | [1st/u4][2nd] aa :) | [3rd] aa | [all] aa |
+[endstave]
+
+[stave 2 treble 1]
+aa | [1st/u4][2nd] aa :) | [3rd] aa | [all] aa |
+[endstave]
+
+
+
+
+
