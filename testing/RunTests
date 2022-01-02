@@ -91,7 +91,7 @@ else
     push @dirs, ($d, "out$1") if ($OK && $d =~ /^(.*)tests$/); 
     }
   } 
-  
+
 # Do the business 
   
 while (scalar @dirs > 0)

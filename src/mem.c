@@ -232,7 +232,8 @@ return yield;
 *************************************************/
 
 /* Put a new item on the end of the chain that is a duplicate of an existing
-item. This is used for replicating ornaments and notes. */
+item. This is used for replicating ornaments and notes and when splitting up
+underlay/overlay. */
 
 void *
 mem_duplicate_item(void *p, size_t size)

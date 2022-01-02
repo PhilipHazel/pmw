@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: September 2021 */
+/* This file last modified: January 2022 */
 
 extern void         debug_bar(void);
 extern void         debug_header(void);
@@ -155,6 +155,7 @@ extern void         slur_drawslur(slurstr *, int32_t, int, BOOL);
 extern slurstr     *slur_endslur(b_endslurstr *);
 extern slurstr     *slur_startslur(b_slurstr *);
 
+extern uint32_t    *string_check(uint32_t *, const char *);
 extern void         string_extend_buffer(void);
 extern char        *string_format_barnumber(uint32_t);
 extern char        *string_format_fixed(int32_t);
@@ -164,7 +165,7 @@ extern char        *string_format_notelength(int32_t);
 extern char        *string_format_pitch(uint16_t, BOOL);
 extern BOOL         string_pmweq(uint32_t *, uint32_t *);
 extern uint32_t    *string_pmw(uschar *, int);
-extern uint32_t    *string_read(uint32_t);
+extern uint32_t    *string_read(uint32_t, BOOL);
 extern BOOL         string_read_plain(void);
 extern void         string_relativize(void);
 extern void         string_stavestring(BOOL);

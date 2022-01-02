@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: November 2021 */
+/* This file last modified: January 2022 */
 
 #include "pmw.h"
 
@@ -323,7 +323,7 @@ read_draw_text(void)
 {
 drawtextstr *textptr = mem_get(sizeof(drawtextstr));
 
-if ((textptr->text = string_read(font_rm)) == NULL) return NULL;
+if ((textptr->text = string_read(font_rm, TRUE)) == NULL) return NULL;
 
 textptr->rotate = 0;
 textptr->xdelta = 0;

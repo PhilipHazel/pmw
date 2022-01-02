@@ -2,7 +2,7 @@
 
 # This is a script for the use of PMW maintainers. It configures and rebuilds
 # PMW with a variety of configuration options, and in each case runs the tests
-# to ensure that all goes well. This script must be run in the PMW source
+# to ensure that all goes well. This script must be run in the PMW top level
 # directory.
 
 # While debugging, it is sometimes useful to be able to cut out some of the

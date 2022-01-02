@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: November 2021 */
+/* This file last modified: January 2022 */
 
 #include "pmw.h"
 
@@ -852,22 +852,33 @@ return yield;
 *        Check string for valid characters       *
 *************************************************/
 
-/* This function is called after reading a PMW string. In the case of strings
-in stave data, this is delayed until after the default font has been set. The
-main purpose of this function is to check the string for unknown or invalid
-characters, replacing them with a legal character and saving the failures in a
-list for later reporting. At the same time, we handle any special Unicode
-translations for non-standardly encoded fonts.
+/* The main purpose of this function is to check a string for unknown or
+invalid characters, replacing them with a legal character and saving the
+failures in a list for later reporting. At the same time, we handle any special
+Unicode translations for non-standardly encoded fonts.
 
-When B2PF is supported, however, before doing any of that we must process the
-string with B2PF if any of its fonts is set up for it. This may involve getting
-a new memory block if the length of the string increases, but in most cases
-this won't be necessary. When this happens, the old memory is just abandoned.
-The intermediate buffer is currently on the stack, and of fixed size. If ever
-there is a complaint, we could change to an expandable heap buffer. */
+When B2PF is supported, before doing the check, we must process the string with
+B2PF if any of its fonts is set up for it. This may involve getting a new
+memory block if the length of the string increases, but in most cases this
+won't be necessary. When this happens, the old memory is just abandoned. The
+intermediate buffer is currently on the stack, and of fixed size. If ever there
+is a complaint, we could change to an expandable heap buffer.
 
-static uint32_t *
-string_check(uint32_t *str)
+B2PF is applied to substrings of characters in the same font if that font is
+configured for it. When the string is underlay, overlay, or a stave name
+string, however, we also terminate substrings at syllable or line breaking
+points because, when reversing character order, we don't want to reverse the
+order of the syllables or lines.
+
+Arguments:
+  str          the string to check
+  bseps        B2PF special separators, or NULL if none
+
+Returns:       the checked string
+*/
+
+uint32_t *
+string_check(uint32_t *str, const char *bseps)
 {
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
 BOOL call_b2pf = FALSE;
@@ -898,15 +909,59 @@ if (call_b2pf)
     uint32_t *t = s;
     uint32_t f = PFTOP(*s);
     uint32_t bf = (f >> 24) & ~font_small;   /* Basic font */
+    BOOL isb2pf = font_b2pf_contexts[bf] != NULL;
 
-    /* Get the next substring whose characters are all in the same font. */
+    /* Get the next substring whose characters are all in the same font. When
+    special separators are supplied, sequences of them are copied as is.
+    Complicating things, there is a special case where the separator is an
+    unescaped vertical bar (for [name] strings). This appears in strings as a
+    non-Unicode special character. We have to handle this case on its own. */
 
-    while (*(++s) != 0 && PFTOP(*s) == f);
+    if (bseps != NULL)
+      {
+      if (Ustrcmp(bseps, "|") == 0)
+        {
+        if (PCHAR(*s) == ss_verticalbar)
+          {
+          while (PCHAR(*(++s)) == ss_verticalbar) {};
+          isb2pf = FALSE;
+          }
+        else
+          {
+          while (*(++s) != 0 && PFTOP(*s) == f &&
+            PCHAR(*s) != ss_verticalbar) {};
+          }
+        }
+
+      /* Not the special [name] string case */
+
+      else
+        {
+        if (Ustrchr(bseps, PCHAR(*s)) != NULL)
+          {
+          while (Ustrchr(bseps, PCHAR(*(++s))) != NULL) {};
+          isb2pf = FALSE;
+          }
+        else
+          {
+          while (*(++s) != 0 && PFTOP(*s) == f &&
+            Ustrchr(bseps, PCHAR(*s)) == NULL) {};
+          }
+        }
+      }
+
+    /* No special separators */
+
+    else while (*(++s) != 0 && PFTOP(*s) == f);
+
+    /* Length of substring */
+
     ilen = s - t;
 
-    /* If this font is not set up for B2PF, just copy the text. */
+    /* If this font is not set up for B2PF, or we have a sequence of hyphens
+    and equals in an underlay string, just copy the text. */
 
-    if (font_b2pf_contexts[bf] == NULL)
+    if (!isb2pf)
       {
       if (ilen > room) error(ERR156);  /* Hard */
       memcpy(p, t, ilen*sizeof(uint32_t));
@@ -921,9 +976,18 @@ if (call_b2pf)
       int rc;
       size_t used, eoffset;
 
-      /* Remove the font from the 32-bit characters before processing. */
+      /* Remove the font from the 32-bit characters before processing. Check
+      whether any special character values are present. These have code points
+      outside the Unicode range, which means that B2PF will complain that they
+      are invalid. To avoid this, copy them to matching code points in the
+      Unicode "private" range (which are hopefully not otherwise in use). */
 
-      for (uint32_t *pp = t; pp < s; pp++) *pp &= 0x00ffffffu;
+      for (uint32_t *pp = t; pp < s; pp++)
+        {
+        *pp &= 0x00ffffffu;
+        if (*pp > MAX_UNICODE) *pp = (*pp - MAX_UNICODE + UNICODE_PRIVATE);
+        }
+
       rc = b2pf_format_string(font_b2pf_contexts[bf], (void *)t, ilen,
         (void *)p, room, &used, font_b2pf_options[bf], &eoffset);
 
@@ -943,11 +1007,18 @@ if (call_b2pf)
         exit(EXIT_FAILURE);
         }
 
-      /* Add the font back into the processed characters while advancing past
-      them. */
+      /* Restore special character values and add the font back into the
+      processed characters while advancing past them. */
 
       room -= used;
-      while (used > 0) { *p++ |= f; used--; }
+      while (used > 0)
+        {
+        if (*p > UNICODE_PRIVATE &&
+            *p < UNICODE_PRIVATE + (ss_top - MAX_UNICODE))
+          *p = (*p - UNICODE_PRIVATE) + MAX_UNICODE;
+        *p++ |= f;
+        used--;
+        }
       }
     }
 
@@ -959,7 +1030,10 @@ if (call_b2pf)
   if (nlen > (size_t)(s - str)) str = mem_get_independent(nlen*sizeof(uint32_t));
   memcpy(str, outbuff, nlen*sizeof(uint32_t));
   }
-#endif  /* SUPPORT_B2PF */
+
+#else          /* No B2PF support */
+(void)bseps;   /* Avoid compiler warning */
+#endif         /* SUPPORT_B2PF */
 
 /* Now check the string's characters and do any necessary Unicode translation. */
 
@@ -1201,9 +1275,8 @@ are Unicode code points. Larger values are used for special items such as
 
 The fontid argument is the initial font. In the case of a stave string, this is
 font_unknown, because the default for a stave string isn't known until the
-options that follow the string are read. When this is the case, we don't check
-the string for validity - that is done at the end of set_default_font(). In
-other cases the string is checked at the end of this function.
+options that follow the string are read. For this, and also for heading
+strings, the string check is deferred till later via the string_check argument.
 
 Memory usage: the string is first read into an on-stack buffer, which is large
 enough for many short strings. If the string fits, a copy is made in a
@@ -1217,7 +1290,7 @@ Returns:    pointer to memory containing the string or NULL on error
 */
 
 uint32_t *
-string_read(uint32_t fontid)
+string_read(uint32_t fontid, BOOL check_string)
 {
 size_t p = 0;
 size_t mem_size = 0;
@@ -1226,7 +1299,6 @@ uint32_t set_fontid;
 uint32_t stack_string[STRINGBUFFER_CHUNKSIZE * sizeof(uint32_t)];
 uint32_t *yield = stack_string;
 void *block = NULL;
-BOOL check_string = fontid != font_unknown;
 
 read_sigc();
 if (read_c != '\"')
@@ -1663,10 +1735,10 @@ else
   yield = (uint32_t *)((char *)(block) + sizeof(char *));
   }
 
-/* Unless the initial font was unknown, check the string for validity before
-returning. */
+/* If requested, check the string for validity before returning. Some strings
+defer this checking till later. */
 
-if (check_string) yield = string_check(yield);
+if (check_string) yield = string_check(yield, NULL);
 read_nextc();
 return yield;
 }
@@ -1714,9 +1786,10 @@ b->size = -1;
 
 /* Read the string with an initial unknown font. This will end up as 0xff in
 the font byte of relevant characters. When we know the string type, we scan the
-string and adjust the default font where necessary. */
+string and adjust the default font where necessary. Also, defer the string
+checking. */
 
-b->string = string_read(font_unknown);
+b->string = string_read(font_unknown, FALSE);
 if (b->string == NULL) return FALSE;  /* Error */
 
 /* Handle options. Note that two successive slashes are a caesura, not a bad
@@ -1933,11 +2006,21 @@ the font_small bit. We can stop as soon as a character with a font other than
 Symbol or Music is encountered; this means the string contained a font setting
 so there will be no more characters with an 0x7f font. Individual Symbol and
 Music characters can be set by escape sequences without changing the current
-font, which is why we must carry on after such characters. Once all the font
-data for a string is known, we can check it for invalid characters. */
+font, which is why we must carry on after such characters.
+
+After setting the default font, we can check the validity of the string. If it
+is underlay, a string of special syllable separators will be supplied.
+
+Arguments:
+  str         the string
+  font        the default font
+  bseps       special separators or NULL
+
+Returns:      the (possibly modified) string
+*/
 
 static uint32_t *
-set_default_font(uint32_t *str, uint32_t font)
+set_default_font(uint32_t *str, uint32_t font, const char *bseps)
 {
 font = ~(font|font_small) << 24;
 for (uint32_t *s = str; *s != 0; s++)
@@ -1946,7 +2029,7 @@ for (uint32_t *s = str; *s != 0; s++)
   if (f == font_unknown << 24) *s ^= font;
     else if (f != font_sy << 24 && f != font_mf << 24) break;
   }
-return string_check(str);
+return string_check(str, bseps);
 }
 
 
@@ -1966,6 +2049,7 @@ void
 string_stavestring(BOOL rehearse)
 {
 BOOL more;
+BOOL undoverlay;
 uint16_t default_font;
 uint16_t htype = 0;
 b_textstr *p;
@@ -1983,11 +2067,13 @@ more = read_basestring(s1, rehearse, NULL,
 
 if (s1->string == NULL) return;    /* There's been an error */
 
+undoverlay = (s1->flags & text_ul) != 0;
+
 /* Now that we know what type of text this is, we can set up the default font
 for underlay, overlay, figured bass, or general text, and also set the size if
 it is not set. */
 
-if ((s1->flags & text_ul) != 0)
+if (undoverlay)
   {
   if ((s1->flags & text_above) == 0)
     {
@@ -2023,7 +2109,11 @@ else
   if (s1->size < 0) s1->size = srs.textsize;
   }
 
-s1->string = set_default_font(s1->string, default_font);
+/* Set the default font. This also performs the string character check; for
+underlay/overlay special separators must be supplied. */
+
+s1->string = set_default_font(s1->string, default_font,
+  undoverlay? "- =\n" : NULL);
 
 /* If the string ended with /" we process additional strings that may be
 present for underlay/overlay. If such a string appears on any other kind of
@@ -2038,7 +2128,7 @@ if (more)
   more = read_basestring(s2, FALSE, "dsu", "/d, /s, or /u");
   if (s2->string == NULL) return;             /* There's been an error */
   if (s2->size < 0) s2->size = s1->size;      /* Default to main string size */
-  s2->string = set_default_font(s2->string, default_font);
+  s2->string = set_default_font(s2->string, default_font, NULL);
 
   /* The second extra string is split into two at an unescaped vertical bar if
   there is one. If not, the second substring is NULL. */
@@ -2067,13 +2157,13 @@ if (more)
       read_i--;
       read_c = '/';
       }
-    s3->string = set_default_font(s3->string, default_font);
+    s3->string = set_default_font(s3->string, default_font, NULL);
     }
 
   /* The multiple string stuff applies only to {und,ov}erlay. Set up a
   new global hyphen-type block, or find the number of an identical one. */
 
-  if ((s1->flags & text_ul) == 0) error(ERR94); else
+  if (!undoverlay) error(ERR94); else
     {
     htypestr *h = main_htypes;
     htypestr **hh = &main_htypes;

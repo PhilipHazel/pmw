@@ -2,6 +2,19 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
+Version 5.01 02-January-2022
+----------------------------
+
+1. Fixed bugs in the handling of B2PF fonts caused by pre-processing long
+strings before splitting up (headings into left/centre/right; underlay into
+syllables, stave starting strings into lines). In configuations where the
+strings were to be reversed, this caused reversal of the whole string instead
+of just the characters in the individual parts.
+
+2. Fixed a related issue with specially interpreted characters in strings that
+are processed by B2PF - e.g. vertical bar in headings.
+
+
 Version 5.00 24-November-2021
 -----------------------------
 

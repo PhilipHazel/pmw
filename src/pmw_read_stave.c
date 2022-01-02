@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: November 2021 */
+/* This file last modified: January 2022 */
 
 #include "pmw.h"
 
@@ -175,7 +175,7 @@ for (;;)
         *****************/
 
         case '\"':
-        p->s = string_read(curmovt->fonttype_repeatbar);
+        p->s = string_read(curmovt->fonttype_repeatbar, TRUE);
         break;
 
         default:

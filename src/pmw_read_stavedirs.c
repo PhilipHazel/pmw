@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: November 2021 */
+/* This file last modified: January 2022 */
 
 #include "pmw.h"
 
@@ -214,10 +214,14 @@ read_name_string(snamestr *p)
 {
 uint32_t *ss;
 
-p->linecount = 1;
-p->text = ss = string_read(font_rm);
+/* Read the string, then check it, passing "|" as the special separator string.
+This is interpreted to mean ss_verticalbar. Then count the number of lines. */
 
+p->text = ss = string_check(string_read(font_rm, FALSE), "|");
+p->linecount = 1;
 while (*ss != 0) if (PCHAR(*ss++) == ss_verticalbar) p->linecount += 1;
+
+/* Handle options */
 
 while (read_c == '/')
   {
@@ -1620,7 +1624,7 @@ while (read_c == '/')
     break;
 
     case '\"':
-    p->gaptext = string_read(font_rm);
+    p->gaptext = string_read(font_rm, TRUE);
     while (read_c == '/')
       {
       read_nextc();

@@ -2,12 +2,20 @@ righttoleft
 textfont extra 1 include "OmArabicRsimms"
 textfont extra 2 "OmArabicRsimms"
 textfont extra 3 "OmArabicRsimms"
+textfont extra 4 "OmArabicRsimms"
 
 B2PFfont extra 2 input_backchars output_backchars "Arabic"
 B2PFfont extra 3 input_backchars output_backchars "Arabic" "Arabic-LigExtra"
+B2PFfont extra 4 output_backcodes "Arabic"
+B2PFfont bold output_backchars ""
 
 heading "Right|Centre"
 heading 16 "\xx1\مينارت ليتكوك|\xx2\مينارت ليتكوك" 24
 heading 16 "\xx1\مينارت ليتكوك|\xx3\مينارت ليتكوك" 24
 heading 16 "\xx1\ههه|\xx2\ههه" 24
+heading 16 "|\xx4\الربُّ قسمتي\rm\|" 24
+heading 16 "|\xx4\الربُّ قسمتي|" 24
 
+[stave 1 "\bf\One|Two" treble 1 text underlay]
+"\bf\The quick brown fox" gggg
+[endstave]

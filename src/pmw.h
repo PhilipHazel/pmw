@@ -6,13 +6,13 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: November 2021 */
+/* This file last modified: January 2022 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
-#define PMW_VERSION "5.00"
-#define PMW_DATE    "23-November-2021"
-#define COPYRIGHT   "Copyright (c) Philip Hazel 2021"
+#define PMW_VERSION "5.01"
+#define PMW_DATE    "01-January-2022"
+#define COPYRIGHT   "Copyright (c) Philip Hazel 2022"
 
 /* Standard C headers */
 
@@ -90,6 +90,7 @@
 #define STRINGBUFFER_SIZELIMIT     20000  /* Max string length */
 #define TEXTQUEUE_CHUNKSIZE           10  /* For queueing texts before notes */
 #define TEXTQUEUE_SIZELIMIT          100  /* Max entries */
+#define UNICODE_PRIVATE           0xe000  /* Start of Unicode "private use" characters */
 #define UUSIZE                       100  /* For list of unsupported/invalid Unicode codes */
 #define WORDBUFFER_SIZE               64
 
@@ -220,6 +221,7 @@ the Unicode range, but still within 24-bits. */
 #define ss_escapedhyphen (MAX_UNICODE + 11) /* Escaped hyphen (for underlay) */
 #define ss_escapedequals (MAX_UNICODE + 12) /* Escaped equals (ditto) */
 #define ss_escapedsharp  (MAX_UNICODE + 13) /* Escaped sharp (ditto) */
+#define ss_top           (MAX_UNICODE + 14) /* One after last used */
 
 /* If gcc is being used, we can use its facility for checking the arguments of
 printf-like functions. This is done by a macro. */

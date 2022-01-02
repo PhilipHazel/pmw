@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: October 2021 */
+/* This file last modified: January 2022 */
 
 /* This file contains the top-level function and character handling functions
 that are called from the modules that read headings and staves. */
@@ -591,9 +591,12 @@ else
   if (type == rh_heading && read_headingsizes[read_nextheadsize + 1] != 0)
     read_nextheadsize++;
 
-  /* We now read a PMW string and split it into left/middle/right. */
+  /* We now read a PMW string and split it into left/middle/right. After the
+  split, run the string check on each segment separately. This is necessary in
+  case there is B2PF processing that reverses the order of characters - we
+  don't want to reverse the order of the segments. */
 
-  p = new->string[0] = string_read(font_rm);
+  p = new->string[0] = string_read(font_rm, FALSE);
   for (i = 1; i < 3; i++)
     {
     while (*p != 0)
@@ -605,6 +608,8 @@ else
       }
     if (*p == 0) break;
     }
+  for (int j = 0; j < i; j++)
+    new->string[j] = string_check(new->string[j], NULL);
   for (; i < 3; i++) new->string[i] = NULL;  /* Missing parts */
   }
 

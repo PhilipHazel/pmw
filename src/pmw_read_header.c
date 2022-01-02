@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: November 2021 */
+/* This file last modified: January 2022 */
 
 #include "pmw.h"
 
@@ -817,7 +817,7 @@ curmovt->time = read_scaletime(curmovt->time_unscaled);
 static void
 hyphenstring(void)
 {
-curmovt->hyphenstring = string_read(font_rm);
+curmovt->hyphenstring = string_read(font_rm, TRUE);
 }
 
 
@@ -1618,9 +1618,9 @@ if (d == NULL)
   }
 
 p->clef = d->arg1;
-p->string = string_read(font_mf);
+p->string = string_read(font_mf, TRUE);
 read_sigc();
-p->cstring = (read_c == '"')? string_read(font_mf) : empty_string;
+p->cstring = (read_c == '"')? string_read(font_mf, TRUE) : empty_string;
 }
 
 
@@ -1642,7 +1642,7 @@ Returns:     TRUE if all goes well; FALSE on error
 static BOOL
 ptstring(uint32_t **s, uint8_t *sizeptr)
 {
-*s = string_read(curmovt->fonttype_time);
+*s = string_read(curmovt->fonttype_time, TRUE);
 if (*s == NULL) return FALSE;
 
 if (read_c == '/')
@@ -2202,7 +2202,7 @@ trillstring(void)
 {
 uint32_t *s;
 if (isdigit(read_c)) set_fontsize(offsetof(fontsizestr,fontsize_trill), TRUE);
-s = string_read(font_rm);
+s = string_read(font_rm, TRUE);
 if (s != NULL) curmovt->trillstring = s;
 }
 
