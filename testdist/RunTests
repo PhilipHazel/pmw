@@ -33,7 +33,7 @@ if [ $rc = 0 ]; then
   /bin/rm -f test.*
   /bin/rm -f test-*
   if [ -x ../testing/RunTests ]; then
-    (cd ../testing; RunTests nob2pf $valgrind)
+    (cd ../testing; RunTests $valgrind)
   rc=$?   
   fi    
 fi

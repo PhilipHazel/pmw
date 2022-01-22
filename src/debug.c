@@ -1539,6 +1539,14 @@ total += out_textqueue_size * sizeof(b_textstr *);
 eprintf("  Font list vector: %zd\n", font_list_size * sizeof(fontstr));
 total += font_list_size * sizeof(fontstr);
 
+#if SUPPORT_XML
+if (xml_layout_list_size > 0)
+  {
+  eprintf("  MusicXML layout size: %zd\n", xml_layout_list_size);
+  total += xml_layout_list_size;
+  }
+#endif     
+
 eprintf("  Movements vector: %zd\n", movements_size * sizeof(movtstr *));
 total += movements_size * sizeof(movtstr *);
 

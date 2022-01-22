@@ -10,8 +10,8 @@
 
 /* This file is included by all the other sources except rdargs.c. */
 
-#define PMW_VERSION "5.01"
-#define PMW_DATE    "01-January-2022"
+#define PMW_VERSION "5.10"
+#define PMW_DATE    "17-January-2022"
 #define COPYRIGHT   "Copyright (c) Philip Hazel 2022"
 
 /* Standard C headers */
@@ -253,7 +253,7 @@ typedef uint8_t CBOOL;
 #define CUS  (const unsigned char *)
 
 #define Uatoi(s)             atoi(CS(s))
-#define Ufgets(b,n,f)        fgets(CS(b),n,f)
+#define Ufgets(b,n,f)     US fgets(CS(b),n,f)
 #define Ufopen(s,t)          fopen(CCS(s),CCS(t))
 #define Ufputs(b,f)          fputs(CS(b),f)
 #define Ustrcat(s,t)         strcat(CS(s),CS(t))
@@ -346,6 +346,9 @@ debug decoding. */
 #define D_sortchord    0x00000400u
 #define D_stringwidth  0x00000800u
 #define D_trace        0x00001000u
+#define D_xmlanalyze   0x00002000u
+#define D_xmlgroups    0x00004000u
+#define D_xmlread      0x00008000u
 
 #define DEBUG(x)       if ((debug_selector & (x)) != 0)
 #define TRACE(...)     if ((debug_selector & D_trace) != 0) \
@@ -889,10 +892,23 @@ enum {
   mc_hsflat2
 };
 
+/* Error type codes */
+
+#define ec_warning   0
+#define ec_minor     1   /* Soft error - can continue and produce output */
+#define ec_major     2   /* Soft error - can continue, but no output */
+#define ec_failed    3   /* Hard error - cannot continue */
+
 /* Include definitions of structures, global variables, and functions. */
 
 #include "structs.h"
 #include "globals.h"
 #include "functions.h"
+
+/* Optional MusicXML support */
+
+#if SUPPORT_XML
+#include "xml.h"
+#endif
 
 /* End of pmw.h */

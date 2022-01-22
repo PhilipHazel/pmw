@@ -8,6 +8,7 @@ mkinstalldirs = $(SHELL) mkinstalldirs
 CC=@CC@
 CFLAGS=@CFLAGS@
 LFLAGS=@LFLAGS@
+SUPPORT_XML=@SUPPORT_XML@
 
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -37,6 +38,7 @@ build:; @cd src; \
         CC="$(CC)" \
         CFLAGS="$(CFLAGS)" \
         LFLAGS="$(LFLAGS)" \
+        SUPPORT_XML="$(SUPPORT_XML)" \
         FE="$(FE)" \
         $(MFLAGS)
 

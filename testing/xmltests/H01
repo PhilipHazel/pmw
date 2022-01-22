@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-built test for pmw XML processing -->
+<score-partwise>
+  <movement-title>Test H01</movement-title>
+  <defaults>
+  <scaling>
+    <millimeters>6</millimeters>
+    <tenths>40</tenths>
+  </scaling>
+  </defaults>
+  <part-list>
+    <score-part id="P1">
+    </score-part>
+    <score-part id="P2"/>
+  </part-list>
+  <!--============================================================-->
+  <part id="P1">
+    <measure number="1">
+      <attributes>
+        <divisions>8</divisions>
+        <time>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <accent/>
+          </articulations>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <breath-mark/>
+          </articulations>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <caesura/>
+          </articulations>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <detached-legato/>
+          </articulations>
+        </notations>
+      </note>
+    </measure>
+
+
+    <measure number="2">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <spiccato/>
+          </articulations>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <staccatissimo/>
+          </articulations>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <staccato/>
+          </articulations>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <strong-accent/>
+          </articulations>
+        </notations>
+      </note>
+    </measure>
+
+
+    <measure number="3">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <tenuto/>
+          </articulations>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <breath-mark/>
+          </articulations>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <caesura/>
+          </articulations>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <detached-legato/>
+          </articulations>
+        </notations>
+      </note>
+    </measure>
+
+    <measure number="4">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notehead filled="no">diamond</notehead>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notehead filled="no">x</notehead>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notehead filled="no">none</notehead>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notehead filled="no">normal</notehead>
+      </note>
+    </measure>
+
+    <measure number="5">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>regular</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="6">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>dotted</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="7">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>dashed</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="8">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>heavy</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="9">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>light-light</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="10">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="11">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>heavy-light</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="12">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>heavy-heavy</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="13">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>light-light</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="14">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>tick</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="15">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>short</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="16">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+
+      <barline location="right">
+        <bar-style>none</bar-style>
+      </barline>
+    </measure>
+
+    <measure number="17">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <type>whole</type>
+      </note>
+    </measure>
+
+  </part>
+  <!--============================================================-->
+
+  <part id="P2">
+    <measure number="1">
+      <attributes>
+         <staff-details>
+           <staff-size>80</staff-size>
+         </staff-details>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <ornaments>
+            <tremolo type="start">2</tremolo>
+          </ornaments>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <ornaments>
+            <tremolo type="stop"/>
+          </ornaments>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+      </note>
+    </measure>
+
+    <measure number="2">
+      <attributes>
+         <staff-details>
+           <staff-size>80</staff-size>
+         </staff-details>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <ornaments>
+            <turn>2</turn>
+            <accidental-mark placement="above">flat</accidental-mark>
+          </ornaments>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <ornaments>
+            <turn>2</turn>
+            <accidental-mark placement="above">flat</accidental-mark>
+            <accidental-mark placement="below">double-sharp</accidental-mark>
+          </ornaments>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <ornaments>
+            <turn placement="below">2</turn>
+            <accidental-mark placement="above">flat</accidental-mark>
+          </ornaments>
+        </notations>
+      </note>
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <ornaments>
+            <turn slash="yes">2</turn>
+            <accidental-mark>flat-flat</accidental-mark>
+          </ornaments>
+        </notations>
+      </note>
+
+    </measure>
+
+  </part>
+
+</score-partwise>
+
+

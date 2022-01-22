@@ -179,4 +179,8 @@ extern uint16_t     transpose_note(uint16_t, uint16_t *, uint8_t *, uint8_t,
 extern BOOL         tree_insert(tree_node **, tree_node *);
 extern tree_node   *tree_search(tree_node *, uschar *);
 
+#if SUPPORT_XML
+extern void         xml_read(void);
+#endif
+
 /* End of functions.h */

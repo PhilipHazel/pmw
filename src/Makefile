@@ -8,20 +8,25 @@ MIDIVOICES=$(DATADIR)/MIDIvoices
 MIDIPERC=$(DATADIR)/MIDIperc
 FONTDIR=$(DATADIR)/psfonts
 
-CC=$CC)
-CFLAGS=$(CFLAGS)
-
 COMP = $(CC) -DFONTDIR='"$(FONTDIR)"' -DFONTMETRICS='"$(FONTMETRICS)"' -DPSHEADER='"$(PSHEADER)"' -DMIDIVOICES='"$(MIDIVOICES)"' -DMIDIPERC='"$(MIDIPERC)"' $(CFLAGS) -I. -c
 LINK = $(CC) $(CFLAGS)
 
 HDRS = config.h functions.h globals.h pmw.h rdargs.h structs.h
 DEPS = $(HDRS) Makefile ../Makefile
+XMLDEPS = xml.h xml_functions.h xml_globals.h xml_structs.h
 
 OBJ = debug.o draw.o error.o font.o globals.o main.o mem.o midi.o misc.o out.o \
       paginate.o pmw_read.o pmw_read_header.o pmw_read_note.o pmw_read_stave.o \
       pmw_read_stavedirs.o preprocess.o ps.o rdargs.o read.o setbar.o \
       setbeam.o setnote.o setother.o setslur.o settie.o string.o tables.o \
-      transpose.o tree.o
+      transpose.o tree.o 
+
+ifeq ($(SUPPORT_XML),1)      
+  XMLOBJ = xml.o xml_analyze.o xml_debug.o xml_error.o xml_globals.o \
+           xml_read.o xml_tables.o
+else
+  XMLOBJ=
+endif      
 
 # The normal targets in this Makefile are not called directly, but should be
 # called from the top-level Makefile. To make it easy when developing from
@@ -34,9 +39,9 @@ intcall:;      cd ..; $(MAKE);
 
 all:            pmw
 
-pmw:            $(OBJ)
+pmw:            $(OBJ) $(XMLOBJ)
 		@echo "$(CC) -o pmw"
-		$(FE)$(LINK) $(OBJ) -o pmw -lm $(LFLAGS)
+		$(FE)$(LINK) $(OBJ) $(XMLOBJ) -o pmw -lm $(LFLAGS)
 		@echo ">>> pmw binary built"
 
 clean:;         rm -f *.o pmw
@@ -78,5 +83,12 @@ string.o:              $(DEPS) string.c
 tables.o:              $(DEPS) tables.c
 transpose.o:           $(DEPS) transpose.c
 tree.o:                $(DEPS) tree.c
+xml.o:                 $(DEPS) $(XMLDEPS) xml.c
+xml_analyze.o:         $(DEPS) $(XMLDEPS) xml_analyze.c
+xml_debug.o:           $(DEPS) $(XMLDEPS) xml_debug.c
+xml_error.o:           $(DEPS) $(XMLDEPS) xml_error.c
+xml_globals.o:         $(DEPS) $(XMLDEPS) xml_globals.c
+xml_read.o:            $(DEPS) $(XMLDEPS) xml_read.c
+xml_tables.o:          $(DEPS) $(XMLDEPS) xml_tables.c
 
 # End of building Makefile for PMW

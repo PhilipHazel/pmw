@@ -1682,7 +1682,7 @@ static void
 include_font(uschar *name, const char *ext)
 {
 FILE *f = NULL;
-char *s;
+uschar *s;
 uschar *fextra, *fdefault;
 uschar buff[256];
 

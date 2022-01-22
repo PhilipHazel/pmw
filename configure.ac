@@ -40,10 +40,20 @@ if test "x$enable_b2pf" = "xyes"; then
   LFLAGS=-lb2pf
 fi
 
+dnl Handle --enable-musicxml
+SUPPORT_XML=0
+AC_ARG_ENABLE(musicxml,
+  AS_HELP_STRING([--enable-musicxml], [enable support for MusicXML input]),
+  , enable_musicxml=unset)
+
+if test "x$enable_musicxml" = "xunset"; then enable_musicxml=no; fi
+if test "x$enable_musicxml" = "xyes"; then SUPPORT_XML=1; fi
+
 dnl Export these values in addition to the defaults
 AC_SUBST(LFLAGS)
 AC_SUBST(NO_PMWRC)
 AC_SUBST(SUPPORT_B2PF)
+AC_SUBST(SUPPORT_XML)
 
 dnl Write these files
 AC_CONFIG_FILES(
@@ -67,6 +77,7 @@ PMW configuration summary:
     Install man page in ..............: ${prefix}/man
     Support .pmwrc file ..............: ${enable_pmwrc}
     Support B2PF text processing .....: ${enable_b2pf}
+    Support for MusicXML input .......: ${enable_musicxml}
 
 EOF
 

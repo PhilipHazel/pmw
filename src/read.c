@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: September 2021 */
+/* This file last modified: January 2022 */
 
 #include "pmw.h"
 
@@ -300,9 +300,14 @@ if (Ustrncmp(main_readbuffer, "%abc-", 5) == 0)
 else if (Ustrncmp(main_readbuffer, "<?xml version=", 14) == 0)
   {
   TRACE("Music XML file detected\n");
-  error(ERR3, "Music XML");    /* Hard - in future will be tested */
-  if (ft != FT_AUTO || ft != FT_MXML)
+  read_i = Ustrlen(main_readbuffer);  
+#if !SUPPORT_XML   
+  error(ERR3, "Music XML");    /* Hard */
+#else   
+  if (ft != FT_AUTO && ft != FT_MXML)
     error(ERR4, "Music XML");  /* Hard */
+  xml_read();   
+#endif   
   }
 
 else
