@@ -21,10 +21,10 @@ BOOL             xml_debug_need_nl          = FALSE;
 
 int              xml_error_max              = 0;
 
-int              xml_first_system_distance  = -1;
-// int           fontsizes[20];
-// int           fontsize_next;
-// int           fontsize_word_default      = -1;
+int32_t          xml_first_system_distance  = -1;
+int32_t          xml_fontsizes[20];
+int              xml_fontsize_next          = 0;
+int32_t          xml_fontsize_word_default  = -1;
 
 xml_group_data  *xml_groups_list            = NULL;
 BOOL             xml_group_symbol_set       = FALSE;
@@ -63,7 +63,6 @@ int              xml_time_signature_seen    = -1;
 
 tree_node       *xml_unrecognized_element_tree = NULL;
 
-BOOL             xml_warn_ignored           = TRUE;
 BOOL             xml_warn_unrecognized      = TRUE;
 
 /* End of xml_globals.c */

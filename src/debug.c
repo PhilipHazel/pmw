@@ -944,6 +944,8 @@ for (i = 0; i < movement_count; i++)
     }
   eprintf("\n");
 
+  debug_stavemap("suspend_staves", m->suspend_staves);
+
   eprintf("  systemgap = %s\n", sff(m->systemgap));
   debug_stavelist("thinbracketlist", m->thinbracketlist);
   eprintf("  topmargin = %s\n", sff(m->topmargin));
@@ -960,9 +962,6 @@ for (i = 0; i < movement_count; i++)
   debug_time("time_unscaled", m->time_unscaled, "\n");
   eprintf("  underlaydepth = %s\n", sff(m->underlaydepth));
   eprintf("  underlaystyle = %d\n", m->underlaystyle);
-
-
-  debug_stavemap("suspend_staves", m->suspend_staves);
   }
 }
 

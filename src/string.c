@@ -1165,8 +1165,8 @@ Argument:  pointer to the first byte
 Returns:   the length of the character (1 - 6) or -1 if invalid UTF-8 start
 */
 
-static int
-check_utf8(uschar *pp)
+int
+string_check_utf8(uschar *pp)
 {
 int ab;
 int c = *pp++;
@@ -1318,7 +1318,7 @@ set_fontid = fontid <<= 24;
 for (read_nextc(); read_c != '\"' && read_c != ENDFILE; read_nextc())
   {
   int bot, top;
-  int aa = check_utf8(main_readbuffer + read_i - 1) - 1; /* additional bytes */
+  int aa = string_check_utf8(main_readbuffer + read_i - 1) - 1; /* additional bytes */
 
   /* Pick up any additional UTF-8 bytes. If aa < 0 the byte is illegal UTF-8.
   Give a warning and accept it as a one-byte value. */

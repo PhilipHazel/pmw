@@ -156,6 +156,7 @@ extern slurstr     *slur_endslur(b_endslurstr *);
 extern slurstr     *slur_startslur(b_slurstr *);
 
 extern uint32_t    *string_check(uint32_t *, const char *);
+extern int          string_check_utf8(uschar *);
 extern void         string_extend_buffer(void);
 extern char        *string_format_barnumber(uint32_t);
 extern char        *string_format_fixed(int32_t);

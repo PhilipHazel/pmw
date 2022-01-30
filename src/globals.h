@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: October 2021 */
+/* This file last modified: January 2022 */
 
 
 /*************************************************
@@ -172,6 +172,7 @@ extern int32_t      main_transpose;
 extern BOOL         main_transposedaccforce;
 extern trkeystr    *main_transposedkeys;
 extern int32_t      main_truepagelength;
+extern BOOL         main_verify;
 
 extern uint32_t     midi_endbar;
 extern uschar      *midi_filename;

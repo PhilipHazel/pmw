@@ -544,14 +544,13 @@ Arguments:
   argc        the (possibly modified) command line argc
   argv        the (possibly modified) command line argv
 
-Returns:      TRUE if verify is set; errors are hard
+Returns:      nothing; errors are hard
 */
 
-static BOOL
+static void
 decode_command(int argc, char **argv)
 {
 arg_result results[MAX_COMMANDARGS];
-BOOL verify = FALSE;
 int rc = rdargs(argc, argv, arg_pattern, results, MAX_COMMANDARGS);
 
 if (rc != 0)
@@ -609,7 +608,7 @@ if (results[arg_v].number != 0)
   {
   (void)eprintf( "PMW version %s\n", PMW_VERSION);
   main_showid = FALSE;
-  verify = TRUE;
+  main_verify = TRUE;
   }
 
 if (results[arg_testing].number != 0)
@@ -820,8 +819,6 @@ if (results[arg_printside].presence != arg_present_not)
     else if (n == 2) print_side1 = FALSE;
       else error(ERR141);  /* Hard */
   }
-
-return verify;
 }
 
 
@@ -1076,13 +1073,12 @@ All errors detected in init_command() and decode_command() are hard. */
 int
 main(int argc, char **argv)
 {
-BOOL verify;
 (void) argc;
 
 if (atexit(tidy_up) != 0) error(ERR25);  /* Hard */
 
 newargv = mem_get(MAX_COMMANDARGS * sizeof(char *));
-verify = decode_command(init_command(argv, newargv), newargv);
+decode_command(init_command(argv, newargv), newargv);
 
 if (!initialize()) exit(EXIT_FAILURE);
 
@@ -1118,7 +1114,7 @@ else
 /* Read the input file */
 
 main_state = STATE_READ;
-if (verify) eprintf( "Reading ...\n");
+if (main_verify) eprintf( "Reading...\n");
 read_file(FT_AUTO);
 main_truepagelength = main_pagelength;  /* Save unscaled value */
 
@@ -1137,7 +1133,7 @@ if (!main_suppress_output)
   {
   main_state = STATE_PAGINATE;
   wk_cont = mem_get_independent((main_maxstave+1)*sizeof(contstr));
-  if (verify) eprintf( "Paginating ...\n");
+  if (main_verify) eprintf( "Paginating...\n");
   paginate();
   }
 
@@ -1151,14 +1147,14 @@ if (main_suppress_output)
 
 /* Show pagination information if verifying */
 
-if (verify) display_info();
+if (main_verify) display_info();
 
 /* If a file name other than "-" is set for the output, open it. Otherwise
 we'll be writing to stdout. */
 
 if (out_filename != NULL && Ustrcmp(out_filename, "-") != 0)
   {
-  if (verify) eprintf( "\nWriting PostScript file \"%s\" ...\n", out_filename);
+  if (main_verify) eprintf( "\nWriting PostScript file \"%s\"...\n", out_filename);
   ps_file = Ufopen(out_filename, "w");
   if (ps_file == NULL)
     error(ERR23, out_filename, strerror(errno));  /* Hard error */
@@ -1166,7 +1162,7 @@ if (out_filename != NULL && Ustrcmp(out_filename, "-") != 0)
 else
   {
   ps_file = stdout;
-  if (verify) eprintf( "\nWriting Postscript to stdout ...\n");
+  if (main_verify) eprintf( "\nWriting Postscript to stdout...\n");
   }
 
 /* Set up for printing, and go for it */
@@ -1206,11 +1202,11 @@ if (main_error_136) error(ERR136);
 
 if (midi_filename != NULL)
   {
-  if (verify) eprintf("Writing MIDI file \"%s\" ...\n", midi_filename);
+  if (main_verify) eprintf("Writing MIDI file \"%s\"...\n", midi_filename);
   midi_write();
   }
 
-if (verify) eprintf( "PMW done\n"); else TRACE("Done\n");
+if (main_verify) eprintf( "PMW done\n"); else TRACE("Done\n");
 
 DEBUG(D_memory) debug_memory_usage();
 exit(EXIT_SUCCESS);

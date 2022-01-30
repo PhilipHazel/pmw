@@ -469,12 +469,14 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
     if (new->stave_count > 1)
       {
       xml_group_data *group;
+      
       for (group = xml_groups_list; group != NULL; group = group->next)
         {
         if (group->first_pstave == new->stave_first &&
             group->last_pstave < 0)
           break;
         }
+
       if (group == NULL)
         {
         group = mem_get(sizeof(xml_group_data));

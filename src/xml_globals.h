@@ -20,10 +20,10 @@ extern BOOL             xml_debug_need_nl;
 // extern int           entity_list_count;
 extern int              xml_error_max;
 
-extern int              xml_first_system_distance;
-// extern int           fontsizes[];
-// extern int           fontsize_next;
-// extern int           fontsize_word_default;
+extern int32_t          xml_first_system_distance;
+extern int32_t          xml_fontsizes[];
+extern int              xml_fontsize_next;
+extern int32_t          xml_fontsize_word_default;
 
 extern xml_group_data  *xml_groups_list;
 extern BOOL             xml_group_symbol_set;
@@ -64,7 +64,6 @@ extern int              xml_time_signature_seen;
 
 extern tree_node       *xml_unrecognized_element_tree;
 
-extern BOOL             xml_warn_ignored;
 extern BOOL             xml_warn_unrecognized;
 
 /* End of xml_globals.h */

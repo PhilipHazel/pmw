@@ -13,7 +13,7 @@ XML items. */
 
 #ifdef NEVER
 static uschar utf8[8];   /* Returned with UTF-8 string */
-
+#endif
 
 
 /*************************************************
@@ -28,8 +28,8 @@ Argument:  the string
 Returns:   the number, or -1 on error
 */
 
-int
-misc_string_to_mils(uschar *s)
+static int
+string_to_mils(uschar *s)
 {
 int yield = 0;
 while (isdigit(*s)) yield = yield * 10 + *s++ - '0';
@@ -51,7 +51,6 @@ if (*s == '.')
 
 return (*s == 0)? yield : -1;
 }
-#endif
 
 
 /*************************************************
@@ -124,7 +123,6 @@ return bad;
 }
 
 
-#ifdef NEVER
 /*************************************************
 *      Add attribute value entry to tree         *
 *************************************************/
@@ -138,7 +136,7 @@ Returns:
 */
 
 void
-misc_add_attrval_to_tree(tree_node **tree, item *i, attrstr *a)
+xml_add_attrval_to_tree(tree_node **tree, xml_item *i, xml_attrstr *a)
 {
 tree_node *p;
 uschar buff[256];
@@ -146,14 +144,15 @@ uschar buff[256];
 p = tree_search(*tree, buff);
 if (p == NULL)
   {
-  p = misc_malloc(sizeof(tree_node) + Ustrlen(buff));
-  Ustrcpy(p->name, buff);
-  (void)tree_insertnode(tree, p);
+  p = mem_get(sizeof(tree_node) + Ustrlen(buff));
+  p->name = mem_copystring(buff); 
+  (void)tree_insert(tree, p);
   }
 }
 
 
 
+#ifdef NEVER
 /*************************************************
 *       Convert character value to UTF-8         *
 *************************************************/
@@ -582,7 +581,6 @@ if (s != NULL) *s = n + '0';
 } 
 
 
-#ifdef NEVER
 /*************************************************
 *       Get mils value for given item            *
 *************************************************/
@@ -602,17 +600,16 @@ Returns:     legal value or bad
 */
 
 int
-xml_get_mils(item *i, uschar *name, int min, int max, int bad, BOOL moan)
+xml_get_mils(xml_item *i, uschar *name, int min, int max, int bad, BOOL moan)
 {
 int yield;
 uschar *s = xml_get_string(i, name, NULL, moan);
 if (s == NULL) return bad;
-yield = misc_string_to_mils(s);
+yield = string_to_mils(s);
 if (yield >= 0 && yield >= min && yield <= max) return yield;
-if (moan) Eerror(i, ERR23, s);
+if (moan) xml_Eerror(i, ERR23, s);
 return bad;
 }
-#endif
 
 
 /*************************************************
@@ -672,7 +669,6 @@ return yield;
 
 
 
-#ifdef NEVER
 /*************************************************
 *     Get mils value for given attribute         *
 *************************************************/
@@ -691,19 +687,18 @@ Arguments:
 Returns:     legal value or bad
 */
 
-int
-xml_get_attr_mils(item *i, uschar *name, int min, int max, int bad, BOOL moan)
+int32_t
+xml_get_attr_mils(xml_item *i, uschar *name, int min, int max, int bad, 
+  BOOL moan)
 {
-int yield;
+int32_t yield;
 uschar *s = xml_get_attr_string(i, name, NULL, moan);
 if (s == NULL) return bad;
-yield = misc_string_to_mils(s);
+yield = string_to_mils(s);
 if (yield >= 0 && yield >= min && yield <= max) return yield;
-if (moan) Eerror(i, ERR23, s);
+if (moan) xml_Eerror(i, ERR23, s);
 return bad;
 }
 
-#endif
 
-
-/* End of misc.c */
+/* End of xml.c */

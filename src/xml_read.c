@@ -41,10 +41,10 @@ if (tn->name[0] == '+')
   uschar *eptr = Ustrrchr(tn->name, ':');
   uschar *vptr = Ustrchr(tn->name, '=');
   if (vptr == NULL)
-    fprintf(stderr, "%.*s in <%s>\n", (int)(eptr - tn->name - 1), tn->name + 1,
+    fprintf(stderr, "'%.*s' in <%s>\n", (int)(eptr - tn->name - 1), tn->name + 1,
       eptr + 1);
   else
-    fprintf(stderr, "%.*s value \"%.*s\" in <%s>\n", (int)(vptr - tn->name - 1),
+    fprintf(stderr, "'%.*s' value \"%.*s\" in <%s>\n", (int)(vptr - tn->name - 1),
       tn->name + 1, (int)(eptr - vptr - 1), vptr + 1, eptr + 1);
   }
 else
@@ -54,6 +54,85 @@ else
 if (tn->right != NULL) print_unknown_tree(tn->right);
 }
 
+
+
+/*************************************************
+*            Process XML element list            *
+*************************************************/
+
+/* Called after reading and analyzing a MusicXML input file. */
+
+static void
+xml_process(void)
+{
+
+/* If movement_count == 0 we are processing a freestanding MusicXML file and 
+need to set up and initialize a movement. */
+
+if (movement_count == 0)
+  {
+  movements_size += MOVTVECTOR_CHUNKSIZE;
+  movements = realloc(movements, movements_size * sizeof(movtstr *));
+  if (movements == NULL)                          
+    error(ERR0, "re-", "movements vector", movements_size); /* Hard */
+  premovt = &default_movtstr;
+  movements[movement_count++] = curmovt = mem_get(sizeof(movtstr));
+  read_init_movement(curmovt, 0);
+  }
+
+/* Process the items. It is during this processing that various parameters such
+as the magnification and font sizes are discovered. */
+
+xml_do_heading();
+xml_do_parts();
+
+/* Deal with any explicit stave sizes. */
+
+if (xml_set_stave_size)
+  {
+  int32_t *stavesizes = mem_get((MAX_STAVE+1)*sizeof(int32_t));
+  memcpy(stavesizes, curmovt->stavesizes, (MAX_STAVE+1)*sizeof(int32_t));
+  curmovt->stavesizes = stavesizes;
+  for (int i = 1; i <= xml_pmw_stave_count; i++)
+    if (xml_stave_sizes[i] > 0) stavesizes[i] = xml_stave_sizes[i];
+  }
+
+/* Deal with font sizes if there are any other than the default 10-point size.
+For all except the default 10pt font, we unscale by the magnification so that,
+when re-scaled by PMW they are the sizes specified in the XML. This sometimes
+means that the first two end up at the same size. */
+
+if (xml_fontsize_next > 1)
+  {
+  fontinststr *fdata = curmovt->fontsizes->fontsize_text;
+  for (int i = 1; i < xml_fontsize_next; i++)
+    {
+    fdata[i].size = MULDIV(xml_fontsizes[i], 1000, main_magnification);
+    fdata[i].matrix = NULL; 
+    }  
+  }
+
+
+
+#ifdef NEVER
+
+/* Output rehearal mark setting if required */
+
+if ((rehearsal_enclosure >= 0 &&
+     rehearsal_enclosure != REHEARSAL_ENCLOSURE_BOX)  ||
+    (rehearsal_size >= 0 && rehearsal_size != 12000) ||
+    (rehearsal_type >= 0 && rehearsal_type != REHEARSAL_TYPE_ROMAN))
+  {
+  fprintf(outfile, "Rehearsalmarks %s %s %s\n",
+    (rehearsal_enclosure == REHEARSAL_ENCLOSURE_RING)? "ringed" : "boxed",
+    (rehearsal_size >= 0)? CS format_fixed(rehearsal_size) : "12",
+    (rehearsal_type == REHEARSAL_TYPE_ITALIC)? "italic" :
+    (rehearsal_type == REHEARSAL_TYPE_BOLD)? "bold" :
+    (rehearsal_type == REHEARSAL_TYPE_BOLDITALIC)? "bolditalic" : "roman");
+  }
+
+#endif
+}
 
 
 /*************************************************
@@ -724,7 +803,7 @@ Returns:     TRUE if all went well
 void
 xml_read(void)
 {
-BOOL yield;
+BOOL rc;
 
 xml_main_item_list = xml_new_item(US"#");  /* Anchor item */
 
@@ -733,15 +812,17 @@ for (int i = 0; i < 64; i++)
   xml_stave_sizes[i] = -1;
   xml_couple_settings[i] = COUPLE_NOT;
   }                                 
+  
+xml_fontsizes[xml_fontsize_next++] = 10000; 
 
 xml_read_linenumber = 1;
-yield = xml_read_file(read_filename, read_filehandle, xml_main_item_list);
+rc = xml_read_file(read_filename, read_filehandle, xml_main_item_list);
 
 DEBUG(D_xmlread) xml_debug_print_item_list(xml_main_item_list,
   "at end of reading main MusicXML input");
 xml_read_done = TRUE;
 
-yield = yield && xml_analyze();
+rc = rc && xml_analyze();
 
 /* If there has been an error of at least severity ec_major, do not proceed */
 
@@ -753,20 +834,20 @@ if (xml_error_max >= ec_major)
                                                           
 /* If all is well, generate the PMW data structures */
                                       
-// yield = yield && write_output(out_filename);
+if (rc) xml_process();
                                                                          
-if (xml_warn_ignored && xml_ignored_element_tree != NULL)
-  {                 
+if (main_verify && xml_ignored_element_tree != NULL)
+  {
   eprintf("-------- Ignored XML elements and attributes --------\n");
   print_unknown_tree(xml_ignored_element_tree);
-  eprintf("\n");
+  eprintf("-----------------------------------------------------\n\n");
   }                                               
                                                             
 if (xml_warn_unrecognized && xml_unrecognized_element_tree != NULL)
   {
   eprintf("-------- Unrecognized XML elements and attributes --------\n");
   print_unknown_tree(xml_unrecognized_element_tree);
-  eprintf("\n");           
+  eprintf("----------------------------------------------------------\n\n");
   }
                                            
 /* If there were errors that did not prevent the output being generated, give a

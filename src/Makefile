@@ -23,7 +23,7 @@ OBJ = debug.o draw.o error.o font.o globals.o main.o mem.o midi.o misc.o out.o \
 
 ifeq ($(SUPPORT_XML),1)      
   XMLOBJ = xml.o xml_analyze.o xml_debug.o xml_error.o xml_globals.o \
-           xml_read.o xml_tables.o
+           xml_heading.o xml_read.o xml_staves.o xml_tables.o
 else
   XMLOBJ=
 endif      
@@ -88,7 +88,9 @@ xml_analyze.o:         $(DEPS) $(XMLDEPS) xml_analyze.c
 xml_debug.o:           $(DEPS) $(XMLDEPS) xml_debug.c
 xml_error.o:           $(DEPS) $(XMLDEPS) xml_error.c
 xml_globals.o:         $(DEPS) $(XMLDEPS) xml_globals.c
+xml_heading.o:         $(DEPS) $(XMLDEPS) xml_heading.c
 xml_read.o:            $(DEPS) $(XMLDEPS) xml_read.c
+xml_staves.o:          $(DEPS) $(XMLDEPS) xml_staves.c
 xml_tables.o:          $(DEPS) $(XMLDEPS) xml_tables.c
 
 # End of building Makefile for PMW

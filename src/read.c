@@ -287,17 +287,25 @@ return TRUE;
 void
 read_file(enum filetype ft)
 {
+uschar *p;
+
 if (!read_physical_line(0)) return;  /* Empty file */
 
-if (Ustrncmp(main_readbuffer, "%abc-", 5) == 0)
+/* Ignore a Unicode BOM at the start of the file. */
+
+p = main_readbuffer;
+if (Ustrncmp(main_readbuffer, "\xef\xbb\xbf", 3) == 0) p += 3;
+
+if (Ustrncmp(p, "%abc-", 5) == 0)
   {
   TRACE("ABC file detected\n");
+  read_i = Ustrlen(main_readbuffer);  
   error(ERR3, "ABC");    /* Hard - in future will be tested */
   if (ft != FT_AUTO || ft != FT_ABC)
     error(ERR4, "ABC");  /* Hard */
   }
 
-else if (Ustrncmp(main_readbuffer, "<?xml version=", 14) == 0)
+else if (Ustrncmp(p, "<?xml version=", 14) == 0)
   {
   TRACE("Music XML file detected\n");
   read_i = Ustrlen(main_readbuffer);  

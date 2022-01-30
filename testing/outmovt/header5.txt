@@ -137,6 +137,7 @@ MOVEMENT 1
   stemlengths = 0 0 0 0 2 4
   stemswap = default
   stemswaplevel = 0
+  suspend_staves = none
   systemgap = 44
   thinbracketlist = none
   topmargin = 10
@@ -147,4 +148,3 @@ MOVEMENT 1
   time_unscaled = 1 * 4/4
   underlaydepth = 11
   underlaystyle = 0
-  suspend_staves = none
