@@ -868,7 +868,8 @@ B2PF is applied to substrings of characters in the same font if that font is
 configured for it. When the string is underlay, overlay, or a stave name
 string, however, we also terminate substrings at syllable or line breaking
 points because, when reversing character order, we don't want to reverse the
-order of the syllables or lines.
+order of the syllables or lines. Note that the bseps argument containly only
+ASCII characters.
 
 Arguments:
   str          the string to check
@@ -923,36 +924,50 @@ if (call_b2pf)
         {
         if (PCHAR(*s) == ss_verticalbar)
           {
-          while (PCHAR(*(++s)) == ss_verticalbar) {};
+          while (PCHAR(*(++s)) == ss_verticalbar) continue;
           isb2pf = FALSE;
           }
         else
           {
           while (*(++s) != 0 && PFTOP(*s) == f &&
-            PCHAR(*s) != ss_verticalbar) {};
+            PCHAR(*s) != ss_verticalbar) continue;
           }
         }
 
-      /* Not the special [name] string case */
+      /* Not the special [name] string case (i.e. it's underlay/overlay) */
 
       else
         {
-        if (Ustrchr(bseps, PCHAR(*s)) != NULL)
+        uint32_t c = PCHAR(*s);
+        
+        /* Sequence of special separators */
+         
+        if (c < 128 && Ustrchr(bseps, c) != NULL)
           {
-          while (Ustrchr(bseps, PCHAR(*(++s))) != NULL) {};
           isb2pf = FALSE;
+          while (*(++s) != 0)
+            {
+            c = PCHAR(*s);
+            if (c >= 128 || Ustrchr(bseps, c) == NULL) break;
+            }
           }
+          
+        /* Sequence of normal characters */
+         
         else
           {
-          while (*(++s) != 0 && PFTOP(*s) == f &&
-            Ustrchr(bseps, PCHAR(*s)) == NULL) {};
+          while (*(++s) != 0 && PFTOP(*s) == f)
+            {
+            c = PCHAR(*s);
+            if (c < 128 && Ustrchr(bseps, c) != NULL) break;
+            }
           }
         }
       }
 
-    /* No special separators */
+    /* No special separators are defined. */
 
-    else while (*(++s) != 0 && PFTOP(*s) == f);
+    else while (*(++s) != 0 && PFTOP(*s) == f) continue;
 
     /* Length of substring */
 
