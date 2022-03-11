@@ -2,9 +2,9 @@
 *        PMW native input reading functions     *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: March 2021 */
-/* This file last modified: November 2021 */
+/* This file last modified: February 2022 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -28,34 +28,6 @@ static uint16_t tuckoffset[] = {
 /* no  nt   hs   sh  ds  hf  fl  df */
   100, 16, 100, 100, 12, 12, 12, 12,
   100, 12, 100, 100, 12, 12, 12, 12 };  /* When bottom is a flat */
-
-/* These tables are used to convert from an accidental-less note in absolute
-units to a stave-relative position. Only "white" notes are ever used to index
-into the first table, hence the columns of zeros for the quartertones and
-semitones. Each column represents one of PMW's supported octaves, 4 on either
-side of the middle C octave. The units are quartertones for consistency, but
-are not true "pitches" because they are defining positions on the stave, so
-there is equal spacing between the note names. */
-
-static uint16_t pitch_stave[] = {
-/* C           D           E       F           G           A           B */
-   8, 0,0,0,  12, 0,0,0,  16, 0,  20, 0,0,0,  24, 0,0,0,  28, 0,0,0,  32, 0,
-  36, 0,0,0,  40, 0,0,0,  44, 0,  48, 0,0,0,  52, 0,0,0,  56, 0,0,0,  60, 0,
-  64, 0,0,0,  68, 0,0,0,  72, 0,  76, 0,0,0,  80, 0,0,0,  84, 0,0,0,  88, 0,
-  92, 0,0,0,  96, 0,0,0, 100, 0, 104, 0,0,0, 108, 0,0,0, 112, 0,0,0, 116, 0,
- 120, 0,0,0, 124, 0,0,0, 128, 0, 132, 0,0,0, 136, 0,0,0, 140, 0,0,0, 144, 0,
- 148, 0,0,0, 152, 0,0,0, 156, 0, 160, 0,0,0, 164, 0,0,0, 168, 0,0,0, 172, 0,
- 176, 0,0,0, 180, 0,0,0, 184, 0, 188, 0,0,0, 192, 0,0,0, 196, 0,0,0, 200, 0,
- 204, 0,0,0, 208, 0,0,0, 212, 0, 216, 0,0,0, 220, 0,0,0, 224, 0,0,0, 228, 0,
- 232, 0,0,0, 236, 0,0,0, 240, 0, 244, 0,0,0, 248, 0,0,0, 252, 0,0,0, 256, 0 };
-
-/* This table is used to convert a pitch obtained fom the above table into a
-position relative to a stave, where 256 is the bottom line on the stave. */
-
-static uint16_t pitch_clef[] =
-
-/*   A    Ba   B   cBa   CB   DB   H    M    N    SB   S    Te   Tr  TrD  TrT  TrTB */
-  { 152, 168, 176, 168, 166, 184, 128, 144, 128, 166, 136, 160, 128, 128, 128, 128 };
 
 /* These tables give the extra "accidental left" amounts for accidentals in
 round and square brackets. */

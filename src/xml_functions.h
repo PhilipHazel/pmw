@@ -3,6 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
+/* This file last updated: February 2022 */
 
 /* This header defines all the global XML functions */
 
@@ -26,7 +27,8 @@ extern int           xml_string_to_number(uschar *, BOOL);
 extern BOOL          xml_read_file(uschar *, FILE *, xml_item *);
 
 // extern BOOL          write_output(uschar *);
-// 
+
+extern size_t        xml_convert_utf8(uint32_t *, uschar *, uint32_t, BOOL);
 extern void          xml_debug_printf(const char *, ...) PRINTF_FUNCTION ;
 extern void          xml_debug_print_item_list(xml_item *, const char *);
 extern void          xml_do_heading(void);
@@ -42,10 +44,11 @@ extern uschar       *xml_get_attr_string(xml_item *, uschar *, uschar *, BOOL);
 extern int           xml_get_mils(xml_item *, uschar *, int, int, int, BOOL);
 extern int           xml_get_number(xml_item *, uschar *, int, int, int, BOOL);
 extern uschar       *xml_get_string(xml_item *, uschar *, uschar *, BOOL);
-// extern int           xml_get_this_number(item *, int, int, int, BOOL);
+extern int           xml_get_this_number(xml_item *, int, int, int, BOOL);
 extern uschar       *xml_get_this_string(xml_item *);
 extern void          xml_insert_item(xml_item *, xml_item *);
 extern xml_item     *xml_new_item(uschar *);
+extern int           xml_pmw_fontsize(int);
 extern void          xml_set_number(xml_item *, uschar *, int);
  
 /* End of xml_functions.h */

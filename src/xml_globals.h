@@ -3,6 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
+/* This file last edited: February 2022 */
 
 /* Header file for all the XML global variables */
 
@@ -36,6 +37,9 @@ extern size_t           xml_layout_list_size;
 extern size_t           xml_layout_top;
 
 extern xml_item        *xml_main_item_list;
+extern uint32_t         xml_movt_setflags;
+extern uint32_t         xml_movt_unsetflags;
+
 // extern int           magnification;
 // extern int           memory_hwm;
 // extern int           memory_used;
@@ -52,7 +56,7 @@ extern xml_item        *xml_read_addto;
 extern BOOL             xml_read_done;
 extern uschar          *xml_read_filename;
 extern int              xml_read_linenumber;
-// extern BOOL          right_justify_stave_names;
+extern BOOL             xml_right_justify_stave_names;
 
 extern BOOL             xml_set_stave_size;
 extern int              xml_stave_sizes[];

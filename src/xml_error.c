@@ -3,6 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
+/* This file last updated: March 2022 */
 
 /* Error handling routines for XML */
 
@@ -66,7 +67,7 @@ static error_struct error_data[] = {
 { ec_major,   "expected '>' after '/' or '?' in element '%s'" },
 /* 10 - 14 */ 
 { ec_major,   "missing '>' for element '%s'" },
-{ ec_major,   "unsupported beat-unit \"%s\"" },
+{ ec_major,   "unsupported beat-unit \"%s\" for metronome mark" },
 { ec_failed,  "unexpected EOF while skipping processing instruction "
                 "starting on line %d" },
 { ec_failed,  "unexpected EOF inside comment (started on line %d)" },
@@ -75,7 +76,7 @@ static error_struct error_data[] = {
 { ec_major,   "unclosed element%s at end of file" },
 { ec_failed,  "<score-partwise> not found and <score-timewise> not supported" },
 { ec_failed,  "missing %s" },
-{ ec_failed,  "unrecognized note type '%s'" },
+{ ec_failed,  "unrecognized or unsupported note type '%s'" },
 { ec_major,   "part has no %s" },
 /* 20 - 24 */ 
 { ec_failed,  "part \"%s\", listed in <part-list>, not found" },

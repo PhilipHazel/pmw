@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 #include "pmw.h"
 
@@ -13,6 +13,7 @@ int32_t      active_transpose_letter = 0;
 BOOL         active_transpose_letter_is_auto = FALSE;
 BOOL         active_transposedaccforce = FALSE;
 
+uint8_t      barlinestyles[MAX_STAVE+1];
 contstr     *bar_cont;
 BOOL         bar_use_draw = FALSE;
 

@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 
 /* This module contains functions for processing heading and general
@@ -24,12 +24,13 @@ Arguments:
   ss          vector for storing PMW string (must be long enough)
   s           a UTF-8 string
   f           font id
+  keepnl      retain newlines, otherwise turn into spaces 
 
-Returns:      nothing
+Returns:      number of PMW characters
 */
 
-static void
-convert_utf8(uint32_t *ss, uschar *s, uint32_t f)
+size_t
+xml_convert_utf8(uint32_t *ss, uschar *s, uint32_t f, BOOL keepnl)
 {
 uint32_t *tt = ss;
 
@@ -59,7 +60,8 @@ while (*s != 0)
   }
 *tt = 0;
 
-string_check(ss, NULL);
+string_check(ss, NULL, keepnl);
+return tt - ss;
 }
 
 
@@ -99,9 +101,9 @@ uint32_t *ssl = mem_get((lenl + lenm + lenr + 3) * sizeof(uint32_t));
 uint32_t *ssm = ssl + lenl + 1;
 uint32_t *ssr = ssm + lenm + 1;
 
-convert_utf8(ssl, sl, f);
-convert_utf8(ssm, sm, f);
-convert_utf8(ssr, sr, f);
+(void)xml_convert_utf8(ssl, sl, f, FALSE);
+(void)xml_convert_utf8(ssm, sm, f, FALSE);
+(void)xml_convert_utf8(ssr, sr, f, FALSE);
 
 while (*oldp != NULL) oldp = &((*oldp)->next);
 *oldp = new;
@@ -375,14 +377,7 @@ if (defaults != NULL)
     {
     int32_t d = xml_get_attr_mils(word_font, US"font-size", 1000, 40000, -1,
       FALSE);
-    if (d > 0)
-      {
-      int n;
-      for (n = 0; n < xml_fontsize_next; n++)
-        if (xml_fontsizes[n] == d) break;
-      if (n >= xml_fontsize_next) xml_fontsizes[xml_fontsize_next++] = d;
-      xml_fontsize_word_default = n;
-      }
+    if (d > 0) xml_fontsize_word_default = xml_pmw_fontsize(d);
     }
 
   /* Treat the font size as absolute; unscale it here because PMW will
@@ -420,7 +415,7 @@ if (xml_group_symbol_set) curmovt->bracketlist = NULL;
 if (xml_groups_list != NULL)
   {
   xml_group_data *g;
-
+  
   for (int n = 0; n <= xml_pmw_stave_count; n++) has_barline[n] = FALSE;
 
   for (g = xml_groups_list; g != NULL; g = g->next)
@@ -457,7 +452,7 @@ if (xml_groups_list != NULL)
   }
 
 /* No groups => full barlines by default, but assume barlines are broken when a
-part has lyrics. */
+part has lyrics, in which case we don't want a full bar at the end either. */
 
 else
   {

@@ -3,6 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
+/* This file last edited: February 2022 */
 
 /* Allocate storage and initialize global XML variables, apart from those that
 are tables of some kind. */
@@ -22,7 +23,7 @@ BOOL             xml_debug_need_nl          = FALSE;
 int              xml_error_max              = 0;
 
 int32_t          xml_first_system_distance  = -1;
-int32_t          xml_fontsizes[20];
+int32_t          xml_fontsizes[MaxFontSizes];
 int              xml_fontsize_next          = 0;
 int32_t          xml_fontsize_word_default  = -1;
 
@@ -37,6 +38,9 @@ size_t           xml_layout_list_size       = 0;
 size_t           xml_layout_top             = 0;
 
 xml_item        *xml_main_item_list         = NULL;
+uint32_t         xml_movt_setflags          = 0;
+uint32_t         xml_movt_unsetflags        = 0;
+
 // int           magnification              = 1000;  /* 1.0 in fixed point */
 // int           memory_hwm                 = 0;
 // int           memory_used                = 0;
@@ -53,7 +57,7 @@ xml_item        *xml_read_addto             = NULL;
 BOOL             xml_read_done              = FALSE;
 uschar          *xml_read_filename          = NULL;
 int              xml_read_linenumber        = 0;
-// BOOL          right_justify_stave_names  = FALSE;
+BOOL             xml_right_justify_stave_names = TRUE;
 
 BOOL             xml_set_stave_size         = FALSE;
 int              xml_stave_sizes[64];

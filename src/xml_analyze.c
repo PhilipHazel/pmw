@@ -3,6 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
+/* File last modified: February 2022 */
 
 /* Analyse XML after it has been read into memory. */
 
@@ -372,14 +373,19 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
             }
           }
           
-        /* Scan the notes of a measure. */
+        /* Scan the notes of a measure. If any lyrics are found, set the flag 
+        in the part, and also arrange to turn off the full barline at the end
+        of systems. */
 
         for (note = xml_find_item(measure, US"note");
              note != NULL;
              note = xml_find_next(measure, note))
           {
-          if (!new->has_lyrics &&
-              xml_find_item(note, US"lyric") != NULL) new->has_lyrics = TRUE;
+          if (!new->has_lyrics && xml_find_item(note, US"lyric") != NULL) 
+            {
+            new->has_lyrics = TRUE;
+            xml_movt_unsetflags = mf_fullbarend;
+            } 
 
           /* When we hit one that has <chord>, we identify the start of the
           chord, which is the previous note. Then find the end, identify that,

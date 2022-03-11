@@ -150,9 +150,10 @@ static debug_bit_table debug_options[] = {
   { US"sortchord",       D_sortchord },
   { US"stringwidth",     D_stringwidth },
   { US"trace",           D_trace },
-  { US"xmlanalyze",      D_xmlanalyze}, 
-  { US"xmlgroups",       D_xmlgroups}, 
-  { US"xmlread",         D_xmlread }
+  { US"xmlanalyze",      D_xmlanalyze }, 
+  { US"xmlgroups",       D_xmlgroups }, 
+  { US"xmlread",         D_xmlread },
+  { US"xmlstaves",       D_xmlstaves } 
 };
 
 #define DEBUG_OPTIONS_COUNT (sizeof(debug_options)/sizeof(debug_bit_table))

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 #include "pmw.h"
 
@@ -873,12 +873,13 @@ order of the syllables or lines.
 Arguments:
   str          the string to check
   bseps        B2PF special separators, or NULL if none
+  keepnl       retain newlines, otherwise turn into spaces
 
 Returns:       the checked string
 */
 
 uint32_t *
-string_check(uint32_t *str, const char *bseps)
+string_check(uint32_t *str, const char *bseps, BOOL keepnl)
 {
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
 BOOL call_b2pf = FALSE;
@@ -1092,7 +1093,8 @@ for (uint32_t *s = str; *s != 0; s++)
 
   else
     {
-    if (c == '`' || c == '\'' || c == '\n' || (c == 'f' && PCHAR(s[1]) == 'i'))
+    if (c == '`' || c == '\'' || (c == '\n' && !keepnl) || 
+         (c == 'f' && PCHAR(s[1]) == 'i'))
       {
       switch (c)
         {
@@ -1738,7 +1740,7 @@ else
 /* If requested, check the string for validity before returning. Some strings
 defer this checking till later. */
 
-if (check_string) yield = string_check(yield, NULL);
+if (check_string) yield = string_check(yield, NULL, FALSE);
 read_nextc();
 return yield;
 }
@@ -2029,7 +2031,7 @@ for (uint32_t *s = str; *s != 0; s++)
   if (f == font_unknown << 24) *s ^= font;
     else if (f != font_sy << 24 && f != font_mf << 24) break;
   }
-return string_check(str, bseps);
+return string_check(str, bseps, FALSE);
 }
 
 

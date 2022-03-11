@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 
 /*************************************************
@@ -32,6 +32,9 @@ extern b_accentmovestr no_accent_move;
 
 extern mfstr        *out_mftable[];    /* Music font table */
 
+extern uint16_t      pitch_clef[];
+extern uint16_t      pitch_stave[];
+
 extern int8_t        read_accpitch[];
 extern uint8_t       read_basicpitch[];
 extern uint32_t      read_headingsizes[];
@@ -57,6 +60,7 @@ extern int32_t      active_transpose_letter;
 extern BOOL         active_transpose_letter_is_auto;
 extern BOOL         active_transposedaccforce;
 
+extern uint8_t      barlinestyles[];
 extern contstr     *bar_cont;
 extern BOOL         bar_use_draw;
 

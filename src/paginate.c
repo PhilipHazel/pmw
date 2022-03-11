@@ -175,11 +175,11 @@ for (stave = 0; stave <= curmovt->laststave; stave++)
 
   if ((curmovt->select_staves & (1 << stave)) == 0) continue; /* Unselected */
   s = curmovt->stavetable[stave];
-
+  
   hadclef = hadkey = hadtime = FALSE;
 
   /* Scan bar items until the first note, left repeat, or end */
-
+  
   for (p = (bstr *)(s->barindex[pl_barnumber]); p != NULL; p = p->next)
     {
     switch (p->type)
@@ -2037,7 +2037,7 @@ for (int barnumber = pl_barnumber; barnumber < curmovt->barcount; barnumber++)
     bstr *p;
     stavestr *ss;
     BOOL hadnote;
-
+    
     if (mac_notbit(curmovt->select_staves, curstave)) continue;
 
     hadnote = FALSE;
@@ -2546,7 +2546,7 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
 
   /* Loop for all items in the bar. We must do the same as bar end for a
   [reset] which is at the bar end! */
-
+  
   for (; p != NULL; p = p->next)
     {
     int32_t nextlength = 0;
@@ -3701,7 +3701,7 @@ while (!page_done) switch(page_state)
         }
       }
     }
-
+    
   /* Initialize values in the accepted data structure */
 
   accepteddata->notsuspend = curmovt->select_staves & ~curmovt->suspend_staves;
@@ -3761,7 +3761,7 @@ while (!page_done) switch(page_state)
   the movement. The three pl_ variables are otherwise set when we know that the
   first system of the new movement fits on the page. This code copes with a
   single-movement file. */
-
+  
   if ((pl_barnumber = 0) >= curmovt->barcount)
     {
     pl_botmargin = curmovt->bottommargin;

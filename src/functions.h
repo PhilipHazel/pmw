@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 extern void         debug_bar(void);
 extern void         debug_header(void);
@@ -124,6 +124,7 @@ extern BOOL         read_do_stavedirective(void);
 extern void         read_draw(tree_node **, drawitem **, uint32_t);
 extern void         read_draw_definition(void);
 extern drawtextstr *read_draw_text(void);
+extern void         read_ensure_bar_indexes(size_t);
 extern BOOL         read_expect_integer(int32_t *, BOOL, BOOL);
 extern void         read_extend_buffers(void);
 extern void         read_file(enum filetype);
@@ -132,8 +133,8 @@ extern void         read_fontsize(fontinststr *, BOOL);
 extern int          read_getmidinumber(uschar *, uschar *, uschar *);
 extern void         read_headfootingtext(headstr *, uint32_t, uint32_t);
 extern void         read_init_baraccs(int8_t *, uint32_t);
-extern void         read_init_movement(movtstr *, uint32_t);
-extern stavestr    *read_init_stave(int32_t);
+extern void         read_init_movement(movtstr *, uint32_t, uint32_t);
+extern stavestr    *read_init_stave(int32_t, BOOL);
 extern uint32_t     read_key(void);
 extern int32_t      read_movevalue(void);
 extern void         read_nextc(void);
@@ -148,6 +149,7 @@ extern int          read_stavelist(uschar *, uschar **, uint64_t *,
 extern void         read_stavename(void);
 extern uint16_t     read_stavepitch(void);
 extern dirstr      *read_stave_searchdirlist(BOOL);
+extern void         read_tidy_staves(BOOL);
 extern uint32_t     read_time(void);
 extern uint32_t     read_usint(void);
 
@@ -155,7 +157,7 @@ extern void         slur_drawslur(slurstr *, int32_t, int, BOOL);
 extern slurstr     *slur_endslur(b_endslurstr *);
 extern slurstr     *slur_startslur(b_slurstr *);
 
-extern uint32_t    *string_check(uint32_t *, const char *);
+extern uint32_t    *string_check(uint32_t *, const char *, BOOL);
 extern int          string_check_utf8(uschar *);
 extern void         string_extend_buffer(void);
 extern char        *string_format_barnumber(uint32_t);

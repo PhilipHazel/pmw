@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2022 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 /* This file contains the top-level function for MusicXML input files. */
 
@@ -77,7 +77,7 @@ if (movement_count == 0)
     error(ERR0, "re-", "movements vector", movements_size); /* Hard */
   premovt = &default_movtstr;
   movements[movement_count++] = curmovt = mem_get(sizeof(movtstr));
-  read_init_movement(curmovt, 0);
+  read_init_movement(curmovt, xml_movt_unsetflags, xml_movt_setflags);
   }
 
 /* Process the items. It is during this processing that various parameters such

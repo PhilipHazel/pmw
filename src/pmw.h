@@ -2,7 +2,7 @@
 *              Main header for PMW               *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
@@ -349,6 +349,7 @@ debug decoding. */
 #define D_xmlanalyze   0x00002000u
 #define D_xmlgroups    0x00004000u
 #define D_xmlread      0x00008000u
+#define D_xmlstaves    0x00010000u
 
 #define DEBUG(x)       if ((debug_selector & (x)) != 0)
 #define TRACE(...)     if ((debug_selector & D_trace) != 0) \

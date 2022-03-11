@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 #include "pmw.h"
 
@@ -937,7 +937,7 @@ if (!read_expect_integer(&stave, FALSE, FALSE))
 
 /* Initialize variables that are used while reading a stave. */
 
-st = read_init_stave(stave);
+st = read_init_stave(stave, TRUE);
 
 /* Handle number of stave lines */
 
@@ -996,32 +996,11 @@ while (!endstave)
     bs->bartype = barline_normal;
     bs->barstyle = srs.barlinestyle;
     }
-
-  /* The movement's bar index vector is expandable as necessary. */
-
-  while (nextbaroffset + barrepeat - 1 >= curmovt->barvector_size)
-    {
-    size_t size;
-    curmovt->barvector_size += BARINDEX_CHUNKSIZE;
-    size = curmovt->barvector_size * sizeof(uint32_t);
-    curmovt->barvector = realloc(curmovt->barvector, size);
-    if (curmovt->barvector == NULL) error(ERR0, "re-",
-      "movement bar index", size);  /* Hard */
-    memset(curmovt->barvector + curmovt->barvector_size -
-      BARINDEX_CHUNKSIZE, 0, BARINDEX_CHUNKSIZE * sizeof(uint32_t));
-    }
-
-  /* The stave's bar index vector is expandable as necessary. */
-
-  while (nextbaroffset + barrepeat - 1 >= st->barindex_size)
-    {
-    size_t size;
-    st->barindex_size += BARINDEX_CHUNKSIZE;
-    size = st->barindex_size * sizeof(barstr *);
-    st->barindex = realloc(st->barindex, size);
-    if (st->barindex == NULL) error(ERR0, "re-", "bar index", size);  /* Hard */
-    }
-
+    
+  /* Ensure bar indexes are large enough */
+  
+  read_ensure_bar_indexes(nextbaroffset + barrepeat - 1); 
+ 
   /* If we have skipped some bars, fill in the bar index vector with pointers
   to an empty bar. We have to make a new empty bar each time in case the
   barline style has changed. */

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: November 2021 */
+/* This file last modified: March 2022 */
 
 #include "pmw.h"
 
@@ -984,7 +984,7 @@ if (sn->text != NULL)
   if ((sn->flags & snf_vcentre) != 0) eprintf("/m");
   if ((sn->flags & snf_vertical) != 0) eprintf("/v");
   eprintf("/s%d", sn->size);
-  if (sn->linecount != 1) eprintf("(COUNT=%d)", sn->linecount);
+  if (sn->linecount != 1) eprintf(" (COUNT=%d)", sn->linecount);
 
   for (sn2 = sn->extra; sn2 != NULL; sn2 = sn2->next)
     debug_stave_name(sn2, TRUE);
@@ -1242,6 +1242,11 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
       eprintf(" P_%d%c", stl/2, ((stl & 1) != 0)? 'S':'L');
       eprintf(" %d%s", nt->abspitch/OCTAVE - 3,
         ((nt->acc >= ac_hf)? absnamesf:absnamess) + 4*(nt->abspitch % OCTAVE));
+
+eprintf("  abspitch=%d", nt->abspitch);
+
+
+
       }
 
     eprintf("\n");

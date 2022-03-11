@@ -3,6 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
+/* This file last updated: February 2022 */
 
 /* This module contains functions used while creating and processing a chain of
 XML items. */
@@ -465,7 +466,6 @@ return (i == NULL)? US"" : i->p.txtblk->string;
 
 
 
-#ifdef NEVER
 /*************************************************
 *         Get number value for given item        *
 *************************************************/
@@ -479,7 +479,7 @@ Returns:
 */
 
 int
-xml_get_this_number(item *i, int min, int max, int bad, BOOL moan)
+xml_get_this_number(xml_item *i, int min, int max, int bad, BOOL moan)
 {
 uschar *s;
 BOOL wasbad;
@@ -487,11 +487,10 @@ int yield;
 i = xml_find_item(i, US"#TEXT");
 if (i == NULL) return bad;
 s = i->p.txtblk->string;
-yield = misc_string_check_number(s, min, max, bad, &wasbad);
-if (wasbad && moan) Eerror(i, ERR23, s);
+yield = xml_string_check_number(s, min, max, bad, &wasbad);
+if (wasbad && moan) xml_Eerror(i, ERR23, s);
 return yield;
 }
-#endif
 
 
 
@@ -698,6 +697,32 @@ yield = string_to_mils(s);
 if (yield >= 0 && yield >= min && yield <= max) return yield;
 if (moan) xml_Eerror(i, ERR23, s);
 return bad;
+}
+
+
+
+/*************************************************
+*                Get/set a font size             *
+*************************************************/
+
+/* Manage the list of text font sizes. */
+
+int
+xml_pmw_fontsize(int fsize)
+{
+int n;
+
+for (n = 0; n < xml_fontsize_next; n++)
+  if (xml_fontsizes[n] == fsize) return n;
+
+if (n >= MaxFontSizes)
+  {
+  error(ERR63, MaxFontSizes);
+  return 0;
+  }
+
+xml_fontsizes[xml_fontsize_next] = fsize;
+return xml_fontsize_next++;
 }
 
 

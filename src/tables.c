@@ -2,9 +2,9 @@
 *                PMW fixed tables                *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: January 2021 */
-/* This file last modified: October 2021 */
+/* This file last modified: February 2022 */
 
 #include "pmw.h"
 
@@ -134,7 +134,7 @@ uint8_t keysigtable[KEYS_COUNT][MAX_KEYACCS+1] = {
   { F3L, F4S, END,   0,   0,   0,   0,   0,   0 },  /* G minor */
 
   { S5L, S3S, S5S, S4L, S2S, S4S, S3L, END,   0 },  /* A# minor */
-  { BAD,   0,   0,   0,   0,   0,   0,   0,   0 },  /* C# minor */
+  { BAD,   0,   0,   0,   0,   0,   0,   0,   0 },  /* B# minor */
   { S5L, S3S, S5S, S4L, END,   0,   0,   0,   0 },  /* C# minor */
   { S5L, S3S, S5S, S4L, S2S, S4S, END,   0,   0 },  /* D# minor */
   { BAD,   0,   0,   0,   0,   0,   0,   0,   0 },  /* E# minor */
@@ -188,6 +188,34 @@ uint8_t keyclefadjusts[] = {
   0, 1, 1    /* TrebletenorB */
 };
 
+
+/* These tables are used to convert from an accidental-less note in absolute
+units to a stave-relative position. Only "white" notes are ever used to index
+into the first table, hence the columns of zeros for the quartertones and
+semitones. Each column represents one of PMW's supported octaves, 4 on either
+side of the middle C octave. The units are quartertones for consistency, but
+are not true "pitches" because they are defining positions on the stave, so
+there is equal spacing between the note names. */
+
+uint16_t pitch_stave[] = {
+/* C           D           E       F           G           A           B */
+   8, 0,0,0,  12, 0,0,0,  16, 0,  20, 0,0,0,  24, 0,0,0,  28, 0,0,0,  32, 0,
+  36, 0,0,0,  40, 0,0,0,  44, 0,  48, 0,0,0,  52, 0,0,0,  56, 0,0,0,  60, 0,
+  64, 0,0,0,  68, 0,0,0,  72, 0,  76, 0,0,0,  80, 0,0,0,  84, 0,0,0,  88, 0,
+  92, 0,0,0,  96, 0,0,0, 100, 0, 104, 0,0,0, 108, 0,0,0, 112, 0,0,0, 116, 0,
+ 120, 0,0,0, 124, 0,0,0, 128, 0, 132, 0,0,0, 136, 0,0,0, 140, 0,0,0, 144, 0,
+ 148, 0,0,0, 152, 0,0,0, 156, 0, 160, 0,0,0, 164, 0,0,0, 168, 0,0,0, 172, 0,
+ 176, 0,0,0, 180, 0,0,0, 184, 0, 188, 0,0,0, 192, 0,0,0, 196, 0,0,0, 200, 0,
+ 204, 0,0,0, 208, 0,0,0, 212, 0, 216, 0,0,0, 220, 0,0,0, 224, 0,0,0, 228, 0,
+ 232, 0,0,0, 236, 0,0,0, 240, 0, 244, 0,0,0, 248, 0,0,0, 252, 0,0,0, 256, 0 };
+
+/* This table is used to convert a pitch obtained fom the above table into a
+position relative to a stave, where 256 is the bottom line on the stave. */
+
+uint16_t pitch_clef[] =
+
+/*   A    Ba   B   cBa   CB   DB   H    M    N    SB   S    Te   Tr  TrD  TrT  TrTB */
+  { 152, 168, 176, 168, 166, 184, 128, 144, 128, 166, 136, 160, 128, 128, 128, 128 };
 
 /* Default font sizes at normal magnification; null pointers to stretch/shear
 matrices and zero space stretching. This data is pointed at from the global
