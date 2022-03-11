@@ -1,0 +1,12 @@
+** MusicXML warning: articulation "falloff" is not supported
+   Detected in element <articulations> starting in line 30 of xmltests/H02
+** This warning is given only once; there may be other occurrences.
+
+** MusicXML warning: notehead type "cross" is not supported
+   Detected in element <note> starting in line 36 of xmltests/H02
+** This warning is given only once; there may be other occurrences.
+
+** MusicXML warning: notehead type "square" is not supported
+   Detected in element <note> starting in line 46 of xmltests/H02
+** This warning is given only once; there may be other occurrences.
+
