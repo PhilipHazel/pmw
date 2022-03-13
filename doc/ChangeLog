@@ -2,6 +2,14 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
+Version 5.03 xx-xxxx-2022
+-------------------------
+
+Fixed an obscure spacing infelicity when, after an item such as a time 
+signature, the note in a higher staff had no accidental but the note on a lower 
+staff did, or had a wider accidental.
+
+
 Version 5.02 30-January-2022
 ----------------------------
 
