@@ -1242,11 +1242,6 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
       eprintf(" P_%d%c", stl/2, ((stl & 1) != 0)? 'S':'L');
       eprintf(" %d%s", nt->abspitch/OCTAVE - 3,
         ((nt->acc >= ac_hf)? absnamesf:absnamess) + 4*(nt->abspitch % OCTAVE));
-
-eprintf("  abspitch=%d", nt->abspitch);
-
-
-
       }
 
     eprintf("\n");

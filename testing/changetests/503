@@ -1,0 +1,40 @@
+nocheck
+
+[stave 1 treble 1]
+R! | [time 3/4] (C'.D'.)
+[endstave]
+
+[stave 2 treble 1]
+R! | [time 3/4] (%C'.$D'.)
+[endstave]
+
+
+[newmovement]
+[stave 1 treble 1]
+R! | [time 3/4] (C'.D'.)
+[endstave]
+
+[stave 2 treble 1]
+R! | (%C'.$D'.)
+[endstave]
+
+
+[newmovement]
+[stave 1 treble 1]
+R! | (C'.D'.)
+[endstave]
+
+[stave 2 treble 1]
+R! | (%C'.$D'.)
+[endstave]
+
+
+[newmovement]
+[stave 1 treble 1]
+R! | (%C'.$D'.)
+[endstave]
+
+[stave 2 treble 1]
+R! | [time 3/4] (C'.D'.)
+[endstave]
+
