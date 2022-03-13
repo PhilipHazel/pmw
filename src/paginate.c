@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: April 2021 */
-/* This file last modified: September 2021 */
+/* This file last modified: March 2022 */
 
 #include "pmw.h"
 
@@ -99,6 +99,7 @@ However, we often have to process extra bars when there are multiple bars rest,
 so the processing is done using the global curbarnumber, which shows up in
 error messages. At other times, curbarnumber == pl_barnumber. */
 
+static int32_t      pl_accexistedavail;
 static uint64_t     pl_allstavebits;
 static int32_t      pl_barlinewidth;
 static int32_t      pl_barnumber;
@@ -175,11 +176,11 @@ for (stave = 0; stave <= curmovt->laststave; stave++)
 
   if ((curmovt->select_staves & (1 << stave)) == 0) continue; /* Unselected */
   s = curmovt->stavetable[stave];
-  
+
   hadclef = hadkey = hadtime = FALSE;
 
   /* Scan bar items until the first note, left repeat, or end */
-  
+
   for (p = (bstr *)(s->barindex[pl_barnumber]); p != NULL; p = p->next)
     {
     switch (p->type)
@@ -411,11 +412,11 @@ if (aux == NULL || auxoffset < aux->auxid)
 
   if (here) aux->xoff = insertpoint->xoff; else
     {
-    int32_t avail = 0;
+    int32_t avail = aux->xoff;
     if (previous != NULL)
       {
       t = previous + 1;
-      while (t <= aux) avail += (t++)->xoff;
+      while (t < aux) avail += (t++)->xoff;
       }
     avail -= Rwidth + used;
     if (avail < 0) insertpoint->xoff -= avail;
@@ -437,7 +438,7 @@ else
   it and the previous note. This works because we process the auxiliaries for
   one note from right to left. In the case of accidentals, we must adjust the
   space by the difference between this accidental's requirements and whatever
-  is already there. */
+  is already there. There is one complicated case -- see below. */
 
   if (insertpoint->auxid == auxoffset)
     {
@@ -446,23 +447,35 @@ else
 
     t = (previous == NULL)? pl_postable : previous + 1;
     while (t <= insertpoint) avail += (t++)->xoff;
-
-    /* For non-accidentals, check that there is enough space to the right,
-    and increase if necessary. */
-
-    if (auxoffset != posx_acc)
-      { if (Rwidth > next->xoff) next->xoff = Rwidth; }
+    avail -= used;
 
     /* For accidentals, all we need to do is check that there is enough space
-    on the left, since accidental printing doesn't actually use the calculated
-    position - chords need several positions, for a start. */
+    on the left, since accidental printing doesn't actually use a calculated
+    position - chords need several positions, for a start. However, we do need
+    to remember how much space was available in case some of it gets taken up
+    by an auxiliary to the left (which is handled subsequently). */
 
-    else avail += next->xoff - Rwidth;
+    if (auxoffset == posx_acc)
+      {
+      avail += next->xoff - Rwidth;
+      pl_accexistedavail = avail;
+      }
+
+    /* For non-accidentals, check that there is enough space to the right,
+    and increase if necessary. If the next thing is an accidental whose
+    original position was set in a previous stave, we must adjust in case it
+    intruded into the space where this item is going. */
+
+    else
+      {
+      if (Rwidth > next->xoff) next->xoff = Rwidth;
+      if (next->moff == posx_acc && pl_accexistedavail > 0)
+        next->xoff += Rwidth - pl_accexistedavail;
+      }
 
     /* If there is insufficient space, move *all* the auxiliaries
     to the right. */
 
-    avail -= used;
     if (avail < 0) aux->xoff -= avail;
 
     /* Remember which staves */
@@ -560,6 +573,7 @@ entry -- so that extra space isn't inserted after it. Preserve this state of
 affairs. We compute "used" here specially, with a different default to the
 rest. */
 
+pl_accexistedavail = -1;  /* Unset existing accidental available space */
 if (accleft > 0)
   {
   used = (prevlength < 0)? 0 : pos_typewidth(7250, prevlength, prevflags);
@@ -2037,7 +2051,7 @@ for (int barnumber = pl_barnumber; barnumber < curmovt->barcount; barnumber++)
     bstr *p;
     stavestr *ss;
     BOOL hadnote;
-    
+
     if (mac_notbit(curmovt->select_staves, curstave)) continue;
 
     hadnote = FALSE;
@@ -2546,7 +2560,7 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
 
   /* Loop for all items in the bar. We must do the same as bar end for a
   [reset] which is at the bar end! */
-  
+
   for (; p != NULL; p = p->next)
     {
     int32_t nextlength = 0;
@@ -3701,7 +3715,7 @@ while (!page_done) switch(page_state)
         }
       }
     }
-    
+
   /* Initialize values in the accepted data structure */
 
   accepteddata->notsuspend = curmovt->select_staves & ~curmovt->suspend_staves;
@@ -3761,7 +3775,7 @@ while (!page_done) switch(page_state)
   the movement. The three pl_ variables are otherwise set when we know that the
   first system of the new movement fits on the page. This code copes with a
   single-movement file. */
-  
+
   if ((pl_barnumber = 0) >= curmovt->barcount)
     {
     pl_botmargin = curmovt->bottommargin;
