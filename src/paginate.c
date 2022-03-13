@@ -455,7 +455,7 @@ else
     to remember how much space was available in case some of it gets taken up
     by an auxiliary to the left (which is handled subsequently). */
 
-    if (auxoffset == posx_acc)
+   if (auxoffset == posx_acc)
       {
       avail += next->xoff - Rwidth;
       pl_accexistedavail = avail;
@@ -469,7 +469,8 @@ else
     else
       {
       if (Rwidth > next->xoff) next->xoff = Rwidth;
-      if (next->moff == posx_acc && pl_accexistedavail > 0)
+      if (next->moff == posx_acc && pl_accexistedavail > 0 &&
+          Rwidth > pl_accexistedavail)
         next->xoff += Rwidth - pl_accexistedavail;
       }
 
