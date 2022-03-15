@@ -2319,28 +2319,36 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         pitch_clef[current_clef[staff]];
       }
 
-    /* Sometimes a whole bar rest is notated as a whole note with a duration of
-    a complete measure. */
+    /* Unpitched is much the same as pitched for our purposes (sheet music), 
+    but using "display-" names, so there is some code here that could perhaps 
+    be amalgamated with what is above. */
+
+    else if ((unpitched = xml_find_item(mi, US"unpitched")) != NULL)
+      {
+      int stepletter; 
+      step = xml_get_string(unpitched, US"display-step", NULL, FALSE);
+      if (step == NULL) xml_Eerror(unpitched, ERR17, "<display-step>");  /* Hard */
+      newnote->char_orig = stepletter = step[0];
+      if (Ustrchr("ABCDEFG", stepletter) == NULL || stepletter == 0)
+        xml_Eerror(pitch, ERR18, step);  /* Hard */
+      octave += xml_get_number(unpitched, US"display-octave", 0, 12, 4, TRUE);
+      newnote->abspitch = octave * 24 + read_basicpitch[stepletter - 'A'];
+      newnote->spitch = pitch_stave[newnote->abspitch] +
+        pitch_clef[current_clef[staff]];
+      }
+
+    /* The only option left is a rest. Sometimes a whole bar rest is notated as
+    a whole note with a duration of a complete measure, instead of setting the 
+    "measure" attribute.  */
 
     else
       {
-      unpitched = xml_find_item(mi, US"unpitched");
-      if (unpitched == NULL)
-        {
-        rest = xml_find_item(mi, US"rest");
-        if (rest == NULL)
-          xml_Eerror(mi, ERR17, "<pitch>, <unpitched>, or <rest>");  /* Hard */
-        whole_bar_rest = ISATTR(rest, "measure", "", FALSE, "yes") ||
-          note_duration == measure_length;
-        }
-      else
-        {
-        step = xml_get_string(unpitched, US"display-step", NULL, FALSE);
-        if (step == NULL) xml_Eerror(unpitched, ERR17, "<display-step>");  /* Hard */
-        octave += xml_get_number(unpitched, US"display-octave", 0, 12, 4, TRUE);
-        }
+      rest = xml_find_item(mi, US"rest");
+      if (rest == NULL)
+        xml_Eerror(mi, ERR17, "<pitch>, <unpitched>, or <rest>");  /* Hard */
+      whole_bar_rest = ISATTR(rest, "measure", "", FALSE, "yes") ||
+        note_duration == measure_length;
       }
-
 
 
 
@@ -2967,12 +2975,38 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
       uschar *stemtype = NULL;
       xml_item *accidental = xml_find_item(mi, US"accidental");
       xml_item *stem = xml_find_item(mi, US"stem");
+      
+      /* Resume displaying if suspended */
 
       if (suspended[staff])
         {
         (void)mem_get_insert_item(sizeof(bstr), b_resume, (bstr *)newnote);
         suspended[staff] = FALSE;
         }
+
+      /* Handle the start of a chord. The analysis phase inserts start/end
+      chord items into the chain, because all MusicXML does is to flag the 2nd
+      and subsequent notes of a chord. */
+
+      if (xml_find_item(mi, US"pmw-chord-first") != NULL)
+        {
+        if (inchord[staff] != NULL)
+          xml_Eerror(mi, ERR28, "chord start within chord");
+
+        newnote->flags |= nf_chord;
+        inchord[staff] = newnote;
+        }
+
+      /* Handle subsequent notes in a chord. See below for actions after the 
+      final note in a chord. */
+
+      else if (inchord[staff] != NULL)
+        {
+        newnote->type = b_chord;
+        newnote->flags |= nf_chord;
+        }
+        
+      /* Deai with the note's stem */
 
       if (stem != NULL)
         {
@@ -2995,7 +3029,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           produce very long stems in plain beams. The real use is for getting
           overprinted notes aligned, so we skip it for chords and for beams
           unless the bar contains <backup>. */
-
+          
           if (default_y != NULL && inchord[staff] == NULL &&
               (contains_backup || xml_find_item(mi, US"beam") == NULL))
             {
@@ -3090,27 +3124,6 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
       note_type_and_length(newnote, note_type_name, dots, tuplet_num[staff],
         tuplet_den[staff], mi, type);
 
-      /* Handle chords. The analysis phase inserts start/end chord items into
-      the chain, because all MusicXML does is to flag the 2nd and subsequent
-      notes of a chord. */
-
-      if (xml_find_item(mi, US"pmw-chord-first") != NULL)
-        {
-        if (inchord[staff] != NULL)
-          xml_Eerror(mi, ERR28, "chord start within chord");
-
-        newnote->flags |= nf_chord;
-        inchord[staff] = newnote;
-        }
-
-      /* Handle subsequent notes in a chord. */
-
-      else if (inchord[staff] != NULL)
-        {
-        newnote->type = b_chord;
-        newnote->flags |= nf_chord;
-        }
-
       /* When we reach the final note in a chord, we must run the sortting
       function, which also handles positioning of accidentals and notes on the
       wrong side of the stem. This function may adjust the "lastitem" value. */
@@ -3123,7 +3136,6 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         last_item_cache[staff] = read_lastitem;
         inchord[staff] = NULL;
         }
-
 
       /* Handle notations. */
 
@@ -3306,50 +3318,10 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         {
         note_type_and_length(newnote, note_type_name, dots, tuplet_num[staff],
           tuplet_den[staff], mi, type);
-
-// set nf_hidden for invisible
-//        write_noteletter(pstaff, mi, note_type_name, rest_letter, 0, dots);
         }
 
       newnote->yextra += yadjust;
       }
-
-
-
-#ifdef NEVER  /* This is all obsolete */
-    /* Handle slur ends. If we are in the middle of a chord, save up the text,
-    to be output after the end. */
-
-    for (n = 0; n < (int)(sizeof(slurstop)/sizeof(int)); n++)
-      {
-      if (slurstop[n] < 0) break;
-
-      if (!inchord[staff])
-        {
-        stave_text(pstaff, " [es");
-        stave_text(pstaff, "/=%c", slurstop[n]);
-        stave_text(pstaff, "]");
-        }
-      else
-        {
-        char *ss = pending_post_chord[staff];
-        Ustrcat(ss, " [es");
-        ss += Ustrlen(ss);
-        sprintf(ss, "/=%c", slurstop[n]);
-        Ustrcat(ss, "]");
-        Ustrcat(ss, pending_post_note[staff]);
-        }
-      }
-    /* Things like comma and caesura are notated in MusicXML as articulations,
-    but in PMW are separate items that come after a note. */
-
-    if (!inchord[staff])
-      stave_text(pstaff, "%s", pending_post_note[staff]);
-    else
-      Ustrcat(pending_post_chord[staff], pending_post_note[staff]);
-    pending_post_note[staff][0] = 0;
-#endif
-
 
     /* At the end of a chord, or after a single note, add on items that have
     to wait for a chord's end, such as ends of slurs and tuplets. */
