@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2022 */
-/* This file last modified: February 2022 */
+/* This file last modified: April 2022 */
 
 /* This file contains the top-level function for MusicXML input files. */
 
@@ -66,14 +66,14 @@ static void
 xml_process(void)
 {
 
-/* If movement_count == 0 we are processing a freestanding MusicXML file and 
+/* If movement_count == 0 we are processing a freestanding MusicXML file and
 need to set up and initialize a movement. */
 
 if (movement_count == 0)
   {
   movements_size += MOVTVECTOR_CHUNKSIZE;
   movements = realloc(movements, movements_size * sizeof(movtstr *));
-  if (movements == NULL)                          
+  if (movements == NULL)
     error(ERR0, "re-", "movements vector", movements_size); /* Hard */
   premovt = &default_movtstr;
   movements[movement_count++] = curmovt = mem_get(sizeof(movtstr));
@@ -107,32 +107,12 @@ if (xml_fontsize_next > 1)
   fontinststr *fdata = curmovt->fontsizes->fontsize_text;
   for (int i = 1; i < xml_fontsize_next; i++)
     {
-    fdata[i].size = MULDIV(xml_fontsizes[i], 1000, main_magnification);
-    fdata[i].matrix = NULL; 
-    }  
+    fdata[i].size = mac_muldiv(xml_fontsizes[i], 1000, main_magnification);
+    fdata[i].matrix = NULL;
+    }
   }
-
-
-
-#ifdef NEVER
-
-/* Output rehearal mark setting if required */
-
-if ((rehearsal_enclosure >= 0 &&
-     rehearsal_enclosure != REHEARSAL_ENCLOSURE_BOX)  ||
-    (rehearsal_size >= 0 && rehearsal_size != 12000) ||
-    (rehearsal_type >= 0 && rehearsal_type != REHEARSAL_TYPE_ROMAN))
-  {
-  fprintf(outfile, "Rehearsalmarks %s %s %s\n",
-    (rehearsal_enclosure == REHEARSAL_ENCLOSURE_RING)? "ringed" : "boxed",
-    (rehearsal_size >= 0)? CS format_fixed(rehearsal_size) : "12",
-    (rehearsal_type == REHEARSAL_TYPE_ITALIC)? "italic" :
-    (rehearsal_type == REHEARSAL_TYPE_BOLD)? "bold" :
-    (rehearsal_type == REHEARSAL_TYPE_BOLDITALIC)? "bolditalic" : "roman");
-  }
-
-#endif
 }
+
 
 
 /*************************************************
@@ -283,8 +263,6 @@ if (Ustrcmp(xml_read_addto->name, "#TEXT") == 0)
   tbnew->string[tbnew->length] = 0;
 
   xml_read_addto->p.txtblk = tbnew;
-
-//  misc_free(tb, sizeof(textblock) + tb->length);
   }
 
 /* Otherwise we have to make a new data item. The item's name is #TEXT;
@@ -793,7 +771,7 @@ return TRUE;
 *              Read main input file              *
 *************************************************/
 
-/* This function is called when the top-level input file is determined to be 
+/* This function is called when the top-level input file is determined to be
 MusicXML input.
 
 Argument:    file name, or NULL for stdin
@@ -807,13 +785,13 @@ BOOL rc;
 
 xml_main_item_list = xml_new_item(US"#");  /* Anchor item */
 
-for (int i = 0; i < 64; i++)             
+for (int i = 0; i < 64; i++)
   {
   xml_stave_sizes[i] = -1;
   xml_couple_settings[i] = COUPLE_NOT;
-  }                                 
-  
-xml_fontsizes[xml_fontsize_next++] = 10000; 
+  }
+
+xml_fontsizes[xml_fontsize_next++] = 10000;
 
 xml_read_linenumber = 1;
 rc = xml_read_file(read_filename, read_filehandle, xml_main_item_list);
@@ -830,26 +808,26 @@ if (xml_error_max >= ec_major)
   {
   eprintf("** No output has been generated.\n");
   main_suppress_output = TRUE;
-  }                                               
-                                                          
+  }
+
 /* If all is well, generate the PMW data structures */
-                                      
+
 if (rc) xml_process();
-                                                                         
+
 if (main_verify && xml_ignored_element_tree != NULL)
   {
   eprintf("-------- Ignored XML elements and attributes --------\n");
   print_unknown_tree(xml_ignored_element_tree);
   eprintf("-----------------------------------------------------\n\n");
-  }                                               
-                                                            
+  }
+
 if (xml_warn_unrecognized && xml_unrecognized_element_tree != NULL)
   {
   eprintf("-------- Unrecognized XML elements and attributes --------\n");
   print_unknown_tree(xml_unrecognized_element_tree);
   eprintf("----------------------------------------------------------\n\n");
   }
-                                           
+
 /* If there were errors that did not prevent the output being generated, give a
 warning. */
 

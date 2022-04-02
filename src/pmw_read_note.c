@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: March 2021 */
-/* This file last modified: February 2022 */
+/* This file last modified: March 2022 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -28,12 +28,6 @@ static uint16_t tuckoffset[] = {
 /* no  nt   hs   sh  ds  hf  fl  df */
   100, 16, 100, 100, 12, 12, 12, 12,
   100, 12, 100, 100, 12, 12, 12, 12 };  /* When bottom is a flat */
-
-/* These tables give the extra "accidental left" amounts for accidentals in
-round and square brackets. */
-                              /* no    nt    hs    sh    ds    hf    fl    df */
-static uint32_t rbra_left[] = { 5800, 5800, 6800, 6800, 5800, 5300, 5300, 5300 };
-static uint32_t sbra_left[] = { 5800, 6800, 6800, 6800, 6800, 6300, 6300, 6300 };
 
 /* A number of static variables are used for communication between read_note()
 and post_note(). */

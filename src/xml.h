@@ -3,7 +3,9 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
+/* File last edited: April 2022 */
 
+/* This is a header for the optional MusicXML processing code. */
 
 /* These are some parameters that specify sizes of things in the code. They
 must appear before including the local headers. */
@@ -18,16 +20,6 @@ headers, but they might as well be together with those above. */
 #define LAYOUTLISTMIN        256
 #define STAVEBUFFERMIN     10240
 #define PARTSTAFFMAX          10
-#define BIGNUMBER        INT_MAX
-
-/* If gcc is being used, we can use its facility for checking the arguments of
-printf-like functions. This is done by a macro. */
-
-#ifdef __GNUC__
-#define PRINTF_FUNCTION  __attribute__((format(printf,1,2)))
-#else
-#define PRINTF_FUNCTION
-#endif
 
 /* Macro to simplify checking the value of an attribute.
   a = item whose attribute is to be checked
@@ -39,12 +31,6 @@ printf-like functions. This is done by a macro. */
 
 #define ISATTR(a,b,c,d,e) \
   (Ustrcmp(xml_get_attr_string(a,US b,US c,d),e) == 0)
-
-/* Macro for not losing too much precision in working with fixed-point numbers
-in thousandths. */
-
-#define MULDIV(a,b,c) \
-  ((int)((((double)((int)(a)))*((double)((int)(b))))/((double)((int)(c)))))
 
 /* Stave coupling settings */     
                                   

@@ -595,7 +595,7 @@ space in 32-bits. */
 #define sflag_i       0x0040u   /* intermittent (dashed) */
 #define sflag_e       0x0080u   /* editorial */
 #define sflag_x       0x0100u   /* crossing */
-#define sflag_abs     0x0200u   /* absolutely positioned */
+#define sflag_abs     0x0200u   /* absolutely vertically positioned */
 #define sflag_lay     0x0400u   /* at {und,ov}erlay level */
 #define sflag_idot    0x0800u   /* intermittent (dotted) */
 #define sflag_cx      0x1000u   /* interpret end 'c' options as in MusicXML */

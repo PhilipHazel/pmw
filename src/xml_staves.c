@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last modified: March 2022 */
+/* This file last modified: April 2022 */
 
 
 /* This module contains functions for generating stave data */
@@ -20,52 +20,24 @@
 #define BF (font_bf<<24)
 #define BI (font_bi<<24)
 
+/* "Unset" value for pending beam breaks. */
+
 #define BREAK_UNSET 100
 
-
-#ifdef NEVER
-
-
-enum { REHEARSAL_TYPE_ROMAN,
-       REHEARSAL_TYPE_ITALIC,
-       REHEARSAL_TYPE_BOLD,
-       REHEARSAL_TYPE_BOLDITALIC };
-
-enum { REHEARSAL_ENCLOSURE_BOX,
-       REHEARSAL_ENCLOSURE_RING };
-
-#define TURNS_ABOVE  0x00000001u
-#define TURNS_BELOW  0x00000002u
-#define TURNS_BOTH   0x00000004u
-#define TURNS_PLAIN  0x00000008u
-
-#define MAX_CUSTOM_KEYS 10
 
 
 /*************************************************
 *             Local structures                   *
 *************************************************/
 
-/* Structure for handling in-memory buffered staff output */
-
-typedef struct {
-  uschar *buffer;
-  size_t size;
-  size_t hwm;
-  BOOL   lastwasnl;
-} stave._buffer;
-
 /* Structure for remembering the start of a slur or line */
 
 typedef struct sl_start {
   struct sl_start *next;
-  size_t offset;
-  int pstaff;
-  int id;
-  int pmw_id;
+  b_slurstr *start;
+  int staff;
   int default_y;
 } sl_start;
-#endif
 
 /* Structure for remembering default-x settings for notes so that after
 <backup> other notes can be moved. */
@@ -75,33 +47,20 @@ typedef struct note_position {
   int32_t x;       /* default-x value */
 } note_position;
 
-#ifdef NEVER
-/* Structure for remember which makekey settings have already been output.
-These are used for non-traditional key signatures. */
-
-typedef struct nt_save {
-  struct nt_save *next;
-  int key;
-  char defstring[100];
-} nt_save;
-
 
 
 /*************************************************
 *             Static variables                   *
 *************************************************/
 
-static BOOL    all_pending[64];
-#endif
-
-static int beam_leastbreak[PARTSTAFFMAX+1];
-static int beam_breakpending[PARTSTAFFMAX+1];
-static BOOL beam_seen[PARTSTAFFMAX+1];
+static int       beam_leastbreak[PARTSTAFFMAX+1];
+static int       beam_breakpending[PARTSTAFFMAX+1];
+static BOOL      beam_seen[PARTSTAFFMAX+1];
 
 static int       clef_octave_change[PARTSTAFFMAX+1];
 static int       current_clef[PARTSTAFFMAX+1];
-//static int       current_octave[PARTSTAFFMAX+1];
-
+static int32_t   current_key[PARTSTAFFMAX+1];
+static int32_t   current_time[PARTSTAFFMAX+1];
 static int       custom_key_count = 0;
 
 static int32_t   divisions = 8;
@@ -110,56 +69,30 @@ static int32_t   duration[PARTSTAFFMAX+1];
 static xml_group_data *group_name_staves[64];
 static xml_group_data *group_abbrev_staves[64];
 
-static b_hairpinstr *open_wedge[PARTSTAFFMAX+1];
-
 static void     *last_item_cache[PARTSTAFFMAX];
+static uschar    linechars[] = "ZABCDEFGHIJKLMNOPQ";
 
 static uint32_t  measure_length;
 static int       measure_number;
 static int       measure_number_absolute;
 static int       next_measure_fraction;
+
+static b_hairpinstr *open_wedge[PARTSTAFFMAX+1];
+
+static int       pending_all_bar;
 static int       pending_backup[PARTSTAFFMAX+1];
+static BOOL      pending_end_extend[PARTSTAFFMAX+1];
 static bstr     *pending_post_chord[PARTSTAFFMAX+1];
 
-#ifdef NEVER
-static uschar   *part_id;
-static int       next_custom_key = 1;
-static int       rehearsal_enclosure = -1;  /* Unset */
-static int       rehearsal_size = -1;
-static int       rehearsal_type = -1;
-#endif
-
-//static char      save_clef[PARTSTAFFMAX+1][24];
-//static char      save_key[PARTSTAFFMAX+1][24];
-//static char      save_ssabove[PARTSTAFFMAX+1][24];
-//static char      save_time[PARTSTAFFMAX+1][24];
-
+static int       set_noteheads[PARTSTAFFMAX+1];
+static uschar    slurchars[] = "ZABCDEFGHIJKLMNOPQ";
+static sl_start *slur_free_starts = NULL;
+static sl_start *slur_starts = NULL;
+static int32_t   starting_ssabove[PARTSTAFFMAX+1];
 static BOOL      suspended[PARTSTAFFMAX+1];
 
 static BOOL      tuplet_size_set = FALSE;
 
-#ifdef NEVER
-static int       turns_used = 0;
-
-static stave_buffer pmw_buffers[64];
-#endif
-
-static int       set_noteheads[PARTSTAFFMAX+1];
-
-static uschar    slurchars[] = "ABCDEFGHIJKLMNOPQ";
-
-#ifdef NEVER
-static BOOL      set_stems[64];
-static size_t    staff_bar_start[64];
-
-static sl_start *slur_free_starts = NULL;
-static sl_start *slur_starts = NULL;
-
-static sl_start *line_free_starts = NULL;
-static sl_start *line_starts = NULL;
-
-static nt_save  *nt_save_list = NULL;
-#endif
 
 
 /*************************************************
@@ -235,6 +168,9 @@ static int barstyles_count = (sizeof(barstyles)/sizeof(barlinestyle));
 static uint32_t plainturn[]  = { MF|'S', 0 };
 static uint32_t plainiturn[] = { MF|'i', 0 };
 
+static uint32_t pedalstart[] = { MF|163, 0 };
+static uint32_t pedalstop[]  = { MF|36,  0 };
+
 
 /* PMW conventional key signatures, indexed by number of accidentals, positive
 for sharps, negative for flats, offset by 7 for major keys and offset by 22 for
@@ -246,41 +182,6 @@ static const int keys[] = {
 
 /* A$  E$  B$   F   C   G   D   A   E   B  F#  C#  G#  D#  A#   minor keys */
    36, 40, 37, 26, 23, 27, 24, 21, 25, 22, 33, 30, 34, 31, 28 };
-
-
-
-#ifdef NEVER
-static const char *irests[] = {
-  "Q+", "Q", "q", "q-", "q=", "q=-", "q==" };
-
-enum { Clef_alto, Clef_baritone, Clef_bass, Clef_cbaritone, Clef_contrabass,
-       Clef_deepbass, Clef_hclef, Clef_mezzo, Clef_noclef, Clef_soprabass,
-       Clef_soprano, Clef_tenor, Clef_treble, Clef_trebledescant,
-       Clef_trebletenor, Clef_trebletenorb };
-
-/* Not currently needed -- keep in case a need arises
-static const char *clef_names[] = {
-  "alto", "baritone", "bass", "cbaritone", "contrabass", "deepbass", "hclef",
-  "mezzo", "noclef", "soprabass", "soprano", "tenor", "treble",
-  "trebledescant", "trebletenor", "trebletenorb" };
--- */
-
-/* Position of middle C in each clef, where the bottom line of the staff is
-numbered 0. For clefs that imply octave transposition for performance, this is
-ignored. */
-
-static int clef_cposition[] = {
-   4, /* alto */         8, /* baritone */       10, /* bass */
-   8, /* cbaritone */   10, /* contrabass */     12, /* deepbass */
-  -2, /* hclef */        2, /* mezzo */          -2, /* noclef */
-  12, /* soprabass */    0, /* soprano */         6, /* tenor */
-  -2, /* treble */      -2, /* trebledescant */  -2, /* trebletenor */
-  -2, /* trebletenorb */ };
-
-static const char *ordabbrev[] =
-  { "", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
-#endif
-
 
 /* Position of middle C in each clef, where the bottom line of the staff is
 numbered 0. For clefs that imply octave transposition for performance, this is
@@ -298,8 +199,6 @@ static int fonttypes[] = { font_rm, font_it, font_bf, font_bi };
 
 static int cclefs[] = {
   -1, clef_soprano, clef_mezzo, clef_alto, clef_tenor, clef_cbaritone };
-
-//static const int cclef_octaves[] = { 0, 1, 1, 1, 0, 0 };
 
 /* In the accidentals list, the third column contains the PMW ornament type
 for trills with that accidental above, or unset if that one is not supported.
@@ -356,51 +255,6 @@ static int pmw_articulations_count = sizeof(pmw_articulations)/sizeof(articdef);
 
 
 
-#ifdef NEVER
-
-/*************************************************
-*             Write invisible rests              *
-*************************************************/
-
-/* Used for both <forward> and <backup>
-
-Arguments:
-  pstaff          PMW staff to write on
-  rest_duration   length of rests
-
-Returns:     nothing
-*/
-
-static void
-write_invisible_rests(int pstaff, int rest_duration)
-{
-int i, j;
-
-for (i = 4, j = 0; i > 0; i /= 2)
-  {
-  while (rest_duration > 0 && rest_duration >= divisions * i)
-    {
-    rest_duration -= divisions * i;
-    stave_text(pstaff, "%s", irests[j]);
-    }
-  j++;
-  }
-
-for (i = 2; i <= 16; i *= 2)
-  {
-  while (rest_duration > 0 && rest_duration >= divisions/i)
-    {
-    rest_duration -= divisions/i;
-    stave_text(pstaff, "%s", irests[j]);
-    }
-  j++;
-  }
-}
-
-#endif
-
-
-
 /*************************************************
 *       Handle vertical positioning of text      *
 *************************************************/
@@ -428,88 +282,13 @@ tx->flags |= text_absolute;
 
 
 
-#ifdef NEVER
-/*************************************************
-*          Handle relative positioning           *
-*************************************************/
-
-static void
-leftright(int pstaff, int x, const char *pre)
-{
-if (x != 0) stave_text(pstaff, "/%s%c%s", pre, (x > 0)? 'r':'l',
-  format_fixed(abs(x)*400));
-}
-
-static void
-updown(int pstaff, int y, const char *pre)
-{
-if (y != 0) stave_text(pstaff, "/%s%c%s", pre, (y > 0)? 'u':'d',
-  format_fixed(abs(y)*400));
-}
-
-static void
-leftright_insert(int pstaff, size_t offset, int x, const char *pre)
-{
-if (x != 0) stave_text_insert(pstaff, offset, "/%s%c%s", pre, (x > 0)? 'r':'l',
-  format_fixed(abs(x)*400));
-}
-
-static void
-updown_insert(int pstaff, size_t offset, int y, const char *pre)
-{
-if (y != 0) stave_text_insert(pstaff, offset, "/%s%c%s", pre, (y > 0)? 'u':'d',
-  format_fixed(abs(y)*400));
-}
-
-
-/* This is used for offsets on things other than text, which use the special
-/lc and /rc positioning that is available there. For wedges (hairpins), the rx
-value is relative to the next note position. We fudge this by adding /lc0.001
-(can't use zero, because that means none). */
-
-static void
-rxandoffset(int pstaff, int rx, int offset, BOOL rxnext)
-{
-if (rx != 0)  /* relative-x is specified */
-  {
-  if (rxnext) stave_text(pstaff, "/lc0.001");
-  stave_text(pstaff, "/%c%s", (rx > 0)? 'r':'l',
-    format_fixed(abs(rx*400)));
-  }
-
-else if (offset != 0)
-  stave_text(pstaff, "/%cc%s", (offset > 0)? 'r':'l',
-    format_fixed((abs(offset)*1000)/divisions));
-}
-
-
-
-/*************************************************
-*         Add a font size to a string            *
-*************************************************/
-
-/* Note that PMW /s sizes start at 1, not 0. */
-
-static void
-write_fontsize(int pstaff, int fsize)
-{
-int n;
-if (fsize <= 0) return;
-for (n = 0; n < fontsize_next; n++) if (fontsizes[n] == fsize) break;
-if (n >= fontsize_next) fontsizes[fontsize_next++] = fsize;
-if (n != 0) stave_text(pstaff, "/s%d", n+1);
-}
-#endif
-
-
-
 /*************************************************
 *       Get a PMW item on appropriate chain      *
 *************************************************/
 
 /* Because MusicXML parts may contain multiple staves, we have to keep track of
-the last item for multiple staves, so all PMW items are obtained via this
-indirection function.
+the last item for multiple staves, so PMW items are obtained via this
+indirection function when they are to be added to the end of a stave's data.
 
 Arguments:
   n        number of stave within part (starting at 1)
@@ -561,10 +340,10 @@ return new;
 *             Handle pending backup              *
 *************************************************/
 
-/* Handle a pending backup, which in practive can be a move in either
-direction. The pending backup value is where we want to be in the measure.
-Check for following a tie - PMW cannot support this, so give warning and remove
-the tie.
+/* Handle a pending backup, which in practive can be a move in either direction
+because it incorporates <forward>. The pending backup value is where we want to
+be in the measure. Check for following a tie - PMW cannot support this, so give
+warning and remove the tie.
 
 Arguments:
   staff     the local staff number
@@ -605,7 +384,7 @@ if (bac != 0)
   rest = xml_get_item(staff, sizeof(b_notestr), b_note);
   rest->notetype = crotchet;  /* This is irrelevant for an invisible rest */
   rest->masq = MASQ_UNSET;    /* So is this */
-  rest->acc = 0;
+  rest->acc = ac_no;
   rest->accleft = 0;
   rest->acflags = 0;
   rest->flags = nf_hidden;
@@ -613,7 +392,7 @@ if (bac != 0)
   rest->yextra = 0;
   rest->abspitch = 0;
   rest->spitch = 0;
-  rest->acc_orig = 0;
+  rest->acc_orig = ac_no;
   rest->char_orig = 'Q';
   }
 }
@@ -751,7 +530,6 @@ return tx;
 
 
 
-
 /*************************************************
 *            Search for a custom key             *
 *************************************************/
@@ -818,6 +596,7 @@ for (i = 0; i < note_types_count; i++)
 if (i >= note_types_count) xml_Eerror(mi, ERR18, type_name);  /* Hard */
 
 note->notetype = note_types[i].pmwtype;
+if (note->notetype >= crotchet) note->char_orig = tolower(note->char_orig);
 blen = note->length = note_types[i].length;
 
 if (dots > 0) note->flags |= nf_dot;
@@ -877,68 +656,39 @@ do_measure(int prevstave, xml_part_data *p, xml_item *measure)
 {
 int note_positions_next = 0;
 int scount = p->stave_count;
-int pmwstaff, staff;
+int staff;
 int yield;
 
 int tuplet_num[PARTSTAFFMAX+1];
 int tuplet_den[PARTSTAFFMAX+1];
 
+BOOL contains_backup = xml_find_item(measure, US"backup") != NULL;
 BOOL end_tuplet[PARTSTAFFMAX+1];
-BOOL contains_backup= xml_find_item(measure, US"backup") != NULL;
-BOOL lastwasbarline;
+BOOL lastwasgrace[PARTSTAFFMAX+1];
+BOOL starting_noprint = FALSE;
 
 b_notestr *inchord[PARTSTAFFMAX+1];
 
 note_position note_positions[100];
 
+/* Initializes per-staff values. We use the MXL number (starting at 1) because
+it's less confusing. */
 
-#ifdef NEVER
-int pending_tie[PARTSTAFFMAX+1];
-
-char pending_post_chord[PARTSTAFFMAX+1][32];
-char pending_post_note[PARTSTAFFMAX+1][32];
-uschar *measure_number_text[16];
-
-BOOL starting_noprint = FALSE;
-#endif
-
-
-
-for (int n = 0; n <= PARTSTAFFMAX; n++)
+for (int n = 1; n <= scount; n++)
   {
-  beam_leastbreak[n] = BREAK_UNSET;
   beam_breakpending[n] = BREAK_UNSET;
+  beam_leastbreak[n] = BREAK_UNSET;
   beam_seen[n] = FALSE;
-
   duration[n] = 0;
   end_tuplet[n] = FALSE;
   inchord[n] = NULL;
+  lastwasgrace[n] = FALSE;
   pending_backup[n] = -1;
   pending_post_chord[n] = NULL;
   tuplet_num[n] = tuplet_den[n] = 1;
-
-//  pending_tie[n] = TIED_NONE;
-//  pending_post_note[n][0] = 0;
-//  staff_bar_start[pstave+n] = pmw_buffers[pstave+n].hwm;
   }
 
-#ifdef NEVER
-staff = 0;
-lastwasbarline = FALSE;
-
-/* Handle end of repeated bars */
-
-for (n = 1; n <= scount; n++)
-  {
-  if (all_pending[pstave + n])
-    {
-    stave_text(pstave + n, "[all]");
-    all_pending[pstave + n] = FALSE;
-    }
-  }
-#endif
-
-/* The "implicit" attribute means this measure it not counted. */
+/* The "implicit" attribute means this measure is not counted. */
 
 if (ISATTR(measure, "implicit", "no", FALSE, "yes"))
   {
@@ -983,112 +733,158 @@ for (int n = 1; n <= scount; n++)
 
 if (st->barcount > curmovt->barcount) curmovt->barcount = st->barcount;
 
-
-
-#ifdef NEVER
 /* Handle special cases when the printing start of this part is beyond the
 first measure. */
 
-if (p->noprint_before > 1)
+if (p->noprint_before > 0)
   {
-  /* Measure within initial non-printing measures. Set a flag to cause certain
-  items (e.g. clef) to be remembered rather than output. */
+  /* Measure within initial non-printing measures. Set a flag to stop anything
+  being output. */
 
   if (measure_number_absolute < p->noprint_before)
     {
     starting_noprint = TRUE;
     }
 
-  /* First printing measure. Output remembered items if this measure doesn't
-  have them. */
+  /* First printing measure. Output current clef/key/time/ssabove items if this
+  measure doesn't have them. */
 
   else if (measure_number_absolute == p->noprint_before)
     {
-    item *attributes, *print;
-    BOOL hasclef = FALSE;
-    BOOL haskey = FALSE;
-    BOOL hastime = FALSE;
-    BOOL hasssabove = FALSE;
+    BOOL hasclef[PARTSTAFFMAX+1];
+    BOOL haskey[PARTSTAFFMAX+1];
+    BOOL hastime[PARTSTAFFMAX+1];
+    BOOL hasssabove[PARTSTAFFMAX+1];
 
-    for (attributes = xml_find_item(measure, US"attributes");
+    starting_noprint = FALSE;
+
+    /* Unsuspend all staves in this part, and initialize flags. */
+
+    for (int n = 1; n <= scount; n++)
+      {
+      (void)xml_get_item(n, sizeof(bstr), b_resume);
+      suspended[n] = FALSE;
+      hasclef[n] = haskey[n] = hastime[n] = hasssabove[n] = FALSE;
+      }
+
+    /* Search for clef/key/time in this measure */
+
+    for (xml_item *attributes = xml_find_item(measure, US"attributes");
          attributes != NULL;
          attributes = xml_find_next(measure, attributes))
       {
-      hasclef |= xml_find_item(attributes, US"clef") != NULL;
-      haskey |= xml_find_item(attributes, US"key") != NULL;
-      hastime |= xml_find_item(attributes, US"time") != NULL;
+      xml_item *ckt = xml_find_item(attributes, US"clef");
+      if (ckt != NULL)
+        {
+        int n = xml_get_attr_number(ckt, US"number", 1, PARTSTAFFMAX, 1,
+          FALSE);
+        hasclef[n] = TRUE;
+        }
+
+      ckt = xml_find_item(attributes, US"key");
+      if (ckt != NULL)
+        {
+        int n = xml_get_attr_number(ckt, US"number", 1, PARTSTAFFMAX, 1,
+          FALSE);
+        haskey[n] = TRUE;
+        }
+
+      ckt = xml_find_item(attributes, US"time");
+      if (ckt != NULL)
+        {
+        int n = xml_get_attr_number(ckt, US"number", 1, PARTSTAFFMAX, 1,
+          FALSE);
+        hastime[n] = TRUE;
+        }
       }
 
-    for (print = xml_find_item(measure, US"print");
+    /* Search for ssabove in this measure */
+
+    for (xml_item *print = xml_find_item(measure, US"print");
          print != NULL;
          print = xml_find_next(measure, print))
       {
-      item *layout = xml_find_item(print, US"staff-layout");
+      xml_item *layout = xml_find_item(print, US"staff-layout");
       if (layout != NULL)
-        hasssabove = xml_find_item(layout, US"staff-distance") != NULL;
+        {
+        int n = xml_get_attr_number(layout, US"number", 1, PARTSTAFFMAX, 1,
+          FALSE);
+        hasssabove[n] = xml_find_item(layout, US"staff-distance") != NULL;
+        }
       }
 
-    for (n = 1; n <= scount; n++)
+    /* For each stave in the part, insert clef/key/time/ssabove if there isn't
+    such a setting. For time signatures, use "assume". */
+
+    for (int n = 1; n <= scount; n++)
       {
-      if (!hasclef) stave_text(pstave + n, "%s", save_clef[n]);
-      if (!haskey) stave_text(pstave + n, "%s", save_key[n]);
-      if (!hastime) stave_text(pstave + n, "%s", save_time[n]);
-      if (!hasssabove) stave_text(pstave + n, "%s", save_ssabove[n]);
+      if (!hasclef[n])
+        {
+        b_clefstr *cl = xml_get_item(n, sizeof(b_clefstr), b_clef);
+        cl->clef = current_clef[n];
+        cl->assume = FALSE;
+        cl->suppress = FALSE;
+        }
+
+      if (!haskey[n])
+        {
+        b_keystr *ks = xml_get_item(n, sizeof(b_keystr), b_key);
+        ks->assume = FALSE;
+        ks->suppress = FALSE;
+        ks->warn = TRUE;
+        ks->key = current_key[n];
+        }
+
+      if (!hastime[n])
+        {
+        b_timestr *ts = xml_get_item(n, sizeof(b_timestr), b_time);
+        ts->assume = TRUE;
+        ts->suppress = !MFLAG(mf_showtime);
+        ts->warn = MFLAG(mf_timewarn);
+        ts->time = current_time[n];
+        }
+
+      if (!hasssabove[n])
+        {
+        b_ssstr *ss = xml_get_item(n, sizeof(b_ssstr), b_ssabove);
+        ss->relative = FALSE;
+        ss->stave = prevstave + n;
+        ss->value = starting_ssabove[n];
+        }
       }
     }
   }
 
-/* Measure before the first time signature */
+/* Now we can process the top-level elements in the measure. */
 
-if (measure_number_absolute < time_signature_seen)
-  for (n = 1; n <= scount; n++)
-    stave_text(pstave + n, "[nocheck]\n");
-#endif
-
-
-
-
-
-/* Scan all the top-level elements in the measure, in order. */
-
-for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->next)
+for (xml_item *mi = measure->next;
+     mi != measure->partner;
+     mi = mi->partner->next)
   {
-  BOOL invisible = FALSE;
-  lastwasbarline = FALSE;
-
   DEBUG(D_xmlstaves) eprintf("<%s>\n", mi->name);
 
   /* Many elements can have an optional <staff> element. If not present,
-  assume staff 1, with pmwstaff being the PMW staff number. */
+  assume staff 1. */
 
-  staff = xml_get_number(mi, US"staff", 1, 500, 1, FALSE);
-  pmwstaff = prevstave + staff;
+  staff = xml_get_number(mi, US"staff", 1, PARTSTAFFMAX, 1, FALSE);
 
-  /* If the element has print-object="no", skip it, unless it also has
-  print-spacing="yes", in which case set a flag instead. When skipping a note,
-  rather than inserting an invisible rest immediately, adjust the
-  pending_backup value so that [reset] and/or invisible rests won't be inserted
-  unless actually needed. */
+  /* If the element has print-object="no", skip it. When skipping a note,
+  rather than inserting an invisible rest immediately, adjust the pending
+  backup value so that a reset and/or invisible rest won't be inserted unless
+  actually needed. */
 
   if (ISATTR(mi, US"print-object", "yes", FALSE, "no"))
     {
-    if (ISATTR(mi, US"print-spacing", "yes", FALSE, "yes")) invisible = TRUE;
-
-    /* Skip this item */
-
-    else
+    if (Ustrcmp(mi->name, "note") == 0)
       {
-      if (Ustrcmp(mi->name, "note") == 0)
+      int note_duration = xml_get_number(mi, US"duration", 0, 10000, 0, FALSE);
+      if (note_duration > 0)
         {
-        int note_duration = xml_get_number(mi, US"duration", 0, 10000, 0, FALSE);
-        if (note_duration > 0)
-          {
-          if (pending_backup[staff] < 0) pending_backup[staff] = duration[staff];
-          pending_backup[staff] += note_duration;
-          }
+        if (pending_backup[staff] < 0) pending_backup[staff] = duration[staff];
+        pending_backup[staff] += note_duration;
         }
-      continue;
       }
+    continue;
     }
 
 
@@ -1100,9 +896,6 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
       {
       BOOL noprint = ISATTR(ai, US"print-object", "yes", FALSE, "no");
 
-      //const char *assume = noprint? "assume " : "";
-
-
       /* ==== Divisions attribute ==== */
 
       if (Ustrcmp(ai->name, "divisions") == 0)
@@ -1110,19 +903,16 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         divisions = xml_get_this_number(ai, 1, 1024*1024, 8, TRUE);
         }
 
-
       /* ==== Clef attribute ==== */
 
       else if (Ustrcmp(ai->name, "clef") == 0)
         {
         uschar *s;
         int n, o;
-        b_clefstr *cl;
 
         /* Each clef has its own staff specified as "number". */
 
         staff = xml_get_attr_number(ai, US"number", 1, 10, 1, FALSE);
-        pmwstaff = prevstave + staff;
 
         s = xml_get_string(ai, US"sign", US"", TRUE);
         o = xml_get_number(ai, US"clef-octave-change", -1, +1, 0, FALSE);
@@ -1130,7 +920,6 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
         if (Ustrcmp(s, "G") == 0)
           {
-//          current_octave[staff] = 1;
           if (n >= 0 && n != 2) xml_Eerror(mi, ERR41, 'G', "2", n);
           switch (o)
             {
@@ -1149,7 +938,6 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           }
         else if (Ustrcmp(s, "F") == 0)
           {
-//          current_octave[staff] = 0;
           if (n == 5)
             {
             current_clef[staff] = clef_deepbass;
@@ -1175,13 +963,11 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           }
         else if (Ustrcmp(s, "C") == 0)
           {
-//          current_octave[staff] = cclef_octaves[n];
           current_clef[staff] = cclefs[n];
           }
         else if (Ustrcmp(s, "percussion") == 0)
           {
           if (n >= 0) xml_Eerror(mi, ERR42, n);
-//          current_octave[staff] = 1;
           current_clef[staff] = clef_hclef;
           }
         else
@@ -1191,18 +977,13 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
         clef_octave_change[staff] = -o;
 
-        cl = xml_get_item(staff, sizeof(b_clefstr), b_clef);
-        cl->clef = current_clef[staff];
-        cl->assume = noprint;
-        cl->suppress = FALSE;
-
-#ifdef NEVER2
-        if (starting_noprint)
-          sprintf(save_clef[staff], "[%s %d]\n", clefname, current_octave[staff]);
-        else
-          stave_text(staff, "[%s %d]\n", clefname, current_octave[staff]);
-#endif
-
+        if (!starting_noprint)
+          {
+          b_clefstr *cl = xml_get_item(staff, sizeof(b_clefstr), b_clef);
+          cl->clef = current_clef[staff];
+          cl->assume = noprint;
+          cl->suppress = FALSE;
+          }
         }
 
       /* ==== Key signature attribute ==== */
@@ -1212,50 +993,11 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         uschar *s;
         int key;
         int sn;
-        b_keystr *ks;
-//        BOOL follows_repeat[PARTSTAFFMAX+1];
-
-//        for (sn = 1; sn <= scount; sn++) follows_repeat[sn] = FALSE;
 
         /* A key signature may have its staff specifed as "number". If this is
         not present, the signature applies to all staves in the part. */
 
         staff = xml_get_attr_number(ai, US"number", 1, 10, -1, FALSE);
-
-
-#ifdef NEVER
-        /* If a a key signature follows a repeat at the start of a line, PMW
-        prints the old key signature followed by the repeat, followed by the
-        new signature, which usually looks weird. We can check whether this
-        immediately follows a repeat, and if so, put the repeat after the key
-        signature. */
-
-        if (staff < 0)
-          {
-          for (sn = 1; sn <= scount; sn++)
-            {
-            stave_buffer *b = pmw_buffers + pstave + sn;
-            s = b->buffer;
-            if (b->hwm >= 2 && s[b->hwm-2] == '(' && s[b->hwm-1] == ':')
-              {
-              follows_repeat[sn] = TRUE;
-              b->hwm -= 2;
-              }
-            }
-          }
-        else
-          {
-          stave_buffer *b = pmw_buffers + pstave + staff;
-          s = b->buffer;
-          if (b->hwm >= 2 && s[b->hwm-2] == '(' && s[b->hwm-1] == ':')
-            {
-            follows_repeat[staff] = TRUE;
-            b->hwm -= 2;
-            }
-          }
-#endif
-
-
 
         /* Look for a conventional key signature */
 
@@ -1277,9 +1019,8 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           key = keys[offset];
           }
 
-        /* In the absence of "fifths", look for explicit definition of a
-        non-traditional key signature. Save up the data and then call a
-        function that writes the output, possibly on more than one staff. */
+        /* In the absence of "fifths", look for an explicit definition of a
+        non-traditional key signature. */
 
         else
           {
@@ -1317,7 +1058,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
           kslist[ksn] = ks_end;
 
-          /* Search for matching standard key. If not found, search for a
+          /* Search for a matching standard key. If not found, search for a
           custom key and create one if not found. */
 
           key = find_key(kslist, 0, key_N);
@@ -1338,34 +1079,17 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         for (sn = 1; sn <= scount; sn++)
           {
           if (staff >= 0 && staff != sn) continue;
-          ks = xml_get_item(sn, sizeof(b_keystr), b_key);
-          ks->assume = FALSE;
-          ks->suppress = FALSE;
-          ks->warn = TRUE;
-          ks->key = key;
-          }
-
-
-        /* If this key signature followed the start of a repeat, we took out
-        the repeat above. Now re-insert it after the key signature. */
-
-#ifdef NEVER
-        if (staff < 0)
-          {
-          for (sn = 1; sn <= scount; sn++)
+          current_key[sn] = key;
+          if (!starting_noprint)
             {
-            if (follows_repeat[sn]) stave_text(pstave + sn, "(:");
+            b_keystr *ks = xml_get_item(sn, sizeof(b_keystr), b_key);
+            ks->assume = noprint;
+            ks->suppress = FALSE;
+            ks->warn = TRUE;
+            ks->key = key;
             }
           }
-        else
-          {
-          if (follows_repeat[staff]) stave_text(pstave + staff, "(:");
-          }
-#endif
-
-
         }        /* End key signature */
-
 
       /* ==== Time signature attribute ==== */
 
@@ -1389,65 +1113,47 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
         for (int n = 1; n <= scount; n++)
           {
-          b_timestr *ts;
           if (staff > 0 && staff != n) continue;
-          ts = xml_get_item(n, sizeof(b_timestr), b_time);
-          ts->assume = FALSE;
-          ts->suppress = !MFLAG(mf_showtime);
-          ts->warn = MFLAG(mf_timewarn);
-          ts->time = time;
-          }
-
-
-
-#ifdef NEVER
-        /* When saving for later, always "assume" for time signatures. */
-
-        if (staff < 0)
-          {
-          for (n = 1; n <= scount; n++)
+          current_time[n] = time;
+          if (!starting_noprint)
             {
-            if (starting_noprint)
-              //sprintf(save_time[n], "[%stime %s]\n", assume, tstring);
-              sprintf(save_time[n], "[assume time %s]\n", tstring);
-            else
-              stave_text(pstave + n, "[%stime %s]\n", assume, tstring);
+            b_timestr *ts = xml_get_item(n, sizeof(b_timestr), b_time);
+            ts->assume = noprint;
+            ts->suppress = !MFLAG(mf_showtime);
+            ts->warn = MFLAG(mf_timewarn);
+            ts->time = time;
             }
           }
-        else
-          {
-          if (starting_noprint)
-            // sprintf(save_time[staff], "[%stime %s]\n", assume, tstring);
-            sprintf(save_time[staff], "[assume time %s]\n", tstring);
-          else
-            stave_text(pstave + staff, "[%stime %s]\n", assume, tstring);
-          }
-#endif
-
-
         }
 
-      /* Unknown attribute */
-
-      // Ignore protem
+      /* Unknown attribute - add to ignored tree */
 
       else
         {
+        uschar buffer[256];
+        tree_node *tn;
+        (void)sprintf(CS buffer, "+%s:attributes", ai->name);
+        tn = tree_search(xml_ignored_element_tree, buffer);
+        if (tn == NULL)
+          {
+          tn = mem_get(sizeof(tree_node));
+          tn->name = mem_copystring(buffer);
+          (void)tree_insert(&xml_ignored_element_tree, tn);
+          }
         }
-
       }    /* End scan attributes loop */
     }      /* End of <attributes> */
 
 
   /* ======================== <backup> ======================== */
 
-  /* This is not totally straightforward because there is not a <staff> element
-  within <backup>. If there is more than one stave for this part, all must
-  backup, but we want to backup only if there are more notes for a stave. Do
-  this by setting a pending backup that is not actioned until we find another
-  note or something else that needs it. We look at where we are on each staff,
-  and compute the backup value - where we want to be - from that. Ignore
-  backups at the start of the measure. */
+  /* This is not straightforward because there is not a <staff> element within
+  <backup>. If there is more than one stave for this part, all must backup, but
+  we want to backup only if there are more notes for a stave. Do this by
+  setting a pending backup that is not actioned until we find another note or
+  something else that needs it. We look at where we are on each staff, and
+  compute the backup value - where we want to be - from that. Ignore backups at
+  the start of the measure. */
 
   else if (Ustrcmp(mi->name, "backup") == 0)
     {
@@ -1473,12 +1179,13 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
   else if (Ustrcmp(mi->name, "barline") == 0)
     {
     uschar *location = xml_get_attr_string(mi, US"location", US"right", TRUE);
+    xml_item *ending = xml_find_item(mi, US"ending");
     xml_item *repeat = xml_find_item(mi, US"repeat");
     b_textstr *tx = NULL;
 
-#ifdef NEVER
-    uschar *s = NULL;
-    xml_item *ending = xml_find_item(mi, US"ending");
+    /* Handle an nth time bar marking. The "start" version comes at the start
+    of a bar with a "left" setting; the "stop" version can be combined with
+    "repeat" etc. */
 
     if (ending != NULL)
       {
@@ -1486,39 +1193,34 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
       uschar *type = xml_get_attr_string(ending, US"type", US"", TRUE);
 
       /* Ending stuff only on the topmost of multistave part. When we hit a
-      "stop", we must arrange for [all] at the start of the next measure. This
-      will be overridden if there is another ending number. */
+      "stop", we set pending_all_bar to the number of the next bar; this
+      causes an [all] item to be put at the start of the next bar unless it has
+      its own nth time marking (which will reset the value). */
 
       if (Ustrcmp(type, "start") == 0)
         {
-        if (number < 10)
-          {
-          stave_buffer *b = pmw_buffers + pstaff;
-          uschar *bb = b->buffer + staff_bar_start[pstave+1];
-          if (Ustrncmp(bb, "[all]", 5) == 0)
-            {
-            bb[1] = '1' + number - 1;
-            bb[2] = ordabbrev[number][0];
-            bb[3] = ordabbrev[number][1];
-            }
-          else stave_text(pstave + 1, "[%d%s]", number, ordabbrev[number]);
-          }
-        else Eerror(ending, ERR55, 9);
+        b_nbarstr *nb = xml_get_item(1, sizeof(b_nbarstr), b_nbar);
+        nb->n = number;
+        nb->ssize = 0;      /* This value not currently used */
+        nb->s = NULL;       /* Custom string */
+        nb->x = nb->y = 0;
+        pending_all_bar = INT_MAX;
         }
 
       else if (Ustrcmp(type, "stop") == 0)
         {
-        all_pending[pstave + 1] = TRUE;
+        pending_all_bar = measure_number_absolute + 1;
         }
 
       else if (Ustrcmp(type, "discontinue") == 0)
         {
-        stave_text(pstave + 1, "[all]");
+        (void)xml_get_item(1, sizeof(bstr), b_all);
         }
 
-      else Eerror(ending, ERR52, "ending type", type);
+      else xml_Eerror(ending, ERR52, "ending type", type);
       }
-#endif
+
+    /* Handle a barline with repeat */
 
     if (repeat != NULL)
       {
@@ -1558,7 +1260,6 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
             if (barstyles[n].mfstring[0] != 0)
               (void)stave_text_pmw(0, (bstr *)bl, barstyles[n].mfstring,
                 text_absolute, 0, 0, 0);
-            lastwasbarline = TRUE;
             break;
             }
           }
@@ -1604,32 +1305,19 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
       {
       for (xml_item *dt = dtg->next; dt != dtg->partner; dt = dt->partner->next)
         {
+        BOOL rehearsal = Ustrcmp(dt->name, "rehearsal") == 0;
         uschar *halign = xml_get_attr_string(dt, US"halign", US"left", FALSE);
-        xml_attrstr *dyattr = xml_find_attr(dt, US"default-y");
-        BOOL dyset;
-        int dy;
+        int dy = xml_get_attr_number(dt, US"default-y", -1000, 1000, INT_MAX,
+          FALSE);
         int rx = xml_get_attr_number(dt, US"relative-x", -1000, 1000, 0, FALSE);
         int ry = xml_get_attr_number(dt, US"relative-y", -1000, 1000, 0, FALSE);
         int fsize = xml_get_attr_mils(dt, US"font-size", 1000, 100000, -1, FALSE);
         int fweight = ((ISATTR(dt, "font-style", "", FALSE, "italic"))? 1:0) +
            ((ISATTR(dt, "font-weight", "", FALSE, "bold"))? 2:0);
 
-        if (dyattr != NULL)
-          {
-          BOOL wasbad = TRUE;
-          dyset = TRUE;
-          dy = xml_string_check_number(dyattr->value, -1000, 1000, 0, &wasbad);
-          if (wasbad) xml_Eerror(dt, ERR23, dyattr->value);
-          }
-        else
-          {
-          dyset = FALSE;
-          dy = 0;
-          }
+        /* ======== Textual direction or rehearsal mark ======== */
 
-        /* Handle a textual direction */
-
-        if (Ustrcmp(dt->name, "words") == 0)
+        if (rehearsal || Ustrcmp(dt->name, "words") == 0)
           {
           uschar *s = xml_get_this_string(dt);
           uschar *enclosure = xml_get_attr_string(dt, US"enclosure", NULL,
@@ -1640,7 +1328,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           tx->size = (fsize >= 0)? xml_pmw_fontsize(fsize) :
             (xml_fontsize_word_default >= 0)? xml_fontsize_word_default : 0;
 
-          if (firsttext)
+          if (firsttext || rehearsal)
             {
             handle_text_dy(tx, dy, placement_above);
             tx->y += ry*400;
@@ -1662,6 +1350,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
             else if (Ustrcmp(enclosure, "none") != 0)
               xml_Eerror(dt, ERR43, US"<words> enclosure", enclosure);
             }
+          else if (rehearsal) tx->flags |= text_boxed;
 
           /* The "offset" value is in divisions, positioning the item in terms
           of musical position. This is overridden by explicit horizontal
@@ -1678,14 +1367,18 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
             else if (directive) tx->flags |= text_timealign;
             }
 
-          /* Use the follow-on feature if not the first text */
+          /* Flag a rehearsal mark; otherwise use the follow-on feature if not
+          the first text. */
 
-          if (!firsttext) tx->flags |= text_followon;
-          firsttext = FALSE;
+          if (rehearsal) tx->flags |= text_rehearse; else
+            {
+            if (!firsttext) tx->flags |= text_followon;
+            firsttext = FALSE;
+            }
           }
 
 
-        /* Handle a metronome mark */
+        /* ======== Metronome mark ======== */
 
         else if (Ustrcmp(dt->name, "metronome") == 0)
           {
@@ -1717,26 +1410,18 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
             tx = stave_text_pmw(staff, NULL, mm, text_above, 0, 0, 0);
             tx->size = (fsize >= 0)? xml_pmw_fontsize(fsize) :
               (xml_fontsize_word_default >= 0)? xml_fontsize_word_default : 0;
+            if (dy != INT_MAX) handle_text_dy(tx, dy, TRUE);
+            tx->y += ry*400;
 
             /* Use the follow-on feature if not the first text */
 
             if (!firsttext) tx->flags |= text_followon;
             firsttext = FALSE;
             }
-
-
-// Untested, need an example
-#ifdef NEVER2
-          if (ry != 0)  /* relative-y is specified */
-            stave_text(pstaff, "/%c%s", (ry > 0)? 'u':'d',
-              format_fixed(abs(ry*400)));
-#endif
-
-
           }
 
 
-        /* Handle a dynamic */
+        /* ======== Dynamic mark ======== */
 
         else if (Ustrcmp(dt->name, "dynamics") == 0)
           {
@@ -1754,14 +1439,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
               b_textstr *tx = stave_text_pmw(staff, NULL, dynamics[n].string,
                 0, rx * 400, 0, (offset*1000)/divisions);
               handle_text_dy(tx, dy, placement_above);
-
-
-// Untested, need an example
-#ifdef NEVER2
-          if (ry != 0)  /* relative-y is specified */
-            stave_text(pstaff, "/%c%s", (ry > 0)? 'u':'d',
-              format_fixed(abs(ry*400)));
-#endif
+              tx->y += ry*400;
 
               if (Ustrcmp(halign, "center") == 0) tx->flags |= text_centre;
               else if (Ustrcmp(halign, "right") == 0) tx->flags |= text_endalign;
@@ -1773,86 +1451,11 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           }
 
 
-        /* Handle a rehearsal mark. PMW does not support different font sizes,
-        styles, or different enclosures for rehearsal marks. We check that they
-        are all the same. */
+        /* ======== Wedge (aka hairpin) ======== */
 
-        else if (Ustrcmp(dt->name, "rehearsal") == 0)
-          {
-
-#ifdef NEVER
-          uschar *mark = xml_get_this_string(dt);
-          uschar *weight_string = xml_get_attr_string(dt, US"font-weight", NULL,
-            FALSE);
-          uschar *style_string = xml_get_attr_string(dt, US"font-style", NULL,
-            FALSE);
-          uschar *enclosure_string = xml_get_attr_string(dt, US"enclosure",
-            NULL, FALSE);
-
-          BOOL bold = weight_string == NULL ||    /* default is bold*/
-            Ustrcmp(weight_string, "bold") == 0;
-          BOOL italic = style_string != NULL &&   /* default is roman */
-            Ustrcmp(style_string, "italic") == 0;
-
-          int font_type = bold?
-            (italic? REHEARSAL_TYPE_BOLDITALIC : REHEARSAL_TYPE_BOLD) :
-            (italic? REHEARSAL_TYPE_ITALIC : REHEARSAL_TYPE_ROMAN);
-          int font_size = xml_get_attr_mils(dt, US"font-size", 1000, 100000,
-            -1, FALSE);
-          int default_x = xml_get_attr_number(dt, US"default-x", -100,
-            100, 0, FALSE);
-
-          int enclosure = REHEARSAL_ENCLOSURE_BOX;
-
-          if (enclosure_string != NULL)
-            {
-            if (Ustrcmp(enclosure_string, "oval") == 0 ||
-                Ustrcmp(enclosure_string, "circle") == 0)
-              enclosure = REHEARSAL_ENCLOSURE_RING;
-
-            else if (Ustrcmp(enclosure_string, "rectangle") != 0 &&
-                Ustrcmp(enclosure_string, "square") != 0)
-              Eerror(dt, ERR43, US"rehearsal enclosure", enclosure_string);
-            }
-
-          if (rehearsal_enclosure >= 0 && enclosure != rehearsal_enclosure)
-            Eerror(dt, ERR46, US"enclosure marks");
-          rehearsal_enclosure = enclosure;
-
-          if (rehearsal_type >= 0 && font_type != rehearsal_type)
-            Eerror(dt, ERR46, "font styles or weights");
-          rehearsal_type = font_type;
-
-          if (font_size > 0)
-            {
-            if (rehearsal_size >= 0 && font_size != rehearsal_size)
-              Eerror(dt, ERR46, US"font sizes");
-            rehearsal_size = font_size;
-            }
-
-          stave_text_quoted_string(pstaff, mark, " [", NULL, NULL);
-          leftright(pstaff, default_x, "");
-
-
-// Untested, need an example
-
-#ifdef NEVER2
-          if (ry != 0)  /* relative-y is specified */
-            stave_text(pstaff, "/%c%s", (ry > 0)? 'u':'d',
-              format_fixed(abs(ry*400)));
-#endif
-
-
-          stave_text(pstaff, "]");
-
-#endif
-          }
-
-
-        /* Handle a wedge (aka hairpin). MusicXML puts the "spread" setting on
-        the open end, whereas PMW puts its /w option on the opening character.
-        So in the case of a crescendo we have to do an insert at the starting
-        item. */
+        /* MusicXML puts the "spread" setting on the open end, whereas PMW puts
+        its /w option on the opening character. So in the case of a crescendo
+        we have to do an insert at the starting item. */
 
         else if (Ustrcmp(dt->name, "wedge") == 0)
           {
@@ -1879,14 +1482,8 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
               {
               hp->flags |= hp_end | (ohp->flags & hp_cresc);
               if (spread > 0) ohp->width = spread * 400;
-
-              if (dyset)
-                {
-                hp->y += dy * 400 - ohp->y;
-                }
-
+              if (dy != INT_MAX) hp->y += dy * 400 - ohp->y;
               open_wedge[staff] = NULL;
-
               }
             else xml_Eerror(dt, ERR48);
             }
@@ -1901,15 +1498,12 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
             if (spread > 0) hp->width = spread * 400;   /* Diminuendo */
             open_wedge[staff] = hp;
 
-            if (dyset)
+            if (dy != INT_MAX)
               {
               hp->flags |= hp_abs;
               hp->y += dy * 400;
               }
-            else
-              {
-              if (!placement_above) hp->flags |= hp_below;
-              }
+            else if (!placement_above) hp->flags |= hp_below;
             }
 
           /* Nested hairpins not supported */
@@ -1918,77 +1512,56 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           }
 
 
-        /* Handle pedal marks */
+        /* ======== Pedal mark ======== */
 
         else if (Ustrcmp(dt->name, "pedal") == 0)
           {
-#ifdef NEVER
-
           uschar *line = xml_get_attr_string(dt, US"line", US"no", FALSE);
           uschar *type = xml_get_attr_string(dt, US"type", NULL, FALSE);
 
-          if (type == NULL) Eerror(dt, ERR32, US"type"); else
+          if (type == NULL) xml_Eerror(dt, ERR32, US"type"); else
             {
-            uschar *s = NULL;
+            uint32_t *s = NULL;
 
-            if (Ustrcmp(line, "yes") == 0) Eerror(dt, ERR34, "Pedal lines");
-            else if (Ustrcmp(type, "start") == 0)
-              {
-              s = US"\\mf\\\\163\\";
-              }
-            else if (Ustrcmp(type, "stop") == 0)
-              {
-              s = US"\\mf\\\\36\\";
-              }
-            else Eerror(dt, ERR43, US"<pedal> type", type);
+            /* Pedal lines are not currently supported, nor are any types other
+            than start and stop. */
 
-            /* Compare outputting of text above */
+            if (Ustrcmp(line, "yes") == 0) xml_Eerror(dt, ERR34, "Pedal lines");
+
+            else if (Ustrcmp(type, "start") == 0) s = pedalstart;
+            else if (Ustrcmp(type, "stop") == 0) s = pedalstop;
+            else xml_Eerror(dt, ERR43, US"<pedal> type", type);
 
             if (s != NULL)
               {
-              stave_text(pstaff, "\"%s\"", s);
-              write_fontsize(pstaff, fsize);
+              b_textstr *tx = stave_text_pmw(staff, NULL, s, 0, rx * 400, 0,
+                (offset*1000)/divisions);
+              handle_text_dy(tx, dy, FALSE);
 
-              handle_dy(dy, pstaff, above);
-              if (Ustrcmp(halign, "center") == 0) stave_text(pstaff, "/c");
-                else if (Ustrcmp(halign, "right") == 0) stave_text(pstaff, "/e");
-                  else if (Ustrcmp(halign, "left") != 0)
-                    sml_add_attrval_to_tree(&unrecognized_element_tree, dt,
-                      xml_find_attr(dt, US"halign"));
+              if (Ustrcmp(halign, "center") == 0) tx->flags |= text_centre;
+                else if (Ustrcmp(halign, "right") == 0)
+                  tx->flags |= text_endalign;
+                else if (Ustrcmp(halign, "left") != 0)
+                  xml_add_attrval_to_tree(&xml_unrecognized_element_tree, dt,
+                    xml_find_attr(dt, US"halign"));
 
-// Untested, need an example
-#ifdef NEVER2
-          if (ry != 0)  /* relative-y is specified */
-            stave_text(pstaff, "/%c%s", (ry > 0)? 'u':'d',
-              format_fixed(abs(ry*400)));
-#endif
-
-              if (rx != 0)  /* relative-x is specified */
-                stave_text(pstaff, "/%c%s", (rx > 0)? 'r':'l',
-                  format_fixed(abs(rx*400)));
-
-              else if (offset != 0)
-                stave_text(pstaff, "/%cc%s", (offset > 0)? 'r':'l',
-                  format_fixed((abs(offset)*1000)/divisions));
-
-              else if (directive) stave_text(pstaff, "/ts");
+              if (directive) tx->flags |= text_timealign;
               }
             }
-#endif
-
           }
 
 
-        /* Handle <bracket>, which in PMW is [line] and is very much like
-        [slur]. */
+        /* ======== MusicXML "bracket" ======== */
+
+        /* In PMW this corresponds to [line] and is treated as a special kind
+        of slur. */
 
         if (Ustrcmp(dt->name, "bracket") == 0)
           {
-#ifdef NEVER
-
-          uschar *sn = xml_get_attr_string(dt, US"number", NULL, FALSE);
-          uschar *line_end = xml_get_attr_string(dt, US"line-end", US"", FALSE);
-          uschar *line_type = xml_get_attr_string(dt, US"line-type", US"solid",
+          sl_start *ss;
+          int sn = xml_get_attr_number(dt, US"number", 1, 16, 0, FALSE);
+          uschar *line_end = xml_get_attr_string(dt, US"line-end", NULL, FALSE);
+          uschar *line_type = xml_get_attr_string(dt, US"line-type", NULL,
             FALSE);
           BOOL nojog = Ustrcmp(line_end, "none") == 0;
           int jogsize = nojog? 0:7;
@@ -1996,152 +1569,170 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           /* MusicXML seems to give the dy point as the end of the jog, not
           the position of the line, in contrast to PMW. */
 
-          if (above) dy += jogsize; else dy -= jogsize;
+          if (placement_above) dy += jogsize; else dy -= jogsize;
+
+          /* Handle start of line */
 
           if (ISATTR(dt, "type", "", TRUE, "start"))
             {
-            sl_start *ss;
+            int32_t py = (dy + ry) * 400;
+            b_slurmodstr *sm = NULL;
+            b_slurstr *sl = xml_get_item(staff, sizeof(b_slurstr), b_slur);
 
-            stave_text(pstaff, "[line");
-            handle_dy(dy, pstaff, above);
+            sl->id = linechars[sn];
+            sl->mods = NULL;
+            sl->flags = sflag_l | sflag_cx | sflag_abs;
 
-            if (Ustrcmp(line_type, "dashed") == 0)
-              stave_text(pstaff, "/i");
-            else if (Ustrcmp(line_type, "dotted") == 0)
-              stave_text(pstaff, "/ip");
-            else if (Ustrcmp(line_type, "solid") != 0)
-              Eerror(dt, ERR43, "bracket type", line_type);
-
-            if (Ustrcmp(line_end, "up") == 0)
+            if (py < 0)
               {
-              if (above) Eerror(dt, ERR44, line_end, "above");
+              sl->flags |= sflag_b;
+              py += 16000;
               }
-            else if (Ustrcmp(line_end, "down") == 0)
+            sl->ally = py;
+
+            if (line_type != NULL)
               {
-              if (!above) Eerror(dt, ERR44, line_end, "below");
+              if (Ustrcmp(line_type, "dashed") == 0)
+                sl->flags |= sflag_i;
+              else if (Ustrcmp(line_type, "dotted") == 0)
+                sl->flags |= sflag_idot;
+              else if (Ustrcmp(line_type, "solid") != 0)
+                xml_Eerror(dt, ERR43, "line type", line_type);
               }
-            else if (nojog) stave_text(pstaff, "/ol");
-            else if (line_end[0] != 0) Eerror(dt, ERR43, "line end", line_end);
+
+            if (line_end != NULL)
+              {
+              if (Ustrcmp(line_end, "up") == 0)
+                {
+                if (placement_above) xml_Eerror(dt, ERR44, line_end, "above");
+                }
+              else if (Ustrcmp(line_end, "down") == 0)
+                {
+                if (!placement_above) xml_Eerror(dt, ERR44, line_end, "below");
+                }
+              else if (nojog) sl->flags |= sflag_ol;
+              else xml_Eerror(dt, ERR43, "line end", line_end);
+              }
 
             /* Set base position from offset if supplied, then adjust using
             relative-x. */
 
             if (offset != 0)
-              stave_text(pstaff, "/l%cc%s", (offset > 0)? 'r':'l',
-                format_fixed((abs(offset)*1000)/divisions));
+              {
+              sl->mods = sm = mem_get(sizeof(b_slurmodstr));
+              memset(sm, 0, sizeof(b_slurmodstr));
+              sm->lxoffset = (offset*1000)/divisions;
+              }
 
             rx = rx*400;  /* Convert to millipoints */
             if (abs(rx) >= 100)  /* Ignore very small */
-              stave_text(pstaff, "/l%c%s", (rx > 0)? 'r':'l',
-                format_fixed(abs(rx)));
-
-// Untested, need an example
-#ifdef NEVER2
-          if (ry != 0)  /* relative-y is specified */
-            stave_text(pstaff, "/%c%s", (ry > 0)? 'u':'d',
-              format_fixed(abs(ry*400)));
-#endif
-
-
-            /* Handle line number */
-
-            if (sn != NULL) stave_text(pstaff, "/=%c", sn[0]);
-
-            /* We have to remember where in the output this [line] ends in case
-            there are attributes on the end element that have to be inserted. A
-            chain of data blocks is maintained; when finished with, each is put
-            on an empty chain, to reduce malloc/free activity. */
-
-            if (line_free_starts != NULL)
               {
-              ss = line_free_starts;
-              line_free_starts = ss->next;
+              if (sm == NULL)
+                {
+                sl->mods = sm = mem_get(sizeof(b_slurmodstr));
+                memset(sm, 0, sizeof(b_slurmodstr));
+                }
+              sm->lx = rx;
+              }
+
+            /* We have to remember this line start in case there are attributes
+            on the end element that have to be added to it. A chain of data
+            blocks (shared with slur) is maintained; when finished with, each
+            is put on a free chain for re-use. */
+
+            if (slur_free_starts != NULL)
+              {
+              ss = slur_free_starts;
+              slur_free_starts = ss->next;
               }
             else
               {
-              ss = misc_malloc(sizeof(sl_start));
+              ss = mem_get(sizeof(sl_start));
               }
 
-            ss->next = line_starts;
-            line_starts = ss;
-            ss->offset = pmw_buffers[pstaff].hwm;
-            ss->pstaff = pstaff;
-            ss->id = sn[0];
+            ss->next = slur_starts;
+            slur_starts = ss;
+            ss->start = sl;
+            ss->staff = staff;
             ss->default_y = dy;
-
-            /* End off the [line] directive */
-
-            stave_text(pstaff, "] ");
             }
 
-          /* If it's an end line, find the block that remembers the start, and
-          insert extra characters if required. */
+          /* Handle end of line */
 
           else
             {
-            sl_start *ss, **sp;
+            b_slurstr *sl;
+            b_endslurstr *be = xml_get_item(staff, sizeof(b_endslurstr),
+              b_endslur);
+            be->value = linechars[sn];
 
-            stave_text(pstaff, " [el");
-               if (sn != NULL) stave_text(pstaff, "/=%c", sn[0]);
-               stave_text(pstaff, "]");
-
-            for (sp = &line_starts, ss = line_starts;
+            ss = slur_starts;
+            for (sl_start **sp = &slur_starts;
                  ss != NULL;
                  sp = &(ss->next), ss = ss->next)
               {
-              if (ss->pstaff == pstaff && ss->id == sn[0])
+              sl = ss->start;
+              if (ss->staff == staff && sl->id == be->value &&
+                  (sl->flags & sflag_l) != 0)
                 {
                 *sp = ss->next;
                 break;
                 }
               }
 
-            if (ss == NULL) Eerror(mi, ERR39); else
+            if (ss == NULL) xml_Eerror(mi, ERR39); else
               {
-              if (Ustrcmp(line_end, "up") == 0)
+              b_slurmodstr *sm = sl->mods;
+
+              if (line_end != NULL)
                 {
-                if (above) Eerror(dt, ERR44, line_end, "above");
+                if (Ustrcmp(line_end, "up") == 0)
+                  {
+                  if (placement_above) xml_Eerror(dt, ERR44, line_end, "above");
+                  }
+                else if (Ustrcmp(line_end, "down") == 0)
+                  {
+                  if (!placement_above) xml_Eerror(dt, ERR44, line_end, "below");
+                  }
+                else if (Ustrcmp(line_end, "none") == 0)
+                  {
+                  sl->flags |= sflag_or;
+                  }
+                else xml_Eerror(dt, ERR43, "line end", line_end);
                 }
-              else if (Ustrcmp(line_end, "down") == 0)
+
+              rx = rx*400;  /* Convert to millipoints */
+
+              /* Create a slur modification structure if needed */
+
+              if (sm == NULL &&
+                   (dy != ss->default_y || offset != 0 || abs(rx) >= 100))
                 {
-                if (!above) Eerror(dt, ERR44, line_end, "below");
+                sl->mods = sm = mem_get(sizeof(b_slurmodstr));
+                memset(sm, 0, sizeof(b_slurmodstr));
                 }
-              else if (Ustrcmp(line_end, "none") == 0)
-                {
-                stave_text_insert(pstaff, ss->offset, "/or");
-                }
-              else if (line_end[0] != 0)
-                Eerror(dt, ERR43, "line end", line_end);
 
               /* Insert a right-end up/down movement on the [line] directive. */
 
-              if (dy != ss->default_y)
-                {
-                int adjust = (dy - ss->default_y)*400;
-                stave_text_insert(pstaff, ss->offset, "/r%c%s",
-                  (adjust > 0)? 'u':'d', format_fixed(abs(adjust)));
-                }
+              if (dy != ss->default_y) sm->ry = (dy - ss->default_y)*400;
 
               /* Handle left/right offset. MusicXML offsets are from the next
               note; PMW defaults /rrc and /rlc to the previous note, but has a
               /cx option to make it behave line MusicXML. */
 
-              if (offset != 0)
-                stave_text_insert(pstaff, ss->offset, "/cx/r%cc%s",
-                  (offset > 0)? 'r':'l',
-                  format_fixed((abs(offset)*1000)/divisions));
+              if (offset != 0) sm->rxoffset = (offset*1000)/divisions;
+              if (abs(rx) >= 100) sm->rx = rx;  /* Ignore very small */
 
-              rx = rx*400;  /* Convert to millipoints */
-              if (abs(rx) >= 100)  /* Ignore very small */
-                stave_text(pstaff, "/r%c%s", (rx > 0)? 'r':'l',
-                  format_fixed(abs(rx)));
+              /* Put start rememberer on the free chain */
 
-              ss->next = line_free_starts;
-              line_free_starts = ss;
+              ss->next = slur_free_starts;
+              slur_free_starts = ss;
               }
-            }
-#endif
 
+            /* Flip alternating line id char */
+
+            linechars[sn] ^= 0x20u;
+            }
           }
 
 
@@ -2156,10 +1747,10 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
   /* ======================== <forward> ======================== */
 
   /* Unlike <backup>, <forward> may have a <staff> element, but if it doesn't,
-  it must apply to all staves. It is also necessary to handle <forward> when a
-  <backup> is still pending. Note that the pending_backup values are where to
-  back up to, not the amount to backup. A negative value means "no backup
-  pending". */
+  it applies to all staves in the part. We must take care to handle <forward>
+  when a <backup> is still pending. Note that the pending_backup values are
+  where to back up to, not the amount to backup. A negative value means "no
+  backup pending". */
 
   else if (Ustrcmp(mi->name, "forward") == 0)
     {
@@ -2179,7 +1770,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
   /* ======================== Notes and rests ======================== */
 
-  else if (Ustrcmp(mi->name, "note") == 0)
+  else if (Ustrcmp(mi->name, "note") == 0 && !starting_noprint)
     {
     xml_item *dot, *grace, *lyric, *notations, *pitch, *slur, *type;
     xml_item *rest = NULL;
@@ -2191,24 +1782,10 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
     uschar *note_type_name, *note_size, *step;
     b_notestr *newnote;
-    bstr *insertpoint;
+    bstr *insertpoint = NULL;
 
     BOOL whole_bar_rest = FALSE;
-
-
-#ifdef NEVER
-    const char *rest_wholebar;
-    int thisnotehead;
-    int tremlines;
-    int slurstop[10];  /* Should be overkill */
-    char options[32];
-
-    options[0] = '\\';
-    options[1] = 0;
-    tied = TIED_NONE;
-    tremolo = NULL;
-    tremlines = 2;
-#endif
+    BOOL had_lyric = FALSE;
 
     /* Deal with any pending <backup> to adjust the musical position on this
     staff. This can be a reverse or forward move. */
@@ -2229,33 +1806,54 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
       if (t != NULL)
         {
         b_textstr *tx;
+        uschar s_start[8];
         uschar s_end[8];
-        uschar *s_start;
         uschar *s = xml_get_string(lyric, US"syllabic", US"single", FALSE);
+        int number = xml_get_attr_number(lyric, US"number", 0, 100, 1, FALSE);
         int rx = xml_get_attr_number(lyric, US"relative-x", -100, 100, 0,
           FALSE);
 
-        s_start = (Ustrcmp(j, "left") == 0)? US"^" : US"";
+        s_start[0] = 0;
         s_end[0] = 0;
+
+        if (Ustrcmp(j, "left") == 0) Ustrcat(s_start,  "^");
         if (Ustrcmp(j, "right") == 0) (void)Ustrcat(s_end, "^^");
         if (Ustrcmp(s, "begin") == 0 || Ustrcmp(s, "middle") == 0)
           (void)Ustrcat(s_end, "-");
 
-        else if (extend != NULL)
+        if (extend != NULL)
           {
           xml_attrstr *atype = xml_find_attr(extend, US"type");
           if (atype == NULL || Ustrcmp(atype->value, "start") == 0)
+            {
             (void)Ustrcat(s_end, "=");
+            pending_end_extend[staff] = TRUE;
+            }
           }
+        else pending_end_extend[staff] = FALSE;
 
         tx = stave_text_utf(staff, s_start, t, s_end, font_rm, text_ul);
+        insertpoint = (bstr *)tx;
+        tx->laylevel = number - 1;
         if (rx != 0) tx->x = rx*400;
+        had_lyric = TRUE;
         }
 
       else if (extend != NULL && ISATTR(extend, "type", "", FALSE, "stop"))
         {
-        (void)stave_text_utf(staff, US"", US"=", US"", font_rm, text_ul);
+        insertpoint = (bstr *)
+          stave_text_utf(staff, US"", US"=", US"", font_rm, text_ul);
+        pending_end_extend[staff] = FALSE;
         }
+      }
+
+    /* Insert a "continue extender" syllable if this note had no lyric but
+    previously an extension was called for. */
+
+    if (!had_lyric && pending_end_extend[staff])
+      {
+      insertpoint = (bstr *)
+        stave_text_utf(staff, US"", US"=", US"", font_rm, text_ul);
       }
 
     /* Now deal with the note. */
@@ -2268,13 +1866,11 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
     type = xml_find_item(mi, US"type");
 
     newnote = xml_get_item(staff, sizeof(b_notestr), b_note);
-    insertpoint = (bstr *)newnote;
-
-    /* Defaults pro tem - may be able to tidy later. */
+    if (insertpoint == NULL) insertpoint = (bstr *)newnote;
 
     newnote->notetype = crotchet;
     newnote->masq = MASQ_UNSET;
-    newnote->acc = 0;
+    newnote->acc = ac_no;
     newnote->accleft = 0;
     newnote->acflags = 0;
     newnote->flags = 0;
@@ -2282,7 +1878,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
     newnote->yextra = 0;
     newnote->abspitch = 0;
     newnote->spitch = 0;
-    newnote->acc_orig = 0;
+    newnote->acc_orig = ac_no;
     newnote->char_orig = 'Z';
 
     /* The duration value is documented as intended for a performance vs
@@ -2291,8 +1887,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
     value. The same applies to whole bar rests. No duration is supplied for
     grace notes. */
 
-    note_duration = xml_get_number(mi, US"duration", 0, 10000, 0,
-      grace == NULL);
+    note_duration = xml_get_number(mi, US"duration", 0, 10000, 0, grace == NULL);
 
     /* A note must have exactly one of <pitch>, <unpitched>, or <rest>, but we
     assume we are dealing with valid XML, so uniqueness is not enforced.
@@ -2310,22 +1905,38 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
       /* Figure out the absolute pitch in PMW terms, where middle C is 96. MXL
       octaves have octave 4 starting at middle C, conveniently. Then compute
-      the stave- relative pitch, where 256 is the bottom line, using the same
+      the stave-relative pitch, where 256 is the bottom line, using the same
       tables that are used for PMW input files. */
 
       octave += xml_get_number(pitch, US"octave", 0, 12, 4, TRUE);
       newnote->abspitch = octave * 24 + read_basicpitch[stepletter - 'A'];
       newnote->spitch = pitch_stave[newnote->abspitch] +
         pitch_clef[current_clef[staff]];
+
+      /* Deal with coupling */
+
+      switch(xml_couple_settings[prevstave + staff])
+        {
+        case COUPLE_NOT:
+        break;
+
+        case COUPLE_UP:
+        if (staff == 2 && newnote->spitch > P_6L) newnote->flags |= nf_coupleU;
+        break;
+
+        case COUPLE_DOWN:
+        if (staff == 1 && newnote->spitch < P_0L) newnote->flags |= nf_coupleD;
+        break;
+        }
       }
 
-    /* Unpitched is much the same as pitched for our purposes (sheet music), 
-    but using "display-" names, so there is some code here that could perhaps 
+    /* Unpitched is much the same as pitched for our purposes (sheet music),
+    but using "display-" names, so there is some code here that could perhaps
     be amalgamated with what is above. */
 
     else if ((unpitched = xml_find_item(mi, US"unpitched")) != NULL)
       {
-      int stepletter; 
+      int stepletter;
       step = xml_get_string(unpitched, US"display-step", NULL, FALSE);
       if (step == NULL) xml_Eerror(unpitched, ERR17, "<display-step>");  /* Hard */
       newnote->char_orig = stepletter = step[0];
@@ -2338,7 +1949,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
       }
 
     /* The only option left is a rest. Sometimes a whole bar rest is notated as
-    a whole note with a duration of a complete measure, instead of setting the 
+    a whole note with a duration of a complete measure, instead of setting the
     "measure" attribute.  */
 
     else
@@ -2350,47 +1961,12 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         note_duration == measure_length;
       }
 
-
-
-#ifdef NEVER
-    if (grace != NULL)
-      {
-      conditional_space(options);
-      (void)Ustrcat(options, "g");
-      if (ISATTR(grace, "slash", "", FALSE, "yes")) (void)Ustrcat(options, "/");
-      }
-#endif
-
-
-#ifdef NEVER
-    /* If the note is invisible (print-object="no" but print-spacing="yes"),
-    arrange for it to be handled as a rest using Q instead of R. */
-
-    if (invisible)
-      {
-      rest_letter = 'Q';
-      rest_wholebar = "Q!";
-      if (rest == NULL) rest = (pitch == NULL)? unpitched : pitch;
-      }
-    else if (starting_noprint)
-      {
-      rest_letter = 'Q';    /* FIXME: This may need changing */
-      rest_wholebar = "";
-      }
-    else
-      {
-      rest_letter = 'R';
-      rest_wholebar = "R!";
-      }
-#endif
-
-
     /* We keep a table of the current musical position with any default-x
     value, so that after <backup> we can try to separate notes that might
     clash. This is not useful in chords, nor for whole bar rests or grace
     notes. */
 
-    if (!inchord[staff] && !whole_bar_rest && grace == NULL)
+    if (!inchord[staff] && !whole_bar_rest  && grace == NULL)
       {
       int n;
       int note_default_x = xml_get_attr_number(mi, US"default-x", -10000, 10000,
@@ -2496,111 +2072,88 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
     /* Handle notations. */
 
-//    slurstop[0] = -1;
-
     if (notations != NULL)
       {
       xml_item *fermata, *ni, *ornaments, *tremolo, *tuplet;
 
-      /* Slurs and lines are very similar in PMW, but rather than trying to
-      combine the code, we do them separately. */
+      /* Slurs and lines (MusicXML "brackets") are very similar in PMW, but
+      rather than trying to combine the code, we do them separately. In any
+      case, <bracket>s are separate MusicXML items, whereas slurs come within
+      notes. */
 
       for (slur = xml_find_item(notations, US"slur");
            slur != NULL;
            slur = xml_find_next(notations, slur))
         {
+        sl_start *ss;
         uschar *slurtype = xml_get_attr_string(slur, US"type", US"", TRUE);
         uschar *line_type = xml_get_attr_string(slur, US"line-type", NULL,
           FALSE);
+        int sn = xml_get_attr_number(slur, US"number", 1, 16, 0, FALSE);
+        int dx = xml_get_attr_number(slur, US"default-x", -1000, 1000, INT_MAX,
+          FALSE);
+        int dy = xml_get_attr_number(slur, US"default-y", -1000, 1000, INT_MAX,
+          FALSE);
+        int ry = xml_get_attr_number(slur, US"relative-y", -1000, 1000, 0,
+          FALSE);
 
-//        int default_x = xml_get_attr_number(slur, US"default-x", -1000, 1000,
-//          0, FALSE);
-//        int default_y = xml_get_attr_number(slur, US"default-y", -1000, 1000,
-//          0, FALSE);
 //        int bezier_x = xml_get_attr_number(slur, US"bezier-x", -1000, 1000,
 //          0, FALSE);
 //        int bezier_y = xml_get_attr_number(slur, US"bezier-y", -1000, 1000,
 //          0, FALSE);
 
-        int sn = xml_get_attr_number(slur, US"number", 1, 16, 0, FALSE);
+        /* Start of slur */
 
         if (Ustrcmp(slurtype, "start") == 0)
           {
+          BOOL below = FALSE;
           b_slurstr *sl = mem_get_insert_item(sizeof(b_slurstr), b_slur,
-            (bstr *)newnote);
+            insertpoint);
+          b_slurmodstr *sm = sl->mods = NULL;
 
           sl->id = slurchars[sn];
-          sl->mods = NULL;
+          sl->flags = 0;
           sl->ally = 0;
-          sl->flags = (Ustrcmp(xml_get_attr_string(slur, US"placement", US"",
-            FALSE), "above") == 0)? 0 : sflag_b;
+
+          if (Ustrcmp(xml_get_attr_string(slur, US"placement", US"", FALSE),
+              "above") != 0)
+            {
+            sl->flags |= sflag_b;
+            below = TRUE;
+            }
 
           if (line_type != NULL)
             {
             if (Ustrcmp(line_type, "dashed") == 0)
               sl->flags |= sflag_i;
             else if (Ustrcmp(line_type, "dotted") == 0)
-              sl->flags |= sflag_idot;
+              sl->flags |= sflag_i|sflag_idot;
             else if (Ustrcmp(line_type, "solid") != 0)
               xml_Eerror(slur, ERR43, "slur line type", line_type);
             }
 
-
-
-
-#ifdef NEVER
-          int pmw_id = slurchar;
-          sl_start *ss;
-
-          /* If we have had an endslur on this note with the same id, we have
-          to generate a different PMW id because the endslur comes after the
-          note. */
-
-          for (n = 0; n < (int)(sizeof(slurstop)/sizeof(int)); n++)
+          if (dx != INT_MAX || dy != INT_MAX || ry != 0)
             {
-            if (slurstop[n] < 0) break;
-            if (slurstop[n] == slurchar)
+            sm = sl->mods = mem_get(sizeof(b_slurmodstr));
+            memset(sm, 0, sizeof(b_slurmodstr));
+            sm->next = NULL;
+
+//            sm->lx = dx*400 - 3000;
+
+            if (dy != INT_MAX)
               {
-              pmw_id = 'A' + slurchar - '1';
-              break;
+              sm->ly = dy *= 400;
+              if (below) sm->ly += 16000;
+              sl->flags |= sflag_abs;
               }
+
+            sm->ly += ry * 400;
             }
 
-          stave_text(pstaff, "[slur/%c",
-            (Ustrcmp(xml_get_attr_string(slur, US"placement", US"", FALSE),
-              "above") == 0)? 'a' : 'b');
-          stave_text(pstaff, "/=%c", pmw_id);
-
-          if (line_type != NULL)
-            {
-            if (Ustrcmp(line_type, "dashed") == 0)
-              stave_text(pstaff, "/i");
-            else if (Ustrcmp(line_type, "dotted") == 0)
-              stave_text(pstaff, "/ip");
-            else if (Ustrcmp(line_type, "solid") != 0)
-              Eerror(slur, ERR43, "slur line type", line_type);
-            }
-#endif
-
-
-          /* FIXME: need much more investigation of what to do here. Perhaps
-          implement an overall option for modifying slurs: default off. The
-          default-y thing is tricky. */
-
-#ifdef NEVER
-          leftright(pstaff, default_x, "l");
-          updown(pstaff, default_y, "l");   /* This is especially bad */
-
-          leftright(pstaff, bezier_x, "cl");
-          updown(pstaff, bezier_y, "cl");
-#endif
-
-
-#ifdef NEVER
-          /* We have to remember where in the output this [slur] ends in case
-          there are attributes on the end element that have to be inserted.
-          A chain of data blocks is maintained; when finished with, each is put
-          on an empty chain, to reduce malloc/free activity. */
+          /* We have to remember this slur start in case there are attributes
+          on the end element that have to be added to it. A chain of data
+          blocks (shared with line) is maintained; when finished with, each
+          is put on a free chain for re-use. */
 
           if (slur_free_starts != NULL)
             {
@@ -2609,77 +2162,72 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
             }
           else
             {
-            ss = misc_malloc(sizeof(sl_start));
+            ss = mem_get(sizeof(sl_start));
             }
 
           ss->next = slur_starts;
           slur_starts = ss;
-          ss->offset = pmw_buffers[pstaff].hwm;
-          ss->pstaff = pstaff;
-          ss->id = slurchar;
-          ss->pmw_id = pmw_id;
-          ss->default_y = default_y;
-
-          /* End off the [slur] directive */
-
-          stave_text(pstaff, "] ");
-#endif
+          ss->start = sl;
+          ss->staff = staff;
+//          ss->default_y = dy;
 
           }
 
-
-        /* End of slur */
+        /* Handle the end of a slur */
 
         else if (Ustrcmp(slurtype, "stop") == 0)
           {
+          b_slurstr *sl;
           b_endslurstr *be = mem_get(sizeof(b_endslurstr));
           be->type = b_endslur;
           be->value = slurchars[sn];
-          add_pending_post_chord(staff, (bstr *)be);
           slurchars[sn] ^= 0x20u;
 
-#ifdef NEVER
-          sl_start *ss, **sp;
+          /* Find the start */
 
-          for (sp = &slur_starts, ss = slur_starts;
+          ss = slur_starts;
+          for (sl_start **sp = &slur_starts;
                ss != NULL;
                sp = &(ss->next), ss = ss->next)
             {
-            if (ss->pstaff == pstaff && ss->id == slurchar)
+            sl = ss->start;
+            if (ss->staff == staff && sl->id == be->value &&
+                (sl->flags & sflag_l) == 0)
               {
               *sp = ss->next;
               break;
               }
             }
-
-          if (ss == NULL) Eerror(mi, ERR39); else
+             
+          if (ss == NULL) xml_Eerror(mi, ERR39); else
             {
-            size_t offset = ss->offset;
+            BOOL below = (sl->flags & sflag_b) != 0;
+            b_slurmodstr *sm = sl->mods;
 
-            for (n = 0; n < (int)(sizeof(slurstop)/sizeof(int)); n++)
-              if (slurstop[n] < 0) break;
-            slurstop[n] = ss->pmw_id;
-            slurstop[n+1] = -1;
-#endif
+            add_pending_post_chord(ss->staff, (bstr *)be);
 
+            if (dx != INT_MAX || dy != INT_MAX || ry != 0)
+              {
+              if (sm == NULL)
+                {
+                sm = sl->mods = mem_get(sizeof(b_slurmodstr));
+                memset(sm, 0, sizeof(b_slurmodstr));
+                sm->next = NULL;
+                }
+//              sm->rx = dx*400 - 3000;
 
-#ifdef NEVER
-            leftright_insert(pstaff, offset, default_x, "r");
-            updown_insert(pstaff, offset, default_y, "r");
+              if (dy != INT_MAX)
+                {
+                sm->ry = dy *= 400;
+                if (below) sm->ry += 16000;
+                sl->flags |= sflag_abs;
+                }
 
-            leftright_insert(pstaff, offset, bezier_x, "cr");
-            updown_insert(pstaff, offset, bezier_y, "cr");
-
-
-            ss->next = slur_free_starts;
-            slur_free_starts = ss;
+              sm->ry += ry * 400;
+              }
             }
-#endif
-
           }
         }
-
-
 
 
       /* Tuplets. There doesn't seem to be a separate font description for
@@ -2758,7 +2306,6 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           }
         }
 
-
       /* There can be multiple <tied> items on a note, typically stop,start.
       Treat "continue" as "start" for the moment. We only need one tie item for
       a chord, so do nothing if the pending post-chord list already starts with
@@ -2798,19 +2345,14 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           }
         }
 
-
       /* Fermata */
 
-#ifdef NEVER
       fermata = xml_find_item(notations, US"fermata");
       if (fermata != NULL)
         {
-        (void)Ustrcat(options, "f");
-
-
-
+        (void)insert_ornament((bstr *)newnote, or_ferm);
         if (ISATTR(fermata, "type", "upright", FALSE, "inverted"))
-          (void)Ustrcat(options, "!");
+          newnote->acflags |= af_opposite;
         }
 
       /* Arpeggio: take note only if first note of a chord. The inchord[]
@@ -2818,12 +2360,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
       if (xml_find_item(notations, US"arpeggiate") != NULL &&
           inchord[staff] == NULL)
-        {
-        conditional_space(options);
-        (void)Ustrcat(options, "ar");
-        }
-#endif
-
+        (void)insert_ornament((bstr *)newnote, or_arp);
 
       /* Tremolo. */
 
@@ -2963,8 +2500,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         }  /* End ornaments */
       }
 
-    /* Handle non-rests; either pitch or unpitched is not NULL. Note that an
-    invisible note has been turned into a rest. */
+    /* Handle non-rests; either pitch or unpitched is not NULL. */
 
     if (rest == NULL)
       {
@@ -2975,7 +2511,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
       uschar *stemtype = NULL;
       xml_item *accidental = xml_find_item(mi, US"accidental");
       xml_item *stem = xml_find_item(mi, US"stem");
-      
+
       /* Resume displaying if suspended */
 
       if (suspended[staff])
@@ -2997,7 +2533,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         inchord[staff] = newnote;
         }
 
-      /* Handle subsequent notes in a chord. See below for actions after the 
+      /* Handle subsequent notes in a chord. See below for actions after the
       final note in a chord. */
 
       else if (inchord[staff] != NULL)
@@ -3005,7 +2541,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         newnote->type = b_chord;
         newnote->flags |= nf_chord;
         }
-        
+
       /* Deai with the note's stem */
 
       if (stem != NULL)
@@ -3029,14 +2565,17 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           produce very long stems in plain beams. The real use is for getting
           overprinted notes aligned, so we skip it for chords and for beams
           unless the bar contains <backup>. */
-          
+
+// FIXME: Actually, sometimes this might be useful for chords, e.g. when the
+// chord is below the middle of the stave, but has a down stem (and vv). See
+// testing/xmltests/X08 bar 5.
+
           if (default_y != NULL && inchord[staff] == NULL &&
               (contains_backup || xml_find_item(mi, US"beam") == NULL))
             {
             BOOL bad;
             int sizefactor = ((newnote->flags & nf_cuesize) != 0)?
-              curmovt->fontsizes->fontsize_cue.size/10 :
-              (newnote->length == 0)?
+              curmovt->fontsizes->fontsize_cue.size/10 : (grace != NULL)?
               curmovt->fontsizes->fontsize_grace.size/10 : 1000;
             int stemend = ((stem_up > 0 && newnote->spitch < 244) ||
                            (stem_up < 0 && newnote->spitch > 300))?
@@ -3076,8 +2615,8 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           {
           if (Ustrcmp(astring, accidentals[n].name) == 0)
             {
-            newnote->acc = accidentals[n].value;
-            newnote->abspitch += read_accpitch[newnote->acc]; 
+            newnote->acc = newnote->acc_orig = accidentals[n].value;
+            newnote->abspitch += read_accpitch[newnote->acc];
             newnote->accleft += curmovt->accspacing[newnote->acc] -
               curmovt->accadjusts[newnote->notetype];
             break;
@@ -3085,7 +2624,10 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
           }
         if (n >= accidentals_count) xml_Eerror(mi, ERR30, astring);
         if (ISATTR(accidental, "parentheses", "", FALSE, "yes"))
+          {
           newnote->flags |= nf_accrbra;
+          newnote->accleft += rbra_left[newnote->acc];
+          }
         }
 
       /* Handle noteheads. */
@@ -3124,7 +2666,31 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
       note_type_and_length(newnote, note_type_name, dots, tuplet_num[staff],
         tuplet_den[staff], mi, type);
 
-      /* When we reach the final note in a chord, we must run the sortting
+      /* Handle grace notes */
+
+      if (grace != NULL)
+        {
+        newnote->length = 0;
+        if (ISATTR(grace, "slash", "", FALSE, "yes"))
+          newnote->flags |= nf_appogg;
+        lastwasgrace[staff] = TRUE;
+        }
+
+      /* Add a bit of space between the final grace note and what follows. This
+      mimics a PMW [smove] directive. */
+
+      else if (lastwasgrace[staff])
+        {
+        b_spacestr *ss = xml_get_item(staff, sizeof(b_spacestr), b_space);
+        b_movestr *mv = mem_get_insert_item(sizeof(b_movestr), b_move,
+          (bstr *)newnote);
+        mv->relative = ss->relative = FALSE;
+        mv->x = ss->x = 3000;
+        mv->y = 0;
+        lastwasgrace[staff] = FALSE;
+        }
+
+      /* When we reach the final note in a chord, we must run the sorting
       function, which also handles positioning of accidentals and notes on the
       wrong side of the stem. This function may adjust the "lastitem" value. */
 
@@ -3168,22 +2734,15 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
             for (i = 0; i < pmw_articulations_count; i++)
               {
               const articdef *pa = pmw_articulations + i;
-
               if (Ustrcmp(ni->name, pa->name) == 0)
                 {
                 if (atype != NULL && (Ustrcmp(ni->name, "strong-accent") != 0 ||
                     Ustrcmp(atype, "up") != 0))
                   xml_Eerror(ni, ERR43, "Type", atype);
-
                 if (pa->flags < 256)
-                  {
                   (void)xml_get_item(staff, sizeof(bstr), pa->flags);
-                  }
                 else
-                  {
                   newnote->acflags |= pa->flags;
-                  }
-
                 break;
                 }
               }
@@ -3196,7 +2755,6 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
               newnote->acflags |= af_opposite;
             }
           }  /* End articulations */
-
 
         /* Technical marks */
 
@@ -3228,10 +2786,23 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         {
         int bbs = beam_breakpending[staff];
 
+        /* Output a pending break - we put it after the previous note in case a
+        tuplet ending or anything else intervenes. */
+
         if (bbs < BREAK_UNSET)
           {
-          b_beambreakstr *bb = mem_get_insert_item(sizeof(b_beambreakstr),
-            b_beambreak, (bstr *)newnote);
+          b_beambreakstr *bb;
+          bstr *before = (bstr *)newnote;
+
+          for (bstr *bp = before->prev; bp != NULL; bp = bp->prev)
+            {
+            if (bp->type == b_note || bp->type == b_chord || bp->type == b_tie)
+              {
+              before = bp->next;
+              break;
+              }
+            }
+          bb = mem_get_insert_item(sizeof(b_beambreakstr), b_beambreak, before);
           bb->value = (bbs == 0)? 255 : bbs;
           beam_breakpending[staff] = BREAK_UNSET;
           }
@@ -3339,6 +2910,7 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
         {
         tuplet_num[staff] = 1;
         tuplet_den[staff] = 1;
+        end_tuplet[staff] = FALSE;
         }
       }
     }
@@ -3348,55 +2920,44 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
   else if (Ustrcmp(mi->name, "print") == 0)
     {
-
-#ifdef NEVER
     /* PMW measure numbering is only ever at the top of systems, not
-    controllable for individual parts/staves. The best we can do is write a
-    heading directive. There doesn't seem to be a separate measure numbering
-    font size in MXL, so use the word default if there is one, but enforce a
-    minimum. */
+    controllable for individual parts/staves. This code enables bar numbering
+    if it is set for any MXL part. There doesn't seem to be a separate measure
+    numbering font size in MXL, so use the word default if there is one, but
+    enforce a minimum. */
 
     uschar *mn = xml_get_string(mi, US"measure-numbering", NULL, FALSE);
 
     if (mn != NULL)
       {
-      uschar *fss = US"";
-      if (fontsize_word_default > 0)
+      if (Ustrcmp(mn, "system") == 0) curmovt->barnumber_interval = -1;
+      else if (Ustrcmp(mn, "measure") == 0) curmovt->barnumber_interval = 1;
+      else if (Ustrcmp(mn, "none") != 0) xml_Eerror(mi, ERR31, mn);
+
+      if (xml_fontsize_word_default > 0)
         {
-        int fsize = fontsizes[fontsize_word_default];
+        int32_t fsize = xml_fontsizes[xml_fontsize_word_default];
         if (fsize < 8000) fsize = 8000;
-        fss = format_fixed(fsize);
+        curmovt->fontsizes->fontsize_barnumber.size = fsize;
         }
-
-      if (Ustrcmp(mn, "system") == 0)
-        fprintf(outfile, "Barnumbers line %s\n", fss);
-      else if (Ustrcmp(mn, "measure") == 0)
-        fprintf(outfile, "Barnumbers 1 %s\n", fss);
-      else if (Ustrcmp(mn, "none") != 0)
-        Eerror(mi, ERR31, mn);
       }
-#endif
 
 
-    /* Newlines are currently turned into layout items, so for the moment,
-    ignore here. There may be cases where they are relevant, or maybe there
-    will be an option to do some other handling. */
+    /* Newlines are currently turned into layout items during the analyze
+    phase, so for the moment, ignore here. There may be cases where they are
+    relevant, or maybe there will be an option to do some other handling. */
 
-#ifdef NEVER
-    if (ISATTR(mi, "new-system", "", FALSE, "yes"))
-      stave_text(pstave+1, "@ [newline]\n");   /* Put it on 1st stave of part */
-#endif
-
+//    if (ISATTR(mi, "new-system", "", FALSE, "yes"))
 
 
     /* MusicXML's staff distance is above the relevant staff, and does not
     include the staff itself, unlike PMW, whose normal spacing is below the
     staff and is inclusive. If the space is specified for the second or later
-    staff in the part, we put [sshere] on the previous staff, assuming that
-    they are printed or suspended together. If it's for the first staff of a
-    part, we use PMW's special [ssabove] directive, which ensures a spacing
-    above the current staff, because this will work even if the previous staff
-    is suspended. However, it cannot reduce the spacing. */
+    staff in the part, we put sshere on the previous staff, assuming that they
+    are printed or suspended together. If it's for the first staff of a part,
+    we use PMW's ssabove feature, which ensures a spacing above the current
+    staff, because this will work even if the previous staff is suspended.
+    However, it cannot reduce the spacing. */
 
     for (xml_item *staff_layout = xml_find_item(mi, US"staff-layout");
          staff_layout != NULL;
@@ -3410,16 +2971,11 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
         d = d*400 + 16000;
 
-
-#ifdef NEVER
         if (starting_noprint)
           {
-          sprintf(save_ssabove[n], " [ssabove %s]\n", format_fixed(dfixed));
+          starting_ssabove[n] = d;
           }
-
         else
-#endif
-
           {
           b_ssstr *ss;
           int which;
@@ -3433,15 +2989,14 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
             which = b_sshere;
             n--;
 
-#ifdef NEVER
-            if (couple_settings[n] == COUPLE_DOWN ||   /* When coupled, must */
-                couple_settings[n+1] == COUPLE_UP)     /* round to 4 pts */
+            /* When coupled, must round to 4 pts */
+
+            if (xml_couple_settings[prevstave + n] == COUPLE_DOWN ||
+                xml_couple_settings[prevstave + n+1] == COUPLE_UP)
               {
               d += 3999;
               d -= d % 4000;
               }
-#endif
-
             }
 
           ss = xml_get_item(n, sizeof(b_ssstr), which);
@@ -3475,6 +3030,8 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
   /* ======================== pmw-suspend ======================== */
 
+  /* This is an item that got inserted during the analyze phase. */
+
   else if (Ustrcmp(mi->name, "pmw-suspend") == 0)
     {
     int number = xml_get_attr_number(mi, US"number", 1, scount, -1, FALSE);
@@ -3487,12 +3044,11 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
     }
 
 
-
-#ifdef NEVER
   /* ======================== Known, but ignored ======================== */
 
-  else if (Ustrcmp(mi->name, "sound") == 0 ||
-           Ustrcmp(mi->name, "xxxxxx") == 0)
+  else if ((Ustrcmp(mi->name, "note") == 0 && starting_noprint) ||
+            Ustrcmp(mi->name, "sound") == 0 ||
+            Ustrcmp(mi->name, "xxxxxx") == 0)
     {
     }
 
@@ -3501,13 +3057,9 @@ for (xml_item *mi = measure->next; mi != measure->partner; mi = mi->partner->nex
 
   else
     {
-    Eerror(mi, ERR26, measure_number, part_id);  /* Warning */
+    xml_Eerror(mi, ERR26, measure_number, p->id);  /* Warning */
     }
-
-#endif
-
-
-  }  /* Repeat for items in the measure */
+  }  /* Repeat for all items in the measure */
 
 /* End of measure; add a barline for staves that don't already have one. */
 
@@ -3519,6 +3071,22 @@ for (int n = 1; n <= scount; n++)
     bl->bartype = barline_normal;
     bl->barstyle = 0;
     }
+  }
+
+/* If this measure follows one that had a first or second time bar and this bar
+had no such item, it is flagged for the insertion of an "all" item at its
+start. */
+
+if (measure_number_absolute == pending_all_bar)
+  {
+  bstr *a = mem_get(sizeof(bstr));
+  bstr *b = (bstr *)curmovt->stavetable[prevstave + 1]->
+    barindex[measure_number_absolute];
+  a->type = b_all;
+  a->next = b->next;
+  a->prev = b;
+  b->next->prev = a;
+  b->next = a;
   }
 
 return yield;
@@ -3767,41 +3335,6 @@ do_stave_group_name(p->name, p->name_display, gname, gname_display, middle,
 if (*snptr != NULL) snptr = &((*snptr)->next);
 do_stave_group_name(p->abbreviation, p->abbreviation_display, gabbrev,
   gabbrev_display, middle, gmiddle, snptr);
-
-
-
-
-#ifdef NEVER
-st->stave_name = do_stave_name(p->name, p->name_display, p->stave_count == 2);
-
-/* Add group name as an additional string */
-
-if ((g = group_name_staves[pstaff]) != NULL)
-  {
-  snamestr *sn = do_stave_name(g->name, g->name_display,
-    ((g->last_pstave - g->first_pstave) & 1) != 0);
-  if (st->stave_name == NULL) st->stave_name = sn;
-    else st->stave_name->extra = sn;
-  }
-
-/* Abbreviations are tacked on as additional snamestr blocks. */
-
-snptr = &(st->stave_name);
-if (*snptr != NULL) snptr = &((*snptr)->next);
-
-*snptr =
-  do_stave_name(p->abbreviation, p->abbreviation_display, p->stave_count == 2);
-
-if ((g = group_abbrev_staves[pstaff]) != NULL)
-  {
-  snamestr *sn = do_stave_name(g->abbreviation, g->abbreviation_display,
-    ((g->last_pstave - g->first_pstave) & 1) != 0);
-  if (*snptr == NULL) *snptr = sn;
-    else (*snptr)->extra = sn;
-  }
-#endif
-
-
 }
 
 
@@ -3816,15 +3349,6 @@ xml_do_parts(void)
 int pstaff;
 xml_group_data *g;
 int prev_pmw_stave = 0;
-
-/* SEE BELOW - IS THAT THE RIGHT PLACE?? */
-#ifdef NEVER
-for (pstaff = 0; pstaff <= PARTSTAFFMAX; pstaff++)
-  {
-  current_octave[pstaff] = 1;
-  clef_octave_change[pstaff] = 0;
-  }
-#endif
 
 for (pstaff = 0; pstaff <= xml_pmw_stave_count; pstaff++)
   group_name_staves[pstaff] = group_abbrev_staves[pstaff] = NULL;
@@ -3857,17 +3381,17 @@ for (xml_part_data *p = xml_parts_list; p != NULL; p = p->next)
   for (int n = 0; n <= PARTSTAFFMAX; n++)
     {
     current_clef[n] = clef_treble;
-//    current_octave[n] = 1;
+    current_key[n] = 0;
+    current_time[n] = 0x010404;
+
     clef_octave_change[n] = 0;
     open_wedge[n] = NULL;
 
-//    save_clef[n][0] = 0;
-//    save_key[n][0] = 0;
-//    save_ssabove[n][0] = 0;
-//    save_time[n][0] = 0;
-
     set_noteheads[n] = nh_normal;
+    starting_ssabove[n] = -1;
     suspended[n] = FALSE;
+    pending_all_bar = INT_MAX;
+    pending_end_extend[n] = FALSE;
     }
 
   DEBUG(D_xmlstaves)
@@ -3884,6 +3408,7 @@ for (xml_part_data *p = xml_parts_list; p != NULL; p = p->next)
     {
     barlinestyles[pstaff] = 0;   /* Default */
     st = curmovt->stavetable[pstaff] = read_init_stave(pstaff, FALSE);
+    if (p->noprint_before > 0) st->omitempty = TRUE;
     if (pstaff > main_maxstave) main_maxstave = pstaff;
 
     /* Ensure bar indexes are big enough */
@@ -3897,24 +3422,6 @@ for (xml_part_data *p = xml_parts_list; p != NULL; p = p->next)
       do_part_name(p, pstaff);
       first = FALSE;
       }
-
-
-
-#ifdef NEVER
-    if (fontsize_word_default > 0)
-      stave_text(pstaff, " textsize %d", fontsize_word_default + 1);
-    if (p->noprint_before > 1) stave_text(pstaff, " omitempty");
-
-    switch (couple_settings[pstaff])
-      {
-      case COUPLE_UP: stave_text(pstaff, " couple up"); break;
-      case COUPLE_DOWN: stave_text(pstaff, " couple down"); break;
-      default: break;
-      }
-
-    stave_text(pstaff, "]\n", pstaff);
-#endif
-
     }
 
   /* Scan the measures for this part */
@@ -3938,185 +3445,6 @@ for (xml_part_data *p = xml_parts_list; p != NULL; p = p->next)
 /* Fill in gaps in staves and bars */
 
 read_tidy_staves(FALSE);
-
-
-#ifdef NEVER
-/* Avoid a double newline before [endstave], which can happen when the number
-of bars is a multiple of 5. */
-
-for (pstaff = 1; pstaff < 64; pstaff++)
-  {
-  stave_buffer *b = pmw_buffers + pstaff;
-  if (b->buffer == NULL) break;
-  if (b->buffer[b->hwm-2] == '\n') b->hwm--;
-  stave_text(pstaff, "[endstave]\n\n");
-  }
-
-#endif
-
 }
-
-
-
-
-#ifdef NEVER
-/*************************************************
-*             Main write function                *
-*************************************************/
-
-BOOL
-write_output(uschar *filename)
-{
-int i;
-BOOL yield;
-BOOL used_dynamics = FALSE;
-
-for (i = 0; i < 64; i++)
-  {
-  pmw_buffers[i].buffer = NULL;
-  pmw_buffers[i].size = 0;
-  pmw_buffers[i].hwm = 0;
-  pmw_buffers[i].lastwasnl = TRUE;
-  all_pending[i] = FALSE;
-  current_clef[i] = Clef_treble;
-  set_noteheads[i] = 'o';    /* Normal */
-  set_stems[i] = TRUE;       /* Stems are on */
-  }
-
-fontsizes[0] = 10000;
-fontsize_next = 1;
-
-/* Set up the output file. */
-
-if (filename == NULL || Ustrcmp(filename, "-") == 0)
-  {
-  DEBUG(D_any) debug_printf("==> Writing to stdout\n");
-  outfile = stdout;
-  }
-else
-  {
-  DEBUG(D_any) debug_printf("==> Writing to %s\n", filename);
-  outfile = Ufopen(filename, "wb");
-  if (outfile == NULL)
-    error(ERR0, filename, "output file", strerror(errno));  /* Hard error */
-  }
-
-if (!suppress_version)
-  {
-  char datebuf[20];
-  time_t now = time(NULL);
-  struct tm *local = localtime(&now);
-  strftime(datebuf, sizeof(datebuf), "%d %b %Y", local);
-  fprintf(outfile, "@ PMW input created from MusicXML by mxl2pmw %s on %s\n",
-    MXL2PMW_VERSION, datebuf);
-  }
-
-/* Process the music partwise or time wise. */
-
-if (partwise_item_list != NULL)
-  {
-  heading_write(partwise_item_list);
-  yield = write_partwise();
-  }
-else
-  {
-//  process_heading(timewise_item_list);
-  yield = write_timewise();
-  }
-
-/* Output the list of font sizes if there are any other than the default
-10-point size. For all except the default 10pt font, we unscale by the
-magnification so that, when re-scaled by PMW they are the sizes specified in
-the XML. This sometimes means that the first two end up at the same size. */
-
-if (fontsize_next > 1)
-  {
-  fprintf(outfile, "Textsizes 10");
-  for (i = 1; i < fontsize_next; i++)
-    fprintf(outfile, " %s", format_fixed(MULDIV(fontsizes[i], 1000,
-      magnification)));
-  fprintf(outfile, "\n");
-  }
-
-/* Output stave size setting if required */
-
-if (set_stave_size)
-  {
-  fprintf(outfile, "Stavesizes");
-  for (i = 1; i <= pmw_stave_count; i++)
-    if (stave_sizes[i] > 0) fprintf(outfile, " %d/%s", i,
-      format_fixed(stave_sizes[i]));
-  fprintf(outfile, "\n");
-  }
-
-/* Output rehearal mark setting if required */
-
-if ((rehearsal_enclosure >= 0 &&
-     rehearsal_enclosure != REHEARSAL_ENCLOSURE_BOX)  ||
-    (rehearsal_size >= 0 && rehearsal_size != 12000) ||
-    (rehearsal_type >= 0 && rehearsal_type != REHEARSAL_TYPE_ROMAN))
-  {
-  fprintf(outfile, "Rehearsalmarks %s %s %s\n",
-    (rehearsal_enclosure == REHEARSAL_ENCLOSURE_RING)? "ringed" : "boxed",
-    (rehearsal_size >= 0)? CS format_fixed(rehearsal_size) : "12",
-    (rehearsal_type == REHEARSAL_TYPE_ITALIC)? "italic" :
-    (rehearsal_type == REHEARSAL_TYPE_BOLD)? "bold" :
-    (rehearsal_type == REHEARSAL_TYPE_BOLDITALIC)? "bolditalic" : "roman");
-  }
-
-/* Output nocheck if forced by command line option and not otherwise set. */
-
-if (nocheck) fprintf(outfile, "Nocheck  @ Do not check bar lengths\n");
-
-/* Output macros for the dynamics that have been used. */
-
-for (i = 0; i < dynamics_count; i++)
-  {
-  if (!dynamics[i].used) continue;
-  if (!used_dynamics)
-    {
-    fprintf(outfile, "\n@ Macros for dynamics\n");
-    used_dynamics = TRUE;
-    }
-  fprintf(outfile, "*define %s \"%s\"/b\n", dynamics[i].name,
-    dynamics[i].string);
-  }
-
-/* Output other macros */
-
-if (turns_used != 0)
-  {
-  fprintf(outfile, "\n@ Macros for turns\n");
-  if ((turns_used & TURNS_PLAIN) != 0)
-    fprintf(outfile, "*define turn() \"\\mf\\&&1\"/a\n");
-
-  if ((turns_used & TURNS_ABOVE) != 0)
-    fprintf(outfile, "*define turnA() \"\\mf\\&&1xxzz\\mu\\&&2\"/a\n");
-
-  if ((turns_used & TURNS_BELOW) != 0)
-    fprintf(outfile, "*define turnB() \"\\mf\\xx&&1wwzz\\mu\\&&2\"/a\n");
-
-  if ((turns_used & TURNS_BOTH) != 0)
-    fprintf(outfile, "*define turnAB() \"\\mf\\xx&&1xxzz\\mu\\&&2\\mf\\wwww{{&&3\"/a\n");
-  }
-
-fprintf(outfile, "\n");
-
-/* Output the parts */
-
-for (i = 1; i < 64; i++)
-  {
-  if (pmw_buffers[i].buffer == NULL) break;
-  fprintf(outfile, "%s", pmw_buffers[i].buffer);
-  }
-
-fprintf(outfile, "@ End\n");
-
-if (outfile != stdout) (void)fclose(outfile);
-DEBUG(D_any) debug_printf("Finished writing\n");
-return yield;
-}
-
-#endif
 
 /* End of xml_staves.c */

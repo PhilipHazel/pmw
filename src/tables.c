@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: January 2021 */
-/* This file last modified: February 2022 */
+/* This file last modified: March 2022 */
 
 #include "pmw.h"
 
@@ -216,6 +216,14 @@ uint16_t pitch_clef[] =
 
 /*   A    Ba   B   cBa   CB   DB   H    M    N    SB   S    Te   Tr  TrD  TrT  TrTB */
   { 152, 168, 176, 168, 166, 184, 128, 144, 128, 166, 136, 160, 128, 128, 128, 128 };
+
+
+/* These tables give the extra "accidental left" amounts for accidentals in
+round and square brackets. */
+                              /* no    nt    hs    sh    ds    hf    fl    df */
+uint32_t rbra_left[] = { 5800, 5800, 6800, 6800, 5800, 5300, 5300, 5300 };
+uint32_t sbra_left[] = { 5800, 6800, 6800, 6800, 6800, 6300, 6300, 6300 };
+
 
 /* Default font sizes at normal magnification; null pointers to stretch/shear
 matrices and zero space stretching. This data is pointed at from the global
@@ -861,6 +869,5 @@ mfstr *out_mftable[] =
   &hssharp2,     &halfflat1,    &hrflat1,       &hsflat1,
   &halfflat2,    &hrflat2,      &hsflat2
   };
-
 
 /* End of tables.c */

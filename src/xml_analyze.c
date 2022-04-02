@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* File last modified: February 2022 */
+/* File last modified: April 2022 */
 
 /* Analyse XML after it has been read into memory. */
 
@@ -18,99 +18,19 @@ BOOL
 xml_analyze(void)
 {
 int pmw_stave = 1;
-xml_item *first_credit, *mi, *part_list;
+xml_item *mi, *part_list;
 xml_part_data **pdlink = &xml_parts_list;
 BOOL yield = TRUE;
 
 /* Skip over initial housekeeping items (whose names start with '#') at the
 start before seeking a partwise item list. */
 
-for (mi = xml_main_item_list; mi != NULL && mi->name[0] == '#'; mi = mi->next) 
+for (mi = xml_main_item_list; mi != NULL && mi->name[0] == '#'; mi = mi->next)
   {
-  continue; 
+  continue;
   }
 if (mi != NULL) xml_partwise_item_list = xml_find_item(mi, US"score-partwise");
 if (xml_partwise_item_list == NULL) xml_error(ERR16);   /* Hard */
-
-/* Some processors output <credit> items in a strange order which can result in
-a lot of up/down empty headings in PMW. Try to sort them into default-y order,
-but give up if the default-y attribute in <credit-words> is missing. */
-
-
-(void)first_credit;
-#ifdef NEVER
-
-first_credit = xml_find_item(partwise_item_list, US"credit");
-if (first_credit != NULL)
-  {
-  BOOL done;
-  xml_item *next_credit, *prev_credit, *cwords;
-  int prev_y, next_y;
-
-  do
-    {
-    done = TRUE;
-    prev_credit = first_credit;
-    cwords = xml_find_item(prev_credit, US"credit-words");
-    if (cwords == NULL) break;
-    prev_y = xml_get_attr_number(cwords, US"default-y", -10000, 10000,
-      BIGNUMBER, FALSE);
-
-    if (prev_y == BIGNUMBER) break;
-    for(;;)
-      {
-      next_credit = xml_find_next(partwise_item_list, prev_credit);
-      if (next_credit == NULL) break;
-      cwords = xml_find_item(next_credit, US"credit-words");
-      if (cwords == NULL) break;
-      next_y = xml_get_attr_number(cwords, US"default-y", -10000, 10000,
-        BIGNUMBER, FALSE);
-
-      if (next_y == BIGNUMBER) break;
-
-      if (next_y > prev_y)  /* Out of order */
-        {
-        xml_item *scredit;
-        xml_item *ncnext = next_credit->partner->next;
-        xml_item *ncprev = next_credit->prev;
-        ncprev->next = ncnext;
-        ncnext->prev = ncprev;
-
-        /* We now have the out-of-order <credit> in next_credit. Scan the list
-        to find out where to insert it. Then restart the whole process. */
-
-        for (scredit = first_credit;
-             scredit != NULL;
-             scredit = xml_find_next(partwise_item_list, scredit))
-          {
-          int sy;
-          cwords = xml_find_item(scredit, US"credit-words");
-          if (cwords == NULL) break;
-          sy = xml_get_attr_number(cwords, US"default-y", -10000, 10000,
-            BIGNUMBER, FALSE);
-          if (next_y > sy)
-            {
-            xml_item *sprev = scredit->prev;
-            sprev->next = next_credit;
-            next_credit->prev = sprev;
-            next_credit->partner->next = scredit;
-            scredit->prev = next_credit->partner;
-            if (scredit == first_credit) first_credit = next_credit;
-            break;
-            }
-          }
-
-        done = FALSE;
-        break;
-        }
-
-      prev_credit = next_credit;
-      prev_y = next_y;
-      }
-    }
-  while (!done);
-  }
-#endif
 
 /* Process parts list */
 
@@ -184,7 +104,7 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
     new->stave_count = 1;
     new->stave_first = pmw_stave;
     new->has_lyrics = FALSE;
-    new->noprint_before = 1;
+    new->noprint_before = 0;
 
     /* Handle a part name */
 
@@ -245,10 +165,10 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
           {
           BOOL new_page = ISATTR(print, "new-page", "no", FALSE, "yes");
           BOOL new_system = ISATTR(print, "new-system", "no", FALSE, "yes");
+          int prevsyscount = new->measure_count - system_start_measure;
 
-          if (new_system || new_page)
+          if ((new_system || new_page) && prevsyscount > 0)
             {
-            int prevsyscount = new->measure_count - system_start_measure;
             system_start_measure = new->measure_count;
 
             if (layout_new)  /* The first part to do layout */
@@ -258,7 +178,7 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
                 xml_layout_list_size += LAYOUTLISTMIN;
                 xml_layout_list = realloc(xml_layout_list, xml_layout_list_size);
                 if (xml_layout_list == NULL)  /* Hard error */
-                  error(ERR0, "re-", "XML layout list", xml_layout_list_size);  
+                  error(ERR0, "re-", "XML layout list", xml_layout_list_size);
                 }
               xml_layout_list[xml_layout_top++] = prevsyscount;
               if (new_page) xml_layout_list[xml_layout_top++] = 0xffu;
@@ -372,8 +292,8 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
               }
             }
           }
-          
-        /* Scan the notes of a measure. If any lyrics are found, set the flag 
+
+        /* Scan the notes of a measure. If any lyrics are found, set the flag
         in the part, and also arrange to turn off the full barline at the end
         of systems. */
 
@@ -381,16 +301,16 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
              note != NULL;
              note = xml_find_next(measure, note))
           {
-          if (!new->has_lyrics && xml_find_item(note, US"lyric") != NULL) 
+          if (!new->has_lyrics && xml_find_item(note, US"lyric") != NULL)
             {
             new->has_lyrics = TRUE;
             xml_movt_unsetflags = mf_fullbarend;
-            } 
+            }
 
           /* When we hit one that has <chord>, we identify the start of the
           chord, which is the previous note. Then find the end, identify that,
           and skip on to the end. */
-           
+
           if (xml_find_item(note, US"chord") != NULL)
             {
             int staff = xml_get_number(note, US"staff", 0, 12, -1, FALSE);
@@ -404,8 +324,8 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
             if (pnote == NULL) xml_Eerror(note, ERR27); else
               {
               int pstaff = xml_get_number(pnote, US"staff", 0, 12, -1, FALSE);
-              BOOL setcouple =  (staff != pstaff);
- 
+              BOOL setcouple = (staff != pstaff);
+
               xml_insert_item(xml_new_item(US"pmw-chord-first"), pnote->next);
               for(;;)
                 {
@@ -417,21 +337,21 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
                 note = next;
                 }
               xml_insert_item(xml_new_item(US"pmw-chord-last"), note->next);
-                
+
               if (setcouple)
                 {
                 if (new->stave_count > 2) xml_Eerror(note, ERR58); else
                   {
-                  xml_item *next; 
+                  xml_item *next;
                   if (pstaff == 1) xml_couple_settings[pmw_stave] = COUPLE_DOWN;
                     else xml_couple_settings[pmw_stave+1] = COUPLE_UP;
-                     
-                  for (next = xml_find_next(measure, pnote); 
+
+                  for (next = xml_find_next(measure, pnote);
                        next != note; next = xml_find_next(measure, next))
                     xml_set_number(next, US"staff", pstaff);
                   xml_set_number(note, US"staff", pstaff);
-                  }  
-                }  
+                  }
+                }
               }
             }
           }  /* End of note scan */
@@ -439,7 +359,7 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
         /* Keep track of the first measure that is marked as printing when the
         part starts with non-printing measures. */
 
-        if (noprint && new->measure_count == new->noprint_before)
+        if (noprint && new->measure_count - 1 == new->noprint_before)
           new->noprint_before++;
 
         }    /* End of measure scan */
@@ -456,14 +376,14 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
             xml_layout_list_size += LAYOUTLISTMIN;
             xml_layout_list = realloc(xml_layout_list, xml_layout_list_size);
             if (xml_layout_list == NULL)  /* Hard error */
-              error(ERR0, "re-", "XML layout list", xml_layout_list_size);  
+              error(ERR0, "re-", "XML layout list", xml_layout_list_size);
             }
           xml_layout_list[xml_layout_top++] = prevsyscount;
           }
 
         else  /* Check that it matches previous parts */
           {
-          if (xml_layout_list[layout_next++] != prevsyscount) 
+          if (xml_layout_list[layout_next++] != prevsyscount)
             xml_Eerror(mi, ERR51);
           }
         }
@@ -475,7 +395,7 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
     if (new->stave_count > 1)
       {
       xml_group_data *group;
-      
+
       for (group = xml_groups_list; group != NULL; group = group->next)
         {
         if (group->first_pstave == new->stave_first &&
@@ -507,7 +427,7 @@ for (mi = part_list->next; mi != part_list->partner; mi = mi->partner->next)
 
     }  /* End of handling <score-part> */
   }  /* End of scan of items under <part-list> */
-  
+
 if (pmw_stave > 64) xml_error(ERR21, pmw_stave - 1);
 xml_pmw_stave_count = pmw_stave - 1;
 
@@ -518,10 +438,10 @@ DEBUG(D_xmlgroups|D_xmlanalyze)
 
   eprintf("Found parts:\n");
   for (p = xml_parts_list; p != NULL; p = p->next)
-    { 
+    {
     eprintf("  %d/%d [%s]", p->stave_count, p->stave_first, p->id);
     if (p->name == NULL) eprintf(" <No name>\n");
-      else eprintf(" %s\n", p->name->name); 
+      else eprintf(" %s\n", p->name->name);
     }
 
   eprintf("Found groups:\n");

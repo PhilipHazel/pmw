@@ -222,9 +222,8 @@ BAR 6 (6)
   >/w5.9 SU=4 flags=0x4001
   barline type=0 style=0
 
-STAVE 3
+STAVE 3 omitempty
   [stavelines 3]
-  [omitempty]
   All bars are empty
 
 paginate() start

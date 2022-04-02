@@ -3,18 +3,13 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last updated: February 2022 */
+/* This file last updated: April 2022 */
 
 /* This module contains functions used while creating and processing a chain of
 XML items. */
 
 
 #include "pmw.h"
-
-
-#ifdef NEVER
-static uschar utf8[8];   /* Returned with UTF-8 string */
-#endif
 
 
 /*************************************************
@@ -52,6 +47,7 @@ if (*s == '.')
 
 return (*s == 0)? yield : -1;
 }
+
 
 
 /*************************************************
@@ -124,6 +120,7 @@ return bad;
 }
 
 
+
 /*************************************************
 *      Add attribute value entry to tree         *
 *************************************************/
@@ -151,119 +148,6 @@ if (p == NULL)
   }
 }
 
-
-
-#ifdef NEVER
-/*************************************************
-*       Convert character value to UTF-8         *
-*************************************************/
-
-/* This function takes an integer value in the range 0 - 0x7fffffff
-and encodes it as a UTF-8 character in 1 to 6 bytes.
-
-Arguments:
-  cvalue     the character value
-  buffer     pointer to buffer for result - at least 6 bytes long
-
-Returns:     number of characters placed in the buffer
-*/
-
-int
-misc_ord2utf8(int cvalue, uschar *buffer)
-{
-register int i, j;
-for (i = 0; i < 6; i++) if (cvalue <= utf8_table1[i]) break;
-buffer += i;
-for (j = i; j > 0; j--)
- {
- *buffer-- = 0x80 | (cvalue & 0x3f);
- cvalue >>= 6;
- }
-*buffer = utf8_table2[i] | cvalue;
-return i + 1;
-}
-
-
-
-/*************************************************
-*            Format a fixed-point number         *
-*************************************************/
-
-/*  Fixed point numbers use 3 decimal places.
-
-Arguments:  the fixed point number
-Returns:    pointer to the formatted buffer
-*/
-
-uschar *
-format_fixed(int n)
-{
-int count = 0;
-div_t qr = div(abs(n), 1000);
-if (n < 0) format_buffer[count++] = '-';
-count += sprintf(CS format_buffer + count, "%d", qr.quot);
-if (qr.rem != 0)
-  {
-  format_buffer[count++] = '.';
-  if (qr.rem < 10)  format_buffer[count++] = '0';
-  if (qr.rem < 100) format_buffer[count++] = '0';
-  count += sprintf(CS format_buffer + count, "%d", qr.rem);
-  while (format_buffer[count - 1] == '0') count--;
-  format_buffer[count] = 0;
-  }
-return format_buffer;
-}
-
-
-
-
-
-/*************************************************
-*         Find the value of a named entity       *
-*************************************************/
-
-/*
-
-Arguments:
-  attname      the entity name
-  vptr         where to put the value ("" if not found)
-
-Returns:       TRUE if found
-*/
-
-BOOL
-entity_find_byname(uschar *attname, uschar **vptr)
-{
-entity_block *bot, *mid, *top;
-
-bot = entity_list;
-top = entity_list + entity_list_count;
-
-while (top > bot)
-  {
-  int c;
-  mid = bot + (top - bot)/2;
-  c = Ustrcmp(mid->name, attname);
-  if (c == 0) break;
-  if (c < 0) bot = mid + 1; else top = mid;
-  }
-
-if (top > bot)
-  {
-  if (Ustrncmp(mid->value, "&#x", 3) == 0)
-    {
-    char *t2;
-    unsigned int longvalue = strtoul(CS(mid->value + 3), &t2, 16);
-    utf8[misc_ord2utf8(longvalue, utf8)] = 0;
-    *vptr = utf8;
-    }
-  else *vptr = mid->value;
-  return TRUE;
-  }
-
-return FALSE;
-}
-#endif
 
 
 /*************************************************
@@ -313,6 +197,7 @@ new->next = old;
 old->prev->next = new;
 old->prev = new;
 }
+
 
 
 /*************************************************
@@ -523,6 +408,7 @@ return xml_get_this_string(yield);
 }
 
 
+
 /*************************************************
 *       Get number value for given item          *
 *************************************************/
@@ -580,6 +466,7 @@ if (s != NULL) *s = n + '0';
 } 
 
 
+
 /*************************************************
 *       Get mils value for given item            *
 *************************************************/
@@ -609,6 +496,7 @@ if (yield >= 0 && yield >= min && yield <= max) return yield;
 if (moan) xml_Eerror(i, ERR23, s);
 return bad;
 }
+
 
 
 /*************************************************
@@ -648,7 +536,7 @@ Arguments:
   min        minimum legal value
   max        maximum legal value
   bad        what to return on error
-  moan       TRUE to give error message
+  moan       TRUE to give error message if non-existent
 
 Returns:     legal value or bad
 */

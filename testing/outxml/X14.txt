@@ -1,0 +1,3 @@
+** Warning: the following unsupported Unicode code points have been changed
+to U+00A4: U+064A U+062F U+0642 U+062B U+0631 U+062A U+0635 U+0629 U+0639 U+0633 U+0649 U+0644 U+062D U+0623 U+0627 U+0645
+

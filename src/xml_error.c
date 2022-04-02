@@ -123,7 +123,7 @@ static error_struct error_data[] = {
                    "discarded" },
 { ec_warning, "XML entity \"%.*s;\" %s" },
 /* 55 - 59 */ 
-{ ec_warning, "Ending number greater than %d is not supported" },
+{ ec_warning, "SPARE" },
 { ec_warning, "Unknown accidental \"%s\" in key signature" },
 { ec_failed,  "Too many non-standard custom keys required" },
 { ec_major,   "Multi-staff chords are supported only for 2-staff parts" },

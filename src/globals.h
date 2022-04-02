@@ -35,10 +35,12 @@ extern mfstr        *out_mftable[];    /* Music font table */
 extern uint16_t      pitch_clef[];
 extern uint16_t      pitch_stave[];
 
+extern uint32_t      rbra_left[];
 extern int8_t        read_accpitch[];
 extern uint8_t       read_basicpitch[];
 extern uint32_t      read_headingsizes[];
 
+extern uint32_t      sbra_left[];
 extern usint         sheets_count;
 extern sheetstr      sheets_list[];
 

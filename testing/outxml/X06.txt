@@ -1,0 +1,3 @@
+** MusicXML warning: PMW does not support <backup> between tied notes: tie discarded
+   Detected in element <note> starting in line 2280 of xmltests/X06
+

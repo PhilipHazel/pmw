@@ -3,6 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
+/* File last edited: March 2022 */
 
 /* This module contains definitions of structures that are used throughout the
 XML modules. */
@@ -12,8 +13,8 @@ struct xml_item;                   /* For forward reference */
 /* Structure for the built-in list of named XML entities */
 
 typedef struct xml_entity_block {
-  uschar *name;
-  uschar *value;
+  uschar  *name;
+  uint32_t value;
 } xml_entity_block;
 
 /* Structure for table of supported elements */
@@ -22,24 +23,6 @@ typedef struct xml_elliststr {
   uschar *name;
   uschar **attrs;
 } xml_elliststr;
-
-
-#ifdef NEVER
-/* Structure for each node in a tree, of which there are various kinds */
-
-typedef struct tree_node {
-  struct tree_node *left;      /* pointer to left child */
-  struct tree_node *right;     /* pointer to right child */
-  union
-    {
-    void  *ptr;                /* pointer to data */
-    int val[2];                /* or integer data (2 values) */
-    } data;
-  uschar  balance;             /* balancing factor */
-  uschar  name[1];             /* node name - variable length */
-} tree_node;
-#endif
-
 
 /* This is the structure for attributes that hang off items that are elements */
 

@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last modified: February 2022 */
+/* This file last modified: April 2022 */
 
 
 /* This module contains functions for processing heading and general
@@ -24,7 +24,7 @@ Arguments:
   ss          vector for storing PMW string (must be long enough)
   s           a UTF-8 string
   f           font id
-  keepnl      retain newlines, otherwise turn into spaces 
+  keepnl      retain newlines, otherwise turn into spaces
 
 Returns:      number of PMW characters
 */
@@ -56,10 +56,58 @@ while (*s != 0)
     }
   else if (aa < 0) error(ERR66, c);   /* Warning */
 
+  /* Handle named XML character. */
+
+  if (c == '&')
+    {
+    uschar *sss = s;
+    for (; *sss != 0 && *sss != ';'; sss++) {}
+    if (*sss != 0)  /* Semicolon found */
+      {
+      size_t len = sss - s;
+      uschar buffer[64];
+
+      if (len > 63)
+        {
+        xml_error(ERR54, len+1, s, "is too long");
+        }
+      else
+        {
+        xml_entity_block *bot = xml_entity_list;
+        xml_entity_block *top = xml_entity_list + xml_entity_list_count;
+
+        Ustrncpy(buffer, s, len);
+        buffer[len] = 0;
+
+        c = MAX_UNICODE + 1;
+        while (top > bot)
+          {
+          xml_entity_block *mid = bot + (top - bot)/2;
+          int cf = Ustrcmp(mid->name, buffer);
+          if (cf == 0)
+            {
+            c = mid->value;
+            break;
+            }
+          if (cf < 0) bot = mid + 1; else top = mid;
+          }
+
+        if (c > MAX_UNICODE)
+          {
+          xml_error(ERR54, len+1, s, "not recognized");
+          c = '&';
+          }
+        else s = sss + 1;
+        }
+      }
+    }
+
+  /* Add character to the string. */
+
   *tt++ = f | c;
   }
-*tt = 0;
 
+*tt = 0;
 string_check(ss, NULL, keepnl);
 return tt - ss;
 }
@@ -233,7 +281,7 @@ if (defaults != NULL)
     which is to be scaled to "mils". The magnification is therefore
     "mils"/(X*"tenths"). */
 
-    main_magnification = MULDIV(mils, 1000, MULDIV(tenths, 141, 1000));
+    main_magnification = mac_muldiv(mils, 1000, mac_muldiv(tenths, 141, 1000));
     }
 
   /* Process system layout before page layout in order to set up any system
@@ -354,8 +402,8 @@ if (defaults != NULL)
       int32_t linelength = (page_width - left_margin - system_margin_left -
         right_margin - system_margin_right) * 400;
 
-      pagelength = MULDIV(pagelength, main_magnification, 1000);
-      linelength = MULDIV(linelength, main_magnification, 1000);
+      pagelength = mac_muldiv(pagelength, main_magnification, 1000);
+      linelength = mac_muldiv(linelength, main_magnification, 1000);
 
       if (linelength > 600000 || pagelength > 850000)
         main_sheetsize = sheet_A3;
@@ -398,9 +446,9 @@ if (defaults != NULL)
         curmovt->flags |= mf_copiedfontsizes;
         }
       fdata = curmovt->fontsizes->fontsize_text + ff_offset_ulay;
-      fdata->size = MULDIV(d, 1000, main_magnification);
+      fdata->size = mac_muldiv(d, 1000, main_magnification);
       fdata->matrix = NULL;
-      curmovt->underlaydepth = MULDIV(d + 1000, 1000, main_magnification);
+      curmovt->underlaydepth = mac_muldiv(d + 1000, 1000, main_magnification);
       }
     }
   }
@@ -415,7 +463,7 @@ if (xml_group_symbol_set) curmovt->bracketlist = NULL;
 if (xml_groups_list != NULL)
   {
   xml_group_data *g;
-  
+
   for (int n = 0; n <= xml_pmw_stave_count; n++) has_barline[n] = FALSE;
 
   for (g = xml_groups_list; g != NULL; g = g->next)
@@ -664,7 +712,7 @@ for (xml_item *credit = xml_find_item(xml_partwise_item_list, US"credit");
       /* Treat the font size as absolute; unscale it here because PMW will
       scale it. */
 
-      font_size = MULDIV(font_size, 1000, main_magnification);
+      font_size = mac_muldiv(font_size, 1000, main_magnification);
 
       /* Main titles only from first page. If there is no credit-type, we have
       to make some guesses. */

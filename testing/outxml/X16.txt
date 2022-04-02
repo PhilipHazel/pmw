@@ -1,0 +1,7 @@
+** MusicXML warning: PMW does not support <credit> for pages other than 1 or 2
+   Detected in element <credit> starting in line 58 of xmltests/X16
+** This warning is given only once; there may be other occurrences.
+
+** Warning: the following unsupported Unicode code points have been changed
+to U+00A4: U+0660 U+0662 U+0634 U+0623 U+062D U+0643 U+062A U+0622 U+0628 U+0631 U+0644 U+062F U+0648 U+0647 U+0646 U+064A U+0639 U+0627 U+0645 U+0633
+
