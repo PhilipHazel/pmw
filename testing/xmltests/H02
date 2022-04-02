@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-built test for mxl2pmw -->
+<!-- This one tests a few errors and warnings -->
+<score-partwise>
+  <movement-title>Test H02</movement-title>
+  <defaults>                                         
+  <scaling>                                             
+    <millimeters>6</millimeters>                       
+    <tenths>40</tenths>                 
+  </scaling>  
+  </defaults>
+  <part-list>
+    <score-part id="P1">
+    </score-part>
+  </part-list>
+  <!--============================================================-->
+  <part id="P1">
+    <measure number="1">
+      <attributes>
+        <divisions>8</divisions>
+      </attributes>   
+       
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notations>
+          <articulations>
+            <falloff/>            
+          </articulations>
+        </notations>
+      </note>         
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notehead filled="no">cross</notehead> 
+      </note>         
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notehead filled="no">square</notehead> 
+      </note>         
+
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8</duration>
+        <type>quarter</type>
+        <notehead filled="no">cross</notehead> 
+      </note>         
+
+    </measure>
+  </part>
+  <!--============================================================-->
+</score-partwise>         

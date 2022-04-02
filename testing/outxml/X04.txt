@@ -1,0 +1,11 @@
+** MusicXML warning: PMW does not support different sizes for the same staff
+   Detected in element <staff-details> starting in line 739 of xmltests/X04
+** This warning is given only once; there may be other occurrences.
+
+** MusicXML warning: only equal margins for both odd and even are supported in <page-margins>
+   Detected in element <page-layout> starting in line 22 of xmltests/X04
+
+** MusicXML warning: PMW does not support <credit> for pages other than 1 or 2
+   Detected in element <credit> starting in line 89 of xmltests/X04
+** This warning is given only once; there may be other occurrences.
+

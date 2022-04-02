@@ -214,7 +214,7 @@ for (stave = 0; stave <= curmovt->laststave; stave++)
         b_timestr *t = (b_timestr *)p;
         (pl_sysblock->cont[stave]).time = t->time;
         t->suppress = hadtime = TRUE;
-        mac_setbit(pl_showtimes, stave);
+        if (!t->assume) mac_setbit(pl_showtimes, stave);
         }
       break;
 

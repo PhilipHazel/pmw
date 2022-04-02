@@ -62,13 +62,13 @@ BAR 6 (7)
 BAR 7 (8)
   A++ flags=0x20000000 length=23063040 P_2S 1A
   B+ flags=0x20000000 length=11531520 P_0S 0B
-  C flags=0x30000800 length=8648640 P_0L 1C
-  d flags=0x30001800 length=5045040 P_0S 1D
+  C. flags=0x30000800 length=8648640 P_0L 1C
+  d.. flags=0x30001800 length=5045040 P_0S 1D
   c- flags=0x10000000 length=1441440 P_3S 2C
   barline type=0 style=0
 
 BAR 8 (9)
-  r- flags=0x00000800 length=2162160
+  r-. flags=0x00000800 length=2162160
   b= flags=0x30000000 length=720720 P_3L 1B
   a=- flags=0x30000000 length=360360 P_2S 1A
   g== flags=0x30000000 length=180180 P_2L 1G
@@ -76,9 +76,9 @@ BAR 8 (9)
 
 BAR 9 (10)
   dotright 5
-  f flags=0x30000800 length=4324320 P_1S 1F
+  f. flags=0x30000800 length=4324320 P_1S 1F
   dotright 6.2
-  g flags=0x30000800 length=4324320 P_2L 1G
+  g. flags=0x30000800 length=4324320 P_2L 1G
   barline type=0 style=0
 
 BAR 10 (11)
@@ -115,8 +115,8 @@ BAR 13 (14)
   g acflags=0x40000000 flags=0x30000000 length=2882880 P_2L 1G
   g acflags=0xc0000000 flags=0x30000000 length=2882880 P_2L 1G
   g acflags=0x00200000 flags=0x30000000 length=2882880 P_2L 1G
-  g flags=0x30080800 length=4324320 P_2L 1G
-  a flags=0x30020800 length=4324320 P_2S 1A
+  g. flags=0x30080800 length=4324320 P_2L 1G
+  a. flags=0x30020800 length=4324320 P_2S 1A
   barline type=0 style=0
 
 BAR 14 (15)
@@ -170,7 +170,7 @@ BAR 17 (18)
 BAR 18 (19)
   g masq=2 flags=0x30000000 length=2882880 P_2L 1G
   g masq=4 flags=0x30000000 length=2882880 P_2L 1G
-  g masq=1 flags=0x20000800 length=2882880 P_2L 1G
+  g. masq=1 flags=0x20000800 length=2882880 P_2L 1G
   g flags=0x30200000 length=2882880 P_2L 1G
   g flags=0x30100000 length=2882880 P_2L 1G
   g flags=0x30000000 length=0 P_2L 1G

@@ -15,6 +15,19 @@ if (getcwd() =~ /^(.*)\/testing$/)
   }  
 
 undef @skipdirs;
+
+# Skip certain directories for non-built features
+
+if (system("$pmw -C b2pf >/dev/null") == 0)
+  {
+  push @skipdirs, "B2PF";
+  } 
+
+if (system("$pmw -C musicxml >/dev/null") == 0)
+  {
+  push @skipdirs, "xml";
+  } 
+
 $force_update = 0;
 $force_quit = 0;
 $starttest = undef;

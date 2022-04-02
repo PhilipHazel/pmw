@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 #include "pmw.h"
 
@@ -874,12 +874,13 @@ ASCII characters.
 Arguments:
   str          the string to check
   bseps        B2PF special separators, or NULL if none
+  keepnl       retain newlines, otherwise turn into spaces
 
 Returns:       the checked string
 */
 
 uint32_t *
-string_check(uint32_t *str, const char *bseps)
+string_check(uint32_t *str, const char *bseps, BOOL keepnl)
 {
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
 BOOL call_b2pf = FALSE;
@@ -1107,7 +1108,8 @@ for (uint32_t *s = str; *s != 0; s++)
 
   else
     {
-    if (c == '`' || c == '\'' || c == '\n' || (c == 'f' && PCHAR(s[1]) == 'i'))
+    if (c == '`' || c == '\'' || (c == '\n' && !keepnl) || 
+         (c == 'f' && PCHAR(s[1]) == 'i'))
       {
       switch (c)
         {
@@ -1180,8 +1182,8 @@ Argument:  pointer to the first byte
 Returns:   the length of the character (1 - 6) or -1 if invalid UTF-8 start
 */
 
-static int
-check_utf8(uschar *pp)
+int
+string_check_utf8(uschar *pp)
 {
 int ab;
 int c = *pp++;
@@ -1333,7 +1335,7 @@ set_fontid = fontid <<= 24;
 for (read_nextc(); read_c != '\"' && read_c != ENDFILE; read_nextc())
   {
   int bot, top;
-  int aa = check_utf8(main_readbuffer + read_i - 1) - 1; /* additional bytes */
+  int aa = string_check_utf8(main_readbuffer + read_i - 1) - 1; /* additional bytes */
 
   /* Pick up any additional UTF-8 bytes. If aa < 0 the byte is illegal UTF-8.
   Give a warning and accept it as a one-byte value. */
@@ -1753,7 +1755,7 @@ else
 /* If requested, check the string for validity before returning. Some strings
 defer this checking till later. */
 
-if (check_string) yield = string_check(yield, NULL);
+if (check_string) yield = string_check(yield, NULL, FALSE);
 read_nextc();
 return yield;
 }
@@ -2044,7 +2046,7 @@ for (uint32_t *s = str; *s != 0; s++)
   if (f == font_unknown << 24) *s ^= font;
     else if (f != font_sy << 24 && f != font_mf << 24) break;
   }
-return string_check(str, bseps);
+return string_check(str, bseps, FALSE);
 }
 
 

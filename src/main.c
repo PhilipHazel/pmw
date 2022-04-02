@@ -2,9 +2,9 @@
 *        PMW entry point and initialization      *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: November 2021 */
+/* This file last modified: January 2022 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -30,6 +30,7 @@ static const char *arg_pattern =
   "a4ona3/s,"
   "a4sideways/s,"
   "a5ona4/s,"
+  "C/k,"
   "c/k/n,"
   "dbd/k,"
   "dbl=drawbarlines/s,"
@@ -76,6 +77,7 @@ enum {
   arg_a4ona3,
   arg_a4sideways,
   arg_a5ona4,
+  arg_C,
   arg_c,
   arg_dbd,
   arg_drawbarlines,
@@ -147,7 +149,11 @@ static debug_bit_table debug_options[] = {
   { US"preprocess",      D_preprocess },
   { US"sortchord",       D_sortchord },
   { US"stringwidth",     D_stringwidth },
-  { US"trace",           D_trace }
+  { US"trace",           D_trace },
+  { US"xmlanalyze",      D_xmlanalyze }, 
+  { US"xmlgroups",       D_xmlgroups }, 
+  { US"xmlread",         D_xmlread },
+  { US"xmlstaves",       D_xmlstaves } 
 };
 
 #define DEBUG_OPTIONS_COUNT (sizeof(debug_options)/sizeof(debug_bit_table))
@@ -455,6 +461,9 @@ PF("\nOPTIONS\n\n");
 PF("-a4ona3               print A4 images 2-up on A3\n");
 PF("-a5ona4               print A5 images 2-up on A4\n");
 PF("-a4sideways           assume A4 paper fed sideways\n");
+PF("-C <arg>              show a compile-time option; exit with its value (0 or 1).\n");
+PF("    b2pf              support for B2PF processing\n");
+PF("    musicxml          support for MusicXML input\n");
 PF("-c <number>           set number of copies\n");
 PF("-d<options>           write debugging info to stderr\n");
 PF("-dbd <m>,<s>,<b>      write debugging bar data (movement, stave, bar) \n");
@@ -536,14 +545,13 @@ Arguments:
   argc        the (possibly modified) command line argc
   argv        the (possibly modified) command line argv
 
-Returns:      TRUE if verify is set; errors are hard
+Returns:      nothing; errors are hard
 */
 
-static BOOL
+static void
 decode_command(int argc, char **argv)
 {
 arg_result results[MAX_COMMANDARGS];
-BOOL verify = FALSE;
 int rc = rdargs(argc, argv, arg_pattern, results, MAX_COMMANDARGS);
 
 if (rc != 0)
@@ -567,6 +575,26 @@ if (results[arg_V].number != 0)
   exit(EXIT_SUCCESS);
   }
 
+/* Deal with -C */
+
+if (results[arg_C].text != NULL)
+  {
+  if (strcmp(results[arg_C].text, "b2pf") == 0)
+    {
+    printf("%d\n", SUPPORT_B2PF);
+    exit(SUPPORT_B2PF);
+    }
+
+  if (strcmp(results[arg_C].text, "musicxml") == 0)
+    {
+    printf("%d\n", SUPPORT_XML);
+    exit(SUPPORT_XML);
+    }
+
+  printf("** Unknown -C option '%s'\n", results[arg_C].text);
+  exit(EXIT_FAILURE);
+  }
+
 /* Deal with -help */
 
 if (results[arg_help].number != 0)
@@ -581,7 +609,7 @@ if (results[arg_v].number != 0)
   {
   (void)eprintf( "PMW version %s\n", PMW_VERSION);
   main_showid = FALSE;
-  verify = TRUE;
+  main_verify = TRUE;
   }
 
 if (results[arg_testing].number != 0)
@@ -792,8 +820,6 @@ if (results[arg_printside].presence != arg_present_not)
     else if (n == 2) print_side1 = FALSE;
       else error(ERR141);  /* Hard */
   }
-
-return verify;
 }
 
 
@@ -1023,6 +1049,12 @@ for (i = 0; i < movement_count; i++)
 
 free(movements);
 
+/* An expandable XML buffer */
+
+#if SUPPORT_XML
+free(xml_layout_list);
+#endif
+
 /* Free the non-expandable memory blocks */
 
 mem_free();
@@ -1042,13 +1074,12 @@ All errors detected in init_command() and decode_command() are hard. */
 int
 main(int argc, char **argv)
 {
-BOOL verify;
 (void) argc;
 
 if (atexit(tidy_up) != 0) error(ERR25);  /* Hard */
 
 newargv = mem_get(MAX_COMMANDARGS * sizeof(char *));
-verify = decode_command(init_command(argv, newargv), newargv);
+decode_command(init_command(argv, newargv), newargv);
 
 if (!initialize()) exit(EXIT_FAILURE);
 
@@ -1084,7 +1115,7 @@ else
 /* Read the input file */
 
 main_state = STATE_READ;
-if (verify) eprintf( "Reading ...\n");
+if (main_verify) eprintf( "Reading...\n");
 read_file(FT_AUTO);
 main_truepagelength = main_pagelength;  /* Save unscaled value */
 
@@ -1103,7 +1134,7 @@ if (!main_suppress_output)
   {
   main_state = STATE_PAGINATE;
   wk_cont = mem_get_independent((main_maxstave+1)*sizeof(contstr));
-  if (verify) eprintf( "Paginating ...\n");
+  if (main_verify) eprintf( "Paginating...\n");
   paginate();
   }
 
@@ -1117,14 +1148,14 @@ if (main_suppress_output)
 
 /* Show pagination information if verifying */
 
-if (verify) display_info();
+if (main_verify) display_info();
 
 /* If a file name other than "-" is set for the output, open it. Otherwise
 we'll be writing to stdout. */
 
 if (out_filename != NULL && Ustrcmp(out_filename, "-") != 0)
   {
-  if (verify) eprintf( "\nWriting PostScript file \"%s\" ...\n", out_filename);
+  if (main_verify) eprintf( "\nWriting PostScript file \"%s\"...\n", out_filename);
   ps_file = Ufopen(out_filename, "w");
   if (ps_file == NULL)
     error(ERR23, out_filename, strerror(errno));  /* Hard error */
@@ -1132,7 +1163,7 @@ if (out_filename != NULL && Ustrcmp(out_filename, "-") != 0)
 else
   {
   ps_file = stdout;
-  if (verify) eprintf( "\nWriting Postscript to stdout ...\n");
+  if (main_verify) eprintf( "\nWriting Postscript to stdout...\n");
   }
 
 /* Set up for printing, and go for it */
@@ -1172,11 +1203,11 @@ if (main_error_136) error(ERR136);
 
 if (midi_filename != NULL)
   {
-  if (verify) eprintf("Writing MIDI file \"%s\" ...\n", midi_filename);
+  if (main_verify) eprintf("Writing MIDI file \"%s\"...\n", midi_filename);
   midi_write();
   }
 
-if (verify) eprintf( "PMW done\n"); else TRACE("Done\n");
+if (main_verify) eprintf( "PMW done\n"); else TRACE("Done\n");
 
 DEBUG(D_memory) debug_memory_usage();
 exit(EXIT_SUCCESS);

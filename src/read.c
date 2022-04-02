@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: September 2021 */
+/* This file last modified: February 2022 */
 
 #include "pmw.h"
 
@@ -39,7 +39,7 @@ return n * m * (len_semibreve/d);
 *************************************************/
 
 stavestr *
-read_init_stave(int32_t stave)
+read_init_stave(int32_t stave, BOOL ispmw)
 {
 if (stave > MAX_STAVE) error(ERR84, stave);  /* Hard */
 if (curmovt->stavetable[stave] != NULL) error(ERR85, stave);  /* Hard */
@@ -48,28 +48,99 @@ curmovt->stavetable[stave] = mem_get(sizeof(stavestr));
 *(curmovt->stavetable[stave]) = init_stavestr;
 if (stave > curmovt->laststave) curmovt->laststave = stave;
 
-/* The transpose parameters are in globals because they are also used during
-header reading for transposing note and key names. */
+/* Additional stuff when in PMW mode */
 
-active_transpose = curmovt->transpose;
-active_transposedaccforce = main_transposedaccforce;
-
-/* Copy a default set of values for reading a stave, then adjust a few from the
-current movement's parameters. */
-
-srs = init_sreadstr;
-srs.stavenumber = stave;
-srs.hairpinwidth = curmovt->hairpinwidth;
-srs.barlinestyle = curmovt->barlinestyle;
-srs.key = curmovt->key;
-srs.key_tp = transpose_key(srs.key);
-if (stave == 0) srs.noteflags |= nf_hidden;
-srs.notenum = curmovt->notenum;
-srs.noteden = curmovt->noteden;
-srs.required_barlength = read_compute_barlength(curmovt->time);
-srs.suspended = (curmovt->suspend_staves & (1 << stave)) != 0;
+if (ispmw)
+  {
+  /* The transpose parameters are in globals because they are also used during
+  header reading for transposing note and key names. */
+  
+  active_transpose = curmovt->transpose;
+  active_transposedaccforce = main_transposedaccforce;
+  
+  /* Copy a default set of values for reading a stave, then adjust a few from the
+  current movement's parameters. */
+  
+  srs = init_sreadstr;
+  srs.stavenumber = stave;
+  srs.hairpinwidth = curmovt->hairpinwidth;
+  srs.barlinestyle = curmovt->barlinestyle;
+  srs.key = curmovt->key;
+  srs.key_tp = transpose_key(srs.key);
+  if (stave == 0) srs.noteflags |= nf_hidden;
+  srs.notenum = curmovt->notenum;
+  srs.noteden = curmovt->noteden;
+  srs.required_barlength = read_compute_barlength(curmovt->time);
+  srs.suspended = (curmovt->suspend_staves & (1 << stave)) != 0;
+  } 
 
 return curmovt->stavetable[stave];
+}
+
+
+
+/*************************************************
+*       Tidy omitted staves and bars             *
+*************************************************/
+
+/* Called after reading to fill in any gaps. 
+
+Argument: TRUE if reading a PMW file, FALSE for MusicXML
+Returns:  nothing
+*/
+
+void
+read_tidy_staves(BOOL ispmw)
+{
+/* Create a stave structure for omitted staves. */
+
+for (int i = 0; i <= curmovt->laststave; i++)
+  if (curmovt->stavetable[i] == NULL)
+    curmovt->stavetable[i] = read_init_stave(i, ispmw);
+
+/* Remember the last read stave, because when we get to pagination, laststave
+is cut back to the highest selected stave. The last read stave is needed when
+freeing memory at the end. */
+
+curmovt->lastreadstave = curmovt->laststave;
+
+/* Scan all staves and ensure that their bar indexes are as long as the
+longest stave, setting non-existent bar pointers to point to an empty bar
+structure with an appropriate barline style. */
+
+for (int i = 0; i <= curmovt->laststave; i++)
+  {
+  st = curmovt->stavetable[i];
+  while ((size_t)(curmovt->barcount) > st->barindex_size)
+    {
+    size_t size;
+    st->barindex_size += BARINDEX_CHUNKSIZE;
+    size = st->barindex_size * sizeof(barstr *);
+    st->barindex = realloc(st->barindex, size);
+    if (st->barindex == NULL) error(ERR0, "re-", "bar index", size);  /* Hard */
+    }
+
+  /* Create empty bars if necessary. */
+
+  if (st->barcount < curmovt->barcount)
+    {
+    b_barlinestr *bl;
+    barstr *empty_bar = mem_get(sizeof(barstr));
+    read_lastitem = (bstr *)empty_bar;
+
+    empty_bar->next = empty_bar->prev = NULL;
+    empty_bar->type = b_start;
+    empty_bar->repeatnumber = 0;
+
+    bl = mem_get_item(sizeof(b_barlinestr), b_barline);
+    bl->bartype = barline_normal;
+    bl->barstyle = barlinestyles[i];
+
+    for (int j = st->barcount; j < curmovt->barcount; j++)
+      st->barindex[j] = empty_bar;
+    }
+  }
+
 }
 
 
@@ -83,14 +154,15 @@ Copy from the previous movement and then change values that are not carried
 over.
 
 Arguments:
-  new       pointer to new movtstr, uninitialized
-  flags     movement type flag bits
+  new         pointer to new movtstr, uninitialized
+  unsetflags  flags to unset 
+  setflags    flags to set (movement type)
 
 Returns:    nothing
 */
 
 void
-read_init_movement(movtstr *new, uint32_t flags)
+read_init_movement(movtstr *new, uint32_t unsetflags, uint32_t setflags)
 {
 *new = *premovt;  /* Copy from previous movement */
 
@@ -100,7 +172,7 @@ new->barcount = 0;
 new->baroffset = 0;
 new->barvector = NULL;
 new->barvector_size = 0;
-new->flags = (new->flags & ~mf_unsetflags) | mf_resetflags | flags;
+new->flags = (new->flags & ~(mf_unsetflags|unsetflags)) | mf_resetflags | setflags;
 new->heading = new->footing = NULL;
 new->key = key_C;
 new->laststave = -1;
@@ -215,6 +287,45 @@ main_readbuffer_threshold = main_readbuffer_size - 2;
 
 
 /*************************************************
+*                 Manage bar indexes             *
+*************************************************/
+
+/* The bar indexes for movements and staves are expandable as necessary. This 
+function handles that. The current movement is in curmovt and the current stave 
+in st.
+
+Argument:  size needed
+Returns:   nothing
+*/
+
+void
+read_ensure_bar_indexes(size_t needed)
+{
+while (needed >= curmovt->barvector_size)
+  {
+  size_t size;
+  curmovt->barvector_size += BARINDEX_CHUNKSIZE;
+  size = curmovt->barvector_size * sizeof(uint32_t);
+  curmovt->barvector = realloc(curmovt->barvector, size);
+  if (curmovt->barvector == NULL) error(ERR0, "re-",
+    "movement bar index", size);  /* Hard */
+  memset(curmovt->barvector + curmovt->barvector_size -
+    BARINDEX_CHUNKSIZE, 0, BARINDEX_CHUNKSIZE * sizeof(uint32_t));
+  }
+
+while (needed >= st->barindex_size)
+  {
+  size_t size;
+  st->barindex_size += BARINDEX_CHUNKSIZE;
+  size = st->barindex_size * sizeof(barstr *);
+  st->barindex = realloc(st->barindex, size);
+  if (st->barindex == NULL) error(ERR0, "re-", "bar index", size);  /* Hard */
+  }
+}   
+
+
+
+/*************************************************
 *        Read the next physical input line       *
 *************************************************/
 
@@ -287,22 +398,35 @@ return TRUE;
 void
 read_file(enum filetype ft)
 {
+uschar *p;
+
 if (!read_physical_line(0)) return;  /* Empty file */
 
-if (Ustrncmp(main_readbuffer, "%abc-", 5) == 0)
+/* Ignore a Unicode BOM at the start of the file. */
+
+p = main_readbuffer;
+if (Ustrncmp(main_readbuffer, "\xef\xbb\xbf", 3) == 0) p += 3;
+
+if (Ustrncmp(p, "%abc-", 5) == 0)
   {
   TRACE("ABC file detected\n");
+  read_i = Ustrlen(main_readbuffer);  
   error(ERR3, "ABC");    /* Hard - in future will be tested */
   if (ft != FT_AUTO || ft != FT_ABC)
     error(ERR4, "ABC");  /* Hard */
   }
 
-else if (Ustrncmp(main_readbuffer, "<?xml version=", 14) == 0)
+else if (Ustrncmp(p, "<?xml version=", 14) == 0)
   {
   TRACE("Music XML file detected\n");
-  error(ERR3, "Music XML");    /* Hard - in future will be tested */
-  if (ft != FT_AUTO || ft != FT_MXML)
+  read_i = Ustrlen(main_readbuffer);  
+#if !SUPPORT_XML   
+  error(ERR3, "Music XML");    /* Hard */
+#else   
+  if (ft != FT_AUTO && ft != FT_MXML)
     error(ERR4, "Music XML");  /* Hard */
+  xml_read();   
+#endif   
   }
 
 else

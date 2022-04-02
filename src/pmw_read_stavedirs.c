@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 #include "pmw.h"
 
@@ -217,7 +217,7 @@ uint32_t *ss;
 /* Read the string, then check it, passing "|" as the special separator string.
 This is interpreted to mean ss_verticalbar. Then count the number of lines. */
 
-p->text = ss = string_check(string_read(font_rm, FALSE), "|");
+p->text = ss = string_check(string_read(font_rm, FALSE), "|", FALSE);
 p->linecount = 1;
 while (*ss != 0) if (PCHAR(*ss++) == ss_verticalbar) p->linecount += 1;
 

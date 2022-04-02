@@ -23,15 +23,17 @@ static BOOL   suppress_warnings = FALSE;
 
 
 /*************************************************
-*   Error and warning texts and severity codes   *
+*   Error and warning texts   *
 *************************************************/
 
-#define ec_warning   0
-#define ec_minor     1   /* Soft error - can continue and produce output */
-#define ec_major     2   /* Soft error - can continue, but no output */
-#define ec_failed    3   /* Hard error - cannot continue */
+/* Error severities are defined in pmw.h:
 
-/* HOWEVER: all drawing errors are marked ec_major rather than ec_failed so
+ec_warning      Sic
+ec_minor        Soft error - can continue and produce output
+ec_major        Soft error - can continue, but no output
+ec_failed       Hard error - cannot continue
+
+HOWEVER: all drawing errors are marked ec_major rather than ec_failed so
 that the drawing function can output the drawing stack afterwards, before it
 aborts the program. */
 

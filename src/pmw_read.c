@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: January 2022 */
+/* This file last modified: February 2022 */
 
 /* This file contains the top-level function and character handling functions
 that are called from the modules that read headings and staves. */
@@ -15,11 +15,6 @@ that are called from the modules that read headings and staves. */
 /* Default "macro" for the &* replication feature */
 
 static macrostr replicate_macro = { 1, US"&1", { US"" } };
-
-/* For saving barline styles in case there are empty bars at the end of a stave
-that have to be created. */
-
-static uint8_t barlinestyles[MAX_STAVE+1];
 
 
 
@@ -609,7 +604,7 @@ else
     if (*p == 0) break;
     }
   for (int j = 0; j < i; j++)
-    new->string[j] = string_check(new->string[j], NULL);
+    new->string[j] = string_check(new->string[j], NULL, FALSE);
   for (; i < 3; i++) new->string[i] = NULL;  /* Missing parts */
   }
 
@@ -1173,7 +1168,7 @@ for (;;)
 
   premovt = (curmovt == NULL)? &default_movtstr : curmovt;
   movements[movement_count++] = newmovt = mem_get(sizeof(movtstr));
-  read_init_movement(newmovt, movtopts);
+  read_init_movement(newmovt, 0, movtopts);
   curmovt = newmovt;
 
   /* The header is terminated either by EOF or '[' */
@@ -1205,54 +1200,9 @@ for (;;)
 
   if (curmovt->laststave > main_maxstave) main_maxstave = curmovt->laststave;
 
-  /* Create a stave structure for omitted staves. */
-
-  for (i = 0; i <= curmovt->laststave; i++)
-    if (curmovt->stavetable[i] == NULL)
-      curmovt->stavetable[i] = read_init_stave(i);
-
-  /* Remember the last read stave, because when we get to pagination, laststave
-  is cut back to the highest selected stave. The last read stave is needed when
-  freeing memory at the end. */
-
-  curmovt->lastreadstave = curmovt->laststave;
-
-  /* Scan all staves and ensure that their bar indexes are as long as the
-  longest stave, setting non-existent bar pointers to point to an empty bar
-  structure with an appropriate barline style. */
-
-  for (i = 0; i <= curmovt->laststave; i++)
-    {
-    st = curmovt->stavetable[i];
-    while ((size_t)(curmovt->barcount) > st->barindex_size)
-      {
-      size_t size;
-      st->barindex_size += BARINDEX_CHUNKSIZE;
-      size = st->barindex_size * sizeof(barstr *);
-      st->barindex = realloc(st->barindex, size);
-      if (st->barindex == NULL) error(ERR0, "re-", "bar index", size);  /* Hard */
-      }
-
-    /* Create empty bars if necessary. */
-
-    if (st->barcount < curmovt->barcount)
-      {
-      b_barlinestr *bl;
-      barstr *empty_bar = mem_get(sizeof(barstr));
-      read_lastitem = (bstr *)empty_bar;
-
-      empty_bar->next = empty_bar->prev = NULL;
-      empty_bar->type = b_start;
-      empty_bar->repeatnumber = 0;
-
-      bl = mem_get_item(sizeof(b_barlinestr), b_barline);
-      bl->bartype = barline_normal;
-      bl->barstyle = barlinestyles[i];
-
-      for (int j = st->barcount; j < curmovt->barcount; j++)
-        st->barindex[j] = empty_bar;
-      }
-    }
+  /* Create dummies for empty staves and omitted bars. */
+  
+  read_tidy_staves(TRUE); 
 
   /* Scan movement's bar index and handle printing bar numbers. Nocount bars
   are identified as x.1, x.2, etc, except that the very first bar is just 0. */

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: November 2021 */
+/* This file last modified: April 2022 */
 
 #include "pmw.h"
 
@@ -944,6 +944,8 @@ for (i = 0; i < movement_count; i++)
     }
   eprintf("\n");
 
+  debug_stavemap("suspend_staves", m->suspend_staves);
+
   eprintf("  systemgap = %s\n", sff(m->systemgap));
   debug_stavelist("thinbracketlist", m->thinbracketlist);
   eprintf("  topmargin = %s\n", sff(m->topmargin));
@@ -960,9 +962,6 @@ for (i = 0; i < movement_count; i++)
   debug_time("time_unscaled", m->time_unscaled, "\n");
   eprintf("  underlaydepth = %s\n", sff(m->underlaydepth));
   eprintf("  underlaystyle = %d\n", m->underlaystyle);
-
-
-  debug_stavemap("suspend_staves", m->suspend_staves);
   }
 }
 
@@ -985,7 +984,7 @@ if (sn->text != NULL)
   if ((sn->flags & snf_vcentre) != 0) eprintf("/m");
   if ((sn->flags & snf_vertical) != 0) eprintf("/v");
   eprintf("/s%d", sn->size);
-  if (sn->linecount != 1) eprintf("(COUNT=%d)", sn->linecount);
+  if (sn->linecount != 1) eprintf(" (COUNT=%d)", sn->linecount);
 
   for (sn2 = sn->extra; sn2 != NULL; sn2 = sn2->next)
     debug_stave_name(sn2, TRUE);
@@ -1227,6 +1226,8 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
       eprintf("<%s", sff(nt->accleft));
     eprintf("%c%s", (nt->notetype < crotchet)? toupper(nt->char_orig) :
       nt->char_orig, noteflags[nt->notetype]);
+    if ((nt->flags & nf_dot2) != 0) eprintf("..");
+      else if ((nt->flags & nf_dot) != 0) eprintf(".");
     if (nt->acc != ac_no && nt->acc_orig != nt->acc)
       eprintf(" orig=%s", acnames[nt->acc_orig]);
     if (nt->masq != MASQ_UNSET) eprintf(" masq=%d", nt->masq);
@@ -1336,7 +1337,7 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
       ((sl->flags & sflag_l) == 0)? "slur" : "line");
     if (sl->id != 0) eprintf("/=%c", sl->id);
     if (sl->ally != 0) debug_move(sl->ally, "u", "d");
-    debug_flags(sl->flags, "w,b,l,h,ol,or,i,e,x,abs,lay,ip");
+    debug_flags(sl->flags, "w,b,l,h,ol,or,i,e,x,abs,lay,ip,cx");
     for (sm = sl->mods; sm!= NULL; sm = sm->next)
       {
       if (sm->sequence != 0) eprintf("/%d", sm->sequence);
@@ -1485,11 +1486,11 @@ else for (usint i = 0; i < movement_count; i++)
     snamestr *sn;
     st = m->stavetable[j];
     eprintf("\nSTAVE %d", j);
+    if (st->omitempty) eprintf(" omitempty");
     for (sn = st->stave_name; sn != NULL; sn = sn->next)
       debug_stave_name(sn, FALSE);
     eprintf("\n");
     if (st->stavelines != 5) eprintf("  [stavelines %d]\n", st->stavelines);
-    if (st->omitempty) eprintf("  [omitempty]\n");
     for (k = 0; k < st->barcount; k++) if (st->barindex[k]->next != NULL) break;
     if (k >= st->barcount)
       eprintf("  All bars are empty\n");
@@ -1538,6 +1539,14 @@ total += out_textqueue_size * sizeof(b_textstr *);
 
 eprintf("  Font list vector: %zd\n", font_list_size * sizeof(fontstr));
 total += font_list_size * sizeof(fontstr);
+
+#if SUPPORT_XML
+if (xml_layout_list_size > 0)
+  {
+  eprintf("  MusicXML layout size: %zd\n", xml_layout_list_size);
+  total += xml_layout_list_size;
+  }
+#endif     
 
 eprintf("  Movements vector: %zd\n", movements_size * sizeof(movtstr *));
 total += movements_size * sizeof(movtstr *);
