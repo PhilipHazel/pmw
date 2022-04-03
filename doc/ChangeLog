@@ -10,7 +10,7 @@ signature, the note in a higher staff had no accidental but the note on a lower
 staff did, or had a wider accidental.
 
 2. Merged experimental optional code for reading MusicXML files. Only a subset 
-of MusicXML is supported and nothing is yet documented.
+of MusicXML is supported and there are many infelicities.
 
 
 Version 5.02 30-January-2022

@@ -12,7 +12,7 @@
 . the <bookinfo> element must also be updated for each new edition.
 . /////////////////////////////////////////////////////////////////////////////
 
-.set version "5.00"
+.set version "5.10"
 . Zero-width space
 .set B "&#x200B;"
 . Right-pointing hand
@@ -152,16 +152,16 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>23 November 2021</date>
+<date>03 April 2022</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
-  <revnumber>5.00</revnumber>
-  <date>23 November 2021</date>
+  <revnumber>5.10</revnumber>
+  <date>03 April 2022</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
-<copyright><year>2021</year><holder>Philip Hazel</holder></copyright>
+<copyright><year>2022</year><holder>Philip Hazel</holder></copyright>
 </bookinfo>
 .literal off
 
@@ -210,6 +210,12 @@ cutting and pasting, can be used to speed up entry, and PMW is also able to
 provide text-based features such as macros, included files, and shorthands for
 repetitive input.
 
+From release 5.10 PMW can also read and typeset some MusicXML files. However,
+this is still very much experimental code that is not yet of production
+quality. Moreover, only a subset of MusicXML features is supported. It is very 
+much `work in progress' and therefore relegated to an appendix of this 
+document.
+
 The output of PMW is a PostScript file. This can be previewed on screen using
 &'GhostScript'& or similar software. If you have a printer that understands
 PostScript, PMW output can be printed directly; otherwise, conversion software
@@ -221,18 +227,18 @@ be included in another document.
 
 As well as PostScript output, PMW can also write a MIDI file that can be
 played through the computer's sound system by an application such as
-&'Timidity'&. MIDI output is not very sophisticated, and is intended for
+&'Timidity'&. MIDI output is not at all sophisticated, and is intended for
 `proof-hearing' purposes rather than for performance.
 
 Early versions of PMW were called &'Philip's Music Scribe'&, and ran on Acorn's
 RISC OS operating system in the 1990s. Version 4.00 was the first version for
 Linux and other Unix-like environments. This edition of the manual describes
-PMW version &version;. This is a major re-working of the code to properly
-integrate half accidentals and custom key signatures, to improve the way
-character strings are processed, to remove obsolete features, and to generally
-overhaul what is now quite old code. Chapter &<<CHAP500>>& has details of the
-changes; in the majority of cases existing input files should continue to work
-without change or with only minor adjustments.
+PMW version &version;. Version 5.00 was a major re-working of the code to
+properly integrate half accidentals and custom key signatures, to improve the
+way character strings are processed, to remove obsolete features, and to
+generally overhaul what is now quite old code. Chapter &<<CHAP500>>& has
+details of the changes; in the majority of cases existing input files should
+continue to work without change or with only minor adjustments.
 
 PMW comes with a PostScript font called PMW-Music. This contains all the
 music shapes (notes, rests, accidentals, bar lines, clefs, etc.) that PMW
@@ -15282,6 +15288,24 @@ lines can take the following options:
 .row "Underlay depth"           "11 points"
 .row "Underlay size"            "10 points"
 .endtable
+
+
+. ////////////////////////////////////////////////////////////////////////////
+. ////////////////////////////////////////////////////////////////////////////
+
+.appendix "Reading MusicXML files"
+The ability to read MusicXML input in addition to PMW's own input format was 
+added in release 5.10. However, this is highly experimental and is currently 
+very incomplete (and probably quite buggy). Please do not expect great things
+of it.
+
+The MusicXML-reading code is an optional part of PMW. In order to use it you
+must add &`--enable-musicxml`& when running &`./configure`& before building 
+PMW. If the first line of PMW's input file begins with &`<?xml version=`& the 
+file is assumed to be MusicXML, and processed accordingly if the support has 
+been enabled (if not, an error occurs).
+
+No transposition.
 
 
 . ////////////////////////////////////////////////////////////////////////////
