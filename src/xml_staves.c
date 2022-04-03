@@ -265,7 +265,7 @@ non-negative, we can force an "above" value. Otherwise, adjust for a PMW
 
 Arguments:
   tx         the text item
-  dy         the vertical adjustment
+  dy         the vertical adjustment; INT_MAX => unset (do nothing)
   above      TRUE for "above"
 
 Returns:     nothing
@@ -274,9 +274,11 @@ Returns:     nothing
 static void
 handle_text_dy(b_textstr *tx, int dy, BOOL above)
 {
-tx->y = dy * 400;   /* Convert tenths to millipoints */
 if (dy >= 0) above = TRUE;
-if (above) tx->flags |= text_above; else tx->y += 16000;
+if (above) tx->flags |= text_above;
+if (dy == INT_MAX) return;
+tx->y = dy * 400;   /* Convert tenths to millipoints */
+if (!above) tx->y += 16000;
 tx->flags |= text_absolute;
 }
 
@@ -1410,7 +1412,7 @@ for (xml_item *mi = measure->next;
             tx = stave_text_pmw(staff, NULL, mm, text_above, 0, 0, 0);
             tx->size = (fsize >= 0)? xml_pmw_fontsize(fsize) :
               (xml_fontsize_word_default >= 0)? xml_fontsize_word_default : 0;
-            if (dy != INT_MAX) handle_text_dy(tx, dy, TRUE);
+            handle_text_dy(tx, dy, TRUE);
             tx->y += ry*400;
 
             /* Use the follow-on feature if not the first text */
@@ -2198,7 +2200,7 @@ for (xml_item *mi = measure->next;
               break;
               }
             }
-             
+
           if (ss == NULL) xml_Eerror(mi, ERR39); else
             {
             BOOL below = (sl->flags & sflag_b) != 0;
