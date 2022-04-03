@@ -1,13 +1,17 @@
 #! /bin/sh
 
 rc=0
+autoquit=
 valgrind=
 vopt=
 
-if [ "$1" = "valgrind" ]; then
-  valgrind=valgrind
-  vopt=-q 
-fi   
+while [ $# -gt 0 ] ; do
+  case $1 in
+    valgrind) valgrind=valgrind; vopt=-q;;
+    autoquit) autoquit=autoquit;;
+  esac
+  shift
+done         
 
 /bin/rm -f test.*
 /bin/rm -f test-*
@@ -33,7 +37,7 @@ if [ $rc = 0 ]; then
   /bin/rm -f test.*
   /bin/rm -f test-*
   if [ -x ../testing/RunTests ]; then
-    (cd ../testing; RunTests $valgrind)
+    (cd ../testing; RunTests $autoquit $valgrind)
   rc=$?   
   fi    
 fi

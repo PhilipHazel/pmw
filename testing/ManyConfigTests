@@ -16,7 +16,7 @@
 # -novalgrind     skip all the valgrind tests
 
 # Alternatively, if any of those names are given with '+' instead of '-no',
-# only those groups named with '+' are run (e.g. +jit). If -dummy is given,
+# only those groups named with '+' are run (e.g. +main). If -dummy is given,
 # no tests are actually run - this provides a means of testing the selectors.
 
 useasan=1
@@ -157,7 +157,7 @@ runtest()
 
   echo "Running PMW tests $withvalgrind"
   pushd $srcdir/testdist >/dev/null
-  ./RunTests $valgrind >teststdoutM 2>teststderrM
+  ./RunTests autoquit $valgrind >teststdoutM 2>teststderrM
 
   if [ $? -ne 0 -o -s teststderrM ]; then
     echo " "
@@ -169,7 +169,7 @@ runtest()
     fi
     exit 1
   fi
-  
+
   popd >/dev/null
   }
 
@@ -178,9 +178,9 @@ runtest()
 
 testtotal=`expr 0 + \
   1 \* $ISGCC \* $usemain + \
-  1 \* $ISGCC \* $usemain \* $useasan + \
-  1 \* $ISGCC \* $usemain \* $useusan + \
-  3 \* $usemain + \
+  1 \* $ISGCC \* $useasan + \
+  1 \* $ISGCC \* $useusan + \
+  4 \* $usemain + \
   1 \* $usevalgrind + \
   1 \* $usetmp`
 
@@ -205,30 +205,35 @@ export srcdir
 # we also use -fno-sanitize=shift to avoid warnings for shifts of negative
 # numbers.
 
+SAVECFLAGS="$CFLAGS"
+
 if [ $ISGCC -ne 0 -a $usemain -ne 0 ]; then
   echo "---------- Test with -O2 ----------"
-  SAVECFLAGS="$CFLAGS"
   CFLAGS="-O2 $CFLAGS"
   echo "CFLAGS=$CFLAGS"
-  opts=""
+  opts="--enable-b2pf --enable-musicxml"
   runtest
-  if [ $useasan -ne 0 ]; then
-    echo "---------- Test with -fsanitize=address ----------"
+  CFLAGS="$OFLAGS $SAVECFLAGS"
+fi
+
 # Following a kernel change, sanitize address doesn't work unless the extra
 # PIE options are also set.
-    CFLAGS="$OFLAGS $SAVECFLAGS -no-pie -fno-PIE -fsanitize=address"
-    echo "CFLAGS=$CFLAGS"
-    opts=""
-    runtest
-  fi
+if [ $ISGCC -ne 0 -a $useasan -ne 0 ]; then
+  echo "---------- Test with -fsanitize=address ----------"
+  CFLAGS="$OFLAGS $SAVECFLAGS -no-pie -fno-PIE -fsanitize=address"
+  echo "CFLAGS=$CFLAGS"
+  opts="--enable-b2pf --enable-musicxml"
+  runtest
+  CFLAGS="$OFLAGS $SAVECFLAGS"
+fi
+
 # This also seems to be the case for sanitize undefined.
-  if [ $useusan -ne 0 ]; then
-    echo "------- Test with -fsanitize=undefined -fno-sanitize=shift -fno-sanitize=alignment -std=gnu99 -------"
-    CFLAGS="$OFLAGS $SAVECFLAGS -no-pie -fno-PIE -fsanitize=undefined -fno-sanitize=shift -fno-sanitize=alignment -std=gnu99"
-    echo "CFLAGS=$CFLAGS"
-    opts=""
-    runtest
-  fi
+if [ $ISGCC -ne 0 -a $useusan -ne 0 ]; then
+  echo "------- Test with -fsanitize=undefined -fno-sanitize=shift -fno-sanitize=alignment -std=gnu99 -------"
+  CFLAGS="$OFLAGS $SAVECFLAGS -no-pie -fno-PIE -fsanitize=undefined -fno-sanitize=shift -fno-sanitize=alignment -std=gnu99"
+  echo "CFLAGS=$CFLAGS"
+  opts="--enable-b2pf --enable-musicxml"
+  runtest
   CFLAGS="$OFLAGS $SAVECFLAGS"
 fi
 
@@ -244,8 +249,9 @@ if [ $usemain -ne 0 ]; then
   echo "---------- Tests in the current directory ----------"
   for opts in \
     "" \
+    "--disable-pmwrc" \
     "--enable-b2pf" \
-    "--disable-pmwrc"
+    "--enable-musicxml"
   do
     runtest
   done
@@ -259,7 +265,7 @@ if [ $usevalgrind -ne 0 ]; then
   withvalgrind="with valgrind"
 
   for opts in \
-    "--enable-b2pf --disable-pmwrc"
+    "--enable-b2pf --disable-pmwrc --enable-musicxml"
   do
     opts="$opts"
     runtest

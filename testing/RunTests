@@ -44,6 +44,7 @@ while (defined $ARGV[0])
   elsif ($ARGV[0] eq "autoquit")
     {
     $force_quit = 1;
+    $less = "cat"; 
     shift;
     }
   elsif ($ARGV[0] =~ /^nob2pf$/i)
@@ -56,7 +57,7 @@ while (defined $ARGV[0])
     last;
     } 
   }           
-
+  
 # Choose which directories' tests to run. Arguments can select a specific
 # directory and test(s). Otherwise, look for directories whose names match a
 # pattern.
@@ -147,7 +148,7 @@ while (scalar @dirs > 0)
                       " -MP ../MIDIperc" .
                       " -MV ../MIDIvoices" .  
                       " 2> test.txt");
-
+                      
     if (($rc >> 8) > 4)
       {
       printf("Test $file RC = 0x%x\n", $rc);
