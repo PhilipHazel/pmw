@@ -223,15 +223,6 @@ the Unicode range, but still within 24-bits. */
 #define ss_escapedsharp  (MAX_UNICODE + 13) /* Escaped sharp (ditto) */
 #define ss_top           (MAX_UNICODE + 14) /* One after last used */
 
-/* If gcc is being used, we can use its facility for checking the arguments of
-printf-like functions. This is done by a macro. */
-
-#ifdef __GNUC__
-#define PRINTF_FUNCTION  __attribute__((format(printf,1,2)))
-#else
-#define PRINTF_FUNCTION
-#endif
-
 /* Save some typing for unsigned ints and unsigned chars */
 
 typedef unsigned int  usint;
