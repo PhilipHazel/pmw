@@ -50,7 +50,7 @@ drawing field is set NULL when it's a text string. */
 
 typedef struct headstr {
   struct headstr *next;
-  int32_t space;            /* Space to follow (always 0 for PostScript) */
+  int32_t space;            /* Space to follow */
   /* --- Text string --- */
   uint32_t *string[3];      /* Left/middle/right PMW strings */
   fontinststr fdata;        /* Font instance data (size, matrix, etc.) */

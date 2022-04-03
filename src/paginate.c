@@ -3743,13 +3743,14 @@ while (!page_done) switch(page_state)
 
   pl_showtimes = MFLAG(mf_startnotime)? 0 : (~0 ^ 1);
 
-  /* Set up for fixed layout if required. The layout data consists of pairs of
-  numbers, the first of which identifies the second. The pairs are as fowllows:
+  /* Set up for fixed layout if required. The layout data consists mainly of
+  pairs, the first of which identifies the second. A "newpage" item, however,
+  has no following data. The items are as follows:
 
   lv_repeatcount, value   Repeat next group that many times
   lv_barcount,    value   Next system to have this many bars
   lv_repeatptr,   value   End repeat that started at value offset
-  lv_newpage,     value   Force a new page, value ignored
+  lv_newpage              Force a new page (no value)
 
   Repetition is handled by using the local layoutstack to keep count of the
   various, possibly nested, repeats. The final item in a layout list is always
