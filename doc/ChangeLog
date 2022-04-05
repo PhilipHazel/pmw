@@ -12,6 +12,10 @@ staff did, or had a wider accidental.
 2. Merged experimental optional code for reading MusicXML files. Only a subset 
 of MusicXML is supported and there are many infelicities.
 
+3. The "barlinespace" directive is documented as being able to adjust the 
+default, as well as setting an absolute value. However, values starting with a 
+plus or a minus sign were being rejected.
+
 
 Version 5.02 30-January-2022
 ----------------------------

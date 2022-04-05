@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: January 2022 */
+/* This file last modified: April 2022 */
 
 #include "pmw.h"
 
@@ -562,6 +562,9 @@ curmovt->baroffset -= 1;
 *               Barlinespace                     *
 *************************************************/
 
+/* We have to set the default here in case the directive uses + or - to adjust 
+the value. Note that this code is replicated in paginate.c. */
+
 static void
 barlinespace(void)
 {
@@ -570,7 +573,15 @@ if (read_c == '*')
   curmovt->barlinespace = FIXED_UNSET;
   read_nextsigc();
   }
-else movt_int();
+else 
+  {
+  if (curmovt->barlinespace == FIXED_UNSET)
+    {
+    curmovt->barlinespace = (curmovt->note_spacing)[minim]/2 - 5000;
+    if (curmovt->barlinespace < 3000) curmovt->barlinespace = 3000;
+    }    
+  movt_int();
+  } 
 }
 
 
@@ -2224,7 +2235,7 @@ static dirstr headlist[] = {
   { "bar",              bar,            oo(movtstr,baroffset), int_u },
   { "barcount",         warningint,     0, 0 },
   { "barlinesize",      movt_int,       oo(movtstr,barlinesize), int_uf },
-  { "barlinespace",     barlinespace,   oo(movtstr,barlinespace), int_uf },
+  { "barlinespace",     barlinespace,   oo(movtstr,barlinespace), int_rs+int_f },
   { "barlinestyle",     movt_int8,      oo(movtstr,barlinestyle), 5 },
   { "barnumberlevel",   barnumberlevel, oo(movtstr,barnumber_level), int_rs+int_f },
   { "barnumbers",       barnumbers,     0, 0 },

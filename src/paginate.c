@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: April 2021 */
-/* This file last modified: March 2022 */
+/* This file last modified: April 2022 */
 
 #include "pmw.h"
 
@@ -3663,6 +3663,9 @@ while (!page_done) switch(page_state)
   case page_state_newmovt:
   active_transpose = curmovt->transpose;
   firstsystem = TRUE;
+  
+  /* The equivalent of this code also exists in pmw_read_header, in connection 
+  with the barlinespace directive. Keep in step. */
 
   if (curmovt->barlinespace == FIXED_UNSET)
     {

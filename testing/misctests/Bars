@@ -43,7 +43,13 @@ g-g-g-g- |? g-g-g-g- |?
 [newmovement]
 barlinespace *
 [stave 1 treble 1]
-g-g-g-g- ||
+g-g-g-g- | g-g-g-g- ||
+[endstave]
+
+[newmovement]
+barlinespace +5
+[stave 1 treble 1]
+g-g-g-g- | g-g-g-g- ||
 [endstave]
 
 [newmovement]
@@ -86,6 +92,5 @@ gg | [4] R! | abc
 [stave 2 bass 0]
 gg | [4] R! | abc
 [endstave]
-
 
 
