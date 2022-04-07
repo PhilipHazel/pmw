@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: February 2022 */
+/* This file last modified: April 2022 */
 
 
 /*************************************************
@@ -333,6 +333,8 @@ extern int32_t      print_xmargin;
 
 extern FILE        *ps_file;
 extern const uschar *ps_header;
+
+extern BOOL         pmw_reading_stave;
 
 extern uint32_t     read_absnotespacing[];
 extern int8_t      *read_baraccs;

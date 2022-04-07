@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: November 2021 */
+/* This file last modified: April 2022 */
 
 #include "pmw.h"
 
@@ -439,7 +439,7 @@ else if (ec < ec_failed)  /* Major or minor error */
 
 if (ec >= ec_failed)
   {
-  (void)fprintf(stderr, "** pmw processing abandoned\n");
+  (void)fprintf(stderr, "** PMW processing abandoned\n");
   exit(EXIT_FAILURE);
   }
 

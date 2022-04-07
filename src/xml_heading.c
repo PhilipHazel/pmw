@@ -199,15 +199,16 @@ xml_do_heading(void)
 int32_t heading_base = -1;
 int32_t top_system_distance = -1;
 
-int32_t left_margin = -1;
-int32_t right_margin = -1;
+int32_t page_height = -1;
+int32_t page_width = -1; 
+int32_t left_margin = -1;  
+int32_t right_margin = -1; 
 int32_t top_margin = -1;
 int32_t bottom_margin = -1;
 
 int32_t footing_depth = 0;
 int32_t heading_depth = 0;
-int32_t page_height = -1;
-int32_t page_width = -1;
+headstr *existing_footing;
 
 BOOL has_barline[64];
 BOOL done_title = FALSE;
@@ -263,9 +264,9 @@ if (defaults != NULL)
   xml_item *word_font = xml_find_item(defaults, US"word-font");
 
   /* Must set magnification from <scaling> early because other things depend on
-  it. */
+  it, but take it only from the first movement and before the first stave. */
 
-  if (scaling != NULL)
+  if (scaling != NULL && curmovt->number == 1 && curmovt->laststave < 1)
     {
     int mils = xml_get_mils(scaling, US"millimeters", 1000, 500000, 6000, TRUE);
     int tenths = xml_get_mils(scaling, US"tenths", 1000, 500000, 40000, TRUE);
@@ -279,9 +280,10 @@ if (defaults != NULL)
     The value (16*0.3528)/40 = 0.141 is the unmagnified value of one tenth in
     millimeters. Call this X. Then X times "tenths" is an unmagnified value
     which is to be scaled to "mils". The magnification is therefore
-    "mils"/(X*"tenths"). */
+    "mils"/(X*"tenths"). Add this to any existing magnification. */
 
-    main_magnification = mac_muldiv(mils, 1000, mac_muldiv(tenths, 141, 1000));
+    main_magnification = mac_muldiv(main_magnification,
+      mac_muldiv(mils, 1000, mac_muldiv(tenths, 141, 1000)), 1000);
     }
 
   /* Process system layout before page layout in order to set up any system
@@ -405,8 +407,7 @@ if (defaults != NULL)
       pagelength = mac_muldiv(pagelength, main_magnification, 1000);
       linelength = mac_muldiv(linelength, main_magnification, 1000);
 
-      if (linelength > 600000 || pagelength > 850000)
-        main_sheetsize = sheet_A3;
+      if (linelength > 600000 || pagelength > 850000) main_sheetsize = sheet_A3;
       main_pagelength = pagelength;
       curmovt->linelength = linelength;
       }
@@ -572,7 +573,11 @@ curmovt->flags |= mf_unfinished;             /* MXL has explicit bar lines */
 curmovt->flags &= ~mf_keydoublebar;
 
 /* Headings and footings. Some are directly under the score-* item. Keep track
-of the depth of headings (in millipoints). */
+of the depth of headings (in millipoints). Any existing footings are put after 
+XML footings. */
+
+existing_footing = curmovt->footing;
+curmovt->footing = NULL;
 
 movement_title = xml_get_string(xml_partwise_item_list, US"movement-title",
   NULL, FALSE);
@@ -662,7 +667,7 @@ for (xml_item *credit = xml_find_item(xml_partwise_item_list, US"credit");
       valign = xml_get_attr_string(cr_words, US"valign", valign, FALSE);
       top_align = Ustrcmp(valign, "top") == 0;
       use_head = page_height < 0 || dy < 0 || dy > page_height/2;
-
+      
       /* Ignore totally empty strings, except take note of newlines. Have to
       cope with UTF-8 encodings of space characters. Pro tem just check for
       U+00A0. */
@@ -789,7 +794,7 @@ for (xml_item *credit = xml_find_item(xml_partwise_item_list, US"credit");
           }
 
         /* PMW starts its footings 20 points below the bottom margin. MXL
-        examples specify y positions above the bottom margin value. */
+        examples specify y positions above the bottom of the page. */
 
         else
           {
@@ -876,6 +881,15 @@ if (!done_arranger && creator_arranger != NULL)
 
 if (!done_rights && id_rights != NULL)
   (void)handle_headfoot(US"", US"", id_rights, &(curmovt->footing), 8000, font_rm);
+
+/* Restore any previously-existing footings (added externally). */
+
+if (existing_footing != NULL)
+  {
+  headstr **ftptr; 
+  for (ftptr = &(curmovt->footing); *ftptr != NULL; ftptr = &((*ftptr)->next)) {}
+  *ftptr = existing_footing;
+  } 
 
 /* MusicXML's top system distance is defined as being from the top margin to
 the top of the first system. See if this is different to the distance implied

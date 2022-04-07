@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: February 2022 */
+/* This file last modified: April 2022 */
 
 /* This file contains the top-level function and character handling functions
 that are called from the modules that read headings and staves. */
@@ -1187,7 +1187,9 @@ for (;;)
     for (;;)
       {
       read_i += 5;
+      pmw_reading_stave = TRUE; 
       pmw_read_stave();
+      pmw_reading_stave = FALSE; 
       barlinestyles[srs.stavenumber] = srs.barlinestyle;
       if (read_c == ENDFILE) break;
       read_nextsigc();

@@ -1,0 +1,52 @@
+@ These settings take effect for an included MusicXML file, though some may
+@ be optionally overridden.
+
+accadjusts 0 0 0 0 -5
+accspacing 5.25 4.5 8 6 5
+barlinespace -1
+barlinestyle 1  @ Sets default
+barnumberlevel +4
+barnumbers ringed 3
+clefsize 0.7
+clefstyle 2
+codemultirests
+dotspacefactor 1.5
+footing "||Footing added by PMW"
+hairpinlinewidth 0.9
+hairpinwidth 8
+heading "|Title added by PMW"
+hyphenstring "\--"
+layout 3
+magnification 1.4
+tripletfont 6 italic
+underlaysize 8.0
+
+@ These directives have no effect on an included MusicXML file
+
+check
+checkdoublebars
+copyzero 1
+doublenotes doublenotes
+halvenotes
+key G
+nocheck
+nocheckdoublebars
+time 8/8
+
+@ Experiment with MusicXML file inclusion.
+
+*include "HX1.inc"
+
+[stave 2 bass 0]
+gg |
+[endstave]
+
+*include "HX1.inc"
+
+[newmovement newpage]
+notime
+
+*include "HX1.inc"
+
+
+@ End

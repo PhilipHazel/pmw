@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: February 2022 */
+/* This file last modified: April 2022 */
 
 #include "pmw.h"
 
@@ -286,6 +286,8 @@ int32_t      print_xmargin = 0;
 
 FILE        *ps_file;
 const uschar *ps_header = CUS PSHEADER;
+
+BOOL         pmw_reading_stave = FALSE;
 
 uint32_t     read_absnotespacing[NOTETYPE_COUNT] =
                { 30000,30000,22000,16000,12000,10000,10000,10000 };

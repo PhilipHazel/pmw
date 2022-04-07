@@ -660,12 +660,12 @@ linebuffer = buffer;      /* For use when comments overflow lines */
 
 if (filename == NULL)
   {
-  DEBUG(D_any) eprintf("===> Reading from stdin\n");
+  DEBUG(D_any) eprintf("===> Reading MusicXML from stdin\n");
   infile = filehandle;
   }
 else
   {
-  DEBUG(D_any) eprintf("===> Reading from %s\n", filename);
+  DEBUG(D_any) eprintf("===> Reading MusicXML from %s\n", filename);
   if (filehandle == NULL)
     {
     infile = Ufopen(filename, "rb");

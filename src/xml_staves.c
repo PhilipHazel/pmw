@@ -1270,7 +1270,7 @@ for (xml_item *mi = measure->next;
       else
         {
         bl->bartype = barline_normal;
-        bl->barstyle = 0;
+        bl->barstyle = curmovt->barlinestyle;
         }
 
       /* We've set up the barline on the first stave of the part. If there is
@@ -1473,7 +1473,7 @@ for (xml_item *mi = measure->next;
           hp->halfway = 0;
           hp->offset = (offset*1000)/divisions;
           hp->su = 0;
-          hp->width = 0;
+          hp->width = curmovt->hairpinwidth;
 
           /* Terminate a hairpin */
 
@@ -2607,6 +2607,11 @@ for (xml_item *mi = measure->next;
 
       if (stem_up > 0) newnote->flags |= nf_stemup;
 
+      /* Sort out type and length of note. */
+
+      note_type_and_length(newnote, note_type_name, dots, tuplet_num[staff],
+        tuplet_den[staff], mi, type);
+
       /* Handle an accidental */
 
       if (accidental != NULL)
@@ -2662,11 +2667,6 @@ for (xml_item *mi = measure->next;
           set_noteheads[staff] = thisnotehead;
           }
         }
-
-      /* Sort out type and length of note. */
-
-      note_type_and_length(newnote, note_type_name, dots, tuplet_num[staff],
-        tuplet_den[staff], mi, type);
 
       /* Handle grace notes */
 
@@ -3071,7 +3071,7 @@ for (int n = 1; n <= scount; n++)
     {
     b_barlinestr *bl = xml_get_item(n, sizeof(b_barlinestr), b_barline);
     bl->bartype = barline_normal;
-    bl->barstyle = 0;
+    bl->barstyle = curmovt->barlinestyle;
     }
   }
 
@@ -3350,7 +3350,9 @@ xml_do_parts(void)
 {
 int pstaff;
 xml_group_data *g;
-int prev_pmw_stave = 0;
+int prev_pmw_stave = curmovt->laststave;
+
+if (prev_pmw_stave < 0) prev_pmw_stave = 0;
 
 for (pstaff = 0; pstaff <= xml_pmw_stave_count; pstaff++)
   group_name_staves[pstaff] = group_abbrev_staves[pstaff] = NULL;

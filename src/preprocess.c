@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: September 2021 */
+/* This file last modified: April 2022 */
 
 /* This file contains code for handling pre-processing directives. */
 
@@ -340,6 +340,7 @@ if (Ustrcmp(read_wordbuffer, "define") == 0)
 else if (Ustrcmp(read_wordbuffer, "include") == 0)
   {
   FILE *f;
+  uschar buffer[256]; 
 
   if (read_filestackptr >= MAX_INCLUDE) error(ERR33, MAX_INCLUDE);  /* Hard */
   if (read_c == '\n' || !string_read_plain())
@@ -353,17 +354,50 @@ else if (Ustrcmp(read_wordbuffer, "include") == 0)
   f = Ufopen(read_stringbuffer, "r");
   if (f == NULL) error(ERR23, read_stringbuffer, strerror(errno));   /* Hard */
 
-  /* Stack the current variables and replace with new ones. */
+  /* Stack the current variables. */
 
   read_filestack[read_filestackptr].file = read_filehandle;
   read_filestack[read_filestackptr].filename = read_filename;
   read_filestack[read_filestackptr].linenumber = read_linenumber;
   read_filestack[read_filestackptr++].okdepth = read_okdepth;
 
+  /* Replace current variables for reading a PMW file. */
+
   read_filehandle = f;
   read_filename = mem_copystring(read_stringbuffer);
   read_linenumber = 0;
   read_okdepth = 0;
+  
+  /* Check the first line of the file to test for MusicXML. */
+
+  if (fgets(CS buffer, sizeof(buffer), f) != NULL)
+    {
+    uschar *p = buffer;                      
+    if (Ustrncmp(main_readbuffer, "\xef\xbb\xbf", 3) == 0) p += 3;
+    if (Ustrncmp(p, "<?xml version=", 14) == 0)
+      {           
+      TRACE("*Include MusicXML file detected\n");
+#if !SUPPORT_XML   
+      error(ERR3, "MusicXML");    /* Hard */      
+#else 
+      /* Process a MusicXML file as long as we are not in the middle of a PMW 
+      stave, then restore the variables. Give an error if we are in the middle 
+      of a PMW stave. Otherwise, we are done. */
+
+      if (!pmw_reading_stave) xml_read();   
+      read_filename = read_filestack[--read_filestackptr].filename;
+      read_filehandle = read_filestack[read_filestackptr].file;
+      read_linenumber = read_filestack[read_filestackptr].linenumber;
+      read_okdepth = read_filestack[read_filestackptr].okdepth;
+      if (pmw_reading_stave) error(ERR4, "MusicXML");  /* Hard */ 
+      return;
+#endif   
+      }
+ 
+    /* Not a MusicXML file; rewind for PMW processing. */
+     
+    else rewind(f);
+    }  
 
   was_include = TRUE;
   }
