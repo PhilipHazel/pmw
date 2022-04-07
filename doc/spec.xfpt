@@ -152,13 +152,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>03 April 2022</date>
+<date>07 April 2022</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.10</revnumber>
-  <date>03 April 2022</date>
+  <date>07 April 2022</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2022</year><holder>Philip Hazel</holder></copyright>
@@ -1864,7 +1864,9 @@ a [space 7] b
 This coding ensures that the two notes are 7 points (about 0.1 of an inch)
 further apart than they would otherwise be. Any underlay that is attached to
 the notes is also moved appropriately.
-.index "# character in text"
+.index "# character in underlay"
+.index "^ character" "in underlay"
+.index "circumflex" "in underlay"
 There are also two facilities for altering the position of an underlay syllable
 relative to its note. Firstly, the character &`#`&, if it appears in an
 underlay string, is replaced by a space, but is treated as part of a syllable.
@@ -8472,6 +8474,7 @@ signature. If the character indicating the end of a hairpin is followed by
 &`/bar`&, the hairpin ends at the next bar line. The use of &`/bar`& overrides
 &`/h`&.
 
+.index "MusicXML" "offset positioning (hairpin)"
 Another way of specifying horizontal position is to use &`/lc`& or &`/rc`&
 followed by a number that may have a fractional part. This specifies a left or
 right movement by a number of crotchets, thereby positioning the hairpin with
@@ -8715,6 +8718,8 @@ specification.
 .subsection "Transposed accidentals" SUBSECTtransposedaccidentals
 .index "transposition" "accidentals"
 .index "accidentals" "transposed"
+.index "^ character" "with accidental"
+.index "circumflex" "with accidental"
 Normally, unless the stave is using the pseudo-key N, PMW outputs an accidental
 sign for a transposed note if there is an accidental in the input, thus
 preserving cautionary accidentals. The special handling for the pseudo-key N is
@@ -10346,6 +10351,7 @@ next note or rest and the one following. The &`/h`& option can be used with
 underlay and overlay strings, but it applies only to the first syllable of such
 strings.
 
+.index "MusicXML" "offset positioning (string)"
 The alignment point can also be positioned with respect to the musical offset
 in the bar. This is similar to the `offset' positioning that is used in
 MusicXML. Whereas &`/l`& and &`/r`& specify a distance in points, &`/lc`& and
@@ -10501,6 +10507,7 @@ stave, whichever staves are selected.
 .index "overlay"
 .index "multi-syllable underlay"
 .index "underlay" "multi-syllable"
+.index "underlay" "special characters"
 PMW supports both underlay (words under the stave) and overlay (words over the
 stave). Overlay is comparatively rare, and to save clumsy repetition of
 `underlay or overlay' in what follows, the description is written mainly in
@@ -10525,6 +10532,7 @@ process (with one exception, which is described in section
 &<<SUBSECTuolayother>>&). A simple example is shown in chapter
 &<<CHAPfirstintro>>&.
 
+.index "- (hyphen) in underlay string"
 .index "hyphen" "in underlay string"
 .index "strings" "hyphen in underlay"
 When a word consists of more than one syllable, the syllable breaks must be
@@ -10544,7 +10552,7 @@ except that it warns if text is left over at the end of the stave. Each
 syllable of underlay text is normally centred horizontally about the next note
 in the bar. Sometimes it is necessary to move syllables slightly to the left or
 right. A convenient way to do this is to include the character &`#`&
-.index "# character in text"
+.index "# character in underlay"
 in the underlay string. This character is output as a space, but does not count
 as a space when PMW is splitting up the text. The width of a space is half the
 size of the font.
@@ -10555,6 +10563,10 @@ If the default, 10-point font is in use, this example outputs `Where' 2.5
 points to the left of where it would otherwise appear, and `tha' 2.5 points to
 the right.
 .index "underlay" "syllable alignment"
+
+.index "# character in underlay"
+.index "^ character" "in underlay"
+.index "circumflex" "in underlay"
 Sometimes several words are required to appear under a single note, and only
 the first is to be centred on it. The &`#`& character can be used to separate
 such words, to prevent them being assigned to separate notes. If the character
@@ -12336,6 +12348,7 @@ following are available:
 .row &`/co`&<&'n'&>  "move the centre out by <&'n'&> points"
 .endtable
 
+.index "MusicXML" "offset positioning (slur)"
 Another way of specifying horizontal position for slur ends is to use &`/llc`&,
 &`/lrc`&, &`/rlc`& or &`/rrc`& followed by a number that may have a fractional
 part. These options specify a base horizontal position for a slur end as a
@@ -15294,18 +15307,58 @@ lines can take the following options:
 . ////////////////////////////////////////////////////////////////////////////
 
 .appendix "Reading MusicXML files"
+.index "MusicXML" "input files"
 The ability to read MusicXML input in addition to PMW's own input format was 
 added in release 5.10. However, this is highly experimental and is currently 
 very incomplete (and probably quite buggy). Please do not expect great things
 of it.
 
-The MusicXML-reading code is an optional part of PMW. In order to use it you
-must add &`--enable-musicxml`& when running &`./configure`& before building 
-PMW. If the first line of PMW's input file begins with &`<?xml version=`& the 
-file is assumed to be MusicXML, and processed accordingly if the support has 
-been enabled (if not, an error occurs).
+There is a particular problem with MusicXML parts that use two or more staves. 
+PMW can mostly handle a treble/bass clef pair if the notes are straightforward, 
+but MusicXML examples exist which do weird things such as ending a slur on one 
+stave before starting it on another after `backing up'. This particular case
+causes PMW to give an error, but in other situations the result is just crazy
+output.
 
-No transposition.
+The MusicXML-reading code is an optional part of PMW. To use it you must add
+&`--enable-musicxml`& when running &`./configure`& before building PMW. When
+this is not done, MusicXML files are still recognized as such, but cannot be
+processed and so cause a hard error. There are two situations in which MusicXML
+files are recognized:
+
+.ilist
+If the first line of PMW's input file begins with &`<?xml version=`& the 
+file is assumed to be MusicXML, and processed accordingly.
+.next
+If, within a PMW input file, a file specified by the &%*include%&
+preprocessing directive (&R; &<<SUBSECTinclude>>&) begins with &`<?xml
+version=`& it is recognized as MusicXML. As long as it is not within a PMW 
+stave, it is processed, and control then returns to process more PMW input.
+If it is within a PMW stave, an error occurs.
+.endlist
+
+The second case makes it possible to change some of PMW's behaviour by 
+including header directives before including a MusicXML file. For example,
+.code
+magnification 1.1
+*include "file.musicxml"
+.endd
+alters the magnification factor. Not all directives are effective, and some 
+that are may be overridden by the contents of the MusicXML file. In particular: 
+
+.ilist
+Key and time signature settings are usually overridden.
+.next
+Added headings are positioned above MusicXML headings.
+.next
+Added footings are positioned below MusicXML footings.
+.next
+No transposition is applied to the MusicXML notes.
+.endlist
+
+Some exotic effects are possible by mixing PMW staves with MusicXML files. The 
+full extent has not been explored.
+
 
 
 . ////////////////////////////////////////////////////////////////////////////
