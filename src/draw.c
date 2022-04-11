@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: January 2022 */
+/* This file last modified: April 2022 */
 
 #include "pmw.h"
 
@@ -21,12 +21,12 @@ enum {
   dr_def, dr_div, dr_draw, dr_dup,
   dr_end, dr_eq, dr_exch, dr_exit,
   dr_false, dr_fill, dr_fillretain, dr_fontsize,
-  dr_gaptype, dr_ge, dr_gt,
+  dr_gaptype, dr_gapx, dr_gapy, dr_ge, dr_gt,
   dr_headbottom, dr_headleft, dr_headright, dr_headtop,
   dr_if, dr_ifelse,
   dr_jump,
   dr_ket,
-  dr_le, dr_leftbarx, dr_linebottom, dr_linegapx, dr_linegapy,
+  dr_le, dr_leftbarx, dr_linebottom, 
   dr_linelength, dr_lineto, dr_linetop, dr_loop, dr_lt,
   dr_magnification, dr_moveto, dr_mul,
   dr_ne, dr_neg, dr_not, dr_number,
@@ -79,6 +79,8 @@ static uint32_t stack_rqd[] = {
   0u,                 /* fillretain */
   0x00000003u,        /* fontsize */
   0u,                 /* gaptype */
+  0u,                 /* gapx */
+  0u,                 /* gapy */
   0x00000022u,        /* ge */
   0x00000022u,        /* gt */
   0u,                 /* headbottom */
@@ -92,8 +94,6 @@ static uint32_t stack_rqd[] = {
   0x00000022u,        /* le */
   0u,                 /* leftbarx */
   0u,                 /* linebottom */
-  0u,                 /* linegapx */
-  0u,                 /* linegapy */
   0u,                 /* linelength */
   0x00000022u,        /* lineto */
   0u,                 /* linetop */
@@ -194,6 +194,8 @@ static draw_op draw_operators[] = {
   { "fillretain",   dr_fillretain },
   { "fontsize",     dr_fontsize },
   { "gaptype",      dr_gaptype },
+  { "gapx",         dr_gapx },
+  { "gapy",         dr_gapy },
   { "ge",           dr_ge },
   { "gt",           dr_gt },
   { "headbottom",   dr_headbottom },
@@ -205,8 +207,8 @@ static draw_op draw_operators[] = {
   { "le",           dr_le },
   { "leftbarx",     dr_leftbarx },
   { "linebottom",   dr_linebottom },
-  { "linegapx",     dr_linegapx },
-  { "linegapy",     dr_linegapy },
+  { "linegapx",     dr_gapx },
+  { "linegapy",     dr_gapy },
   { "linelength",   dr_linelength },
   { "lineto",       dr_lineto },
   { "linetop",      dr_linetop },
@@ -796,6 +798,8 @@ while (pp != p && pp->d.val != dr_end)
     case dr_fillretain:
     case dr_fontsize:
     case dr_gaptype:
+    case dr_gapx:
+    case dr_gapy:
     case dr_ge:
     case dr_gt:
     case dr_headbottom:
@@ -808,8 +812,6 @@ while (pp != p && pp->d.val != dr_end)
     case dr_le:
     case dr_leftbarx:
     case dr_linebottom:
-    case dr_linegapx:
-    case dr_linegapy:
     case dr_linelength:
     case dr_lineto:
     case dr_linetop:
@@ -1162,6 +1164,16 @@ while (p->d.val != dr_end)
     draw_stack[out_drawstackptr++].d.val = draw_gap;
     break;
 
+    case dr_gapx:
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = draw_lgx;
+    break;
+
+    case dr_gapy:
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = draw_lgy;
+    break;
+
     case dr_ge:
     draw_stack[out_drawstackptr-2].d.val =
       (draw_stack[out_drawstackptr-2].d.val >=
@@ -1220,16 +1232,6 @@ while (p->d.val != dr_end)
     draw_stack[out_drawstackptr].dtype = dd_number;
     draw_stack[out_drawstackptr++].d.val =
       ((n_minpitch & 4) != 0)? 2*out_stavemagn : 0;
-    break;
-
-    case dr_linegapx:
-    draw_stack[out_drawstackptr].dtype = dd_number;
-    draw_stack[out_drawstackptr++].d.val = draw_lgx;
-    break;
-
-    case dr_linegapy:
-    draw_stack[out_drawstackptr].dtype = dd_number;
-    draw_stack[out_drawstackptr++].d.val = draw_lgy;
     break;
 
     case dr_linelength:

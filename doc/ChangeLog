@@ -16,6 +16,10 @@ of MusicXML is supported and there are many infelicities.
 default, as well as setting an absolute value. However, values starting with a 
 plus or a minus sign were being rejected.
 
+5. In a drawing function, the system variables gaptype, linegapx, and linegapy 
+also apply to gaps in slurs. The synonyms gapx and gapy are introduced for the 
+last two and the documentation has been updated.
+
 
 Version 5.02 30-January-2022
 ----------------------------
