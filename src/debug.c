@@ -279,6 +279,7 @@ static textflag_name textflags[] = {
   { text_absolute,  "absolute" },
   { text_atulevel,  "atulevel" },
   { text_baralign,  "baralign" },
+  { text_barcentre, "barcentre" }, 
   { text_boxed,     "boxed" },
   { text_centre,    "centre" },
   { text_endalign,  "endalign" },

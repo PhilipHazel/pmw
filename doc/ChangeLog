@@ -20,6 +20,8 @@ plus or a minus sign were being rejected.
 also apply to gaps in slurs. The synonyms gapx and gapy are introduced for the 
 last two and the documentation has been updated.
 
+6. Added the /cb ("centre in bar") option to text strings.
+
 
 Version 5.02 30-January-2022
 ----------------------------

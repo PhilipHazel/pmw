@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: May 2021 */
-/* This file last modified: November 2021 */
+/* This file last modified: April 2022 */
 
 #include "pmw.h"
 
@@ -650,10 +650,17 @@ font so that centring and end-alignment can be done first. */
 else if ((flags & text_followon) == 0)
   {
   BOOL baralign = (flags & text_baralign) != 0;
+  BOOL barcentre = (flags & text_barcentre) != 0;
   BOOL timealign = (flags & text_timealign) != 0;
+
+  /* Align with start of bar */
 
   if (baralign) x = out_startlinebar?
     (out_sysblock->startxposition + out_sysblock->xjustify) : out_lastbarlinex;
+
+  /* Centre in the bar */
+
+  else if (barcentre) x = (out_lastbarlinex + out_barlinex - stringwidth)/2;
 
   /* Time signature alignment. If not found, use the first musical event in the
   bar. */
@@ -677,9 +684,9 @@ else if ((flags & text_followon) == 0)
       }
     }
 
-  /* Handle /e and /c. Note that stringwidth is the horizontal width, ignoring
-  any font rotation. This means that rotation occurs after the text is
-  positioned. */
+  /* Handle /e and /c which will never be set with barcentre. Note that
+  stringwidth is the horizontal width, ignoring any font rotation. This means
+  that rotation occurs after the text is positioned. */
 
   if (endalign)
     x += ((atbar || baralign || timealign)? 1000 : six) - stringwidth;

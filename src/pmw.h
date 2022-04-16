@@ -416,17 +416,18 @@ enum { lv_barcount, lv_repeatcount, lv_repeatptr, lv_newpage };
 #define text_above      0x00000001u  /* Place above the stave */
 #define text_absolute   0x00000002u  /* Positioning is absolute, not relative */
 #define text_atulevel   0x00000004u  /* Normal text at underlay level */
-#define text_baralign   0x00000008u  /* Align text at barline */
-#define text_boxed      0x00000010u  /* Enclose in a box */
-#define text_centre     0x00000020u  /* Centred  */
-#define text_endalign   0x00000040u  /* End aligned */
-#define text_fb         0x00000080u  /* Figured bass */
-#define text_followon   0x00000100u  /* Follow-on to previous */
-#define text_middle     0x00000200u  /* Put halfway betwen staves */
-#define text_rehearse   0x00000400u  /* Rehearsal mark */
-#define text_ringed     0x00000800u  /* Enclose in a ring */
-#define text_timealign  0x00001000u  /* Align with time signature */
-#define text_ul         0x00002000u  /* Underlay, but with text_above = overlay */
+#define text_baralign   0x00000008u  /* Align text at starting barline */
+#define text_barcentre  0x00000010u  /* Centre the text in the bar */
+#define text_boxed      0x00000020u  /* Enclose in a box */
+#define text_centre     0x00000040u  /* Centred  */
+#define text_endalign   0x00000080u  /* End aligned */
+#define text_fb         0x00000100u  /* Figured bass */
+#define text_followon   0x00000200u  /* Follow-on to previous */
+#define text_middle     0x00000400u  /* Put halfway betwen staves */
+#define text_rehearse   0x00000800u  /* Rehearsal mark */
+#define text_ringed     0x00001000u  /* Enclose in a ring */
+#define text_timealign  0x00002000u  /* Align with time signature */
+#define text_ul         0x00004000u  /* Underlay, but with text_above = overlay */
 
 /* Flags for stave name texts */
 

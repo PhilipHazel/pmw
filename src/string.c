@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: February 2022 */
+/* This file last modified: April 2022 */
 
 #include "pmw.h"
 
@@ -940,9 +940,9 @@ if (call_b2pf)
       else
         {
         uint32_t c = PCHAR(*s);
-        
+
         /* Sequence of special separators */
-         
+
         if (c < 128 && Ustrchr(bseps, c) != NULL)
           {
           isb2pf = FALSE;
@@ -952,9 +952,9 @@ if (call_b2pf)
             if (c >= 128 || Ustrchr(bseps, c) == NULL) break;
             }
           }
-          
+
         /* Sequence of normal characters */
-         
+
         else
           {
           while (*(++s) != 0 && PFTOP(*s) == f)
@@ -1108,7 +1108,7 @@ for (uint32_t *s = str; *s != 0; s++)
 
   else
     {
-    if (c == '`' || c == '\'' || (c == '\n' && !keepnl) || 
+    if (c == '`' || c == '\'' || (c == '\n' && !keepnl) ||
          (c == 'f' && PCHAR(s[1]) == 'i'))
       {
       switch (c)
@@ -1874,9 +1874,18 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
     break;
 
     case 'c':
-    b->flags &= ~text_endalign;
-    b->flags |= text_centre;
     read_nextc();
+    if (read_c == 'b')
+      {
+      b->flags &= ~(text_baralign|text_centre|text_endalign|text_timealign);
+      b->flags |= text_barcentre;
+      read_nextc();
+      }
+    else
+      {
+      b->flags &= ~text_endalign;
+      b->flags |= text_centre;
+      }
     break;
 
     case 'd':
