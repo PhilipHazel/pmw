@@ -1852,6 +1852,7 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
       }
     else if (read_c == 'a' && main_readbuffer[read_i] == 'r')
       {
+      b->flags &= ~text_barcentre; 
       b->flags |= text_baralign;
       read_i++;
       read_nextc();
@@ -1883,7 +1884,7 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
       }
     else
       {
-      b->flags &= ~text_endalign;
+      b->flags &= ~(text_endalign|text_barcentre);
       b->flags |= text_centre;
       }
     break;
@@ -1893,7 +1894,7 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
     break;
 
     case 'e':
-    b->flags &= ~text_centre;
+    b->flags &= ~(text_centre|text_barcentre);
     b->flags |= text_endalign;
     read_nextc();
     break;
@@ -1990,7 +1991,12 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
 
     case 't':
     read_nextc();
-    if (read_c == 's') b->flags |= text_timealign; else error(ERR8, "/ts");
+    if (read_c == 's') 
+      {
+      b->flags &= ~text_barcentre; 
+      b->flags |= text_timealign; 
+      }
+    else error(ERR8, "/ts");
     read_nextc();
     break;
 
