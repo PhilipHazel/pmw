@@ -10,7 +10,7 @@ enddraw
 draw test2
   linegapx neg linegapy neg moveto
   0 10 rlineto 
-  linegapx linegapy moveto
+  gapx gapy moveto
   0 10 rlineto
   0 0 moveto 0 10 rlineto  
   stroke

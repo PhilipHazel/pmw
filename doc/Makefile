@@ -100,7 +100,10 @@ spec.ps:            Makefile \
                     postscript/music59 \
                     postscript/music60 \
                     postscript/music61 \
-                    postscript/music62
+                    postscript/music62 \
+                    postscript/music63 \
+                    postscript/music64 \
+                    postscript/music65
 		    sdop -S . spec.xml
 
 spec.xml:           spec.xfpt
@@ -312,6 +315,15 @@ postscript/music61: examples/ex61
 
 postscript/music62: examples/ex62
 		    ${PMW} -eps -nowidechars -o postscript/music62 examples/ex62
+
+postscript/music63: examples/ex63
+		    ${PMW} -eps -nowidechars -o postscript/music63 examples/ex63
+
+postscript/music64: examples/ex64
+		    ${PMW} -eps -nowidechars -o postscript/music64 examples/ex64
+
+postscript/music65: examples/ex65
+		    ${PMW} -eps -nowidechars -o postscript/music65 examples/ex65
 
 clean:;             /bin/rm -rf *.ps *.pdf *.xml postscript fontmetrics
 
