@@ -22,6 +22,9 @@ last two and the documentation has been updated.
 
 6. Added the /cb ("centre in bar") option to text strings.
 
+7. Fix bug whereby [stave n omitempty "Name"] treated the name as a rehearsal 
+mark instead of an implied [name] argument.
+
 
 Version 5.02 30-January-2022
 ----------------------------

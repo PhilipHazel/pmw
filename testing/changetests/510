@@ -3,7 +3,7 @@ nocheck unfinished
 notime
 textsizes 10 8.5
 
-[stave 1 alto]
+[stave 1 omitempty "Name" alto]
 "1-4"/a/cb/s2 [4] "\r2\"/a/cb/s2 f-f-f-f- | "xyz"/cb G+ "abc"/a/cb/rot30 |
 [endstave]
 

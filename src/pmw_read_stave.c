@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: February 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -956,13 +956,13 @@ if (read_c == '/')
 read_sigc();
 if (Ustrncmpic(main_readbuffer + read_i - 1, "omitempty", 9) == 0)
   {
-  read_i += 9;
+  read_i += 8;
+  read_nextsigc(); 
   curmovt->stavetable[srs.stavenumber]->omitempty = TRUE;
   }
 
-/* If a string or "draw" follows\, obey the implied "[name]" directive. */
+/* If a string or "draw" follows, obey the implied "[name]" directive. */
 
-read_sigc();
 if (read_c == '\"' ||
     (Ustrncmpic(main_readbuffer + read_i - 1, "draw ", 5) == 0))
   read_stavename();
