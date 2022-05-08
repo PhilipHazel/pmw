@@ -2,9 +2,9 @@
 *           PMW structure definitions            *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: October 2021 */
+/* This file last modified: May 2022 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -694,6 +694,8 @@ typedef struct snamestr {
   uint32_t  *text;
   tree_node *drawing;
   drawitem  *drawargs;
+  int32_t    adjustx;
+  int32_t    adjusty;  
   uint8_t    flags;
   uint8_t    size;
   uint8_t    linecount;

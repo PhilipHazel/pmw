@@ -2,9 +2,9 @@
 *        PMW main output control functions       *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: May 2021 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -2168,16 +2168,18 @@ for (curstave = 1; curstave <= out_laststave; curstave++)
        sname != NULL;
        sname = sname->extra)
     {
-    /* Deal with textual stave name */
+    /* Deal with textual stave name. Note: sname->adjusty is positive for
+    upwards, but out_string() has y doing downwards. */
 
     if (sname->text != NULL)
       {
-      BOOL vcentred = FALSE;
-      int32_t yoffset = -8 * curmovt->stavesizes[curstave];
+      BOOL vertical = (sname->flags & snf_vertical) != 0; 
+      int32_t adjustx = sname->adjustx;
+      int32_t adjusty = -8 * curmovt->stavesizes[curstave] - sname->adjusty;
       fontinststr *fdata = &((curmovt->fontsizes->fontsize_text)[sname->size]);
 
-      /* Find the middle point of the line(s) of text - for vertically
-      centred text there is a fudge to get it in the middle of a brace. */
+      /* For text which is vertically centred between two staves, there is a
+      fudge to get it in the middle of a brace. */
 
       if ((sname->flags & snf_vcentre) != 0)
         {
@@ -2193,37 +2195,31 @@ for (curstave = 1; curstave <= out_laststave; curstave++)
             {
             if (mac_isbit(out_sysblock->notsuspend, stv) &&
                 mac_isbit(out_sysblock->notsuspend, (stv+1)))
-              {
-              vcentred = TRUE;
-              yoffset += gap/2 - 2000;
-              }
+              adjusty += gap/2 - (vertical? 0 : 2000);
             break;
             }
           }
         }
 
-      /* Now adjust the offset according to the number of lines; the line depth
-      is equal to the font size. */
+      /* Output the single vertical line, always centred, with a small
+      additional adjustment. */
 
-      yoffset += (fdata->size*4)/10 - ((sname->linecount - 1)*fdata->size)/2;
-
-      /* Now print the lines; if rotated, only one line, and we have
-      to make further adjustments for the vertically centred case. */
-
-      if ((sname->flags & snf_vertical) != 0)
+      if (vertical)
         {
-        if (vcentred)
-          yoffset += string_width(sname->text, fdata, NULL)/2 - 2000;
+        adjusty += string_width(sname->text, fdata, NULL)/2;
         fdata = font_rotate(fdata, 90000);
-        out_string(sname->text, fdata, out_sysblock->xjustify,
-          out_ystave + yoffset, 0);
+        out_string(sname->text, fdata, out_sysblock->xjustify + adjustx,
+          out_ystave + adjusty, 0);
         }
 
-      /* Horizontal labels */
+      /* Output horizontal lines, adjusting the vertical position according to 
+      the number of lines; the line depth is equal to the font size. */
 
       else
         {
         int32_t maxw = 0;
+
+        adjusty += (fdata->size*4)/10 - ((sname->linecount - 1)*fdata->size)/2;
 
         /* If both centre & right adjust flags are set, we need to find the
         length of the longest line of the text. Tedious, but there's no other
@@ -2251,7 +2247,7 @@ for (curstave = 1; curstave <= out_laststave; curstave++)
 
         for (uint32_t *t = sname->text; *t != 0; )
           {
-          int32_t adjust = 0;
+          int32_t adjustline = 0;
           uint32_t tsave;
           uint32_t *tt = t;
 
@@ -2262,19 +2258,19 @@ for (curstave = 1; curstave <= out_laststave; curstave++)
           if ((sname->flags & (snf_hcentre | snf_rightjust)) != 0)
             {
             int32_t w = string_width(tt, fdata, NULL);
-            adjust = out_sysblock->startxposition - 6000 - w;
-            if (curmovt->bracelist != NULL) adjust -= 6500;
-              else if (curmovt->thinbracketlist != NULL) adjust -= 4000;
+            adjustline = out_sysblock->startxposition - 6000 - w;
+            if (curmovt->bracelist != NULL) adjustline -= 6500;
+              else if (curmovt->thinbracketlist != NULL) adjustline -= 4000;
             if ((sname->flags & snf_hcentre) != 0)
               {
-              if ((sname->flags & snf_rightjust) == 0) adjust /= 2;
-                else adjust -= (maxw - w)/2;
+              if ((sname->flags & snf_rightjust) == 0) adjustline /= 2;
+                else adjustline -= (maxw - w)/2;
               }
             }
 
-          out_string(tt, fdata, out_sysblock->xjustify + adjust,
-            out_ystave + yoffset, 0);
-          yoffset += fdata->size;
+          out_string(tt, fdata, out_sysblock->xjustify + adjustline + adjustx,
+            out_ystave + adjusty, 0);
+          adjusty += fdata->size;
 
           *t = tsave;
           if (tsave != 0) t++;

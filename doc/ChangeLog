@@ -9,28 +9,33 @@ Version 5.10 xx-xxxx-2022
 signature, the note in a higher staff had no accidental but the note on a lower
 staff did, or had a wider accidental.
 
-2. Merged experimental optional code for reading MusicXML files. Only a subset 
+2. Merged experimental optional code for reading MusicXML files. Only a subset
 of MusicXML is supported and there are many infelicities.
 
-3. The "barlinespace" directive is documented as being able to adjust the 
-default, as well as setting an absolute value. However, values starting with a 
+3. The "barlinespace" directive is documented as being able to adjust the
+default, as well as setting an absolute value. However, values starting with a
 plus or a minus sign were being rejected.
 
-5. In a drawing function, the system variables gaptype, linegapx, and linegapy 
-also apply to gaps in slurs. The synonyms gapx and gapy are introduced for the 
+5. In a drawing function, the system variables gaptype, linegapx, and linegapy
+also apply to gaps in slurs. The synonyms gapx and gapy are introduced for the
 last two and the documentation has been updated.
 
 6. Added the /cb ("centre in bar") option to text strings.
 
-7. Fix bug whereby [stave n omitempty "Name"] treated the name as a rehearsal 
+7. Fix bug whereby [stave n omitempty "Name"] treated the name as a rehearsal
 mark instead of an implied [name] argument.
+
+8. Add /l, /r, /u, and /d to stave name strings.
+
+9. Arrange for vertical stave name strings on a single stave (those with /v but
+not /m) to have their midpoint aligned with the centre of the stave.
 
 
 Version 5.02 30-January-2022
 ----------------------------
 
 Fixed another bug in the handling of B2PF fonts, in fact a bug in the fix 1 for
-5.01: it was applying strchr() to non-ASCII characters, causing misbehaviour 
+5.01: it was applying strchr() to non-ASCII characters, causing misbehaviour
 and crashing.
 
 

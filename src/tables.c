@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: January 2021 */
-/* This file last modified: March 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -488,6 +488,8 @@ snamestr init_snamestr = {
   NULL,               /* text */
   NULL,               /* drawing */
   NULL,               /* drawargs */
+  0,                  /* adjustx */
+  0,                  /* adjusty */  
   0,                  /* flags */
   ff_offset_init,     /* size */
   0                   /* linecount */

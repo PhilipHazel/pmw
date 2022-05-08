@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: February 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -225,6 +225,7 @@ while (*ss != 0) if (PCHAR(*ss++) == ss_verticalbar) p->linecount += 1;
 
 while (read_c == '/')
   {
+  int32_t size;
   uschar *t;
   const uschar *s = US"cemv";
 
@@ -237,19 +238,33 @@ while (read_c == '/')
     read_nextc();
     }
 
-  else if (read_c == 's')
+  else switch(read_c)
     {
-    int32_t size;
+    case 's':
     read_nextc();
     if (!read_expect_integer(&size, FALSE, FALSE)) break;
     if (--size < 0 || size >= MaxFontSizes) error(ERR75, MaxFontSizes);
     p->size = size;
-    }
-
-  else
-    {
-    error_skip(ERR8, ']', "/c, /e, /m, /s or /v");
     break;
+
+    case 'd':
+    p->adjusty -= read_movevalue();
+    break;
+
+    case 'l':
+    p->adjustx -= read_movevalue();
+    break;
+
+    case 'r':
+    p->adjustx += read_movevalue();
+    break;
+
+    case 'u':
+    p->adjusty += read_movevalue();
+    break;
+
+    default:
+    return error_skip(ERR8, ']', "/d, /c, /e, /l, /m, /r, /s, /u or /v");  /* FALSE */
     }
   }
 

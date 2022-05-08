@@ -11955,7 +11955,7 @@ only]%&
 .index "stems" "invisible"
 .index "invisible items" "stems"
 requests that all stems and beams be suppressed until another occurrence of
-&%[noteheads]%& with a argument other than `only'. It does not change the type 
+&%[noteheads]%& with a argument other than `only'. It does not change the type
 of notehead, so &%[noteheads none noteheads only]%& makes subsequent notes
 invisible.
 
@@ -12834,6 +12834,7 @@ the stave. Most commonly, &%[stave]%& is used just with text, and this form is
 described first.
 
 .subsection "Text at stave starts" SUBSECTstavetext
+.index "test" "at stave start"
 The text-only form of &%[stave]%& has the following format:
 .display
 &`[stave `&<&'n'&>&` "`&<&'string1'&>&`" "`&<&'string2'&>&`" ...]`&
@@ -12848,10 +12849,10 @@ is intended.
 .code
 [stave 1 "Soprano" "S"]
 .endd
-This example has `Soprano' at the start of the first system, and `S' on all
-the others. If there is only one string, only the first system has text at the
-start of this stave. The third and subsequent strings in &%[stave]%& directives
-are not used automatically, but can be selected at any point in the
+This example has `Soprano' at the start of the first system, and `S' on all the
+others. If there is only one string, only the first system has text at the
+start. The third and subsequent strings in &%[stave]%& directives are not used
+automatically, but can be selected at any point in the
 .index "&%[name]%&"
 piece by means of the &%[name]%& stave directive (&R; &<<SUBSECTname>>&), which
 also provides an alternative way of specifying text and drawings for the
@@ -12864,17 +12865,17 @@ new line of text.
 [stave 5 "Trumpet|in G"]
 .endd
 This example outputs two lines at the start of the stave 5 in the first system.
-
-The options &`/c`& and &`/e`& can be used on any string to cause the text to be
-horizontally centred or right-justified, respectively. If both &`/c`& and
-&`/e`& are given, and the text consists of multiple lines (delimited with &`|`&
-characters), the longest line is right justified, and all the other lines for
-the stave have their centres aligned with the centre of the longest line.
+The amount of space used for start-of-stave text depends on the longest text
+line for any stave. By default, shorter lines are left-aligned in this space,
+but the options &`/c`& and &`/e`& can be used to centre or right-justify the
+lines. If both &`/c`& and &`/e`& are given, and the text consists of multiple
+lines (delimited with &`|`& characters), the longest line is right justified,
+and all the other lines for the stave have their centres aligned with the
+centre of the longest. If there is only one line, it is right justified.
 
 .index "text" "halfway between staves"
-It is also possible to request that text be vertically positioned halfway
-between two successive staves. This is specified by appending &`/m`& (for
-`middle') to the text on the upper of the two staves.
+You can position text vertically halfway between two successive staves by
+appending &`/m`& (for `middle') to the text on the upper of the two staves.
 .code
 [stave 1 "Piano"/m]
 .endd
@@ -12903,23 +12904,27 @@ the &%textsizes%& directive, as for any other text on staves.
 .endd
 The size is not affected by any relative magnification that may be applied to
 the stave. If no size is specified, a 10-point font is used.
+
 .index "text" "rotated stave names"
 .index "staves" "rotated names"
-Finally, it is possible to specify that the text be rotated through 90&deg; so
-that it runs vertically up the page. This is specified with the &`/v`&
-option.
+You can also specify that the text be rotated through 90&deg; so that it runs
+vertically up the page and its midpoint is approximately at the middle of the
+stave. This is specified with the &`/v`& option; &`/c`& and &`/e`& are ignored.
 .code
 [stave 3 "Chorus"/v]
 .endd
-When &`/v`& is combined with &`/m`&, the text is both rotated and moved down so
-that its centre is at the midpoint of the staves. To make other adjustments to
-the position, the space character and the moving characters in the music font
-can be used. Only a single line of text is supported when output is vertical,
-and hence the vertical bar character has no special meaning in this case.
+Only a single line of text is supported when output is vertical, and hence the
+vertical bar character has no special meaning in this case. When &`/v`& is
+combined with &`/m`&, the text is both rotated and moved down so that its
+midpoint is halfway between the staves.
 
-If more than one string is given for any stave, the &`/c`&, &`/e`&, &`/s`&,
-&`/m`&, and &`/v`& qualifiers can be used on any of them, and apply only to
-those strings for which they appear.
+Finally, you can use &`/u`&, &`/d`&, &`/l`&, or &`/r`& to move text up, down,
+left, or right from its default position. When there is more than one line,
+these qualifiers apply to all of them. For vertical text, `up' still means up
+the page.
+
+If more than one string is given for any stave, the various qualifiers can be
+used on any of them, and apply only to those strings for which they appear.
 
 
 .subsection "Multiple strings at stave starts"
@@ -14938,9 +14943,13 @@ These are the only options that are recognized for strings given in the
 
 .itable none 0 0 2  48 left  300 left
 .row &`/c`&            "centre align"
+.row &`/d`&<&'n'&>     "move down <&'n'&> points"
 .row &`/e`&            "right justify"
+.row &`/l`&<&'n'&>     "move left <&'n'&> points"
 .row &`/m`&            "position below, halfway to the next stave"
+.row &`/r`&<&'n'&>     "move right <&'n'&> points"
 .row &`/s`&<&'n'&>     "use font size <&'n'&> (1&--20)"
+.row &`/u`&<&'n'&>     "move up <&'n'&> points"
 .row &`/v`&            "rotate to run vertically"
 .row &`/"...`&         "add another string at the same point"
 .endtable
@@ -15359,7 +15368,7 @@ If it is within a PMW stave, an error occurs.
 .endlist
 
 The second case makes it possible to change some of PMW's behaviour by
-including header directives before including a MusicXML file. For example, to 
+including header directives before including a MusicXML file. For example, to
 enlarge the music:
 .code
 magnification 1.1

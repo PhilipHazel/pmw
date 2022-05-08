@@ -7,3 +7,24 @@ textsizes 10 8.5
 "1-4"/a/cb/s2 [4] "\r2\"/a/cb/s2 f-f-f-f- | "xyz"/cb G+ "abc"/a/cb/rot30 |
 [endstave]
 
+[newmovement]
+Notime
+
+[stave 1 "Name"] R! |? [endstave]
+[stave 2 "Name"/l4/u4] R! |? [endstave]
+[stave 3 "Name"/r4/d4] R! |? [endstave]
+[stave 4 "Longer Name|Split"] R! |? [endstave]
+[stave 5 "Longer Name|Split"/l4/u4] R! |? [endstave]
+[stave 6 "Longer Name|Split"/r4/d4] R! |? [endstave]
+[stave 7 "Longer Name|Split"/c] R! |? [endstave]
+[stave 8 "Longer Name|Split"/l4/u4/c] R! |? [endstave]
+[stave 9 "Longer Name|Split"/r4/d4/c] R! |? [endstave]
+
+[newmovement thisline]
+LineLength -100
+[stave 1 "Name"/v justify -left] R! |? [endstave]
+[stave 2 "Name"/l4/u4/v] R! |? [endstave]
+[stave 3 "Name"/r4/d4/v] R! |? [endstave]
+[stave 4 "Name"/v/m] R! |? [endstave]
+[stave 5 "Name"/l4/u4/v/m] R! |? [endstave]
+[stave 6 "Name"/r4/d4/v/m] R! |? [endstave]
