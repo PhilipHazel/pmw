@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -265,7 +265,8 @@ aborts the run after outputting additional information. */
 { ec_major,   "octave %d is out of PMW's range (-3 to 4)" },
 { ec_warning, "-s on the command line is overridden by \"selectstaves\"" },
 /* 170-174 */
-{ ec_warning, "[stavelines <n>] is deprecated; use [stave m/<n>] instead" }
+{ ec_warning, "[stavelines <n>] is deprecated; use [stave m/<n>] instead" },
+{ ec_minor,   "unexpected end of slur or line - ignored" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

@@ -514,10 +514,8 @@ if (srs.slurcount > 0)
   p->value = id;
   srs.slurcount--;
   }
-else
-  {
-  error(ERR11, "end of slur or line - ignored");
-  }
+
+else error(ERR171);  /* Unexpected (and ignored) */
 }
 
 
