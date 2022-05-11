@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: April 2021 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -2221,8 +2221,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
 
       if (pp->moff != moff)
         {
-        workposstr *q;
-        for (q = pl_posptr; q >= pp; q--) q[1] = q[0];
+        for (workposstr *q = pl_posptr; q >= pp; q--) q[1] = q[0];
 
         pp->moff = moff;
         pp->space = 0;
@@ -2346,11 +2345,15 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
         mac_setbit(nextdata->notsuspend, curstave);
       break;
 
+      /* If this fragment is longer than any previous fragment, update the
+      maximum fragment length. If it is longer than a previous barlength,
+      update the bar length. */
+
       case b_reset:
-      if (maxmoff < moff)
+      if (moff > maxmoff)
         {
         maxmoff = moff;
-        pl_posptr->moff = moff;
+        if (moff > pl_posptr->moff) pl_posptr->moff = moff;
         }
       moff = 0;
       pp = pl_postable;
@@ -2392,24 +2395,23 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
       if (p->type >= b_baditem) error(ERR128, p->type);  /* Hard */
       break;
       }
-    }
+    }   /* End of scan of bar on one stave */
 
-  /* We are now at the end of the bar. If maxmoff is greater than zero, it
-  means there has been a [reset]. The following notes/rests may not have
-  filled the bar, and may not have coincided with note positions before the
-  [reset]. Therefore, we might need to insert one more position for where
-  we ended up. Then set the current position to the maximum encountered. */
+  /* If maxmoff is greater than zero at the end of a bar, it means there has
+  been a [reset]. The following notes/rests may not have filled the bar, and
+  may not have coincided with note positions before the [reset]. Therefore, we
+  might need to insert one more position for where we ended up. Then set the
+  current position to the maximum encountered. */
 
   if (moff < maxmoff)
     {
     while (pp < pl_posptr && pp->moff < moff) pp++;
     if (pp->moff != moff)
       {
-      workposstr *q;
       workposstr *prev = pp - 1;
       workposstr *next = pp + 1;
 
-      for (q = pl_posptr; q >= pp; q--) q[1] = q[0];
+      for (workposstr *q = pl_posptr; q >= pp; q--) q[1] = q[0];
 
       pp->moff = moff;
       pp->space = 0;
@@ -2511,11 +2513,10 @@ if (pl_posptr->moff == INT32_MAX)
 
 if (main_tracepos == INT32_MAX || main_tracepos == pl_barnumber)
   {
-  workposstr *t;
   eprintf("-------------------------\n");
   eprintf("BAR %d (%s) BASIC POSITIONS:\n", pl_barnumber,
     sfb(curmovt->barvector[pl_barnumber]));
-  for (t = pl_postable; t <= pl_posptr; t++)
+  for (workposstr *t = pl_postable; t <= pl_posptr; t++)
     eprintf("%8d %6d\n", t->moff, t->xoff);
   }
 
@@ -2702,11 +2703,10 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
 
 if (main_tracepos == INT32_MAX || main_tracepos == pl_barnumber)
   {
-  workposstr *t;
   eprintf("-------------------------\n");
   eprintf("BAR %d (%s) NOTE-SPACED POSITIONS:\n", pl_barnumber,
     sfb(curmovt->barvector[pl_barnumber]));
-  for (t = pl_postable; t <= pl_posptr; t++)
+  for (workposstr *t = pl_postable; t <= pl_posptr; t++)
     eprintf("%8d %6d\n", t->moff, t->xoff);
   }
 
@@ -2736,11 +2736,10 @@ for (left = pl_postable; left < pl_posptr - 1; left++)
 
 if (main_tracepos == INT32_MAX || main_tracepos == pl_barnumber)
   {
-  workposstr *t;
   eprintf("-------------------------\n");
   eprintf("BAR %d (%s) NOTE-SPACED/STEMMED POSITIONS:\n", pl_barnumber,
     sfb(curmovt->barvector[pl_barnumber]));
-  for (t = pl_postable; t <= pl_posptr; t++)
+  for (workposstr *t = pl_postable; t <= pl_posptr; t++)
     eprintf("%8d %6d\n", t->moff, t->xoff);
   }
 
@@ -3067,11 +3066,10 @@ if (pl_barstartrepeat)
 
 if (main_tracepos == INT32_MAX || main_tracepos == pl_barnumber)
   {
-  workposstr *t;
   eprintf("-------------------------\n");
   eprintf("BAR %d (%s) ALL-IN POSITIONS:\n", pl_barnumber,
     sfb(curmovt->barvector[pl_barnumber]));
-  for (t = pl_postable; t <= pl_posptr; t++)
+  for (workposstr *t = pl_postable; t <= pl_posptr; t++)
     eprintf("%8d %6d\n", t->moff, t->xoff);
   }
 
@@ -3332,11 +3330,10 @@ if (MFLAG(mf_spreadunderlay))
   if (spreadsome && (main_tracepos == INT32_MAX ||
                      main_tracepos == pl_barnumber))
     {
-    workposstr *t;
     eprintf("-------------------------\n");
     eprintf("BAR %d (%s) UNDERLAY SPREAD POSITIONS:\n", pl_barnumber,
       sfb(curmovt->barvector[pl_barnumber]));
-    for (t = pl_postable; t <= pl_posptr; t++)
+    for (workposstr *t = pl_postable; t <= pl_posptr; t++)
       eprintf("%8d %6d\n", t->moff, t->xoff);
     }
   }
@@ -3516,12 +3513,11 @@ for (left = pl_postable + 1; left <= pl_posptr; left++)
 
 if (main_tracepos == INT32_MAX || main_tracepos == pl_barnumber)
   {
-  workposstr *t;
   eprintf("-------------------------\n");
   eprintf("BAR %d (%s) FINAL POSITIONS:\n", pl_barnumber,
     sfb(curmovt->barvector[pl_barnumber]));
   eprintf("%8d %6d %6d\n", pl_postable->moff, 0, pl_postable->xoff);
-  for (t = pl_postable + 1; t <= pl_posptr; t++)
+  for (workposstr *t = pl_postable + 1; t <= pl_posptr; t++)
     eprintf("%8d %6d %6d\n", t->moff, t->xoff - (t-1)->xoff, t->xoff);
   if (forcenewline != b_start) eprintf("!! Newline forced !!\n");
   }
@@ -3663,8 +3659,8 @@ while (!page_done) switch(page_state)
   case page_state_newmovt:
   active_transpose = curmovt->transpose;
   firstsystem = TRUE;
-  
-  /* The equivalent of this code also exists in pmw_read_header, in connection 
+
+  /* The equivalent of this code also exists in pmw_read_header, in connection
   with the barlinespace directive. Keep in step. */
 
   if (curmovt->barlinespace == FIXED_UNSET)

@@ -28,3 +28,18 @@ LineLength -100
 [stave 4 "Name"/v/m] R! |? [endstave]
 [stave 5 "Name"/l4/u4/v/m] R! |? [endstave]
 [stave 6 "Name"/r4/d4/v/m] R! |? [endstave]
+
+[newmovement]
+Heading "" 140
+Linelength +100
+Time 3/4
+Unfinished
+
+[stave 1 treble 1] 
+[2] R! |
+[endstave]
+
+[stave 2 treble 1]
+(a'-\su\f'-); [reset] f-\sd\c=c=; f-c=c=; f-c=c= |
+f-\sd\c=c=; f-c=c=; f-c=c=;  [reset] (a'-\su\f'-); |
+[endstave]

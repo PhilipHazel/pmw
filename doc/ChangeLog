@@ -33,6 +33,10 @@ not /m) to have their midpoint aligned with the centre of the stave.
 10. Reduce severity of "Unexpected end of slur or line" error so that output is 
 still generated.
 
+11. Fixed a bad spacing bug that happened when a bar on a stave other than the
+first contained [reset] and the notes before [reset] were shorter than the bar
+length.
+
 
 Version 5.02 30-January-2022
 ----------------------------
