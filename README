@@ -1,7 +1,16 @@
 PHILIP'S MUSIC WRITER
 ---------------------
 
-Copyright (c) 2021 Philip Hazel
+Copyright (c) 2022 Philip Hazel
+
+
+DISCUSSION GROUP
+----------------
+
+There is a Google group mailing list for discussion of PMW issues. You can 
+access the archives and also subscribe or manage your subscription here:
+
+https://groups.google.com/g/pmw_music
 
 
 UNIX AND UNIX-LIKE SYSTEMS
@@ -42,7 +51,7 @@ has provided notes for building in Apple Macintosh environments, available in
 the file MacOS.txt in the doc directory.
 
 Philip Hazel <Philip.Hazel [AT] gmail.com>
-January 2021
+May 2022
 
 
 LICENCE
