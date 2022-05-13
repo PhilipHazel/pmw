@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<title>Philip's Music Writer</title>
+
+<style>
+html { background-color: #cccccc; }   
+
+h1
+  {
+  text-align: center;
+  margin-bottom: -2px;
+  }
+  
+hr { margin-bottom: 20px; }
+
+body
+  {
+  background-color: #fcfcfc; 
+  border: solid;
+  color: #00005a; 
+  margin: auto;
+  padding-left: 30px;
+  padding-top: 10px;
+  padding-right: 30px;
+  text-align: justify;
+  width: 900px;
+  }
+  
+a:link    { color: #0000ff; }  
+a:active  { color: #ff9933; }  
+a:visited { color: #0066ff; }  
+</style>
+
+</head>
+
+<body>
+<h1>Philip's Music Writer (PMW)</h1>
+<hr noshade/>
+
+<p>
+PMW is a computer program for high quality music typesetting. Originally
+written for Acorn RISC OS computers, the current version runs on Unix and
+Unix-like systems. It can also be made to run on MacOS and on Windows in the
+Cygwin environment. PMW is distributed as a source tarball and licenced under
+the GNU GPL. </p>
+
+<p>
+Download the source for the latest release:
+&nbsp;&nbsp;<b><a
+
+href="https://github.com/PhilipHazel/pmw/releases/download/pmw-5.02/pmw-5.02.tar.gz">pmw-5.02.tar.gz</a></b>
+&nbsp;&nbsp;(released 30 January 2022)
+</p>
+
+<p>
+The author of PMW is Philip Hazel, whose email address is in the README file in
+the PMW distribution. There is a Google Groups discussion list called 
+<i>PMW_Music</i> which you can find <a 
+href="https://groups.google.com/g/pmw_music">here.</a>
+
+
+<h2>Overview of PMW</h2>
+<p>
+PMW operates by reading an input file containing an encoded description of
+the music; such a file can be constructed using any text editor or word
+processor. The music encoding is compact, and quick to enter once the format
+has been learned. The downside is the time needed to learn the format. However,
+there are benefits to using textual input, especially when setting music with
+lots of repetition. PMW has facilities for repeating notes, bars, or arbitrary
+input fragments, and it also supports macros and included files. Conditional
+<i>if-then-else</i> sections can be used to encode differences between a score
+and individual parts. Textual input also allows for precise control over the
+positioning of items. </p>
+
+<p>
+The output of PMW is a PostScript file that can be printed on a PostScript
+printer, or viewed on screen, printed on a non-PostScript printer, or turned
+into a PDF by the use of GhostScript or similar software. PMW can also output 
+<i>Encapsulated PostScript</i>, which is suitable for fragments that are to
+be included in another document.
+</p>
+
+<p>
+PMW has its own PostScript outline font that contains all the musical shapes
+that it requires. There is a man page for the command line options, and a
+200-page manual that is distributed as a PDF file. This contains both
+introductory sections and full reference documentation.
+</p>
+
+
+<h2>Sample output</h2>
+<p>
+These links are to PDF files. You should be able to view them using any PDF
+viewer if your browser doesn&#146t automatically display them. </p>
+
+<ul>
+<li><p>
+This sample displays some of the more <a href="Sample00.pdf">unusual
+notation</a> that PMW is capable of handling.
+</p></li>
+
+<li><p>
+A page from the vocal score of a <a href="Sample01.pdf">Mozart mass</a>,
+showing stave suspension when the chorus is not singing.
+
+<li><p>
+A page of score from a clarinet quintet by <a href="Sample02.pdf">Mozart</a>.
+<li><p>
+A page with a voice part and a piano reduction, by <a
+href="Sample03.pdf">Mahler</a>.
+</p></li>
+
+<li><p>
+Another page with a voice part and a piano reduction, by <a
+href="Sample04.pdf">Wagner</a>.
+</p></li>
+</ul>
+
+
+<h2>Some features of Philip's Music Writer</h2>
+
+<p>
+PMW supports all common forms of notation, including half sharps and flats,
+with up to 63 staves per system. Any combination of staves can be selected,
+thus allowing the extraction of individual parts or groups of parts from a
+score. Headings etc. can be varied according to the selection.
+</p>
+
+<p> 
+PMW supports transposition, which applies to notes, key signatures, and
+key/chord names in text. There is a special key signature with no accidentals
+which does not transpose. </p>
+
+<p>
+Bar lengths are automatially checked against the time signature, but this can
+be overridden. By default, PMW lays out the bars, splits the sequence of bars
+up into systems, and allocates the systems to pages. Space can be forced into a
+bar at any point; line breaks and page breaks can be forced after any bar.
+Alternatively, a pre-imposed layout in terms of the number of bars for each
+system and the number of systems for each page can be specified. </p>
+
+<p>
+Page length and width can be specified as required. Common paper sizes such as
+A3, A4 and &#147letter&#148 are built-in. The music can be magnified or
+reduced, and individual staves can be larger or smaller than others. The
+spacing between staves and betwen systems is individually controllable, and can
+be varied within the piece. A stave spacing of zero can be set to allow two
+parts to share a stave. </p>
+
+<p>
+Several different styles of note head, bar line, repeat marking, clef, and half
+accidental are available, and staves can have from zero to six lines. You can
+also specify stemless note heads or stems without note heads.</p>
+
+<p>
+There are a number of automatic processing features that can be disabled if not
+required. These include collapsing a sequence of rest bars into a
+&#147many-bars&#148 rest, and cautionary time and key signatures.
+Features that can be requested include overall bar numbering and local
+numbering of repeated bars. </p>
+
+<p>
+There is some support for laying out music from right to left, something that
+is sometimes needed in countries whose language is written that way.
+</p>
+
+Philip Hazel
+<br>
+May 2022
+
+<hr>
+
+</body>
+</html>
