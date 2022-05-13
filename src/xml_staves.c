@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2022 */
 
 
 /* This module contains functions for generating stave data */
@@ -1553,19 +1553,22 @@ for (xml_item *mi = measure->next;
           }
 
 
-        /* ======== MusicXML "bracket" ======== */
+        /* ======== MusicXML "bracket" and "dashes" ======== */
 
-        /* In PMW this corresponds to [line] and is treated as a special kind
+        /* In PMW these correspond to [line] which is treated as a special kind
         of slur. */
 
-        if (Ustrcmp(dt->name, "bracket") == 0)
+        if (Ustrcmp(dt->name, "bracket") == 0 ||
+            Ustrcmp(dt->name, "dashes") == 0)
           {
           sl_start *ss;
           int sn = xml_get_attr_number(dt, US"number", 1, 16, 0, FALSE);
           uschar *line_end = xml_get_attr_string(dt, US"line-end", NULL, FALSE);
           uschar *line_type = xml_get_attr_string(dt, US"line-type", NULL,
             FALSE);
-          BOOL nojog = Ustrcmp(line_end, "none") == 0;
+          BOOL isdashes = dt->name[0] == 'd';  
+          BOOL nojog = isdashes ||
+            (line_end != NULL && Ustrcmp(line_end, "none") == 0);
           int jogsize = nojog? 0:7;
 
           /* MusicXML seems to give the dy point as the end of the jog, not
@@ -1584,6 +1587,7 @@ for (xml_item *mi = measure->next;
             sl->id = linechars[sn];
             sl->mods = NULL;
             sl->flags = sflag_l | sflag_cx | sflag_abs;
+            if (isdashes) sl->flags |= sflag_h | sflag_i | sflag_ol | sflag_or; 
 
             if (py < 0)
               {

@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* File last edited: April 2022 */
+/* File last edited: May 2022 */
 
 /* This module contains fixed XML data in the form of various tables */
 
@@ -33,6 +33,7 @@ uschar *clef_attrs[]            = { US"number",     NULL };
 uschar *creator_attrs[]         = { US"type",       NULL };
 uschar *credit_attrs[]          = { US"page",       NULL };
 uschar *credit_words_attrs[]    = { US"font-size",  US"font-weight", US"justify", US"halign", US"valign", US"default-y", US"**", US"xml:space", US"xml:lang", US"default-x", US"font-family", US"letter-spacing", NULL };
+uschar *dashes_attrs[]          = { US"type",       US"default-y", US"relative-x", US"**", US"default-x", NULL };
 uschar *direction_attrs[]       = { US"directive",  US"placement",  NULL };
 uschar *display_text_attrs[]    = { US"**",         US"xml:space", NULL };
 uschar *dot_attrs[]             = { US"**",         US"relative-x", NULL };
@@ -110,6 +111,7 @@ xml_elliststr xml_supported_elements[] = {
   { US"credit-type",            NULL },
   { US"credit-words",           credit_words_attrs },
   { US"cue",                    NULL },
+  { US"dashes",                 dashes_attrs }, 
   { US"defaults",               NULL },
   { US"delayed-turn",           turn_attrs },
   { US"detached-legato",        articulation_attrs },

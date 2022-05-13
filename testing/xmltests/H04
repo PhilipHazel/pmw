@@ -104,7 +104,13 @@
     <measure number="4">
       <attributes>
         <divisions>8</divisions>
-      </attributes>   
+      </attributes>
+      
+      <direction>
+        <direction-type> 
+          <dashes type="start" default-y="-80"/> 
+        </direction-type> 
+      </direction>
 
       <note>
         <pitch>
@@ -259,12 +265,17 @@
         <type>quarter</type>
       </note>    
 
+      <direction>
+        <direction-type> 
+          <dashes type="stop" default-y="-80"/> 
+        </direction-type> 
+      </direction>
+
     </measure>
     
 
 
-
-    <measure number="1" width="101">
+    <measure number="6" width="101">
       <attributes>
         <divisions>8</divisions>
       </attributes>   
@@ -425,7 +436,7 @@
     </measure>
 
 
-    <measure number="6" width="101">
+    <measure number="7" width="101">
       <attributes>
         <divisions>8</divisions>
       </attributes>   
