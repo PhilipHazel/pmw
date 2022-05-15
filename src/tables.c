@@ -546,7 +546,7 @@ movtstr default_movtstr = {
   NULL,               /* pageheading */
   NULL,               /* posvector */
   init_stavesizes,    /* stavesizes */
-  {0},                /* stavetable */
+  {NULL},             /* stavetable */
   NULL,               /* thinbracketlist */
   init_trillstring,   /* trillstring */
   &init_zerocopy,     /* zerocopy */

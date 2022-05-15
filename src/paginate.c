@@ -3567,7 +3567,7 @@ void
 paginate(void)
 {
 int i;
-int layoutptr;
+int layoutptr = 0;         /* Set to avoid compiler warning */
 int layoutstack[MAX_LAYOUT_STACK];
 int layoutstackptr = 0;
 int lengthwarn = 0;

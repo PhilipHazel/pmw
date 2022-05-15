@@ -1784,7 +1784,7 @@ for (uint32_t *ss = s; *ss != 0; ss++)
     if (c == ss_repeatnumber || c == ss_repeatnumber2)
       {
       doinsert = TRUE;
-      if (curmovt->stavetable != NULL && curstave >= 0 && curbarnumber >= 0)
+      if (curstave >= 0 && curbarnumber >= 0)
         {
         stavestr *sts = curmovt->stavetable[curstave];
         if (sts != NULL && sts->barindex != NULL)

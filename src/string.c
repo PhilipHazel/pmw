@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -753,7 +753,7 @@ while (*s != 0)
 
     if (c == ss_repeatnumber || c == ss_repeatnumber2)
       {
-      if (curmovt->stavetable != NULL && curstave >= 0 && curbarnumber >= 0)
+      if (curstave >= 0 && curbarnumber >= 0)
         {
         stavestr *sts = curmovt->stavetable[curstave];
         if (sts != NULL && sts->barindex != NULL)
