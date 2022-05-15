@@ -266,7 +266,9 @@ aborts the run after outputting additional information. */
 { ec_warning, "-s on the command line is overridden by \"selectstaves\"" },
 /* 170-174 */
 { ec_warning, "[stavelines <n>] is deprecated; use [stave m/<n>] instead" },
-{ ec_minor,   "unexpected end of slur or line - ignored" }
+{ ec_minor,   "unexpected end of slur or line - ignored" },
+{ ec_minor,   "MIDI pitch %d is outside supported range 0-127 in "
+              "bar %s stave %d" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

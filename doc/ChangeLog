@@ -37,6 +37,9 @@ still generated.
 first contained [reset] and the notes before [reset] were shorter than the bar
 length.
 
+12. Bad MIDI was generated if a note's pitch was outside the range supported by 
+MIDI. It now gives an error and ignores such notes.
+
 
 Version 5.02 30-January-2022
 ----------------------------

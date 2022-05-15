@@ -10,7 +10,6 @@ config.guess
 config.log
 config.status
 configure
-doc/spec.pdf
 doc/spec.ps
 doc/spec.xml
 doc/postscript
