@@ -2,22 +2,24 @@
 
 use Cwd;
 
-# Controlling script for comprehensive PMW tests
+# Controlling script for comprehensive PMW tests. Run from within the "testing"
+# directory. Optional arguments are:
+#
+#   valgrind    run tests under valgrind
+#   autoquit    force quit after test failure instead of interacting
+#   nob2pf      skip B2PF tests (auto skipped if not supported)
+#
+# Further arguments match a test directory optionally followed by a test name.
+# If not given, looks for directories whose names end in "tests".
 
 $cf = "diff -u";
 $less = "less -EF";
 $valgrind = "";
 $pmw = "../src/pmw";
 
-if (getcwd() =~ /^(.*)\/testing$/)
-  {
-  $fontpath = "$1/psfonts";
-  }  
-
-undef @skipdirs;
-
 # Skip certain directories for non-built features
 
+undef @skipdirs;
 if (system("$pmw -C b2pf >/dev/null") == 0)
   {
   push @skipdirs, "B2PF";
@@ -149,13 +151,6 @@ while (scalar @dirs > 0)
                       " -MV ../MIDIvoices" .  
                       " 2> test.txt");
                       
-    if (($rc >> 8) > 4)
-      {
-      printf("Test $file RC = 0x%x\n", $rc);
-      system("$less test.txt"); 
-      exit 1;
-      }
-      
     # Compare stderr output
       
     if (! -z "test.txt")
@@ -261,7 +256,10 @@ while (scalar @dirs > 0)
                       " -MV ../MIDIvoices" .  
                       " 2> /dev/null");
 
-            system ("GS_FONTPATH=$fontpath gv -scale=1 -geometry 1080x980+0+0 test-full.ps"); 
+            # Need to get the absolute font path to pass to gv.
+            
+            getcwd() =~ /^(.*)\/testing$/;
+            system ("GS_FONTPATH=$1/psfonts gv -scale=1 -geometry 1080x980+0+0 test-full.ps"); 
             # Stay in loop to reprompt 
             }  
           
