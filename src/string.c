@@ -1364,7 +1364,7 @@ for (read_nextc(); read_c != '\"' && read_c != ENDFILE; read_nextc())
   else if (read_c == '\\')
     {
     usint i;
-    uint16_t pitch, abspitch;
+    int16_t pitch, abspitch;
     uint8_t acc;
 
     /* Deal with font changes, first checking for \sc\, which adds the "small

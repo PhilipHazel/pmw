@@ -2,5 +2,5 @@
 
 ** Error: MIDI pitch -1 is outside supported range 0-127 in bar 2.1 stave 1
 
-** Error: MIDI pitch 155 is outside supported range 0-127 in bar 3 stave 1
+** Error: MIDI pitch 143 is outside supported range 0-127 in bar 3 stave 1
 

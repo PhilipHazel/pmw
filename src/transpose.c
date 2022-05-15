@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: October 2021 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -131,8 +131,8 @@ Returns:                 the transposed absolute pitch
                          the transposed accidental in *acc
 */
 
-uint16_t
-transpose_note(uint16_t abspitch, uint16_t *pitch, uint8_t *acc,
+int16_t
+transpose_note(int16_t abspitch, int16_t *pitch, uint8_t *acc,
   uint8_t transposeacc, BOOL transposedaccforce, BOOL acc_onenote,
   BOOL texttranspose, int tiedcount)
 {

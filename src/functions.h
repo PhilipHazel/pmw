@@ -176,7 +176,7 @@ extern int32_t      string_width(uint32_t *, fontinststr *, int32_t *);
 extern int          strncmpic(const char*, const char *, int);
 
 extern uint32_t     transpose_key(uint32_t);
-extern uint16_t     transpose_note(uint16_t, uint16_t *, uint8_t *, uint8_t,
+extern int16_t      transpose_note(int16_t, int16_t *, uint8_t *, uint8_t,
                       BOOL, BOOL, BOOL, int);
 
 extern BOOL         tree_insert(tree_node **, tree_node *);

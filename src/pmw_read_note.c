@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: March 2021 */
-/* This file last modified: March 2022 */
+/* This file last modified: May 2022 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -1409,7 +1409,7 @@ for (;;)
   uint32_t flags = srs.noteflags | pn_inchord;
   uint32_t explicit_couple = 0;
 
-  uint16_t pitch, abspitch;
+  int16_t pitch, abspitch;
 
   uint8_t *acc_above = NULL;
   uint8_t acc;
@@ -1674,6 +1674,8 @@ for (;;)
     /* Adjust absolute pitch for transposing clefs */
 
     abspitch += srs.clef_octave;
+    
+    if (abspitch < 0 || abspitch > 200) error(ERR173);  /* Hard */
 
     /* Keep track of the absolute pitch range, maintain data for tessitura
     computation, and remember if any half accidentals are used. This covers
