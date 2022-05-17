@@ -2105,6 +2105,13 @@ for changing the system gap for a single system, and it works in exactly the
 same way as &%[sshere]%&.  For more details see section &<<SUBSECTsg>>&.
 
 
+.subsection "System separators"
+It is common in scores to have two short thick lines between systems at the
+lefthand side, to emphasise visually where a new system begins. PMW can be 
+configured to output such lines; see section &<<SUBSECTsystemseparator>>& for 
+details.
+
+
 .subsection "Brackets and braces"
 .index "joining signs"
 .index "staves" "joining signs"
@@ -7907,6 +7914,36 @@ the gaps are expanded so that the last stave of the last system on a page is
 exactly at the bottom of the page. The spacing between systems can be varied in
 the middle of a piece. See the stave directives &%[sghere]%&, &%[sgnext]%&, and
 &%[sgabove]%& in section &<<SUBSECTsg>>&.
+
+
+
+.subsection "Systemseparator" SUBSECTsystemseparator
+.index "&%Systemseparator%&"
+.index "system separator"
+.index "system divider"
+This directive configures separating marks between systems, also known as
+system dividers, as shown in the following example:
+
+.music "music66" 100 12,-14
+
+The directive has up to five arguments. Only the first is mandatory, and it
+specifies the length of the separator lines. Setting it to zero (the default)
+turns off separators. A value of 16 is used in the example above. The complete
+set of arguments is:
+.display
+&`systemseparator`& <&'length'&> <&'width'&> <&'angle'&> <&'x-adjust'&> <&'y-adjust'&>
+.endd
+The default width is 2 and the default angle is 20 (degrees). The lines are by
+default positioned with their lefthand end aligned with the start of the
+system, at a fixed position above it. The last two arguments, which may be
+positive or negative, adjust this position.
+.code
+systemseparator 20 2.1 25 -16 -2
+.endd
+This example specifes slightly longer, thicker, and more angled lines, moved
+leftwards and downwards. Separator lines are not output before the first system
+on a page, the first system of a new movement if it has any heading lines, or
+any system that contains only one stave.
 
 
 
@@ -14693,6 +14730,7 @@ dagger affect only the movement in which they appear.
 &`*Stretchrule `&<&'n'&>
 &`&dagger;Suspend `&<&'n'&> ...
 &` Systemgap `&<&'n'&>
+&` Systemseparator `&<&'length'&> <&'width'&> <&'angle'&> <&'x-adjust'&> <&'y-adjust'&>
 &`*Textfont `&<&'fontword'&>&` "`&<&'font name'&>&`"`&
 &`*Textfont `&<&'fontword'&> include&` "`&<&'font name'&>&`"`&
 &` Textsizes `&<&'n'&> ...

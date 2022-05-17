@@ -43,6 +43,8 @@ MIDI. It now gives an error and ignores such notes.
 13. Added check for absolute pitch (after transposition) being within the 
 supported range. Hard error if not.
 
+14. Added the SystemSeparator directive to support system separators.
+
 
 Version 5.02 30-January-2022
 ----------------------------

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: May 2021 */
-/* This file last modified: October 2021 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -1257,7 +1257,9 @@ ps_printf(" %s cv%s%s", sff(((flags & sflag_b) != 0)? (-co) : co),
 *            Output a straight line              *
 *************************************************/
 
-/*
+/* The origin for y coordinates is in out_ystave, typically the bottom line of 
+a stave.
+
 Arguments:
   x0          start x coordinate
   y0          start y coordinate
@@ -1607,13 +1609,17 @@ ps_printf("%%%s/%d\n", sfb(curmovt->barvector[barnumber]), stave);
 *     Include a file in the PostScript output    *
 *************************************************/
 
-/* This function is called for the main header file, and also for user-supplied
-head/foot or setup files. If the included file is an EPS file, the insert is
-wrapped in save/restore and the a4, showpage, and copypage commands are
-disabled. Certain lines in the header are included only when we are generating
-an EPS file. They are flagged in the header file with %EPS. Otherwise, if a
-line starts with %, it is copied only if it starts with %%. Blank lines are
-omitted.
+/* This function is currently called only for the main header file. Certain
+lines in the header are included only when we are generating an EPS file. They
+are flagged in the header file with %EPS. Otherwise, if a line starts with %,
+it is copied only if it starts with %%. Blank lines are omitted.
+
+This function used also to be called when there were facilities for including 
+arbitrary PostScript files, prior to release 5. This feature has never been
+re-instated, but could be if there is ever a demand. For this reason the
+following logic has not been removed: If the included file is an EPS file, the
+insert is wrapped in save/restore and the a4, showpage, and copypage commands
+are disabled.
 
 Arguments:
   s           the file name

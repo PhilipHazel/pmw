@@ -948,6 +948,12 @@ for (i = 0; i < movement_count; i++)
   debug_stavemap("suspend_staves", m->suspend_staves);
 
   eprintf("  systemgap = %s\n", sff(m->systemgap));
+  eprintf("  systemsepangle = %s\n", sff(m->systemsepangle));
+  eprintf("  systemseplength = %s\n", sff(m->systemseplength));
+  eprintf("  systemsepwidth = %s\n", sff(m->systemsepwidth));
+  eprintf("  systemsepposx = %s\n", sff(m->systemsepposx));
+  eprintf("  systemsepposy = %s\n", sff(m->systemsepposy));
+ 
   debug_stavelist("thinbracketlist", m->thinbracketlist);
   eprintf("  topmargin = %s\n", sff(m->topmargin));
   eprintf("  transpose = ");

@@ -171,6 +171,11 @@ MOVEMENT 1
   stemswaplevel = 1 3/0 4/-1
   suspend_staves = 5
   systemgap = 64
+  systemsepangle = 20
+  systemseplength = 0
+  systemsepwidth = 2
+  systemsepposx = 0
+  systemsepposy = 0
   thinbracketlist = 3 4 5-9 10
   topmargin = 25
   transpose = -2 (quarter tones)

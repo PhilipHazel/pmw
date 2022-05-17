@@ -139,6 +139,11 @@ MOVEMENT 1
   stemswaplevel = 0
   suspend_staves = none
   systemgap = 44
+  systemsepangle = 20
+  systemseplength = 0
+  systemsepwidth = 2
+  systemsepposx = 0
+  systemsepposy = 0
   thinbracketlist = none
   topmargin = 10
   transpose = none

@@ -43,3 +43,56 @@ Unfinished
 (a'-\su\f'-); [reset] f-\sd\c=c=; f-c=c=; f-c=c= |
 f-\sd\c=c=; f-c=c=; f-c=c=;  [reset] (a'-\su\f'-); |
 [endstave]
+
+[newmovement]
+systemseparator 16
+
+[Staff 1] [treble 1] 
+abcd |
+[newline] abcd |
+[endstaff]
+
+[Staff 2] [treble 1] 
+abcd |
+[newline] abcd |
+[endstaff]
+
+[newmovement]
+[Staff 1] [treble 1] 
+abcd |
+[newline] abcd |
+[endstaff]
+
+[Staff 2] [treble 1] 
+abcd |
+[newline] abcd |
+[endstaff]
+
+[newmovement]
+systemseparator 20 3
+heading "" -20
+heading "Heading" 10
+
+[Staff 1] [treble 1] 
+abcd |
+[newline] abcd |
+[endstaff]
+
+[Staff 2] [treble 1] 
+abcd |
+[newline] abcd |
+[endstaff]
+
+[newmovement]
+systemseparator 16 2 40 -10 -8
+
+[Staff 1] [treble 1] 
+abcd |
+[endstaff]
+
+[Staff 2] [treble 1] 
+abcd |
+[endstaff]
+
+
+

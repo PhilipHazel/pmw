@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -2050,6 +2050,34 @@ while (isdigit(read_c))
 
 
 /*************************************************
+*              Systemseparator                   *
+*************************************************/
+
+static void
+systemseparator(void)
+{
+if (!read_expect_integer((int32_t *)(&(curmovt->systemseplength)), TRUE, FALSE)) 
+  return;
+
+read_nextsigc();
+if (!isdigit(read_c)) return;
+curmovt->systemsepwidth = read_fixed();
+
+for (int i = 0; i < 3; i++)
+  {
+  int32_t value; 
+  read_nextsigc();
+  if (!isdigit(read_c) && read_c != '+' && read_c != '-') return;
+  if (!read_expect_integer(&value, TRUE, TRUE)) return;
+  if (i == 0) curmovt->systemsepangle = value;
+  else if (i == 1) curmovt->systemsepposx = value;
+  else curmovt->systemsepposy = value;
+  } 
+}
+
+
+
+/*************************************************
 *                Textfont                        *
 *************************************************/
 
@@ -2365,6 +2393,7 @@ static dirstr headlist[] = {
   { "stretchrule",      warningint,     0, 0 },
   { "suspend",          movt_list,      oo(movtstr,suspend_staves), TRUE },
   { "systemgap",        movt_int,       oo(movtstr,systemgap), int_uf },
+  { "systemseparator",  systemseparator,0, 0 },
   { "textfont",         textfont,       -1, 0 },
   { "textsize",         textsizes,      0, 0 },
   { "textsizes",        textsizes,      0, 0 },

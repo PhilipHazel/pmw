@@ -637,6 +637,11 @@ movtstr default_movtstr = {
   { 0, 0, 0, 0, 0, 0, 2000, 4000 },  /* stemadjusts */
 
   44000,              /* systemgap */
+  20000,              /* systemsepangle */ 
+  0,                  /* systemseplength */ 
+  2000,               /* systemsepwidth */
+  0,                  /* systemsepposx */  
+  0,                  /* systemsepposy */  
   time_default,       /* time default = 1*4/4 */
   time_default,       /* time_unscaled */
   10000,              /* topmargin */

@@ -857,6 +857,11 @@ typedef struct movtstr {
    int32_t      stave_spacing[MAX_STAVE+1];
    int32_t      stemadjusts[NOTETYPE_COUNT];
   uint32_t      systemgap;
+   int32_t      systemsepangle;
+  uint32_t      systemseplength;
+  uint32_t      systemsepwidth;
+   int32_t      systemsepposx;     
+   int32_t      systemsepposy;     
   uint32_t      time;
   uint32_t      time_unscaled;
   uint32_t      topmargin;

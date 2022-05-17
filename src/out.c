@@ -2114,12 +2114,12 @@ TRACE("out_heading() end\n");
 /* Called from out_page() below. The system to be output is set in
 out_sysblock.
 
-Arguments:   none
+Argument:    TRUE for the first system of a movement
 Returns:     nothing
 */
 
 static void
-out_system(void)
+out_system(BOOL firstsystem)
 {
 int lastystave;
 int zerocopycount = 0;
@@ -2418,6 +2418,23 @@ if (out_sysblock->systemdepth > 0)
 
   (void)dojoinsign(curmovt->bracelist, depthvector, bracketed, join_brace, 0,
     bar);
+    
+  /* Deal with system separators; note that ps_line() has its y origin at 
+  out_ystave. */
+  
+  if (!firstsystem && curmovt->systemseplength != 0)
+    {
+    double rangle = ((double)curmovt->systemsepangle)*atan(1.0)/45000.0;
+    int32_t x0 = out_joinxposition + curmovt->systemsepposx;
+    int32_t y0 = 28000 + curmovt->systemsepposy;
+    int32_t dx = (int32_t)(((double)curmovt->systemseplength) * cos(rangle));
+    int32_t dy = (int32_t)(((double)curmovt->systemseplength) * sin(rangle));
+    
+    out_ystave = out_yposition;   /* Top stave */
+    ps_line(x0, y0, x0 + dx, y0 + dy, curmovt->systemsepwidth, 0);
+    y0 -= 2* curmovt->systemsepwidth;
+    ps_line(x0, y0, x0 + dx, y0 + dy, curmovt->systemsepwidth, 0);
+    } 
   }
 
 /* Now go through the bars, outputting all the staves for each in turn. */
@@ -2536,6 +2553,7 @@ Return:     nothing
 void
 out_page(void)
 {
+BOOL firstsystem = TRUE;
 BOOL lastwasheading = FALSE;
 int32_t topspace = curpage->topspace;
 
@@ -2591,7 +2609,7 @@ for (out_sysblock = curpage->sysblocks;
       topspace = 0;
       }
     out_heading((headblock *)out_sysblock);
-    lastwasheading = TRUE;
+    lastwasheading = firstsystem = TRUE;
     }
 
   /* Deal with a system */
@@ -2606,7 +2624,8 @@ for (out_sysblock = curpage->sysblocks;
     if (out_yposition + out_sysblock->systemdepth + 32000 > out_bbox[1])
       out_bbox[1] = out_yposition + out_sysblock->systemdepth + 32000;
 
-    out_system();
+    out_system(firstsystem);
+    firstsystem = FALSE; 
 
     if (out_sysblock->xjustify - 10000 < out_bbox[0])
       out_bbox[0] = out_sysblock->xjustify - 10000;
