@@ -1571,18 +1571,44 @@ Returns:     nothing
 void
 out_writerepeat(int32_t x, int type, int32_t magn)
 {
-int *xx = repspacing + type + curmovt->repeatstyle * 3;
+int style = curmovt->repeatstyle;
+int *xx = repspacing + type + style * 3;
 
 if (xx[0] >= 0)
   ps_barline(x + (xx[0]*magn)/10, out_ystave, out_ybarend, bar_thick, magn);
 
 if (xx[1] >= 0)
   ps_barline(x + (xx[1]*magn)/10, out_ystave, out_ybarend,
-    (curmovt->repeatstyle == 2)? bar_dotted : bar_single, magn);
+    (style == 2)? bar_dotted : bar_single, magn);
 
-out_ascstring((curmovt->repeatstyle != 3)? US"xI" : US"IxxyyyyyyI", font_mf,
-  10*out_stavemagn,
+out_ascstring((style != 3)? US"xI" : US"IxxyyyyyyI", font_mf, 10*out_stavemagn,
   x + (xx[2]*magn)/10 + (65*(magn - out_stavemagn))/100, out_ystave);
+
+/* Output "wings" if requested, positioned at the thick line, if any, else at 
+the thin line if any, else at the dots. */
+
+if (MFLAG(mf_repeatwings))
+  {
+  int32_t dx = ((type == rep_left || type == rep_dleft)? 7 : -7) * magn;
+  int32_t dy = 4*magn; 
+  int32_t thick = magn/2; 
+ 
+  if (xx[0] >= 0) x += ((xx[0]+10)*magn)/10;
+    else if (xx[1] >= 0) x += (xx[1]*magn)/10;
+    else x += (xx[2]*magn)/10;
+ 
+  if (curstave == out_topstave)
+    {
+    int32_t y = 16*magn; 
+    ps_line(x, y, x + dx, y + dy, thick, 0);
+    }
+
+  if (curstave == out_botstave)
+    {
+    int32_t y = 0;
+    ps_line(x, y, x + dx, y - dy, thick, 0);
+    }
+  }
 }
 
 
@@ -2173,7 +2199,7 @@ for (curstave = 1; curstave <= out_laststave; curstave++)
 
     if (sname->text != NULL)
       {
-      BOOL vertical = (sname->flags & snf_vertical) != 0; 
+      BOOL vertical = (sname->flags & snf_vertical) != 0;
       int32_t adjustx = sname->adjustx;
       int32_t adjusty = -8 * curmovt->stavesizes[curstave] - sname->adjusty;
       fontinststr *fdata = &((curmovt->fontsizes->fontsize_text)[sname->size]);
@@ -2212,7 +2238,7 @@ for (curstave = 1; curstave <= out_laststave; curstave++)
           out_ystave + adjusty, 0);
         }
 
-      /* Output horizontal lines, adjusting the vertical position according to 
+      /* Output horizontal lines, adjusting the vertical position according to
       the number of lines; the line depth is equal to the font size. */
 
       else
@@ -2418,10 +2444,10 @@ if (out_sysblock->systemdepth > 0)
 
   (void)dojoinsign(curmovt->bracelist, depthvector, bracketed, join_brace, 0,
     bar);
-    
-  /* Deal with system separators; note that ps_line() has its y origin at 
+
+  /* Deal with system separators; note that ps_line() has its y origin at
   out_ystave. */
-  
+
   if (!firstsystem && curmovt->systemseplength != 0)
     {
     double rangle = ((double)curmovt->systemsepangle)*atan(1.0)/45000.0;
@@ -2429,12 +2455,12 @@ if (out_sysblock->systemdepth > 0)
     int32_t y0 = 28000 + curmovt->systemsepposy;
     int32_t dx = (int32_t)(((double)curmovt->systemseplength) * cos(rangle));
     int32_t dy = (int32_t)(((double)curmovt->systemseplength) * sin(rangle));
-    
+
     out_ystave = out_yposition;   /* Top stave */
     ps_line(x0, y0, x0 + dx, y0 + dy, curmovt->systemsepwidth, 0);
     y0 -= 2* curmovt->systemsepwidth;
     ps_line(x0, y0, x0 + dx, y0 + dy, curmovt->systemsepwidth, 0);
-    } 
+    }
   }
 
 /* Now go through the bars, outputting all the staves for each in turn. */
@@ -2625,7 +2651,7 @@ for (out_sysblock = curpage->sysblocks;
       out_bbox[1] = out_yposition + out_sysblock->systemdepth + 32000;
 
     out_system(firstsystem);
-    firstsystem = FALSE; 
+    firstsystem = FALSE;
 
     if (out_sysblock->xjustify - 10000 < out_bbox[0])
       out_bbox[0] = out_sysblock->xjustify - 10000;

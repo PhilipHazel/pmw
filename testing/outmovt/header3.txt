@@ -62,7 +62,7 @@ MOVEMENT 1
   endlinetieadjust = -1.1
   endlinetiestyle = 1
   extenderlevel = 0
-  flags = 0x00e2f2e7
+  flags = 0x01c5d2e7
   fontsizes
     barnumber 10
     cue 7.5

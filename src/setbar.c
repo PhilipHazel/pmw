@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: November 2021 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -75,6 +75,7 @@ int
 out_setbar(int zerocopycount)
 {
 uint64_t notsuspend = out_sysblock->notsuspend;
+uint64_t livestaves = 0;
 barposstr *bp = curmovt->posvector + curbarnumber;
 contstr *top_bar_cont = NULL;
 contstr *wk_cont_save = wk_cont;
@@ -103,7 +104,26 @@ for (int i = 0; i < ACCENT_COUNT; i++) out_accentmove[i] = &no_accent_move;
 /* Deal with the data on each stave. Do the printing from bottom to top so that
 each stave's stuff gets printed before the bar line gets drawn into it from
 above - otherwise the wiping stuff for beams may obliterate parts of the bar
-lines. */
+lines. First create a bit map of those staves that are selected, not suspended,
+and are not an empty stave 0, and at the same time note which are the top and 
+bottom staves (needed for outputting repeat wings). */
+
+out_botstave = out_topstave = -1;
+for (curstave = out_laststave; curstave >= 0; curstave--)
+  {
+  if (mac_notbit(notsuspend, curstave)) continue;
+  if (curstave == 0)
+    {  
+    stavestr *ss = curmovt->stavetable[curstave];
+    bstr *p = (bstr *)(ss->barindex[curbarnumber]);
+    if (p->next->type == b_barline) continue;
+    }
+  if (out_botstave < 0) out_botstave = curstave; 
+  mac_setbit(livestaves, curstave);
+  out_topstave = curstave; 
+  }
+
+/* Now process the selected staves */
 
 for (curstave = out_laststave; curstave >= 0; curstave--)
   {
@@ -121,8 +141,7 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
   /* Skip if stave is suspended or empty stave zero, but check for another
   stave 0 if this is stave 0 or stave 1. */
 
-  if (mac_notbit(notsuspend, curstave) ||
-       (curstave == 0 && p->next->type == b_barline))
+  if (mac_notbit(livestaves, curstave))
     {
     if (curstave <= 1) checkzerocopy(zerocopycount);
     continue;
@@ -606,7 +625,7 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
       (barlinetype == barline_ending ||
         (finalbar && !MFLAG(mf_unfinished)))? bar_thick :
       (barlinestyle == 1 || barlinestyle == 3)? bar_dotted : bar_single;
-
+      
     /* If the bar finished with a right-hand repeat mark, in certain cases we
     can omit overprinting with a normal bar line. */
 

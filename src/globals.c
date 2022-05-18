@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -191,6 +191,7 @@ int32_t      out_barlinex;
 int32_t      out_barx;
 int32_t      out_bbox[4];
 BOOL         out_beaming;
+int32_t      out_botstave;
 int32_t      out_dashgaplength;
 int32_t      out_dashlength;
 int32_t      out_downgap;
@@ -246,6 +247,7 @@ b_textstr  **out_textqueue = NULL;
 size_t       out_textqueue_ptr = 0;
 size_t       out_textqueue_size = 0;
 int          out_timecount;
+int32_t      out_topstave;
 b_tremolostr *out_tremolo;
 BOOL         out_tremupflag;
 int32_t      out_tremx;

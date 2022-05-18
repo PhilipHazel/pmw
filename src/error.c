@@ -269,7 +269,8 @@ aborts the run after outputting additional information. */
 { ec_minor,   "unexpected end of slur or line - ignored" },
 { ec_minor,   "MIDI pitch %d is outside supported range 0-127 in "
               "bar %s stave %d" },
-{ ec_failed,  "note pitch is not within supported range" }               
+{ ec_failed,  "note pitch is not within supported range" },
+{ ec_major,   "invalid repeat style (must be 0-%d or 10-%d)" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

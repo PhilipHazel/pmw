@@ -1994,9 +1994,10 @@ adjusting the positions and shapes of slurs, and for introducing gaps (&R;
 .index "first time bar"
 Conventional musical repeat marks are encoded using the input strings &`(:`&
 and &`:)`& which may occur in the middle of a bar as well as at the start or
-end. When there is a first time and a second time ending, the directives
-&%[1st]%& and &%[2nd]%& are used to indicate it, with the directive &%[all]%&
-marking the bar where all the endings are complete.
+end. A number of different mark styles are available (&R;
+&<<SUBSECTrepeatstyle>>&). When there is a first time and a second time ending,
+the directives &%[1st]%& and &%[2nd]%& are used to indicate it, with the
+directive &%[all]%& marking the bar where all the endings are complete.
 .code
 b-f'-e'-; d'_c'- | [1st] g-d'-d'- g. :) |
 [2nd] c'=b=c'-a- b. | [all] (: d'-c'-b- a_g- |
@@ -7477,7 +7478,7 @@ the string.
 .index "repeat marks"
 This directive specifies how repeat marks appear. The default is the
 conventional combination of two dots with a thin and a thick vertical line.
-This directive must be followed by one of the following numbers:
+In its basic form directive must be followed by one of the following numbers:
 
 .itable none 0 0 2  12 left  200 left
 .row &`0`&    "normal style"
@@ -7498,6 +7499,18 @@ have just two thick lines between the dots, and this is what style 4 gives.
 
 .music "music37" 32 0,-16 centre
 
+.index "repeat marks" "with wings"
+When outputting single parts it is common to see repeat marks with small 
+`wings' above them, to make them more prominent. You can request these by 
+adding 10 to the argument of &%repeatstyle%&. Thus, a value of 10 generates 
+repeats like this:
+
+.music "music67" 32 0,-16
+
+You can use conditional pre-processing directives (&R;
+&<<SUBSECTconditional>>&) to arrange for wings to appear only parts, and not on
+a score. If there is more than one stave in a system, `wings' are added to the
+top and bottom staves only.
 
 
 .subsection "Righttoleft" SUBSECTrighttoleft

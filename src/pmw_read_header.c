@@ -562,7 +562,7 @@ curmovt->baroffset -= 1;
 *               Barlinespace                     *
 *************************************************/
 
-/* We have to set the default here in case the directive uses + or - to adjust 
+/* We have to set the default here in case the directive uses + or - to adjust
 the value. Note that this code is replicated in paginate.c. */
 
 static void
@@ -573,15 +573,15 @@ if (read_c == '*')
   curmovt->barlinespace = FIXED_UNSET;
   read_nextsigc();
   }
-else 
+else
   {
   if (curmovt->barlinespace == FIXED_UNSET)
     {
     curmovt->barlinespace = (curmovt->note_spacing)[minim]/2 - 5000;
     if (curmovt->barlinespace < 3000) curmovt->barlinespace = 3000;
-    }    
+    }
   movt_int();
-  } 
+  }
 }
 
 
@@ -1737,6 +1737,31 @@ set_fonttype(offsetof(movtstr, fonttype_rehearse));
 
 
 /*************************************************
+*               Repeatstyle                      *
+*************************************************/
+
+/* Repeat styles run from 0 to MAX_REPEATSTYLE, but can have 10 added to
+request "wings". This causes the mf_repeatwings flag to be set. */
+
+static void
+repeatstyle(void)
+{
+int32_t x;
+if (read_expect_integer(&x, FALSE, FALSE))
+  {
+  if (x >= 10)
+    {
+    x -= 10; 
+    curmovt->flags |= mf_repeatwings;
+    }  
+  if (x <= MAX_REPEATSTYLE) curmovt->repeatstyle = x;
+    else error(ERR174, MAX_REPEATSTYLE, MAX_REPEATSTYLE + 10);
+  }
+}
+
+
+
+/*************************************************
 *               Selectstaves                     *
 *************************************************/
 
@@ -2056,7 +2081,7 @@ while (isdigit(read_c))
 static void
 systemseparator(void)
 {
-if (!read_expect_integer((int32_t *)(&(curmovt->systemseplength)), TRUE, FALSE)) 
+if (!read_expect_integer((int32_t *)(&(curmovt->systemseplength)), TRUE, FALSE))
   return;
 
 read_nextsigc();
@@ -2065,14 +2090,14 @@ curmovt->systemsepwidth = read_fixed();
 
 for (int i = 0; i < 3; i++)
   {
-  int32_t value; 
+  int32_t value;
   read_nextsigc();
   if (!isdigit(read_c) && read_c != '+' && read_c != '-') return;
   if (!read_expect_integer(&value, TRUE, TRUE)) return;
   if (i == 0) curmovt->systemsepangle = value;
   else if (i == 1) curmovt->systemsepposx = value;
   else curmovt->systemsepposy = value;
-  } 
+  }
 }
 
 
@@ -2367,7 +2392,7 @@ static dirstr headlist[] = {
   { "printtime",        printtime,      0, 0 },
   { "rehearsalmarks",   rehearsalmarks, 0, 0 },
   { "repeatbarfont",    movt_font,      oo(movtstr,fonttype_repeatbar), oo(fontsizestr, fontsize_repno) },
-  { "repeatstyle",      movt_int8,      oo(movtstr,repeatstyle), 4 },
+  { "repeatstyle",      repeatstyle,    0, 0 },
   { "righttoleft",      glob_bool,      glob_righttoleft, TRUE },
   { "selectstaff",      selectstaves,   oo(movtstr,select_staves), TRUE },
   { "selectstave",      selectstaves,   oo(movtstr,select_staves), TRUE },

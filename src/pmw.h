@@ -68,6 +68,7 @@
 #define MAX_MACRODEFAULT             256  /* Max length of macro default argument */
 #define MAX_MACRODEPTH                10  /* Depth of macro expansion nesting */
 #define MAX_POSTABLESIZE             400  /* Max number of entries */
+#define MAX_REPEATSTYLE                4  /* Max repeat style */
 #define MAX_STAVE                     63  /* Highest stave number */
 #define MAX_UNICODE          0x0010ffffu  /* Largest Unicode code point */
 #define MAX_UTRANSLATE              1000  /* Max Unicode translations for a font */
@@ -367,7 +368,7 @@ enum error_number {
   ERR140,ERR141,ERR142,ERR143,ERR144,ERR145,ERR146,ERR147,ERR148,ERR149,
   ERR150,ERR151,ERR152,ERR153,ERR154,ERR155,ERR156,ERR157,ERR158,ERR159,
   ERR160,ERR161,ERR162,ERR163,ERR164,ERR165,ERR166,ERR167,ERR168,ERR169,
-  ERR170,ERR171,ERR172,ERR173
+  ERR170,ERR171,ERR172,ERR173,ERR174
 };
 
 /* Types of input file */
@@ -762,18 +763,19 @@ enum {
 #define mf_newpage           0x00000400u
 #define mf_nopageheading     0x00000800u
 #define mf_rehearsallsleft   0x00001000u
-#define mf_showtime          0x00002000u
-#define mf_showtimebase      0x00004000u
-#define mf_spreadunderlay    0x00008000u
-#define mf_startjoin         0x00010000u
-#define mf_startnotime       0x00020000u
-#define mf_thisline          0x00040000u
-#define mf_thispage          0x00080000u
-#define mf_tiesoverwarnings  0x00100000u
-#define mf_timewarn          0x00200000u
-#define mf_underlayextenders 0x00400000u
-#define mf_unfinished        0x00800000u
-#define mf_uselastfooting    0x01000000u
+#define mf_repeatwings       0x00002000u
+#define mf_showtime          0x00004000u
+#define mf_showtimebase      0x00008000u
+#define mf_spreadunderlay    0x00010000u
+#define mf_startjoin         0x00020000u
+#define mf_startnotime       0x00040000u
+#define mf_thisline          0x00080000u
+#define mf_thispage          0x00100000u
+#define mf_tiesoverwarnings  0x00200000u
+#define mf_timewarn          0x00400000u
+#define mf_underlayextenders 0x00800000u
+#define mf_unfinished        0x01000000u
+#define mf_uselastfooting    0x02000000u
 
 /* These flags are set at the start of the first movement. */
 

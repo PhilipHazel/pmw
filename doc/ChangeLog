@@ -45,6 +45,8 @@ supported range. Hard error if not.
 
 14. Added the SystemSeparator directive to support system separators.
 
+15. Extended RepeatStyle to allow for "wings".
+
 
 Version 5.02 30-January-2022
 ----------------------------

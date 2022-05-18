@@ -95,4 +95,91 @@ abcd |
 [endstaff]
 
 
+@ Repeat wings tests
+
+[newmovement]
+repeatstyle 10
+
+[stave 1 treble 1]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+[newmovement]
+stavesizes 1/0.8
+
+[stave 1 treble 1]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+
+[newmovement]
+stavesizes 1/1
+repeatstyle 11
+
+[stave 1 treble 1]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+
+[newmovement]
+repeatstyle 12
+
+[stave 1 treble 1]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+
+[newmovement]
+repeatstyle 13
+
+[stave 1 treble 1]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+
+[newmovement]
+repeatstyle 14
+
+[stave 1 treble 1]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+
+[newmovement]
+repeatstyle 10
+
+[stave 1 treble 1]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+[stave 2 bass 0]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+
+[newmovement]
+selectstaves 1
+
+[stave 1 treble 1]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+[stave 2 bass 0]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+
+[newmovement]
+selectstaves 2
+
+[stave 1 treble 1]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+[stave 2 bass 0]
+(: G+ :) | (: G+ :) |
+[endstave]
+
+
+
 

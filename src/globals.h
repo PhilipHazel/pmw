@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2022 */
 
 
 /*************************************************
@@ -238,6 +238,7 @@ extern int32_t      out_barlinex;
 extern int32_t      out_barx;
 extern int32_t      out_bbox[];
 extern BOOL         out_beaming;
+extern int32_t      out_botstave;
 extern int32_t      out_downgap;
 extern int32_t      out_dashgaplength;
 extern int32_t      out_dashlength;
@@ -293,6 +294,7 @@ extern b_textstr  **out_textqueue;
 extern size_t       out_textqueue_ptr;
 extern size_t       out_textqueue_size;
 extern int          out_timecount;
+extern int32_t      out_topstave;
 extern b_tremolostr *out_tremolo;
 extern BOOL         out_tremupflag;
 extern int32_t      out_tremx;
