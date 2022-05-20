@@ -160,13 +160,15 @@ identifying strings, and that ps_IdStrings is of the right size too. If
 MaxFontSizes is changed, the initializing table init_fontsizes must be made to
 be the correct size. */
 
-#define MaxFontSizes   20   /* for different text sizes */
-#define MaxExtraFont   12   /* for different faces */
+#define MaxExtraFont   12   /* user-settable typefaces */
+#define UserFontSizes  20   /* user-settable text sizes for /s */
+#define FixedFontSizes 10   /* non-settable text sizes for /S */
+#define AllFontSizes   (UserFontSizes+FixedFontSizes)
 
 /* Offsets for special text font sizes and matrices, which follow in the same
-vector as text sizes specified by the user. */
+vector as text sizes specified by the user and the fixed sizes. */
 
-#define ff_offset_ts     (MaxFontSizes)
+#define ff_offset_ts     (AllFontSizes)
 #define ff_offset_ulay   (ff_offset_ts+1)
 #define ff_offset_olay   (ff_offset_ulay+1)
 #define ff_offset_fbass  (ff_offset_olay+1)

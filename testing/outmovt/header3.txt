@@ -102,6 +102,16 @@ MOVEMENT 1
     text 18 10
     text 19 10
     text 20 10
+    text 21 12
+    text 22 11
+    text 23 10
+    text 24 9
+    text 25 8
+    text 26 2.5
+    text 27 10
+    text 28 10
+    text 29 10
+    text 30 10
   fonttype_barnumber = italic
   fonttype_longrest = bold italic
   fonttype_rehearse = extra 3
@@ -155,8 +165,8 @@ MOVEMENT 1
   pagefooting = 8 "" | "" | "\rm\\pe\" 8
   pageheading = 10 "" | "\rm\\p\" 10
   printkey = E$ treble "\mf\key special" ""
-  printtime = 3 * C "\bf\three"/s21 "\bf\*cee"/s21
-  printtime = 1 * 4/4 "\bf\four"/s21 "\it\four"/s2
+  printtime = 3 * C "\bf\three"/s31 "\bf\*cee"/s31
+  printtime = 1 * 4/4 "\bf\four"/s31 "\it\four"/s2
   rehearsalstyle = ringed
   repeatstyle = 3
   smallcapsize = 0.75

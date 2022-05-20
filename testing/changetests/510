@@ -181,5 +181,18 @@ selectstaves 2
 [endstave]
 
 
+[newmovement]
+nocheck
+justify top left right
+printtime 4/4 "4"/S5 "4"/S5
+
+draw words
+  0 -10 moveto "Small"/S5 show
+enddraw   
+
+[stave 1 "Name"/S5 treble 1]
+"a " "a "/F/S1 "a "/F/S2 "a "/F/S3 "a "/F/S4 "a "/F/S5 "a "/F/S6 "a "/F/S7
+R! | [slur/a] gg [slurgap/"xx"/S5] gg [draw words] |
+[endstaff]
 
 

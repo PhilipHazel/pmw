@@ -47,6 +47,9 @@ supported range. Hard error if not.
 
 15. Extended RepeatStyle to allow for "wings".
 
+16. Implemented 10 additional text sizes that cannot be changed, but can be 
+accessed by /S instead of /s. This is for the benefit of "standard" macros.
+
 
 Version 5.02 30-January-2022
 ----------------------------

@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last updated: April 2022 */
+/* This file last updated: May 2022 */
 
 /* This module contains functions used while creating and processing a chain of
 XML items. */
@@ -603,9 +603,9 @@ int n;
 for (n = 0; n < xml_fontsize_next; n++)
   if (xml_fontsizes[n] == fsize) return n;
 
-if (n >= MaxFontSizes)
+if (n >= UserFontSizes)
   {
-  error(ERR63, MaxFontSizes);
+  error(ERR63, UserFontSizes);
   return 0;
   }
 

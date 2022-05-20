@@ -645,7 +645,7 @@ for (i = 0; i < movement_count; i++)
     debug_fontsize("ulay", &(f->fontsize_text[ff_offset_ulay]));
     debug_fontsize("vertacc", &(f->fontsize_vertacc));
 
-    for (j = 0; j < MaxFontSizes; j++)
+    for (j = 0; j < AllFontSizes; j++)
       {
       char buffer[24];
       (void)sprintf(buffer, "text %d", j+1);

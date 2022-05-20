@@ -245,7 +245,8 @@ static fontsizestr init_fontsizes = {
   { NULL, 10000, 0 },    /* vertacc */
 
   /* It doesn't seem possible in ANSI C to parameterize this initialization
-  using MaxFontSizes, so we must keep this in step with its value. */
+  using UserFontSizes and FixedFontSizes, so we must keep this in step when 
+  either of those are changed. */
 
   { { NULL, 10000, 0 },  /* user font size 1 */
     { NULL, 10000, 0 },  /* user font size 2 */
@@ -267,6 +268,18 @@ static fontsizestr init_fontsizes = {
     { NULL, 10000, 0 },  /* user font size 18 */
     { NULL, 10000, 0 },  /* user font size 19 */
     { NULL, 10000, 0 },  /* user font size 20 */
+
+    { NULL, 12000, 0 },  /* fixed font size 1 */
+    { NULL, 11000, 0 },  /* fixed font size 2 */
+    { NULL, 10000, 0 },  /* fixed font size 3 */
+    { NULL, 9000, 0 },   /* fixed font size 4 */
+    { NULL, 8000, 0 },   /* fixed font size 5 */
+    { NULL, 2500, 0 },   /* fixed font size 6 */
+    { NULL, 10000, 0 },  /* fixed font size 7 */
+    { NULL, 10000, 0 },  /* fixed font size 8 */
+    { NULL, 10000, 0 },  /* fixed font size 9 */
+    { NULL, 10000, 0 },  /* fixed font size 10 */
+ 
     { NULL, 11800, 0 },  /* tsfont */
     { NULL, 10000, 0 },  /* ulay */
     { NULL, 10000, 0 },  /* olay */

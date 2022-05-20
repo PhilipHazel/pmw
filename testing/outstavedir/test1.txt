@@ -174,7 +174,7 @@ BAR 10 (10)
   bass
   barline type=0 style=3
 
-STAVE 2 "\rm\abc"/s24/"\rm\pqr"/s24 "\rm\xyz"/s24  draw 123 "\rm\XXX" x
+STAVE 2 "\rm\abc"/s34/"\rm\pqr"/s34 "\rm\xyz"/s34  draw 123 "\rm\XXX" x
 
 BAR 0 (1)
   treble

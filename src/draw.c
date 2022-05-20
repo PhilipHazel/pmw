@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 
@@ -384,9 +384,19 @@ while (read_c == '/')
     read_nextc();
     if (read_expect_integer(&size, FALSE, FALSE))
       {
-      if (--size < 0 || size >= MaxFontSizes)
-        { error(ERR75, MaxFontSizes); size = 0; }
+      if (--size < 0 || size >= UserFontSizes)
+        { error(ERR75, UserFontSizes); size = 0; }
       textptr->size = size;
+      }
+    break;
+
+    case 'S':
+    read_nextc();
+    if (read_expect_integer(&size, FALSE, FALSE))
+      {
+      if (--size < 0 || size >= FixedFontSizes)
+        { error(ERR75, FixedFontSizes); size = 0; }
+      textptr->size = UserFontSizes + size;
       }
     break;
 

@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last edited: April 2022 */
+/* This file last edited: User 2022 */
 
 /* Allocate storage and initialize global XML variables, apart from those that
 are tables of some kind. */
@@ -20,7 +20,7 @@ uint8_t          xml_couple_settings[64];
 int              xml_error_max              = 0;
 
 int32_t          xml_first_system_distance  = -1;
-int32_t          xml_fontsizes[MaxFontSizes];
+int32_t          xml_fontsizes[UserFontSizes];
 int              xml_fontsize_next          = 0;
 int32_t          xml_fontsize_word_default  = -1;
 

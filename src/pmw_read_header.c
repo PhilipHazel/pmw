@@ -1640,8 +1640,8 @@ p->cstring = (read_c == '"')? string_read(font_mf, TRUE) : empty_string;
 *                Printtime                       *
 *************************************************/
 
-/* Local subroutine to deal with one PMW string possibly followed by /s and a
-number.
+/* Local subroutine to deal with one PMW string possibly followed by /s or /S
+and a number.
 
 Arguments:
   s          pointer to where to put a pointer to the string
@@ -1664,7 +1664,14 @@ if (read_c == '/')
     {
     read_nextc();
     if (!read_expect_integer(&size, FALSE, FALSE)) return FALSE;
-    if ((size -= 1) >= MaxFontSizes) return error(ERR75, MaxFontSizes);
+    if ((size -= 1) >= UserFontSizes) return error(ERR75, UserFontSizes);
+    }
+  else if (read_c == 'S')
+    {
+    read_nextc();
+    if (!read_expect_integer(&size, FALSE, FALSE)) return FALSE;
+    if ((size -= 1) >= FixedFontSizes) return error(ERR75, FixedFontSizes);
+    size += UserFontSizes; 
     }
   else
     {
@@ -2166,13 +2173,13 @@ static void
 textsizes(void)
 {
 int i;
-for (i = 0; i < MaxFontSizes; i++)
+for (i = 0; i < UserFontSizes; i++)
   {
   set_fontsize(offsetof(fontsizestr, fontsize_text) + i*sizeof(fontinststr), TRUE);
   if (read_c == ',') read_nextc();
   }
 read_sigc();
-if (isdigit(read_c)) error_skip('\n', ERR63, MaxFontSizes);
+if (isdigit(read_c)) error_skip('\n', ERR63, UserFontSizes);
 }
 
 

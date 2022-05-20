@@ -1976,13 +1976,26 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
     else b->adjustx += read_movevalue();
     break;
 
+    case 'S':
+    read_nextc();
+    if (read_expect_integer(&b->size, FALSE, FALSE))
+      {
+      if (b->size == 0 || b->size - 1 >= FixedFontSizes)
+        {
+        error(ERR75, FixedFontSizes);
+        b->size = 0;
+        }
+      else b->size += UserFontSizes - 1;
+      }
+    break;
+
     case 's':
     read_nextc();
     if (read_expect_integer(&b->size, FALSE, FALSE))
       {
-      if (b->size == 0 || b->size - 1 >= MaxFontSizes)
+      if (b->size == 0 || b->size - 1 >= UserFontSizes)
         {
-        error(ERR75, MaxFontSizes);
+        error(ERR75, UserFontSizes);
         b->size = 0;
         }
       else b->size--;  /* Base 0 offset */
@@ -2095,7 +2108,7 @@ underlay/overlay. */
 
 more = read_basestring(s1, rehearse, NULL,
   "/a, /ao, /b, /bar, /box, /bu, /d, /e, /F, /fb, "
-  "/h, /l, /m, /ol, /r, /ring, /s, /u or /ul");
+  "/h, /l, /m, /ol, /r, /ring, /S, /s, /u or /ul");
 
 if (s1->string == NULL) return;    /* There's been an error */
 
@@ -2125,12 +2138,12 @@ else if ((s1->flags & text_fb) != 0)
   if (s1->size < 0) s1->size = srs.fbsize;
   }
 
-/* Currently, the size of rehearsal marks is fixed for a movement. */
+/* Currently, the size of individual rehearsal marks cannot be changed. */
 
 else if (rehearse)
   {
   default_font = curmovt->fonttype_rehearse;
-  if (s1->size >= 0) error(ERR11, "/s");
+  if (s1->size >= 0) error(ERR11, "/s or /S on a rehearsal mark");
   s1->size = 0;
   s1->flags |= curmovt->rehearsalstyle;
   }

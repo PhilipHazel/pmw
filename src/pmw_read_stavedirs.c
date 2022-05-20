@@ -155,9 +155,9 @@ switch(dir->arg1)
   case 3: p = &srs.olsize; break;
   }
 if (!read_expect_integer(&size, FALSE, FALSE)) return;
-if (size == 0 || --size >= MaxFontSizes)
+if (size == 0 || --size >= UserFontSizes)
   {
-  error(ERR75, MaxFontSizes);
+  error(ERR75, UserFontSizes);
   return;
   }
 *p = size;
@@ -240,10 +240,17 @@ while (read_c == '/')
 
   else switch(read_c)
     {
+    case 'S':
+    read_nextc();
+    if (!read_expect_integer(&size, FALSE, FALSE)) break;
+    if (--size < 0 || size >= FixedFontSizes) error(ERR75, FixedFontSizes);
+    p->size = size + UserFontSizes;
+    break;
+
     case 's':
     read_nextc();
     if (!read_expect_integer(&size, FALSE, FALSE)) break;
-    if (--size < 0 || size >= MaxFontSizes) error(ERR75, MaxFontSizes);
+    if (--size < 0 || size >= UserFontSizes) error(ERR75, UserFontSizes);
     p->size = size;
     break;
 
@@ -1661,12 +1668,23 @@ while (read_c == '/')
         p->textx -= read_movevalue();
         break;
 
+        case 'S':
+        read_nextc();
+        read_expect_integer(&x, FALSE, FALSE);
+        if (x == 0 || --x  >= FixedFontSizes)
+          {
+          error(ERR75, FixedFontSizes);
+          x = 0;
+          }
+        p->textsize = x + UserFontSizes;
+        break;
+
         case 's':
         read_nextc();
         read_expect_integer(&x, FALSE, FALSE);
-        if (x == 0 || --x  >= MaxFontSizes)
+        if (x == 0 || --x  >= UserFontSizes)
           {
-          error(ERR75, MaxFontSizes);
+          error(ERR75, UserFontSizes);
           x = 0;
           }
         p->textsize = x;

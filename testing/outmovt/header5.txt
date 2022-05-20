@@ -94,6 +94,16 @@ MOVEMENT 1
     text 18 10
     text 19 10
     text 20 10
+    text 21 12
+    text 22 11
+    text 23 10
+    text 24 9
+    text 25 8
+    text 26 2.5
+    text 27 10
+    text 28 10
+    text 29 10
+    text 30 10
   fonttype_barnumber = roman
   fonttype_longrest = bold
   fonttype_rehearse = roman
