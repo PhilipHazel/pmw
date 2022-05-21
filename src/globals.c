@@ -324,6 +324,7 @@ sreadstr     srs;
 stavestr    *st = NULL;
 int          stave_use_draw = 0;
 BOOL         stave_use_widechars = TRUE;
+uschar      *stdmacs_dir = US STDMACS;
 
 contstr     *wk_cont;
 

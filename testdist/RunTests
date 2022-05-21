@@ -21,7 +21,7 @@ echo "*** Running distributed tests ***"
 for x in infiles/* ; do
   file=`basename $x`
   $valgrind $vopt ../src/pmw -norc -testing -F ../fontmetrics -H ../PSheader \
-    -MF ../psfonts -o test.ps infiles/$file
+    -MF ../psfonts -SM ../macros -o test.ps infiles/$file
 
   diff -u outfiles/$file.ps test.ps >test.diff
   if [ $? != 0 ] ; then
@@ -32,6 +32,9 @@ for x in infiles/* ; do
     echo $file test succeeded
   fi
 done
+
+# If all is well and we are in a development environment where the wider set of 
+# tests is available, run them too.
 
 if [ $rc = 0 ]; then
   /bin/rm -f test.*

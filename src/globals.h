@@ -370,6 +370,7 @@ extern sreadstr     srs;
 extern stavestr    *st;
 extern int          stave_use_draw;
 extern BOOL         stave_use_widechars;
+extern uschar      *stdmacs_dir;
 
 extern contstr     *wk_cont;
 

@@ -601,6 +601,7 @@ if (read_stringbuffer == NULL)
 /*************************************************
 *            Relativize a file name              *
 *************************************************/
+
 /* If the name does not start with '/' and main_filename is not NULL (which
 indicates stdin), we make the name relative to the current input file name. */
 
@@ -1911,6 +1912,11 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
       {
       b->flags &= ~(text_ul | text_above | text_middle | text_atulevel);
       b->flags |= text_fb;
+      if (main_readbuffer[read_i] == 'u')
+        {
+        b->flags |= text_atulevel;
+        read_i++;
+        }     
       }
     else error(ERR8, "/fb");
     read_nextc();
@@ -2029,7 +2035,7 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
 
     default:
     error_skip(ERR8, ('/'<<8) | ' ', "/a, /ao, /b, /bar, /box, /bu, /d, /e, "
-      "/F, /fb, /h, /l, /m, /ol, /r, /ring, /s, /u or /ul");
+      "/F, /fb, /h, /l, /m, /ol, /r, /ring, /S, /s, /u or /ul");
     break;
     }
   }
@@ -2170,7 +2176,7 @@ if (more)
   uint32_t *s2a, *s2b;
 
   s2 = &bss[1];
-  more = read_basestring(s2, FALSE, "dsu", "/d, /s, or /u");
+  more = read_basestring(s2, FALSE, "dSsu", "/d, /S, /s, or /u");
   if (s2->string == NULL) return;             /* There's been an error */
   if (s2->size < 0) s2->size = s1->size;      /* Default to main string size */
   s2->string = set_default_font(s2->string, default_font, NULL);
@@ -2194,7 +2200,7 @@ if (more)
   if (more)
     {
     s3 = &bss[2];
-    more = read_basestring(s3, FALSE, "s", "/s");
+    more = read_basestring(s3, FALSE, "Ss", "/s or /S");
     if (s3->string == NULL) return;          /* There's been an error */
     if (s3->size < 0) s3->size = s1->size;   /* Default to main string size */
     if (more)

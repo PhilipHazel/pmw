@@ -1675,7 +1675,7 @@ if (read_c == '/')
     }
   else
     {
-    error(ERR8, "/s");
+    error(ERR8, "/s or /S");
     return FALSE;
     }
   *sizeptr = size;

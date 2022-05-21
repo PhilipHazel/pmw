@@ -69,6 +69,7 @@ install:        build
 		$(INSTALL_DATA) PSheader $(DATADIR)
 		$(INSTALL_DATA) MIDIvoices $(DATADIR)
 		$(INSTALL_DATA) MIDIperc $(DATADIR)
+		$(INSTALL_DATA) StdMacs $(DATADIR)
 		$(INSTALL_DATA) psfonts/PMW-Music.pfa $(DATADIR)/psfonts
 		$(INSTALL_DATA) psfonts/PMW-Alpha $(DATADIR)/psfonts
 		$(INSTALL_DATA) fontmetrics/* $(DATADIR)/fontmetrics

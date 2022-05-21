@@ -23,12 +23,12 @@ undef @skipdirs;
 if (system("$pmw -C b2pf >/dev/null") == 0)
   {
   push @skipdirs, "B2PF";
-  } 
+  }
 
 if (system("$pmw -C musicxml >/dev/null") == 0)
   {
   push @skipdirs, "xml";
-  } 
+  }
 
 $force_update = 0;
 $force_quit = 0;
@@ -41,25 +41,25 @@ while (defined $ARGV[0])
   if ($ARGV[0] eq "valgrind")
     {
     $valgrind = "valgrind -q";
-    shift @ARGV;  
-    } 
+    shift @ARGV;
+    }
   elsif ($ARGV[0] eq "autoquit")
     {
     $force_quit = 1;
-    $less = "cat"; 
+    $less = "cat";
     shift;
     }
   elsif ($ARGV[0] =~ /^nob2pf$/i)
     {
     push @skipdirs, "B2PF";
-    shift;  
-    }     
-  else 
+    shift;
+    }
+  else
     {
     last;
-    } 
-  }           
-  
+    }
+  }
+
 # Choose which directories' tests to run. Arguments can select a specific
 # directory and test(s). Otherwise, look for directories whose names match a
 # pattern.
@@ -74,42 +74,42 @@ if (defined $ARGV[0])
     if ($d =~ /$ARGV[0]/ && $d =~ /^(.*)tests$/)
       {
       push @dirs, ($d, "out$1");
-      last;   
-      }     
-    }   
-     
+      last;
+      }
+    }
+
   die "Unknown test directory selector \"$ARGV[0]\"\n" if scalar @dirs <= 0;
-  
+
   if (defined $ARGV[1])
     {
     $starttest = $endtest = $ARGV[1];
     $endtest = $ARGV[2] if defined $ARGV[2];
-    $endtest = undef if $endtest eq "+"; 
-    }   
+    $endtest = undef if $endtest eq "+";
+    }
   }
-  
-# Scan for directories whose names end in "tests".  
-  
+
+# Scan for directories whose names end in "tests".
+
 else
   {
-  undef @dlist; 
+  undef @dlist;
   opendir DIR, ".";
   while ($d = readdir(DIR)) { push @dlist, $d; }
-  closedir DIR;   
+  closedir DIR;
   @dlist = sort(@dlist);
   while ($d = shift(@dlist))
     {
-    $OK = 1;  
+    $OK = 1;
     foreach $sk (@skipdirs)
       {
       if ($d =~ /^$sk/) { $OK = 0; last; }
-      }  
-    push @dirs, ($d, "out$1") if ($OK && $d =~ /^(.*)tests$/); 
+      }
+    push @dirs, ($d, "out$1") if ($OK && $d =~ /^(.*)tests$/);
     }
-  } 
+  }
 
-# Do the business 
-  
+# Do the business
+
 while (scalar @dirs > 0)
   {
   my($tests) = shift @dirs;
@@ -125,60 +125,61 @@ while (scalar @dirs > 0)
     {
     my($copy) = 0;
     my($file) = shift @files;
-    my($options) = ""; 
-    my($testOK) = 1; 
+    my($options) = "";
+    my($testOK) = 1;
 
     # Skip . and .. and also skip any file ending in .opt because that
     # contains options for any given test, and any that end in .inc because
-    # they are included files. 
-      
+    # they are included files.
+
     next if $file =~ /^\.\.?$|\.opt$|\.inc$/;
-    
+
     next if !$started && defined $starttest && $file !~ /^\Q$starttest\E/;
-    $started = 1; 
-    
+    $started = 1;
+
     $options = `cat $tests/$file.opt` if -e "$tests/$file.opt";
-    chomp $options; 
-    
+    chomp $options;
+
     unlink "test.ps";
-    unlink "test.txt"; 
+    unlink "test.txt";
     unlink "test.mid";
     my ($rc) = system("$valgrind $pmw -norc -testing $options -o test.ps $tests/$file" .
                       " -F  ../fontmetrics:../fontextra" .
-                      " -H  ../PSheader" .  
+                      " -H  ../PSheader" .
                       " -MF ../psfonts" .
                       " -MP ../MIDIperc" .
-                      " -MV ../MIDIvoices" .  
+                      " -MV ../MIDIvoices" .
+                      " -SM ../macros" .
                       " 2> test.txt");
-                      
+
     # Compare stderr output
-      
+
     if (! -z "test.txt")
       {
       if (! -e "$outs/$file.txt")
         {
         printf("There is text output, but $outs/$file.txt does not exist.\n");
-        system("$less test.txt"); 
+        system("$less test.txt");
         exit 1;
-        }    
+        }
 
       $rc = system("$cf $outs/$file.txt test.txt >test.cf");
-      
+
       if ($rc != 0)
         {
         # printf("text cf RC=$rc\n");
         system("$less test.cf");
-    
+
         $testOK = 0;
         for (;;)
           {
           print "Continue, Update & retry, Quit? [Q] ";
-          
+
           if ($force_quit)
             {
             $_ = 'q';
             print "... quit forced\n";
-            }    
+            }
           elsif ($force_update)
             {
             $_ = "u";
@@ -190,45 +191,45 @@ while (scalar @dirs > 0)
             $_ = <T>;
             close(T);
             }
-      
+
           exit 1 if /^q?$/i;
-          last if /^c$/i; 
-          
+          last if /^c$/i;
+
           if (/^u$/)
             {
             exit 1 if system("cp test.txt $outs/$file.txt") != 0;
-            unshift @files, $file; 
+            unshift @files, $file;
             print (("#" x 79) . "\n");
             last;
             }
           }
- 
-        redo;   # Repeat the test 
-        } 
-      }  
+
+        redo;   # Repeat the test
+        }
+      }
 
     # For some tests (notably error testing) there is no PostScript.
-    
+
     if (-e "test.ps" || -e "$outs/$file" || -e "$outs/$file.gz")
-      {   
+      {
       system ("gunzip $outs/$file.gz") if (-e "$outs/$file.gz");
-      
+
       $rc = system("$cf $outs/$file test.ps >test.cf");
       if ($rc != 0)
         {
         # printf("cf RC=$rc\n");
         system("$less test.cf");
-        
-        $testOK = 0; 
+
+        $testOK = 0;
         for (;;)
           {
           print "View, Continue, Update & retry, Quit? [Q] ";
-      
+
           if ($force_quit)
             {
             $_ = 'q';
             print "... quit forced\n";
-            }    
+            }
           elsif ($force_update)
             {
             $_ = "u";
@@ -240,74 +241,74 @@ while (scalar @dirs > 0)
             $_ = <T>;
             close(T);
             }
-      
+
           exit 1 if /^\s*q?$/i;
-          last if /^\s*c$/i; 
-          
+          last if /^\s*c$/i;
+
           # To view the new output we have to reprocess without -testing.
-          
+
           if (/^\s*v$/)
             {
             system("$pmw -norc $options -o test-full.ps $tests/$file" .
                       " -F  ../fontmetrics:../fontextra" .
-                      " -H  ../PSheader" .  
+                      " -H  ../PSheader" .
                       " -MF ../psfonts" .
                       " -MP ../MIDIperc" .
-                      " -MV ../MIDIvoices" .  
+                      " -MV ../MIDIvoices" .
                       " 2> /dev/null");
 
             # Need to get the absolute font path to pass to gv.
-            
+
             getcwd() =~ /^(.*)\/testing$/;
-            system ("GS_FONTPATH=$1/psfonts gv -scale=1 -geometry 1080x980+0+0 test-full.ps"); 
-            # Stay in loop to reprompt 
-            }  
-          
+            system ("GS_FONTPATH=$1/psfonts gv -scale=1 -geometry 1080x980+0+0 test-full.ps");
+            # Stay in loop to reprompt
+            }
+
           elsif (/^\s*u$/)
             {
             exit 1 if system("cp test.ps $outs/$file") != 0;
-            unshift @files, $file; 
+            unshift @files, $file;
             print (("#" x 79) . "\n");
             last;
             }
           }
         }
-      }   
-       
+      }
+
     # If there's a MIDI file, compare it in text format
-    
+
     if (-e "$outs/$file.mid" || -e "test.mid")
       {
       if (! -e "$outs/$file.mid")
         {
         printf("There is MIDI output, but $outs/$file.mid does not exist.\n");
         exit 1;
-        }    
+        }
 
       if (! -e "test.mid")
         {
         printf("There is no MIDI output, but $outs/$file.mid exists.\n");
         exit 1;
-        }    
+        }
 
       system("midicsv $outs/$file.mid test-old.csv");
       system("midicsv test.mid test.csv");
-      
+
       $rc = system("$cf test-old.csv test.csv >test.cf");
       if ($rc != 0)
         {
-        $testOK = 0; 
+        $testOK = 0;
         system("$less test.cf");
 
         for (;;)
           {
           print "Continue, Update & retry, Quit? [Q] ";
-        
+
           if ($force_quit)
             {
             $_ = 'q';
             print "... quit forced\n";
-            }    
+            }
           elsif ($force_update)
             {
             $_ = "u";
@@ -319,32 +320,32 @@ while (scalar @dirs > 0)
             $_ = <T>;
             close(T);
             }
-        
+
           exit 1 if /^\s*q?$/i;
-          last if /^\s*c$/i; 
-          
+          last if /^\s*c$/i;
+
           if (/^\s*u$/)
             {
             exit 1 if system("cp test.mid $outs/$file.mid") != 0;
-            unshift @files, $file; 
+            unshift @files, $file;
             print (("#" x 79) . "\n");
             last;
             }
           }
         }
-      }   
-    
+      }
+
     if ($testOK)
       {
       printf ("Test $file OK\n");
-      # system("gzip $outs/$file") if (-e "$outs/$file"); 
+      # system("gzip $outs/$file") if (-e "$outs/$file");
       }
- 
+
     last if defined $endtest && $file =~ /^\Q$endtest\E/;
     }     # Loop for tests within a directory
   }       # Loop for test directories
 
-system("/bin/rm -f test-* test.*");  
-die "No selected test found\n" if !$started; 
+system("/bin/rm -f test-* test.*");
+die "No selected test found\n" if !$started;
 
 # End

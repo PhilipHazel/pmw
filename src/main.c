@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: January 2022 */
+/* This file last modified: May 2022 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -63,6 +63,7 @@ static const char *arg_pattern =
   "printscale/k,"
   "printside/k/n,"
   "reverse/s,"
+  "SM/k,"
   "s/k,"
   "t/k/n,"
   "testing/s,"
@@ -111,6 +112,7 @@ enum {
   arg_printscale,
   arg_printside,
   arg_reverse,
+  arg_SM,
   arg_s,
   arg_t,
   arg_testing,
@@ -150,10 +152,10 @@ static debug_bit_table debug_options[] = {
   { US"sortchord",       D_sortchord },
   { US"stringwidth",     D_stringwidth },
   { US"trace",           D_trace },
-  { US"xmlanalyze",      D_xmlanalyze }, 
-  { US"xmlgroups",       D_xmlgroups }, 
+  { US"xmlanalyze",      D_xmlanalyze },
+  { US"xmlgroups",       D_xmlgroups },
   { US"xmlread",         D_xmlread },
-  { US"xmlstaves",       D_xmlstaves } 
+  { US"xmlstaves",       D_xmlstaves }
 };
 
 #define DEBUG_OPTIONS_COUNT (sizeof(debug_options)/sizeof(debug_bit_table))
@@ -507,6 +509,7 @@ PF("-printgutter <x>      move recto/verso pages by x/-x\n");
 PF("-printscale <n>       scale the image by n\n");
 PF("-printside <n>        print only odd or even sides\n");
 PF("-reverse              output pages in reverse order\n");
+PF("-SM <directory>       specify standard macros directory\n");
 PF("-s <list>             select staves\n");
 PF("-t <number>           set transposition\n");
 PF("-tumble               set tumble for duplex printing\n");
@@ -665,8 +668,8 @@ if (results[arg_o].text != NULL)
   out_filename = US results[arg_o].text;
 
 
-/* Deal with overriding music fonts, fontmetrics, and psheader, MIDIperc, and
-MIDIvoices files */
+/* Deal with overriding music fonts, fontmetrics, and psheader, MIDIperc,
+MIDIvoices, and StdMacs files */
 
 if (results[arg_F].text != NULL)
   font_data_extra = US results[arg_F].text;
@@ -682,6 +685,9 @@ if (results[arg_MP].text != NULL)
 
 if (results[arg_MV].text != NULL)
   midi_voices = US results[arg_MV].text;
+
+if (results[arg_SM].text != NULL)
+  stdmacs_dir = US results[arg_SM].text;
 
 /* Deal with MIDI output */
 

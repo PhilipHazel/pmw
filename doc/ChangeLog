@@ -50,6 +50,8 @@ supported range. Hard error if not.
 16. Implemented 10 additional text sizes that cannot be changed, but can be 
 accessed by /S instead of /s. This is for the benefit of "standard" macros.
 
+17. Added /fbu for figured bass text at the underlay level.
+
 
 Version 5.02 30-January-2022
 ----------------------------
