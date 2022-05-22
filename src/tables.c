@@ -274,7 +274,7 @@ static fontsizestr init_fontsizes = {
     { NULL, 10000, 0 },  /* fixed font size 3 */
     { NULL, 9000, 0 },   /* fixed font size 4 */
     { NULL, 8000, 0 },   /* fixed font size 5 */
-    { NULL, 2500, 0 },   /* fixed font size 6 */
+    { NULL, 7000, 0 },   /* fixed font size 6 */
     { NULL, 10000, 0 },  /* fixed font size 7 */
     { NULL, 10000, 0 },  /* fixed font size 8 */
     { NULL, 10000, 0 },  /* fixed font size 9 */
