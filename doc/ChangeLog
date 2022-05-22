@@ -52,6 +52,13 @@ accessed by /S instead of /s. This is for the benefit of "standard" macros.
 
 17. Added /fbu for figured bass text at the underlay level.
 
+18. Text positioned at underlay or overlay level (but not being actual underlay
+or overlay) was not causing the relevant level to be calculated. Fixing this
+caused underlay/overlay that was not preceded nor followed by any notes in the
+bar to be positioned at the stave level instead of a default above/below
+position.
+
+
 
 Version 5.02 30-January-2022
 ----------------------------

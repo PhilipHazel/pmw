@@ -1738,18 +1738,22 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
       pl_sys_topmargin = ((b_pagetopsstr *)p)->value;
       break;
 
-      /* The only text we are interested in here is underlay or overlay; set up
-      or remove continuation control blocks. */
+      /* The only text we are interested in here is text at the underlay or
+      overlay level, excluding underlay/overlay starting with '='; set up or
+      remove continuation control blocks. */
 
       case b_text:
         {
-        BOOL overlay;
         uint32_t c;
         uolaystr *u, **uu;
         b_textstr *t = (b_textstr *)p;
+        BOOL overlay;
 
-        if ((t->flags & text_ul) == 0 ||
-            (t->laylen == 1 && PCHAR(t->string[0]) == '=')) break;
+        if ((t->flags & text_ul) != 0)
+          {
+          if (t->laylen == 1 && PCHAR(t->string[0]) == '=') break;
+          }
+        else if ((t->flags & text_atulevel) == 0) break;
 
         /* We have something relevant */
 
@@ -1766,7 +1770,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
           hadulay = TRUE;
           if (no_ulay)
             {
-            pl_sysblock->ulevel[curstave] = 0;
+            pl_sysblock->ulevel[curstave] = -9000;
             no_ulay = FALSE;
             }
           }
@@ -1775,7 +1779,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
           hadolay = TRUE;
           if (no_olay)
             {
-            pl_sysblock->olevel[curstave] = 0;
+            pl_sysblock->olevel[curstave] = 18000;
             no_olay = FALSE;
             }
           }

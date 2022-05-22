@@ -62,7 +62,7 @@ mf 7 ss(7)104.89 776.6 s(=)104.89 754.6 s(=)104.89 750.6 s(Jww|Jww|J)
 (FFCCCC)64 716 s (C)295 716 s
 (!)64 672 s
 %8/1
-it 10 ss(abc)85 692 s(zyx)85 661 s mf 10 ss(@)85 672 s
+it 10 ss(abc)85 690 s(zyx)85 663 s mf 10 ss(@)85 672 s
 (CC)64 672 s (C)75 672 s
 rm 10 ss(test)64 632 s mf 10 ss(!)83.89 628 s bf 11.8 ss(4)96.89 636 s(4)
 96.89 628.15 s rm 10 ss(test)64 584 s mf 5 ss(!)84.24 584 s bf 5.9 ss(4)
