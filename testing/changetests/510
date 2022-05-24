@@ -3,7 +3,12 @@ nocheck unfinished
 notime
 textsizes 10 8.5
 
-[stave 1 omitempty "Name" alto]
+*define 00XX 00XX
+*if undef 00XX
+  *define 00XX 00YY
+*fi   
+
+[stave 1 omitempty "&00XX" alto]
 "1-4"/a/cb/s2 [4] "\r2\"/a/cb/s2 f-f-f-f- | "xyz"/cb G+ "abc"/a/cb/rot30 |
 [endstave]
 

@@ -58,6 +58,9 @@ caused underlay/overlay that was not preceded nor followed by any notes in the
 bar to be positioned at the stave level instead of a default above/below
 position.
 
+19. The "undef" condition was not working if the macro name being tested began 
+with a digit or contained upper case letters.
+
 
 
 Version 5.02 30-January-2022

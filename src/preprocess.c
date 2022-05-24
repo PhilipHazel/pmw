@@ -111,9 +111,25 @@ if (Ustrcmp(read_wordbuffer, "if") == 0)
 
     else if (Ustrcmp(read_wordbuffer, "undef") == 0)
       {
+      int i = 0;
       read_sigcNL();
-      read_wordbuffer[0] = 0;
-      if (read_c != '\n') read_nextword();
+
+      /* We cannot use read_nextword() because macro names may start with a
+      digit and are case-sensitive. */
+
+      if (isalnum(read_c))
+        {
+        do
+          {
+          if (i >= WORDBUFFER_SIZE - 1)
+            error(ERR7, "macro name", WORDBUFFER_SIZE - 1);  /* Hard */
+          read_wordbuffer[i++] = read_c;
+          read_nextc();
+          }
+        while (isalnum(read_c));
+        }
+      read_wordbuffer[i] = 0;
+
       if (read_wordbuffer[0] == 0) error_skip(ERR8, '\n', "macro name"); else
         {
         if (tree_search(macro_tree, read_wordbuffer) != NULL) OK = !OK;
