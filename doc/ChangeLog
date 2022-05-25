@@ -61,6 +61,10 @@ position.
 19. The "undef" condition was not working if the macro name being tested began 
 with a digit or contained upper case letters.
 
+20. Fixed an obscure but with buffer extension when expanding macros, which 
+showed up if there were a lot of macros in a line. The effect was to add 
+nonsense to the line, giving weird input errors or crashes.
+
 
 
 Version 5.02 30-January-2022

@@ -655,7 +655,7 @@ same buffer for this. We use the same extension amount and maximum size in both
 cases.
 
 Arguments:
-  next        macro expansion nest level: 0 => expanding an input line
+  next        macro expansion nest level: negative => expanding an input line
   inptr       points to existing input buffer     ) for an argument, these
   outptr      points to existing output buffer    )   are the same buffer
   outsizeptr  points to current output buffer size
@@ -708,7 +708,7 @@ Arguments:
   outbuffer     buffer containing the output
   out           offset to start of where to put the output
   outlen        length of output buffer
-  nest          nest level; 0 = top level, i.e. the line buffers
+  nest          nest level; negative = top level, i.e. the line buffers
 
 Returns:        offset one past the end of the active part of the expanded
                   string in outbuffer
@@ -716,7 +716,7 @@ Returns:        offset one past the end of the active part of the expanded
 
 static size_t
 expand_string(uschar *inbuffer, size_t in, size_t inlen,
-  uschar *outbuffer, size_t out, size_t outlen, usint nest)
+  uschar *outbuffer, size_t out, size_t outlen, int nest)
 {
 DEBUG(D_macro) fprintf(stderr, "Macro expand: %s", inbuffer);
 
@@ -729,7 +729,7 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
   usint count;
   usint ch = inbuffer[in++];
 
-  if (nest == 0) macro_in = in;  /* For error messages */
+  if (nest < 0) macro_in = in;  /* For error messages */
 
   /* Handle a literal character. */
 
@@ -824,28 +824,28 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
 
   /* Otherwise we have to process the replacement text character by character,
   having read any arguments that are present. There need not be; they can all
-  be defaulted. Arguments are read, serially, into main_argbuffer[nest], and
+  be defaulted. Arguments are read, serially, into main_argbuffer[nest+1], and
   then expanded for nested macros into what remains of that buffer, which can
   be extended if necessary. */
 
   else
     {
-    int i;
     int argcount = mm->argcount;
-    uschar *argbuff = main_argbuffer[nest];
+    int nestarg = nest + 1; 
+    uschar *argbuff = main_argbuffer[nestarg];
     size_t args[MAX_MACROARGS];
     size_t ap = 0;   /* Offset in argbuff */
 
     /* Set up with no arguments */
 
-    for (i = 0; i < argcount; i++) args[i] = SIZE_UNSET;
+    for (int i = 0; i < argcount; i++) args[i] = SIZE_UNSET;
 
     /* Read given arguments, if any, increasing the count if more than the
     default number, but only if the name was not followed by a semicolon. */
 
     if (!had_semicolon && inbuffer[in] == '(')
       {
-      for (i = 0;; i++)
+      for (int i = 0;; i++)
         {
         int bracount = 0;
         BOOL inquotes = FALSE;
@@ -856,11 +856,11 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
         while ((ch = inbuffer[++in]) != '\n' && ch != 0 &&
               ((ch != ',' && ch != ')') || bracount > 0 || inquotes))
           {
-          if (ap >= main_argbuffer_size[nest])
+          if (ap >= main_argbuffer_size[nestarg])
             {
-            extend_expand_buffers(nest, &(main_argbuffer[nest]),
-              &(main_argbuffer[nest]), &(main_argbuffer_size[nest]));
-            argbuff = main_argbuffer[nest];
+            extend_expand_buffers(nestarg, &(main_argbuffer[nestarg]),
+              &(main_argbuffer[nestarg]), &(main_argbuffer_size[nestarg]));
+            argbuff = main_argbuffer[nestarg];
             }
 
           if (ch == '&' && !isalnum(inbuffer[in+1]) && inbuffer[in+1] != '*')
@@ -919,13 +919,13 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
 
     /* Check the arguments for nested macro calls. */
 
-    for (i = 0; i < argcount; i++)
+    for (int i = 0; i < argcount; i++)
       {
       size_t new_ap;
       if (args[i] == SIZE_UNSET || Ustrchr(argbuff + args[i], '&') == NULL)
         continue;
       new_ap = expand_string(argbuff, args[i], Ustrlen(argbuff + args[i]),
-        argbuff, ap, main_argbuffer_size[nest], nest + 1);
+        argbuff, ap, main_argbuffer_size[nestarg], nestarg);
       args[i] = ap;
       ap = new_ap + 1;  /* Final zero must remain */
       }
@@ -1010,7 +1010,7 @@ if (Ustrchr(main_readbuffer, '&') != NULL)
   main_readbuffer_raw = temp;
   macro_expanding = TRUE;
   main_readlength = expand_string(main_readbuffer_raw, 0, main_readlength,
-    main_readbuffer, 0, main_readbuffer_size, 0);
+    main_readbuffer, 0, main_readbuffer_size, -1);
   macro_expanding = FALSE;
   }
 }
