@@ -65,6 +65,9 @@ with a digit or contained upper case letters.
 showed up if there were a lot of macros in a line. The effect was to add 
 nonsense to the line, giving weird input errors or crashes.
 
+21. Created some "standard macro" files, and arranged for them to be picked up 
+by "*include" if no other file of that name exists.
+
 
 
 Version 5.02 30-January-2022

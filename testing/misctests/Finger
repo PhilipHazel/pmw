@@ -1,0 +1,8 @@
+nocheck
+
+*include "Fingering"
+
+[stave 1 treble 1]
+&0 g &1 g &2 g &3 g &4 g &5 g &THUMB g |
+[endstave]
+

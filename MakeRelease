@@ -39,7 +39,7 @@ cp INSTALL LICENCE NOTICE README Makefile.in PSheader MIDIvoices MIDIperc config
 
 # Whole directories
 
-cp -r contrib fontmetrics testdist $dir
+cp -r contrib fontmetrics macros testdist $dir
 
 # Source
 

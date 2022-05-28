@@ -255,6 +255,7 @@ while (scalar @dirs > 0)
                       " -MF ../psfonts" .
                       " -MP ../MIDIperc" .
                       " -MV ../MIDIvoices" .
+                      " -SM ../macros" . 
                       " 2> /dev/null");
 
             # Need to get the absolute font path to pass to gv.

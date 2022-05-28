@@ -1,0 +1,29 @@
+@ This is a set of macros for fingering numbers. Just in case they are needed
+@ in conjunction with figured bass, there is a facility for a prefix. Also,
+@ the text type and size can be set.
+
+*if undef FINGERPREFIX
+  *define FINGERPREFIX
+*fi
+
+*if undef FINGERTYPE
+  *define FINGERTYPE /a/c
+*fi
+
+*if undef FINGERSIZE
+  *define FINGERSIZE /S6
+*fi
+
+*if undef THUMBSIZE
+  *define THUMBSIZE /S4
+*fi   
+
+*define &FINGERPREFIX;0  "\rm\o"&FINGERTYPE&FINGERSIZE   
+*define &FINGERPREFIX;1  "\rm\1"&FINGERTYPE&FINGERSIZE   
+*define &FINGERPREFIX;2  "\rm\2"&FINGERTYPE&FINGERSIZE   
+*define &FINGERPREFIX;3  "\rm\3"&FINGERTYPE&FINGERSIZE   
+*define &FINGERPREFIX;4  "\rm\4"&FINGERTYPE&FINGERSIZE   
+*define &FINGERPREFIX;5  "\rm\5"&FINGERTYPE&FINGERSIZE   
+*define THUMB            "\**97\"&FINGERTYPE&THUMBSIZE   
+
+@ End

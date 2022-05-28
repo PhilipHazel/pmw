@@ -1,0 +1,65 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
+%1/1
+bi 10 ss(f)90.9 750 s mf 10 ss(5)90.9 762 s it 10 ss(s)110.302 750 s
+bi 10 ss(f)114.192 750 s it 10 ss(z)117.522 750 s mf 10 ss(5)
+110.302 762 s it 10 ss(m)129.704 750 s bi 10 ss(p)136.924 750 s mf 10 ss(5)
+129.704 762 s(@)149.106 760 s
+%2/1
+it 9 ss(8va)152.883 786 s mf 10 ss(5)156.381 762 s(5)175.783 764 s
+rm 9 ss( - - - - - -)165.879 786.3 s( )197.361 786.3 s mf 9 ss(\237)
+199.611 786.3 s rm 9 ss( )205.06 786 s mf 10 ss(5)195.185 766 s
+(@)214.587 760 s
+%3/1
+it 9 ss(8va)218.364 749 s mf 10 ss(5)221.862 762 s(5)241.264 764 s
+rm 9 ss( - - - - - -)231.36 748.7 s( )262.842 748.7 s mf 9 ss(\241)
+265.092 748.7 s rm 9 ss( )270.541 749 s mf 10 ss(5)260.666 766 s
+(@)280.068 760 s
+%4/1
+(\243)287.343 750 s(5)287.343 762 s(5)306.745 762 s($)326.147 750 s(5)
+326.147 762 s(@)345.549 760 s
+%5/1
+(5)352.824 762 s(5)372.226 762 s(5)391.628 762 s(@)411.03 760 s
+%6/1
+(5)418.305 762 s(5)437.707 762 s(5)457.109 762 s(@)476.511 760 s
+%7/1
+(5)483.786 762 s(5)503.188 762 s(5)522.59 762 s(~\243)345.824 746.5 s
+419.305 749 364.824 749 0.3 l 423.305 749 Mt 421.305 753 Lt
+419.305 749 Lt 0.3 Slw S 483.786 749 423.305 749 0.3 l 489.786 749 Mt
+486.786 755 Lt 483.786 749 Lt 0.3 Slw S 529.59 749 489.786 749 0.3 l
+529.59 752 529.59 748.85 0.3 l(B)542.494 760 s(@)540.494 760 s
+(FFFFCCCCCCC)64 760 s (C)533.994 760 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

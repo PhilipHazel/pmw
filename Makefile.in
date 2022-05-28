@@ -61,15 +61,16 @@ vcheck: vtest ;
 install:        build
 		$(mkinstalldirs) $(BINDIR)
 		$(mkinstalldirs) $(DATADIR)
-		$(mkinstalldirs) $(DATADIR)/psfonts
 		$(mkinstalldirs) $(DATADIR)/fontmetrics
+		$(mkinstalldirs) $(DATADIR)/macros
+		$(mkinstalldirs) $(DATADIR)/psfonts
 		$(mkinstalldirs) $(MANDIR)
 		$(mkinstalldirs) $(MANDIR)/man1
 		$(INSTALL) src/pmw $(BINDIR)/pmw
 		$(INSTALL_DATA) PSheader $(DATADIR)
 		$(INSTALL_DATA) MIDIvoices $(DATADIR)
 		$(INSTALL_DATA) MIDIperc $(DATADIR)
-		$(INSTALL_DATA) StdMacs $(DATADIR)
+		$(INSTALL_DATA) macros/* $(DATADIR)/macros
 		$(INSTALL_DATA) psfonts/PMW-Music.pfa $(DATADIR)/psfonts
 		$(INSTALL_DATA) psfonts/PMW-Alpha $(DATADIR)/psfonts
 		$(INSTALL_DATA) fontmetrics/* $(DATADIR)/fontmetrics

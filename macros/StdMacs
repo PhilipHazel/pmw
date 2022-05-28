@@ -1,0 +1,79 @@
+@ This file contains a "standard" collection of PMW macro definitions, which
+@ can be accessed by *include "StdMacs" in a PMW input file. They rely on a
+@ set of fixed text sizes that are built in to PMW. See also the "FigBass" and
+@ "Fintering" sets of macros.
+
+@ Dynamics
+
+*define f    "\bi\f"/b/S3
+*define ff   "\bi\ff"/b/S3
+*define fff  "\bi\fff"/b/S3
+*define fp   "\bi\fp"/b/S3
+*define fz   "\bi\fz"/b/S3
+*define mf   "\it\m\bi\f"/b/S3
+*define mp   "\it\m\bi\p"/b/S3
+*define p    "\bi\p"/b/S3
+*define pp   "\bi\pp"/b/S3
+*define ppp  "\bi\ppp"/b/S3
+*define sf   "\it\s\bi\f"/b/S3
+*define sfz  "\it\s\bi\f\it\z"/b/S3
+
+*define fsubito  "\bi\f  \it\subito"/b/S3
+*define fsub     "\bi\f  \it\sub."/b/S3
+*define psubito  "\bi\p  \it\subito"/b/S3
+*define psub     "\bi\p  \it\sub."/b/S3
+*define ppsubito "\bi\pp \it\subito"/b/S3
+*define ppsub    "\bi\pp \it\sub."/b/S3
+
+@ Common instructions
+
+*define animato   "\it\animato"/b/S3
+*define cantabile "\it\cantabile"/b/S3
+*define atempo    "\it\a tempo"/a/S3
+*define cresc     "\it\cresc."/a/S3
+*define decresc   "\it\decresc."/a/S3
+*define semprecresc "\it\sempre cresc"/a/S3
+*define dim        "\it\dim."/a/S3
+*define pocorall   "\it\poco rall."/b/S3
+*define pocorit    "\it\poco rit."/a/S3
+*define ponticello "\it\sul ponticello"/a/S3
+*define naturale   "\it\naturale"/a/S3
+*define legno      "\it\con legno"/a/S3
+*define rall       "\it\rall."/b/S3
+*define rit        "\it\rit."/a/S3
+*define simile     "\it\simile"/a/S3
+*define sonore     "\it\sonore"/b/S3
+*define sotto      "\it\sotto voce"/a/S3
+*define tempo1     "\bf\Tempo I"/a/S3
+*define ten        "\it\ten."/a/S3
+*define tranq      "\bf\tranquillo"/a/S3
+
+@ Slur shorthands
+
+*define sa() [slur/a/&&1]
+*define sb() [slur/b/&&1]
+*define es   [es]
+
+@ 8va marks
+
+*define S8a "\it\8va-"/ol/S4/" -| \mf\\159\"/u0.3/"\it\8"/S4
+*define E8a "#"/ol/r8/S4
+*define S8b "\it\8va-"/ul/S4/" -| \mf\\161\"/d0.3/"\it\8"/S4
+*define E8b "#"/ul/r8/S4
+
+@ Piano pedal marks
+
+draw blip
+  linegapx linegapy moveto
+  0 linegapx 2 mul lineto
+  linegapx neg linegapy neg lineto
+  0.3 setlinewidth stroke
+enddraw
+
+*define ped         "\**163\"/b/S3
+*define pedstar     "\mf\$"/b/S3
+*define pedline(6)  [line/=P/b/h/ol/d&&1 linegap/h0/"\mf\~\163\"]
+*define pedblip(4)  [linegap/=P/w&&1/draw blip]
+*define pedend      [endline/=P]
+
+@ End

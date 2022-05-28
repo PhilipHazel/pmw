@@ -11,15 +11,9 @@ Circles
 CropMarks
   Draw functions for drawing crop marks.
 
-FigBass
-  Macros for convenient handling of figured bass notation.
-
 HandBells
   Some functions for drawing handbell signs.
 
-MacroCollection  
-  Macros that are described in the manual.
-  
 RubOut
   Macros that can "rub out" rectangular areas. One use is for caesurae that 
   clear the bit of stave underneath them. 
@@ -37,6 +31,7 @@ Vsquiggle
   
 WingedRepeats
   How to generate repeat marks with small "wings" above and below by employing
-  the music characters used for system brackets.
+  the music characters used for system brackets. This gives a different look 
+  compared with the winged repeat styles now available in PMW.
 
 ----

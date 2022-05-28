@@ -1,0 +1,97 @@
+@ This set of macros shows one way of handling figured bass notation in PMW.
+@ Revised from an earlier set of macros, May 2022.
+
+@ Macros whose names start FB are used to allow some configuration. They can be
+@ set before including this file, but if not, defaults are set here. FBI
+@ defines an insertion at the start of each string. A small space insert makes
+@ for better horizontal alignment. FBU defines a qualifier for the first of a
+@ set of strings. It defaults to /fbu, that is, text in the figured bass size,
+@ at the underlay level. The effect of using the underlay level is that all
+@ the figurings on a given line are printed at the same level. This can be
+@ changed by defining FBU to be /fb. Secondary strings should just be /fb so
+@ that they are put below each other.
+
+*if undef FBI
+  *define FBI \mf\z
+*fi
+
+*if undef FBU
+  *define FBU /fbu
+*fi
+
+@ This macro allows up to three arguments, which are stacked vertically. For
+@ example, &FB(3), &FB(4,2), &FB(7,4,2).
+
+*define FB()  "&FBI\rm\&&1"&FBU "&FBI\rm\&&2"/fb "&FBI\rm\&&3"/fb
+
+@ These macros define solitary accidentals.
+
+*define FBF "&FBI\mu\z'"&FBU
+*define FBN "&FBI\mu\z~\40\"&FBU
+*define FBS "&FBI\mu\z~%"&FBU
+
+@ These are shorthands for common figurings. Well, they were common in a set of
+@ examples that I happened to be printing when I originally defined these, and
+@ they have been added to subsequently.
+
+*define 3    "&FBI\rm\3"&FBU
+*define 3f   "&FBI\rm\3\mu\z~v'"&FBU
+*define 3n   "&FBI\rm\3\mf\\sc\zxv\mu\\40\"&FBU
+*define 4    "&FBI\rm\4"&FBU
+*define 42   "&FBI\rm\4"&FBU "&FBI\rm\2"/fb
+*define 43   "&FBI\rm\4"&FBU "&FBI\rm\3"/fb
+*define 4c2  "&FBI\mf\k"&FBU "&FBI\rm\2"/fb
+@ This version built from a 4 and a +
+*define 4cp2 "&FBI\rm\4\mu\yy\135\"&FBU "&FBI\rm\2"/fb
+*define 4f   "&FBI\rm\4\mu\z~v'"&FBU
+*define 4f3  "&FBI\rm\4\mu\z~v'"&FBU "&FBI\rm\3"/fb
+*define 4n2  "&FBI\rm\4\mf\\sc\zxv\40\"&FBU "&FBI\rm\2"/fb
+*define 4n3  "&FBI\rm\4\mf\\sc\zxv\40\"&FBU "&FBI\rm\3"/fb
+*define 4s   "&FBI\rm\4\mf\\sc\zxv%"&FBU
+*define 5    "&FBI\rm\5"&FBU
+*define 53s  "&FBI\rm\5"&FBU "&FBI\rm\3\mu\z~%"/fb
+*define 53   "&FBI\rm\5"&FBU "&FBI\rm\3"/fb
+*define 54   "&FBI\rm\5"&FBU "&FBI\rm\4"/fb
+*define 5c   "&FBI\rm\\mf\\179\"&FBU
+@ This version built from a 5 and a +
+*define 5cp  "&FBI\rm\5\mu\x~vyyy\135\"&FBU
+*define 5csb "&FBI\rm\\mf\\179\"&FBU "&FBI\mu\z~%"/fb
+@ This version uses a 5 and a +
+*define 5cpsb "&FBI\rm\5\mu\x~vyyy\135\"&FBU "&FBI\mu\z~%"/fb
+*define 5f   "&FBI\rm\5\mu\z~v'"&FBU
+*define 5sb  "&FBI\rm\5"&FBU "&FBI\mu\z~%"/fb
+*define 6    "&FBI\rm\6"&FBU
+*define 6c   "&FBI\mf\s"&FBU
+@ This version uses a 6 and a rotated +
+*define 6cp  "&FBI\rm\6"&FBU "&FBI\mu\xxxz\32\\135\"/fb/rot26
+*define 64   "&FBI\rm\6"&FBU "&FBI\rm\4"/fb
+*define 64c  "&FBI\rm\6"&FBU "&FBI\mf\k"/fb
+@ This version built from a 4 and a +
+*define 64cp "&FBI\rm\6"&FBU "&FBI\rm\4\mu\yy\135\"/fb
+*define 642  "&FBI\rm\6"&FBU "&FBI\rm\4"/fb "&FBI\rm\2"/fb
+*define 65   "&FBI\rm\6"&FBU "&FBI\rm\5"/fb
+*define 6f   "&FBI\rm\6\mu\z~v'"&FBU
+*define 6fb  "&FBI\rm\6"&FBU "\mu\z~v'"/fb
+*define 6f4  "&FBI\rm\6\mu\z~v'"&FBU "&FBI\rm\4"/fb
+*define 6n   "&FBI\rm\6\mu\z~\40\"&FBU
+*define 6s   "&FBI\rm\6\mu\z~%"&FBU
+*define 6s4  "&FBI\rm\6\mu\z~%"&FBU "&FBI\rm\4"/fb
+*define 7    "&FBI\rm\7"&FBU
+*define 72f  "&FBI\rm\7"&FBU "&FBI\rm\2\mu\z~v'"/fb
+*define 742  "&FBI\rm\7"&FBU "&FBI\rm\4"/fb "&FBI\rm\2"/fb
+*define 75   "&FBI\rm\7"&FBU "&FBI\rm\5"/fb
+*define 75c2 "&FBI\rm\7"&FBU "&FBI\mf\\179\"/fb "&FBI\rm\2"/fb
+@ This version uses a 5 and a +
+*define 75cp2 "&FBI\rm\7"&FBU "&FBI\rm\5\mu\x~vyyy\135\"/fb "&FBI\rm\2"/fb
+*define 7c   "&FBI\mf\j"&FBU
+*define 7nb  "&FBI\rm\7"&FBU "\mu\zxv\40\"/fb
+*define 7s   "&FBI\rm\7\mu\z~%"&FBU
+*define 7sb  "&FBI\rm\7"&FBU "&FBI\mu\z~%"/fb
+*define 7s3  "&FBI\rm\7\mu\z~%"&FBU "&FBI\rm\3"/fb
+*define 7u   "&FBI\rm\7_"&FBU
+*define 86   "&FBI\rm\8"&FBU "&FBI\rm\6"/fb
+*define 95   "&FBI\rm\9"&FBU "&FBI\rm\5"/fb
+*define 97   "&FBI\rm\9"&FBU "&FBI\rm\7"/fb
+*define 9fsb "&FBI\rm\9\mu\z~v'"&FBU "&FBI\mu\z~%"/fb
+
+@  @ End of figured bass macros.

@@ -1,0 +1,11 @@
+nocheck
+
+*include "StdMacs"
+
+[stave 1 treble 1]
+&f g &sfz g &mp g | &S8a ga &E8a b | &S8b ga &E8b b |
+&ped gg &pedstar g |
+&pedline ggg | &pedblip ggg | &pedblip(6) ggg &pedend |
+
+[endstave]
+
