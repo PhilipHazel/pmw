@@ -1,4 +1,4 @@
-/*************************************************
+/***?**********************************************
 *        PMW native input reading functions      *
 *************************************************/
 
@@ -831,7 +831,7 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
   else
     {
     int argcount = mm->argcount;
-    int nestarg = nest + 1; 
+    int nestarg = nest + 1;
     uschar *argbuff = main_argbuffer[nestarg];
     size_t args[MAX_MACROARGS];
     size_t ap = 0;   /* Offset in argbuff */
@@ -966,6 +966,7 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
           }
         }
       }
+    outbuffer[out] = 0;
     }
   }
 
@@ -1187,9 +1188,9 @@ for (;;)
     for (;;)
       {
       read_i += 5;
-      pmw_reading_stave = TRUE; 
+      pmw_reading_stave = TRUE;
       pmw_read_stave();
-      pmw_reading_stave = FALSE; 
+      pmw_reading_stave = FALSE;
       barlinestyles[srs.stavenumber] = srs.barlinestyle;
       if (read_c == ENDFILE) break;
       read_nextsigc();
@@ -1203,8 +1204,8 @@ for (;;)
   if (curmovt->laststave > main_maxstave) main_maxstave = curmovt->laststave;
 
   /* Create dummies for empty staves and omitted bars. */
-  
-  read_tidy_staves(TRUE); 
+
+  read_tidy_staves(TRUE);
 
   /* Scan movement's bar index and handle printing bar numbers. Nocount bars
   are identified as x.1, x.2, etc, except that the very first bar is just 0. */
