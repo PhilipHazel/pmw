@@ -1,0 +1,93 @@
+*include "FigBass"
+
+barlinespace 0
+fbsize 8
+justify top left right
+nocheck
+notespacing *2
+notime
+systemgap 54
+textfont extra 1 "Courier"
+unfinished
+
+*define M() "\xx1\&&&&1"/a/c/s4 &&2 b` |?
+
+[stave 1 bass 0]
+[sghere 58]
+&M(FB(3),&FB(3)) [space 12]
+&M(FB(3,4),&FB(3,4)) [space 22] 
+&M(FB(7,2,4),&FB(7,2,4)) [space 12]
+
+&M(FBF,&FBF) 
+&M(FBN,&FBN) 
+&M(FBS,&FBS) 
+
+&M(3,&3) 
+&M(3f,&3f) 
+&M(3n,&3n) 
+
+&M(4,&4) 
+&M(42,&42) 
+&M(43,&43) 
+&M(4c2,&4c2)
+&M(4cp2,&4cp2)
+
+&M(4f,&4f)
+&M(4f3,&4f3)
+&M(4n2,&4n2)
+&M(4n3,&4n3)
+&M(4s,&4s)
+
+&M(5,&5)
+&M(53,&53)
+&M(53s,&53s)
+&M(54,&54)
+&M(5c,&5c)
+
+&M(5cp,&5cp)
+&M(5csb,&5csb)
+&M(5cpsb,&5cpsb)
+&M(5f,&5f)
+&M(5sb,&5sb)
+
+&M(6,&6)
+&M(6c,&6c)
+&M(6cp,&6cp)
+&M(64,&64)
+
+&M(64c,&64c)
+&M(64cp,&64cp)
+&M(642,&642)
+&M(65,&65)
+
+&M(6f,&6f)
+&M(6fb,&6fb)
+&M(6f4,&6f4)
+&M(6s4,&6s4)
+
+&M(6n,&6n)
+&M(6s,&6s)
+
+&M(7,&7)
+&M(72f,&72f)
+&M(742,&742)
+
+&M(75,&75)
+&M(75c2,&75c2) [space 4]
+&M(75cp2,&75cp2)
+
+&M(7c,&7c)
+&M(7nb,&7nb)
+&M(7s,&7s)
+
+&M(7sb,&7sb)
+&M(7s3,&7s3)
+&M(7u,&7u)
+
+&M(86,&86)
+&M(95,&95)
+&M(97,&97)
+&M(9fsb,&9fsb)
+
+[endstave]
+

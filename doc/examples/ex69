@@ -1,0 +1,9 @@
+nocheck
+unfinished
+textfont extra 1 "Courier"
+*include "StdMacs"
+
+[stave 1 bass 0]
+&ped C e &pedstar g |
+&pedline Cdg | &pedblip geC &pedend |
+[endstave]
