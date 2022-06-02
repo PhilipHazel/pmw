@@ -1,11 +1,13 @@
 %%Header file for PMW PostScript output
 % Last modified for Acorn version: 23 February 1997
-% Last modified for Linux version: 28 August 2003
+% Last modified for original Linux version: 28 August 2003
 % Re-jigged for Unicode and more than 256 chars per font support: August 2005
 % Added extra functions for right-to-left printing: January 2009
 % Added function for drawing staves: January 2012
 % Made top comment above a %% comment: January 2012
 % Updated for remaining Latin Extended-A characters: December 2013
+% Removed redundant FontDirectory check which was causing problems for one
+%   user and is clearly not useful: June 2022
 
 
 % For fonts that use Adobe's standard encoding (that is, normal text fonts),
@@ -193,20 +195,11 @@ UpperEncoding 0 [
 % versions of the font. When the font is not re-encoded, the two will end up
 % the same. Following the two names is the font name.
 
-% We find the font first, and then look to see if it's in the directory,
-% to cope with the case of loading from an auxiliary store.
+/inf{findfont dup dup/Encoding get StandardEncoding eq
 
-/inf{dup dup findfont 3 1 roll FontDirectory exch known {pop}{(**** Font ")print
-100 string cvs print (" is not loaded ****\r\n)print stop}ifelse
+% If the font uses Adobe Standard encoding, we obey the following.
 
-% At this point we have on the stack the two names, followed by the font.
-% Duplicate it, and test to see whether it uses the Adobe Standard encoding.
-
-dup dup/Encoding get StandardEncoding eq
-
-% If the result is true, we obey the following.
-
-% Find the maximum length of the font's dictionary, and make two new 
+% Find the maximum length of the font's dictionary, and make two new
 % dictionaries of the same length.
 
 {maxlength dup dict/newfont0 exch def dict/newfont1 exch def
@@ -296,7 +289,7 @@ u cly add 1 sub w neg -0.05 curveto closepath fill}bind def
 % Put x value on stack; dx value in /t1
 /a 2 w mul x1 x2 sub 3 mul add def
 /b x2 2 x1 mul sub w sub 3 mul def
-/c x1 w add 3 mul def 
+/c x1 w add 3 mul def
 a t mul b add t mul c add t mul w sub
 /t1 a 3 mul t mul b 2 mul add t mul c add def
 
@@ -306,7 +299,7 @@ a t mul b add t mul c add t mul w sub
 /c 3 y1 mul def
 a t mul b add t mul c add t mul
 /t2 a 3 mul t mul b 2 mul add t mul c add def
-}ifelse 
+}ifelse
 translate t2 0 ne {t2 t1 atan rotate} if
 0 2 moveto 4 add neg 0 exch rlineto 0.4 Slw stroke}bind def
 
@@ -325,13 +318,13 @@ Slw Mt Lt stroke grestore}bind def
 % Print system bracket: x, ytop, ybot
 /k{/y1 exch def/y2 exch def/x exch def
 currentfont mf
-y2 y1 sub dup 16 gt {pop 16}if 
+y2 y1 sub dup 16 gt {pop 16}if
 dup 1 sub /y exch def
 dup y2 exch sub /y2 exch def
 16 div 10 mul ss
 x y2 Mt
 (\260) show
-{/y2 y2 y sub def 
+{/y2 y2 y sub def
 y2 y1 le {exit}if x y2 Mt (B)show}loop
 x y1 Mt (\261)show
 setfont}bind def
@@ -366,7 +359,7 @@ x0 y0 Mt x1 y1 Lt x1 y1 z add Lt x0 y0 z add Lt fill}bind def
 
 % Print a stave: x y w t g n
 /ST{/n exch def/g exch def/t exch def/w exch def/y exch def/x exch def
-1 1 n {pop x y transform round exch round exch itransform Mt 
+1 1 n {pop x y transform round exch round exch itransform Mt
 w 0 Rl y g add /y exch def}for t Slw S}bind def
 
 % End of PostScript header for PMW
