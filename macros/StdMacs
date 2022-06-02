@@ -50,9 +50,9 @@
 
 @ Slur shorthands
 
-*define sa() [slur/a/&&1]
-*define sb() [slur/b/&&1]
-*define es   [es]
+*define sa() [slur/a&&1]
+*define sb() [slur/b&&1]
+*define es() [es&&1]
 
 @ 8va marks
 

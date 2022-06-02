@@ -261,6 +261,8 @@ terminology used in this manual. The following two chapters describe how PMW
 should be installed and operated. Chapters &<<CHAPfirstintro>>& and
 &<<CHAPlastintro>>& are an introduction to the PMW input encoding. They cover
 most of the more common requirements, with examples, in an introductory manner.
+Chapter &<<CHAPstdmacs>>& describes the `standard macros' that are supplied
+with PMW.
 
 The bulk of the manual (from chapter &<<CHAPreference>>& onwards) is reference
 material; the information in earlier chapters is repeated, with additional
@@ -461,16 +463,16 @@ The &'GhostScript'& application can be used to view PMW output on screen,
 either from a PostScript file written by PMW, or from a PDF after conversion by
 the &(ps2pdf)& command. The &(gs)& command is very basic; a more friendly
 interface is provided by front-end `wrapper' applications with names such as
-&(ghostview)&, &(gview)&, or &(gv)&. Another possibility is to use the
-general-purpose document viewer called &(evince)&, which can display PostScript
+&(ghostview)&, &(gview)&, or &(gv)&. Another possibility is to use a
+general-purpose document viewer such as &(evince)&, which can display PostScript
 or PDF files and has the added advantage of showing thumbnails of all the
 pages.
 
 If you do not use the &%-incPMWfont%& command line option when processing your
 input files, &'GhostScript'& needs to be told where the PostScript music fonts
-are before it can display a PMW output file or convert it into a PDF. One easy
-way of doing this is to set the &`GS_FONTPATH`& environment variable, for
-example:
+are before it can correctly display a PMW output file or convert it into a PDF.
+One easy way of doing this is to set the &`GS_FONTPATH`& environment variable,
+for example:
 .code
 export GS_FONTPATH=/usr/local/share/pmw/psfonts
 .endd
@@ -503,6 +505,11 @@ add this line to the file called &_Fontmap.GS_& that is found in the
 This tells &'GhostScript'& that the font called `PMW-Music' is to be found in
 the file called &_PMW-Music.pfa_&. Newer versions of &'GhostScript'& do not
 seem to need this, so first of all, try without.
+
+When &'GhostScript'& cannot find a font, it makes a substitution, which in the
+case of PMW-Music usually results in nonsense characters on the screen. The
+basic &(gs)& command writes information about which fonts it is using to the
+standard output.
 
 Note that the &(gv)& command has a useful option called &%-watch%&; it causes
 the file to be re-displayed whenever it changes. If you set this and leave
@@ -693,6 +700,13 @@ The pages are A5-sized; arrange them two-up, assuming A4 paper.
 The paper is A4, but the printer feeds it sideways, so rotate the page images
 before printing.
 
+.vitem "&%-C%& <&'arg'&>"
+
+Show the setting of a compile-time option and then exit with its value, which
+is 1 for `set' and 0 for `unset'. The possible arguments are &`B2PF`& for B2PF
+support (&R; &<<SUBSECTb2pffont>>&) and &`musicxml`& for MusicXML support (&R;
+&<<APPA>>&).
+
 .vitem "&%-c%& <&'number'&>"
 
 Set the number of copies to be printed as <&'number'&>. This number is honoured
@@ -760,8 +774,8 @@ errors can generate a large number of them. &%-em%& is an abbreviation for
 .vitem "&%-F%& <&'directory list'&>"
 
 Search the directories in the colon-separated list for &_fontmetrics_& files,
-before searching the default directory that was set up when PMW was built. This
-option is useful when you want to make use of a non-standard font in text
+before searching the default directory that was set up when PMW was installed.
+This option is useful when you want to make use of a non-standard font in text
 strings without having to copy its fontmetrics file into the default directory.
 Relative file names are taken as relative to the current directory, not to the
 PMW input file's directory.
@@ -781,10 +795,10 @@ formats are requested.
 .vitem "&%-H%& <&'file'&>"
 
 Use the given file as the PostScript header file, instead of the default that
-was set up when PMW was built. If a relative file name is given, it is taken as
-relative to the current directory, not to the PMW input file's directory. This
-option is unlikely to be of general use, but is helpful when testing new
-versions of the header file.
+was set up when PMW was installed. If a relative file name is given, it is
+taken as relative to the current directory, not to the PMW input file's
+directory. This option is unlikely to be of general use, but is helpful when
+testing new versions of the header file.
 
 .vitem "&%-help%& or &%--help%&"
 
@@ -801,6 +815,48 @@ output file is bigger by about 40K for PMW-Music and 31K for PMW-Alpha. Note
 that this option applies only to PMW's music fonts. See the &%textfont%&
 directive (&R; &<<SUBSECTtextfont>>&) for a way of including other fonts in the
 output.
+
+.vitem "&%-MF%& <&'directory list'&>"
+
+Search the directories in the colon-separated list for the PostScript music
+font files, before searching the default directory that was set up when PMW was
+installed. This option is mainly of use when testing PMW and new versions of
+the fonts.
+
+.vitem "&%-MP%& <&'file'&>"
+
+Use the given file as the &_MIDIperc_& file, instead of the default that was
+set up when PMW was installed. If a relative file name is given, it is taken as
+relative to the current directory, not to the PMW input file's directory. This
+file contains translations between names and MIDI `pitches' for untuned
+percussion voices. Apart from comment lines (starting with #) and empty lines,
+each line in the file must begin with three digits, followed by a space, and
+the instrument name, without any trailing spaces. For example:
+.code
+035 acoustic bass drum
+036 bass drum 1
+037 side stick
+038 acoustic snare
+.endd
+
+.vitem "&%-MV%& <&'file'&>"
+
+Use the given file as the &_MIDIvoices_& file, instead of the default that was
+set up when PMW was intalled. If a relative file name is given, it is taken as
+relative to the current directory, not to the PMW input file's directory. This
+file contains translations between names and MIDI voice numbers. Apart from
+comment lines (starting with #) and empty lines, each line in the file must
+begin with three digits, followed by a space, and then the instrument name,
+without any trailing spaces. The same number may appear more than once. For
+example:
+.code
+001 piano
+001 acoustic grand piano
+002 hard piano
+002 bright acoustic piano
+003 studio piano
+003 electric grand piano
+.endd
 
 .vitem &%-manualfeed%&
 
@@ -835,47 +891,6 @@ the movement. If just one number is given, just one bar is output.
 This option specifies which movement is to be output as MIDI (&%-mm%& is a
 synonym). Only one movement can be output in this manner. The default is the
 first movement in the file.
-
-.vitem "&%-MF%& <&'directory list'&>"
-Search the directories in the colon-separated list for the PostScript music
-font files, before searching the default directory that was set up when PMW was
-built. This option is mainly of use when testing PMW and new versions of the
-fonts.
-
-.vitem "&%-MP%& <&'file'&>"
-
-Use the given file as the &_MIDIperc_& file, instead of the default that was
-set up when PMW was built. If a relative file name is given, it is taken as
-relative to the current directory, not to the PMW input file's directory. This
-file contains translations between names and MIDI `pitches' for untuned
-percussion voices. Apart from comment lines (starting with #) and empty lines,
-each line in the file must begin with three digits, followed by a space, and
-the instrument name, without any trailing spaces. For example:
-.code
-035 acoustic bass drum
-036 bass drum 1
-037 side stick
-038 acoustic snare
-.endd
-
-.vitem "&%-MV%& <&'file'&>"
-
-Use the given file as the &_MIDIvoices_& file, instead of the default that was
-set up when PMW was built. If a relative file name is given, it is taken as
-relative to the current directory, not to the PMW input file's directory. This
-file contains translations between names and MIDI voice numbers. Apart from
-comment lines (starting with #) and empty lines, each line in the file must
-begin with three digits, followed by a space, and then the instrument name,
-without any trailing spaces. The same number may appear more than once. For
-example:
-.code
-001 piano
-001 acoustic grand piano
-002 hard piano
-002 bright acoustic piano
-003 studio piano
-003 electric grand piano
-.endd
 
 .vitem &%-noid%&
 
@@ -999,6 +1014,12 @@ of page number if no pages are explicitly selected; otherwise the order is as
 selected by the user. Reverse order is precisely the opposite of this. It is
 useful for printers that stack face-up, and also in some two-sided printing
 operations.
+
+.vitem "&%-SM%& <&'directory'&>"
+
+When looking for `standard macro' files, search the given directory instead of
+the one that was set up when PMW was installed. This option is mainly of use
+when testing PMW.
 
 .vitem "&%-s%& <&'list'&>"
 
@@ -1505,9 +1526,14 @@ also guarantees that the same input string is used every time, thus ensuring
 consistency. In addition, if a change needs to be made to the string, it only
 has to be done once.
 
-Simple macros are introduced here because they are frequently used for text
-strings that are repeated in a piece &-- typically strings such as &'mf'&,
-&'ff'&, etc. Consider the following input line:
+Simple macros are introduced here because they are conveniently used for text
+strings such as &'mf'&, or &'ff'& which may appear many times in a piece. A
+macro definition can specify exactly how you would like such a string to appear
+&-- what size, which font, etc. Several files of `standard macros' are provided
+with PMW (&R; &<<CHAPstdmacs>>&). These contain basic macros for dynamics,
+fingering, figured bass text, and more. There are also a number of macros
+contributed by users in the &_contrib_& directory of the distribution tarball.
+As a brief introduction to macros, consider the following input line:
 .code
 *define mf "\it\m\bi\f"/b
 .endd
@@ -1542,8 +1568,7 @@ this macro:
 The option &`/d6`& moves the text down by six points. Macros can be used for
 any string of input characters; their use is not confined to text items. A full
 description of all the macro facilities is given in section
-&<<SECTpreprocess>>&, and the file named &_MacroCollection_& in the &_contrib_&
-directory contains copies of the macro definitions discussed in this manual.
+&<<SECTpreprocess>>&.
 
 
 
@@ -2108,8 +2133,8 @@ same way as &%[sshere]%&.  For more details see section &<<SUBSECTsg>>&.
 
 .subsection "System separators"
 It is common in scores to have two short thick lines between systems at the
-lefthand side, to emphasise visually where a new system begins. PMW can be 
-configured to output such lines; see section &<<SUBSECTsystemseparator>>& for 
+lefthand side, to emphasise visually where a new system begins. PMW can be
+configured to output such lines; see section &<<SUBSECTsystemseparator>>& for
 details.
 
 
@@ -2595,9 +2620,146 @@ be output at the cue note size.
 . ////////////////////////////////////////////////////////////////////////////
 . ////////////////////////////////////////////////////////////////////////////
 
+.chapter "Standard Macros" CHAPstdmacs
+.index "standard macros"
+.index "macros" "standard"
+The use of macros is introduced above. Several files of pre-defined macros are
+provided with PMW. They provide shorthands for a number of common requirements.
+Suggestions for additions are welcome.
+
+.ilist
+&%FBass%& contains macros for figured bass notation.
+.next
+&%Fingering%& contains macros for fingering numbers.
+.next
+&%StdMacs%& contains macros for a number of common items, including dynamics.
+.endlist
+
+The &%*include%& preprocessing directive (&R; &<<SUBSECTinclude>>&) gives
+access to these files, for example:
+.code
+*include "Fingering"
+.endd
+However, you must not have a file of your own called &%Fingering%& because that
+will take precedence.
+
+
+.section "Figured bass macros"
+.index "figured bass" "macros"
+The standard macro file called &%FigBass%& contains a general macro for figured
+bass numbers, along with some shorthands for common figurings. You can change
+two aspects of these macros by defining either or both of the macros &`FBI`& or
+&`FBU`& before including the &%FigBass%& file. &`FBI`& specifies initial text
+for the start of each figured bass string. It defaults to &`\mf\z`& which uses
+the music font to insert a small amount of white space &-- this makes for
+better alignment with the notes. &`FBU`& specifies the type of text to use. It
+defaults to &`/fbu`&, which specifies text at the figured bass size (see the
+&%fbsize%& directive), positioned at the underlay level. This ensures that the
+top line of figured bass numbers are all at the same level. You can change this
+to &`/fb`&:
+.code
+*define FBU /fb
+*include "FigBass"
+.endd
+In this configuration, each figuring's vertical position depends on the note
+above. The basic figured bass macro is called &`FB`&, and it takes up to three
+arguments, which are output one below the other. It is placed immediately
+before the note to which it applies, as in these examples:
+.code
+&FB(3) g  &FB(3,4) g  &FB(7,2,4) G
+.endd
+There are three macros for isolated accidentals, called &`FBF`& (flat), &`FBN`&
+(natural) and &`FBS`& (sharp). There are also a number of shorthands for common
+figurings. All of them are shown below:
+
+.music music68 200,-50
+
+The names of the macros are intended to suggest their contents, with `b' for
+`below', `c` for `cross', `f' for `flat', `n' for `natural', `s' for `sharp',
+and `u' for `underscore'. There are two versions of some crossed numbers, the
+plain `c' versions using a character in the music font, whereas the `cp'
+versions use a normal digit overprinted with a `+', which makes the cross more
+prominent.
+
+
+.section "Fingering macros" SECTfingeringmacros
+.index "fingering indications" "macros"
+The standard macro file called &%Fingering%& contains definitions of macros
+whose names are &`&&0`&, &`&&1`&, &`&&2`&, &`&&3`&, &`&&4`&, and &`&&5`&, plus
+one called &`&&THUMB`& for the cello thumb sign &{&#97;}&&nbsp;&nbsp;. Like the
+figured bass macros, these must appear before the note to which they refer.
+There is an issue if you want to use both the figured bass and the fingering
+macros at the same time, because there is a name clash. For this reason, a
+prefix can be set for the fingering macros. If your input is like this:
+.code
+*define FINGERPREFIX f
+*include "Fingering"
+.endd
+the names of the fingering macros become &`&&f0`&, &`&&f1`&, etc. You can also
+change the size of the numbers by setting &`FINGERSIZE`& for the numbers and
+&`THUMBSIZE`& for the thumb indicator. Finally, you can set &`FINGERTYPE`& to
+adjust the position. The default is &`/a/c`&, which puts the fingering above
+the note, centred. An individual number can be forced below the note by
+following the macro call with &`/b`&, but if you want them all below, setting
+&`FINGERTYPE`& may be more convenient. There is more discussion of fingering
+and an example below (&R; &<<SECTfingeringindics>>&).
+
+
+.section "Miscellaneous macros"
+The standard macro file &%StdMacs%& contains definitions for a number of common
+musical notations.
+
+.subsection "Dynamics and common instructions"
+The meaning of the following macro names should be obvious:
+
+&`f, ff, fff, fp, fz, mf, mp, p, pp, ppp, sf, sfz, fsubito, fsub, psubito,
+psub, ppsubito, ppsub, animato, cantabile, atempo, cresc, decresc, semprecresc,
+dim, pocorall, pocorit, ponticallo, naturale, legno, rall, rit, simile, sonore,
+sotto, tempo1, ten, tranq`&
+
+
+.subsection "Slur shorthands"
+The macros &`sa`& and &`sb`& are shorthands for starting a slur above or below
+the notes, respectively. Additional options for the slur may be given as an
+argument to the macro call. For example, to move the start of a slur up and to
+the right one might have &`&&sa(/u4/r2)`&. There is also a macro called &`es`&
+to end a slur, where again options may be given as an argument.
+
+
+.subsection "Octavo marks"
+The macros &`S8a`& and &`S8b`& notate the start of an `8va' marking above or
+below the stave, respectively, with &`E8a`& and &`E8b`& marking the end. There
+a discussion of how these work below (&R; &<<SUBSECTuolayother>>&).
+
+
+.subsection "Piano pedal marks"
+.index "piano pedal marks"
+The macro &`ped`& puts a conventional &{&#163;}& sign below the stave, and
+&`pedstar`& outputs &{$}&. There also three macros for pedal markings with
+horizontal lines: &`&&pedline`& follows &{&#163;}& with a horizontal line that
+continues till &`&&pedend`& is reached. Intermediate `blips' can be created
+with &`&&pedblip`&. Here is a simple example:
+
+.code
+&ped C e &pedstar g | &pedline Cdg | &pedblip geC &pedend |
+.endd
+
+.music music69 40 0,-10
+
+An optional argument for &`&&pedline`& is a downward movement (default 6) and
+an optional argument for &`&&pedblip`& is the width of the blip (default 4).
+There is discussion of how these macros work in the description of the
+&%[linegap]%& directive (&R; &<<SUBSECTlinegap>>&).
+
+
+
+
+. ////////////////////////////////////////////////////////////////////////////
+. ////////////////////////////////////////////////////////////////////////////
+
 .chapter "PMW reference description" CHAPreference
-The preceding chapters describe the basic features of the PMW music encoding in
-an introductory manner, in an order suitable for this purpose. Using only the
+Earlier chapters describe the basic features of the PMW music encoding in an
+introductory manner, in an order suitable for this purpose. Using only the
 material therein, you should be able to typeset a wide variety of music.
 However, there are many special-purpose features that have not yet been
 covered. The remainder of this document is written in the form of a reference
@@ -5008,6 +5170,7 @@ of the following options:
 .row &`/ring`&        "enclose the string in a ring (circular if a short string)"
 .row &`/rot`&<&'n'&>  "rotate the string by <&'n'&> degrees (&R; &<<SECTtextitems>>&)"
 .row &`/s`&<&'n'&>    "output the string at size <&'n'&> (&R; &<<SUBSECTtextsizes>>&)"
+.row &`/S`&<&'n'&>    "output the string at fixed size <&'n'&> (&R; &<<SUBSECTtextsizes>>&)"
 .row &`/u`&<&'n'&>    "move the string up by <&'n'&> points"
 .endtable
 
@@ -7245,8 +7408,8 @@ overlaid text.
 overlaysize 9.7
 .endd
 Individual items of overlay text can be specified at different sizes by using
-the &`/s`& text qualifier. The overlay size and the underlay size are separate
-parameters.
+the &`/s`& or &`/S`& text qualifier. The overlay size and the underlay size are
+separate parameters.
 
 
 
@@ -7500,9 +7663,9 @@ have just two thick lines between the dots, and this is what style 4 gives.
 .music "music37" 32 0,-16 centre
 
 .index "repeat marks" "with wings"
-When outputting single parts it is common to see repeat marks with small 
-`wings' above them, to make them more prominent. You can request these by 
-adding 10 to the argument of &%repeatstyle%&. Thus, a value of 10 generates 
+When outputting single parts it is common to see repeat marks with small
+`wings' above them, to make them more prominent. You can request these by
+adding 10 to the argument of &%repeatstyle%&. Thus, a value of 10 generates
 repeats like this:
 
 .music "music67" 32 0,-16
@@ -8009,18 +8172,20 @@ command line option applies only to PMW's music fonts.
 .index "underlay" "size"
 .index "size" "of text"
 Text that is specified with music on a stave can be output in twenty different
-sizes in addition to the default sizes for underlay, overlay, and figured bass
-text. The &%textsizes%& directive specifies the sizes that are required. It is
-followed by up to twenty font sizes, which may include stretching factors and
-shear angles. Any unspecified sizes are set to 10 points.
+settable sizes in addition to the default sizes for underlay, overlay, and
+figured bass text. The &%textsizes%& directive specifies the sizes that are
+required. It is followed by up to twenty font sizes, which may include
+stretching factors and shear angles. Any unspecified sizes are set to 10
+points.
 .code
 textsizes 10.5 11 7.6 9/1.1
 .endd
 By default, ordinary text is output using the first size specified, but
 underlay, overlay, and figured bass text uses the size specified by the
 &%underlaysize%&, &%overlaysize%&, or &%fbsize%& header directives,
-respectively. To output text at any of the other sizes, the &`/s`& qualifier
-must be used (&R; &<<SECTtextitems>>&).
+respectively. To output text at any of the other settable sizes, the &`/s`&
+qualifier must be used. There are also 10 fixed sizes that can be selected by
+the &`/S`& qualifier (&R; &<<SUBSECTtextsizeoption>>&).
 
 
 
@@ -8218,8 +8383,8 @@ underlaid text.
 underlaysize 9.5
 .endd
 Individual items of underlay text can be output at different sizes by using
-the &`/s`& text qualifier. The size parameters for underlaid and overlaid text
-are separate and independent.
+the &`/s`& or &`\S`& text qualifier. The size parameters for underlaid and
+overlaid text are separate and independent.
 
 
 
@@ -10286,17 +10451,18 @@ are available:
 . *** second column.
 
 .itable none 0 0 3  60 left  130 left  150 left
-.row &`/a`&           "position above the stave"
-.row &`/a`&<&'n'&>    "position&~at&~fixed&~distance&~above&~the&~stave"
-.row &`/ao`&          "position&~above&~the&~stave,&~at&~the&~overlay&~position"
-.row &`/b`&           "position below the stave"
-.row &`/b`&<&'n'&>    "position&~at&~fixed&~distance&~below&~the&~stave"
-.row &`/bu`&          "position&~below&~the&~stave&~at&~the&~underlay&~position"
-.row &`/m`&           "position&~below&~the&~stave,&~midway&~to&~the&~next&~stave"
+.row &`/a`&           "unspecific&~text&~above&~the&~stave"
+.row &`/a`&<&'n'&>    "ditto&~at&~fixed&~distance&~above&~the&~stave"
+.row &`/ao`&          "ditto&~above&~the&~stave,&~at&~the&~overlay&~level"
+.row &`/b`&           "unspecific&~text&~below&~the&~stave"
+.row &`/b`&<&'n'&>    "ditto&~at&~fixed&~distance&~below&~the&~stave"
+.row &`/bu`&          "ditto&~below&~the&~stave&~at&~the&~underlay&~level"
+.row &`/m`&           "ditto&~below&~the&~stave,&~midway&~to&~the&~next&~stave"
 .row "&~"
 .row &`/ul`&          "this text string is underlay"
 .row &`/ol`&          "this text string is overlay"
 .row &`/fb`&          "this&~text&~string&~is&~figured&~bass"
+.row &`/fbu`&         "this&~text&~string&~is&~figured&~bass&~at&~underlay&~level"
 .row "&~"
 .row &`/h`&           "position&~halfway&~between&~notes"
 .row &`/lc`&<&'n'&>   "position&~left&~by&~<&'n'&>&~crotchets"
@@ -10314,7 +10480,8 @@ are available:
 .row &`/ring`&        "enclose in a ring"    "&BM12;"
 .row &`/rot`&<&'n'&>  "rotate by <&'n'&> degrees"   "&BB12;"
 .row "&~"
-.row &`/s`&<&'n'&>    "use&~size&~<&'n'&>,&~where&~<&'n'&>&~is&~between&~1&~and&~20"
+.row &`/s`&<&'n'&>    "use&~settable&~size&~<&'n'&>,&~where&~<&'n'&>&~is&~between&~1&~and&~20"
+.row &`/S`&<&'n'&>    "use&~fixed&~size&~<&'n'&>,&~where&~<&'n'&>&~is&~between&~1&~and&~10"
 .row &`/u`&<&'n'&>    "move up <&'n'&> points"
 .row &`/d`&<&'n'&>    "move down <&'n'&> points"
 .row &`/l`&<&'n'&>    "move left <&'n'&> points"
@@ -10330,8 +10497,8 @@ These two examples have exactly the same effect:
 "allargando"/u4
 .endd
 If more than one of &`/a`&, &`/ao`&, &`/b`&, &`/bu`&, &`/m`&, &`/ul`&, &`/ol`&,
-or &`/fb`& is present, the last one takes precedence. If none of them are
-present, the string type is taken from the last &%[text]%& directive. If
+&`/fb`&, or &`/fbu`& is present, the last one takes precedence. If none of them
+are present, the string type is taken from the last &%[text]%& directive. If
 &%[text]%& has not been used on the current stave, &`/b`& is assumed. There is
 an important difference between &`/bu`& and &`/ul`&, and similarly between
 &`/ao`& and &`/ol`&. When &`/bu`& is specified, the text is treated as
@@ -10349,8 +10516,9 @@ the space for the next stave is used when positioning such text.
 
 .index "text" "vertical position"
 The default vertical position of text is adjusted to take account of the next
-note, unless the string is forced to the overlay or underlay level by &`/ol`&
-or &`/ul`&, or to an absolute position by &`/a<&'n'&>`& or &`/b<&'n'&>`&.
+note, unless the string is forced to the overlay or underlay level by &`/ol`&,
+&`/ul`&, or &`/fbu`&, or to an absolute position by &`/a<&'n'&>`& or
+&`/b<&'n'&>`&.
 .code
 "at underlay level"/ul
 "six points above the stave"/a6
@@ -10447,7 +10615,7 @@ options are used with underlay or overlay, they apply to each individual
 syllable.
 
 
-.subsection "Text sizes"
+.subsection "Text sizes" SUBSECTtextsizeoption
 .index "text" "sizes"
 .index "size" "of text"
 The &`/s`& option refers to the sizes of text defined by the &%textsizes%&
@@ -10462,6 +10630,23 @@ have their own default sizes (set by the &%underlaysize%&, &%overlaysize%&, and
 &%fbsize%& directives). The &`/s`& option can, however, be used with underlay,
 overlay, and figured bass text to specify a non-default size for an individual
 string.
+
+As well as the 20 settable text sizes, there are also 10 fixed sizes that
+cannot be changed. The &`/S`& qualified is used to select one of these sizes.
+The following are defined:
+
+.itable none 0 0 2  20 left 50 right
+
+.row &`/S1`&  "12 points"
+.row &`/S2`&  "11 points"
+.row &`/S3`&  "10 points"
+.row &`/S4`&  "9 points"
+.row &`/S5`&  "8 points"
+.row &`/S6`&  "7 points"
+.endtable
+The remaining four are set to 10 points, but may be changed in future so should
+not be used. These fixed sizes are provided for the use of the standard macro
+packages, but are not restricted to them.
 
 
 .subsection "Rotated text" SUBSECTrottext
@@ -10498,10 +10683,10 @@ qualifiers, but a follow-on string must not have any explicit positioning
 qualifiers such as &`/a`&, or &`/ts`&. The starting point for a follow-on
 string is the endpoint of the preceding string. The only qualifiers that are
 permitted for follow-on strings are those for relative movement (&`/u`&,
-&`/d`&, &`/l`&, &`/r`&), &`/s`& to select a font size, and &`/rot`& to specify
-a text rotation. A follow-on string that follows a rotated string starts from
-the rotated end point. Here are some silly examples (text size 2 is defined as
-14 points):
+&`/d`&, &`/l`&, &`/r`&), &`/s`& or &`/S`& to select a font size, and &`/rot`&
+to specify a text rotation. A follow-on string that follows a rotated string
+starts from the rotated end point. Here are some silly examples (text size 2 is
+defined as 14 points):
 
 .code
 "small"/a " BIG "/s2/F "small"/F a
@@ -10513,15 +10698,17 @@ the rotated end point. Here are some silly examples (text size 2 is defined as
 
 
 
-.section "Fingering indications"
+.section "Fingering indications" SECTfingeringindics
 .index "fingering indications"
 The small caps feature of text strings is useful for selecting a smaller than
 normal font for fingering indications. Alternatively, a specific font size can
-be defined, and used with the &`/s`& text option. The music font contains the
-special characters &{&#97;}&&~&~ and &{&#98;}&&~&~ for indication the use of
-the thumb in cello parts. The use of macros is suggested when setting music
-with lots of fingering. Note the use of the &`/c`& option in this example, to
-centre the text below each note:
+be defined and used with the &`/s`& text option or one of the fixed sizes can
+be selected by &`/S`&. The music font contains the special characters
+&{&#97;}&&~&~ and &{&#98;}&&~&~ for indication the use of the thumb in cello
+parts. The use of macros is suggested when setting music with lots of
+fingering, and a suitable set of macros is provided in the &%Fingering%&
+standard macro file (&R; &<<SECTfingeringmacros>>&). Note the use of the &`/c`&
+option in this example, to centre the text below each note:
 .code
 *define 1 "\rm\\sc\1"/b/c
 *define 2 "\rm\\sc\2"/b/c
@@ -10736,7 +10923,7 @@ problem does not arise.
 Two separate sets of fonts are provided for underlaid and overlaid text, and
 the size of these can be set independently of the other text fonts by the
 &%underlaysize%& and &%overlaysize%& directives. Individual underlay or overlay
-strings can specify different sizes by means of the &`/s`& option.
+strings can specify different sizes by means of the &`/s`& or &`/S`& option.
 
 
 .subsection "Underlay and overlay levels"
@@ -10827,11 +11014,11 @@ particular it must follow an explicit &`/ul`& or &`/ol`& option.
 
 The default font for the second string is the default underlay or overlay font,
 as appropriate, and the default size is the size of the first string. However,
-the second string may be followed by &`/s`& and a number to specify a different
-size. The second string may also be followed by &`/u`& or &`/d`& to specify
-that it is to be moved up or down, relative to the following syllable. In this
-example, a space and a full stop is used as the repeating string, and it is
-moved up so as to be approximately at the middle of the letters.
+the second string may be followed by &`/s`& or &`/S`& and a number to specify a
+different size. The second string may also be followed by &`/u`& or &`/d`& to
+specify that it is to be moved up or down, relative to the following syllable.
+In this example, a space and a full stop is used as the repeating string, and
+it is moved up so as to be approximately at the middle of the letters.
 .code
 "\it\cresc.-"/ul/" ."/u1.5  gc'ga | gf "#"/ul gr |
 .endd
@@ -10884,15 +11071,14 @@ followed by character 159 from the music font is output.
 One further feature is available to cope with repeated strings that extend over
 the end of a music system. If yet another optional string is given, it is
 output at the start of each continuation line, before the start of the
-repeating strings. The only option permitted after this string is &`/s`&, to
-set its size (which defaults to the size of the original underlay or overlay
-string). Using this feature to output a small `8' at the start of continuation
-lines, the macro definition from the above example becomes:
+repeating strings. The only option permitted after this string is &`/s`& or
+&`/S`&, to set its size (which defaults to the size of the original underlay or
+overlay string). Using this feature to output a small `8' at the start of
+continuation lines, the macro definition from the above example becomes:
 .code
 *define s8 "\it\8va-"/ol/" -| \mf\\159\"/u0.3/"\it\8"/s2
 .endd
-It is assumed that size 2 is suitably defined using the &%textsizes%&
-directive.
+This assumes that size 2 is suitably defined using the &%textsizes%& directive.
 
 .index-to I06
 
@@ -11616,9 +11802,9 @@ set to the length of the text plus a little bit. The text is centred in the
 gap, rotated so that it has the same slope as the line. The text option must be
 the last option for &%[linegap]%& because any further options are taken as
 options that apply to the string. The following text options are available:
-&`/u`&, &`/d`&, &`/l`&, &`/r`&, &`/s`&, &`/box`&, and &`/ring`&. The movements
-are relative to a coordinate system whose `horizontal' axis lies on the line
-joining the ends of the gap.
+&`/u`&, &`/d`&, &`/l`&, &`/r`&, &`/s`&, &`/S`&, &`/box`&, and &`/ring`&. The
+movements are relative to a coordinate system whose `horizontal' axis lies on
+the line joining the ends of the gap.
 .endlist
 
 A drawing or text string can be associated with the start or end of a line by
@@ -12947,8 +13133,9 @@ When both horn parts are being output, the text is shown halfway between them,
 but if the second stave is suspended, the text aligns with the first stave.
 
 You can specify a size for text at the start of a stave by following the string
-with &`/s`& and a number. The number selects a text size from the list given to
-the &%textsizes%& directive, as for any other text on staves.
+with &`/s`& or &`/S`& and a number. For &`/s`&, the number selects a text size
+from the list given to the &%textsizes%& directive, whereas &`/S`& selects one
+of the fixed sizes (&R; &<<SUBSECTtextsizeoption>>&).
 .code
 [stave 1 "Flute"/s2]
 .endd
@@ -13200,17 +13387,18 @@ directive. It takes a word as its argument.
 
 To override a default with an absolute position (for example &%[text above
 15]%&), the text options  &`/a`& or &`/b`& without a following number can be
-used (as well as &`/ul`&, &`/fb`&, or &`/m`&). Similarly, the appearance of
-&%[text above]%& or &%[text below]%& without a number resets to the initial
-state, where the default vertical position depends on the next note.
+used (as well as &`/ul`&, &`/fb`&, &`/fbu`&, or &`/m`&). Similarly, the
+appearance of &%[text above]%& or &%[text below]%& without a number resets to
+the initial state, where the default vertical position depends on the next
+note.
 
 Ordinary text that is positioned above or below the stave is by default output
-at size 1 (as specified by the &%textsizes%& header directive). Underlay,
-overlay, and figured bass text is output by default at the sizes specified by
-the &%underlaysize%&, &%overlaysize%&, and &%fbsize%& header directives. The
-default text type and size can always be overridden by explicit qualifiers
-following the string. For example, if &%[text underlay]%& has been specified,
-an italic dynamic mark above the stave is coded like this:
+at settable size 1 (as specified by the &%textsizes%& header directive).
+Underlay, overlay, and figured bass text is output by default at the sizes
+specified by the &%underlaysize%&, &%overlaysize%&, and &%fbsize%& header
+directives. The default text type and size can always be overridden by explicit
+qualifiers following the string. For example, if &%[text underlay]%& has been
+specified, an italic dynamic mark above the stave is coded like this:
 .code
 "\it\ff"/a
 .endd
@@ -13242,7 +13430,8 @@ the default size to be used for text that is neither underlay nor overlay nor
 figured bass, which have their own size setting directives. The actual font
 sizes that correspond to the twenty numbers are set by the &%textsizes%&
 header directive. If this directive is not used, the default size is size 1.
-Individual text strings can have their sizes set by means of the &`/s`& option.
+Individual text strings can have their sizes set by means of the &`/s`& option,
+or by &`/S`&, which selects from a set of fixed sizes.
 
 
 .subsection "[Tick]"
@@ -14965,7 +15154,8 @@ follow-on strings (&R; &<<SUBSECTfollowon>>&).
 .row &`/d`&<&'n'&>     "move down <&'n'&> points"
 .row &`/e`&            "align end of string, not start"
 .row &`/F`&            "this is a follow-on string"
-.row &`/fb`&           "this is figured bass string"
+.row &`/fb`&           "this is figured bass"
+.row &`/fbu`&          "this is figured bass, at underlay level"
 .row &`/h`&            "position halfway between notes"
 .row &`/l`&<&'n'&>     "move left <&'n'&> points"
 .row &`/lc`&<&'n'&>    "position left <&'n'&> crotchets"
@@ -14977,14 +15167,15 @@ follow-on strings (&R; &<<SUBSECTfollowon>>&).
 .row &`/rc`&<&'n'&>    "position right <&'n'&> crotchets"
 .row &`/ring`&         "enclose in a ring shape"
 .row &`/rot`&<&'n'&>   "rotate <&'n'&> degrees"
-.row &`/s`&<&'n'&>     "use font size <&'n'&> (1&--20)"
+.row &`/s`&<&'n'&>     "use settable font size <&'n'&> (1&--20)"
+.row &`/S`&<&'n'&>     "use fixed font size <&'n'&> (1&--10)"
 .row &`/ts`&           "position at time signature"
 .row &`/ul`&           "string is underlay"
 .row &`/u`&<&'n'&>     "move up <&'n'&> points"
 .endtable
 
-Font sizes are defined in the header by the &%textsizes%& directive. For
-underlay and overlay strings, additional strings may follow as options, to
+Settable font sizes are defined in the header by the &%textsizes%& directive.
+For underlay and overlay strings, additional strings may follow as options, to
 control the hyphens between syllables (&R; &<<SUBSECTuolayother>>&).
 
 
@@ -14999,7 +15190,8 @@ These are the only options that are recognized for strings given in the
 .row &`/l`&<&'n'&>     "move left <&'n'&> points"
 .row &`/m`&            "position below, halfway to the next stave"
 .row &`/r`&<&'n'&>     "move right <&'n'&> points"
-.row &`/s`&<&'n'&>     "use font size <&'n'&> (1&--20)"
+.row &`/s`&<&'n'&>     "use settable font size <&'n'&> (1&--20)"
+.row &`/S`&<&'n'&>     "use fixed font size <&'n'&> (1&--10)"
 .row &`/u`&<&'n'&>     "move up <&'n'&> points"
 .row &`/v`&            "rotate to run vertically"
 .row &`/"...`&         "add another string at the same point"

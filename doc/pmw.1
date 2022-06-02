@@ -10,8 +10,9 @@ PMW (Philip's Music Writer) is a program for typesetting music. It is not
 an interactive program; instead, it reads a description of the music from a
 textual input file, which can be prepared by any text editor. The output from
 PMW is a PostScript file of page images of typeset music. This output uses
-the PMW-Music PostScript font, which must therefore be available for viewing or
-printing. A secondary output in the form of a MIDI file can be requested.
+the PMW-Music PostScript font, which must therefore be available for viewing,
+printing, or converting to PDF by an application such as GhostScript. A
+secondary output in the form of a MIDI file can be requested.
 
 A full description of PMW and its markup language is given in the reference
 manual. This man page just summarizes the command line options.
@@ -28,6 +29,13 @@ The pages are A5-sized; print them 2-up, assuming A4 paper.
 \fB-a4sideways\fR
 The paper is A4, but the printer feeds it sideways, so rotate the page images
 before printing.
+.TP
+\fB-C\fR \fI<arg>\fR
+Show a compile-time option; exit with its value (0 or 1). Possible arguments 
+are:
+.sp
+  b2pf      suport for B2PF processing
+  musicxml  support for MusicXML input  
 .TP
 \fB-c\fR \fI<number>\fR
 Arrange to print \fI<number>\fR copies. This number is honoured by PostScript
@@ -188,6 +196,10 @@ Output only odd or only even pages; \fI<n>\fR must either be 1 or 2.
 \fB-reverse\fR
 Output the pages in reverse order.
 .TP
+\fB-SM\fR \fI<directory>\fR
+Search the given directory for "standard macro" files instead of searching the
+default directory that was set up when PMW was built.
+.TP
 \fB-s\fR \fI<list>\fR
 Output only the specified staves. These can be individual stave numbers, or
 pair of numbers separated by a hyphen, to specify a range. Use commas to
@@ -231,6 +243,6 @@ warnings, and EXIT_FAILURE (usually 1) otherwise.
   Email domain: \fIgmail.com\fR
 .sp
 .in 0
-Last updated: 24 November 2021
+Last updated: 28 May 2022
 .br
-Copyright (c) 2021 Philip Hazel
+Copyright (c) 2022 Philip Hazel

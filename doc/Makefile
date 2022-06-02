@@ -21,7 +21,7 @@
 # it does for the PMW-Music font (perhaps because it's a Type 3?) so we
 # include it explicitly when making the PDF.
 
-PMW=../src/pmw -F ../fontmetrics -H ../PSheader
+PMW=../src/pmw -F ../fontmetrics -H ../PSheader -SM ../macros
 
 all:                spec.pdf
 
@@ -105,7 +105,9 @@ spec.ps:            Makefile \
                     postscript/music64 \
                     postscript/music65 \
                     postscript/music66 \
-                    postscript/music67
+                    postscript/music67 \
+                    postscript/music68 \
+                    postscript/music69
 		    sdop -S . spec.xml
 
 spec.xml:           spec.xfpt
@@ -332,6 +334,12 @@ postscript/music66: examples/ex66
 
 postscript/music67: examples/ex67
 		    ${PMW} -eps -nowidechars -o postscript/music67 examples/ex67
+
+postscript/music68: examples/ex68
+		    ${PMW} -eps -nowidechars -o postscript/music68 examples/ex68
+
+postscript/music69: examples/ex69
+		    ${PMW} -eps -nowidechars -o postscript/music69 examples/ex69
 
 clean:;             /bin/rm -rf *.ps *.pdf *.xml postscript fontmetrics
 
