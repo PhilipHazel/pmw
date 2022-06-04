@@ -73,6 +73,11 @@ PostScript FonDirectory after "findfont" because (a) the test is clearly
 redundant if "findfont" succeeds and (b) a user reported getting the "unknown" 
 error, even though the font had been loaded.
 
+23. When a Unicode code point was translated to a code point in a font with 
+non-standard encoding, if the string was underlay or overlay and the resulting 
+code point was the Unicode code point for hyphen or equals or sharp, it was 
+erroneously given the special underlay/overlay treatment. Such translations are 
+now made to behave as if the input were escaped.
 
 
 Version 5.02 30-January-2022

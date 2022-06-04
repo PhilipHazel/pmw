@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: June 2022 */
 
 #include "pmw.h"
 
@@ -1086,7 +1086,15 @@ for (uint32_t *s = str; *s != 0; s++)
     {
     uint32_t pc = font_utranslate(c, fs);
     *s &= 0xff000000u;   /* Keep the current font */
-    if (pc < 256) *s |= pc; else
+    
+    /* A valid translated codepoint is either < 256 or an escaped sharp, 
+    equals, or hyphen, whose code points are outside the Unicode range. */
+ 
+    if (pc < 256 || pc > MAX_UNICODE) 
+      {
+      *s |= pc; 
+      }
+    else
       {
       *s = (PFTOP(fs->invalid) == (font_unknown << 24))?
         (*s | PCHAR(fs->invalid)) : fs->invalid;

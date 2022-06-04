@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: September 2021 */
+/* This file last modified: June 2022 */
 
 #include "pmw.h"
 
@@ -901,6 +901,17 @@ if (f != NULL)
         error(ERR61, lineno, filename, line);
         continue;
         }
+        
+      /* Change an underlay special character to its escaped version. */
+      
+      switch (c)
+        {
+        case '#': c = ss_escapedsharp; break;
+        case '=': c = ss_escapedequals; break;
+        case '-': c = ss_escapedhyphen; break;
+        default: break; 
+        }  
+ 
       fs->invalid = c | (font_unknown << 24);
       continue;
       }
@@ -932,13 +943,24 @@ if (f != NULL)
       error(ERR61, lineno, filename, line);
       continue;
       }
+      
+    /* Change underlay special characters to escaped versions. */
+    
+    switch (utable[ucount].pscode)
+      {
+      case '#': utable[ucount].pscode = ss_escapedsharp; break;
+      case '=': utable[ucount].pscode = ss_escapedequals; break;
+      case '-': utable[ucount].pscode = ss_escapedhyphen; break;
+      default: break; 
+      }  
 
     ucount++;
     }
 
   (void)fclose(f);
 
-  /* Sort the data, check for duplicates, and remember with the font. */
+  /* Sort the data by Unicode value, check for duplicates, and remember with
+  the font. */
 
   if (ucount > 0)
     {

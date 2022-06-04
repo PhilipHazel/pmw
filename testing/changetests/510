@@ -201,3 +201,10 @@ R! | [slur/a] gg [slurgap/"xx"/S5] gg [draw words] |
 [endstaff]
 
 
+[newmovement]
+nocheck
+time 3/4
+
+[stave 1 treble 1 text underlay]
+"\mf\\x1d000\ \x1D121\ \x1D13d\" g g g
+[endstave]
