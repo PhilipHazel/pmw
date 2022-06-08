@@ -6,11 +6,11 @@ MANDIR=$3
 
 cat <<End
 
-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 The pmw command has been installed in $BINDIR. The PostScript header 
-file, the PostScript music fonts, and the fontmetrics files have been 
-installed in $DATADIR. The man page has been installed in 
-$MANDIR.
+file, the PostScript music fonts, the MIDI translation files, the standard
+macros, and the fontmetrics files have been installed in $DATADIR. 
+The man page has been installed in $MANDIR/man1.
 
 Checking to see if you have GhostScript installed...
 End

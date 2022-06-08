@@ -77,7 +77,7 @@ for (i = item_list; i != NULL; i = i->next)
 
   else if (Ustrcmp(i->name, "#TEXT") == 0)
     {
-    xml_textblock *tb = i->p.txtblk; 
+    xml_textblock *tb = i->p.txtblk;
     if (tb == NULL) eprintf("Dummy text block\n");
       else debug_print_string(tb->string, tb->length, "\n");
     }
@@ -121,7 +121,7 @@ for (i = item_list; i != NULL; i = i->next)
     eprintf(">\n");
     }
   }
-eprintf("----- End of item list -----\n");   
+eprintf("----- End of item list -----\n");
 }
 
 

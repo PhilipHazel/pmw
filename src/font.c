@@ -901,17 +901,17 @@ if (f != NULL)
         error(ERR61, lineno, filename, line);
         continue;
         }
-        
+
       /* Change an underlay special character to its escaped version. */
-      
+
       switch (c)
         {
         case '#': c = ss_escapedsharp; break;
         case '=': c = ss_escapedequals; break;
         case '-': c = ss_escapedhyphen; break;
-        default: break; 
-        }  
- 
+        default: break;
+        }
+
       fs->invalid = c | (font_unknown << 24);
       continue;
       }
@@ -943,16 +943,16 @@ if (f != NULL)
       error(ERR61, lineno, filename, line);
       continue;
       }
-      
+
     /* Change underlay special characters to escaped versions. */
-    
+
     switch (utable[ucount].pscode)
       {
       case '#': utable[ucount].pscode = ss_escapedsharp; break;
       case '=': utable[ucount].pscode = ss_escapedequals; break;
       case '-': utable[ucount].pscode = ss_escapedhyphen; break;
-      default: break; 
-      }  
+      default: break;
+      }
 
     ucount++;
     }

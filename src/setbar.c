@@ -105,7 +105,7 @@ for (int i = 0; i < ACCENT_COUNT; i++) out_accentmove[i] = &no_accent_move;
 each stave's stuff gets printed before the bar line gets drawn into it from
 above - otherwise the wiping stuff for beams may obliterate parts of the bar
 lines. First create a bit map of those staves that are selected, not suspended,
-and are not an empty stave 0, and at the same time note which are the top and 
+and are not an empty stave 0, and at the same time note which are the top and
 bottom staves (needed for outputting repeat wings). */
 
 out_botstave = out_topstave = -1;
@@ -113,14 +113,14 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
   {
   if (mac_notbit(notsuspend, curstave)) continue;
   if (curstave == 0)
-    {  
+    {
     stavestr *ss = curmovt->stavetable[curstave];
     bstr *p = (bstr *)(ss->barindex[curbarnumber]);
     if (p->next->type == b_barline) continue;
     }
-  if (out_botstave < 0) out_botstave = curstave; 
+  if (out_botstave < 0) out_botstave = curstave;
   mac_setbit(livestaves, curstave);
-  out_topstave = curstave; 
+  out_topstave = curstave;
   }
 
 /* Now process the selected staves */
@@ -625,7 +625,7 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
       (barlinetype == barline_ending ||
         (finalbar && !MFLAG(mf_unfinished)))? bar_thick :
       (barlinestyle == 1 || barlinestyle == 3)? bar_dotted : bar_single;
-      
+
     /* If the bar finished with a right-hand repeat mark, in certain cases we
     can omit overprinting with a normal bar line. */
 

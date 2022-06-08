@@ -111,7 +111,7 @@ xml_elliststr xml_supported_elements[] = {
   { US"credit-type",            NULL },
   { US"credit-words",           credit_words_attrs },
   { US"cue",                    NULL },
-  { US"dashes",                 dashes_attrs }, 
+  { US"dashes",                 dashes_attrs },
   { US"defaults",               NULL },
   { US"delayed-turn",           turn_attrs },
   { US"detached-legato",        articulation_attrs },

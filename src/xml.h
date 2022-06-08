@@ -32,9 +32,9 @@ headers, but they might as well be together with those above. */
 #define ISATTR(a,b,c,d,e) \
   (Ustrcmp(xml_get_attr_string(a,US b,US c,d),e) == 0)
 
-/* Stave coupling settings */     
-                                  
-enum { COUPLE_NOT, COUPLE_UP, COUPLE_DOWN }; 
+/* Stave coupling settings */
+
+enum { COUPLE_NOT, COUPLE_UP, COUPLE_DOWN };
 
 /* Include the other XML header files */
 

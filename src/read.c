@@ -54,13 +54,13 @@ if (ispmw)
   {
   /* The transpose parameters are in globals because they are also used during
   header reading for transposing note and key names. */
-  
+
   active_transpose = curmovt->transpose;
   active_transposedaccforce = main_transposedaccforce;
-  
+
   /* Copy a default set of values for reading a stave, then adjust a few from the
   current movement's parameters. */
-  
+
   srs = init_sreadstr;
   srs.stavenumber = stave;
   srs.hairpinwidth = curmovt->hairpinwidth;
@@ -72,7 +72,7 @@ if (ispmw)
   srs.noteden = curmovt->noteden;
   srs.required_barlength = read_compute_barlength(curmovt->time);
   srs.suspended = (curmovt->suspend_staves & (1 << stave)) != 0;
-  } 
+  }
 
 return curmovt->stavetable[stave];
 }
@@ -83,7 +83,7 @@ return curmovt->stavetable[stave];
 *       Tidy omitted staves and bars             *
 *************************************************/
 
-/* Called after reading to fill in any gaps. 
+/* Called after reading to fill in any gaps.
 
 Argument: TRUE if reading a PMW file, FALSE for MusicXML
 Returns:  nothing
@@ -155,7 +155,7 @@ over.
 
 Arguments:
   new         pointer to new movtstr, uninitialized
-  unsetflags  flags to unset 
+  unsetflags  flags to unset
   setflags    flags to set (movement type)
 
 Returns:    nothing
@@ -290,8 +290,8 @@ main_readbuffer_threshold = main_readbuffer_size - 2;
 *                 Manage bar indexes             *
 *************************************************/
 
-/* The bar indexes for movements and staves are expandable as necessary. This 
-function handles that. The current movement is in curmovt and the current stave 
+/* The bar indexes for movements and staves are expandable as necessary. This
+function handles that. The current movement is in curmovt and the current stave
 in st.
 
 Argument:  size needed
@@ -321,7 +321,7 @@ while (needed >= st->barindex_size)
   st->barindex = realloc(st->barindex, size);
   if (st->barindex == NULL) error(ERR0, "re-", "bar index", size);  /* Hard */
   }
-}   
+}
 
 
 
@@ -410,7 +410,7 @@ if (Ustrncmp(main_readbuffer, "\xef\xbb\xbf", 3) == 0) p += 3;
 if (Ustrncmp(p, "%abc-", 5) == 0)
   {
   TRACE("ABC file detected\n");
-  read_i = Ustrlen(main_readbuffer);  
+  read_i = Ustrlen(main_readbuffer);
   error(ERR3, "ABC");    /* Hard - in future will be tested */
   if (ft != FT_AUTO || ft != FT_ABC)
     error(ERR4, "ABC");  /* Hard */
@@ -419,14 +419,14 @@ if (Ustrncmp(p, "%abc-", 5) == 0)
 else if (Ustrncmp(p, "<?xml version=", 14) == 0)
   {
   TRACE("MusicXML file detected\n");
-  read_i = Ustrlen(main_readbuffer);  
-#if !SUPPORT_XML   
+  read_i = Ustrlen(main_readbuffer);
+#if !SUPPORT_XML
   error(ERR3, "MusicXML");    /* Hard */
-#else   
+#else
   if (ft != FT_AUTO && ft != FT_MXML)
     error(ERR4, "MusicXML");  /* Hard */
-  xml_read();   
-#endif   
+  xml_read();
+#endif
   }
 
 else

@@ -1674,7 +1674,7 @@ for (;;)
     /* Adjust absolute pitch for transposing clefs */
 
     abspitch += srs.clef_octave;
-    
+
     if (abspitch < 0 || abspitch > 200) error(ERR173);  /* Hard */
 
     /* Keep track of the absolute pitch range, maintain data for tessitura

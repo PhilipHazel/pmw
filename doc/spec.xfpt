@@ -152,13 +152,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>09 April 2022</date>
+<date>08 June 2022</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.10</revnumber>
-  <date>09 April 2022</date>
+  <date>08 June 2022</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2022</year><holder>Philip Hazel</holder></copyright>
@@ -400,6 +400,15 @@ The files that are installed in the prefix directory are as follows:
 .next
 &_man/man1/pmw.1_& is a short `man' page that describes the command options for
 PMW.
+.next
+&_share/pmw/macros_& is a directory that contains files of `standard macros'
+(&R; &<<CHAPstdmacs>>&).
+.next
+&_share/pmw/MIDIperc_& contains translations between names such as `acoustic
+bass drum' and MIDI pitches for untuned percussion voices.
+.next
+&_share/pmw/MIDIvoices_& contains translations between names such as `piano'
+and MIDI voice numbers.
 .next
 &_share/pmw/PSheader_& is the PostScript header file for PMW output.
 .next
@@ -2165,8 +2174,7 @@ default setting, which is to bracket all the staves of the system.
 .index "text" "at stave start"
 At the start of a piece it is common to show the names of the voices and/or
 instruments to the left of the first system. This is done by giving a string in
-quotes as part of the &%[stave]%& directive, immediately after the stave
-number.
+quotes as part of the &%[stave]%& directive.
 .code
 [stave 1 "Clarinet" treble 1]
 .endd
@@ -2624,7 +2632,7 @@ be output at the cue note size.
 .index "standard macros"
 .index "macros" "standard"
 The use of macros is introduced above. Several files of pre-defined macros are
-provided with PMW. They provide shorthands for a number of common requirements.
+provided with PMW. They contain shorthands for a number of common requirements.
 Suggestions for additions are welcome.
 
 .ilist
@@ -3056,10 +3064,8 @@ outputting reminders to the user.
 .index "&%*define%&"
 The &%*define%& directive is used to define &'macros'&. A macro is a name for a
 string of characters, usually for something that is needed more than once.
-Using a macro ensures consistency, and a short name saves typing. The file
-named &_MacroCollection_& in the &_contrib_& directory contains copies of the
-macro definitions discussed in this manual. The format of &%*define%& for a
-simple macro is:
+Using a macro ensures consistency, and a short name saves typing. The format of
+&%*define%& for a simple macro is:
 .display
 &`*define`& <&'name'&> <&'rest of line'&>
 .endd
@@ -3279,8 +3285,10 @@ in quotes:
 If the name does not start with a slash, it is interpreted relative to the
 directory containing the current input file, unless the current input is the
 standard input, in which case a non-absolute path name is taken relative to the
-current directory. Included files may be nested. That is, an included file may
-contain further &%*include%& directives.
+current directory. If a file whose name contains no slashes cannot be found, it
+is sought in the `standard macros' directory (&R; &<<CHAPstdmacs>>&). Included
+files may be nested. That is, an included file may contain further &%*include%&
+directives.
 
 
 
@@ -4311,22 +4319,29 @@ effect as using &`\mu\`&.
 .index "fonts" "sizes"
 .index "size" "of fonts"
 The header directives that specify page headings and footings allow arbitrary
-sizes to be given for those texts. Text within a stave uses 10-point fonts by
-default, but various facilities are provided for changing this.
+font sizes to be given for those texts. Text within a stave uses 10-point fonts
+by default, but there are various ways of changing this.
+
+The &%textsizes%& header directive defines up to 20 settable text sizes, which
+can be accessed by any text string within a stave by means of the &`/s`&
+option. The default for all these sizes is 10 points. Whenever the size of a
+text font is specified, an associated aspect ratio and/or shearing angle may
+also be specified (&R; &<<SECTfontsize>>&). In addition there are 10 fixed
+sizes that are accessed by &`/S`& (&R; &<<SUBSECTtextsizeoption>>&).
+
 .index "figured bass" "default size"
 .index "underlay" "default size"
 .index "fonts" "default sizes"
-Underlay, overlay, figured bass, and other text each have their own separate
-default sizes, which are set up by header directives. In addition the user may
-specify up to nineteen additional sizes that can be requested for any
-particular item of text (&R; &<<SUBSECTtextsizes>>&, &<<SECTtextitems>>&).
+Underlay, overlay, and figured bass have their own separate default sizes,
+which are set up by header directives. All other text defaults to a settable
+size that can specified by the &%[textsize]%& directive, with the ultimate
+default being settable size 1.
 
-Whenever the size of a text font is specified, an associated aspect ratio
-and/or shearing angle may also be specified (&R; &<<SECTfontsize>>&).
 Stave text strings that are not underlay or overlay can be rotated so that they
-appear at an angle (&R; &<<SECTtextitems>>&). Text at the start of a stave can
-be rotated so as to run vertically instead of horizontally &-- see the
-description of &%[stave]%& in section &<<SUBSECTstave>>&.
+appear at an angle. Text at the start of a stave can be rotated so as to run
+vertically instead of horizontally &-- see the description of &%[stave]%& in
+section &<<SUBSECTstave>>&. More detail about text items in stave data is given
+below (&R; &<<SECTtextitems>>&).
 
 
 
@@ -4592,11 +4607,11 @@ rest is not a completely empty bar.
 .index "crop marks"
 PMW contains a facility for drawing simple shapes, defined by the user,
 positioned relative to notes, bar lines, headings, stave names, or gaps in
-slurs and slur-like lines. This makes it possible to create music notation
-that is not provided explicitly by PMW. For example, the facility can be used
-to draw piano pedal marks, boxes round notes, vertical brackets between
-notes, and other unusual marks above or below the stave. It can be used
-with headings or footings to rule lines across the page or to output crop marks.
+slurs and slur-like lines. This makes it possible to create music notation that
+is not provided explicitly by PMW. For example, the facility can be used to
+draw boxes round notes, vertical brackets between notes, and other unusual
+marks above or below the stave. It can be used with headings or footings to
+rule lines across the page or to output crop marks.
 
 This chapter is placed here because there are references to the drawing
 facilities in what follows. However, unless you plan to make use of these
@@ -5169,7 +5184,7 @@ of the following options:
 .row &`/r`&<&'n'&>    "move the string right by <&'n'&> points"
 .row &`/ring`&        "enclose the string in a ring (circular if a short string)"
 .row &`/rot`&<&'n'&>  "rotate the string by <&'n'&> degrees (&R; &<<SECTtextitems>>&)"
-.row &`/s`&<&'n'&>    "output the string at size <&'n'&> (&R; &<<SUBSECTtextsizes>>&)"
+.row &`/s`&<&'n'&>    "output the string at settable size <&'n'&> (&R; &<<SUBSECTtextsizes>>&)"
 .row &`/S`&<&'n'&>    "output the string at fixed size <&'n'&> (&R; &<<SUBSECTtextsizes>>&)"
 .row &`/u`&<&'n'&>    "move the string up by <&'n'&> points"
 .endtable
@@ -6213,8 +6228,8 @@ can be used to place them nearer the middle of the text characters.
 .index "&%fbsize%&"
 .index "figured bass" "size"
 By default, text that is specified as being part of a figured bass is output
-at the same size as other textual items (10 points). This directive enables a
-different point size to be chosen for the figured bass text.
+at the same default size as other textual items (10 points). This directive
+enables a different point size to be chosen for the figured bass text.
 .code
 fbsize 8.2
 .endd
@@ -8443,10 +8458,10 @@ This example causes them to be slightly smaller than the default.
 .tocsubsecton
 .chapter "Stave data" CHAPstavedata
 .index-from I06 "stave data"
-This is the first of two chapters in which we describe the format of the
-data for a single stave, which consists of a sequence of notes and rests,
-interspersed with other items such as bar lines, key and time signatures,
-clefs, text strings, etc. The items that are not notes or rests are as follows:
+This is the first of two chapters that describe the format of the data for a
+single stave, which consists of a sequence of notes and rests, interspersed
+with other items such as bar lines, key and time signatures, clefs, text
+strings, etc. The items that are not notes or rests are as follows:
 .ilist
 A few common items that can conveniently be represented in the computer's
 character set are represented by one or more special characters. An example is
@@ -8466,9 +8481,9 @@ described in alphabetical order in section &<<SECTstavedirectives>>&.
 Notes, rests and other items may be interspersed freely, as required.
 .index "space character"
 Space characters and line breaks can be used to separate items, in order to
-make the input easier to read, though they are not necessary. PMW makes no
-attempt to check on the musical sense of what it is asked to typeset, other
-than to check bar lengths.
+make the input easier to read, though they are not necessary except to avoid 
+ambiguity . PMW makes no attempt to check on the musical sense of what it is
+asked to typeset, other than to check bar lengths.
 .index "bar lengths"
 When there is more than one stave, the length of the notes in each bar must be
 the same for all staves, though it is possible to handle some special cases
@@ -8496,7 +8511,7 @@ To encode a totally empty bar it is necessary to include at least one space
 between two vertical bar characters.
 
 .index "bar lines" "styles"
-There six different styles for barlines (&R; &<<SUBSECTbarlinestyle>>&). The
+There are six different styles for barlines (&R; &<<SUBSECTbarlinestyle>>&). The
 default style can be set by &%barlinestyle%& (for the whole piece) or
 &%[barlinestyle]%& (for an individual stave). In addition, the style of any
 individual bar line may be specified by following the vertical bar character
@@ -8574,7 +8589,7 @@ can be used:
 You can also use &`\r2\`&, which does the same thing, but starting at the
 second bar; nothing is inserted in the first repeated bar. This makes it
 possible to put something different on the first bar. Note the use of &`/cb`&
-in this example to centre each text string in its bar. See section
+in the next example to centre each text string in its bar. See section
 &<<SECTtextitems>>& for details of string options.
 
 .code
@@ -9620,8 +9635,8 @@ without a staccato dot.
 [\.\] a b c d\x\ e f g [\\]
 .endd
 Expression/option items are processed from left to right. If there are two or
-more options being defaulted, &`x`& cancels them all, but one can be put back
-again afterwards.
+more options being defaulted, &`x`& cancels them all, but any of them can be
+put back again afterwards.
 
 
 
@@ -10432,15 +10447,15 @@ default output in the roman typeface. The directives &%[underlayfont]%&,
 &%[overlayfont]%&, and &%[fbfont]%& can be used to change the default font for
 these kinds of text on individual staves.
 
-Text strings are coded in among the notes of a stave, and are, like all
-strings, enclosed in double quote characters.
+Text strings, enclosed in double quote characters, are coded in among the notes
+of a stave.
 .index "strings" "limit on number of"
 There may be no more than 100 text strings before any one note; this large limit
 is intended to cover all possible applications. The escape character
 conventions using the backslash character that apply to all PMW strings are
 relevant (&R; &<<SECTtextstrings>>&). In particular, within any text string,
 the font can be changed by the use of the appropriate escape sequences. The
-closing double-quote of the string may be followed by one or more options,
+closing double-quote of the string may be followed by one or more qualifiers,
 separated from the quote and from each other by slash characters. The following
 are available:
 .index "text" "qualifiers"
@@ -10452,17 +10467,17 @@ are available:
 
 .itable none 0 0 3  60 left  130 left  150 left
 .row &`/a`&           "unspecific&~text&~above&~the&~stave"
-.row &`/a`&<&'n'&>    "ditto&~at&~fixed&~distance&~above&~the&~stave"
-.row &`/ao`&          "ditto&~above&~the&~stave,&~at&~the&~overlay&~level"
+.row &`/a`&<&'n'&>    "unspecific&~text&~at&~fixed&~distance&~above&~the&~stave"
+.row &`/ao`&          "unspecific&~text&~above&~the&~stave,&~at&~the&~overlay&~level"
 .row &`/b`&           "unspecific&~text&~below&~the&~stave"
-.row &`/b`&<&'n'&>    "ditto&~at&~fixed&~distance&~below&~the&~stave"
-.row &`/bu`&          "ditto&~below&~the&~stave&~at&~the&~underlay&~level"
-.row &`/m`&           "ditto&~below&~the&~stave,&~midway&~to&~the&~next&~stave"
+.row &`/b`&<&'n'&>    "unspecific&~text&~at&~fixed&~distance&~below&~the&~stave"
+.row &`/bu`&          "unspecific&~text&~below&~the&~stave&~at&~the&~underlay&~level"
+.row &`/m`&           "unspecific&~text&~below&~the&~stave,&~midway&~to&~the&~next&~stave"
 .row "&~"
-.row &`/ul`&          "this text string is underlay"
-.row &`/ol`&          "this text string is overlay"
-.row &`/fb`&          "this&~text&~string&~is&~figured&~bass"
-.row &`/fbu`&         "this&~text&~string&~is&~figured&~bass&~at&~underlay&~level"
+.row &`/ul`&          "this text is underlay"
+.row &`/ol`&          "this text is overlay"
+.row &`/fb`&          "this&~text&~is&~figured&~bass"
+.row &`/fbu`&         "this&~text&~is&~figured&~bass&~at&~underlay&~level"
 .row "&~"
 .row &`/h`&           "position&~halfway&~between&~notes"
 .row &`/lc`&<&'n'&>   "position&~left&~by&~<&'n'&>&~crotchets"
@@ -10545,6 +10560,7 @@ If the &`/e`& qualifier is present on the text string, it is the end of the
 string that is aligned with the alignment point. The &`/ne`& option can be used
 on text strings to cancel the effect of a previous &`/e`&. This can be useful
 for overriding options on strings defined as macros.
+
 .index "text" "centred"
 .index "text" "centred in bar"
 If the &`/c`& qualifier is present, the text is centred at the alignment point.
@@ -10624,16 +10640,17 @@ size, &`/s2`& specifies the second size, and so on.
 .code
 "Some text string"/s2
 .endd
-This example uses the second size defined by &%textsizes%&. By default, text
-uses the first size, unless it is underlay, overlay, or figured bass, which
-have their own default sizes (set by the &%underlaysize%&, &%overlaysize%&, and
-&%fbsize%& directives). The &`/s`& option can, however, be used with underlay,
-overlay, and figured bass text to specify a non-default size for an individual
-string.
+This example uses the second size defined by &%textsizes%&. The default size
+for text that is not underlay, overlay, or figured bass is the size set by the
+&%[textsize]%& directive or, if that is not present, the first settable size.
+Underlay, overlay, and figured bass have their own default sizes, set by the
+&%underlaysize%&, &%overlaysize%&, and &%fbsize%& directives. The &`/s`& option
+can, however, be used with underlay, overlay, and figured bass text to specify
+a non-default size for an individual string.
 
-As well as the 20 settable text sizes, there are also 10 fixed sizes that
-cannot be changed. The &`/S`& qualified is used to select one of these sizes.
-The following are defined:
+As well as the 20 settable text sizes, there are 10 fixed sizes that cannot be
+changed. The &`/S`& option is used to select one of these sizes. The following
+are defined:
 
 .itable none 0 0 2  20 left 50 right
 
@@ -10664,7 +10681,7 @@ rotation is anticlockwise.
 
 The centre of rotation is on the text baseline, at the left-hand end of the
 string. If the string is centred or right-aligned (the &`/c`&, &`/cb`&, or
-&`/e`& qualifiers), this position is computed from the length of a horizontal
+&`/e`& options), this position is computed from the length of a horizontal
 string, before rotation. That is, rotation happens last.
 
 
@@ -10702,11 +10719,11 @@ defined as 14 points):
 .index "fingering indications"
 The small caps feature of text strings is useful for selecting a smaller than
 normal font for fingering indications. Alternatively, a specific font size can
-be defined and used with the &`/s`& text option or one of the fixed sizes can
-be selected by &`/S`&. The music font contains the special characters
+be defined and used with the &`/s`& text qualifier, or one of the fixed sizes
+can be selected by &`/S`&. The music font contains the special characters
 &{&#97;}&&~&~ and &{&#98;}&&~&~ for indication the use of the thumb in cello
 parts. The use of macros is suggested when setting music with lots of
-fingering, and a suitable set of macros is provided in the &%Fingering%&
+fingering, and a suggested set of macros is provided in the &%Fingering%&
 standard macro file (&R; &<<SECTfingeringmacros>>&). Note the use of the &`/c`&
 option in this example, to centre the text below each note:
 .code
@@ -10923,7 +10940,7 @@ problem does not arise.
 Two separate sets of fonts are provided for underlaid and overlaid text, and
 the size of these can be set independently of the other text fonts by the
 &%underlaysize%& and &%overlaysize%& directives. Individual underlay or overlay
-strings can specify different sizes by means of the &`/s`& or &`/S`& option.
+strings can specify different sizes by means of the &`/s`& or &`/S`& qualifier.
 
 
 .subsection "Underlay and overlay levels"
@@ -13071,7 +13088,9 @@ described first.
 
 .subsection "Text at stave starts" SUBSECTstavetext
 .index "test" "at stave start"
-The text-only form of &%[stave]%& has the following format:
+The text-only form of &%[stave]%& has the following format, where the stave 
+number &'n'& can be followed the number of stave lines and/or &`omitempty`&, as 
+just described:
 .display
 &`[stave `&<&'n'&>&` "`&<&'string1'&>&`" "`&<&'string2'&>&`" ...]`&
 .endd
@@ -13199,7 +13218,7 @@ drawing function associated with a stave is used to generate a special kind of
 .display
 &`[stave `&<&'n'&>&` `&<&'string'&>&` draw `&<&'arguments'&>&` `&<&'drawing name'&>&` ...]`&
 .endd
-This feature also available for the &%[name]%& directive. If both a string
+This feature is also available for the &%[name]%& directive. If both a string
 and a call to a drawing function are present, the string must come first.
 .code
 [stave 3 "      " draw thing]
@@ -13385,20 +13404,21 @@ directive. It takes a word as its argument.
 .row "&`[text fb]`&"                 "default is figured bass"
 .endtable
 
-To override a default with an absolute position (for example &%[text above
-15]%&), the text options  &`/a`& or &`/b`& without a following number can be
+To override a default with an absolute position (for example &`[text above
+15]`&), the text options  &`/a`& or &`/b`& without a following number can be
 used (as well as &`/ul`&, &`/fb`&, &`/fbu`&, or &`/m`&). Similarly, the
 appearance of &%[text above]%& or &%[text below]%& without a number resets to
 the initial state, where the default vertical position depends on the next
 note.
 
 Ordinary text that is positioned above or below the stave is by default output
-at settable size 1 (as specified by the &%textsizes%& header directive).
-Underlay, overlay, and figured bass text is output by default at the sizes
-specified by the &%underlaysize%&, &%overlaysize%&, and &%fbsize%& header
-directives. The default text type and size can always be overridden by explicit
-qualifiers following the string. For example, if &%[text underlay]%& has been
-specified, an italic dynamic mark above the stave is coded like this:
+at settable size 1 (specified by the &%textsizes%& header directive), unless
+the &%[textsize]%& directive has specified otherwise. Underlay, overlay, and
+figured bass text is output by default at the sizes specified by the
+&%underlaysize%&, &%overlaysize%&, and &%fbsize%& header directives. The
+default text type and size can always be overridden by explicit qualifiers
+following the string. For example, if &%[text underlay]%& has been specified,
+an italic dynamic mark above the stave is coded like this:
 .code
 "\it\ff"/a
 .endd

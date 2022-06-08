@@ -143,7 +143,7 @@ p = tree_search(*tree, buff);
 if (p == NULL)
   {
   p = mem_get(sizeof(tree_node) + Ustrlen(buff));
-  p->name = mem_copystring(buff); 
+  p->name = mem_copystring(buff);
   (void)tree_insert(tree, p);
   }
 }
@@ -445,16 +445,16 @@ return yield;
 *          Set a new value for a number          *
 *************************************************/
 
-/* Call xml_get_string(), then replace the string with the string value of the 
-given number. This is used to change staff numbers for coupled staves, so we 
-know that the number is either 1 or 2. FIXME: perhaps this needs better 
+/* Call xml_get_string(), then replace the string with the string value of the
+given number. This is used to change staff numbers for coupled staves, so we
+know that the number is either 1 or 2. FIXME: perhaps this needs better
 checking and an error if name not found.
 
 Arguments:
   i          the outer item
   name       inner item name
   n          the new number
-  
+
 Returns:     nothing
 */
 
@@ -463,7 +463,7 @@ xml_set_number(xml_item *i, uschar *name, int n)
 {
 uschar *s = xml_get_string(i, name, NULL, TRUE);
 if (s != NULL) *s = n + '0';
-} 
+}
 
 
 
@@ -575,7 +575,7 @@ Returns:     legal value or bad
 */
 
 int32_t
-xml_get_attr_mils(xml_item *i, uschar *name, int min, int max, int bad, 
+xml_get_attr_mils(xml_item *i, uschar *name, int min, int max, int bad,
   BOOL moan)
 {
 int32_t yield;

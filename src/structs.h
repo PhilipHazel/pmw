@@ -695,7 +695,7 @@ typedef struct snamestr {
   tree_node *drawing;
   drawitem  *drawargs;
   int32_t    adjustx;
-  int32_t    adjusty;  
+  int32_t    adjusty;
   uint8_t    flags;
   uint8_t    size;
   uint8_t    linecount;
@@ -860,8 +860,8 @@ typedef struct movtstr {
    int32_t      systemsepangle;
   uint32_t      systemseplength;
   uint32_t      systemsepwidth;
-   int32_t      systemsepposx;     
-   int32_t      systemsepposy;     
+   int32_t      systemsepposx;
+   int32_t      systemsepposy;
   uint32_t      time;
   uint32_t      time_unscaled;
   uint32_t      topmargin;

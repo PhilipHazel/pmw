@@ -2,7 +2,7 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
-Version 5.10 xx-xxxx-2022
+Version 5.10 08-June-2022
 -------------------------
 
 1. Fixed an obscure spacing infelicity when, after an item such as a time
@@ -30,24 +30,24 @@ mark instead of an implied [name] argument.
 9. Arrange for vertical stave name strings on a single stave (those with /v but
 not /m) to have their midpoint aligned with the centre of the stave.
 
-10. Reduce severity of "Unexpected end of slur or line" error so that output is 
+10. Reduce severity of "Unexpected end of slur or line" error so that output is
 still generated.
 
 11. Fixed a bad spacing bug that happened when a bar on a stave other than the
 first contained [reset] and the notes before [reset] were shorter than the bar
 length.
 
-12. Bad MIDI was generated if a note's pitch was outside the range supported by 
+12. Bad MIDI was generated if a note's pitch was outside the range supported by
 MIDI. It now gives an error and ignores such notes.
 
-13. Added check for absolute pitch (after transposition) being within the 
+13. Added check for absolute pitch (after transposition) being within the
 supported range. Hard error if not.
 
 14. Added the SystemSeparator directive to support system separators.
 
 15. Extended RepeatStyle to allow for "wings".
 
-16. Implemented 10 additional text sizes that cannot be changed, but can be 
+16. Implemented 10 additional text sizes that cannot be changed, but can be
 accessed by /S instead of /s. This is for the benefit of "standard" macros.
 
 17. Added /fbu for figured bass text at the underlay level.
@@ -58,25 +58,25 @@ caused underlay/overlay that was not preceded nor followed by any notes in the
 bar to be positioned at the stave level instead of a default above/below
 position.
 
-19. The "undef" condition was not working if the macro name being tested began 
+19. The "undef" condition was not working if the macro name being tested began
 with a digit or contained upper case letters.
 
-20. Fixed an obscure but with buffer extension when expanding macros, which 
-showed up if there were a lot of macros in a line. The effect was to add 
+20. Fixed an obscure bug with buffer extension when expanding macros, which
+showed up if there were a lot of macros in a line. The effect was to add
 nonsense to the line, giving weird input errors or crashes.
 
-21. Created some "standard macro" files, and arranged for them to be picked up 
+21. Created some "standard macro" files, and arranged for them to be picked up
 by "*include" if no other file of that name exists.
 
-22. Updated the PSheader file by removing a test for a font's being in the 
+22. Updated the PSheader file by removing a test for a font's being in the
 PostScript FonDirectory after "findfont" because (a) the test is clearly
-redundant if "findfont" succeeds and (b) a user reported getting the "unknown" 
+redundant if "findfont" succeeds and (b) a user reported getting the "unknown"
 error, even though the font had been loaded.
 
-23. When a Unicode code point was translated to a code point in a font with 
-non-standard encoding, if the string was underlay or overlay and the resulting 
-code point was the Unicode code point for hyphen or equals or sharp, it was 
-erroneously given the special underlay/overlay treatment. Such translations are 
+23. When a Unicode code point was translated to a code point in a font with
+non-standard encoding, if the string was underlay or overlay and the resulting
+code point was the Unicode code point for hyphen or equals or sharp, it was
+erroneously given the special underlay/overlay treatment. Such translations are
 now made to behave as if the input were escaped.
 
 

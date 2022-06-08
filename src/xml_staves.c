@@ -1566,7 +1566,7 @@ for (xml_item *mi = measure->next;
           uschar *line_end = xml_get_attr_string(dt, US"line-end", NULL, FALSE);
           uschar *line_type = xml_get_attr_string(dt, US"line-type", NULL,
             FALSE);
-          BOOL isdashes = dt->name[0] == 'd';  
+          BOOL isdashes = dt->name[0] == 'd';
           BOOL nojog = isdashes ||
             (line_end != NULL && Ustrcmp(line_end, "none") == 0);
           int jogsize = nojog? 0:7;
@@ -1587,7 +1587,7 @@ for (xml_item *mi = measure->next;
             sl->id = linechars[sn];
             sl->mods = NULL;
             sl->flags = sflag_l | sflag_cx | sflag_abs;
-            if (isdashes) sl->flags |= sflag_h | sflag_i | sflag_ol | sflag_or; 
+            if (isdashes) sl->flags |= sflag_h | sflag_i | sflag_ol | sflag_or;
 
             if (py < 0)
               {

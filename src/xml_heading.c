@@ -200,9 +200,9 @@ int32_t heading_base = -1;
 int32_t top_system_distance = -1;
 
 int32_t page_height = -1;
-int32_t page_width = -1; 
-int32_t left_margin = -1;  
-int32_t right_margin = -1; 
+int32_t page_width = -1;
+int32_t left_margin = -1;
+int32_t right_margin = -1;
 int32_t top_margin = -1;
 int32_t bottom_margin = -1;
 
@@ -573,7 +573,7 @@ curmovt->flags |= mf_unfinished;             /* MXL has explicit bar lines */
 curmovt->flags &= ~mf_keydoublebar;
 
 /* Headings and footings. Some are directly under the score-* item. Keep track
-of the depth of headings (in millipoints). Any existing footings are put after 
+of the depth of headings (in millipoints). Any existing footings are put after
 XML footings. */
 
 existing_footing = curmovt->footing;
@@ -667,7 +667,7 @@ for (xml_item *credit = xml_find_item(xml_partwise_item_list, US"credit");
       valign = xml_get_attr_string(cr_words, US"valign", valign, FALSE);
       top_align = Ustrcmp(valign, "top") == 0;
       use_head = page_height < 0 || dy < 0 || dy > page_height/2;
-      
+
       /* Ignore totally empty strings, except take note of newlines. Have to
       cope with UTF-8 encodings of space characters. Pro tem just check for
       U+00A0. */
@@ -886,10 +886,10 @@ if (!done_rights && id_rights != NULL)
 
 if (existing_footing != NULL)
   {
-  headstr **ftptr; 
+  headstr **ftptr;
   for (ftptr = &(curmovt->footing); *ftptr != NULL; ftptr = &((*ftptr)->next)) {}
   *ftptr = existing_footing;
-  } 
+  }
 
 /* MusicXML's top system distance is defined as being from the top margin to
 the top of the first system. See if this is different to the distance implied

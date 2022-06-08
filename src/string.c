@@ -1086,13 +1086,13 @@ for (uint32_t *s = str; *s != 0; s++)
     {
     uint32_t pc = font_utranslate(c, fs);
     *s &= 0xff000000u;   /* Keep the current font */
-    
-    /* A valid translated codepoint is either < 256 or an escaped sharp, 
+
+    /* A valid translated codepoint is either < 256 or an escaped sharp,
     equals, or hyphen, whose code points are outside the Unicode range. */
- 
-    if (pc < 256 || pc > MAX_UNICODE) 
+
+    if (pc < 256 || pc > MAX_UNICODE)
       {
-      *s |= pc; 
+      *s |= pc;
       }
     else
       {
@@ -1256,7 +1256,17 @@ return n + 1;
 which means we have just filled up the on-stack buffer (apart from one element
 at the end which was left for the terminator). Start a malloc() buffer at twice
 the size and copy the on-stack data into it. Otherwise, increase the malloc()
-buffer. */
+buffer. At the start of the memory block we leave space for a pointer so that
+it can be passed to mem_register() and thus rememvered for freeing.
+
+Arguments:
+  block      where to put the pointer to a new memory block
+  yield      pointer to pointer to the usable area, updated
+  mem_size   pointer to size of memory block. updated
+  string_max pointer to maximum string size, updated
+
+Returns:     nothing
+*/
 
 static void
 expand_string_buffer(void **block, uint32_t **yield, size_t *mem_size,
@@ -1861,7 +1871,7 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
       }
     else if (read_c == 'a' && main_readbuffer[read_i] == 'r')
       {
-      b->flags &= ~text_barcentre; 
+      b->flags &= ~text_barcentre;
       b->flags |= text_baralign;
       read_i++;
       read_nextc();
@@ -1924,7 +1934,7 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
         {
         b->flags |= text_atulevel;
         read_i++;
-        }     
+        }
       }
     else error(ERR8, "/fb");
     read_nextc();
@@ -2018,10 +2028,10 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
 
     case 't':
     read_nextc();
-    if (read_c == 's') 
+    if (read_c == 's')
       {
-      b->flags &= ~text_barcentre; 
-      b->flags |= text_timealign; 
+      b->flags &= ~text_barcentre;
+      b->flags |= text_timealign;
       }
     else error(ERR8, "/ts");
     read_nextc();

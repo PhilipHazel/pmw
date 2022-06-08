@@ -26,7 +26,7 @@ enum {
   dr_if, dr_ifelse,
   dr_jump,
   dr_ket,
-  dr_le, dr_leftbarx, dr_linebottom, 
+  dr_le, dr_leftbarx, dr_linebottom,
   dr_linelength, dr_lineto, dr_linetop, dr_loop, dr_lt,
   dr_magnification, dr_moveto, dr_mul,
   dr_ne, dr_neg, dr_not, dr_number,

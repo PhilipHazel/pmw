@@ -245,7 +245,7 @@ static fontsizestr init_fontsizes = {
   { NULL, 10000, 0 },    /* vertacc */
 
   /* It doesn't seem possible in ANSI C to parameterize this initialization
-  using UserFontSizes and FixedFontSizes, so we must keep this in step when 
+  using UserFontSizes and FixedFontSizes, so we must keep this in step when
   either of those are changed. */
 
   { { NULL, 10000, 0 },  /* user font size 1 */
@@ -279,7 +279,7 @@ static fontsizestr init_fontsizes = {
     { NULL, 10000, 0 },  /* fixed font size 8 */
     { NULL, 10000, 0 },  /* fixed font size 9 */
     { NULL, 10000, 0 },  /* fixed font size 10 */
- 
+
     { NULL, 11800, 0 },  /* tsfont */
     { NULL, 10000, 0 },  /* ulay */
     { NULL, 10000, 0 },  /* olay */
@@ -502,7 +502,7 @@ snamestr init_snamestr = {
   NULL,               /* drawing */
   NULL,               /* drawargs */
   0,                  /* adjustx */
-  0,                  /* adjusty */  
+  0,                  /* adjusty */
   0,                  /* flags */
   ff_offset_init,     /* size */
   0                   /* linecount */
@@ -650,11 +650,11 @@ movtstr default_movtstr = {
   { 0, 0, 0, 0, 0, 0, 2000, 4000 },  /* stemadjusts */
 
   44000,              /* systemgap */
-  20000,              /* systemsepangle */ 
-  0,                  /* systemseplength */ 
+  20000,              /* systemsepangle */
+  0,                  /* systemseplength */
   2000,               /* systemsepwidth */
-  0,                  /* systemsepposx */  
-  0,                  /* systemsepposy */  
+  0,                  /* systemsepposx */
+  0,                  /* systemsepposy */
   time_default,       /* time default = 1*4/4 */
   time_default,       /* time_unscaled */
   10000,              /* topmargin */

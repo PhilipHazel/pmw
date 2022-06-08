@@ -1584,22 +1584,22 @@ if (xx[1] >= 0)
 out_ascstring((style != 3)? US"xI" : US"IxxyyyyyyI", font_mf, 10*out_stavemagn,
   x + (xx[2]*magn)/10 + (65*(magn - out_stavemagn))/100, out_ystave);
 
-/* Output "wings" if requested, positioned at the thick line, if any, else at 
+/* Output "wings" if requested, positioned at the thick line, if any, else at
 the thin line if any, else at the dots. */
 
 if (MFLAG(mf_repeatwings))
   {
   int32_t dx = ((type == rep_left || type == rep_dleft)? 7 : -7) * magn;
-  int32_t dy = 4*magn; 
-  int32_t thick = magn/2; 
- 
+  int32_t dy = 4*magn;
+  int32_t thick = magn/2;
+
   if (xx[0] >= 0) x += ((xx[0]+10)*magn)/10;
     else if (xx[1] >= 0) x += (xx[1]*magn)/10;
     else x += (xx[2]*magn)/10;
- 
+
   if (curstave == out_topstave)
     {
-    int32_t y = 16*magn; 
+    int32_t y = 16*magn;
     ps_line(x, y, x + dx, y + dy, thick, 0);
     }
 

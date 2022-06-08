@@ -613,12 +613,12 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
                 pitchlist[pc]/2 + 12 + miditranspose;
               int start = moff - midi_bar_moff + pitchstart[pc] +
                 scrubcount * (pitchlen[pc]/scrub);
-               
+
               if (pitch < 0 || pitch > 127)
                 {
                 char buff[24];
                 sprintf(buff, "%s", sfb(midi_movt->barvector[midi_bar]));
-                error(ERR172, pitch, buff, stave); 
+                error(ERR172, pitch, buff, stave);
                 }
 
               /* We have to schedule a note on and a note off event. Use
@@ -626,7 +626,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
               running status can be used. */
 
               else
-                { 
+                {
                 next_event->time = start;
                 next_event->seq = next_event_seq++;
                 next_event->data[0] = 3;
@@ -634,7 +634,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
                 next_event->data[2] = pitch;
                 next_event->data[3] = midi_stave_velocity;
                 next_event++;
-                
+
                 next_event->time = start + (pitchlen[pc]/scrub);
                 next_event->seq = next_event_seq++;
                 next_event->data[0] = 3;
@@ -642,7 +642,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
                 next_event->data[2] = pitch;
                 next_event->data[3] = 0;
                 next_event++;
-                } 
+                }
               }
             }
           }

@@ -1671,7 +1671,7 @@ if (read_c == '/')
     read_nextc();
     if (!read_expect_integer(&size, FALSE, FALSE)) return FALSE;
     if ((size -= 1) >= FixedFontSizes) return error(ERR75, FixedFontSizes);
-    size += UserFontSizes; 
+    size += UserFontSizes;
     }
   else
     {
@@ -1758,9 +1758,9 @@ if (read_expect_integer(&x, FALSE, FALSE))
   {
   if (x >= 10)
     {
-    x -= 10; 
+    x -= 10;
     curmovt->flags |= mf_repeatwings;
-    }  
+    }
   if (x <= MAX_REPEATSTYLE) curmovt->repeatstyle = x;
     else error(ERR174, MAX_REPEATSTYLE, MAX_REPEATSTYLE + 10);
   }

@@ -279,7 +279,7 @@ static textflag_name textflags[] = {
   { text_absolute,  "absolute" },
   { text_atulevel,  "atulevel" },
   { text_baralign,  "baralign" },
-  { text_barcentre, "barcentre" }, 
+  { text_barcentre, "barcentre" },
   { text_boxed,     "boxed" },
   { text_centre,    "centre" },
   { text_endalign,  "endalign" },
@@ -953,7 +953,7 @@ for (i = 0; i < movement_count; i++)
   eprintf("  systemsepwidth = %s\n", sff(m->systemsepwidth));
   eprintf("  systemsepposx = %s\n", sff(m->systemsepposx));
   eprintf("  systemsepposy = %s\n", sff(m->systemsepposy));
- 
+
   debug_stavelist("thinbracketlist", m->thinbracketlist);
   eprintf("  topmargin = %s\n", sff(m->topmargin));
   eprintf("  transpose = ");
@@ -1555,7 +1555,7 @@ if (xml_layout_list_size > 0)
   eprintf("  MusicXML layout size: %zd\n", xml_layout_list_size);
   total += xml_layout_list_size;
   }
-#endif     
+#endif
 
 eprintf("  Movements vector: %zd\n", movements_size * sizeof(movtstr *));
 total += movements_size * sizeof(movtstr *);

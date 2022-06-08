@@ -957,7 +957,7 @@ read_sigc();
 if (Ustrncmpic(main_readbuffer + read_i - 1, "omitempty", 9) == 0)
   {
   read_i += 8;
-  read_nextsigc(); 
+  read_nextsigc();
   curmovt->stavetable[srs.stavenumber]->omitempty = TRUE;
   }
 
@@ -996,11 +996,11 @@ while (!endstave)
     bs->bartype = barline_normal;
     bs->barstyle = srs.barlinestyle;
     }
-    
+
   /* Ensure bar indexes are large enough */
-  
-  read_ensure_bar_indexes(nextbaroffset + barrepeat - 1); 
- 
+
+  read_ensure_bar_indexes(nextbaroffset + barrepeat - 1);
+
   /* If we have skipped some bars, fill in the bar index vector with pointers
   to an empty bar. We have to make a new empty bar each time in case the
   barline style has changed. */

@@ -59,38 +59,38 @@ static error_struct error_data[] = {
 { ec_major,   "'>' expected after '</%s'" },
 { ec_major,   "nesting error: found '</%s>' before any other elements" },
 { ec_failed,  "elements too deeply nested" },
-/* 5-9 */     
+/* 5-9 */
 { ec_major,   "nesting error: found '</%s>', expected '</%s'>" },
 { ec_major,   "expected '=' after '%s'" },
 { ec_major,   "expected \" or ' after '%s='" },
 { ec_major,   "missing terminating %c after %s=%c..." },
 { ec_major,   "expected '>' after '/' or '?' in element '%s'" },
-/* 10 - 14 */ 
+/* 10 - 14 */
 { ec_major,   "missing '>' for element '%s'" },
 { ec_major,   "unsupported beat-unit \"%s\" for metronome mark" },
 { ec_failed,  "unexpected EOF while skipping processing instruction "
                 "starting on line %d" },
 { ec_failed,  "unexpected EOF inside comment (started on line %d)" },
 { ec_failed,  "unexpected EOF inside element (started on input line %d)" },
-/* 15-19 */   
+/* 15-19 */
 { ec_major,   "unclosed element%s at end of file" },
 { ec_failed,  "<score-partwise> not found and <score-timewise> not supported" },
 { ec_failed,  "missing %s" },
 { ec_failed,  "unrecognized or unsupported note type '%s'" },
 { ec_major,   "part has no %s" },
-/* 20 - 24 */ 
+/* 20 - 24 */
 { ec_failed,  "part \"%s\", listed in <part-list>, not found" },
 { ec_failed,  "too many staves (%d) - PMW maximum is 64" },
 { ec_major,   "unsupported mode \"%s\"" },
 { ec_major,   "missing, malformed, or invalid number \"%s\"" },
 { ec_major,   "missing <%s> element" },
-/* 25 - 29 */ 
+/* 25 - 29 */
 { ec_major,   "unsupported clef sign \"%s\"" },
 { ec_warning, "unrecognized element in measure %d in part \"%s\"" },
 { ec_major,   "note contains <chord> but matching previous note not found" },
 { ec_major,   "internal error: %s" },
 { ec_failed,  "too many staves (%d) for a part" },
-/* 30 - 34 */ 
+/* 30 - 34 */
 { ec_major,   "unrecognized accidental \"%s\"" },
 { ec_major,   "unrecognized measure number type \"%s\"" },
 { ec_major,   "missing attribute \"%s\"" },
@@ -102,19 +102,19 @@ static error_struct error_data[] = {
 { ec_major,   "<page-layout> ignored owing to missing data" },
 { ec_warning, "only equal margins for both odd and even are supported in <page-margins>" },
 { ec_major,   "internal error: missing start of slur or line" },
-/* 40 - 44 */ 
+/* 40 - 44 */
 { ec_failed,  "internal error: insert past end of text (%ld, %ld)" },
 { ec_warning, "for a %c clef, only line %s is supported (%d ignored)" },
 { ec_warning, "<line>%d</line> ignored for a percussion clef" },
 { ec_warning, "%s \"%s\" is not supported" },
 { ec_major,   "\"%s\" line end on <bracket> %s staff is not supported" },
-/* 45 - 49 */ 
+/* 45 - 49 */
 { ec_warning, "PMW does not support \"%s\" notehead within a chord" },
 { ec_warning, "PMW does not support different %s for rehearsal marks" },
 { ec_warning, "PMW does not support different sizes for the same staff" },
 { ec_major,   "wedge type \"stop\" without matching start" },
 { ec_warning, "PMW does not support nested wedges (hairpins)" },
-/* 50 - 54 */ 
+/* 50 - 54 */
 { ec_warning, "PMW does not support <credit> for pages other than 1 or 2" },
 { ec_warning, "Different parts set different number of measures in a system, "
               "or systems on a page" },
@@ -122,7 +122,7 @@ static error_struct error_data[] = {
 { ec_warning, "PMW does not support <backup> between tied notes: tie "
                    "discarded" },
 { ec_warning, "XML entity \"%.*s;\" %s" },
-/* 55 - 59 */ 
+/* 55 - 59 */
 { ec_warning, "SPARE" },
 { ec_warning, "Unknown accidental \"%s\" in key signature" },
 { ec_failed,  "Too many non-standard custom keys required" },
