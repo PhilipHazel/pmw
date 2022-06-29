@@ -2,9 +2,9 @@
 *       PMW prototypes for global functions      *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: February 2022 */
+/* This file last modified: June 2022 */
 
 extern void         debug_bar(void);
 extern void         debug_header(void);
@@ -114,7 +114,7 @@ extern void         ps_slur(int32_t, int32_t, int32_t, int32_t, uint32_t,
 extern void         ps_startbar(int, int);
 extern void         ps_stave(int32_t, int32_t, int32_t, int);
 extern void         ps_string(uint32_t *, fontinststr *, int32_t *, int32_t *,
-                      BOOL);
+                      BOOL, BOOL);
 extern void         ps_translate(int32_t, int32_t);
 
 extern uint32_t     read_accororn(uint32_t);
@@ -177,7 +177,7 @@ extern int          strncmpic(const char*, const char *, int);
 
 extern uint32_t     transpose_key(uint32_t);
 extern int16_t      transpose_note(int16_t, int16_t *, uint8_t *, uint8_t,
-                      BOOL, BOOL, BOOL, int);
+                      BOOL, BOOL, BOOL, BOOL, int);
 
 extern BOOL         tree_insert(tree_node **, tree_node *);
 extern tree_node   *tree_search(tree_node *, uschar *);

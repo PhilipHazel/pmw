@@ -29,9 +29,9 @@ a4
 %%EndPageSetup
 mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
 %1/1
-rm 10 ss(gyHpq)80.29 721 s(ABCD)80.01 820 s mf 10 ss(=w=w=w=)90.9 754 s
-(Jww|J)90.9 752 s(JL)90.9 740 s it 10 ss(abcdefgh)106.9 750 s mf 10 ss
-(@)106.9 760 s
+rm 10 ss(gyHpq)80.29 721 s(ABCD)80.01 820 s mf 10 ss(=)90.9 754 s(=)
+90.9 750 s(=)90.9 746 s(=)90.9 742 s(J)90.9 752 s(J)90.9 742 s(JL)
+90.9 740 s it 10 ss(abcdefgh)106.9 750 s mf 10 ss(@)106.9 760 s
 (CCCC)64 760 s (C)96.9 760 s
 
 pagesave restore showpage

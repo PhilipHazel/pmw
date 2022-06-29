@@ -2,9 +2,9 @@
 *             PMW PostScript functions           *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: May 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: June 2022 */
 
 #include "pmw.h"
 
@@ -45,6 +45,21 @@ lines, both 100 points long and 10 points long. */
 
 static uint8_t stavechar10[] = { 0, 'G', 247, 248, 249, 'F', 250 };
 static uint8_t stavechar1[] =  { 0, 'D', 169, 170, 171, 'C', 172 };
+
+/* In order to support the PMW-Music font in OpenType format, we have to treat
+some characters specially. In the .pfa font these characters move leftwards or
+up or down after printing, a facility that isn't available in OpenType. These
+strings define the characters that need special treatment:
+
+  umovechars are movement-only characters unsupported in OpenType
+  amovechars are all movement-only characters
+  vshowchars are printing characters with vertical movement
+*/
+
+static const uschar *umovechars = CUS"\166\167\170\171\173\174\176\271\272\273\274";
+static const uschar *amovechars = CUS"\040\166\167\170\171\172\173\174\175\176\271\272\273\274";
+static const uschar *vshowchars = CUS"\221\222\244\245";
+
 
 
 /************************************************
@@ -699,17 +714,33 @@ if (instring) ps_endstring(absolute, tfd.spacestretch, x, y);
 
 
 /*************************************************
-*     Output a text string and change origin     *
+*  Output a text string and change current point *
 *************************************************/
 
 /* The x and y coordinates are updated if requested - note that y goes
 downwards.
 
+Special action is needed for the music font. The PostScript Type 1 font
+contains a few characters that output nothing but whose horizontal spacial
+increment is negative and also some characters (both blank and non-blank) with
+vertical movement - features which are useful for building composite things
+from strings in this font. Annoyingly, OpenType fonts do not permit negative
+horizontal advance values, nor both horizontal and vertical movement in the
+same font, and an OpenType font is now desirable because Type 1 fonts are
+becoming obsolete.
+
+We get round this restriction by separating out substrings that start with an
+unsupported moving character and consist only of position moving characters.
+The already-existing code that suppresses the output of a substring that just
+moves the position then kicks in. Also, we terminate a substring after any
+printing character that has vertical movement.
+
 Arguments:
   s             the PMW string
   fdata         points to font instance data
-  xu            pointer to the absolute x coordinate
-  yu            pointer to the absolute y coordinate
+  xu            pointer to the x coordinate
+  yu            pointer to the y coordinate
+  absolute      TRUE for absolute coordinaates, FALSE for relative
   update        if TRUE, update the x,y positions
 
 Returns:        nothing
@@ -717,54 +748,91 @@ Returns:        nothing
 
 void
 ps_string(uint32_t *s, fontinststr *fdata, int32_t *xu, int32_t *yu,
-  BOOL update)
+  BOOL absolute, BOOL update)
 {
 int32_t x = *xu;
 int32_t y = *yu;
 
-/* Split the string up into substrings in which all the characters have the
-same font. */
+/* Process the string in substrings in which all the characters have the same
+font, handling the music font specially, as noted above. */
 
 while (*s != 0)
   {
-  size_t len;
-  usint f;
   int32_t stringheight;
-  uint32_t tempsave;
+  uint32_t save1;
   uint32_t *p = s;
-  BOOL skip = FALSE;
+  usint f = PFONT(*s);
 
-  f = PFONT(*s++);
-  while (*s != 0 && PFONT(*s) == f) s++;
-  len = s - p;
-  tempsave = *s;
-  *s = 0;          /* Temporary terminator */
-
-  /* If this substring consists entirely of printing-point-moving characters in
-  the music font, we do not need actually to output it. */
+  /* Handle strings in the music font */
 
   if ((f & ~font_small) == font_mf)
     {
-    skip = TRUE;
-    for (size_t i = 0; i < len; i++)
+    BOOL skip = TRUE;
+
+    /* Starts with an unsupported mover, leave skip TRUE so no output will
+    happen, but the current point will be adjusted. */
+
+    if (Ustrchr(umovechars, PCHAR(*s)) != NULL)
       {
-      uint32_t c = PCHAR(p[i]);
-      if (c != ' ' && (c < 118 || (c > 126 && c < 185) || c > 188))
+      while (*s != 0 && PFONT(*s) == f &&
+             Ustrchr(amovechars, PCHAR(*s)) != NULL) s++;
+      }
+
+    /* Does not start with an unsupported mover; end when one is encountered.
+    Also end (but include the character) if a vertical movement is needed. */
+
+    else
+      {
+      while (*s != 0 && PFONT(*s) == f)
         {
-        skip = FALSE;
-        break;
+        uint32_t c = PCHAR(*s);
+        if (Ustrchr(umovechars, c) != NULL) break;
+        if (Ustrchr(amovechars, c) == NULL) skip = FALSE;
+        s++;
+        if (Ustrchr(vshowchars, c) != NULL) break;
         }
+      }
+
+    /* End substring */
+
+    save1 = *s;
+    *s = 0;          /* Temporary terminator */
+
+    /* If this substring consists entirely of printing-point-moving characters
+    (skip == TRUE) we do not need actually to output it. Otherwise, we can
+    temporarily remove any trailing moving characters while outputting as they
+    don't achieve anything useful. Of course they need to be restored
+    afterwards so that the position update below works correctly. */
+
+    if (!skip)
+      {
+      uint32_t save2;
+      uint32_t *t = s - 1;
+      while (t > p && Ustrchr(amovechars, PCHAR(*t)) != NULL) t--;
+      save2 = *(++t);
+      *t = 0;
+      ps_basic_string(p, f, fdata, absolute, x, y);
+      *t = save2;
       }
     }
 
-  /* Output the string if not skipping, then update the position. Note that we
-  must use the original size (in fdata) because string_width() does its own
-  adjustment for small caps and the small music font. */
+  /* The font is not the music font */
 
-  if (!skip) ps_basic_string(p, f, fdata, TRUE, x, y);
+  else
+    {
+    while (*s != 0 && PFONT(*s) == f) s++;
+    save1 = *s;
+    *s = 0;          /* Temporary terminator */
+    ps_basic_string(p, f, fdata, absolute, x, y);
+    }
+
+  /* Update the position. Note that we must use the original size (in fdata)
+  because string_width() does its own adjustment for small caps and the small
+  music font. */
+
   x += string_width(p, fdata, &stringheight);
   y -= stringheight;
-  *s = tempsave;   /* Restore */
+  *s = save1;   /* Restore */
   }
 
 /* Pass back the end position if required. */
@@ -1101,19 +1169,32 @@ Arguments:
 Returns:     nothing
 */
 
+static void
+musstring(uschar *s, int32_t pointsize, int32_t x, int32_t y, BOOL absolute)
+{
+ps_mfdata.size = pointsize;
+ps_string(string_pmw(s, font_mf), &ps_mfdata, &x, &y, absolute, FALSE);
+}
+
+
+
 void
 ps_musstring(uschar *s, int32_t pointsize, int32_t x, int32_t y)
 {
-ps_mfdata.size = pointsize;
-ps_basic_string(string_pmw(s, 0), font_mf, &ps_mfdata, TRUE, x, y);
+musstring(s, pointsize, x, y, TRUE);
+
+//ps_mfdata.size = pointsize;
+//ps_basic_string(string_pmw(s, 0), font_mf, &ps_mfdata, TRUE, x, y);
 }
 
 
 void
 ps_relmusstring(uschar *s, int32_t pointsize, int32_t x, int32_t y)
 {
-ps_mfdata.size = pointsize;
-ps_basic_string(string_pmw(s, 0), font_mf, &ps_mfdata, FALSE, x, y);
+musstring(s, pointsize, x, y, FALSE);
+
+//ps_mfdata.size = pointsize;
+//ps_basic_string(string_pmw(s, 0), font_mf, &ps_mfdata, FALSE, x, y);
 }
 
 

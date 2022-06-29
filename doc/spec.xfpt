@@ -12,7 +12,7 @@
 . the <bookinfo> element must also be updated for each new edition.
 . /////////////////////////////////////////////////////////////////////////////
 
-.set version "5.10"
+.set version "5.20"
 . Zero-width space
 .set B "&#x200B;"
 . Right-pointing hand
@@ -20,8 +20,8 @@
 . Three ampersands
 .set A3 "&amp;&amp;&amp;"
 
-.set sharp "<emphasis role=""PMW-Music/8"">zz~~v%|v</emphasis>"
-.set flat  "<emphasis role=""PMW-Music/9"">zz~v&#39;v</emphasis>"
+.set sharp "<superscript><emphasis role=""PMW-Music/8"">zz%</emphasis></superscript>"
+.set flat  "<superscript><emphasis role=""PMW-Music/9"">zz&#39;</emphasis></superscript>"
 
 . Bracket top, middle, bottom, 12 point
 .set BT12  "<emphasis role=""Times-Roman/12/0"">&#x23a4;</emphasis>"
@@ -45,6 +45,9 @@
 
 .flag &{-   -}&   "<emphasis role=""PMW-Alpha/11"">"  "</emphasis>"
 .flag &{+   +}&   "<emphasis role=""PMW-Alpha/16"">"  "</emphasis>"
+
+.flag &-[   ]-&   "<subscript>"                       "</subscript>"
+.flag &+[   ]+&   "<superscript>"                     "</superscript>"
 
 . --- For music illustrations ---
 . .music <filename> <depth> <movement> <align>
@@ -152,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>08 June 2022</date>
+<date>28 June 2022</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
-  <revnumber>5.10</revnumber>
-  <date>08 June 2022</date>
+  <revnumber>5.20</revnumber>
+  <date>28 June 2022</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2022</year><holder>Philip Hazel</holder></copyright>
@@ -203,12 +206,14 @@ is not a music processor or a sequencer. Its sole objective is the production
 of high quality sheet music. PMW operates by reading an input file containing
 an encoded description of the music; such a file can be constructed using any
 text editor or wordprocessor. Although a textual input method may not be
-considered as `user-friendly' as pointing and dragging on the screen, it can be
+considered as user-friendly as pointing and dragging on the screen, it can be
 a much faster way of inputting music, once the format of the input file has
 been learned. In addition, the usual facilities of a text editor, such as
 cutting and pasting, can be used to speed up entry, and PMW is also able to
 provide text-based features such as macros, included files, and shorthands for
-repetitive input.
+repetitive input. If you want to get a flavour of the input style before 
+deciding whether or not to install PMW, take a look at chapter
+&<<CHAPfirstintro>>& below.
 
 From release 5.10 PMW can also read and typeset some MusicXML files. However,
 this is still very much experimental code that is not yet of production
@@ -412,11 +417,12 @@ and MIDI voice numbers.
 .next
 &_share/pmw/PSheader_& is the PostScript header file for PMW output.
 .next
-&_share/pmw/psfonts/PMW-Music.pfa_& is the main PostScript music font. As of
-release 4.03 it is a Type 1 PostScript font &-- hence the &_.pfa_& extension.
+&_share/pmw/psfonts/PMW-Music.pfa_& and &_share/pmw/psfonts/PMW-Music.otf_& 
+are both copies of the PMW-Music font, in two different formats. The first is a 
+PostScript Type 1 font and the second is an OpenType font.
 .next
 &_share/pmw/psfonts/PMW-Alpha_& is an auxiliary music font. This is a Type 3
-PostScript font (so no extension).
+PostScript font (so no extension in its name).
 .next
 &_share/pmw/fontmetrics/_& is a directory that contains font metric files
 giving character widths and kerning information for the standard set of
@@ -442,26 +448,11 @@ files. This is experimental code which is far from complete. See appendix
 &<<APPA>>& for details.
 .endlist
 
-
 Once you have installed PMW, you can use the &(pmw)& command to generate
 PostScript from input files, as described in chapter &<<CHAPrunningpmw>>&
 below. However, before you can print pages or view the output on the screen,
 you need to arrange for the PostScript music fonts to be available for your
-printer or viewer. You can either cause the fonts to be included in every
-output file, or configure your printer or viewer so that it knows where to find
-them. Exactly what you have to do varies between systems. I hope the following
-instructions will give enough hints to cover most cases.
-
-
-.section "Including the music fonts in the output file"
-.index "fonts" "including in the output"
-.index "music font, including in the output"
-If you use the &%-incPMWfont%& option on the &(pmw)& command line, or put it
-in your &_.pmwrc_& file, PMW includes the music fonts in every output file that
-needs them. This means that the output files are freestanding PostScript files
-that should be printable or viewable without any special action. However, the
-output files are larger by about 30&--40K for each of the two fonts. If you do
-not mind this overhead, this is the easiest approach to take.
+printer or viewer. 
 
 
 .section "Viewing PMW output on the screen"
@@ -470,27 +461,34 @@ not mind this overhead, this is the easiest approach to take.
 .index "&(evince)& document viewer"
 The &'GhostScript'& application can be used to view PMW output on screen,
 either from a PostScript file written by PMW, or from a PDF after conversion by
-the &(ps2pdf)& command. The &(gs)& command is very basic; a more friendly
-interface is provided by front-end `wrapper' applications with names such as
-&(ghostview)&, &(gview)&, or &(gv)&. Another possibility is to use a
-general-purpose document viewer such as &(evince)&, which can display PostScript
-or PDF files and has the added advantage of showing thumbnails of all the
-pages.
+the &(ps2pdf)& command (which itself uses &'GhostScript'&). The &(gs)& command
+is very basic; a more friendly interface is provided by front-end `wrapper'
+applications such as &(gv)&. Another possibility is to use a general-purpose
+document viewer such as &(evince)&, which can display PostScript or PDF files
+and has the added advantage of showing thumbnails of all the pages.
 
-If you do not use the &%-incPMWfont%& command line option when processing your
-input files, &'GhostScript'& needs to be told where the PostScript music fonts
-are before it can correctly display a PMW output file or convert it into a PDF.
-One easy way of doing this is to set the &`GS_FONTPATH`& environment variable,
-for example:
+Note that the &(gv)& command has a useful option called &%-watch%&; it causes
+the file to be re-displayed whenever it changes. If you set this and leave
+&(gv)& running, you can edit the input and reprocess it with PMW, and &(gv)&
+will notice the updated output file and automatically re-display the page it
+was previously displaying. This option can be made the default in a &_.gv_&
+initialization file. If you are using &(evince)& this action happens
+automatically.
+
+&'GhostScript'& needs to be told where the PostScript music fonts are before it
+can correctly display a PMW output file or convert it into a PDF. An easy way
+of doing this is to set the &`GS_FONTPATH`& environment variable, for example:
 .code
 export GS_FONTPATH=/usr/local/share/pmw/psfonts
 .endd
 Setting this variable also works for &(evince)& because it makes use of
-&'GhostScript'& when displaying a PostScript file. However, setting GS_FONTPATH
-may not work when you try to print the music because the setting may not be
-carried over into the printing environment. One way round this is to use the
-&(ps2pdf)& command to convert the PostScript to a PDF before printing. An
-alternative to setting &`GS_FONTPATH`& is to install symbolic links from a
+&'GhostScript'& when displaying a PostScript file. However, setting
+&`GS_FONTPATH`& may not work when you try to print the music because the
+setting may not be carried over into the printing environment. One way round
+this is to use the &(ps2pdf)& command to convert the PostScript to a PDF before
+printing.
+
+An alternative to setting &`GS_FONTPATH`& is to install symbolic links from a
 suitable font directory to PMW's &_psfonts_& directory. This should then also
 work for printing. You can find out which directories &'GhostScript'& searches
 for its fonts by running the following command:
@@ -504,29 +502,27 @@ ln -s /usr/local/share/pmw/psfonts/PMW-Alpha \
       /usr/share/fonts/gsfonts/PMW-Alpha
 ln -s /usr/local/share/pmw/psfonts/PMW-Music.pfa \
       /usr/share/fonts/gsfonts/PMW-Music.pfa
+ln -s /usr/local/share/pmw/psfonts/PMW-Music.otf \
+      /usr/share/fonts/gsfonts/PMW-Music.otf
 .endd
-In addition, for some older versions of &'GhostScript'&, you might also need to
-add this line to the file called &_Fontmap.GS_& that is found in the
-&'GhostScript'& font directory:
-.code
-/PMW-Music (PMW-Music.pfa) ;
-.endd
-This tells &'GhostScript'& that the font called `PMW-Music' is to be found in
-the file called &_PMW-Music.pfa_&. Newer versions of &'GhostScript'& do not
-seem to need this, so first of all, try without.
-
 When &'GhostScript'& cannot find a font, it makes a substitution, which in the
 case of PMW-Music usually results in nonsense characters on the screen. The
 basic &(gs)& command writes information about which fonts it is using to the
 standard output.
 
-Note that the &(gv)& command has a useful option called &%-watch%&; it causes
-the file to be re-displayed whenever it changes. If you set this and leave
-&(gv)& running, you can edit the input and reprocess it with PMW, and &(gv)&
-will notice the updated output file and automatically re-display the page it
-was previously displaying. This option can be made the default in a &_.gv_&
-initialization file. If you are using &(evince)& this action happens
-automatically.
+
+
+.section "Including the music fonts in the output file"
+.index "fonts" "including in the output"
+.index "music font, including in the output"
+If you use the &%-incPMWfont%& option on the &(pmw)& command line, or put it in
+your &_.pmwrc_& file, PMW includes the PostScript Type 1 version of the
+PMW-Music font and/or the PMW-Alpha font in every output file that needs them.
+This resulting files are freestanding PostScript files that should be printable
+or viewable without any special action. However, the files are larger by about
+30&--40K for each of the two fonts. This facility is not available with the 
+OpenType version of PMW-Music, as such fonts cannot be embedded within 
+a PostScript program.
 
 
 .section "Problems with displaying staves and bar lines"
@@ -573,9 +569,10 @@ can be run with or without antialiasing, which is a technique for making text
 look better by adding pixels in various shades of grey round the edges of
 characters, to fool the eye into seeing less jagged outlines. Before the
 PMW-Music font was converted to a Type 1 font, this could give problems with
-some of the straight-edged shapes. With the Type 1 font, there should be no
-problem with antialiasing. However, the PMW-Alpha font is still a Type 3 font;
-if you make use of PMW-Alpha, the screen display of some characters may be odd.
+some of the straight-edged shapes. With the Type 1 or OpenType font, there
+should be no problem with antialiasing. However, the PMW-Alpha font is still a
+Type 3 font; if you make use of PMW-Alpha, the screen display of some
+characters may be odd.
 
 Fortunately, this problem applies only to screen display. Printers have a much
 higher pixel resolution, and antialiasing is not needed even when it is
@@ -1097,6 +1094,14 @@ bar number) in any movement (there is usually only one when debugging at this
 level) to the standard error file. Sometimes a bar may be formatted more than
 once; there will be output each time. If the number is given as -1, positioning
 data is output for all bars.
+
+.vitem "&%-testing%&"
+
+This option is used by the scripts that do automatic testing. It cuts out the 
+time and version from the PostScript output, and also does not include the 
+standard PSheader file. The version information is also omitted before any
+error messages. This makes it straightforward to compare the significant output
+from different versions of the program.
 .endlist
 
 .index-to I02
@@ -1246,11 +1251,8 @@ given. Otherwise, it returns &`EXIT_FAILURE`& (which is normally 1).
 In this and the next chapter we cover the basic facilities of the way PMW input
 is encoded, omitting some of the more exotic features in order to keep the
 explanations simple. Full information is given in the reference section of this
-manual, which starts at chapter &<<CHAPreference>>&.
-
-We start with the first few bars of &'Happy Birthday'&. It is suggested that
-you try out this example as you read this section. First, use your favourite
-text editor to create a file containing this text:
+manual, which starts at chapter &<<CHAPreference>>&. We start with a file that
+contains the first few bars of &'Happy Birthday'&.
 .code
 heading "|Happy Birthday"
 breakbarlines
@@ -1270,37 +1272,32 @@ dcf | E c-. c= | dcg | F c-. c= |
 [nocheck] r | F. | C. | c d e | F. |
 [endstave]
 .endd
-You may use any name you like for the file, and put it in any convenient
-directory. Let's suppose it's called &_bday_&. Process the file with PMW by
-running this command:
+Let's suppose the file called &_bday_&. If you have PMW installed, you can
+process such a file by running this command:
 .code
 pmw -incPMWfont bday
 .endd
-Assuming you have not made any typing mistakes, there will be no output on the
+If there are no errors in the notation, there will be no output on the
 screen, but a new file called &_bday.ps_& will have been created. You can
 view this on screen by running:
 .code
 gv bday.ps
 .endd
-(or by using another PostScript viewer such as &(evince)&). The result should
+or by using another PostScript viewer such as &(evince)&. The result should
 look like this:
 
 .music music01 88 0,-22 centre
 
-If you have made a mistake, one or more error messages will be written to the
+If there are errors in the file, one or more messages will be written to the
 standard error file, and should therefore appear on your screen. The messages
-should be self-explanatory. Correct the error(s), and try again. If you did not
-make any typing mistakes, you might like now to deliberately introduce one or
-two, to gain familiarity with error handling. Omitting one of the vertical bar
-characters is a common mistake, leading to an overlong musical bar.
+should be self-explanatory. Correct the error(s), and try again.
 
-We will now explain what the different parts of this input file mean to PMW.
-The data is in two parts: first there is header information, such as the
-textual heading and key and time signatures for the piece, and then the music
-for each stave is given separately. The header in this example contains seven
-&'header directives'&. They have been put on separate lines for readability,
-but this is not a requirement; you can have several directives on one line if
-you like.
+We now explain what the different parts of this input file mean to PMW. The
+data is in two parts: first there is header information, such as the textual
+heading and key and time signatures for the piece, and then the music for each
+stave is given separately. The header in this example contains seven &'header
+directives'&. They have been put on separate lines for readability, but this is
+not a requirement; you can have several directives on one line if you like.
 
 .code
 heading "|Happy Birthday"
@@ -2047,7 +2044,7 @@ strings as follows:
 
 .itable none 0 0 2  60 left  200 left
 .row &`"\mf\c"`&  "gives&~&~ &{{c}}&"
-.row &`"\mf\d"`&  "givess&~&~ &{{d}}&"
+.row &`"\mf\d"`&  "gives&~&~ &{{d}}&"
 .endtable
 
 The escape sequence &`\mf\`& changes to the music font, full details of which
@@ -3721,12 +3718,12 @@ some special rules that apply only to this kind of transposition.
 
 .ilist
 If the new note's accidental is redundant, discard it, except in one specific
-circumstance: when a note that is specified with a natural is the first
-non-tied note in the bar and the new note is also a natural. The reasoning
-behind this is that the original natural must be `cautionary'. Apart from this
-special case, the behaviour is as if &%[transposedacc noforce]%& has been
-applied. However, an accidental can always be forced for individual notes (&R;
-&<<SUBSECTtransposedaccidentals>>&).
+circumstance: when a note that is notated with a natural is the first non-tied
+note in the bar. The reasoning behind this is that the original natural must be
+`cautionary'. Apart from this special case, the behaviour is as if
+&%[transposedacc noforce]%& has been applied. However, an accidental can
+be forced for individual notes by following the original accidental with
+&`^+`&, for example &`#^+a`&.
 .next
 Do not use double sharps or double flats unless the original note had
 a double sharp or double flat, respectively.
@@ -4449,11 +4446,9 @@ above the first fret you need to move up one and a half times the normal fret
 distance. This can be achieved by making use of two other special moving
 characters, `|' and `~' (124 and 126), which move down and up half a fret
 distance, respectively.
-.display
-&~
-&`"\mu\\131\xxxx~\183\|wwwtxtwwtxxxtx~u"`&  outputs   &&&
-   &{&#131;xxxx~&#183;|wwwtxtwwtxxxtx~u}&
-.endd
+
+.music "music70" 16 10,0
+
 The sequence &`\mu\`& switches into the music font, and \131\ is
 character 131, the grid. The sequence &`xxxx~`& moves the current point up
 by four and a half frets, which takes it to above the grid, where character
@@ -6038,9 +6033,9 @@ size.
 .index "style of clef"
 .index "clefs" "style of"
 .index "clefs" "old-fashioned"
-Some early editions use &{{zvvw&#174;x~}}& for F-clefs and &{{w&#175;x}}&
-for C-clefs. The &%clefstyle%& directive makes it possible to reproduce
-this usage. It takes a single numerical argument, with the following values:
+Some early editions use &-[&{{zzz&#174;}}&]-& for F-clefs and &{{&#175;}}& for
+C-clefs. The &%clefstyle%& directive makes it possible to reproduce this usage.
+It takes a single numerical argument, with the following values:
 
 .itable none 0 0 2  16 left  200 left
 .row &`0`& "all modern clefs"
@@ -6049,7 +6044,7 @@ this usage. It takes a single numerical argument, with the following values:
 .row &`3`& "old-fashioned F and C clefs"
 .endtable
 
-The &{{zvvw&#174;x~}}& graphic is wider than the modern &{{vvw"x~}}& shape.
+The &-[&{{zzz&#174;}}&]-& graphic is wider than the modern &-[&{{"}}&]-& shape.
 The layout of clefs is arranged so that two dots appear in the same place in
 both cases. This means that the old-fashioned clef extends further to the left
 than the modern one, and with PMW's default settings, it runs into stave
@@ -9270,6 +9265,7 @@ This can be done by using the &`\C\`& option for the notes (&R;
 .index "rests" "repeated bars"
 .index "repeated rest bars"
 .index "many bars rest"
+.pi sdop "superscript_up=""20"""
 When each bar in a sequence of bars contains only a single whole-bar rest
 specified using R or Q (but not S or T) they are amalgamated into a single bar.
 If the first bar's rest used Q, nothing is output in the bar. Otherwise, a
@@ -9277,10 +9273,11 @@ conventional `long rest' sign is output, with the number of bars above. Of
 course, this happens only if all the staves in the system have rest bars,
 typically when one or more parts are being extracted from a score. By default,
 any number of repeated rest bars are shown in the same way, using the
-&{{{x&#x0030;w}}}& sign, which is the modern convention. Older music sometimes
-used special code signs when the number of bars was between two and eight; see
-the &%codemultirests%& header directive if you want to use this style (&R;
-&<<SUBSECTcodemultirests>>&).
+&+[&{{{zzz&#x0030;}}}&]+& sign, which is the modern convention. Older music
+sometimes used special code signs when the number of bars was between two and
+eight; see the &%codemultirests%& header directive if you want to use this
+style (&R; &<<SUBSECTcodemultirests>>&).
+.pi sdop "superscript_up=""33"""
 
 .index "fermata" "with whole bar rest"
 A rest bar is considered eligible for amalgamation with its neighbours if it
@@ -9489,15 +9486,15 @@ The item &`\a`&<&'n'&>\ is a general notation for specifying accents. The
 values that <&'n'&> may take are:
 
 .itable none 0 0 2  12 left  200 left
-.row &`1`&    "staccato dot&~ &{vv>~}&"
-.row &`2`&    "horizontal bar&~ &{vvT~}&"
-.row &`3`&    "horizontal wedge&~ &{vvU~}&"
-.row &`4`&    "small, closed vertical wedge&~ &{~vYv}&"
+.row &`1`&    "staccato dot&~ &-[&{>}&]-&"
+.row &`2`&    "horizontal bar&~ &-[&{T}&]-&"
+.row &`3`&    "horizontal wedge&~ &-[&{U}&]-&"
+.row &`4`&    "small, closed vertical wedge&~ &{Y}&"
 .row &`5`&    "large, open vertical wedge&~ &{W}&"
 .row &`6`&    "string down bow&~ &{e}&"
 .row &`7`&    "string up bow&~ &{g}&"
 .row &`8`&    "ring (harmonic)&~ &{&#134;}&"
-.row &`9`&    "`start of bar' accent&~ &{~v&#156;v}&"
+.row &`9`&    "`start of bar' accent&~ &{&#156;}&"
 .row &`10`&   "staccatissimo mark&~ &{&#194;}&"
 .endtable
 
@@ -11371,8 +11368,8 @@ This specifies a C-clef on the 5-th stave line (&R; &<<SECTclef>>&).
 .subsection "[Comma]"
 .index "&%[comma]%&"
 .index "pause" "comma"
-The &%[comma]%& directive inserts a comma &{~&#78;|{}& pause mark above the
-current stave. See also &%[tick]%&.
+The &%[comma]%& directive inserts a comma &+[&{zzz&#78;}&]+& pause mark above
+the current stave. See also &%[tick]%&.
 
 
 .subsection "[Contrabass]"
@@ -13457,8 +13454,10 @@ or by &`/S`&, which selects from a set of fixed sizes.
 .subsection "[Tick]"
 .index "&%[tick]%&"
 .index "pause" "tick"
-The &%[tick]%& directive causes PMW to insert a tick &{(y|&#128;~{)}& pause
+.pi sdop "subscript_down=""20"""
+The &%[tick]%& directive causes PMW to insert a tick &-[&{(zz&#128;)}&]-& pause
 mark above the current stave. See also &%[comma]%&.
+.pi sdop "subscript_down=""33"""
 
 
 .subsection "[Ties]"
@@ -14275,7 +14274,7 @@ For example, when a 10-point treble clef is output, its width is 15 points.
                     36  centre  &&&
                     48  right   &&&
                     48  "char"" charoff=""40" &&&
-                    40  centre  &&&
+                    44  centre  &&&
                     210 left
 
 .literal xml
@@ -14290,19 +14289,19 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .literal off
 
 .row ""     32  &`00020`& 0.75   ""                  "space"
-.row &`!`&  33  &`1D11E`& 1.5    &{{{w&#33;x}}}&     "treble clef"
-.row &`"`&  34  &`1D122`& 1.5    &{{{www&#34;xxx}}}& "bass clef"
-.row &`#`&  35  &`1D121`& 1.5    &{{{ww&#35;xx}}}&   "alto clef"
-.row &`$`&  36  &`1D1AF`& 1.0    &{{vv&#36;~}}&      "piano end pedal sign"
+.row &`!`&  33  &`1D11E`& 1.5    &{{{&#33;}}}&       "treble clef"
+.row &`"`&  34  &`1D122`& 1.5    &-[&{{{&#34;}}}&]-& "bass clef"
+.row &`#`&  35  &`1D121`& 1.5    &-[&{{{&#35;}}}&]-& "alto clef"
+.row &`$`&  36  &`1D1AF`& 1.0    &-[&{{&#36;}}&]-&   "piano end pedal sign"
 .row &`%`&  37  &`0266F`& 0.6    &{{&#37;}}&         "sharp"
 .row &`&&`& 38  &`1D12A`& 0.6    &{{&#38;}}&         "double sharp"
-.row &`'`&  39  &`0266D`& 0.5    &{{vv&#39;~}}&      "flat"
+.row &`'`&  39  &`0266D`& 0.5    &{{&#39;}}&         "flat"
 .row &`(`&  40  &`0266E`& 0.45   &{{&#40;}}&         "natural"
 .row &`)`&  41  &`1D110`& 0.0    &{{&#41;}}&         "fermata (over)"
 .row &`*`&  42  &`1D13A`& 0.66   &{{&#42;}}&         "breve rest"
 .row &`+`&  43  &`1D13B`& 0.66   &{{&#43;}}&         "semibreve rest"
 .row &`,`&  44  &`1D13C`& 0.66   &{{&#44;}}&         "minim rest"
-.row &`-`&  45  &`1D13D`& 0.66   &{{vv&#45;~}}&      "crotchet rest"
+.row &`-`&  45  &`1D13D`& 0.66   &{{&#45;}}&         "crotchet rest"
 .row &`.`&  46  &`1D13E`& 0.59   &{{&#46;}}&         "quaver rest"
 .row &`/`&  47  &`1D111`& 0.0    &{{&#47;}}&         "fermata (under)"
 .row &`0`&  48  &`1D129`& 3.5    &{{&#48;}}&         "many bars rest"
@@ -14316,23 +14315,35 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row &`8`&  56  ""        0.84   &{{&#56;}}&&~       "down quaver"
 .row &`9`&  57  &`1D161`& 1.2    &~&~&{{&#57;}}&     "up semiquaver"
 .row &`:`&  58  ""        0.84   &{{&#58;}}&&~       "down semiquaver"
-.row &`;`&  59  ""        0.0    &{{ww&#59;xx}}&     "repeatable tail"
-.row &`<`&  60  ""        0.0    &{{xx&#60;ww}}&     "repeatable tail"
+
+.pi sdop "subscript_down=""80"""
+.row &`;`&  59  ""        0.0    &-[&{{&#59;}}&]-&   "repeatable tail"
+.pi sdop "subscript_down=""33"""
+
+.pi sdop "superscript_up=""70"""
+.row &`<`&  60  ""        0.0    &+[&{{&#60;}}&]+&   "repeatable tail"
+.pi sdop "superscript_up=""33"""
+
 .row &`=`&  61  ""        0.0    &{{&#61;}}&         "ledger line"
 .row &`>`&  62  ""        0.0    &{{&#62;}}&         "vertical dot (above note on base line)"
 .row &`?`&  63  ""        0.4    &{{&#63;}}&         "horizontal dot"
 .row &`@`&  64  &`1D100`& 0.6    &{{&#64;}}&         "bar line"
 .row &`A`&  65  &`1D101`& 0.76   &{{&#65;}}&         "double bar line"
 .row &`B`&  66  ""        0.76   &{{&#66;}}&         "thick bar line"
-.row &`C`&  67  &`1D11A`& 1.0    &{{ww&#67;xx}}&     "normal stave"
-.row &`D`&  68  &`1D116`& 1.0    &{{ww&#68;xx}}&     "percussion stave"
-.row &`E`&  69  &`1D16E`& 0.0    &{{ww&#69;xx}}&     "up quaver tail"
+
+
+.pi sdop "subscript_down=""60"""
+.row &`C`&  67  &`1D11A`& 1.0    &-[&{{&#67;}}&]-&   "normal stave"
+.row &`D`&  68  &`1D116`& 1.0    &-[&{{&#68;}}&]-&   "percussion stave"
+.row &`E`&  69  &`1D16E`& 0.0    &-[&{{&#69;}}&]-&   "up quaver tail"
+.pi sdop "subscript_down=""33"""
+
 .row &`F`&  70  ""       10.0    ""                  "long stave"
 .row &`G`&  71  ""       10.0    ""                  "long percussion stave"
-.row &`H`&  72  ""        0.0    &{{xx&#72;ww}}&     "down quaver tail"
+.row &`H`&  72  ""        0.0    &+[&{{&#72;}}&]+&   "down quaver tail"
 .row &`I`&  73  ""        0.6    &{{&#73;}}&         "for repeat marks"
-.row &`J`&  74  &`1D165`& 0.0    &{{w&#74;x}}&       "upward note stem"
-.row &`K`&  75  ""        0.0    &{{x&#75;w}}&       "downward note stem"
+.row &`J`&  74  &`1D165`& 0.0    &-[&{{&#74;}}&]-&   "upward note stem"
+.row &`K`&  75  ""        0.0    &+[&{{&#75;}}&]+&   "downward note stem"
 .row &`L`&  76  &`1D158`& 0.84   &{{&#76;}}&         "solid notehead"
 .row &`M`&  77  &`1D157`& 0.84   &{{&#77;}}&         "minim notehead"
 .row &`N`&  78  &`1D112`& 0.6    &{{&#78;}}&         "pause comma"
@@ -14348,16 +14359,16 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row &`X`&  88  ""        0.0    &{{&#88;}}&         "accent"
 .row &`Y`&  89  ""        0.0    &{{&#89;}}&         "accent"
 .row &`Z`&  90  &`1D17E`& 0.0    &{{&#90;}}&         "accent"
-.row &`[`&  91  &`1D104`& 0.6    &{{w&#91;x}}&       "dashed bar line"
-.row &`\`&  92  ""        1.0    &{{w&#92;x}}&       "single-line caesura"
+.row &`[`&  91  &`1D104`& 0.6    &-[&{{&#91;}}&]-&   "dashed bar line"
+.row &`\`&  92  ""        1.0    &-[&{{&#92;}}&]-&   "single-line caesura"
 .row &`]`&  93  ""        0.0    &{{&#93;}}&         "for use with clefs"
-.row &`^`&  94  &`1D134`& 1.0    &{{w&#94;x}}&       "`common' time"
-.row &`_`&  95  &`1D135`& 1.0    &{{w&#95;x}}&       "`cut' time"
+.row &`^`&  94  &`1D134`& 1.0    &-[&{{&#94;}}&]-&   "`common' time"
+.row &`_`&  95  &`1D135`& 1.0    &-[&{{&#95;}}&]-&   "`cut' time"
 .row &```&  96  ""        0.4    &{{&#96;}}&         "suitable for following &{{&#136;}}&"
 .row &`a`&  97  ""        0.0    &{{&#97;}}&         "thumb (above)"
 .row &`b`&  98  ""        0.0    &{{&#98;}}&         "thumb (below)"
-.row &`c`&  99  &`1D10C`& 1.5    &{{w&#99;x}}&       "dal segno"
-.row &`d`&  100 &`1D10B`& 1.5    &{{w&#100;x}}&      "dal segno"
+.row &`c`&  99  &`1D10C`& 1.5    &-[&{{&#99;}}&]-&   "dal segno"
+.row &`d`&  100 &`1D10B`& 1.5    &-[&{{&#100;}}&]-&  "dal segno"
 .row &`e`&  101 &`1D1AA`& 0.0    &{{&#101;}}&        "down bow"
 .row &`f`&  102 ""        0.0    &{{&#102;}}&        "inverted down bow"
 .row &`g`&  103 &`1D1AB`& 0.0    &{{&#103;}}&        "up bow"
@@ -14368,8 +14379,8 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row &`l`&  108 &`1D1BA`& 0.84   &{{&#108;}}&        "solid diamond notehead"
 .row &`m`&  109 &`1D1B9`& 0.84   &{{&#109;}}&        "diamond notehead"
 .row &`n`&  110 ""        0.84   &{{&#110;}}&        "cross notehead"
-.row &`o`&  111 ""        0.0    &{{w&#111;x}}&      "up stem for cross"
-.row &`p`&  112 ""        0.0    &{{x&#112;w}}&      "down stem for cross"
+.row &`o`&  111 ""        0.0    &-[&{{&#111;}}&]-&  "up stem for cross"
+.row &`p`&  112 ""        0.0    &+[&{{&#112;}}&]+&  "down stem for cross"
 .row &`q`&  113 ""        0.0    &{{&#113;}}&        "up stem fragment, 0.2 to 0.4"
 .row &`r`&  114 ""        0.0    &{{&#114;}}&        "down stem fragment, 0 to -0.2"
 .row &`s`&  115 ""        0.5    &{{&#115;}}&        "for figured bass"
@@ -14385,10 +14396,17 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row &`}`&  125 ""        0.55   ""                  "outputs nothing; moves right by 0.55"
 .row &`~`&  126 ""        0.0    ""                  "outputs nothing; moves up 0.2"
 .row ""     127 ""        -      ""                  "unassigned"
-.row ""     128 ""        0.6    &{{w&#128;x}}&      "tick"
-.row ""     129 ""        0.0    &{{ww&#129;xx}}&    "accaciatura bar"
-.row ""     130 ""        0.0    &{{xx~&#130;wwvv}}& "accaciatura bar"
-.row ""     131 &`1D11C`& 0.0    &{{ww{{{{{{{&#131;xx}}& "grid for guitar chords"
+.row ""     128 ""        0.6    &-[&{{&#128;}}&]-&  "tick"
+
+.pi sdop "subscript_down=""60"""
+.pi sdop "superscript_up=""60"""
+.row ""     129 ""        0.0    &-[&{{&#129;}}&]-&  "accaciatura bar"
+.row ""     130 ""        0.0    &+[&{{&#130;}}&]+&  "accaciatura bar"
+.row ""     131 &`1D11C`& 0.0    &-[&{{&#131;}}&]-&  "&~&~grid for guitar chords"
+
+.pi sdop "subscript_down=""33"""
+.pi sdop "superscript_up=""33"""
+
 .row ""     132 &`1D1A0`& 0.6    &{{&#132;}}&        "short bar line"
 .row ""     133 ""        0.0    &{{&#133;}}&        "breath"
 .row ""     134 ""        0.0    &{{&#134;}}&        "ring above"
@@ -14397,7 +14415,7 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row ""     137 ""        0.6    &{{&#137;}}&        "short vertical caesura"
 .row ""     138 ""        0.6    &{{&#138;}}&        "long vertical caesura"
 .leadoff
-.row &D15; &D15;139 "" &D15;0.35 &D15;&{{&#139;}}& "&{{w}}&&BT15;"
+.row &D15; &D15;139 "" &D15;0.35 &D15;&{{&#139;}}& "&-[&BT15;]-&"
 .row &D15; &D15;140 "" &D15;0.35 &D15;&{{&#140;}}& "&BM15;&~&~&~brackets for accidentals"
 .row &D15; &D15;141 "" &D15;0.35 &D15;&{{&#141;}}& "&BM15;"
 .row &D15; &D15;142 "" &D15;0.35 &D15;&{{&#142;}}& "&BB15;"
@@ -14406,12 +14424,12 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row ""     144 ""        0.0    &{{&#144;}}&        "for bar repetition"
 .row ""     145 ""        0.0    &{{&#145;}}&        "for arpeggios &-- moves upwards by 0.4"
 .row ""     146 &`1D167`& 0.0    &{{&#146;}}&        "tremolo bar &-- moves upwards by 0.4"
-.row ""     147 &`1D1C8`& 1.0    &{{w&#147;x}}&      "old time signature"
-.row ""     148 &`1D1C9`& 1.0    &{{w&#148;x}}&      "old time signature"
-.row ""         149 ""    0.0    &{{x&#149;w}}&      "slur"
-.row ""     150 ""        0.0    &{{x&#150;w}}&      "slur"
-.row ""     151 ""        0.0    &{{w&#151;x}}&      "for splitting/joining staves"
-.row ""     152 ""        0.0    &{{x&#152;w}}&      "for splitting/joining staves"
+.row ""     147 &`1D1C8`& 1.0    &-[&{{&#147;}}&]-&  "old time signature"
+.row ""     148 &`1D1C9`& 1.0    &-[&{{&#148;}}&]-&  "old time signature"
+.row ""         149 ""    0.0    &+[&{{&#149;}}&]+&  "slur"
+.row ""     150 ""        0.0    &+[&{{&#150;}}&]+&  "slur"
+.row ""     151 ""        0.0    &{{&#151;}}&        "for splitting/joining staves"
+.row ""     152 ""        0.0    &+[&{{&#152;}}&]+&  "for splitting/joining staves"
 .row ""     153 ""        1.0    &{{&#153;}}&        "inverted `common' time"
 .row ""     154 ""        1.0    &{{&#154;}}&        "inverted `cut' time"
 .row ""     155 ""        1.58   &{{&#155;}}&        "unison breve"
@@ -14419,7 +14437,7 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row ""     157 ""        0.35   &{{&#157;}}&        "for bracketing &{&#93;}&"
 .row ""     158 ""        0.35   &{{&#158;}}&        "for bracketing &{&#93;}&"
 .leadoff
-.row &D15; &D15;159 "" &D15;0.33 &D15;&{{&#159;}}& "&{{w}}&&BT15;"
+.row &D15; &D15;159 "" &D15;0.33 &D15;&{{&#159;}}& "&-[&BT15;]-&"
 .row &D15; &D15;160 "" &D15;0.33 &D15;&{{&#160;}}& "&BM15;&~&~&~for &'8va'& lines etc."
 .row &D15; &D15;161 "" &D15;0.33 &D15;&{{&#161;}}& "&BM15;"
 .row &D15; &D15;162 "" &D15;0.33 &D15;&{{&#162;}}& "&BB15;"
@@ -14430,15 +14448,15 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row ""     166 ""        0.0    &{{&#166;}}&        "harp nail symbol"
 .row ""     167 ""        0.333  &{{&#167;}}&        "alternate bracket angle"
 .row ""     168 ""        0.333  &{{&#168;}}&        "alternate bracket angle"
-.row ""     169 &`1D117`& 1.0    &~&~&~&~&~&{{w&#169;x}}&      "2-line stave"
-.row ""     170 &`1D118`& 1.0    &{{w&#170;x}}&&~&~&~&~&~&~&~  "3-line stave"
-.row ""     171 &`1D119`& 1.0    &~&~&~&~&~&{{w&#171;x}}&      "4-line stave"
-.row ""     172 &`1D11B`& 1.0    &{{w&#172;x}}&&~&~&~&~&~&~&~  "6-line stave"
-.row ""     173 &`1D125`& 1.5    &{{ww&#173;}}&                "percussion clef"
-.row ""     174 ""        1.5    &{{ww&#174;xx}}&              "old-style F clef"
-.row ""     175 ""        1.5    &{{w&#175;x}}&&~&~&~&~&~      "old-style C clef"
-.row ""     176 ""        0.0    &{{w&#176;x}}&      "bracket top"
-.row ""     177 ""        0.0    &{{w&#177;x}}&      "bracket bottom"
+.row ""     169 &`1D117`& 1.0    &-[&~&~&~&~&~&{{&#169;}}&]-&      "2-line stave"
+.row ""     170 &`1D118`& 1.0    &-[&{{&#170;}}&&~&~&~&~&~&~&~]-&  "3-line stave"
+.row ""     171 &`1D119`& 1.0    &-[&~&~&~&~&~&{{&#171;}}&]-&      "4-line stave"
+.row ""     172 &`1D11B`& 1.0    &-[&{{&#172;}}&&~&~&~&~&~&~&~]-&  "6-line stave"
+.row ""     173 &`1D125`& 1.5    &-[&{{&#173;}}&]-&  "percussion clef"
+.row ""     174 ""        1.5    &-[&{{&#174;}}&]-&  "old-style F clef"
+.row ""     175 ""        1.5    &{{&#175;}}&&~&~&~&~&~  "old-style C clef"
+.row ""     176 ""        0.0    &-[&{{&#176;}}&]-&  "bracket top"
+.row ""     177 ""        0.0    &-[&{{&#177;}}&]-&  "bracket bottom"
 .row ""     178 ""        1.0    &{{&#178;}}&        "symbol for pitch without duration (`direct')"
 .row ""     179 ""        0.55   &{{&#179;}}&        "for figured bass"
 .row ""     180 ""        0.75   &{{&#180;}}&        "major chord sign (jazz notation)"
@@ -14470,14 +14488,27 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .rule
 
 .index "non-printing music characters"
-The characters numbered 118&--126 and 185&--188 do not cause anything to be
-output; instead they just cause the current position to be moved by a distance
-that depends on the point size of the font. The values given above are the
-factors by which the font's point size must be multiplied in order to get the
-relevant distance. For example, if a 10-point font is in use, character number
-119 (w) moves the current position down by 4 points. If a space character
-(number 32) is output from the music font, it moves the position by 0.75 units
-to the right.
+The characters numbered 32, 118&--126, and 185&--188 do not cause anything to
+be output; instead they just cause the current position to be moved by a
+distance that depends on the point size of the font.
+
+&*Note*&: All these characters exist as actual characters in the original
+PostScript version of the font, which is in a file called &_PMW-Music.pfa_&.
+From release 5.20 an OpenType version called &_PMW-Music.otf_& is also provided
+because the PostScript font formats are becoming obsolete. However, OpenType
+does not support leftwards, upwards, or downwards movements in fonts whose
+primary movement is to the right. For this reason, the PMW program has been
+updated so that it no longer relies on the font mechanism for such movements.
+Instead, when it encounters any of these characters, it emulates what would 
+happen with the PostScript font. This means that PMW output works with either 
+form of the font, but if the OpenType font is used with any other program, the 
+characters with unsupported movements are not available.
+
+The values given in the table above are the factors by which the font's point
+size must be multiplied in order to get the relevant distance. For example, if
+a 10-point font is in use, character number 119 (w) moves the current position
+down by 4 points. If a space character (number 32) is output from the music
+font, it moves the position by 0.75 units to the right.
 
 There is a discussion on the use of the special characters for guitar chord
 grids in section &<<SUBSECTguitargrids>>&. The larger round and square brackets
@@ -14680,9 +14711,9 @@ the upper case G.
 .row F      70   0.80   &{-F-}&
 .row G      71   0.64   &{-G-}&
 .leadoff
-.row &D15;H &D15;72 &D15;0.00 &D15;&{-H-}&  "&{{www}}&&BT15;"
-.row &D15;J &D15;74 &D15;0.00 &D15;&{-J-}&  "&{{w}}&&BM15;&{{x}}&&~&~&~beams for downstemmed notes"
-.row &D15;K &D15;75 &D15;0.00 &D15;&{-K-}&  "&{{w}}&&BB15;"
+.row &D15;H &D15;72 &D15;0.00 &D15;&{-H-}&  "&-[&BT15;]-&"
+.row &D15;J &D15;74 &D15;0.00 &D15;&{-J-}&  "&BM15;&~&~&~beams for downstemmed notes"
+.row &D15;K &D15;75 &D15;0.00 &D15;&{-K-}&  "&BB15;"
 .leadon
 .row L      76   0.38   &{-L-}&  "crotchet notehead"
 .row M      77   0.38   &{-M-}&  "minim notehead"
@@ -14707,7 +14738,7 @@ the upper case G.
 .row f      102  0.47   &{-f-}&
 .row g      103  0.64   &{-g-}&
 .leadoff
-.row &D15;h &D15;104 &D15;0.00 &D15;&{-h-}&  "&{{w}}&&BT15;"
+.row &D15;h &D15;104 &D15;0.00 &D15;&{-h-}&  "&-[&BT15;]-&"
 .row &D15;j &D15;106 &D15;0.00 &D15;&{-j-}&  "&BM15;&~&~&~beams for upstemmed notes"
 .row &D15;k &D15;107 &D15;0.00 &D15;&{-k-}&  "&BB15;"
 .leadon
@@ -14741,7 +14772,7 @@ the upper case G.
 .row ""     189  0.75   &{-&#189;-}&
 .row ""     190  0.75   &{-&#190;-}&
 .leadoff
-.row &D15; &D15;200  &D15;0.30   &D15;&{-&#200;-}&  "&{{w}}&&BT15;"
+.row &D15; &D15;200  &D15;0.30   &D15;&{-&#200;-}&  "&-[&BT15;]-&"
 .row &D15; &D15;201  &D15;0.30   &D15;&{-&#201;-}&  "&BM15;"
 .row &D15; &D15;202  &D15;0.30   &D15;&{-&#202;-}&  "&BM15;"
 .row &D15; &D15;203  &D15;0.30   &D15;&{-&#203;-}&  "&BM15;"
@@ -14751,7 +14782,7 @@ the upper case G.
 .row &D15; &D15;207  &D15;0.30   &D15;&{-&#207;-}&  "&BM15;"
 .row &D15; &D15;208  &D15;0.30   &D15;&{-&#208;-}&  "&BM15;"
 .row &D15; &D15;209  &D15;0.30   &D15;&{-&#209;-}&  "&BB15;
-.row &D15; &D15;210  &D15;0.30   &D15;&{-&#210;-}&  "&{{ww}}&&BT15;"
+.row &D15; &D15;210  &D15;0.30   &D15;&{-&#210;-}&  "&-[&BT15;]-&"
 .row &D15; &D15;211  &D15;0.30   &D15;&{-&#211;-}&  "&BM15;"
 .row &D15; &D15;212  &D15;0.30   &D15;&{-&#212;-}&  "&BM15;"
 .row &D15; &D15;213  &D15;0.30   &D15;&{-&#213;-}&  "&BM15;"

@@ -1,0 +1,19 @@
+time a
+key N
+transpose 7
+nocheck
+
+[stave 1 treble 1]
+B`+_ | #a` |
+B`+_ | $b` |
+
+B`+_ | #^+a` |
+B`+_ | $^+b` |
+
+[slur/b] B`+ | #a` [es]  |
+[slur/b] B`+ | $b` [es]  |
+
+[slur/b] B`+ | #^+a` [es]  |
+[slur/b] B`+ | $^+b` [es]  |
+
+[endstave]

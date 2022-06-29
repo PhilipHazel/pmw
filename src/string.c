@@ -1641,6 +1641,7 @@ for (read_nextc(); read_c != '\"' && read_c != ENDFILE; read_nextc())
           &acc,        /* for output accidental */
           ac_no,       /* output accidental - none set */
           TRUE,        /* force accidental - not relevant for text */
+          FALSE,       /* note set force accidental - not relevant for text */ 
           TRUE,        /* single note - not relevant for text */
           TRUE,        /* texttranspose */
           0);          /* tie count - not relevant for text */

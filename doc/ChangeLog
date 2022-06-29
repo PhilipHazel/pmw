@@ -2,6 +2,32 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
+Version 5.11 xx-xxxx-2022
+-------------------------
+
+1. In preparation for supporting an OpenType font, which does not allow for 
+negative character advances, nor characters with vertical movements in a 
+horizontal font, the PostScript output no longer outputs those characters in
+the PMW-Music font that (in the Type 1 font) have these characteristics.
+Instead, it terminates the string and computes the new output position for what
+follows. At the same time, the output is now optimized to remove any characters
+that just move the current position (up, down, or right) at the end of
+character strings in the music font.
+
+2. An OpenType version of the PMW-Music font is now included in the 
+distribution. PMW should now work with either the .pfa font or the .otf font.
+
+3. Now included in the source files in the Git repository are the creation 
+files for the PMW-Music font, for all three historical versions: PostScript 
+types 3 and 1, and OpenType. They are in the fontmaint subdirectory.
+
+4. Updated the documentation so that it no longer relies on the features of 
+PMW-Music that are not supported by OpenType.
+
+5. Make the "force accidental after transposition" facility (the ^+ notation) 
+work in key N.
+
+
 Version 5.10 08-June-2022
 -------------------------
 

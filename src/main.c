@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: May 2022 */
+/* This file last modified: June 2022 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -512,6 +512,7 @@ PF("-reverse              output pages in reverse order\n");
 PF("-SM <directory>       specify standard macros directory\n");
 PF("-s <list>             select staves\n");
 PF("-t <number>           set transposition\n");
+PF("-testing              run in testing mode\n");
 PF("-tumble               set tumble for duplex printing\n");
 PF("-V                    output PMW version number\n");
 PF("-v                    output verification information\n");

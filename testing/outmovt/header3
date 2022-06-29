@@ -40,10 +40,10 @@ rmX 10 ss(])sh rm 10 ss( )sh rmX 10 ss(c)sh rm 8 ss
 72.496 135.909 s rm 8 ss(Numeric {\205)45.6 127.909 s rmX 8 ss
 (\241)45.6 119.909 s rm 8 ss(Quoted)sh rmX 8 ss(\242)sh rm 8 ss
 ( and )sh rmX 8 ss(\216)sh rm 8 ss( ligature)sh(C -> D  C# -> E)
-45.6 111.909 s mf 7.2 ss('y)97.288 111.909 s rm 8 ss(  G$ -> A)
-100.168 111.909 s mf 7.2 ss('y)130.896 111.909 s rm 8 ss(C -> D)
-45.6 103.909 s mf 7.2 ss('y)67.888 103.909 s rm 8 ss(  C# -> D  G$ -> G)
-70.768 103.909 s(C -> C)45.6 95.909 s mf 7.2 ss('y)67.448 95.909 s
+45.6 111.909 s mf 7.2 ss(')97.288 111.909 s rm 8 ss(  G$ -> A)
+100.168 111.909 s mf 7.2 ss(')130.896 111.909 s rm 8 ss(C -> D)
+45.6 103.909 s mf 7.2 ss(')67.888 103.909 s rm 8 ss(  C# -> D  G$ -> G)
+70.768 103.909 s(C -> C)45.6 95.909 s mf 7.2 ss(')67.448 95.909 s
 rm 8 ss(  C# -> C  G$ -> F)70.328 95.909 s bf 8 ss(Bold Footing)
 45.6 32.728 s
 pagesave restore showpage

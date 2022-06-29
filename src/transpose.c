@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: June 2022 */
 
 #include "pmw.h"
 
@@ -121,6 +121,7 @@ Arguments:
   acc                    the accidental value (updated)
   transposeacc           if not 0, accidental required
   transposedaccforce     retain accidental, even if implied by new key
+  note_set_taf           transposedaccforce was set by the note 
   acc_onenote            TRUE if accidental is printed above/below, and
                            hence applies only to a single note
   texttranspose          TRUE if transposing a note name in text
@@ -133,8 +134,8 @@ Returns:                 the transposed absolute pitch
 
 int16_t
 transpose_note(int16_t abspitch, int16_t *pitch, uint8_t *acc,
-  uint8_t transposeacc, BOOL transposedaccforce, BOOL acc_onenote,
-  BOOL texttranspose, int tiedcount)
+  uint8_t transposeacc, BOOL transposedaccforce, BOOL note_set_taf,
+  BOOL acc_onenote, BOOL texttranspose, int tiedcount)
 {
 int newpitch;
 usint newacc;
@@ -354,7 +355,9 @@ if (!texttranspose)
     /* In key N, we normally want to omit all redundant accidentals except for
     a natural at the first non-tied note of a bar. */
 
-    if (*acc != ac_nt || !brs.firstnontied) keyNomit = TRUE;
+    if ((*acc != ac_nt || !brs.firstnontied) &&
+        (!transposedaccforce || !note_set_taf)) 
+      keyNomit = TRUE;
     }
 
   /* Handle implied accidental. If this accidental is already implied, and

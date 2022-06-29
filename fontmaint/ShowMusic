@@ -1,0 +1,84 @@
+%!
+% Demonstrate all chars of PMW music file
+
+/Mt{moveto}def 
+/Sf{setfont}def
+
+/Mus /PMW-Music findfont 10 scalefont def
+/Tit /Times-Roman findfont 20 scalefont def
+/rm  /Times-Roman findfont 10 scalefont def
+
+/lhs 50 def
+/sep 60 def
+/top 740 def
+
+180 790 Mt Tit Sf (The PMW PostScript music font) show
+
+Mus Sf
+lhs top Mt (FFFFF) show lhs top Mt
+(! " # $z %z &z 'z (z )z  *  +  ,  -  .  /zz  0  1  2  3  4  5  6  7) show
+
+/top top sep sub def
+lhs top Mt (FFFFF) show lhs top Mt
+( 8  9  :  ;  <  =  >  ?  @ A B E  H  I J  K  L  M  N  O   P   Q   R   S   T   U) show
+
+/top top sep sub def
+lhs top Mt (FFFFF) show lhs top Mt
+( V  W  X  Y  Z  [ \\  ]  ^  _  `  a  b  c  d  e  f  g  h  i   j  k  l  m  n) show
+
+/top top sep sub def
+lhs top Mt (FFFFF) show lhs top Mt
+( o  p  q  r  s t u \200 \201  \202  \203     \204 \205  \206  \207  \210 ) show
+(\211 \212 \213 \214 \215 \216  \217  \220    \221w  \222w   \223 \224) show
+
+/top top sep sub def
+lhs top Mt (FFFFF) show lhs top Mt
+( \225   \226    \227  \230   \231  \232  \233  \234  \235  \236  \237  ) show
+(\240  \241  \242  \243  \244w  \245w  \246  \247  \250  \255  \256  \257) show
+
+/top top sep sub def
+lhs top Mt (FFFFF) show lhs top Mt
+(\260  \261  \262  \263  \264  \265  \266 \267 \270  \275 \276 \277 \300 ) show
+(\301 \302 \303  \304  \305  \306  \307) show
+
+% Long stave lines
+
+/top top sep sub def lhs top Mt
+(DG \251\367 \252\370) show
+
+/top top sep sub def lhs top Mt
+(\253\371 CF \254\372) show
+
+% Combinations
+
+/top top sep sub def
+lhs top Mt rm Sf (Combinations) show Mus Sf
+lhs 70 add top Mt (\260\261CCCFFFF) show lhs 70 add top Mt
+( B{@{~~I~~~8 ~8 |||||||||=5 ~5 ~~~~I||{@{B) show
+( ~~J;|v;|v;~JL )show
+( on Hpn Jqm Krl ) show
+( 3{~M |) show
+(xxxxx\203txxxx~\267w|twtxx~u|wtwwwwwwww) show
+(  w\245\221\221\221\221\244wwwww) show
+( xxxxx\210```````wwwww) show
+( \2017 \2028 ww\222}yyyx6  ~~\220\217||  \213%\214) show
+
+/top top sep sub def
+lhs top Mt rm Sf (B) show Mus Sf (\264) show rm Sf ( D7) show
+Mus Sf (\265) show rm Sf ( E) show Mus Sf (\266) show
+
+
+lhs top 110 sub Mt rm Sf 
+
+(Version ) show
+
+/PMW-Music findfont begin
+FontInfo begin
+version show
+(, ) show
+Notice show
+end
+end
+
+showpage
+

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: May 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: June 2022 */
 
 #include "pmw.h"
 
@@ -119,14 +119,14 @@ x0 += out_stavemagn;
 
 for (int i = 0; i < count; i++) s[i] = extension[0];
 s[count] = 0;
-ps_string(s, fdata, &x0, &y, FALSE);
+ps_string(s, fdata, &x0, &y, TRUE, FALSE);
 
 /* Deal with a final part-line */
 
 if (remain >= uwidth/5)
   {
   x1 -= uwidth;
-  ps_string(extension, fdata, &x1, &y, FALSE);
+  ps_string(extension, fdata, &x1, &y, TRUE, FALSE);
   }
 }
 
@@ -221,14 +221,14 @@ else
     *pp = 0;
 
     local_fdata.spacestretch = unit - hwidth - swidth;
-    ps_string(s, &local_fdata, &x0, &y, FALSE);
+    ps_string(s, &local_fdata, &x0, &y, TRUE, FALSE);
     }
 
   /* Otherwise we have to output each hyphen individually */
 
   else for (int i = 0; i <= count; i++)
     {
-    ps_string(hyphen, fdata, &x0, &y, FALSE);
+    ps_string(hyphen, fdata, &x0, &y, TRUE, FALSE);
     x0 += unit;
     }
   }
@@ -914,10 +914,10 @@ else
     {
     uint32_t commafont;
     b = nb->nbar;
-    if (comma != NULL) ps_string(comma, &out_fdata1, &xt, &yt, TRUE);
+    if (comma != NULL) ps_string(comma, &out_fdata1, &xt, &yt, TRUE, TRUE);
     if (b->s != NULL)
       {
-      ps_string(b->s, &out_fdata1, &xt, &yt, TRUE);
+      ps_string(b->s, &out_fdata1, &xt, &yt, TRUE, TRUE);
       commafont = PFTOP(b->s[0]);
       }
     else
@@ -926,7 +926,7 @@ else
       uschar buff[24];
       (void)sprintf(CS buff, "%d", b->n);
       pmws = string_pmw(buff, curmovt->fonttype_repeatbar);
-      ps_string(pmws, &out_fdata1, &xt, &yt, TRUE);
+      ps_string(pmws, &out_fdata1, &xt, &yt, TRUE, TRUE);
       commafont = PFTOP(pmws[0]);
       }
     nb = nb->next;
@@ -1797,7 +1797,7 @@ for (uint32_t *ss = s; *ss != 0; ss++)
   if (i > 250)
     {
     buff[i] = 0;
-    ps_string(buff, fdata, &x, &y, TRUE);
+    ps_string(buff, fdata, &x, &y, TRUE, TRUE);
     i = 0;
     }
 
@@ -1890,7 +1890,7 @@ for (uint32_t *ss = s; *ss != 0; ss++)
 if (i > 0)
   {
   buff[i] = 0;
-  ps_string(buff, fdata, &x, &y, TRUE);
+  ps_string(buff, fdata, &x, &y, TRUE, TRUE);
   }
 
 /* Retain final ending position */

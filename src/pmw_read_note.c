@@ -1416,6 +1416,7 @@ for (;;)
   uint8_t acc_orig, char_orig;
   uint8_t transposedacc = ac_no;
   BOOL    transposedaccforce = active_transposedaccforce;
+  BOOL    note_set_taf = FALSE; 
 
   /* Read an accidental, if present, and save the original accidental (prior to
   transposition) for use if this note has to be re-created for 'p'. The note
@@ -1428,8 +1429,18 @@ for (;;)
   if (read_c == '^')
     {
     read_nextc();
-    if (read_c == '-') { transposedaccforce = FALSE; read_nextc(); }
-      else if (read_c == '+') { transposedaccforce = TRUE; read_nextc(); }
+    if (read_c == '-') 
+      { 
+      transposedaccforce = FALSE; 
+      note_set_taf = TRUE; 
+      read_nextc(); 
+      }
+    else if (read_c == '+') 
+      { 
+      transposedaccforce = TRUE; 
+      note_set_taf = TRUE; 
+      read_nextc(); 
+      }
     transposedacc = read_accidental();
     }
 
@@ -1667,7 +1678,7 @@ for (;;)
     if (active_transpose != NO_TRANSPOSE)
       {
       abspitch = transpose_note(abspitch, &pitch, &acc, transposedacc,
-        transposedaccforce, acc_onenote, FALSE, tiedcount);
+        transposedaccforce, note_set_taf, acc_onenote, FALSE, tiedcount);
       pn_tiedata[pn_chordcount].acc_tp = read_baraccs_tp[pitch];
       }
 
