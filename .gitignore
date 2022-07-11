@@ -13,7 +13,6 @@ configure
 doc/spec.ps
 doc/spec.xml
 doc/postscript
-fontextra
 src/config.h
 src/pmw
 testdist/test*
