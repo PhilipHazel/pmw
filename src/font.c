@@ -681,7 +681,7 @@ if (fu != NULL)
   {
   int ucount = 0;
   int lineno = 0;
-  int limit_pscode = 256;
+  uint32_t limit_pscode = 256;
   utrtablestr utable[MAX_UTRANSLATE];
 
   TRACE("Loading UTR for %s\n", fs->name);

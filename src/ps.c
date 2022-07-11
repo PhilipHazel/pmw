@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: May 2021 */
-/* This file last modified: June 2022 */
+/* This file last modified: July 2022 */
 
 #include "pmw.h"
 
@@ -2008,7 +2008,7 @@ for (int i = 0; i < font_tablen; i++)
       for (int k = 0; k < 512; k += 256)
         {
         uschar name[128];
-        sprintf(name, "%sEnc%c", f->name, (k == 0)? 'L':'U');
+        sprintf(CS name, "%sEnc%c", f->name, (k == 0)? 'L':'U');
 
         if (k == 0) fprintf(ps_file, "%%%%Custom encodings for %s\n", f->name);
         fprintf(ps_file, "/%s 256 array def\n", name);
