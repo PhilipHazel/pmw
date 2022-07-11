@@ -1,0 +1,171 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music AdobeArabic-Regular OmArabicRsimms 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginProlog
+%%Custom encodings for AdobeArabic-Regular
+/AdobeArabic-RegularEncL 256 array def
+0 1 31 {AdobeArabic-RegularEncL exch /.notdef put} for
+AdobeArabic-RegularEncL 32 [
+/space/uni060C/uni061B/uni061F/uni0640/uni066A/.notdef/.notdef
+/.notdef/.notdef/uniFDF2/.notdef/.notdef/.notdef/.notdef/.notdef
+/uni0660/uni0661/uni0662/uni0663/uni0664/uni0665/uni0666/uni0667
+/uni0668/uni0669/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/uni0649/uni0627/uni0628/uni0629/uni062A/uni062B/uni062C/uni062D
+/uni062E/uni062F/uni0630/uni0631/uni0632/uni0633/uni0634/uni0635
+/uni0636/uni0637/uni0638/uni0639/uni063A/uni0641/uni0642/uni0643
+/uni0644/uni0645/uni0646/uni0647/uni0648/uni064A/uni06A4/uni0679
+/uni067A/uni067B/uni067E/uni067F/uni0680/uni0683/uni0684/uni0686
+/uni0687/uni0688/uni068C/uni068D/uni068E/uni0691/uni0698/uni06A6
+/uni06A9/uni06AF/uni06B1/uni06B3/uni06BB/.notdef/.notdef/.notdef
+/.notdef/.notdef/uni06A1/uni06BA/.notdef/.notdef/.notdef/.notdef
+/uniFEF0/uniFE8E/uniFE91/uniFE92/uniFE90/uniFE94/uniFE97/uniFE98
+/uniFE96/uniFE9B/uniFE9C/uniFE9A/uniFE9F/uniFEA0/uniFE9E/uniFEA3
+/uniFEA4/uniFEA2/uniFEA7/uniFEA8/uniFEA6/uniFEAA/uniFEAC/uniFEAE
+/uniFEB0/uniFEB3/uniFEB4/uniFEB2/uniFEB7/uniFEB8/uniFEB6/uniFEBB
+/uniFEBC/uniFEBA/uniFEBF/uniFEC0/uniFEBE/uniFEC3/uniFEC4/uniFEC2
+/uniFEC7/uniFEC8/uniFEC6/uniFECB/uniFECC/uniFECA/uniFECF/uniFED0
+/uniFECE/uniFED3/uniFED4/uniFED2/uniFED7/uniFED8/uniFED6/uniFEDB
+/uniFEDC/uniFEDA/uniFEDF/uniFEE0/uniFEDE/uniFEE3/uniFEE4/uniFEE2
+/uniFEE7/uniFEE8/uniFEE6/uniFEEB/uniFEEC/uniFEEA/uniFEEE/uniFEF3
+/uniFEF4/uniFEF2/uniFB6C/uniFB6D/uniFB6B/uniFB68/uniFB69/uniFB67
+/uniFB60/uniFB61/uniFB5F/uniFB54/uniFB55/uniFB53/uniFB9F/uniFB58
+/uniFB59/uniFB57/uniFB64/uniFB65/uniFB63/uniFB5C/uniFB5D/uniFB5B
+/uniFB78/uniFB79/uniFB77/uniFB74/uniFB75/uniFB73/uniFB7C/uniFB7D
+/uniFB7B/uniFB80/uniFB81/uniFB7F/uniFB89/uniFB85/uniFB83/uniFB87
+/uniFB8D/uniFB8B/uniFB70/uniFB71/uniFB6F/uniFB90/uniFB91/uniFB8F
+/uniFB94/uniFB95/uniFB93/uniFB9C/uniFB9D/uniFB9B/uniFB98/uniFB99] putinterval
+/AdobeArabic-RegularEncU 256 array def
+AdobeArabic-RegularEncU 0 [
+/uniFB97/uniFBA2/uniFBA3/uniFBA1] putinterval
+4 1 43 {AdobeArabic-RegularEncU exch /.notdef put} for
+AdobeArabic-RegularEncU 44 [
+/uni064B/uni064C/uni064D/uni064E/uni064F/uni0650/uni0651/uni0652
+/uni0653/uni0654/uni0655/uni0670/uni0621/.notdef/uni0657/uni065D
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/uniFC5E/uniFC5F
+/uniFC60/uniFC61/uniFC62/uniFC63/uni0622/uniFE82/uni0623/uniFE84
+/uni0625/uniFE88/uni0624/uniFE86/uni067C/uniFE89/uniFE8B/uniFE8C
+/uniFE8A/uniFEFB/uniFEFC/uniFC43/uniFC86/uniFEF5/uniFEF6/uniFEF7
+/uniFEF8/uniFEF9/uniFEFA/.notdef/uniFCCC/.notdef/.notdef/uni0681] putinterval
+108 1 255 {AdobeArabic-RegularEncU exch /.notdef put} for
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font AdobeArabic-Regular
+/xx1 /xx1X /AdobeArabic-Regular inf
+%%IncludeResource: font OmArabicRsimms
+/xx2 /xx2X /OmArabicRsimms inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+xx1 30 ss(*  )54 770 s rm 21 ss(Adobe 30pt)86.85 770 s xx2 23 ss(>  )
+54 740 s rm 16.1 ss(Rsimms 23pt)84.544 740 s xx1 20 ss
+(@ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \\ ]  )54 710 s
+rm 14 ss(Adobe 20pt)460.3 710 s xx2 15.3 ss
+(\331 m o s u y } \202 \206 \212 \214 \216 \220 \222 \226 \232 \236 \242 \246 \252 \256 \262 \266 \272 \276 \312 \316 \322 \327 \335  )
+0.029 54 690 ws rm 15.3 ss(Rsimms 15.3pt)0.029 461.295 690 ws xx1 20 ss
+(! " # %  )54 660 s rm 14 ss(Adobe 20pt)92.86 660 s xx2 14.5 ss(! " # %  )
+54 640 s rm 14.5 ss(Rsimms 14.5pt)96.207 640 s xx1 20 ss
+(0 1 2 3 4 5 6 7 8 9  )54 610 s rm 14 ss(Adobe 20pt)167.5 610 s
+xx2 14 ss(0 1 2 3 4 5 6 7 8 9  )54 590 s rm 14 ss(Rsimms 14pt)
+168.226 590 s xx1 20 ss
+(\200 \201 \202 \203 \204 \205 \206 \207 \210 \211 \212 \213 \214 \215 \216 \217 \220 \221 \222 \223 \224 \225 \226 \227 \230 \231 \232 \233 \234 \235 \236  )
+54 560 s rm 14 ss(Adobe 20pt)440.86 560 s xx2 15.3 ss
+(\334 n p q r t v w x z { | ~ \200 \201 \203 \204 \205 \207 \210 \211 \213 \215 \217 \221 \223 \224 \225 \227 \230 \231  )
+54 540 s rm 15.3 ss(Rsimms 15.3pt)443.52 540 s xx1 20 ss
+(\237 \240 \241 \242 \243 \244 \245 \246 \247 \250 \251 \252 \253 \254 \255 \256 \257 \260 \261 \262 \263 \264 \265 \266 \267 \270 \271 \272 \273 \274  )
+54 510 s rm 14 ss(Adobe 20pt)440.04 510 s xx2 15.3 ss
+(\233 \234 \235 \237 \240 \241 \243 \244 \245 \247 \250 \251 \253 \254 \255 \257 \260 \261 \263 \264 \265 \267 \270 \271 \273 \274 \275 \277 \300 \301  )
+54 490 s rm 15.3 ss(Rsimms 15.3pt)439.322 490 s xx1 20 ss
+(\275 \276 \277 \300 \301 \302 \303 \304 \305 \306 \307 \310 \311  )
+54 460 s rm 14 ss(Adobe 20pt)196.36 460 s xx2 15.3 ss
+(\313 \314 \315 \317 \320 \321 \323 \324 \326 \330 \332 \333 \336  )
+54 440 s rm 15.3 ss(Rsimms 15.3pt)191.411 440 s xx1X 20 ss
+(7)54 400 s xx1 20 ss(  )sh xx1X 20 ss
+(,)sh xx1 20 ss(  )sh xx1X 20 ss(-)sh xx1 20 ss
+(  )sh xx1X 20 ss(.)sh xx1 20 ss(  )sh xx1X 20 ss
+(/)sh xx1 20 ss(  )sh xx1X 20 ss(0)sh xx1 20 ss
+(  )sh xx1X 20 ss(:)sh xx1 20 ss(  )sh xx1X 20 ss(;)sh xx1 20 ss
+(  )sh xx1X 20 ss(1)sh xx1 20 ss(  )sh xx1X 20 ss(2)sh xx1 20 ss
+(  )sh xx1X 20 ss(3)sh xx1 20 ss(  )sh xx1X 20 ss(4)sh xx1 20 ss
+(  )sh xx1X 20 ss(5)sh xx1 20 ss(  )sh xx1X 20 ss(6)sh xx1 20 ss(    )sh
+rm 14 ss(Adobe 20pt diacritics)171 400 s xx2 15.5 ss
+(G  D  F  E  @  B  ]  \\  A  K  C         )54 360 s rm 15.5 ss
+(Rsimms 15.3pt diacritics)170.406 360 s xx1X 20 ss(J)54 310 s xx1 20 ss
+(  )sh xx1X 20 ss(K)sh xx1 20 ss(  )sh xx1X 20 ss(L)sh xx1 20 ss
+(  )sh xx1X 20 ss(M)sh xx1 20 ss(  )sh xx1X 20 ss(N)sh xx1 20 ss(  )sh
+xx1X 20 ss(O)sh xx1 20 ss(    )sh rm 14 ss(Adobe 20pt diacritic lig)
+108.6 310 s(atures)-0.07 0 rs xx2 15.5 ss(N  M  H  J  I  O    )54 290 s
+rm 15.5 ss(Rsimms 15.3pt diacritic lig)110.196 290 s(atures)-0.077 0 rs
+xx1X 20 ss(])54 250 s xx1 20 ss( )sh xx1X 20 ss(_)sh xx1 20 ss
+( )sh xx1X 20 ss(a)sh xx1 20 ss( )sh xx1X 20 ss(b)sh xx1 20 ss( )sh
+xx1X 20 ss(c)sh xx1 20 ss( )sh xx1X 20 ss(d)sh xx1 20 ss( )sh xx1X 20 ss
+(e)sh xx1 20 ss( )sh xx1X 20 ss(f)sh xx1 20 ss(  )sh rm 14 ss(Adobe 20p)
+157.22 250 s xx2 15.3 ss(\310 # \302 \303 \304 \305 \306 \307  )54 230 s
+rm 15.3 ss(Rsimms 15.3pt \(missing LAM/ALEF MAKSURA lig)156.028 230 s
+(ature\))-0.076 0 rs xx1X 20 ss(8)54 200 s xx1 20 ss(  )sh rm 14 ss
+(Adobe 20pt hamza is on baseline)67.64 200 s xx2 20 ss(S   )54 176 s
+rm 14 ss(Rsimms 20pt hamza is abo)69.54 176 s(v)-0.21 0 rs(e baseline)
+-0.21 0 rs xx1 20 ss(#   )54 146 s rm 14 ss
+(Adobe 20pt is missing U+065F )71.28 146 s(W)-0.42 0 rs(A)-1.68 0 rs
+(VY HAMZA BELO)-1.89 0 rs(W)-0.49 0 rs xx2 20 ss(Z   )54 126 s rm 14 ss
+(Rsimms 20pt hamza sub w)72.64 126 s(a)-0.14 0 rs(vy)-0.28 0 rs
+xx1X 20 ss(P)54 86 s xx1 20 ss
+( )sh xx1X 20 ss
+(Q)sh xx1 20 ss
+( )sh xx1X 20 ss
+(R)sh xx1 20 ss( )sh xx1X 20 ss
+(S)sh xx1 20 ss( )sh xx1X 20 ss
+(V)sh xx1 20 ss( )sh xx1X 20 ss
+(W)sh xx1 20 ss( )sh xx1X 20 ss
+(T)sh xx1 20 ss( )sh xx1X 20 ss
+(U)sh xx1 20 ss( )sh xx1X 20 ss
+(Y)sh xx1 20 ss( )sh xx1X 20 ss
+(Z)sh xx1 20 ss( )sh xx1X 20 ss
+([)sh xx1 20 ss( )sh xx1X 20 ss(\\)sh xx1 20 ss
+( { \326 ^ \312 \313 \314 _ \315 \316 \317 ` \320 \321 \322 a \323 \324 \325    )
+sh rm 14 ss(Adobe 20pt)408.62 86 s xx2 15.3 ss
+(a b c d e f g h i j k l \344 \345 \354 \355 \356 \357 \360 \361 \362 \363 \364 \365 \366 \367 \370 \371 \372 \373    )
+54 66 s rm 15.3 ss(Rsimms 15.3pt)405.898 66 s xx1 20 ss
+(# )54 36 s xx1X 20 ss(h)sh xx1 20 ss( # #  #  # z    )sh rm 14 ss
+(Adobe 20pt missing some)148.3 36 s xx2 15.3 ss(# \337 # # \340 \352 \346    )
+54 16 s rm 15.3 ss(Rsimms 15.3pt missing some)153.013 16 s
+pagesave restore showpage
+
+%%Page: 2 2
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+rm 15 ss(These are not present in the OmArabicRsimms fonts)54 760 s
+xx1 20 ss(b c d e f g h i j k l m n o p q r s t )54 740 s xx1X 20 ss(k)
+sh xx1 20 ss(    )sh rm 14 ss(Adobe 20pt)335.74 740 s xx1 20 ss
+(\327 \330 \331 \332 \333 \334 \335 \336 \337 \340 \341 \342 \343 \344 \345 \346 \347 \350 \351 \352 \353 \354 \355 \356 \357 \360 \361    )
+54 710 s rm 14 ss(Adobe 20pt)388.94 710 s
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 2

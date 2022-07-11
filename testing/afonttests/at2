@@ -1,0 +1,40 @@
+righttoleft
+
+key dm
+time 4/4
+
+textfont extra 1 "OmArabicRsimms"
+textfont extra 2 "OmArabicRsimms-Bold"
+B2PFfont extra 1 output_backcodes "Arabic"
+B2PFfont extra 2 output_backcodes "Arabic"
+
+heading "|\xx2\كان مرّة ولد صغير|"
+heading "|\xx2\تراث قديم|"
+heading "||" 20
+
+barnumbers boxed line italic
+barnumberlevel +4
+systemgap 64
+justify top right left
+clefwidths 16
+miditempo 112
+
+[staff 0]
+"\bf\\*c\ 112 ="/a/l36/u6 Q+ |
+[endstaff]
+
+[staff 1 treble 1 text underlay]
+*if score
+	[name "    " ""]
+*else
+	[name "    " ""]
+*fi
+
+"\xx1\كان مرّ-ة و-لد صـ-=ـغيّـ-=ـر"/d4 d a g f | g g-_a-; f-_e- d [comma]|
+"\xx1\دايـ-ـمًا مبـ-ـسوط و-فر-=حان=="/d4 d a g f | g g-_a-; [slur/b] f-e- d [es][comma]|
+"\xx1\عمـ-ره ما شال للـ-ـدنـ-ـيا#هـ-ـموم"/d4 f f-f- g g | f f E [comma]|
+"\xx1\و-لا مـ-ـتا-عب أو أحـ-ـزان=="/d4 e e-e- f f | e e [slur/b] d-e- f [es][comma]|
+"\xx1\عمـ-ره ما شال للـ-ـدنـ-ـيا#هـ-ـموم"/d4 f f-f- g g | f f E [comma]|
+"\xx1\و-لا مـ-ـتا-عب أو أحـ-ـزان"/d4 e e-e- f d | f g A [comma]|
+"\xx1\و-لا مـ-ـتا-عب أو أحـ-ـزان"/d4 e g-g- f e | f #c D |
+[endstaff]

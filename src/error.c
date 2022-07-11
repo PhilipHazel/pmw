@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: May 2022 */
+/* This file last modified: July 2022 */
 
 #include "pmw.h"
 
@@ -118,7 +118,7 @@ static error_struct error_data[] = {
 { ec_major,   "too many Unicode translations in %s (max %d)" },
 /* 60-64 */
 { ec_major,   "missing %s code value in line %d of %s\n%s" },
-{ ec_major,   "invalid font code value (> 255) in line %d of %s\n%s" },
+{ ec_major,   "invalid font code value (> %d) in line %d of %s\n%s" },
 { ec_major,   "duplicate Unicode code point U+%04x in %s\n   Output will be unpredictable" },
 { ec_major,   "too many text sizes (maximum %d)" },
 { ec_failed,  "%stransposition value (%d) is too large (max %d)\n" },
@@ -270,7 +270,10 @@ aborts the run after outputting additional information. */
 { ec_minor,   "MIDI pitch %d is outside supported range 0-127 in "
               "bar %s stave %d" },
 { ec_failed,  "note pitch is not within supported range" },
-{ ec_major,   "invalid repeat style (must be 0-%d or 10-%d)" }
+{ ec_major,   "invalid repeat style (must be 0-%d or 10-%d)" },
+/* 175-179 */
+{ ec_major,   "duplicate glyph name \"%s\" in line %d of %s\n%s" },
+{ ec_major,   "duplicate font encoding value %d in line %d of %s\n%s" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

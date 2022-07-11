@@ -1,0 +1,155 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music OmArabicRsimms OmArabicRsimms-Bold 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginProlog
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font OmArabicRsimms
+/xx1 /xx1X /OmArabicRsimms inf
+%%IncludeResource: font OmArabicRsimms-Bold
+/xx2 /xx2X /OmArabicRsimms-Bold inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+595 0 T -1 1 scale
+%%EndPageSetup
+xx2 17 ssr(\217\333\260\233 \213\277\327 sK\217\313 \316n\273)
+356.98 760 s xx2 12 ssr(\315\332\213\267 ym\217v)325.228 743 s rm 10 ssr
+(    )71.5 698 s mf 10 ssr(!)93.1 694 s(')99.65 700 s bf 11.8 ssr(4)
+106.329 702 s(4)106.329 694.15 s
+%1/1
+xx1 10 ssr(\316n\273)123.68 675.5 s mf 10 ssr(5)121.4 690 s xx1 10 ssr(K\217\313)
+139.418 675.5 s mf 10 ssr(5)139.278 698 s rm 10 ssr(-)147.047 675.5 s
+xx1 10 ssr(s)154.557 675.5 s mf 10 ssr(5)157.157 696 s xx1 10 ssr(\327)
+172.066 675.5 s mf 10 ssr(5)175.036 694 s(@)186.315 694 s
+%1/0
+mf 9 ssr(5)113.457 720 s bf 10 ssr( 112 =)140.417 720 s
+%2/1
+rm 10 ssr(-)184.36 675.5 s xx1 10 ssr(\213\277)198.754 675.5 s mf 10 ssr(5)
+199.619 696 s -1.818 225.156 714.058 211.347 712.07 m xx1 10 ssr($\233)
+217.217 675.5 s mf 10 ssr(J)217.497 696.07 s(JL)217.547 696 s(5)
+230.906 698 s 213.497 693 226.906 696 -3.022 cv
+-1.818 251.975 708.012 238.165 710 m rm 10 ssr(-)228.778 675.5 s
+xx1 10 ssr($K\333\260$)244.06 675.5 s mf 10 ssr(5)244.315 694 s(J)
+257.725 692.069 s(JL)257.775 692 s 240.315 692 253.725 690 -3.023 cv
+rm 10 ssr(-)256.119 675.5 s xx1 10 ssr(\217$)269.239 675.5 s mf 10 ssr(5)
+271.134 690 s(\301)278.986 713 s(@)282.412 694 s
+%3/1
+xx1 10 ssr($\332m\212)297.516 675.5 s mf 10 ssr(5)295.716 690 s
+rm 10 ssr(-)302.9 675.5 s xx1 10 ssr(nD\314$)313.334 675.5 s mf 10 ssr(5)
+313.594 698 s xx1 10 ssr($q\313)331.088 675.5 s mf 10 ssr(5)
+331.473 696 s rm 10 ssr(-)335.28 675.5 s xx1 10 ssr(\242\330\224$)
+354.532 675.5 s mf 10 ssr(5)349.352 694 s(@)360.631 694 s
+%4/1
+xx1 10 ssr(\327)370.965 675.5 s mf 10 ssr(5)373.935 696 s
+-1.818 399.472 714.058 385.663 712.07 m rm 10 ssr(-)379.536 675.5 s
+xx1 10 ssr(\217\263)391.328 675.5 s mf 10 ssr(J)391.813 696.07 s(JL)
+391.863 696 s(5)405.222 698 s 387.813 693 401.222 696 -3.022 cv
+-1.818 426.291 708.012 412.481 710 m rm 10 ssr(-)401.147 675.5 s
+xx1 10 ssr(\316n\203)421.836 675.5 s mf 10 ssr(5)418.631 694 s rm 10 ssr(_)
+427.906 675.5 s(_)430.041 675.5 s mf 10 ssr(J)432.041 692.069 s(JL)
+432.091 692 s rm 10 ssr(___)441.041 675.5 s(_)443.45 675.5 s mf 10 ssr(5)
+445.45 690 s 414.631 692 441.45 688 -6 cv(\301)453.302 713 s
+(@)456.728 694 s
+%5/1
+xx1 10 ssr($\314\253)470.117 675.5 s mf 10 ssr(5)470.032 694 s
+-1.8 495.569 710 481.76 710 m rm 10 ssr(-)476.868 675.5 s xx1 10 ssr(\322\216)
+487.45 675.5 s mf 10 ssr(5)487.91 694 s xx1 10 ssr(n\313)500.874 675.5 s
+mf 10 ssr(5)501.319 694 s xx1 10 ssr(\276n\227)518.735 675.5 s mf 10 ssr(5)
+515.24 696 s xx1 10 ssr($\300\277)531.404 675.5 s mf 10 ssr(5)
+533.119 696 s rm 10 ssr(-)538.325 675.5 s mf 10 ssr(@)544.397 694 s
+(FFFFCCCCCC)540 694 s (C)543.997 694 s
+(!)77.1 630 s(')83.65 636 s
+%6/1
+rm 10 ssr(-)91.11 613 s xx1 10 ssr($\317\213$)99.14 613 s mf 10 ssr(5)
+99.5 630 s rm 10 ssr(-)103.828 613 s xx1 10 ssr($\323 n\333$)
+119.327 613 s mf 10 ssr(5)116.347 630 s rm 10 ssr(-)122.613 613 s
+xx1 10 ssr(\312\330\314$)135.639 613 s mf 10 ssr(3)133.194 628 s(\301)
+146.199 649 s(@)149.758 630 s it 10 ssr(6)69.51 658 s 70.5 656 62 656
+62 667 70.5 667 70.5 656 5 62 656 0.666 ll
+%7/1
+xx1 10 ssr(\327)159.705 613 s mf 10 ssr(5)162.675 628 s
+-1.8 186.407 644 173.372 644 m rm 10 ssr(-)168.421 613 s xx1 10 ssr(\310)
+178.617 613 s mf 10 ssr(5)179.522 628 s xx1 10 ssr($\313)190.272 613 s
+mf 10 ssr(5)192.157 628 s rm 10 ssr(-)195.672 613 s xx1 10 ssr(nw$)
+203.812 613 s mf 10 ssr(5)204.792 630 s rm 10 ssr(-)209.283 613 s
+xx1 10 ssr(r\253)223.274 613 s mf 10 ssr(5)221.639 630 s(@)231.886 630 s
+%8/1
+xx1 10 ssr(\327c)244.868 613 s mf 10 ssr(5)244.803 628 s xx1 10 ssr($\203c)
+262.705 613 s mf 10 ssr(5)261.65 628 s
+-1.82 285.382 644.061 272.347 642.067 m rm 10 ssr(-)266.823 613 s
+xx1 10 ssr(\316m\221$)280.772 613 s mf 10 ssr(J)278.497 626.067 s(JL)
+278.547 626 s rm 10 ssr(_)286.762 613 s(_)289.132 613 s mf 10 ssr(5)
+291.132 628 s rm 10 ssr(___)300.132 613 s(_)301.767 613 s mf 10 ssr(5)
+303.767 630 s 274.497 624 299.767 628 -6 cv(\301)311.508 649 s
+(@)315.067 630 s
+%9/1
+xx1 10 ssr($\314\253)328.069 613 s mf 10 ssr(5)327.984 630 s
+-1.8 351.716 646 338.681 646 m rm 10 ssr(-)334.305 613 s xx1 10 ssr(\322\216)
+344.371 613 s mf 10 ssr(5)344.831 630 s xx1 10 ssr(n\313)357.021 613 s
+mf 10 ssr(5)357.466 630 s xx1 10 ssr(\276n\227)375.491 613 s mf 10 ssr(5)
+371.996 632 s xx1 10 ssr($\300\277)387.128 613 s mf 10 ssr(5)
+388.843 632 s(@)399.09 630 s
+%10/1
+rm 10 ssr(-)397.377 613 s xx1 10 ssr($\317\213$)411.647 613 s mf 10 ssr(5)
+412.007 630 s rm 10 ssr(-)416.335 613 s xx1 10 ssr($\323 n\333$)
+431.834 613 s mf 10 ssr(5)428.854 630 s rm 10 ssr(-)435.12 613 s
+xx1 10 ssr(\312\330\314$)448.146 613 s mf 10 ssr(3)445.701 628 s(\301)
+458.706 649 s(@)462.265 630 s
+%11/1
+xx1 10 ssr(\327)472.212 613 s mf 10 ssr(5)475.182 628 s
+-1.8 498.914 644 485.879 644 m rm 10 ssr(-)480.928 613 s xx1 10 ssr(\310)
+491.124 613 s mf 10 ssr(5)492.029 628 s xx1 10 ssr($\313)502.779 613 s
+mf 10 ssr(5)504.664 628 s rm 10 ssr(-)508.179 613 s xx1 10 ssr(nw$)
+516.319 613 s mf 10 ssr(5)517.299 630 s rm 10 ssr(-)521.79 613 s
+xx1 10 ssr(r\253)535.781 613 s mf 10 ssr(5)534.146 626 s(@)544.393 630 s
+(FFFFCCCCCCC)534 630 s (C)543.993 630 s
+(!)77.1 566 s(')83.65 572 s
+%12/1
+xx1 10 ssr(\327c)99.565 545 s mf 10 ssr(5)99.5 566 s xx1 10 ssr($\203c)
+116.555 545 s mf 10 ssr(5)115.5 568 s rm 10 ssr(-)120.25 545 s
+xx1 10 ssr(\316m\221$)133.775 545 s mf 10 ssr(3)131.5 570 s(\301)
+143.5 585 s(@)146.9 566 s it 10 ssr(12)73.64 594 s 75.5 592 62 592
+62 603 75.5 603 75.5 592 5 62 592 0.666 ll
+%13/1
+xx1 10 ssr(\327)156.53 545 s mf 10 ssr(5)159.5 564 s
+-1.8 181.75 584 169.35 584 m rm 10 ssr(-)164.822 545 s xx1 10 ssr(\310)
+174.595 545 s mf 10 ssr(5)175.5 568 s xx1 10 ssr($\313)185.615 545 s
+mf 10 ssr(5)187.5 568 s rm 10 ssr(-)190.697 545 s xx1 10 ssr(nw$)
+198.52 545 s mf 10 ssr(5)199.5 566 s rm 10 ssr(-)203.567 545 s
+xx1 10 ssr(r\253)217.135 545 s mf 10 ssr(5)215.5 564 s(@)224.9 566 s
+%14/1
+xx1 10 ssr(\327c)237.565 545 s mf 10 ssr(5)237.5 566 s xx1 10 ssr($\203c)
+254.555 545 s mf 10 ssr(%)245.91 560 s(=)253.5 560 s(5)253.5 560 s
+rm 10 ssr(-)258.25 545 s xx1 10 ssr(\316m\221$)271.775 545 s mf 10 ssr(3)
+269.5 562 s(B)287 566 s(@)283.4 566 s
+(FFCC)284 566 s (C)286.5 566 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

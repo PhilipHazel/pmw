@@ -5,6 +5,10 @@
 %%Requirements: numcopies(1)
 %%EndComments
 
+%%BeginProlog
+%%Standard Header Omitted (testing)
+%%EndProlog
+
 %%BeginSetup
 %%IncludeResource: font Times-Roman
 /rm /rmX /Times-Roman inf

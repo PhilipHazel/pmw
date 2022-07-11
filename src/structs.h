@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: May 2022 */
+/* This file last modified: July 2022 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -423,6 +423,7 @@ typedef struct fontstr {
   int32_t *r2ladjusts;      /* Pointer to right-to-left adjusts */
   int32_t *heights;         /* Pointer to height table, if any */
   utrtablestr *utr;         /* Unicode translation for nonstd font */
+  uschar **encoding;        /* Optional encoding for non-stdenc fonts */ 
   tree_node *high_tree;     /* Tree for data for high val stdenc chars */
   kerntablestr *kerns;      /* Pointer to kerning table */
   int32_t kerncount;        /* Size of kern table */

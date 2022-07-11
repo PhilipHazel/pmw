@@ -1,0 +1,45 @@
+righttoleft
+
+makekey X1 $4 $7 #8 #5
+key X1
+time 2/4
+
+textfont extra 1 "OmArabicRsimms"
+textfont extra 2 "OmArabicRsimms-Bold"
+B2PFfont extra 1 output_backcodes "Arabic"
+B2PFfont extra 2 output_backcodes "Arabic"
+
+heading "|\xx2\أيها الخاطي تعال لفاديك|"
+heading "|\xx2\تراث قديم|"
+heading "||" 20
+
+barnumbers boxed line italic
+barnumberlevel +4
+systemgap 56
+justify top right left
+clefwidths 16
+miditempo 96
+
+[staff 0]
+"\bf\\*c\ 96 ="/a/l36/u6 Q |
+[endstaff]
+
+[staff 1 treble 1 text underlay]
+*if score
+	[name "    " ""]
+*else
+	[name "    " ""]
+*fi
+
+"\xx1\أ-يُّـ-ـها#الـ-=ـخا-طي تـ-ـعا-لَ لـ-ـفا-ديكْ="/d4 d. e- | f-_g- a | a. b- | c'-b-; a-g- | A_ | A [comma]|
+"\xx1\آ-نَ أن= تأ-تي يـ-ـسو-عُ يُـ-نا-ديكْ="/d4 d. e- | f-_g- a | a. b- | c'-b-; a-g- | A_ | A [comma]|
+"\xx1\أقـ-ـبِلْ إ-ليـ-ـهِ أقـ-ـبِلْ إ-لى يـ-ـسوع="/d4 b a-.b= | a g | a g-.a= | g f | F_ | F [comma] |
+"\xx1\واسـ-ـجدْ لـ-ـديـ-ـهِ واسـ-ـكبْ لـ-ـه#الـ-ـد-موعْ="/d4 a g-.a= | g f | f e-.f= | e d | D_ | D [comma] ||
+["\xx2\القرار"]
+"\xx1\"/d4 D | G_ | G [comma] |
+"\xx1\"/d4 D | A_ | A [comma] |
+"\xx1\"/d4 D | b. a- | b c' | D'_ | D' [comma] |
+"\xx1\"/d4 e' d'-.e'= | d' %c' | d' %c'-.d'= | %c' b | A_ | A [comma] |
+"\xx1\"/d4 %c' b-.c'= | b a | a g-.a= | g f | F_ | F [comma] |
+"\xx1\"/d4 a g-.a= | g f | f e-.f= | e d | D_ | D |
+[endstaff]

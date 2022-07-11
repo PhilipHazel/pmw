@@ -10,6 +10,10 @@
 a4
 %%EndPaperSize
 
+%%BeginProlog
+%%Standard Header Omitted (testing)
+%%EndProlog
+
 %%BeginSetup
 
 %%BeginResource: font OmArabicRsimms

@@ -3,10 +3,10 @@ Loading AFM for Times-Roman
 Loading AFM for Times-Italic
 Loading AFM for Times-Bold
 Loading AFM for Times-BoldItalic
-Loading AFM for Symbol
 Loading UTR for Symbol
-Loading AFM for PMW-Music
+Loading AFM for Symbol
 Loading UTR for PMW-Music
+Loading AFM for PMW-Music
 PMW file assumed
 Read header directives: movement 1
 ** Warning: end repeat at start of bar - misplaced bar line?

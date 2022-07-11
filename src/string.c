@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: June 2022 */
+/* This file last modified: July 2022 */
 
 #include "pmw.h"
 
@@ -1078,19 +1078,22 @@ for (uint32_t *s = str; *s != 0; s++)
   fs = &(font_list[font_table[f]]);
 
   /* For a non-standardly encoded font, see if there's a Unicode translation.
-  If not, a value greater than 255 is erroneous. Remember it, to be listed at
-  the end of reading the input, and replace with whatever is set for the font,
-  retaining the font number if the replacement's font is unset. */
+  If not, a value greater than 255 is erroneous, unless there is a custom
+  encoding, in which case values can go up to 511. Remember invalid code
+  points, to be listed at the end of reading the input, and replace with
+  whatever is set for the font, retaining the font number if the replacement's
+  font is unset. */
 
   if ((fs->flags & ff_stdencoding) == 0)
     {
+    uint32_t climit = (fs->encoding == NULL)? 256 : 512;
     uint32_t pc = font_utranslate(c, fs);
     *s &= 0xff000000u;   /* Keep the current font */
 
-    /* A valid translated codepoint is either < 256 or an escaped sharp,
+    /* A valid translated codepoint is either < climit or an escaped sharp,
     equals, or hyphen, whose code points are outside the Unicode range. */
 
-    if (pc < 256 || pc > MAX_UNICODE)
+    if (pc < climit || pc > MAX_UNICODE)
       {
       *s |= pc;
       }
@@ -1641,7 +1644,7 @@ for (read_nextc(); read_c != '\"' && read_c != ENDFILE; read_nextc())
           &acc,        /* for output accidental */
           ac_no,       /* output accidental - none set */
           TRUE,        /* force accidental - not relevant for text */
-          FALSE,       /* note set force accidental - not relevant for text */ 
+          FALSE,       /* note set force accidental - not relevant for text */
           TRUE,        /* single note - not relevant for text */
           TRUE,        /* texttranspose */
           0);          /* tie count - not relevant for text */

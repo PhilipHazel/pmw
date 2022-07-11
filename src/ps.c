@@ -605,10 +605,11 @@ if (main_righttoleft || ps_EPS)
     }
   }
 
-/* Generate the output. For a non-standardly encoded font, the values are now
-less than 256, whereas for a standardly encoded font they are less than
-LOWCHARLIMIT plus some extras. Values above 255 use the second encoding of such
-fonts. */
+/* Generate the output. For a font that is neither standardly encoded, nor has
+a custom encoding, the values are less than 256. For a standardly encoded font
+they are less than LOWCHARLIMIT plus some extras. For a font with a custom
+encoding they are less than 512. Values above 255 use the second encoding of
+such fonts. */
 
 for (p = s; *p != 0; p++)
   {
@@ -616,7 +617,7 @@ for (p = s; *p != 0; p++)
   uint32_t pc = c;           /* pc is the code value to print */
   BOOL extended = FALSE;
 
-  if ((fs->flags & ff_stdencoding) != 0)
+  if ((fs->flags & ff_stdencoding) != 0 || fs->encoding != NULL)
     {
     if (c >= 256)
       {
@@ -1990,16 +1991,109 @@ switch (main_sheetsize)
   break;
   }
 
-/* Next, the file's prologue, except in testing mode (to save space in the test
+/* Next, the file's prologue, which contains any bespoke font encodings and the
+standard PostScript header. */
+
+fprintf(ps_file, "%%%%BeginProlog\n");
+
+for (int i = 0; i < font_tablen; i++)
+  {
+  int j;
+  for (j = 0; j < i; j++) if (font_table[i] == font_table[j]) break;
+  if (j == i)
+    {
+    fontstr *f = font_list + font_table[i];
+    if (f->encoding != NULL)
+      {
+      for (int k = 0; k < 512; k += 256)
+        {
+        uschar name[128];
+        sprintf(name, "%sEnc%c", f->name, (k == 0)? 'L':'U');
+
+        if (k == 0) fprintf(ps_file, "%%%%Custom encodings for %s\n", f->name);
+        fprintf(ps_file, "/%s 256 array def\n", name);
+
+        /* Scan the relevant half of the encoding */
+
+        for (int cc = k; cc < k + 256; )
+          {
+          int ce, cn;
+          int notdefcount = 0;
+
+          /* Look for next group of more than 16 .notdefs */
+
+          for (cn = cc; cn < k + 256; cn++)
+            {
+            if (f->encoding[cn] == NULL)
+              {
+              int ct;
+              for (ct = cn + 1; ct < k + 256; ct++)
+                if (f->encoding[ct] != NULL) break;
+              if (ct - cn >= 16)
+                {
+                notdefcount = ct - cn;
+                break;
+                }
+              cn = ct;
+              }
+            }
+
+          /* Set the end of a non-long-notdef sequence */
+
+          ce = (cn >= k + 256)? k + 256 : cn;
+
+          /* Output a sequence */
+
+          if (ce - cc == 1)
+            {
+            fprintf(ps_file, "%s %d /%s put\n", name, cc - k,
+              (f->encoding[cc] == NULL)? US".notdef" : f->encoding[cc]);
+            }
+
+          else if (ce - cc > 0)
+            {
+            int n = 0;
+            fprintf(ps_file, "%s %d [\n", name, cc - k);
+
+            for (; cc < ce; cc++)
+              {
+              if (n++ > 7)
+                {
+                fprintf(ps_file, "\n");
+                n = 1;
+                }
+              fprintf(ps_file, "/%s", (f->encoding[cc] == NULL)?
+                US".notdef" : f->encoding[cc]);
+              }
+
+            fprintf(ps_file, "] putinterval\n");
+            }
+
+          /* Set start of next sequence */
+
+          cc = ce;
+
+          /* If we stopped at a sequence of .notdefs, output them */
+
+          if (notdefcount > 0)
+            {
+            fprintf(ps_file, "%d 1 %d {%s exch /.notdef put} for\n",
+              cc - k, cc - k + notdefcount - 1, name);
+            cc += notdefcount;
+            }
+          }   /* End handling one sequence */
+        }     /* 2 x loop for two encodings */
+      }       /* End handling encoding */
+    }         /* End unique font handling */
+  }           /* End font scan */
+
+/* In testing mode we omit the standard header (to save space in the test
 output files). The name of the header file is NOT relative to the main input
 file. If it is not absolute, it is taken relative to the current directory. */
 
-if (!main_testing)
-  {
-  fprintf(ps_file, "%%%%BeginProlog\n");
-  ps_include(ps_header, FALSE);
-  fprintf(ps_file, "%%%%EndProlog\n\n");
-  }
+if (!main_testing) ps_include(ps_header, FALSE);
+  else fprintf(ps_file, "%%%%Standard Header Omitted (testing)\n");
+fprintf(ps_file, "%%%%EndProlog\n\n");
 
 /* The setup section sets up the printing device. We include the font finding
 in here, as it seems the right place. Include any relevant fonts in the output

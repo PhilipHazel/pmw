@@ -1,0 +1,55 @@
+linelength 500
+
+textfont extra 1 "AdobeArabic-Regular"
+textfont extra 2 "OmArabicRsimms"
+
+heading 30   "\xx1\ﷲ  \rm\\sc\Adobe 30pt"
+heading 23   "\xx2\ﷲ  \rm\\sc\Rsimms 23pt" 30
+
+heading 20   "\xx1\ى ا ب ة ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي  \rm\\sc\Adobe 20pt"
+heading 15.3 "\xx2\ى ا ب ة ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي  \rm\Rsimms 15.3pt" 30
+
+heading 20   "\xx1\، ؛ ؟ ٪  \rm\\sc\Adobe 20pt"
+heading 14.5 "\xx2\، ؛ ؟ ٪  \rm\Rsimms 14.5pt" 30
+
+heading 20   "\xx1\٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩  \rm\\sc\Adobe 20pt"
+heading 14   "\xx2\٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩  \rm\Rsimms 14pt" 30
+
+heading 20   "\xx1\ﻰ ﺎ ﺑ ﺒ ﺐ ﺔ ﺗ ﺘ ﺖ ﺛ ﺜ ﺚ ﺟ ﺠ ﺞ ﺣ ﺤ ﺢ ﺧ ﺨ ﺦ ﺪ ﺬ ﺮ ﺰ ﺳ ﺴ ﺲ ﺷ ﺸ ﺶ  \rm\\sc\Adobe 20pt"
+heading 15.3 "\xx2\ﻰ ﺎ ﺑ ﺒ ﺐ ﺔ ﺗ ﺘ ﺖ ﺛ ﺜ ﺚ ﺟ ﺠ ﺞ ﺣ ﺤ ﺢ ﺧ ﺨ ﺦ ﺪ ﺬ ﺮ ﺰ ﺳ ﺴ ﺲ ﺷ ﺸ ﺶ  \rm\Rsimms 15.3pt" 30
+
+heading 20   "\xx1\ﺻ ﺼ ﺺ ﺿ ﻀ ﺾ ﻃ ﻄ ﻂ ﻇ ﻈ ﻆ ﻋ ﻌ ﻊ ﻏ ﻐ ﻎ ﻓ ﻔ ﻒ ﻗ ﻘ ﻖ ﻛ ﻜ ﻚ ﻟ ﻠ ﻞ  \rm\\sc\Adobe 20pt"
+heading 15.3 "\xx2\ﺻ ﺼ ﺺ ﺿ ﻀ ﺾ ﻃ ﻄ ﻂ ﻇ ﻈ ﻆ ﻋ ﻌ ﻊ ﻏ ﻐ ﻎ ﻓ ﻔ ﻒ ﻗ ﻘ ﻖ ﻛ ﻜ ﻚ ﻟ ﻠ ﻞ  \rm\Rsimms 15.3pt" 30
+
+heading 20   "\xx1\ﻣ ﻤ ﻢ ﻧ ﻨ ﻦ ﻫ ﻬ ﻪ ﻮ ﻳ ﻴ ﻲ  \rm\\sc\Adobe 20pt" 
+heading 15.3 "\xx2\ﻣ ﻤ ﻢ ﻧ ﻨ ﻦ ﻫ ﻬ ﻪ ﻮ ﻳ ﻴ ﻲ  \rm\Rsimms 15.3pt" 40
+
+heading 20   "\xx1\ٰ  ً  ٌ  ٍ  َ  ُ  ٗ  ٝ  ِ  ّ  ْ  ٓ  ٔ  ٕ    \rm\\sc\Adobe 20pt diacritics" 40
+heading 15.5 "\xx2\ٰ  ً  ٌ  ٍ  َ  ُ  ٗ  ٝ  ِ  ّ  ْ         \rm\Rsimms 15.3pt diacritics" 50
+
+heading 20   "\xx1\ﱞ  ﱟ  ﱠ  ﱡ  ﱢ  ﱣ    \rm\\sc\Adobe 20pt diacritic ligatures"
+heading 15.5 "\xx2\ﱞ  ﱟ  ﱠ  ﱡ  ﱢ  ﱣ    \rm\Rsimms 15.3pt diacritic ligatures" 40
+
+heading 20   "\xx1\ﻻ ﱃ ﻵ ﻶ ﻷ ﻸ ﻹ ﻺ  \rm\\sc\Adobe 20p"
+heading 15.3 "\xx2\ﻻ ﱃ ﻵ ﻶ ﻷ ﻸ ﻹ ﻺ  \rm\Rsimms 15.3pt (missing LAM/ALEF MAKSURA ligature)" 30
+
+heading 20   "\xx1\ء  \rm\\sc\Adobe 20pt hamza is on baseline" 24
+heading 20   "\xx2\ء   \rm\\sc\Rsimms 20pt hamza is above baseline" 30
+
+heading 20   "\xx1\\x65f\   \rm\\sc\Adobe 20pt is missing U+065F WAVY HAMZA BELOW"
+heading 20   "\xx2\\x65f\   \rm\\sc\Rsimms 20pt hamza sub wavy" 40
+
+heading 20   "\xx1\آ ﺂ أ ﺄ ﺅ ﺆ إ ﺈ ﺉ ﺋ ﺌ ﺊ ں ﮟ ڤ ﭬ ﭭ ﭫ ٹ ﭨ ﭩ ﭧ ٺ ﭠ ﭡ ﭟ ٻ ﭔ ﭕ ﭓ    \rm\\sc\Adobe 20pt"
+heading 15.3 "\xx2\آ ﺂ أ ﺄ ﺅ ﺆ إ ﺈ ﺉ ﺋ ﺌ ﺊ ں ﮟ ڤ ﭬ ﭭ ﭫ ٹ ﭨ ﭩ ﭧ ٺ ﭠ ﭡ ﭟ ٻ ﭔ ﭕ ﭓ    \rm\Rsimms 15.3pt" 30
+
+heading 20   "\xx1\ﱂ ﳌ ﲅ ﳭ  ٮ  ٯ ڡ    \rm\\sc\Adobe 20pt missing some"
+heading 15.3 "\xx2\ﱂ ﳌ ﲅ ﳭ ٮ ٯ ڡ    \rm\Rsimms 15.3pt missing some" 30
+
+[newmovement newpage]
+
+heading 15 "These are not present in the OmArabicRsimms fonts" 20
+
+heading 20   "\xx1\پ ٿ ڀ ڃ ڄ چ ڇ ڈ ڌ ڍ ڎ ڑ ژ ڦ ک گ ڱ ڳ ڻ ځ    \rm\\sc\Adobe 20pt" 30
+
+heading 20   "\xx1\ﭘ ﭙ ﭗ ﭤ ﭥ ﭣ ﭜ ﭝ ﭛ ﭸ ﭹ ﭷ ﭴ ﭵ ﭳ ﭼ ﭽ ﭻ ﮀ ﮁ ﭿ ﮉ ﮅ ﮃ ﮇ ﮍ ﮋ    \rm\\sc\Adobe 20pt" 30
+

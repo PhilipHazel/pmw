@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: June 2022 */
+/* This file last modified: July 2022 */
 
 #include "pmw.h"
 
@@ -622,18 +622,19 @@ Returns:    nothing
 void
 font_loadtables(uint32_t fontid)
 {
-FILE *f;
+FILE *fa, *fu;
 int kerncount = 0;
 int finalcount = 0;
 kerntablestr *kerntable;
 fontstr *fs = &(font_list[fontid]);
+tree_node *treebase = NULL;
 uschar *pp;
 uschar filename[256];
 uschar line[256];
 
-TRACE("Loading AFM for %s\n", fs->name);
+/* Find and open the AFM file */
 
-f = font_finddata(fs->name, ".afm", font_data_extra, font_data_default,
+fa = font_finddata(fs->name, ".afm", font_data_extra, font_data_default,
   filename, TRUE);   /* Hard error if not found */
 
 fs->widths = mem_get_independent(FONTWIDTHS_SIZE * sizeof(int32_t));
@@ -643,12 +644,12 @@ memset(fs->r2ladjusts, 0, FONTWIDTHS_SIZE * sizeof(int32_t));
 fs->heights = NULL;
 fs->kerncount = 0;
 
-/* Process the AFM file. First find the start of the metrics; on the way, check
-for the standard encoding scheme and for fixed pitch. */
+/* Find the start of the metrics in the AFM file; on the way, check for the
+standard encoding scheme and for fixed pitch. */
 
 for (;;)
   {
-  if (Ufgets(line, sizeof(line), f) == NULL)
+  if (Ufgets(line, sizeof(line), fa) == NULL)
     error(ERR58, filename, "no metric data found", "");  /* Hard */
   if (memcmp(line, "EncodingScheme AdobeStandardEncoding", 36) == 0)
     fs->flags |= ff_stdencoding;
@@ -657,7 +658,191 @@ for (;;)
   if (memcmp(line, "StartCharMetrics", 16) == 0) break;
   }
 
-/* Process the metric lines for each character */
+/* Now we know whether or not the font has standard encoding we can set up the
+unsupported character substitution, and look for a .utr file with Unicode
+translations (and maybe an unsupported character) for fonts that are not
+standardly encoded. */
+
+if ((fs->flags & ff_stdencoding) == 0)
+  {
+  fs->invalid = UNKNOWN_CHAR_N | (font_mf << 24);  /* Default */
+  fu = font_finddata(fs->name, ".utr", font_data_extra, font_data_default,
+    filename, FALSE);
+  }
+else
+  {
+  fs->invalid = UNKNOWN_CHAR_S | (font_unknown << 24);
+  fu = NULL;
+  }
+
+/* Process a .utr file */
+
+if (fu != NULL)
+  {
+  int ucount = 0;
+  int lineno = 0;
+  int limit_pscode = 256;
+  utrtablestr utable[MAX_UTRANSLATE];
+
+  TRACE("Loading UTR for %s\n", fs->name);
+
+  while (Ufgets(line, sizeof(line), fu) != NULL)
+    {
+    uschar *epp;
+
+    lineno++;
+    pp = line;
+    while (isspace(*pp)) pp++;
+    if (*pp == 0 || *pp == '#') continue;
+
+    /* A line beginning with '/' is an encoding definition line. */
+
+    if (*pp == '/')
+      {
+      tree_node *tn;
+      uschar *nb, *ne;
+      uint32_t c;
+
+      if (fs->encoding == NULL)
+        {
+        fs->encoding = mem_get_independent(FONTWIDTHS_SIZE * sizeof(char *));
+        for (int i = 0; i < FONTWIDTHS_SIZE; i++) fs->encoding[i] = NULL;
+        limit_pscode = FONTWIDTHS_SIZE;
+        }
+
+      nb = ++pp;
+      while (isalnum(*pp)) pp++;
+      ne = pp;
+
+      while (isspace(*pp)) pp++;
+      c = (uint32_t)Ustrtoul(pp, &epp, 0);
+      if (epp == pp)
+        {
+        error(ERR60, "font", lineno, filename, line);
+        continue;
+        }
+      if (c >= FONTWIDTHS_SIZE)
+        {
+        error(ERR61, FONTWIDTHS_SIZE, lineno, filename, line);
+        continue;
+        }
+      if (fs->encoding[c] != NULL)
+        {
+        error(ERR176, c, lineno, filename, line);
+        continue;
+        }
+
+      /* We now have a name and a code. The name is saved and pointed to from
+      the encoding vector for appropriate PostScript generation. We also create
+      a tree of names so that the name and its code can be quickly found when
+      reading the AFM file below. */
+
+      *ne = 0;
+      tn = mem_get(sizeof(tree_node));
+      tn->name = fs->encoding[c] = mem_copystring(nb);
+      tn->value = c;
+      if (!tree_insert(&treebase, tn))
+        error(ERR175, tn->name, lineno, filename, line);
+      continue;
+      }
+
+    /* Handle an "unknown character" definition */
+
+    if (*pp == '?')
+      {
+      uint32_t c = (uint32_t)Ustrtoul(++pp, &epp, 0);
+      if (epp == pp)
+        {
+        error(ERR60, "font", lineno, filename, line);
+        continue;
+        }
+      if (c >= limit_pscode)
+        {
+        error(ERR61, limit_pscode, lineno, filename, line);
+        continue;
+        }
+
+      /* Change an underlay special character to its escaped version. */
+
+      switch (c)
+        {
+        case '#': c = ss_escapedsharp; break;
+        case '=': c = ss_escapedequals; break;
+        case '-': c = ss_escapedhyphen; break;
+        default: break;
+        }
+
+      fs->invalid = c | (font_unknown << 24);
+      continue;
+      }
+
+    /* Handle a translation definition */
+
+    if (ucount >= MAX_UTRANSLATE)
+      {
+      error(ERR59, filename, MAX_UTRANSLATE);
+      break;
+      }
+
+    if (Ustrncmp(pp, "U+", 2) == 0) pp += 2;
+    utable[ucount].unicode = (unsigned int)Ustrtoul(pp, &epp, 16);
+    if (epp == pp)
+      {
+      error(ERR60, "Unicode", lineno, filename, line);
+      continue;
+      }
+    pp = epp;
+    utable[ucount].pscode = (unsigned int)Ustrtoul(pp, &epp, 0);
+    if (epp == pp)
+      {
+      error(ERR60, "font", lineno, filename, line);
+      continue;
+      }
+    if (utable[ucount].pscode >= limit_pscode)
+      {
+      error(ERR61, limit_pscode, lineno, filename, line);
+      continue;
+      }
+
+    /* Change underlay special characters to escaped versions. */
+
+    switch (utable[ucount].pscode)
+      {
+      case '#': utable[ucount].pscode = ss_escapedsharp; break;
+      case '=': utable[ucount].pscode = ss_escapedequals; break;
+      case '-': utable[ucount].pscode = ss_escapedhyphen; break;
+      default: break;
+      }
+
+    ucount++;
+    }
+
+  (void)fclose(fu);
+
+  /* Sort the data by Unicode value, check for duplicates, and remember with
+  the font. */
+
+  if (ucount > 0)
+    {
+    int i;
+    qsort(utable, ucount, sizeof(utrtablestr), utr_table_cmp);
+    for (i = 1; i < ucount; i++)
+      {
+      if (utable[i].unicode == utable[i-1].unicode)
+        {
+        error(ERR62, utable[i].unicode, filename);
+        while(i < ucount - 1 && utable[i].unicode == utable[i+1].unicode) i++;
+        }
+      }
+    fs->utr = mem_get_independent(ucount * sizeof(utrtablestr));
+    memcpy(fs->utr, utable, ucount * sizeof(utrtablestr));
+    fs->utrcount = ucount;
+    }
+  }
+
+/* Now we can process the metric lines in the AFM file. */
+
+TRACE("Loading AFM for %s\n", fs->name);
 
 for (;;)
   {
@@ -666,7 +851,7 @@ for (;;)
   int poffset = -1;
   int r2ladjust = 0;
 
-  if (Ufgets(line, sizeof(line), f) == NULL)
+  if (Ufgets(line, sizeof(line), fa) == NULL)
     error(ERR58, filename, "unexpected end of metric data", "");  /* Hard */
   if (memcmp(line, "EndCharMetrics", 14) == 0) break;
 
@@ -720,6 +905,42 @@ for (;;)
     *pp = 0;
     code = an2u(cname, fs->name, TRUE, &poffset);
     if (code < 0) continue;  /* Don't try to store anything! */
+
+    /* Remember that this font has certain characters */
+
+    if (code == CHAR_FI) fs->flags |= ff_hasfi;
+
+    /* If the Unicode code point is not less than LOWCHARLIMIT, remember it and
+    its special offset in a tree so that it can be translated when encountered in
+    a string. Then set the translated value for saving the width. */
+
+    if (code >= LOWCHARLIMIT)
+      {
+      tree_node *tc = mem_get(sizeof(tree_node));
+      tc->name = mem_get(8);
+      tc->name[misc_ord2utf8(code, tc->name)] = 0;
+      tc->value = poffset;
+      (void)tree_insert(&(fs->high_tree), tc);
+      code = LOWCHARLIMIT + poffset;
+      }
+    }
+
+  /* If a non-standardly encoded font has a .utr file, it will have been read
+  above, and if there is encoding information in it, a tree of character names
+  will exist that translates from glyph name to encoding value. Ignore unknown
+  names. */
+
+  else if (treebase != NULL)
+    {
+    tree_node *tn;
+    uschar *cname;
+    while (memcmp(pp, "N ", 2) != 0) pp++;
+    cname = (pp += 2);
+    while (*pp != ' ') pp++;
+    *pp = 0;
+    tn = tree_search(treebase, cname);
+    if (tn == NULL) continue;
+    code = tn->value;
     }
 
   /* For other fonts, just use the character number directly. If there are
@@ -745,24 +966,6 @@ for (;;)
       }
     }
 
-  /* Remember that this font has certain characters */
-
-  if (code == CHAR_FI) fs->flags |= ff_hasfi;
-
-  /* If the Unicode code point is not less than LOWCHARLIMIT, remember it and
-  its special offset in a tree so that it can be translated when encountered in
-  a string. Then set the translated value for saving the width. */
-
-  if (code >= LOWCHARLIMIT)
-    {
-    tree_node *tc = mem_get(sizeof(tree_node));
-    tc->name = mem_get(8);
-    tc->name[misc_ord2utf8(code, tc->name)] = 0;
-    tc->value = poffset;
-    (void)tree_insert(&(fs->high_tree), tc);
-    code = LOWCHARLIMIT + poffset;
-    }
-
   /* Save the widths */
 
   fs->widths[code] = width;
@@ -774,7 +977,7 @@ AFM file. */
 
 for (;;)
   {
-  if (Ufgets(line, sizeof(line), f) == NULL) goto ENDKERN;
+  if (Ufgets(line, sizeof(line), fa) == NULL) goto ENDKERN;
   if (memcmp(line, "StartKernPairs", 14) == 0) break;
   }
 
@@ -798,7 +1001,7 @@ while (kerncount--)
   int a = -1;
   int b = -1;
 
-  if (Ufgets(line, sizeof(line), f) == NULL)
+  if (Ufgets(line, sizeof(line), fa) == NULL)
     error(ERR58, filename, "unexpected end of kerning data");  /* Hard */
   if (memcmp(line, "EndKernPairs", 12) == 0) break;
 
@@ -849,137 +1052,7 @@ qsort(kerntable, fs->kerncount, sizeof(kerntablestr), kern_table_cmp);
 /* Finished with the AFM file */
 
 ENDKERN:
-(void)fclose(f);
-
-/* Set up the unsupported character substitution, and look for a .utr file with
-Unicode translations (and maybe an unsupported character) for fonts that are
-not standardly encoded. */
-
-if ((fs->flags & ff_stdencoding) == 0)
-  {
-  fs->invalid = UNKNOWN_CHAR_N | (font_mf << 24);  /* Default */
-  f = font_finddata(fs->name, ".utr", font_data_extra, font_data_default,
-    filename, FALSE);
-  }
-else
-  {
-  fs->invalid = UNKNOWN_CHAR_S | (font_unknown << 24);
-  f = NULL;
-  }
-
-/* Process a .utr file */
-
-if (f != NULL)
-  {
-  int ucount = 0;
-  int lineno = 0;
-  utrtablestr utable[MAX_UTRANSLATE];
-
-  TRACE("Loading UTR for %s\n", fs->name);
-
-  while (Ufgets(line, sizeof(line), f) != NULL)
-    {
-    uschar *epp;
-
-    lineno++;
-    pp = line;
-    while (isspace(*pp)) pp++;
-    if (*pp == 0 || *pp == '#') continue;
-
-    /* Handle an "unknown character" definition */
-
-    if (*pp == '?')
-      {
-      uint32_t c = (uint32_t)Ustrtoul(++pp, &epp, 0);
-      if (epp == pp)
-        {
-        error(ERR60, "font", lineno, filename, line);
-        continue;
-        }
-      if (c >= 256)
-        {
-        error(ERR61, lineno, filename, line);
-        continue;
-        }
-
-      /* Change an underlay special character to its escaped version. */
-
-      switch (c)
-        {
-        case '#': c = ss_escapedsharp; break;
-        case '=': c = ss_escapedequals; break;
-        case '-': c = ss_escapedhyphen; break;
-        default: break;
-        }
-
-      fs->invalid = c | (font_unknown << 24);
-      continue;
-      }
-
-    /* Handle a translation definition */
-
-    if (ucount >= MAX_UTRANSLATE)
-      {
-      error(ERR59, filename, MAX_UTRANSLATE);
-      break;
-      }
-
-    if (Ustrncmp(pp, "U+", 2) == 0) pp += 2;
-    utable[ucount].unicode = (unsigned int)Ustrtoul(pp, &epp, 16);
-    if (epp == pp)
-      {
-      error(ERR60, "Unicode", lineno, filename, line);
-      continue;
-      }
-    pp = epp;
-    utable[ucount].pscode = (unsigned int)Ustrtoul(pp, &epp, 0);
-    if (epp == pp)
-      {
-      error(ERR60, "font", lineno, filename, line);
-      continue;
-      }
-    if (utable[ucount].pscode >= 256)
-      {
-      error(ERR61, lineno, filename, line);
-      continue;
-      }
-
-    /* Change underlay special characters to escaped versions. */
-
-    switch (utable[ucount].pscode)
-      {
-      case '#': utable[ucount].pscode = ss_escapedsharp; break;
-      case '=': utable[ucount].pscode = ss_escapedequals; break;
-      case '-': utable[ucount].pscode = ss_escapedhyphen; break;
-      default: break;
-      }
-
-    ucount++;
-    }
-
-  (void)fclose(f);
-
-  /* Sort the data by Unicode value, check for duplicates, and remember with
-  the font. */
-
-  if (ucount > 0)
-    {
-    int i;
-    qsort(utable, ucount, sizeof(utrtablestr), utr_table_cmp);
-    for (i = 1; i < ucount; i++)
-      {
-      if (utable[i].unicode == utable[i-1].unicode)
-        {
-        error(ERR62, utable[i].unicode, filename);
-        while(i < ucount - 1 && utable[i].unicode == utable[i+1].unicode) i++;
-        }
-      }
-    fs->utr = mem_get_independent(ucount * sizeof(utrtablestr));
-    memcpy(fs->utr, utable, ucount * sizeof(utrtablestr));
-    fs->utrcount = ucount;
-    }
-  }
-
+(void)fclose(fa);
 
 /* Early checking debugging code; retained in the source in case it is ever
 needed again. */
@@ -1053,6 +1126,7 @@ fs->name = mem_copystring(name);
 fs->widths = NULL;
 fs->high_tree = NULL;
 fs->utr = NULL;
+fs->encoding = NULL;
 fs->utrcount = 0;
 fs->heights = NULL;
 fs->kerns = NULL;

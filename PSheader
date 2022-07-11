@@ -8,6 +8,7 @@
 % Updated for remaining Latin Extended-A characters: December 2013
 % Removed redundant FontDirectory check which was causing problems for one
 %   user and is clearly not useful: June 2022
+% Updated for custom font encoding: July 2022
 
 
 % For fonts that use Adobe's standard encoding (that is, normal text fonts),
@@ -190,19 +191,22 @@ UpperEncoding 0 [
 %EPS /a 0 def /b 0 def /c 0 def
 
 
-% Routine to find a font and re-encode it if it has the standard encoding.
-% On the stack we should have two names, for the two differently encoded
-% versions of the font. When the font is not re-encoded, the two will end up
-% the same. Following the two names is the font name.
+% Function to find a font and re-encode it if it has the standard or a custom
+% encoding. On the stack we should have two names, for the two differently
+% encoded versions of the font. When the font is not re-encoded, the two will
+% end up the same. Following the two names is the font name.
 
-/inf{findfont dup dup/Encoding get StandardEncoding eq
+/inf{dup /savename exch def
+findfont dup dup/Encoding get StandardEncoding eq
 
+
+% ----------------------------------------------------------------------------
 % If the font uses Adobe Standard encoding, we obey the following.
-
+{
 % Find the maximum length of the font's dictionary, and make two new
 % dictionaries of the same length.
 
-{maxlength dup dict/newfont0 exch def dict/newfont1 exch def
+maxlength dup dict/newfont0 exch def dict/newfont1 exch def
 
 % Copy the original font into the two new ones, ommitting only the FID.
 
@@ -216,11 +220,43 @@ newfont1/Encoding UpperEncoding put dup newfont1 definefont def
 newfont0/Encoding LowerEncoding put dup newfont0 definefont def
 }
 
-% If the font does not use the Standard Encoding, we set both names to
-% the unmodified font.
+% ----------------------------------------------------------------------------
+% If the font does not the Standard Encoding, look for a custom encoding. We
+% get the length of the name, make a string of that length + 4, put the name
+% at the start of that string and add "EncU". Then test for the existence of
+% that encoding.
+{
+savename length /blen exch def /encname blen 4 add string def
+savename encname cvs pop encname blen (EncU) putinterval
+userdict encname cvn known
+
+% ----------------------------------------------------------------------------
+% If the font has a custom encoding; do much the same as above.
+{
+maxlength dup dict/newfont0 exch def dict/newfont1 exch def
+
+% Copy the original font into the two new ones, ommitting only the FID.
+
+dup
+{1 index/FID eq{pop pop}{newfont0 3 1 roll put}ifelse}forall
+{1 index/FID eq{pop pop}{newfont1 3 1 roll put}ifelse}forall
+
+% Now set the fonts with new encodings and define the names.
+
+userdict encname cvn get
+newfont1/Encoding 3 -1 roll put dup newfont1 definefont def
+encname blen 3 add (L) putinterval
+userdict encname cvn get
+newfont0 /Encoding 3 -1 roll put dup newfont0 definefont def
+}
+
+% ----------------------------------------------------------------------------
+% If the font uses neither the Standard nor a custom encoding, we set both
+% names to the unmodified font.
 
 {3 1 roll def def}ifelse
 
+}ifelse
 }bind def
 
 
