@@ -10,7 +10,7 @@ textfont extra 2 "AdobeArabic-Bold"
 B2PFfont extra 1 output_backcodes "Arabic"
 B2PFfont extra 2 output_backcodes "Arabic"
 
-textsizes 10 13
+underlaysize 13
 
 heading 20 "|\xx2\أيها الخاطي تعال لفاديك|"
 heading 18 "|\xx2\تراث قديم|"
@@ -27,7 +27,7 @@ miditempo 96
 "\bf\\*c\ 96 ="/a/l36/u6 Q |
 [endstaff]
 
-[staff 1 treble 1 text underlay ultextsize 2]
+[staff 1 treble 1 text underlay]
 *if score
 	[name "    " ""]
 *else
