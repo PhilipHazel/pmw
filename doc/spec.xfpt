@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>28 June 2022</date>
+<date>12 July 2022</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.20</revnumber>
-  <date>28 June 2022</date>
+  <date>12 July 2022</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2022</year><holder>Philip Hazel</holder></copyright>
@@ -174,7 +174,7 @@
 . /////////////////////////////////////////////////////////////////////////////
 
 . Note that it's the *first* argument that is the existing index entry. For
-. example, the first one generates "character strings, see strings".
+. example, the first one generates "decrescendo, see diminuendo".
 
 .index-see "diminuendo"                     "decrescendo"
 .index-see "flags"                          "tails"
@@ -424,12 +424,12 @@ PostScript Type 1 font and the second is an OpenType font.
 &_share/pmw/psfonts/PMW-Alpha_& is an auxiliary music font. This is a Type 3
 PostScript font (so no extension in its name).
 .next
-&_share/pmw/fontmetrics/_& is a directory that contains font metric files
-giving character widths and kerning information for the standard set of
-PostScript fonts (such as &'Times-Roman'&) and the PMW music fonts. There are
-also two files with &`.utr`& extensions; these contain translations from
-Unicode code points to the default code points in the PostScript &'Symbol'&
-font and the &'PMW-Music'& font.
+&_share/pmw/fontmetrics/_& is a directory that contains files giving character
+widths and kerning information for the standard set of PostScript fonts (such
+as &'Times-Roman'&) and the PMW music fonts. There are also two files with
+&`.utr`& extensions; these contain translations from Unicode code points to the
+default code points in the PostScript &'Symbol'& font and the &'PMW-Music'&
+font (&R; &<<SUBSECTuniutf>>&).
 .endlist
 As well as the usual &(configure)& options, there are three that are specific
 to PMW:
@@ -3929,21 +3929,21 @@ of a string.
 .index "strings" "special characters"
 Three characters are treated specially in all strings:
 .ilist
-The quote character &`&#39;`& and the grave accent character &```& are
-converted into (single) typographic closing and opening quote characters,
-respectively, in fonts whose fontmetrics file specifies the Adobe standard
-encoding. This is the case for all the default fonts except the music and
-symbol fonts. A closing quote character is the same as an apostrophe.
+The single quote character &`&#39;`& and the grave accent character &```& are
+converted into typographic closing and opening quote characters, respectively,
+in fonts whose fontmetrics file specifies the Adobe standard encoding. This is
+the case for all the default fonts except the music and symbol fonts. A closing
+quote character is the same as an apostrophe.
 .next
 The backslash character &`\`& is an &'escape character'&. Amongst other things,
-it can be used to include quotes, double quotes, or grave accents in a string
-(see below for more details).
+it can be used to include specially treated characters, including itself, as 
+literals in a string (&R; &<<SUBSECTescaped>>&).
 .endlist
-There are also some characters that are treated specially in some specific
+There are also some characters that are treated specially only in some specific
 types of string:
 .ilist
-In vocal underlay or overlay strings (&R; &<<SECTunderlay>>&), a number of
-additional characters are treated specially.
+In vocal underlay or overlay strings, &`#`& (sharp), &`-`& (hyphen), &`=`&
+(equals), and &`^`& (circumflex) are treated specially (&R; &<<SECTunderlay>>&).
 .next
 .index "vertical bar in strings"
 .index "strings" "vertical bar"
@@ -3952,7 +3952,20 @@ In headings and footings, the vertical bar &`|`& serves to separate the
 left-hand, middle and right-hand parts of the text. In text that appears at
 the start of a stave, it serves to delimit individual lines.
 .endlist
-A backslash can be used to remove the special meaning from these characters.
+A backslash can be used to remove the special meaning from any of these
+characters.
+
+In chapter &<<CHAPunifont>>& there is a list of the characters in fonts that
+use the Adobe standard encoding. These characters are accessible using UTF-8 or
+escape sequences in text strings. There are, of course, many other characters
+that are defined in Unicode, but which are not present in these fonts. Some of
+them (for example, Greek letters) exist in the &'Symbol'& font. 
+
+For fonts that do not use the Adobe standard encoding, you can use Unicode code
+points only if a file that translates from Unicode to the font's own encoding
+is available (&R; &<<SUBSECTunitrans>>&). If not, you are restricted to the
+font's 256 code points.
+
 
 
 .subsection "Unicode and UTF-8 encoding" SUBSECTuniutf
@@ -3962,11 +3975,11 @@ A backslash can be used to remove the special meaning from these characters.
 .index "character codes" "discussion of"
 .index "strings" "encoding"
 This section is rather technical. Unless you need to know some of the deep
-details of character handling, you can probably ignore it and the following
-section, and skip to section &<<SUBSECTescaped>>& (&'Escaped characters'&)
-below.
+details of character handling or font encodings, you can ignore it and the
+following two sections, and skip to section &<<SUBSECTescaped>>& (&'Escaped
+characters'&) below.
 
-The standard PostScript fonts contain up to 256 characters, many more than are
+Basic fonts in PostScript contain up to 256 characters, many more than are
 available on a computer's keyboard. The basic computer character set, often
 referred to as ASCII, comprises 95 characters (including space), whose code
 values lie between 32 and 126, inclusive. These are the characters you can type
@@ -4020,42 +4033,81 @@ for Unicode characters, you can use these characters directly in PMW strings.
 If not, you can refer to characters whose values are greater than 127 using
 escape sequences, as described in section &<<SUBSECTescaped>>& below.
 
-There is a complete list of the characters in PostScript fonts that use the
-Adobe standard encoding in chapter &<<CHAPunifont>>&. These characters
-are accessible using UTF-8 or escape sequences in text strings. There
-are, of course, many other characters that are defined in Unicode, but which
-are not present in these fonts. Some of them (for example, Greek letters) exist
-in the PostScript &'Symbol'& font, which is an example of a font that uses
-neither the Adobe standard encoding, nor Unicode. For such fonts, you can use
-Unicode code points (either as UTF-8 or via escape sequences) if a file that
-translates from Unicode to the font's own encoding is available. If not, you
-are restricted to the font's 256 code points.
 
+.subsection "Unicode translation files" SUBSECTunitrans
 .index "Unicode" "translation files"
 .index "&`.utr`& file extension
-Unicode translation files, with the extension &`.utr`&, are provided for the
-&'Symbol'& font and also for the PMW-Music font, though only a small number
-of characters in the latter correspond to Unicode code points. When a font that
-does not use Adobe standard encoding is loaded, an optional &`.utr`& file is
-sought in the same directories that are searched for font metrics (AFM) files
-(see the &*-F*& command line option). The format of a &`.utr`& file is very
-simple:
+Fonts may contain any number of characters, identified by name, but only 256
+are accessible at any one time. The mapping between code points and character
+names is the font's &'encoding'&, and in PostScript this can be modified. A
+font whose fontmetrics file specifies Adobe standard encoding contains a known
+set of characters. For such fonts PMW arranges its own encoding to make all of
+them accessible via Unicode code points (&R; &<<CHAPunifont>>&).
+
+Other fonts contain an unknown set of characters. Without additional data the
+only characters that are accessible are those in the font's default encoding,
+using code points in the range 0&--255. To make more characters available, and 
+to allow the encoding to be changed, PMW supports &'Unicode translation
+files'&.
+
+When PMW loads a font that does not use Adobe standard encoding, it looks for
+an optional &`.utr`& file in the same directories that are searched for 
+fontmetrics (&`.afm`&) files (see the &*-F*& command line option). A  &`.utr`& file
+can do three things, and its format is very simple:
 .ilist
 In each line, leading white space is ignored.
 .next
 Empty lines and lines that start with &`#`& are ignored.
 .next
-A line that starts with a question mark specifies the character to substitute
-when an unsupported Unicode code point is encountered. The rest of the line
-defines a font code point, as below.
+A line that begins with a slash defines an encoding value. If no such lines are 
+found, the font's default encoding is unchanged, and only code points in the 
+range 0&--255 are usable. Otherwise, the encoding is completely redefined by 
+the encoding lines in the file. The format of each line is:
+.display
+/<&'character name'&> <&'code point'&> <&'optional comment'&>
+.endd
+The code point can be specified in decimal, hexadecimal preceded by &`0x`&, or
+octal starting with &`0`&. When a font is re-encoded in this way, PMW actually
+makes two fonts with different encodings, allowing code points to be in the
+range 0&--511. These examples come from an Arabic font:
+.code
+/uni0627 65   ALEF
+/uni0622 336  ALEF with MADDA ABOVE
+.endd
+In this font, character names are based on Unicode code points. U+0627 is the 
+ALEF character; here it is being encoded as character 65, with an accented 
+version as character 336 (which is internally converted to character 80 in the
+second version of the font). Code points that are not mentioned in the &`.utr`&
+file are all set to &`.notdef`&, the conventional name for undefined
+characters.
+.next
+A line that starts with a question mark specifies the Unicode character to
+substitute when an unsupported Unicode code point is encountered. The rest of
+the line defines a font code point, for example:
+.code
+?  35  Use code 35 for unknowns
+.endd
 .next
 Other lines must start with a space-terminated hexadecimal number, optionally
-preceded by &`U+`& or &`0x`&. This is a Unicode code point. It must be
-followed by the font's code point, in decimal, hexadecimal preceded by &`0x`&,
-or octal starting with &`0`&. The rest of the line is ignored and can be used
-for comment. Code points less than 256 that are not listed in the file are
-output unchanged; unlisted code points greater than 255 cause errors.
+preceded by &`U+`& or &`0x`&. This is a Unicode code point; it is followed by
+the corresponding font code point, for example:
+.code
+0627 65   ALEF
+fe8d 65   ALEF ISOLATED FORM
+0622 336  ALEF with MADDA ABOVE
+.endd
+As this example shows, more than one Unicode code point can be mapped to the 
+same font code point. 
 .endlist
+
+If a Unicode code point that is not listed in the &`.utr`& file is encountered,
+what happens depends on its value. If it is less than the highest font code 
+point it is output unchanged; otherwise an error occurs. The highest font code 
+point is 511 if there are encoding entries in the file, otherwise 255.
+
+Unicode translation files, with the extension &`.utr`&, are provided for the
+&'Symbol'& font and also for the PMW-Music font, though only a small number
+of characters in the latter correspond to Unicode code points. 
 
 
 
@@ -4084,14 +4136,14 @@ character, will things go wrong.
 .index "accented characters in strings"
 .index "strings" "special characters"
 .index "special characters in strings"
-From PMW release 4.10 onwards, it is possible (as just described) to use UTF-8
-encoding to directly represent Unicode character values in text strings.
-However, it is also possible to use just the set of ASCII characters in PMW
-input files, without loss of functionality. The backslash character is used as
-a means of including characters that are not on the computer keyboard, for
-specifying changes of font, and for some other special effects. For example,
-the following sequences are available to represent some of the commonly
-accented characters in European languages:
+From PMW release 4.10 onwards you can use UTF-8 encoding to directly represent
+Unicode character values in text strings. However, it is also possible to use
+just the set of ASCII characters in PMW input files, without loss of
+functionality. The backslash character is used as a means of including
+characters that are not on the computer keyboard, for specifying changes of
+font, and for some other special effects. For example, the following sequences
+are available to represent some of the commonly accented characters in European
+languages:
 
 .itable none 0 0 2  40 left  300 left
 .row &`\a'`&   "codes for &nbsp;&aacute;"
