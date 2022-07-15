@@ -121,7 +121,7 @@ Arguments:
   acc                    the accidental value (updated)
   transposeacc           if not 0, accidental required
   transposedaccforce     retain accidental, even if implied by new key
-  note_set_taf           transposedaccforce was set by the note 
+  note_set_taf           transposedaccforce was set by the note
   acc_onenote            TRUE if accidental is printed above/below, and
                            hence applies only to a single note
   texttranspose          TRUE if transposing a note name in text
@@ -356,7 +356,7 @@ if (!texttranspose)
     a natural at the first non-tied note of a bar. */
 
     if ((*acc != ac_nt || !brs.firstnontied) &&
-        (!transposedaccforce || !note_set_taf)) 
+        (!transposedaccforce || !note_set_taf))
       keyNomit = TRUE;
     }
 

@@ -766,7 +766,7 @@ if (results[arg_t].presence != arg_present_not)
   if (abs(main_transpose) > MAX_TRANSPOSE)
     error(ERR64, "", main_transpose, MAX_TRANSPOSE);  /* Hard error */
   main_transpose *= 2;  /* Convert semitones into quarter tones */
-  active_transpose = main_transpose; 
+  active_transpose = main_transpose;
   }
 
 /* Deal with format */

@@ -1617,21 +1617,21 @@ for (read_nextc(); read_c != '\"' && read_c != ENDFILE; read_nextc())
 
       case 't':
       read_nextc();
-      
+
       /* The maximum transpostion is limited so if we allow for 8 characters
       that will be plenty. */
-   
+
       if (read_c == '\\')
         {
-        char buff[16]; 
-        int t = (active_transpose == NO_TRANSPOSE)? 0 : active_transpose/2; 
+        char buff[16];
+        int t = (active_transpose == NO_TRANSPOSE)? 0 : active_transpose/2;
         if (p + 8 > string_max)
           expand_string_buffer(&block, &yield, &mem_size, &string_max);
         sprintf(buff, "%d", t);
         for (char *pp = buff; *pp != 0; pp++) yield[p++] = *pp | set_fontid;
         goto NEXTSTRINGCHAR;
-        }  
- 
+        }
+
       /* Test for transposed key name */
 
       if (read_c < 'A' || read_c > 'G')
