@@ -2,7 +2,7 @@
 *         PMW string handling functions          *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: January 2021 */
 /* This file last modified: July 2022 */
 
@@ -1611,11 +1611,28 @@ for (read_nextc(); read_c != '\"' && read_c != ENDFILE; read_nextc())
         }
       break;
 
-      /* If \t is followed by A-G it is a transposable key signature name.
-      Otherwise it might be an accented letter. */
+      /* The escape \t\ inserts the current transposition amount. Otherwise, if
+      \t is followed by A-G it is a transposable key signature name. Otherwise
+      it might be an accented letter. */
 
       case 't':
       read_nextc();
+      
+      /* The maximum transpostion is limited so if we allow for 8 characters
+      that will be plenty. */
+   
+      if (read_c == '\\')
+        {
+        char buff[16]; 
+        int t = (active_transpose == NO_TRANSPOSE)? 0 : active_transpose/2; 
+        if (p + 8 > string_max)
+          expand_string_buffer(&block, &yield, &mem_size, &string_max);
+        sprintf(buff, "%d", t);
+        for (char *pp = buff; *pp != 0; pp++) yield[p++] = *pp | set_fontid;
+        goto NEXTSTRINGCHAR;
+        }  
+ 
+      /* Test for transposed key name */
 
       if (read_c < 'A' || read_c > 'G')
         {

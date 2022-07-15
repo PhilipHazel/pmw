@@ -2,9 +2,9 @@
 *          PMW preprocess one input line         *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: May 2022 */
+/* This file last modified: July 2022 */
 
 /* This file contains code for handling pre-processing directives. */
 
@@ -141,6 +141,20 @@ if (Ustrcmp(read_wordbuffer, "if") == 0)
     else if (Ustrcmp(read_wordbuffer, "format") == 0)
       {
       if (main_format == NULL) OK = !OK;
+      }
+
+    /* Test transposition */
+
+    else if (Ustrcmp(read_wordbuffer, "transpose") == 0)
+      {
+      read_sigcNL();
+      if (isdigit(read_c) || read_c == '-' || read_c == '+')
+        {
+        int x;
+        (void)read_expect_integer(&x, FALSE, TRUE);
+        if (active_transpose != 2 * x) OK = !OK;
+        }
+      else if (active_transpose == NO_TRANSPOSE) OK = !OK;
       }
 
     /* Not recognized; take as format word */

@@ -2,7 +2,7 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
-Version 5.20 xx-xxxx-2022
+Version 5.20 15-July-2022
 -------------------------
 
 1. In preparation for supporting an OpenType font, which does not allow for 
@@ -31,6 +31,10 @@ work in key N. This is occasionally needed for cautionary accidentals.
 .utr file. This allows for up to 512 characters to be encoded by name, thus 
 giving access to fonts such as some Arabic ones that don't have the Arabic 
 characters in their default encoding.
+
+7. Implement preprocessing test for transposition.
+
+8. Implement \t\ to insert current transposition value into a string.
 
 
 Version 5.10 08-June-2022

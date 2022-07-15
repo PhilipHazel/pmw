@@ -1,0 +1,20 @@
+heading 12 "\t\"
+*include "cond.inc"
+transpose 1
+heading 12 "\t\"
+*include "cond.inc"
+transpose -3
+heading 12 "\t\"
+*include "cond.inc"
+transpose +2
+heading 12 "\t\"
+*include "cond.inc"
+
+[stave 1 treble 1]
+"\t\" G+ | [transpose 2] "\t\" G+ |
+*include "cond.inc"
+[transpose -1] "\t\" G+ |
+*include "cond.inc"
+[transpose -3] "\t\" G+ |
+*include "cond.inc"
+[endstave]

@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>12 July 2022</date>
+<date>15 July 2022</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.20</revnumber>
-  <date>12 July 2022</date>
+  <date>15 July 2022</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2022</year><holder>Philip Hazel</holder></copyright>
@@ -3341,7 +3341,7 @@ If the word is `part', the condition is true if and only if a stave selection
 option is given on the command line, or via the &%selectstave%& directive
 earlier in the file.
 .next
-If the word is `stave' (or `staff' or `staves'), it must be followed by a list
+If the word is `stave' or `staff' or `staves', it must be followed by a list
 of staves. In this case, the condition is true if the listed staves, &'and no
 others'&, are selected. The intended use is for varying the headings of the
 piece when different combinations of staves are selected.
@@ -3349,6 +3349,11 @@ piece when different combinations of staves are selected.
 If the word is `undef', it must be followed by a name, and the condition is
 true only if the given name has not yet been defined as a macro using the
 &%*define%& directive.
+.next
+If the word is `transpose' and no number follows, the condition is true if any 
+transposition, including zero transposition, is in force. If a positive or 
+negative number follows `transpose', the condition is true if that particular 
+transposition is in force. 
 .next
 If the word  is `format', the condition is true if the &%-f%& command line
 option has been used to specify a named format, and false otherwise.
@@ -3378,6 +3383,10 @@ Here are some examples of the use of the conditional preprocessing directives:
 
 *if undef topspace
   *define topspace 20
+*fi
+
+*if transpose
+  heading "|(Transposed version)"
 *fi
 
 *if large
@@ -4253,17 +4262,6 @@ repetition number. For more details, see section &<<SECTrepeatbars>>&.
 
 
 
-.subsection "Comments within strings"
-.index "comments in strings"
-.index "string comments"
-There is a facility for in-string comments. Any characters between the string
-&`\@`& and the next backslash are ignored. This can be useful when an entire
-piece's underlay is being input as a single, very long string. However, if such
-a comment in an underlay string is surrounded by spaces, it acts as an empty
-syllable.
-
-
-
 .subsection "Transposing key and chord names" SUBSECTtranchordnames
 .index "transposition" "chord names"
 .index "transposition" "key names"
@@ -4301,6 +4299,17 @@ of +1 is applied, the result is `Sonata in D&flat; minor', because PMW assumes
 the key of C major. However, if the key is set to C minor before the heading
 line, the result of transposing by +1 is `Sonata in C&sharp; minor'.
 
+
+
+.subsection "The transposition setting"
+.index "transposition" "inserting value"
+Another use for the &`\t`& escape sequence is to insert the transposition value
+into a string. In this case, &`\t`& must be followed by a backslash. For 
+example:
+.code
+heading "(Transposed by \t\ semitones)"
+.endd
+The insertion happens when the string is read.
 
 
 .subsection "Font changes" SUBSECTfontchanges
@@ -4358,6 +4367,17 @@ is 0.7, because this makes small caps whose height is equal to the x-height of
 the normal font in the &'Times'& series of fonts, and this is the usual
 typographic convention. If applied to the music font, &`\sc\`& has the same
 effect as using &`\mu\`&.
+
+
+
+.subsection "Comments within strings"
+.index "comments in strings"
+.index "string comments"
+There is a facility for in-string comments. Any characters between the string
+&`\@`& and the next backslash are ignored. This can be useful when an entire
+piece's underlay is being input as a single, very long string. However, if such
+a comment in an underlay string is surrounded by spaces, it acts as an empty
+syllable.
 
 
 
@@ -15303,10 +15323,10 @@ These are the only options that are recognized for strings given in the
 
 .section "Character string escapes"
 The escape sequences that specify accented and other special characters in text
-fonts are shown in the character list in chapter &<<CHAPunifont>>&. The
-remaining escape sequences are summarized here.
+fonts are shown in the character list in chapter &<<CHAPunifont>>&. What the
+remaining escape sequences insert is summarized here.
 
-.itable none 0 0 2  60 left  300 left
+.itable none 0 0 2  60 left  310 left
 .row &`\c]`&    "&copy; from the PostScript Symbol font"
 .row &`\p\`&    "page number"
 .row &`\pe\`&   "page number, if even"
@@ -15315,6 +15335,8 @@ remaining escape sequences are summarized here.
 .row &`\so\`&   "skip to next &`\so\`& if page number odd"
 .row &`\r\`&    "repeated bar number"
 .row &`\r2\`&   "repeated bar number, except the first bar"
+.row &`\t\`&    "transposition (number of semitones)"
+.row &`\t`&&'x'&  "transpose chord name &'x'& (one of A&--G, optionally followed by &`#`& or &`$`&)"
 .row &`\@`&     "start of in-string comment; ends at next &`\`&"
 .row " "
 .row &`\*b\`&   "breve"
@@ -15342,12 +15364,6 @@ the note.
 
 Musical escapes with a single asterisk use a font whose size is 9/10 that of
 the surrounding text. A double asterisk uses a full size font.
-
-.itable none 0 0 2  60 left  300 left
-.row &`\t`&&'x'&   "transpose chord name &'x'& (one of A&--G)"
-.endtable
-
-The note letter can be followed by &`#`& or &`$`&.
 
 .itable none 0 0 2  60 left  300 left
 .row &`\`&<&'n'&>&`\`&    "character number <&'n'&> from the current font"

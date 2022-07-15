@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: June 2022 */
+/* This file last modified: July 2022 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -766,6 +766,7 @@ if (results[arg_t].presence != arg_present_not)
   if (abs(main_transpose) > MAX_TRANSPOSE)
     error(ERR64, "", main_transpose, MAX_TRANSPOSE);  /* Hard error */
   main_transpose *= 2;  /* Convert semitones into quarter tones */
+  active_transpose = main_transpose; 
   }
 
 /* Deal with format */

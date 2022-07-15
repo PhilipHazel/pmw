@@ -2,9 +2,9 @@
 *            PMW debugging functions             *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: May 2022 */
+/* This file last modified: July 2022 */
 
 #include "pmw.h"
 
