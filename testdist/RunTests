@@ -41,7 +41,7 @@ if [ $rc = 0 ]; then
   /bin/rm -f test.*
   /bin/rm -f test-*
   if [ -x ../testing/RunTests ]; then
-    (cd ../testing; RunTests $autoquit $valgrind)
+    (cd ../testing; ./RunTests $autoquit $valgrind)
   rc=$?   
   fi    
 fi
