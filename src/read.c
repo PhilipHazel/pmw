@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: April 2022 */
+/* This file last modified: May 2023 */
 
 #include "pmw.h"
 
@@ -71,7 +71,7 @@ if (ispmw)
   srs.notenum = curmovt->notenum;
   srs.noteden = curmovt->noteden;
   srs.required_barlength = read_compute_barlength(curmovt->time);
-  srs.suspended = (curmovt->suspend_staves & (1 << stave)) != 0;
+  srs.suspended = (curmovt->suspend_staves & (1Lu << stave)) != 0;
   }
 
 return curmovt->stavetable[stave];

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: April 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: May 2023 */
 
 #include "pmw.h"
 
@@ -174,7 +174,7 @@ for (stave = 0; stave <= curmovt->laststave; stave++)
   bstr *p;
   BOOL hadclef, hadkey, hadtime;
 
-  if ((curmovt->select_staves & (1 << stave)) == 0) continue; /* Unselected */
+  if ((curmovt->select_staves & (1Lu << stave)) == 0) continue; /* Unselected */
   s = curmovt->stavetable[stave];
 
   hadclef = hadkey = hadtime = FALSE;
@@ -749,7 +749,7 @@ fdata = (curmovt->fontsizes)->fontsize_text;
 for (i = 1; i <= curmovt->laststave; i++)
   {
   snamestr *s;
-  if ((map & (1 << i)) == 0) continue;  /* Not currently printing */
+  if ((map & (1Lu << i)) == 0) continue;  /* Not currently printing */
 
   /* For each stavename string on this stave */
 
@@ -3674,9 +3674,13 @@ while (!page_done) switch(page_state)
     curmovt->barlinespace = pl_barlinewidth;
     }
   else pl_barlinewidth = curmovt->barlinespace;
-
-  pl_allstavebits = 1Lu << curmovt->laststave;  /* Top stave's bit */
-  pl_allstavebits |= pl_allstavebits - 2;       /* + all below, except 0 */
+  
+  if (curmovt->laststave >= 0)
+    { 
+    pl_allstavebits = 1Lu << curmovt->laststave;  /* Top stave's bit */
+    pl_allstavebits |= pl_allstavebits - 2;       /* + all below, except 0 */
+     }
+  else pl_allstavebits = 0;   
 
   pl_stavemap = curmovt->select_staves;
   pl_ssenext = curmovt->stave_ensure;
@@ -3899,7 +3903,7 @@ while (!page_done) switch(page_state)
   for (i = 1; i <= curmovt->laststave; i++)
     {
     stavestr *ss = curmovt->stavetable[i];
-    if ((pl_stavemap & pl_sysblock->notsuspend & (1 << i)) != 0 &&
+    if ((pl_stavemap & pl_sysblock->notsuspend & (1Lu << i)) != 0 &&
         (!ss->omitempty || ss->barindex[pl_barnumber] != NULL))
       {
       int32_t xpos = (curmovt->clefwidths[(pl_sysblock->cont[i]).clef] *
@@ -3914,7 +3918,7 @@ while (!page_done) switch(page_state)
   pl_sysblock->timexposition = 0;
   for (i = 1; i <= curmovt->laststave; i++)
     {
-    if ((pl_stavemap & pl_sysblock->notsuspend & (1 << i)) != 0)
+    if ((pl_stavemap & pl_sysblock->notsuspend & (1Lu << i)) != 0)
       {
       uint8_t key = (pl_sysblock->cont[i]).key;
       int32_t xpos = (misc_keywidth(key, pl_sysblock->cont[i].clef) *
@@ -3942,7 +3946,7 @@ while (!page_done) switch(page_state)
 
   for (i = 1; i <= curmovt->laststave; i++)
     {
-    if ((pl_stavemap & pl_sysblock->notsuspend & pl_showtimes & (1 << i)) != 0)
+    if ((pl_stavemap & pl_sysblock->notsuspend & pl_showtimes & (1Lu << i)) != 0)
       {
       int32_t tw = (misc_timewidth((pl_sysblock->cont[i]).time) *
         curmovt->stavesizes[i])/1000;
