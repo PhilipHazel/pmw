@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: March 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: May 2023 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -1851,6 +1851,14 @@ for (;;)
   if (srs.matchnum > 0 && (flags & nf_centre) == 0)
     pn_notelength = mac_muldiv(pn_notelength, srs.matchnum, srs.matchden);
 
+  /* If a whole bar rest, flag it for centring unless we are in an unchecked
+  bar. (If the rest was specified using the ! notation it will already be
+  flagged for centring. This code covers other cases.) We must do this before
+  checking the options so that \C\ can be used to turn off centring. */
+
+  if (pitch == 0 && pn_notelength == srs.required_barlength && brs.checklength)
+    flags |= nf_centre;
+
   /* Handle options enclosed in \...\ that follow a note. These include accents
   and ornaments, stem direction control, local level for rests, etc. */
 
@@ -2227,13 +2235,6 @@ for (;;)
     p->bflags = 0;
     ornament = or_unset;
     }
-
-  /* If a whole bar rest, flag it for centring unless we are in an unchecked
-  bar. (If the rest was specified as R! then it has already been marked as a
-  whole bar rest.) */
-
-  if (pitch == 0 && pn_notelength == srs.required_barlength && brs.checklength)
-    flags |= nf_centre;
 
   /* Now create a data block for the note or rest, saving the address of the
   first one in a chord for exact duplications ('x') and the first one in a

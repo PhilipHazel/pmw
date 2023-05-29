@@ -11,6 +11,8 @@ fortunately didn't affect anything).
 2. Fixed a number of left shifts where "1" should be "1Lu" because the shift 
 could be more than 31.
 
+3. Using \C\ to turn off centring of whole bar rests was not working.
+
 
 Version 5.20 15-July-2022
 -------------------------
