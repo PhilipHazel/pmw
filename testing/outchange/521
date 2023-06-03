@@ -1,0 +1,52 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music ZapfDingbats 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginProlog
+%%Custom encodings for Times-Roman
+/Times-RomanEncL 256 array def
+0 1 255 {Times-RomanEncL exch /.notdef put} for
+/Times-RomanEncU 256 array def
+0 1 243 {Times-RomanEncU exch /.notdef put} for
+Times-RomanEncU 244 [
+/registered/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef] putinterval
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font ZapfDingbats
+/xx1 /xx1X /ZapfDingbats inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+rm 20 ss(Code 500: )64 760 s rmX 20 ss(\364)sh rm 20 ss
+( 499: )sh rmX 20 ss(\364)sh rm 20 ss( )sh(T)-0.36 0 rs
+(rans: )-0.7 0 rs(ABC Dingbats: )-1.1 0 rs xx1 20 ss(>\300< >)
+415.58 760 s xx1X 20 ss(\300)sh xx1 20 ss(<)sh
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

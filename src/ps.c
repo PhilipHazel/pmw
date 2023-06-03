@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: May 2021 */
-/* This file last modified: July 2022 */
+/* This file last modified: June 2023 */
 
 #include "pmw.h"
 
@@ -605,11 +605,8 @@ if (main_righttoleft || ps_EPS)
     }
   }
 
-/* Generate the output. For a font that is neither standardly encoded, nor has
-a custom encoding, the values are less than 256. For a standardly encoded font
-they are less than LOWCHARLIMIT plus some extras. For a font with a custom
-encoding they are less than 512. Values above 255 use the second encoding of
-such fonts. */
+/* Generate the output. Values are always less than FONTWIDTHS_SIZE (512);
+those above 255 use the second font encoding. */
 
 for (p = s; *p != 0; p++)
   {
@@ -617,13 +614,10 @@ for (p = s; *p != 0; p++)
   uint32_t pc = c;           /* pc is the code value to print */
   BOOL extended = FALSE;
 
-  if ((fs->flags & ff_stdencoding) != 0 || fs->encoding != NULL)
+  if (c >= 256)
     {
-    if (c >= 256)
-      {
-      pc -= 256;
-      extended = TRUE;
-      }
+    pc -= 256;
+    extended = TRUE;
     }
 
   /* Change between base and extended font if necessary */
@@ -2005,7 +1999,7 @@ for (int i = 0; i < font_tablen; i++)
     fontstr *f = font_list + font_table[i];
     if (f->encoding != NULL)
       {
-      for (int k = 0; k < 512; k += 256)
+      for (int k = 0; k < FONTWIDTHS_SIZE; k += 256)
         {
         uschar name[128];
         sprintf(CS name, "%sEnc%c", f->name, (k == 0)? 'L':'U');

@@ -9,14 +9,15 @@
 % Removed redundant FontDirectory check which was causing problems for one
 %   user and is clearly not useful: June 2022
 % Updated for custom font encoding: July 2022
+% Modified custom font encoding to modify rather than replace: May 2023
+% Allow custom encoding to apply to fonts that use Standard Encoding: May 2023
 
 
-% For fonts that use Adobe's standard encoding (that is, normal text fonts),
-% we are going to bind each font twice, to give us 512 characters to play with.
-% This is sufficient to encode all existing characters in the normal fonts.
-
-% Here are the two encoding vectors. The first 256 characters are encoded with
-% the Unicode encoding.
+% We are going to bind each text font twice, to give us 512 characters to play
+% with. This is sufficient to encode all existing characters in the standard
+% fonts. For fonts that use Adobe's standard encoding, we modify the encoding
+% using the following two vectors before applying any custom encoding. The
+% first 256 characters are encoded with the Unicode encoding.
 
 /LowerEncoding 256 array def
 LowerEncoding 0 [
@@ -161,6 +162,8 @@ UpperEncoding 0 [
 /tcommaaccent/tilde/trademark/infinity
 ]putinterval
 
+% 1B0 - 1FF
+177 1 255 {UpperEncoding exch /.notdef put} for
 
 % Straightforward abbreviations
 
@@ -183,81 +186,97 @@ UpperEncoding 0 [
 /clx 0 def/cly 0 def/crx 0 def/cry 0 def
 
 % For EPS files we must define *all* variables before defining the
-% procedures (PRM p. 715) in case they are previously defined.
+% procedures (PRM p. 715) in case they are previously defined in the enclosing
+% PostScript program.
 
-%EPS /u 0 def /v 0 def /w 0 def /x 0 def /y 0 def /z 0 def
-%EPS /x0 0 def /x1 0 def /x2 0 def /y0 0 def /y1 0 def /y2 0 def
-%EPS /t1 0 def /t2 0 def /t 0 def /gg 0 def /newfont 0 def
-%EPS /a 0 def /b 0 def /c 0 def
+%EPS /a 0 def /b 0 def /basefont 0 def /blen 0 def /c 0 def
+%EPS /encname 0 def /g 0 def /gg 0 def /hascustom 0 def /hasstandard 0 def
+%EPS /n 0 def /newenc 0 def /newfont0 0 def /newfont1 0 def /savename 0 def
+%EPS /t 0 def /t1 0 def /t2 0 def /u 0 def /v 0 def /w 0 def
+%EPS /x 0 def /x0 0 def /x1 0 def /x2 0 def
+%EPS /y 0 def/y0 0 def /y1 0 def /y2 0 def /z 0 def
 
 
-% Function to find a font and re-encode it if it has the standard or a custom
-% encoding. On the stack we should have two names, for the two differently
-% encoded versions of the font. When the font is not re-encoded, the two will
-% end up the same. Following the two names is the font name.
+% -----------------------------------------------------------------------------
+% Function to find a font and re-encode it if it has the standard and/or a
+% custom encoding. On the stack we should have two names, for the two
+% differently encoded versions of the font, followed by the font name. When the
+% font is not re-encoded, the two fonts will end up the same.
+
+% Save the font name, find the font, save it, check for standard encoding.
 
 /inf{dup /savename exch def
-findfont dup dup/Encoding get StandardEncoding eq
+findfont dup /basefont exch def
+/Encoding get StandardEncoding eq
+/hasstandard exch def
 
+% Look for a custom encoding. We get the length of the name, make a string of
+% that length + 4, put the name at the start of that string and add "EncU".
+% Then test for the existence of that encoding.
 
-% ----------------------------------------------------------------------------
-% If the font uses Adobe Standard encoding, we obey the following.
-{
-% Find the maximum length of the font's dictionary, and make two new
-% dictionaries of the same length.
-
-maxlength dup dict/newfont0 exch def dict/newfont1 exch def
-
-% Copy the original font into the two new ones, ommitting only the FID.
-
-dup
-{1 index/FID eq{pop pop}{newfont0 3 1 roll put}ifelse}forall
-{1 index/FID eq{pop pop}{newfont1 3 1 roll put}ifelse}forall
-
-% Now set up the two new encodings and define the names.
-
-newfont1/Encoding UpperEncoding put dup newfont1 definefont def
-newfont0/Encoding LowerEncoding put dup newfont0 definefont def
-}
-
-% ----------------------------------------------------------------------------
-% If the font does not the Standard Encoding, look for a custom encoding. We
-% get the length of the name, make a string of that length + 4, put the name
-% at the start of that string and add "EncU". Then test for the existence of
-% that encoding.
-{
 savename length /blen exch def /encname blen 4 add string def
 savename encname cvs pop encname blen (EncU) putinterval
 userdict encname cvn known
+/hascustom exch def
 
-% ----------------------------------------------------------------------------
-% If the font has a custom encoding; do much the same as above.
+% If the font does not use standard encoding, nor is there a custom encoding
+% for it, just bind the two names to the base font.
+
+hasstandard hascustom or not
 {
-maxlength dup dict/newfont0 exch def dict/newfont1 exch def
+basefont def
+basefont def
+}
 
-% Copy the original font into the two new ones, ommitting only the FID.
+% The font has Standard Encoding and/or there is a custom encoding. In both
+% cases we start by making two new font dictionaries of the same length as the
+% original, into which we copy the original, omitting only the FIDs.
 
-dup
+{
+basefont dup dup maxlength dup dict/newfont0 exch def dict/newfont1 exch def
 {1 index/FID eq{pop pop}{newfont0 3 1 roll put}ifelse}forall
 {1 index/FID eq{pop pop}{newfont1 3 1 roll put}ifelse}forall
 
-% Now set the fonts with new encodings and define the names.
+% If the font has Standard Encoding, replace it with PMW's default encoding.
 
-userdict encname cvn get
-newfont1/Encoding 3 -1 roll put dup newfont1 definefont def
+hasstandard
+{
+newfont1 /Encoding UpperEncoding put
+newfont0 /Encoding LowerEncoding put
+}if
+
+% If there is a custom encoding, set it for each font, then copy from the
+% old encoding any values for which the custom encoding is unset. The variable
+% encname already contains the font name with EncU appended.
+
+hascustom
+{
+newfont1/Encoding get /oldenc exch def
+userdict encname cvn get /newenc exch def
+0 1 255 {dup newenc exch get /.notdef eq
+{dup oldenc exch get newenc 3 1 roll put}{pop}ifelse
+}for
+newfont1 /Encoding newenc put
+
+% Repeat for the lower encoding
+
 encname blen 3 add (L) putinterval
-userdict encname cvn get
-newfont0 /Encoding 3 -1 roll put dup newfont0 definefont def
+newfont0/Encoding get /oldenc exch def
+userdict encname cvn get /newenc exch def
+0 1 255 {dup newenc exch get /.notdef eq
+{dup oldenc exch get newenc 3 1 roll put}{pop}ifelse
+}for
+newfont0 /Encoding newenc put
+}if
+
+% Associate each new font with the relevant name.
+
+newfont1 dup definefont def
+newfont0 dup definefont def
 }
-
-% ----------------------------------------------------------------------------
-% If the font uses neither the Standard nor a custom encoding, we set both
-% names to the unmodified font.
-
-{3 1 roll def def}ifelse
-
-}ifelse
+ifelse
 }bind def
+% -----------------------------------------------------------------------------
 
 
 % Font selection

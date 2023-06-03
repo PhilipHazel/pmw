@@ -1,0 +1,10 @@
+# Create a code point in the upper half of the font for a standard character.
+# This tests the ability to add to the encoding for a font with standard
+# encoding. Also create some translations to test that this works for such 
+# fonts.
+
+/registered 500
+1234  65
+1235  66
+4000  67
+01f3  500  499 => 500

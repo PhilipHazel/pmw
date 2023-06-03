@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: January 2021 */
-/* This file last modified: July 2022 */
+/* This file last modified: June 2023 */
 
 #include "pmw.h"
 
@@ -1077,26 +1077,26 @@ for (uint32_t *s = str; *s != 0; s++)
   f = PFONT(*s) & ~font_small;
   fs = &(font_list[font_table[f]]);
 
-  /* For a non-standardly encoded font, see if there's a Unicode translation.
-  If not, a value greater than 255 is erroneous, unless there is a custom
-  encoding, in which case values can go up to 511. Remember invalid code
-  points, to be listed at the end of reading the input, and replace with
-  whatever is set for the font, retaining the font number if the replacement's
-  font is unset. */
+  /* For non-standardly encoded fonts, either the character or its translation
+  must be valid. */
 
   if ((fs->flags & ff_stdencoding) == 0)
     {
-    uint32_t climit = (fs->encoding == NULL)? 256 : 512;
-    uint32_t pc = font_utranslate(c, fs);
-    *s &= 0xff000000u;   /* Keep the current font */
+    uint32_t tc = font_utranslate(c, fs);
 
-    /* A valid translated codepoint is either < climit or an escaped sharp,
-    equals, or hyphen, whose code points are outside the Unicode range. */
+    if (tc == 0xffffffffu) tc = c;   /* No translation found */
+    *s &= 0xff000000u;               /* Keep the current font */
 
-    if (pc < climit || pc > MAX_UNICODE)
-      {
-      *s |= pc;
-      }
+    /* A valid, possibly translated, codepoint is either less than 512 or an
+    escaped sharp, equals, or hyphen, whose code points are outside the Unicode
+    range. */
+
+    if (tc < 512 || tc > MAX_UNICODE) *s |= tc;
+
+    /* Remember invalid code points, to be listed at the end of reading the
+    input, and replace with whatever is set for the font, retaining the font
+    number if the replacement's font is unset. */
+
     else
       {
       *s = (PFTOP(fs->invalid) == (font_unknown << 24))?
@@ -1120,6 +1120,8 @@ for (uint32_t *s = str; *s != 0; s++)
 
   else
     {
+    uint32_t tc;
+
     if (c == '`' || c == '\'' || (c == '\n' && !keepnl) ||
          (c == 'f' && PCHAR(s[1]) == 'i'))
       {
@@ -1136,15 +1138,26 @@ for (uint32_t *s = str; *s != 0; s++)
       *s = PFTOP(*s) | c;
       }
 
-    /* Code points >= 256 and < LOWCHARLIMIT are encoded in the second of the
-    two PostScript fonts, using the Unicode encoding less 256, so no more needs
-    to be done. The remaining code points have to be converted to some of the
+    /* Check for a Unicode translation. If one is found, it will either be less
+    than 512 or an escaped sharp, equals, or hyphen with a high code point.
+    This is checked when the .utr file is read so no need to check here. */
+
+    tc = font_utranslate(c, fs);
+    if (tc != 0xffffffffu)   /* A translation was found */
+      {
+      *s = PFTOP(*s) | tc;
+      }
+
+    /* Handle an untranslated character in a standardly encoded font. Code
+    points >= 256 and < LOWCHARLIMIT are encoded in the second of the two
+    PostScript fonts, using the Unicode encoding less 256, so no more needs to
+    be done. The remaining code points have to be converted to some of the
     remaining characters in the second PostScript font, which are encoded
     arbitrarily, i.e. not using the Unicode encoding (some of their Unicode
     values are quite large). To find this encoding, we search for the character
     in the tree for the font . */
 
-    if (c >= LOWCHARLIMIT)
+    else if (c >= LOWCHARLIMIT)
       {
       tree_node *t;
       uschar utf[8];
@@ -1153,10 +1166,13 @@ for (uint32_t *s = str; *s != 0; s++)
       t = tree_search(fs->high_tree, utf);
       *s &= 0xff000000u;   /* Keep the current font */
 
-      /* If the character is unknown, replace it with whatever is set for the
-      font, retaining the font number if the replacement's font is unset. */
+      /* If the character is unknown, leave it alone if less than 512.
+      Otherwise replace it with whatever is set for the font, retaining the
+      font number if the replacement's font is unset. */
 
-      if (t != NULL) *s |= LOWCHARLIMIT + t->value; else
+      if (t != NULL) *s |= LOWCHARLIMIT + t->value;
+      else if (c < 512) *s |= c;
+      else
         {
         *s = (PFTOP(fs->invalid) == (font_unknown << 24))?
           (*s | PCHAR(fs->invalid)) : fs->invalid;

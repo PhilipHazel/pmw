@@ -21,6 +21,7 @@ $force_quit = 0;
 $starttest = undef;
 $endtest = undef;
 $started = 0;
+$view = 0;
 
 # Skip certain directories for non-built features or non-available fonts
 
@@ -59,6 +60,11 @@ while (defined $ARGV[0])
   elsif ($ARGV[0] eq "forceupdate")
     {
     $force_update = 1;
+    shift;
+    }
+  elsif ($ARGV[0] eq "view")
+    {
+    $view = 1;
     shift;
     }
   elsif ($ARGV[0] =~ /^nob2pf$/i)
@@ -139,15 +145,27 @@ while (scalar @dirs > 0)
     my($file) = shift @files;
     my($options) = "";
     my($testOK) = 1;
+    my($fontsearch) = "-F ../fontmetrics:../fontextra";
 
-    # Skip . and .. and also skip any file ending in .opt because that
-    # contains options for any given test, and any that end in .inc because
-    # they are included files.
+    # Skip . and .. and any file ending in .opt because that contains options
+    # for any given test, and any that end in .inc because they are included
+    # files, and any ending in .F because they specify fontmetrics directories
+    # for some tests.
 
-    next if $file =~ /^\.\.?$|\.opt$|\.inc$/;
+    next if $file =~ /^\.\.?$|\.opt$|\.inc|\.F$/;
+
+    # Also skip any directories.
+
+    next if -d "$tests/$file";
 
     next if !$started && defined $starttest && $file !~ /^\Q$starttest\E/;
     $started = 1;
+
+    # Note "chomp"s below; needed to get rid of the newline which otherwise
+    # messes up the command.
+
+    $fontsearch .= `cat $tests/$file.F` if -e "$tests/$file.F";
+    chomp $fontsearch;
 
     $options = `cat $tests/$file.opt` if -e "$tests/$file.opt";
     chomp $options;
@@ -155,8 +173,31 @@ while (scalar @dirs > 0)
     unlink "test.ps";
     unlink "test.txt";
     unlink "test.mid";
-    my ($rc) = system("$valgrind $pmw -norc -testing $options -o test.ps $tests/$file" .
-                      " -F  ../fontmetrics:../fontextra" .
+
+    # If "view" has been requested, run pmw without -testing and display any
+    # PostScript output that it produces, before going on to do the actual
+    # test.
+
+    if ($view)
+      {
+      system("$pmw -norc $options $fontsearch -o test-full.ps $tests/$file" .
+                " -H  ../PSheader" .
+                " -MF ../psfonts" .
+                " -MP ../MIDIperc" .
+                " -MV ../MIDIvoices" .
+                " -SM ../macros" .
+                " 2> /dev/null");
+
+      # Need to get the absolute font path to pass to gv.
+
+      getcwd() =~ /^(.*)\/testing$/;
+      system ("GS_FONTPATH=$1/psfonts:$1/fontextra:\$GS_FONTPATH gv -scale=1 -geometry 1080x980+0+0 test-full.ps");
+      }
+
+    # Running pmw with -testing generates output that can be compared easily,
+    # and avoids including the header each time.
+
+    my ($rc) = system("$valgrind $pmw -norc -testing $options $fontsearch -o test.ps $tests/$file" .
                       " -H  ../PSheader" .
                       " -MF ../psfonts" .
                       " -MP ../MIDIperc" .
@@ -261,8 +302,7 @@ while (scalar @dirs > 0)
 
           if (/^\s*v$/)
             {
-            system("$pmw -norc $options -o test-full.ps $tests/$file" .
-                      " -F  ../fontmetrics:../fontextra" .
+            system("$pmw -norc $options $fontsearch -o test-full.ps $tests/$file" .
                       " -H  ../PSheader" .
                       " -MF ../psfonts" .
                       " -MP ../MIDIperc" .

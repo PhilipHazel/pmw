@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: January 2021 */
-/* This file last modified: July 2022 */
+/* This file last modified: June 2023 */
 
 #include "pmw.h"
 
@@ -659,29 +659,23 @@ for (;;)
   }
 
 /* Now we know whether or not the font has standard encoding we can set up the
-unsupported character substitution, and look for a .utr file with Unicode
-translations (and maybe an unsupported character) for fonts that are not
-standardly encoded. */
+unsupported character substitution. */
 
 if ((fs->flags & ff_stdencoding) == 0)
-  {
   fs->invalid = UNKNOWN_CHAR_N | (font_mf << 24);  /* Default */
-  fu = font_finddata(fs->name, ".utr", font_data_extra, font_data_default,
-    filename, FALSE);
-  }
 else
-  {
   fs->invalid = UNKNOWN_CHAR_S | (font_unknown << 24);
-  fu = NULL;
-  }
 
-/* Process a .utr file */
+/* Look for a .utr file, which may contain Unicode translations, choice of
+unsupported character, and/or font encodings. */
+
+fu = font_finddata(fs->name, ".utr", font_data_extra, font_data_default,
+  filename, FALSE);
 
 if (fu != NULL)
   {
   int ucount = 0;
   int lineno = 0;
-  uint32_t limit_pscode = 256;
   utrtablestr utable[MAX_UTRANSLATE];
 
   TRACE("Loading UTR for %s\n", fs->name);
@@ -707,7 +701,6 @@ if (fu != NULL)
         {
         fs->encoding = mem_get_independent(FONTWIDTHS_SIZE * sizeof(char *));
         for (int i = 0; i < FONTWIDTHS_SIZE; i++) fs->encoding[i] = NULL;
-        limit_pscode = FONTWIDTHS_SIZE;
         }
 
       nb = ++pp;
@@ -756,9 +749,9 @@ if (fu != NULL)
         error(ERR60, "font", lineno, filename, line);
         continue;
         }
-      if (c >= limit_pscode)
+      if (c >= FONTWIDTHS_SIZE)
         {
-        error(ERR61, limit_pscode, lineno, filename, line);
+        error(ERR61, FONTWIDTHS_SIZE, lineno, filename, line);
         continue;
         }
 
@@ -798,9 +791,9 @@ if (fu != NULL)
       error(ERR60, "font", lineno, filename, line);
       continue;
       }
-    if (utable[ucount].pscode >= limit_pscode)
+    if (utable[ucount].pscode >= FONTWIDTHS_SIZE)
       {
-      error(ERR61, limit_pscode, lineno, filename, line);
+      error(ERR61, FONTWIDTHS_SIZE, lineno, filename, line);
       continue;
       }
 
@@ -846,10 +839,12 @@ TRACE("Loading AFM for %s\n", fs->name);
 
 for (;;)
   {
+  uschar *cname;
   uschar *ppb;
   int width, code;
   int poffset = -1;
   int r2ladjust = 0;
+  BOOL widthset = FALSE;
 
   if (Ufgets(line, sizeof(line), fa) == NULL)
     error(ERR58, filename, "unexpected end of metric data", "");  /* Hard */
@@ -891,6 +886,13 @@ for (;;)
     r2ladjust = x1 + x0;
     }
 
+  /* Get the character's name */
+
+  while (memcmp(pp, "N ", 2) != 0) pp++;
+  cname = (pp += 2);
+  while (*pp != ' ') pp++;
+  *pp = 0;
+
   /* If this is a StandardEncoding font, scan the list of characters so as to
   get the Unicode value for this character. If the code point is greater than
   or equal to LOWCHARLIMIT, the offset above LOWCHARLIMIT that is used for
@@ -898,11 +900,6 @@ for (;;)
 
   if ((fs->flags & ff_stdencoding) != 0)
     {
-    uschar *cname;
-    while (memcmp(pp, "N ", 2) != 0) pp++;
-    cname = (pp += 2);
-    while (*pp != ' ') pp++;
-    *pp = 0;
     code = an2u(cname, fs->name, TRUE, &poffset);
     if (code < 0) continue;  /* Don't try to store anything! */
 
@@ -911,8 +908,8 @@ for (;;)
     if (code == CHAR_FI) fs->flags |= ff_hasfi;
 
     /* If the Unicode code point is not less than LOWCHARLIMIT, remember it and
-    its special offset in a tree so that it can be translated when encountered in
-    a string. Then set the translated value for saving the width. */
+    its special offset in a tree so that it can be translated when encountered
+    in a string. Then set the translated value for saving the width. */
 
     if (code >= LOWCHARLIMIT)
       {
@@ -923,35 +920,43 @@ for (;;)
       (void)tree_insert(&(fs->high_tree), tc);
       code = LOWCHARLIMIT + poffset;
       }
+
+    /* Set the data for the standard code point */
+
+    fs->widths[code] = width;
+    fs->r2ladjusts[code] = r2ladjust;
+    widthset = TRUE;
     }
 
-  /* If a non-standardly encoded font has a .utr file, it will have been read
-  above, and if there is encoding information in it, a tree of character names
-  will exist that translates from glyph name to encoding value. Ignore unknown
-  names. */
+  /* If the font has a .utr file, it will have been read above, and if there is
+  encoding information in it, a tree of character names will exist that
+  translates from glyph name to encoding value. This might override the
+  standard encoding, or it might duplicate a character on another code point.
+  Ignore unknown names. */
 
-  else if (treebase != NULL)
+  if (treebase != NULL)
     {
     tree_node *tn;
-    uschar *cname;
-    while (memcmp(pp, "N ", 2) != 0) pp++;
-    cname = (pp += 2);
-    while (*pp != ' ') pp++;
-    *pp = 0;
     tn = tree_search(treebase, cname);
-    if (tn == NULL) continue;
-    code = tn->value;
+    if (tn != NULL)
+      {
+      code = tn->value;
+      fs->widths[code] = width;
+      fs->r2ladjusts[code] = r2ladjust;
+      widthset = TRUE;
+      }
     }
 
-  /* For other fonts, just use the character number directly. If there are
-  unencoded characters, ignore them. These fonts include the PMW-Music font,
-  which has some characters with vertical height movements. */
+  /* If we haven't managed to find a code point, use the character number
+  directly. If there are unencoded characters, ignore them. These fonts include
+  the PMW-Music font, which has some characters with vertical height movements.
+  */
 
-  else
+  if (!widthset)
     {
     (void)read_number(&code, line+1);
     if (code < 0) continue;
-    while (*pp != 0 && memcmp(pp, "WY", 2) != 0) pp++;
+    for (pp = line + 2; *pp != 0 && memcmp(pp, "WY", 2) != 0; pp++) {}
     if (*pp != 0)
       {
       int32_t height;
@@ -964,13 +969,10 @@ for (;;)
         }
       fs->heights[code] = height;
       }
+    fs->widths[code] = width;
+    fs->r2ladjusts[code] = r2ladjust;
     }
-
-  /* Save the widths */
-
-  fs->widths[code] = width;
-  fs->r2ladjusts[code] = r2ladjust;
-  }
+  }   /* End of loop for processing character lines */
 
 /* Process kerning data (if any); when this is done, we are finished with the
 AFM file. */
@@ -1197,8 +1199,8 @@ return font_unknown;
 *      Manually translate Unicode code point     *
 *************************************************/
 
-/* Called for non-standardly encoded fonts. If there is no translation table,
-or if the character is absent from the table, return the code point unchanged.
+/* If there is no translation table, or if the character is absent from the
+table, return 0xffffffff.
 
 Arguments:
   c           the Unicode code point
@@ -1210,12 +1212,8 @@ Returns:      possibly a different code point
 uint32_t
 font_utranslate(uint32_t c, fontstr *fs)
 {
-int top, bot;
-
-if (fs->utrcount == 0) return c;
-
-bot = 0;
-top = fs->utrcount;
+int bot = 0;
+int top = fs->utrcount;
 
 while (bot < top)
   {
@@ -1225,7 +1223,7 @@ while (bot < top)
     else top = mid;
   }
 
-return c;   /* Not found */
+return 0xffffffffu;   /* Not found */
 }
 
 

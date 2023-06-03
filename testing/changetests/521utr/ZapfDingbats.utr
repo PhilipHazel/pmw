@@ -1,0 +1,4 @@
+# Translate a high Unicode code point into the second half of a non-standardly
+# encoded font.
+
+1234 448

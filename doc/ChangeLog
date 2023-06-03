@@ -13,6 +13,11 @@ could be more than 31.
 
 3. Using \C\ to turn off centring of whole bar rests was not working.
 
+4. Upgraded the handling of font translation and re-encoding using .utr files.
+In particular: (1) Re-encoding and translation is supported for all fonts, both
+standardly-encoded and otherwise; (2) Re-encoding modifies the existing
+encoding rather than supplanting it.
+
 
 Version 5.20 15-July-2022
 -------------------------
