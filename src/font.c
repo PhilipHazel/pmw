@@ -402,15 +402,13 @@ static int an2ucount = sizeof(an2ulist)/sizeof(an2uencod);
 /*
 Arguments:
   cname    the character name
-  fname    the font name (for warning)
-  warn     TRUE if warning wanted for not found
   mcptr    if not NULL, where to put the special encoding value
 
 Returns:   a Unicode code point, or -1 if not found
 */
 
 static int
-an2u(uschar *cname, uschar *fname, BOOL warn, int *mcptr)
+an2u(uschar *cname, int *mcptr)
 {
 int top = an2ucount;
 int bot = 0;
@@ -429,7 +427,6 @@ while (top > bot)
   if (c > 0) bot = mid + 1; else top = mid;
   }
 
-if (warn) error(ERR58, fname, cname, US" not found");  /* Hard */
 return -1;
 }
 
@@ -638,7 +635,7 @@ fa = font_finddata(fs->name, ".afm", font_data_extra, font_data_default,
   filename, TRUE);   /* Hard error if not found */
 
 fs->widths = mem_get_independent(FONTWIDTHS_SIZE * sizeof(int32_t));
-memset(fs->widths, 0, FONTWIDTHS_SIZE * sizeof(int32_t));
+memset(fs->widths, 0xff, FONTWIDTHS_SIZE * sizeof(int32_t));
 fs->r2ladjusts = mem_get_independent(FONTWIDTHS_SIZE * sizeof(int32_t));
 memset(fs->r2ladjusts, 0, FONTWIDTHS_SIZE * sizeof(int32_t));
 fs->heights = NULL;
@@ -900,32 +897,33 @@ for (;;)
 
   if ((fs->flags & ff_stdencoding) != 0)
     {
-    code = an2u(cname, fs->name, TRUE, &poffset);
-    if (code < 0) continue;  /* Don't try to store anything! */
-
-    /* Remember that this font has certain characters */
-
-    if (code == CHAR_FI) fs->flags |= ff_hasfi;
-
-    /* If the Unicode code point is not less than LOWCHARLIMIT, remember it and
-    its special offset in a tree so that it can be translated when encountered
-    in a string. Then set the translated value for saving the width. */
-
-    if (code >= LOWCHARLIMIT)
+    code = an2u(cname, &poffset);
+    if (code >= 0)
       {
-      tree_node *tc = mem_get(sizeof(tree_node));
-      tc->name = mem_get(8);
-      tc->name[misc_ord2utf8(code, tc->name)] = 0;
-      tc->value = poffset;
-      (void)tree_insert(&(fs->high_tree), tc);
-      code = LOWCHARLIMIT + poffset;
+      /* Remember that this font has certain characters */
+
+      if (code == CHAR_FI) fs->flags |= ff_hasfi;
+
+      /* If the Unicode code point is not less than LOWCHARLIMIT, remember it and
+      its special offset in a tree so that it can be translated when encountered
+      in a string. Then set the translated value for saving the width. */
+
+      if (code >= LOWCHARLIMIT)
+        {
+        tree_node *tc = mem_get(sizeof(tree_node));
+        tc->name = mem_get(8);
+        tc->name[misc_ord2utf8(code, tc->name)] = 0;
+        tc->value = poffset;
+        (void)tree_insert(&(fs->high_tree), tc);
+        code = LOWCHARLIMIT + poffset;
+        }
+
+      /* Set the data for the standard code point */
+
+      fs->widths[code] = width;
+      fs->r2ladjusts[code] = r2ladjust;
+      widthset = TRUE;
       }
-
-    /* Set the data for the standard code point */
-
-    fs->widths[code] = width;
-    fs->r2ladjusts[code] = r2ladjust;
-    widthset = TRUE;
     }
 
   /* If the font has a .utr file, it will have been read above, and if there is
@@ -947,15 +945,16 @@ for (;;)
       }
     }
 
-  /* If we haven't managed to find a code point, use the character number
-  directly. If there are unencoded characters, ignore them. These fonts include
-  the PMW-Music font, which has some characters with vertical height movements.
-  */
+  /* If we haven't managed to find a code point from the name, use the
+  character number directly, unless the width has already been set via a
+  different name. If there are unencoded characters, or characters with code
+  points greater than the widths table, ignore them. These fonts include the
+  PMW-Music font, which has some characters with vertical height movements. */
 
   if (!widthset)
     {
     (void)read_number(&code, line+1);
-    if (code < 0) continue;
+    if (code < 0 || code >= FONTWIDTHS_SIZE || fs->widths[code] >= 0) continue;
     for (pp = line + 2; *pp != 0 && memcmp(pp, "WY", 2) != 0; pp++) {}
     if (*pp != 0)
       {
@@ -1022,13 +1021,13 @@ while (kerncount--)
   x = pp;
   while (*pp != 0 && *pp != ' ') pp++;
   *pp++ = 0;
-  a = an2u(x, fs->name, FALSE, NULL);
+  a = an2u(x, NULL);
 
   while (*pp != 0 && *pp == ' ') pp++;
   x = pp;
   while (*pp != 0 && *pp != ' ') pp++;
   *pp++ = 0;
-  b = an2u(x, fs->name, FALSE, NULL);
+  b = an2u(x, NULL);
 
   /* Read the kern value only if we have found the characters; otherwise ignore
   the kern */

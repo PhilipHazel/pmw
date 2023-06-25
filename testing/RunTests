@@ -32,7 +32,9 @@ if (system("$pmw -C b2pf >/dev/null") == 0)
   push @skipdirs, "B2PF";
   push @skipdirs, "afont";
   }
-elsif (! -r "../fontextra/AdobeArabic-Regular.afm")
+elsif (! -r "../fontextra/AdobeArabic-Regular.afm" ||
+       ! -r "../fontextra/DejaVuSans.afm" ||
+       ! -r "../fontextra/Tempora-Bold.afm")
   {
   push @skipdirs, "afont";
   }

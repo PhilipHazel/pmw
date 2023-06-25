@@ -1,0 +1,64 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music Tempora-Bold DejaVuSans 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginProlog
+%%Custom encodings for Tempora-Bold
+/Tempora-BoldEncL 256 array def
+0 1 164 {Tempora-BoldEncL exch /.notdef put} for
+Tempora-BoldEncL 165 /afii10065 put
+166 1 255 {Tempora-BoldEncL exch /.notdef put} for
+/Tempora-BoldEncU 256 array def
+0 1 243 {Tempora-BoldEncU exch /.notdef put} for
+Tempora-BoldEncU 244 [
+/Theta/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef] putinterval
+%%Custom encodings for DejaVuSans
+/DejaVuSansEncL 256 array def
+0 1 255 {DejaVuSansEncL exch /.notdef put} for
+/DejaVuSansEncU 256 array def
+0 1 243 {DejaVuSansEncU exch /.notdef put} for
+DejaVuSansEncU 244 [
+/Jcircumflex/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef] putinterval
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font Tempora-Bold
+/xx1 /xx1X /Tempora-Bold inf
+%%IncludeResource: font DejaVuSans
+/xx2 /xx2X /DejaVuSans inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+rm 20 ss(Roman)64 760 s(right)506.22 760 s xx1 20 ss(abcd )64 730 s
+xx1X 20 ss(\364\364)sh(\364)481.1 730 s xx1 20 ss( r)sh(ight)0.12 0 rs
+xx2 20 ss(abcd )64 700 s xx2X 20 ss(\364\364)sh(\364)484.84 700 s
+xx2 20 ss( right)sh
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

@@ -1,0 +1,6 @@
+textfont extra 1 "Tempora-Bold"
+textfont extra 2 "DejaVuSans"
+
+heading 20 "Roman||right" 30
+heading 20 "\xx1\abcd \500\\500\||\500\ right" 30
+heading 20 "\xx2\abcd \500\\500\||\500\ right"
