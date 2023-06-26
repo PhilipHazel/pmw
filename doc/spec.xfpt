@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>02 June 2023</date>
+<date>25 June 2023</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.21</revnumber>
-  <date>02 June 2023</date>
+  <date>25 June 2023</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2023</year><holder>Philip Hazel</holder></copyright>
@@ -424,6 +424,7 @@ PostScript Type 1 font and the second is an OpenType font.
 &_share/pmw/psfonts/PMW-Alpha_& is an auxiliary music font. This is a Type 3
 PostScript font (so no extension in its name).
 .next
+.index "fonts" "metrics"
 &_share/pmw/fontmetrics/_& is a directory that contains files giving character
 widths and kerning information for the standard set of PostScript fonts (such
 as &'Times-Roman'&) and the PMW music fonts. There are also two files with
@@ -779,12 +780,13 @@ errors can generate a large number of them. &%-em%& is an abbreviation for
 
 .vitem "&%-F%& <&'directory list'&>"
 
-Search the directories in the colon-separated list for &_fontmetrics_& files,
-before searching the default directory that was set up when PMW was installed.
-This option is useful when you want to make use of a non-standard font in text
-strings without having to copy its fontmetrics file into the default directory.
-Relative file names are taken as relative to the current directory, not to the
-PMW input file's directory.
+.index "fonts" "metrics"
+Search the directories in the colon-separated list for &_fontmetrics_&
+(&`.afm`&) files, before searching the default directory that was set up when
+PMW was installed. This option is useful when you want to make use of a
+non-standard font in text strings without having to copy its fontmetrics file
+into the default directory. Relative file names are taken as relative to the
+current directory, not to the PMW input file's directory.
 
 .vitem "&%-f%& <&'name'&>"
 
@@ -3871,15 +3873,26 @@ these names:
 
 The music font can be changed by &%musicfont%&, but this is likely to be of use
 only to PMW maintainers. By default, the &'Times'& series of fonts are used for
-text, and the &'Symbol'& font for symbols. PMW needs access to the
-`fontmetrics' file of every text font that it uses, and fontmetrics files for
-the standardly available PostScript fonts are supplied with PMW. If you want to
-use other fonts, you will need to obtain the appropriate fontmetrics files and
-install them in PMW's &%fontmetrics%& directory, or use the &*-F*& command line
-option to specify one or more additional directories where they may be found.
-You may also want to supply Unicode translation files (&R;
-&<<SUBSECTunitrans>>&). These can alter a font's encoding and define
-translations from Unicode code points to code points within the font.
+text, and the &'Symbol'& font for symbols. 
+.index "fonts" "metrics"
+PMW needs access to the `fontmetrics' (&`.afm`&) file of every text font that
+it uses, and fontmetrics files for the standardly available PostScript fonts
+are supplied with PMW. If you want to use other fonts, you will need to obtain
+the appropriate fontmetrics files and install them in PMW's &%fontmetrics%&
+directory, or use the &*-F*& command line option to specify one or more
+additional directories where they may be found. You may also want to supply
+Unicode translation files (&R; &<<SUBSECTunitrans>>&). These can alter a font's
+encoding and define translations from Unicode code points to code points within
+the font. The encoding defines which of a font's characters are accessible via
+numerical code points. PMW supports up to 512 characters per font.
+
+If the font you want to use does not have a fontmetrics file, you can create 
+one in various ways. For example, there is a utility called &'ttf2afm'& that
+generates AFM files for TrueType fonts. The &'FontForge'& open source font 
+editor can create AFM files for any font that it can load. Some fonts contain
+thousands of characters, resulting in large AFM files. These are readable text 
+files, and you can reduce the amount of work PMW has to do by cutting out any 
+unwanted characters.
 
 
 .section "Font sizes, aspect ratios, and shearing" SECTfontsize
@@ -4051,6 +4064,7 @@ ISO-8859-1 code were used.
 .index "&`.utr`& file extension
 .index "fonts" "encoding"
 .index "fonts" "Unicode translation"
+.index "fonts" "metrics"
 In PostScript code, a font may contain any number of characters, identified by
 name, but only 256 are accessible by code point. The mapping between code
 points and character names is the font's &'encoding'&. Each font has a default
@@ -4556,6 +4570,7 @@ chords, it is most convenient to define macros for the text strings.
 of letters closer together or (more rarely) further apart, in order to improve
 the appearance of text. Compare, for example, `Yorkshire' (kerned) with
 `Y&B;orkshire' (unkerned).
+.index "fonts" "metrics"
 PMW makes use of the kerning information in fontmetrics files automatically.
 This action can be disabled by including the directive &%nokerning%& in the
 header of the first movement. If you just want to prevent kerning between a
