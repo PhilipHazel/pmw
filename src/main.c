@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: July 2022 */
+/* This file last modified: June 2023 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -44,7 +44,7 @@ static const char *arg_pattern =
   "f/k,"
   "H/k,"
   "-help=help/s,"
-  "incPMWfont=incpmwfont=ipf=includefont/s,"
+  "incPMWfont=incpmwfont=ipf=/s,"
   "MF/k,"
   "MP/k,"
   "MV/k,"

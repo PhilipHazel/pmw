@@ -18,6 +18,9 @@ In particular: (1) Re-encoding and translation is supported for all fonts, both
 standardly-encoded and otherwise; (2) Re-encoding modifies the existing
 encoding rather than supplanting it.
 
+5. The obsolete synonym "includefont" for "incPMWfont" was documented as 
+removed in 5.00, but it never was. It now is.
+
 
 Version 5.20 15-July-2022
 -------------------------
