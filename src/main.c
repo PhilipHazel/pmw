@@ -44,7 +44,7 @@ static const char *arg_pattern =
   "f/k,"
   "H/k,"
   "-help=help/s,"
-  "incPMWfont=incpmwfont=ipf=/s,"
+  "incPMWfont=includePMWfont=incpmwfont=includepmwfont=ipf/s,"
   "MF/k,"
   "MP/k,"
   "MV/k,"

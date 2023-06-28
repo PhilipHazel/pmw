@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: May 2022 */
+/* This file last modified: June 2023 */
 
 #include "pmw.h"
 
@@ -29,10 +29,13 @@ static uint32_t empty_string[] = { 0 };
 this list when setting global values that apply to all movements. */
 
 enum {
+  glob_drawbarlines,
   glob_kerning,
+  glob_incpmwfont,
   glob_magnification,
   glob_maxvertjustify,
   glob_midifornotesoff,
+  glob_nowidechars,
   glob_pagelength,
   glob_righttoleft,
   glob_sheetdepth,
@@ -40,10 +43,13 @@ enum {
 };
 
 static uint32_t *global_vars[] = {
+  (uint32_t *)(&bar_use_draw),
   (uint32_t *)(&main_kerning),
+  (uint32_t *)(&print_incPMWfont),
   (uint32_t *)(&main_magnification),
   (uint32_t *)(&main_maxvertjustify),
   (uint32_t *)(&main_midifornotesoff),
+  (uint32_t *)(&stave_use_widechars),
   (uint32_t *)(&main_pagelength),
   (uint32_t *)(&main_righttoleft),
   (uint32_t *)(&main_sheetdepth),
@@ -765,6 +771,34 @@ doublenotes(void)
 {
 curmovt->notenum *= 2;
 curmovt->time = read_scaletime(curmovt->time_unscaled);
+}
+
+
+
+/*************************************************
+*              DrawStaveLines                    *
+*************************************************/
+
+static void
+drawstavelines(void)
+{
+int x = 3;
+if (isdigit(read_c)) x = read_usint();
+if (movement_count == 1) stave_use_draw = x;
+  else error(ERR40, dir->name);
+}
+
+
+
+/*************************************************
+*                 EPS                            *
+*************************************************/
+
+static void
+eps(void)
+{
+if (movement_count == 1) print_imposition = pc_EPS;
+  else error(ERR40, dir->name);
 }
 
 
@@ -2323,10 +2357,14 @@ static dirstr headlist[] = {
   { "dotspacefactor",   movt_int,       oo(movtstr,dotspacefactor), int_uf },
   { "doublenotes",      doublenotes,    0, 0 },
   { "draw",      read_draw_definition,  0, 0 },
+  { "drawbarlines",     glob_bool,      glob_drawbarlines, TRUE },
+  { "drawstafflines",   drawstavelines, 0, 0 },
+  { "drawstavelines",   drawstavelines, 0, 0 },
   { "endlinesluradjust",movt_int,       oo(movtstr,endlinesluradjust), int_f },
   { "endlineslurstyle", movt_int8,      oo(movtstr,endlineslurstyle), 1 },
   { "endlinetieadjust", movt_int,       oo(movtstr,endlinetieadjust), int_f },
   { "endlinetiestyle",  movt_int8,      oo(movtstr,endlinetiestyle), 1 },
+  { "eps",              eps,            0, 0 },
   { "extenderlevel",    movt_int,       oo(movtstr,extenderlevel), int_f },
   { "fbsize",           movt_fontsize,  oo(fontsizestr,fontsize_text)+ff_offset_fbass*sizeof(fontinststr), TRUE },
   { "footing",          movt_headfoot,  oo(movtstr,footing), rh_footing },
@@ -2343,6 +2381,8 @@ static dirstr headlist[] = {
   { "heading",          movt_headfoot,  oo(movtstr,heading), rh_heading },
   { "hyphenstring",     hyphenstring,   0, 0 },
   { "hyphenthreshold",  movt_int,       oo(movtstr,hyphenthreshold), int_rs+int_f },
+  { "includepmwfont",   glob_bool,      glob_incpmwfont, TRUE },
+  { "incpmwfont",       glob_bool,      glob_incpmwfont, TRUE },
   { "join",             movt_list,      oo(movtstr,joinlist), FALSE },
   { "joindotted",       movt_list,      oo(movtstr,joindottedlist), FALSE },
   { "justify",          justify,        0, 0 },
@@ -2384,6 +2424,7 @@ static dirstr headlist[] = {
   { "notimebase",       movt_flag,      mf_showtimebase, FALSE },
   { "notimewarn",       movt_flag,      mf_timewarn, FALSE },
   { "nounderlayextenders",movt_flag,    mf_underlayextenders, FALSE },
+  { "nowidechars",      glob_bool,      glob_nowidechars, FALSE },
   { "oldbeambreak",     warning,        0, 0 },
   { "oldrestlevel",     warning,        0, 0 },
   { "oldstemlength",    warning,        0, 0 },

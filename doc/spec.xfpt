@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>25 June 2023</date>
+<date>27 June 2023</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.21</revnumber>
-  <date>25 June 2023</date>
+  <date>27 June 2023</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2023</year><holder>Philip Hazel</holder></copyright>
@@ -727,7 +727,7 @@ Bar lines are normally output using characters from the music font. This option
 causes them to be output using PostScript drawing commands. It may produce
 better output in environments where some PostScript interpreters leave little
 gaps in bar lines that extend over more than one stave. &%-dbl%& is a synonym
-for &%-drawbarlines%&.
+for &%-drawbarlines%&. See also the &%drawbarlines%& header directive.
 
 .vitem &%-drawstavelines%&
 
@@ -745,7 +745,8 @@ point, so specifying, for example
 .endd
 draws stave lines whose thickness is 0.4 points. A value of zero disables the
 drawing of stave lines. &%-dsl%& is a synonym for &%-drawstavelines%&; a
-non-zero value for this option overrides &%-nowidechars%&.
+non-zero value for this option overrides &%-nowidechars%&. See also the
+&%drawstavelines%& header directive.
 
 .vitem &%-duplex%&
 
@@ -762,7 +763,8 @@ illustration that will subsequently be included in another document. For
 one-off illustrations, combining &%-eps%& with &%-incPMWfont%& is useful, so
 that the PMW-Music font is automatically included. For a document with many
 musical illustrations, including the font in each one is undesirable; it is
-better to make it available in some other way.
+better to make it available in some other way. See also the &%eps%& header
+directive.
 
 One PMW user reported problems with EPS files when other special fonts were
 also required. The solution was to pass all the fonts and the EPS file into the
@@ -820,9 +822,9 @@ If you use this option, there is no need to install the font(s) for
 &'GhostScript'& (or any other display program), nor do you need to download
 them separately to a PostScript printer. However, it does mean that each PMW
 output file is bigger by about 40K for PMW-Music and 31K for PMW-Alpha. Note
-that this option applies only to PMW's music fonts. See the &%textfont%&
-directive (&R; &<<SUBSECTtextfont>>&) for a way of including other fonts in the
-output.
+that this option applies only to PMW's music fonts. See also the &%incpmwfont%&
+header directive. The &%textfont%& directive (&R; &<<SUBSECTtextfont>>&)
+provides a way of including other fonts in the output.
 
 .vitem "&%-MF%& <&'directory list'&>"
 
@@ -927,7 +929,8 @@ output using the string FFFC. (The code numbers of wide and narrow 5-line stave
 characters in the music font correspond to F and C in text fonts.) With
 &%-nowidechars%&, the same stave is output as CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.
 &%-nw%& is an abbreviation for &%-nowidechars%&. The &%-drawstavelines%& option
-overrides this option.
+overrides this option. See also the &%nowidechars%& header directive.
+
 
 .vitem "&%-o%& <&'file'&>"
 
@@ -3873,7 +3876,7 @@ these names:
 
 The music font can be changed by &%musicfont%&, but this is likely to be of use
 only to PMW maintainers. By default, the &'Times'& series of fonts are used for
-text, and the &'Symbol'& font for symbols. 
+text, and the &'Symbol'& font for symbols.
 .index "fonts" "metrics"
 PMW needs access to the `fontmetrics' (&`.afm`&) file of every text font that
 it uses, and fontmetrics files for the standardly available PostScript fonts
@@ -3886,12 +3889,12 @@ encoding and define translations from Unicode code points to code points within
 the font. The encoding defines which of a font's characters are accessible via
 numerical code points. PMW supports up to 512 characters per font.
 
-If the font you want to use does not have a fontmetrics file, you can create 
+If the font you want to use does not have a fontmetrics file, you can create
 one in various ways. For example, there is a utility called &'ttf2afm'& that
-generates AFM files for TrueType fonts. The &'FontForge'& open source font 
+generates AFM files for TrueType fonts. The &'FontForge'& open source font
 editor can create AFM files for any font that it can load. Some fonts contain
-thousands of characters, resulting in large AFM files. These are readable text 
-files, and you can reduce the amount of work PMW has to do by cutting out any 
+thousands of characters, resulting in large AFM files. These are readable text
+files, and you can reduce the amount of work PMW has to do by cutting out any
 unwanted characters.
 
 
@@ -5662,11 +5665,12 @@ cause it to be stroked.
 .index-from I05 "header" "directives"
 A header section in a PMW file contains &'header directives'&. Each starts
 with a keyword, and sometimes the keyword is followed by numerical or other
-data. It is usual to start a new line for each header directive, but this is
-not a requirement. A header section is terminated by an opening square bracket
-character that is not in a text string or in a comment (following an @). None
-of the header information is mandatory because there are default values for
-all the parameters; a header section may be completely empty.
+data. The case of letters in keywords is not significant. It is usual to start
+a new line for each header directive, but this is not a requirement. A header
+section is terminated by an opening square bracket character that is not in a
+text string or in a comment (following an @). None of the header information is
+mandatory because there are default values for all the parameters; a header
+section may be completely empty.
 
 Most of the header directives may appear at the start of a new movement as
 well as at the start of the input, but a few may only appear at the very start
@@ -6275,6 +6279,27 @@ description of this facility is given in chapter &<<CHAPdraw>>&.
 
 
 
+.subsection "Drawbarlines"
+.index "&%drawbarlines%&"
+This directive, which takes no arguments, is permitted only in the first
+movement. It has exactly the same effect as the &%-drawbarlines%& command line
+option, which is to cause bar lines to be output as PostScript drawing commands
+instead of using characters in the music font.
+
+
+
+.subsection "Drawstavelines"
+.index "&%drawstavelines%&"
+This directive is permitted only in the first movement. It has exactly the same
+effect as the &%-drawstavelines%& command line option, which is to cause staves
+to be output as PostScript drawing commands instead of using characters in the
+music font. Like the command line option, &%drawstavelines%& can be followed by
+an integer argument, which specifies the thickness of the stave lines, in
+units of one tenth of a point. If this is not given, the default thickness is
+0.3 points.
+
+
+
 .subsection "Endlinesluradjust and endlinetieadjust"
 .index "&%endlinesluradjust%&"
 .index "&%endlinetieadjust%&"
@@ -6299,6 +6324,17 @@ is, with both ends tapering to a point, which is the most commonly found style.
 Some editors, however, prefer each portion to have the appearance of half a
 normal slur. &%Endlineslurstyle%& and &%endlinetiestyle%& specify this
 behaviour when style 1 is selected. The default is style 0.
+
+
+
+.subsection "Eps"
+.index "&%eps%&"
+.index "PostScript" "encapsulated"
+.index "encapsulated PostScript (EPS)"
+This directive, which takes no arguments, is permitted only in the first
+movement. It has exactly the same effect as the &%-eps%& command line option,
+which is to cause the output to be written as encapsulated PostScript, suitable
+for inclusion as an illustration in another document.
 
 
 
@@ -6655,6 +6691,15 @@ being the threshold value divided by three. The default value for the hyphen
 threshold is 50 points. The number following this directive may be preceded by
 a plus or a minus sign, indicating a change to the existing value. If neither
 of these is present, the number specifies an absolute value.
+
+
+
+.subsection "IncPMWfont aka IncludePMWfont"
+.index "&%incpmwfont%&"
+This directive, which takes no arguments, is permitted only in the first
+movement. It has exactly the same effect as the &%-incpmwfont%& command line
+option, which is to include the PostScript Type 1 version of the PMW-Music font
+and/or the PMW-Alpha font in every output file that needs them.
 
 
 
@@ -7495,6 +7540,15 @@ option on the &%[time]%& stave directive that changes the time signature.
 This directive suppresses extender lines at the ends of underlay words whose
 last syllable extends over more than one note. In a subsequent movement
 &%underlayextenders%& can be used to restore them.
+
+
+
+.subsection "&%Nowidechars%&"
+.index "&%nowidechars%&"
+This directive, which takes no arguments, is permitted only in the first
+movement. It has exactly the same effect as the &%-nowidechars%& command line
+option, which is to disable the use of very wide characters as part of stave
+lines. This option is ignored if &%drawstavelines%& is set.
 
 
 
@@ -14985,10 +15039,13 @@ dagger affect only the movement in which they appear.
 &` Dotspacefactor `&<&'n'&>
 &`&dagger;Doublenotes`&
 &` Draw `&<&'drawing definition'&>&` enddraw`&
+&`*Drawbarlines`&
+&`*Drawstavelines `&<&'n'&> (optional)
 &` Endlinesluradjust `&<&'n'&>
 &` Endlineslurstyle `&<&'n'&>
 &` Endlinetieadjust `&<&'n'&>
 &` Endlinetiestyle `&<&'n'&>
+&`*Eps`&
 &` Extenderlevel `&<&'n'&>
 &` Fbsize `&<&'n'&>
 &` Footing `&<&'fontsize'&>&` "`&<&'string'&>&`" `&<&'space'&>
@@ -15007,6 +15064,7 @@ dagger affect only the movement in which they appear.
 &` Heading draw `&<&'name'&>&` `&<&'space'&>
 &` Hyphenstring `&&`"`&<&'string'&>&`"`&
 &` Hyphenthreshold `&<&'n'&>
+&`*IncPMWfont`& aka &`IncludePMWfont`&
 &` Join `&<&'n'&>-<&'m'&> ...
 &` Joindotted `&<&'n'&>-<&'m'&> ...
 &` Justify `&<&'edges'&>
@@ -15050,6 +15108,7 @@ dagger affect only the movement in which they appear.
 &` Notimebase`&
 &` Notimewarn`&
 &` Nounderlayextenders`&
+&`*Nowidechars`&
 &` Overlaydepth `&<&'n'&>
 &` Overlaysize `&<&'fontsize'&>
 &`*Page `&<&'n'&>&` `&<&'m'&>

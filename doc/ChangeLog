@@ -21,6 +21,9 @@ encoding rather than supplanting it.
 5. The obsolete synonym "includefont" for "incPMWfont" was documented as 
 removed in 5.00, but it never was. It now is.
 
+6. Added some header directives that have the same effect as certain command
+line options: drawbarlines, drawstavelines, eps, incpmwfont, and nowidechars.
+
 
 Version 5.20 15-July-2022
 -------------------------
