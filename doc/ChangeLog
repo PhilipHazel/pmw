@@ -24,6 +24,9 @@ removed in 5.00, but it never was. It now is.
 6. Added some header directives that have the same effect as certain command
 line options: drawbarlines, drawstavelines, eps, incpmwfont, and nowidechars.
 
+7. After [reset], underlay and overlay distribution is now disabled until the 
+subsequent notes and rests read the reset point.
+
 
 Version 5.20 15-July-2022
 -------------------------

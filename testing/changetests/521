@@ -1,7 +1,7 @@
 @ One of these tests for the 5.21 release is a test that checks the use of .utr
 @ encoding on standardly encoded and non-standardly encoded fonts. See the
 @ local .utr files in the 521utr directory. They modify Times-Roman (the
-@ default) and ZapfDingbats. 
+@ default) and ZapfDingbats.
 
 textfont extra 1 "ZapfDingbats"
 
@@ -13,4 +13,12 @@ nowidechars
 
 [stave 1 treble 1]
 [5]gggg |
+[endstave]
+
+[newmovement]
+notespacing *1.5
+
+[stave 1 treble 1]
+"The quick brown fox jumps over the lazy"/ul
+gg [reset] eeee [reset] bbbb | gggg |
 [endstave]

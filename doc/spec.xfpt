@@ -10948,10 +10948,17 @@ to which it refers. This gives the maximum possible control, because each
 syllable can be moved up, down, left or right as required. However, it is
 normally easier to input underlay in longer strings. If a string of underlay
 text contains space and/or hyphen characters, it is automatically split up by
-PMW and allocated to the notes that follow. Rests are excluded from this
-process (with one exception, which is described in section
-&<<SUBSECTuolayother>>&). A simple example is shown in chapter
-&<<CHAPfirstintro>>&.
+PMW and allocated to the notes that follow. However, after an occurrence of the
+&%[reset]%& directive (&R; &<<SUBSECTreset>>&), distribution of underlay
+syllables is suspended until the overprinting notes or rests have reached the
+reset point. In the following example, the words `brown fox' are associated
+with the final two crotchets in the bar.
+.code
+"The quick brown fox"/ul gg [reset] eeee |
+.endd
+Rests are excluded from the underlay distribution process (with one exception,
+which is described in section &<<SUBSECTuolayother>>&). A simple underlay
+example is shown in chapter &<<CHAPfirstintro>>&.
 
 .index "- (hyphen) in underlay string"
 .index "hyphen" "in underlay string"
@@ -12579,7 +12586,7 @@ them to overprint each other. Then the appropriate MIDI sound can be
 permanently set for each stave.
 
 
-.subsection "[Reset]"
+.subsection "[Reset]" SUBSECTreset
 .index "&%[reset]%&"
 .index "overprinting" "single bars"
 Sometimes it is convenient to notate a bar as two different sequences of notes,
@@ -12589,7 +12596,9 @@ is overprinted on top of whatever has already been specified. If a large number
 of bars require overprinting, it may be more convenient to set up an entire
 overprinting stave by specifying a stave spacing of zero. &%[Reset]%& should in
 any case be used with caution, because it can cause unexpected effects if items
-such as slurs are in use.
+such as slurs are in use. The distribution of pending underlay or overlay
+syllables is suspended after &%[reset]%& until the position in the bar has
+`caught up' to the reset point.
 .code
 [stems up] gabc' [reset] [stems down] efga |
 .endd

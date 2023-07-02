@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: March 2021 */
-/* This file last modified: May 2023 */
+/* This file last modified: June 2023 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -186,6 +186,10 @@ static void
 do_undoverlay(b_textstr **pp)
 {
 b_textstr *p = *pp;
+
+/* If there has been a [reset] and we haven't yet caught up, do nothing. */
+
+if (brs.barlength <= brs.maxbarlength) return;
 
 /* Loop for each "verse" */
 
