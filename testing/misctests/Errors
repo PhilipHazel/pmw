@@ -32,7 +32,7 @@ caesurastyle 4
 
 draw bad
   "abc"/nx
-enddraw    
+enddraw
 
 @ ----- Stave errors -----
 
@@ -72,6 +72,13 @@ g\.\ x3\x\ a |
 @ Miscellaneous errors
 "a"/ty b_/x b (ap) z
 [slur/=0] [slur/=x] {/q abc } / </q |
+
+@ Backup and reset errors
+[nocheck] ab [treble backup] cd |
+[nocheck] G {[backup]ggg} |
+[nocheck] G {g[reset]gg} |
+[nocheck backup]R! |
+[reset]R! |
 
 [endstave]
 @ End

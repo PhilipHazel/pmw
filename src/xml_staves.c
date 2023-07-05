@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last modified: May 2022 */
+/* This file last modified: July 2023 */
 
 
 /* This module contains functions for generating stave data */
@@ -375,7 +375,8 @@ if (last->type == b_tie)
 
 if (bac >= dur) bac -= dur; else
   {
-  (void)xml_get_item(staff, sizeof(bstr), b_reset);
+  b_resetstr *r = xml_get_item(staff, sizeof(b_resetstr), b_reset);
+  r->moff = 0; 
   beam_breakpending[staff] = BREAK_UNSET;
   }
 

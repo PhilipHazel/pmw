@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: July 2022 */
+/* This file last modified: July 2023 */
 
 #include "pmw.h"
 
@@ -1319,7 +1319,8 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
     break;
 
     case b_reset:
-    eprintf("  [reset]\n");
+    if (((b_resetstr *)b)->moff == 0) eprintf("  [reset]\n");
+      else eprintf("  [backup %d]\n", ((b_resetstr *)b)->moff); 
     break;
 
     case b_resume:

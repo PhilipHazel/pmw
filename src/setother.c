@@ -377,7 +377,7 @@ switch (p->type)
   /* Deal with position reset */
 
   case b_reset:
-  out_moff = 0;
+  out_moff = ((b_resetstr *)p)->moff;
   out_passedreset = TRUE;
   break;
 

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: July 2022 */
+/* This file last modified: July 2023 */
 
 #include "pmw.h"
 
@@ -172,9 +172,9 @@ static error_struct error_data[] = {
 { ec_warning, "note spacing changed for breves only - is this really what\n"
                 "   was intended? (Perhaps \"*\" has been omitted?)" },
 /* 105-109 */
-{ ec_major,   "[reset] may not occur before the first note of a bar" },
-{ ec_major,   "[reset] may not follow an item which relates to the following note" },
-{ ec_major,   "[reset] may not appear inside an irregular note group" },
+{ ec_major,   "[%s] may not occur before the first note of a bar" },
+{ ec_major,   "[%s] may not follow an item that relates to the following note" },
+{ ec_major,   "[%s] may not appear inside an irregular note group" },
 { ec_major,   "no options are allowed after \"x\" note repetition" },
 { ec_major,   "no previous note to copy, or previous note cannot be copied" },
 /* 110-114 */
@@ -273,7 +273,8 @@ aborts the run after outputting additional information. */
 { ec_major,   "invalid repeat style (must be 0-%d or 10-%d)" },
 /* 175-179 */
 { ec_major,   "duplicate glyph name \"%s\" in line %d of %s\n%s" },
-{ ec_major,   "duplicate font encoding value %d in line %d of %s\n%s" }
+{ ec_major,   "duplicate font encoding value %d in line %d of %s\n%s" },
+{ ec_major,   "[backup] must follow a note" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

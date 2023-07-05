@@ -2,4 +2,5 @@ midichannel 1 "piano"
 time 4/4
 [stave 1]
 r r- (c- d-)_ (c d)_ (c d e) |
+[octave 1] g #g [backup] e g r |
 [endstave]

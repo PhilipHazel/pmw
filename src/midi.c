@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: August 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: July 2023 */
 
 #include "pmw.h"
 
@@ -119,7 +119,7 @@ for (int stave = 1; stave <= midi_movt->laststave; stave++)
     if (p->type == b_reset)
       {
       if (moff > length) length = moff;
-      moff = 0;
+      moff = ((b_resetstr *)p)->moff;
       }
     else if (p->type == b_note)
       {
@@ -335,7 +335,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
     switch(p->type)
       {
       case b_reset:
-      moff = 0;
+      moff = ((b_resetstr *)p)->moff;
       break;
 
       /* If a previous stave saw a repeat, hadrepeat is set to indicate

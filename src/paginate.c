@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: April 2021 */
-/* This file last modified: May 2023 */
+/* This file last modified: July 2023 */
 
 #include "pmw.h"
 
@@ -1507,7 +1507,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
       /* Deal with resets */
 
       case b_reset:
-      moff = 0;
+      moff = ((b_resetstr *)p)->moff;
       break;
 
       /* Set up or cancel a hairpin pending block. */
@@ -2359,7 +2359,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
         maxmoff = moff;
         if (moff > pl_posptr->moff) pl_posptr->moff = moff;
         }
-      moff = 0;
+      moff = ((b_resetstr *)p)->moff;
       pp = pl_postable;
       break;
 
@@ -2662,7 +2662,7 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
 
       if (type == b_reset)
         {
-        moff = 0;
+        moff = ((b_resetstr *)p)->moff;
         prev = pl_postable;
         }
 
@@ -2682,7 +2682,7 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
     else switch (type)
       {
       case b_reset:  /* This reset is not at end-of-bar */
-      moff = 0;
+      moff = ((b_resetstr *)p)->moff;
       prev = pl_postable;
       break;
 
@@ -2937,7 +2937,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
       of lines will be marked for suppression. */
 
       case b_reset:
-      moff = 0;
+      moff = ((b_resetstr *)p)->moff;
       previous = NULL;
       prevlength = -1;
       prevflags = 0;
@@ -3116,7 +3116,7 @@ if (MFLAG(mf_spreadunderlay))
         nextleftU = nextleftO = 0;
         nextrightU = nextrightO = 0;
         lastrightU = lastrightO = 0;
-        moff = 0;
+        moff = ((b_resetstr *)p)->moff;
         }
 
       /* Deal with items that are notes. The hadulay and hadolay flags are set
@@ -3674,13 +3674,13 @@ while (!page_done) switch(page_state)
     curmovt->barlinespace = pl_barlinewidth;
     }
   else pl_barlinewidth = curmovt->barlinespace;
-  
+
   if (curmovt->laststave >= 0)
-    { 
+    {
     pl_allstavebits = 1Lu << curmovt->laststave;  /* Top stave's bit */
     pl_allstavebits |= pl_allstavebits - 2;       /* + all below, except 0 */
      }
-  else pl_allstavebits = 0;   
+  else pl_allstavebits = 0;
 
   pl_stavemap = curmovt->select_staves;
   pl_ssenext = curmovt->stave_ensure;

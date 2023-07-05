@@ -27,6 +27,9 @@ line options: drawbarlines, drawstavelines, eps, incpmwfont, and nowidechars.
 7. After [reset], underlay and overlay distribution is now disabled until the 
 subsequent notes and rests read the reset point.
 
+8. Added [backup] to back up by one note, which is simpler and gives more 
+flexibility than [reset] followed by invisible rests if that's all you want.
+
 
 Version 5.20 15-July-2022
 -------------------------

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: July 2023 */
 
 #include "pmw.h"
 
@@ -166,6 +166,35 @@ if (size == 0 || --size >= UserFontSizes)
 
 
 /*************************************************
+*       Common function for reset and backup     *
+*************************************************/
+
+static void
+resetorbackup(const char *name, uint32_t whereto, BOOL reset)
+{
+b_resetstr *r = mem_get_item(sizeof(b_resetstr), b_reset);
+
+/* Do things that are otherwise done at bar end */
+
+if (srs.beaming) read_setbeamstems();
+if (brs.barlength > brs.maxbarlength) brs.maxbarlength = brs.barlength;
+
+/* Test for a valid reset/backup */
+
+if (!brs.resetOK)
+  error((brs.barlength == 0)? ERR105 : ERR106, name);
+    else if (brs.pletlen != 0 && reset) error(ERR107, name);
+
+/* We do the action anyway, to prevent spurious over-long bar errors. */
+
+if (reset) read_init_baraccs(read_baraccs, srs.key);
+brs.barlength = r->moff = whereto;
+brs.resetOK = FALSE;
+}
+
+
+
+/*************************************************
 *           Clef and octave setting              *
 *************************************************/
 
@@ -309,6 +338,20 @@ for (i = 0; i < (sizeof(assume_list)/sizeof(char *)); i++)
     }
   }
 error_skip(ERR8, ']', "clef, key, or time setting");
+}
+
+
+
+
+/*************************************************
+*                  Backup                         *
+*************************************************/
+
+static void
+p_backup(void)
+{
+if (srs.lastnoteptr == NULL) error(ERR177);
+  else resetorbackup("backup", brs.barlength - srs.lastnoteptr->length, FALSE);
 }
 
 
@@ -1157,23 +1200,7 @@ else srs.printpitch = read_stavepitch();
 static void
 p_reset(void)
 {
-(void)mem_get_item(sizeof(bstr), b_reset);
-
-/* Do things that are otherwise done at bar end */
-
-if (srs.beaming) read_setbeamstems();
-if (brs.barlength > brs.maxbarlength) brs.maxbarlength = brs.barlength;
-
-/* Test for a valid reset */
-
-if (!brs.resetOK)
-  error((brs.barlength == 0)? ERR105 : ERR106);
-    else if (brs.pletlen != 0) error(ERR107);
-
-/* We do the action anyway, to prevent spurious over-long bar errors. */
-
-read_init_baraccs(read_baraccs, srs.key);
-brs.barlength = 0;
+resetorbackup("reset", 0, TRUE);
 brs.resetOK = FALSE;
 }
 
@@ -2111,6 +2138,7 @@ static dirstr read_stavedirlist[] = {
   { "all",            p_common,        b_all, TRUE },
   { "alto",           p_clef,          clef_alto, FALSE },
   { "assume",         p_assume,        0, TRUE },
+  { "backup",         p_backup,        0, TRUE },
   { "baritone",       p_clef,          clef_baritone, FALSE },
   { "barlinestyle",   p_barlinestyle,  0, TRUE },
   { "barnumber",      p_barnum,        0, TRUE },

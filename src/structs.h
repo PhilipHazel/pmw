@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: July 2022 */
+/* This file last modified: July 2023 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -268,6 +268,11 @@ typedef struct {
   int32_t yleft;
   int32_t yright;
 } b_pletstr;
+
+typedef struct {
+  BSTRHEAD;
+  int32_t moff;
+} b_resetstr;    
 
 typedef struct {
   BSTRHEAD;

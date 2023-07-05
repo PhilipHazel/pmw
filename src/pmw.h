@@ -6,7 +6,7 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: May 2023 */
+/* This file last modified: July 2023 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
@@ -370,7 +370,7 @@ enum error_number {
   ERR140,ERR141,ERR142,ERR143,ERR144,ERR145,ERR146,ERR147,ERR148,ERR149,
   ERR150,ERR151,ERR152,ERR153,ERR154,ERR155,ERR156,ERR157,ERR158,ERR159,
   ERR160,ERR161,ERR162,ERR163,ERR164,ERR165,ERR166,ERR167,ERR168,ERR169,
-  ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176
+  ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176,ERR177
 };
 
 /* Types of input file */

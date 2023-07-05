@@ -22,3 +22,12 @@ notespacing *1.5
 "The quick brown fox jumps over the lazy"/ul
 gg [reset] eeee [reset] bbbb | gggg |
 [endstave]
+
+[newmovement]
+notespacing *1.5
+
+[stave 1 treble 1]
+GG [noteheads none backup] g- [o] |
+{G [noteheads none] g- [backup o] G G} |
+G {g [backup] egg} |
+[endstave]
