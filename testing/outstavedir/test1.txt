@@ -77,16 +77,6 @@ BAR 3 (4)
   "\it\fb"/s4 flags = fb
   "\bf\text"/s2 flags = none
   footnote = 9 "\rm\This is a footnote" 9
-  [noteheads 0]
-  [noteheads 1]
-  [noteheads 2]
-  [noteheads 3]
-  [noteheads 4]
-  [noteheads 5]
-  [noteheads 2]
-  [noteheads 0]
-  [noteheads 1]
-  [noteheads 3]
   [justify -top]
   [justify -right]
   [justify +bottom]

@@ -5,10 +5,10 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 Version 5.21 28-May-2023
 ------------------------
 
-1. Fixed a sanitize runtime warning for a negative shift amount (which 
+1. Fixed a sanitize runtime warning for a negative shift amount (which
 fortunately didn't affect anything).
 
-2. Fixed a number of left shifts where "1" should be "1Lu" because the shift 
+2. Fixed a number of left shifts where "1" should be "1Lu" because the shift
 could be more than 31.
 
 3. Using \C\ to turn off centring of whole bar rests was not working.
@@ -18,17 +18,23 @@ In particular: (1) Re-encoding and translation is supported for all fonts, both
 standardly-encoded and otherwise; (2) Re-encoding modifies the existing
 encoding rather than supplanting it.
 
-5. The obsolete synonym "includefont" for "incPMWfont" was documented as 
+5. The obsolete synonym "includefont" for "incPMWfont" was documented as
 removed in 5.00, but it never was. It now is.
 
 6. Added some header directives that have the same effect as certain command
 line options: drawbarlines, drawstavelines, eps, incpmwfont, and nowidechars.
 
-7. After [reset], underlay and overlay distribution is now disabled until the 
+7. After [reset], underlay and overlay distribution is now disabled until the
 subsequent notes and rests read the reset point.
 
-8. Added [backup] to back up by one note, which is simpler and gives more 
+8. Added [backup] to back up by one note, which is simpler and gives more
 flexibility than [reset] followed by invisible rests if that's all you want.
+
+9. Re-arranged the code that handles note heads, putting its options in a
+different field in note structures because there was only one bit left in the
+note flags field (now there are four). This was done so that the options for
+individual notes could be extended to add \nd\, \nn\, \no\, and \nz\ for an
+individual note's head control.
 
 
 Version 5.20 15-July-2022

@@ -376,7 +376,7 @@ if (last->type == b_tie)
 if (bac >= dur) bac -= dur; else
   {
   b_resetstr *r = xml_get_item(staff, sizeof(b_resetstr), b_reset);
-  r->moff = 0; 
+  r->moff = 0;
   beam_breakpending[staff] = BREAK_UNSET;
   }
 
@@ -2655,20 +2655,13 @@ for (xml_item *mi = measure->next;
 
       if (thisnotehead != set_noteheads[staff])
         {
-        if (inchord[staff] != NULL)
-          {
-          if (thisnotehead == nh_harmonic || thisnotehead == nh_cross)
-            {
-            newnote->flags |= (thisnotehead == nh_harmonic)?
-              nf_nhharmonic : nf_nhcross;
-            }
-          else xml_Eerror(mi, ERR45, notehead);
-          }
+        if (inchord[staff] != NULL && thisnotehead != nh_harmonic &&
+          thisnotehead != nh_cross && thisnotehead != nh_normal)
+            xml_Eerror(mi, ERR45, notehead);
         else
           {
-          b_noteheadsstr *bn = mem_get_insert_item(sizeof(b_noteheadsstr),
-            b_noteheads, (bstr *)newnote);
-          bn->value = thisnotehead;
+          newnote->noteheadstyle =
+            (newnote->noteheadstyle & ~nh_mask) | thisnotehead;
           set_noteheads[staff] = thisnotehead;
           }
         }

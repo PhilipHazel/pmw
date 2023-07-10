@@ -568,17 +568,6 @@ switch(p->type)
   if (((b_bowingstr *)p)->value) bar_cont->flags |= cf_bowingabove;
   break;
 
-  /* Set note head style */
-
-  case b_noteheads:
-    {
-    uint8_t style = ((b_noteheadsstr *)p)->value;
-    if (style >= nh_only) bar_cont->flags |= cf_noteheads;
-      else bar_cont->flags &= ~cf_noteheads;
-    if (style != nh_only) bar_cont->noteheadstyle = style;
-    }
-  break;
-
   /* Switch notes on/off */
 
   case b_notes:

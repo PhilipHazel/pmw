@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: March 2021 */
-/* This file last modified: June 2023 */
+/* This file last modified: July 2023 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -1419,6 +1419,7 @@ for (;;)
   uint8_t acc;
   uint8_t acc_orig, char_orig;
   uint8_t transposedacc = ac_no;
+  uint8_t noteheadstyle = srs.noteheadstyle;
   BOOL    transposedaccforce = active_transposedaccforce;
   BOOL    note_set_taf = FALSE;
 
@@ -1989,9 +1990,39 @@ for (;;)
 
         case 'n':
         read_nextc();
-        if (read_c == 'h') { flags |= nf_nhharmonic; read_nextc(); }
-          else if (read_c == 'x') { flags |= nf_nhcross; read_nextc(); }
-            else error_skip(ERR114, '\\');
+        if (read_c == 'o') flags &= ~nf_stem; else
+          {
+          noteheadstyle &= ~nh_mask;
+          flags |= nf_stem;
+          switch(read_c)
+            {
+            case 'd':
+            noteheadstyle |= nh_direct;
+            flags &= ~nf_stem;
+            break;
+
+            case 'h':
+            noteheadstyle |= nh_harmonic;
+            break;
+
+            case 'n':
+            noteheadstyle |= nh_normal;
+            break;
+
+            case 'x':
+            noteheadstyle |= nh_cross;
+            break;
+
+            case 'z':
+            noteheadstyle |= nh_none;
+            break;
+
+            default:
+            error(ERR8, "nd, nh, nn, no, nx, or nz");
+            break;
+            }
+          }
+        read_nextc();
         break;
 
         case 's':
@@ -2031,7 +2062,7 @@ for (;;)
         else if (read_c == 'm')
           {
           read_nextc();
-          flags |= nf_smallhead;
+          noteheadstyle |= nhf_smallhead;
           }
         else if (read_c == 'p')   /* sp is an ornament */
           {
@@ -2152,12 +2183,13 @@ for (;;)
     if (read_c == '\\') read_nextc();
     }                                  /* end options handling */
 
-  /* Rests should not have ornaments except fermata or accidentals or certain
+  /* Rests should not have ornaments (except fermata) or accidentals or certain
   options. */
 
   if (pitch == 0 && (
       ((ornset & ~(1 << or_ferm)) != 0 && (flags & nf_hidden) == 0) ||
-      (flags & nf_notrests) != 0 ||
+      (flags & (nf_stemup|nf_headbra)) != 0 ||
+      (noteheadstyle & nhf_smallhead) != 0 ||
       acc != ac_no ||
       pn_stemforce != 0 ||
       (acflags & af_accents) != 0))
@@ -2165,7 +2197,7 @@ for (;;)
 
   /* A small notehead may not be specified for a grace note. */
 
-  if (pn_notelength == 0 && (flags & nf_smallhead) != 0) error(ERR123);
+  if (pn_notelength == 0 && (noteheadstyle & nhf_smallhead) != 0) error(ERR123);
 
   /* Accumulate bar length and check that chord notes are all same length. If
   not, and the current one is a crotchet (i.e. just a lower case letter) force
@@ -2268,6 +2300,7 @@ for (;;)
   noteptr->yextra = yextra;
   noteptr->accleft = accleft;
   noteptr->abspitch = abspitch;
+  noteptr->noteheadstyle = noteheadstyle;
   pn_chordcount++;
 
   /* If we are duplicating as a result of 'p', pn_inchord will be 0 because

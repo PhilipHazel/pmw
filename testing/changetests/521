@@ -31,3 +31,19 @@ GG [noteheads none backup] g- [o] |
 {G [noteheads none] g- [backup o] G G} |
 G {g [backup] egg} |
 [endstave]
+
+
+[newmovement]
+*define X() &&1-\nz\[backup]&&1+
+
+[stave 1 treble 1]
+G &X(g) | #&X(g)\>\ R |
+
+[nocheck] g g\nd\ g\nh\ g\nn\ g\nx\ g\nz\ |
+[nocheck noteheads cross] g g\nd\ g\nh\ g\nn\ g\nx\ g\nz\ |
+[nocheck noteheads none] g g\nd\ g\nh\ g\nn\ g\nx\ g\nz\ |
+[noteheads normal]
+[nocheck noteheads only] g g\nd\ g\nh\ g\nn\ g\nx\ g\nz\ g |
+[nocheck noteheads normal] g g\no\ g g\nh no\ g |
+
+[endstave]

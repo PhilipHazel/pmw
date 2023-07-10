@@ -8,33 +8,33 @@ STAVE 1
 
 BAR 0 (1)
   treble
-  a flags=0x30000000 length=2882880 P_2S 1A
-  #-a flags=0x30000000 length=2882880 P_2S 1A#-
-  #a flags=0x30000000 length=2882880 P_2S 1A#
-  ##a flags=0x30000000 length=2882880 P_2S 1B
-  $$b flags=0x30000000 length=2882880 P_3L 1A
-  $b flags=0x30000000 length=2882880 P_3L 1B$
-  $-b flags=0x30000000 length=2882880 P_3L 1B$-
+  a flags=0x06000000 length=2882880 P_2S 1A
+  #-a flags=0x06000000 length=2882880 P_2S 1A#-
+  #a flags=0x06000000 length=2882880 P_2S 1A#
+  ##a flags=0x06000000 length=2882880 P_2S 1B
+  $$b flags=0x06000000 length=2882880 P_3L 1A
+  $b flags=0x06000000 length=2882880 P_3L 1B$
+  $-b flags=0x06000000 length=2882880 P_3L 1B$-
   barline type=0 style=0
 
 BAR 1 (2)
-  #<11.8c flags=0x10000004 length=2882880 P_3S 2C#
-  $$<14.3c flags=0x30000008 length=2882880 P_0L 0B$
-  $d flags=0x30000001 length=2882880 P_0S 1D$
-  #<10e flags=0x30000002 length=2882880 P_1L 1F
-  #<15e flags=0x30000002 length=2882880 P_1L 1F
-  #<11.2e flags=0x30000002 length=2882880 P_1L 1F
+  #<11.8c flags=0x02000004 length=2882880 P_3S 2C#
+  $$<14.3c flags=0x06000008 length=2882880 P_0L 0B$
+  $d flags=0x06000001 length=2882880 P_0S 1D$
+  #<10e flags=0x06000002 length=2882880 P_1L 1F
+  #<15e flags=0x06000002 length=2882880 P_1L 1F
+  #<11.2e flags=0x06000002 length=2882880 P_1L 1F
   barline type=0 style=0
 
 BAR 2 (3)
   ornament 19 flags=0x00 x=0 y=0
-  %f flags=0x30000001 length=2882880 P_1S 1F
+  %f flags=0x06000001 length=2882880 P_1S 1F
   ornament 40 flags=0x00 x=0 y=0
-  %f flags=0x30000001 length=2882880 P_1S 1F
+  %f flags=0x06000001 length=2882880 P_1S 1F
   ornament 25 flags=0x00 x=0 y=0
-  #g flags=0x30000001 length=2882880 P_2L 1G#
+  #g flags=0x06000001 length=2882880 P_2L 1G#
   ornament 46 flags=0x00 x=0 y=0
-  #g flags=0x30000001 length=2882880 P_2L 1G#
+  #g flags=0x06000001 length=2882880 P_2L 1G#
   barline type=0 style=0
 
 BAR 3 (4)
@@ -42,180 +42,180 @@ BAR 3 (4)
   barline type=0 style=0
 
 BAR 4 (5)
-  T+ flags=0x02400020 length=11531520
+  T+ flags=0x00900020 length=11531520
   barline type=0 style=0
 
 BAR 5 (6)
   Q flags=0x00010000 length=5765760
   R flags=0x00000000 length=5765760
-  S flags=0x00400000 length=5765760
-  T flags=0x00400000 length=5765760
+  S flags=0x00100000 length=5765760
+  T flags=0x00100000 length=5765760
   barline type=0 style=0
 
 BAR 6 (7)
   q flags=0x00010000 length=2882880
   r flags=0x00000000 length=2882880
-  s flags=0x00400000 length=2882880
-  t flags=0x02400000 length=2882880
+  s flags=0x00100000 length=2882880
+  t flags=0x00900000 length=2882880
   barline type=0 style=0
 
 BAR 7 (8)
-  A++ flags=0x20000000 length=23063040 P_2S 1A
-  B+ flags=0x20000000 length=11531520 P_0S 0B
-  C. flags=0x30000800 length=8648640 P_0L 1C
-  d.. flags=0x30001800 length=5045040 P_0S 1D
-  c- flags=0x10000000 length=1441440 P_3S 2C
+  A++ flags=0x04000000 length=23063040 P_2S 1A
+  B+ flags=0x04000000 length=11531520 P_0S 0B
+  C. flags=0x06000800 length=8648640 P_0L 1C
+  d.. flags=0x06001800 length=5045040 P_0S 1D
+  c- flags=0x02000000 length=1441440 P_3S 2C
   barline type=0 style=0
 
 BAR 8 (9)
   r-. flags=0x00000800 length=2162160
-  b= flags=0x30000000 length=720720 P_3L 1B
-  a=- flags=0x30000000 length=360360 P_2S 1A
-  g== flags=0x30000000 length=180180 P_2L 1G
+  b= flags=0x06000000 length=720720 P_3L 1B
+  a=- flags=0x06000000 length=360360 P_2S 1A
+  g== flags=0x06000000 length=180180 P_2L 1G
   barline type=0 style=0
 
 BAR 9 (10)
   dotright 5
-  f. flags=0x30000800 length=4324320 P_1S 1F
+  f. flags=0x06000800 length=4324320 P_1S 1F
   dotright 6.2
-  g. flags=0x30000800 length=4324320 P_2L 1G
+  g. flags=0x06000800 length=4324320 P_2L 1G
   barline type=0 style=0
 
 BAR 10 (11)
-  G+ flags=0x20000000 length=11531520 P_2L 1G
+  G+ flags=0x04000000 length=11531520 P_2L 1G
   barline type=0 style=0
 
 BAR 11 (12)
   ornament 6 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 6 flags=0x00 x=0 y=2
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 7 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 7 flags=0x00 x=0 y=0.2
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 8 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 8 flags=0x00 x=0 y=-1
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   barline type=0 style=0
 
 BAR 12 (13)
   ornament 11 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 9 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 12 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 10 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   barline type=0 style=0
 
 BAR 13 (14)
-  g acflags=0x40000000 flags=0x30000000 length=2882880 P_2L 1G
-  g acflags=0xc0000000 flags=0x30000000 length=2882880 P_2L 1G
-  g acflags=0x00200000 flags=0x30000000 length=2882880 P_2L 1G
-  g. flags=0x30080800 length=4324320 P_2L 1G
-  a. flags=0x30020800 length=4324320 P_2S 1A
+  g acflags=0x40000000 flags=0x06000000 length=2882880 P_2L 1G
+  g acflags=0xc0000000 flags=0x06000000 length=2882880 P_2L 1G
+  g acflags=0x00200000 flags=0x06000000 length=2882880 P_2L 1G
+  g. flags=0x06080800 length=4324320 P_2L 1G
+  a. flags=0x06020800 length=4324320 P_2S 1A
   barline type=0 style=0
 
 BAR 14 (15)
-  g acflags=0x20000000 flags=0x30000000 length=2882880 P_2L 1G
-  g acflags=0x10000000 flags=0x30000000 length=2882880 P_2L 1G
-  g acflags=0x00400000 flags=0x30000000 length=2882880 P_2L 1G
-  g flags=0x30008000 length=2882880 P_2L 1G
-  g acflags=0x20000000 flags=0x30000000 length=2882880 P_2L 1G
-  g acflags=0x02000000 flags=0x30000000 length=2882880 P_2L 1G
+  g acflags=0x20000000 flags=0x06000000 length=2882880 P_2L 1G
+  g acflags=0x10000000 flags=0x06000000 length=2882880 P_2L 1G
+  g acflags=0x00400000 flags=0x06000000 length=2882880 P_2L 1G
+  g flags=0x06008000 length=2882880 P_2L 1G
+  g acflags=0x20000000 flags=0x06000000 length=2882880 P_2L 1G
+  g acflags=0x02000000 flags=0x06000000 length=2882880 P_2L 1G
   ornament 1 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 1 flags=0x00 x=0 y=0
-  g acflags=0x80000000 flags=0x30000000 length=2882880 P_2L 1G
+  g acflags=0x80000000 flags=0x06000000 length=2882880 P_2L 1G
   barline type=0 style=0
 
 BAR 15 (16)
-  g acflags=0x00800000 flags=0x30000000 length=2882880 P_2L 1G
+  g acflags=0x00800000 flags=0x06000000 length=2882880 P_2L 1G
   ornament 13 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 14 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 2 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 3 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
   ornament 4 flags=0x00 x=0 y=0
-  g flags=0x30000000 length=2882880 P_2L 1G
-  g acflags=0x01000000 flags=0x30000000 length=2882880 P_2L 1G
-  g acflags=0x08000000 flags=0x30000000 length=2882880 P_2L 1G
-  g acflags=0x04000000 flags=0x30000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
+  g acflags=0x01000000 flags=0x06000000 length=2882880 P_2L 1G
+  g acflags=0x08000000 flags=0x06000000 length=2882880 P_2L 1G
+  g acflags=0x04000000 flags=0x06000000 length=2882880 P_2L 1G
   barline type=0 style=0
 
 BAR 16 (17)
-  g acflags=0x60000000 flags=0x30000000 length=2882880 P_2L 1G
-  g flags=0x30000000 length=2882880 P_2L 1G
-  g acflags=0x40000000 flags=0x30000000 length=2882880 P_2L 1G
-  g flags=0x30000000 length=2882880 yextra=4 P_2L 1G
-  g flags=0x30000000 length=2882880 yextra=-2 P_2L 1G
+  g acflags=0x60000000 flags=0x06000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
+  g acflags=0x40000000 flags=0x06000000 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 yextra=4 P_2L 1G
+  g flags=0x06000000 length=2882880 yextra=-2 P_2L 1G
   barline type=0 style=0
 
 BAR 17 (18)
-  g flags=0x30000000 length=2882880 P_2L 1G
-  g flags=0x30000003 length=2882880 P_2L 1G
-  g flags=0x30000003 length=2882880 P_2L 1G
+  g flags=0x06000000 length=2882880 P_2L 1G
+  g flags=0x06000003 length=2882880 P_2L 1G
+  g flags=0x06000003 length=2882880 P_2L 1G
   ornament 1 flags=0x00 x=0 y=0
-  G flags=0x30000003 length=5765760 P_2L 1G
-  g flags=0x10000000 length=2882880 P_2L 1G
-  c flags=0x30000000 length=2882880 P_3S 2C
+  G flags=0x06000003 length=5765760 P_2L 1G
+  g flags=0x02000000 length=2882880 P_2L 1G
+  c flags=0x06000000 length=2882880 P_3S 2C
   barline type=1 style=0
 
 BAR 18 (19)
-  g masq=2 flags=0x30000000 length=2882880 P_2L 1G
-  g masq=4 flags=0x30000000 length=2882880 P_2L 1G
-  g. masq=1 flags=0x20000800 length=2882880 P_2L 1G
-  g flags=0x30200000 length=2882880 P_2L 1G
-  g flags=0x30100000 length=2882880 P_2L 1G
-  g flags=0x30000000 length=0 P_2L 1G
-  g flags=0x30000010 length=0 P_2L 1G
-  g flags=0x38000000 length=2882880 P_2L 1G
+  g masq=2 flags=0x06000000 length=2882880 P_2L 1G
+  g masq=4 flags=0x06000000 length=2882880 P_2L 1G
+  g. masq=1 flags=0x04000800 length=2882880 P_2L 1G
+  g flags=0x06000000 nhstyle=0x02 length=2882880 P_2L 1G
+  g flags=0x06000000 nhstyle=0x01 length=2882880 P_2L 1G
+  g flags=0x06000000 length=0 P_2L 1G
+  g flags=0x06000010 length=0 P_2L 1G
+  g flags=0x06000000 nhstyle=0x80 length=2882880 P_2L 1G
   barline type=0 style=0
 
 BAR 19 (20)
-  a- flags=0x30000000 length=1441440 P_2S 1A
-  b- flags=0x30000000 length=1441440 P_3L 1B
+  a- flags=0x06000000 length=1441440 P_2S 1A
+  b- flags=0x06000000 length=1441440 P_3L 1B
   break beam 255
-  c- flags=0x30000000 length=1441440 P_0L 1C
-  d- flags=0x30000000 length=1441440 P_0S 1D
+  c- flags=0x06000000 length=1441440 P_0L 1C
+  d- flags=0x06000000 length=1441440 P_0S 1D
   break beam 255
-  a- flags=0x30000000 length=1441440 P_2S 1A
-  b- flags=0x30000000 length=1441440 P_3L 1B
+  a- flags=0x06000000 length=1441440 P_2S 1A
+  b- flags=0x06000000 length=1441440 P_3L 1B
   break beam 1
-  c- flags=0x30000000 length=1441440 P_0L 1C
-  d- flags=0x30000000 length=1441440 P_0S 1D
+  c- flags=0x06000000 length=1441440 P_0L 1C
+  d- flags=0x06000000 length=1441440 P_0S 1D
   barline type=0 style=0
 
 BAR 20 (21)
   ornament 15 flags=0x00 x=0 y=0
   (
-  g flags=0x30000040 length=2882880 P_2L 1G
-  e flags=0x30000040 length=2882880 P_1L 1E
-  c flags=0x30000040 length=2882880 P_0L 1C
+  g flags=0x06000040 length=2882880 P_2L 1G
+  e flags=0x06000040 length=2882880 P_1L 1E
+  c flags=0x06000040 length=2882880 P_0L 1C
   )
   ornament 16 flags=0x00 x=0 y=0
   (
-  c flags=0x10000040 length=2882880 P_3S 2C
-  e flags=0x10000040 length=2882880 P_4S 2E
-  g flags=0x10000040 length=2882880 P_5S 2G
+  c flags=0x02000040 length=2882880 P_3S 2C
+  e flags=0x02000040 length=2882880 P_4S 2E
+  g flags=0x02000040 length=2882880 P_5S 2G
   )
   ornament 17 flags=0x00 x=0 y=0
   (
-  g flags=0x30000040 length=2882880 P_2L 1G
-  e flags=0x30000040 length=2882880 P_1L 1E
-  c flags=0x30000040 length=2882880 P_0L 1C
+  g flags=0x06000040 length=2882880 P_2L 1G
+  e flags=0x06000040 length=2882880 P_1L 1E
+  c flags=0x06000040 length=2882880 P_0L 1C
   )
   ornament 18 flags=0x00 x=0 y=0
   (
-  c flags=0x10000040 length=2882880 P_3S 2C
-  e flags=0x10000040 length=2882880 P_4S 2E
-  g flags=0x10000040 length=2882880 P_5S 2G
+  c flags=0x02000040 length=2882880 P_3S 2C
+  e flags=0x02000040 length=2882880 P_4S 2E
+  g flags=0x02000040 length=2882880 P_5S 2G
   )
   barline type=0 style=0
 
@@ -228,18 +228,18 @@ STAVE 1
 
 BAR 0 (1)
   treble
-  g flags=0x30000080 length=2882880 P_-1S 0G
-  g flags=0x30000000 length=2882880 P_-1S 0G
-  c flags=0x30000000 length=2882880 P_0L 1C
-  c flags=0x30000080 length=2882880 P_0L 1C
+  g flags=0x06000080 length=2882880 P_-1S 0G
+  g flags=0x06000000 length=2882880 P_-1S 0G
+  c flags=0x06000000 length=2882880 P_0L 1C
+  c flags=0x06000080 length=2882880 P_0L 1C
   barline type=0 style=0
 
 STAVE 2
 
 BAR 0 (1)
   bass
-  d flags=0x10000100 length=2882880 P_6S 1D
-  d flags=0x10000000 length=2882880 P_6S 1D
-  b flags=0x10000000 length=2882880 P_5S 0B
-  b flags=0x10000100 length=2882880 P_5S 0B
+  d flags=0x02000100 length=2882880 P_6S 1D
+  d flags=0x02000000 length=2882880 P_6S 1D
+  b flags=0x02000000 length=2882880 P_5S 0B
+  b flags=0x02000100 length=2882880 P_5S 0B
   barline type=0 style=0

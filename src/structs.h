@@ -219,6 +219,7 @@ typedef struct {
   uint16_t spitch;
   uint8_t  acc_orig;
   uint8_t  char_orig;
+  uint8_t  noteheadstyle; 
 } b_notestr;
 
 typedef b_bytevaluestr b_noteheadsstr;
@@ -626,6 +627,7 @@ typedef struct sreadstr {
   uint16_t   fbsize;
    int16_t   hairpinbegun;
    int16_t   hairpinflags;
+  uint16_t   lasttiepitch;
    int16_t   maxaway;
   uint16_t   maxpitch;
   uint16_t   minpitch;
@@ -642,11 +644,11 @@ typedef struct sreadstr {
   uint8_t    accrit;
    int8_t    beamstemforce;
   uint8_t    chordcount;    /* Number of notes in last note/chord */
+  uint8_t    noteheadstyle; 
   uint8_t    ornament;
   uint8_t    pletflags;
    int8_t    stemsdirection;
    int8_t    tiesplacement;
-  uint16_t   lasttiepitch;
   CBOOL      beaming;
   CBOOL      noteson;
   CBOOL      laststemup;
@@ -997,7 +999,6 @@ typedef struct constr {
   uolaystr   *uolay;           /* pending {und,ov}erlay hyphens or extension */
   int32_t     tiex;            /* start position for tie */
   uint32_t    time;            /* time signature */
-  uint8_t     noteheadstyle;   /* sic */
   uint8_t     flags;           /* see below */
   uint8_t     clef;            /* current clef */
   uint8_t     key;             /* current key signature */
@@ -1006,8 +1007,7 @@ typedef struct constr {
 #define cf_bowingabove   1
 #define cf_notes         2     /* on/off switch */
 #define cf_triplets      4     /* on/off switch */
-#define cf_noteheads     8     /* on/off switch for noteheads only */
-#define cf_rdrepeat     16     /* last bar ended with double repeat */
+#define cf_rdrepeat      8     /* last bar ended with double repeat */
 
 #define cf_default (cf_bowingabove|cf_notes|cf_triplets)
 

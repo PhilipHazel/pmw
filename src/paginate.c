@@ -38,7 +38,6 @@ static contstr init_cont = {
   NULL,         /* ulay */
   0,            /* tiex */
   0,            /* time - reset from curmovt */
-  nh_normal,    /* noteheadstyle */
   cf_default,   /* flags */
   clef_treble,  /* clef */
   0             /* key - reset from curmovt */

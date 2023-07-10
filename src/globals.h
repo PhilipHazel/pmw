@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: May 2022 */
+/* This file last modified: July 2023 */
 
 
 /*************************************************
@@ -221,12 +221,14 @@ extern uint16_t     n_maxpitch;
 extern uint16_t     n_minpitch;
 extern b_tiestr    *n_nexttie;
 extern BOOL         n_nhtied;
+extern uint8_t      n_noteheadstyle;
 extern int          n_notetype;
 extern b_ornamentstr *n_ornament;
 extern int32_t      n_pcorrection;
 extern uint16_t     n_pitch;
 extern b_tiestr    *n_prevtie;
 extern int32_t      n_restlevel;
+extern BOOL         n_smallhead;
 extern int32_t      n_stemlength;
 extern int          n_upfactor;
 extern BOOL         n_upflag;

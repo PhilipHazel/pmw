@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: November 2021 */
+/* This file last modified: July 2023 */
 
 #include "pmw.h"
 
@@ -47,7 +47,6 @@ static uschar headchars[] = {
   'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n',    /* cross */
   'm', 'm', 'm', 'l', 'l', 'l', 'l', 'l',    /* harmonic */
    0,   0,   0,   0,   0,   0,   0,   0,     /* none */
-  '1', '2', 'M', 'L', 'L', 'L', 'L', 'L',    /* only = normal */
   178, 178, 178, 178, 178, 178, 178, 178     /* direct */
 };
 
@@ -308,7 +307,6 @@ uschar *p;
 int32_t fontsize = (n_fontsize*out_stavemagn)/1000;
 int32_t y = out_ystave - (n_pitch - P_1S)*out_pitchmagn - n_pcorrection;
 
-int noteheadstyle;
 int top = P_6L;
 int bot = P_0L;
 
@@ -317,12 +315,6 @@ BOOL positioned = FALSE;
 BOOL inverted = (n_flags & nf_invert) != 0;
 
 TRACE("show_note() start\n");
-
-/* Set the notehead style */
-
-noteheadstyle = ((n_flags & nf_nhharmonic) != 0)? nh_harmonic :
-                ((n_flags & nf_nhcross) != 0)? nh_cross :
-                bar_cont->noteheadstyle;
 
 /* Set up for coupled notes */
 
@@ -340,7 +332,7 @@ else if ((n_flags & nf_coupleD) != 0)
 /* First deal with ledger lines if required for 5- or 6-line staves. We can
 optimize into a single music-font string if the size is standard. */
 
-if (out_stavelines >= 5 && noteheadstyle != nh_none)
+if (out_stavelines >= 5 && n_noteheadstyle != nh_none)
   {
   int ledgergap;
   int toporbot;
@@ -443,8 +435,9 @@ where there is a complete character available in the music font. */
 
 p = buff;  /* Pointer for generating music font string. */
 
-if (n_notetype < dsquaver && n_stemlength == 0 && noteheadstyle == nh_normal &&
-    (n_flags & (nf_invert|nf_stem|nf_smallhead)) == nf_stem)
+if (n_notetype < dsquaver && n_stemlength == 0 &&
+    n_noteheadstyle == nh_normal && !n_smallhead &&
+    (n_flags & (nf_invert|nf_stem)) == nf_stem)
   {
   if ((n_flags & nf_appogg) != 0) *p++ = n_upflag? 129 : 130;
   *p++ = common_notes[n_notetype + n_upflag*6];
@@ -480,7 +473,7 @@ if ((n_flags & nf_stem) != 0)
     {
     if (yy <= y)    /* stem is lengthened */
       {
-      int stemch = (noteheadstyle == nh_cross)? 'o' : 'J';
+      int stemch = (n_noteheadstyle == nh_cross)? 'o' : 'J';
       int32_t z = yy;
       while (z <= y)
         {
@@ -492,7 +485,7 @@ if ((n_flags & nf_stem) != 0)
       ps_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z < y + font10) *p++ = stemch;
-      if (noteheadstyle == nh_harmonic) *p++ = 'q';
+      if (n_noteheadstyle == nh_harmonic) *p++ = 'q';
       }
 
     else            /* stem is shortened */
@@ -517,7 +510,7 @@ if ((n_flags & nf_stem) != 0)
     {
     if (yy >= y)    /* stem is lengthened */
       {
-      int stemch = (noteheadstyle == nh_cross)? 'p' : 'K';
+      int stemch = (n_noteheadstyle == nh_cross)? 'p' : 'K';
       int32_t z = yy;
       while (z >= y)
         {
@@ -529,7 +522,7 @@ if ((n_flags & nf_stem) != 0)
       ps_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z > y - font10) *p++ = stemch;
-      if (noteheadstyle == nh_harmonic) *p++ = 'r';
+      if (n_noteheadstyle == nh_harmonic) *p++ = 'r';
       }
 
     else            /* stem is shortened */
@@ -551,7 +544,7 @@ if ((n_flags & nf_stem) != 0)
 
 /* Now add the note head */
 
-if (noteheadstyle != nh_none)
+if (n_noteheadstyle != nh_none)
   {
   if (inverted)
     {
@@ -577,9 +570,9 @@ if (noteheadstyle != nh_none)
   /* The special case of a small note head is dealt with below; just omit
   the note head at this point. */
 
-  if ((n_flags & nf_smallhead) == 0)
+  if (!n_smallhead)
     {
-    *p++ = headchars[n_notetype + NOTETYPE_COUNT*noteheadstyle];
+    *p++ = headchars[n_notetype + NOTETYPE_COUNT*n_noteheadstyle];
 
     /* When printing right-to-left, we put some redundant spacing *after*
     inverted noteheads. This is just a fudge to fool the x-coordinate adjusting
@@ -600,13 +593,13 @@ The printing position should be in the correct place for a full size note head
 if a stem or ledger lines were output above. Arrange to output the notehead at
 the cue size, with a relative position adjusted to allow for the head size. */
 
-if ((n_flags & nf_smallhead) != 0)
+if (n_smallhead)
   {
   int32_t cue_fontsize = (curmovt->fontsizes)->fontsize_cue.size;
   int32_t sm_fontsize = (cue_fontsize * out_stavemagn)/1000;
 
   p = buff;
-  *p++ = headchars[n_notetype + NOTETYPE_COUNT*noteheadstyle];
+  *p++ = headchars[n_notetype + NOTETYPE_COUNT*n_noteheadstyle];
   *p = 0;
 
   if (positioned && (n_flags & nf_stem) != 0)
@@ -905,7 +898,7 @@ if ((bar_cont->flags & cf_notes) != 0 && (n_flags & nf_hidden) == 0)
 
     if (n_notetype == breve) adjustket += 5*out_stavemagn;
 
-    if ((n_flags & nf_smallhead) != 0)
+    if (n_smallhead)
       {
       if ((n_flags & nf_stem) != 0)
         {
@@ -1480,6 +1473,8 @@ n_flags = n_chordflags = p->flags;
 n_lastnote = p;
 n_length = p->length;
 n_masq = p->masq;
+n_noteheadstyle = p->noteheadstyle & nh_mask;
+n_smallhead = (p->noteheadstyle & nhf_smallhead) != 0;
 n_notetype = p->notetype;
 n_pitch = p->spitch;
 
@@ -1840,7 +1835,7 @@ if (n_notetype >= quaver)
     /* If not beaming, see if this is the start of one, and cause the beam to
     be output if it is. */
 
-    if (!out_beaming && (bar_cont->flags & cf_noteheads) == 0)
+    if (!out_beaming && (n_flags & nf_stem) != 0)
       out_beaming = out_setupbeam(p, out_moff + n_gracemoff, FALSE, FALSE);
 
     /* If beaming, compute the correct stem length and turn the note type into
@@ -2332,6 +2327,8 @@ if (n_chordcount > 1)
     n_acflags = tp->acflags;
     n_acc = tp->acc;
     n_accleft = (tp->accleft*out_stavemagn)/1000;
+    n_noteheadstyle = tp->noteheadstyle & nh_mask;
+    n_smallhead = (tp->noteheadstyle & nhf_smallhead) != 0;
 
     mac_couplepitch(n_pitch, n_flags);
     n_stemlength = (abs(n_pitch - lastpitch)/2 - (14*n_fontsize)/10000) * 1000;

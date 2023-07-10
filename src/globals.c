@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: May 2022 */
+/* This file last modified: July 2023 */
 
 #include "pmw.h"
 
@@ -174,12 +174,14 @@ uint16_t     n_maxpitch;
 uint16_t     n_minpitch;
 b_tiestr    *n_nexttie;
 BOOL         n_nhtied;
+uint8_t      n_noteheadstyle;
 int          n_notetype;
 b_ornamentstr *n_ornament;
 int32_t      n_pcorrection;
 uint16_t     n_pitch;
 b_tiestr    *n_prevtie;
 int32_t      n_restlevel;
+BOOL         n_smallhead;
 int32_t      n_stemlength;
 int          n_upfactor;
 BOOL         n_upflag;

@@ -430,6 +430,7 @@ sreadstr init_sreadstr = {
   ff_offset_fbass,    /* fbsize */
   0,                  /* hairpinbegun */
   hp_below,           /* hairpinflags */
+  0,                  /* lasttiepitch */
   0,                  /* maxaway */
   0,                  /* maxpitch */
   UINT16_MAX,         /* minpitch */
@@ -446,7 +447,7 @@ sreadstr init_sreadstr = {
   3,                  /* accrit */
   0,                  /* beamstemforce */
   0,                  /* chordcount */
-  0,                  /* lasttiepitch */
+  nh_normal,          /* noteheadstyle */ 
   0,                  /* ornament */
   0,                  /* pletflags */
   0,                  /* stemsdirection: 0 => auto */

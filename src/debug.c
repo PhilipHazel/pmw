@@ -1242,6 +1242,7 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
     if (nt->masq != MASQ_UNSET) eprintf(" masq=%d", nt->masq);
     if (nt->acflags != 0) eprintf(" acflags=0x%08x", nt->acflags);
     eprintf(" flags=0x%08x", nt->flags);
+    if (nt->noteheadstyle != 0) eprintf(" nhstyle=0x%02x", nt->noteheadstyle); 
     eprintf(" length=%d", nt->length);
     if (nt->yextra != 0) eprintf(" yextra=%s", sff(nt->yextra));
 
@@ -1258,10 +1259,6 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
     eprintf("\n");
     if (b->type == b_chord && b->next != NULL && b->next->type != b_chord)
       eprintf("  )\n");
-    break;
-
-    case b_noteheads:
-    eprintf("  [noteheads %d]\n", ((b_bytevaluestr *)b)->value);
     break;
 
     case b_notes:

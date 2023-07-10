@@ -627,21 +627,17 @@ space in 32-bits. */
 #define nf_highdot     0x00020000u  /* Move space dot up to next space */
 #define nf_invert      0x00040000u  /* Print this note on other side of stem */
 #define nf_lowdot      0x00080000u  /* Print dots/plus below line */
-#define nf_nhcross     0x00100000u  /* Cross notehead */
-#define nf_nhharmonic  0x00200000u  /* Harmonic (diamond) notehead */
-#define nf_nopack      0x00400000u  /* Do not pack this rest bar */
-#define nf_noplay      0x00800000u  /* Do not play - note tied */
-#define nf_plus        0x01000000u  /* Augmentation plus */
-#define nf_restrep     0x02000000u  /* Rest displayed as repetition sign */
-#define nf_shortened   0x04000000u  /* This note's stem has been automatically shortened */
-#define nf_smallhead   0x08000000u  /* Small notehead */
-#define nf_stem        0x10000000u  /* This note has a stem */
-#define nf_stemup      0x20000000u  /* Stem direction */
-#define nf_tripletize  0x40000000u  /* Check note for tripletizing */
+#define nf_nopack      0x00100000u  /* Do not pack this rest bar */
+#define nf_noplay      0x00200000u  /* Do not play - note tied */
+#define nf_plus        0x00400000u  /* Augmentation plus */
+#define nf_restrep     0x00800000u  /* Rest displayed as repetition sign */
+#define nf_shortened   0x01000000u  /* This note's stem has been automatically shortened */
+#define nf_stem        0x02000000u  /* This note has a stem */
+#define nf_stemup      0x04000000u  /* Stem direction */
+#define nf_tripletize  0x08000000u  /* Check note for tripletizing */
 
 #define nf_couple      (nf_coupleU+nf_coupleD)
 #define nf_dotted      (nf_dot+nf_dot2+nf_plus)
-#define nf_notrests    (nf_stemup|nf_smallhead|nf_headbra)
 
 /* Flags for the tie item (currently 8-bits) */
 
@@ -654,17 +650,21 @@ space in 32-bits. */
 #define tief_savedash   0x40u
 
 /* Notehead type options. If these are changed, the "headchars" table in
-setnote.c must also be changed. No stems are printed for values greater than or
-equal to nh_only. */
+setnote.c must also be changed. */
 
-enum { nh_normal,           /* conventional noteheads, with stems and beams */
-       nh_cross,            /* X noteheads, with stems and beams */
-       nh_harmonic,         /* diamond-shaped, with stems and beams */
-       nh_none,             /* no noteheads, just stems and beams */
-       nh_only,             /* conventional noteheads, no stems or beams */
-       nh_direct,           /* fancy 'w', no stems or beams */
+enum { nh_normal,           /* conventional noteheads */
+       nh_cross,            /* X noteheads */
+       nh_harmonic,         /* diamond-shaped */
+       nh_none,             /* no noteheads */
+       nh_direct,           /* fancy 'w' */
        nh_number            /* number of special noteheads values */
 };
+
+/* The mask is for the bottom bits of a note's noteheadstyle field, which
+contain one of the values above, leaving the rest for flags. */
+
+#define nh_mask 0x07u
+#define nhf_smallhead   0x80u         /* Small notehead */
 
 /* Flags for accents on a note. Ornaments are held separately, as individual
 numbers less than 256, but both accent and ornament encodings are listed in a

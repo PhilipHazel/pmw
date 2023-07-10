@@ -1023,26 +1023,39 @@ brs.nocount = TRUE;
 static void
 p_noteheads(void)
 {
-b_noteheadsstr *p = mem_get_item(sizeof(b_noteheadsstr), b_noteheads);
+usint value;
 
-if (dir->arg1 < nh_number) p->value = dir->arg1; else
+srs.noteflags |= nf_stem;   /* All except "only" and "direct" set a stem */
+
+if (dir->arg1 < nh_number) 
+  {
+  value = dir->arg1;
+  }
+else    
   {
   read_nextword();
-  if (Ustrcmp(read_wordbuffer, "only") == 0) p->value = nh_only;
-  else if (Ustrcmp(read_wordbuffer, "direct") == 0) p->value = nh_direct;
-  else if (Ustrcmp(read_wordbuffer, "normal") == 0) p->value = nh_normal;
-  else if (Ustrcmp(read_wordbuffer, "harmonic") == 0) p->value = nh_harmonic;
-  else if (Ustrcmp(read_wordbuffer, "cross") == 0) p->value = nh_cross;
-  else if (Ustrcmp(read_wordbuffer, "none") == 0) p->value = nh_none;
+  if (Ustrcmp(read_wordbuffer, "only") == 0) 
+    {
+    value = srs.noteheadstyle & nh_mask;  /* Existing value */
+    srs.noteflags &= ~nf_stem;
+    }  
+  else if (Ustrcmp(read_wordbuffer, "direct") == 0)
+    {
+    value = nh_direct;
+    srs.noteflags &= ~nf_stem;
+    }  
+  else if (Ustrcmp(read_wordbuffer, "normal") == 0) value = nh_normal;
+  else if (Ustrcmp(read_wordbuffer, "harmonic") == 0) value = nh_harmonic;
+  else if (Ustrcmp(read_wordbuffer, "cross") == 0) value = nh_cross;
+  else if (Ustrcmp(read_wordbuffer, "none") == 0) value = nh_none;
   else
     {
     error(ERR8, "\"normal\", \"harmonic\", \"cross\", \"none\", \"only\", or \"direct\"");
-    p->value = nh_normal;
+    value = nh_normal;
     }
   }
 
-if (p->value < nh_only) srs.noteflags |= nf_stem;
-  else srs.noteflags &= ~nf_stem;
+srs.noteheadstyle = (srs.noteheadstyle & ~nh_mask) | value;
 }
 
 
