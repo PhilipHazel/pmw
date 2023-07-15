@@ -1887,6 +1887,7 @@ for (xml_item *mi = measure->next;
     newnote->spitch = 0;
     newnote->acc_orig = ac_no;
     newnote->char_orig = 'Z';
+    newnote->noteheadstyle = nh_normal;
 
     /* The duration value is documented as intended for a performance vs
     notated value, but hopefully <backup> values, which are also durations,
