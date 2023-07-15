@@ -1,0 +1,6 @@
+nocheck unfinished notime
+
+*define X() &&1-\nz\[backup]&&1+
+
+[stave 1 treble 1]
+&X(g) #&X(g)\>\ &X(c')

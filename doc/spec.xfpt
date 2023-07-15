@@ -20,8 +20,8 @@
 . Three ampersands
 .set A3 "&amp;&amp;&amp;"
 
-.set sharp "<superscript><emphasis role=""PMW-Music/8"">zz%</emphasis></superscript>"
-.set flat  "<superscript><emphasis role=""PMW-Music/9"">zz&#39;</emphasis></superscript>"
+.set sharp "<?sdop superscript_up='20'?><superscript><emphasis role=""PMW-Music/8"">zz%</emphasis></superscript><?sdop superscript_up='33'?>"
+.set flat  "<?sdop superscript_up='8'?><superscript><emphasis role=""PMW-Music/9"">zz&#39;</emphasis></superscript><?sdop superscript_up='33'?>"
 
 . Bracket top, middle, bottom, 12 point
 .set BT12  "<emphasis role=""Times-Roman/12/0"">&#x23a4;</emphasis>"
@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>27 June 2023</date>
+<date>10 July 2023</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.21</revnumber>
-  <date>27 June 2023</date>
+  <date>10 July 2023</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2023</year><holder>Philip Hazel</holder></copyright>
@@ -517,13 +517,13 @@ standard output.
 .index "fonts" "including in the output"
 .index "music font, including in the output"
 If you use the &%-incPMWfont%& option on the &(pmw)& command line, or put it in
-your &_.pmwrc_& file, PMW includes the PostScript Type 1 version of the
-PMW-Music font and/or the PMW-Alpha font in every output file that needs them.
-This resulting files are freestanding PostScript files that should be printable
-or viewable without any special action. However, the files are larger by about
-30&--40K for each of the two fonts. This facility is not available with the
-OpenType version of PMW-Music, as such fonts cannot be embedded within
-a PostScript program.
+your &_.pmwrc_& file, or use the &%incPMWfont%& directive in your input file,
+PMW includes the PostScript Type 1 version of the PMW-Music font and/or the
+PMW-Alpha font in every output file that needs them. This resulting files are
+freestanding PostScript files that should be printable or viewable without any
+special action. However, the files are larger by about 30&--40K for each of the
+two fonts. This facility is not available with the OpenType version of
+PMW-Music, as such fonts cannot be embedded within a PostScript program.
 
 
 .section "Problems with displaying staves and bar lines"
@@ -532,7 +532,7 @@ a PostScript program.
 By default, staves and bar lines are output using characters from PMW's music
 font. Some PostScript interpreters do not display these correctly on the
 screen, and sometimes there are also printing problems. To help with these
-issues, the way PMW works can be modified by command line options (see chapter
+issues, the way PMW works can be modified by command line options (&R;
 &<<CHAPrunningpmw>>&). If your output does not show staves or bar lines
 correctly, experiment with these options to see if they can resolve the issue.
 Note that default option settings can be put in your &_.pmwrc_& file.
@@ -544,7 +544,8 @@ Staves are normally output using two characters that are 100 points and 10
 points wide, respectively, at the default magnification. Some PostScript
 interpreters cannot handle characters as wide as 100 points, and either display
 nothing, or give errors. The &%-nowidechars%& option suppresses the use of the
-wide characters.
+wide characters. There is also a &%nowidechars%& directive that can be included
+in your input file.
 
 .subsection "Gaps in staves"
 .index "screen display" "gaps in staves"
@@ -553,15 +554,16 @@ Sometimes PMW output is displayed with gaps in the staves, even when
 sometimes just a problem with a screen display; the same file often prints
 correctly. If the option &%-drawstavelines%& is used, staves are output as
 PostScript drawing commands instead of as characters. This option overrides
-&%-nowidechars%&.
+&%-nowidechars%&.  There is also a &%drawstavelines%& directive that can be
+included in your input file.
 
 .subsection "Gaps in bar lines"
 .index "screen display" "gaps in bar lines"
 Sometimes PMW output is displayed with gaps in bar lines that extend over
 several staves. This is sometimes just a problem with a screen display; the
-same file often prints correctly. If the option &%-drawbarlines%& is used,
-bar lines are output as PostScript drawing commands instead of as characters.
-
+same file often prints correctly. If the option &%-drawbarlines%& is used, bar
+lines are output as PostScript drawing commands instead of as characters. There
+is also a &%drawbarlines%& directive that can be included in your input file.
 
 .section "Antialiasing and the screen display"
 .index "antialiasing"
@@ -603,10 +605,10 @@ using CUPS it may `just work'.
 
 .section "Printing PMW output on a PostScript printer"
 .index "PostScript printer"
-Unless you use the &%-incPMWfont%& command line option, the PostScript output
-that PMW generates is not totally freestanding. It expects the PMW PostScript
-music font to be loaded into the printer in advance. If this has not been done,
-an error will occur.
+Unless you use the &%-incPMWfont%& command line option or the &%incPMWfont%&
+directive, the PostScript output that PMW generates is not totally
+freestanding. It expects the PMW PostScript music font to be loaded into the
+printer in advance. If this has not been done, an error will occur.
 
 If you have full control of a PostScript printer, you can load the Music
 font(s) into it once, and then send any number of music files to be printed. To
@@ -640,10 +642,11 @@ something like this:
 .endd
 If you do not have full control over the printer, or do not want to load the
 fonts permanently, you should always use the &%-incPMWfont%& option on the PMW
-command line, or put it in your &_.pmwrc_& file, so that the music fonts are
-included in the PMW output. Alternatively, if you are using the CUPS printing
-system, which uses &'GhostScript'& to interpret PostScript for printing,
-ensuring that the music fonts are known to &'GhostScript'& may be sufficient.
+command line, or put it in your &_.pmwrc_& file, or include the &%incPMWfont%&
+directive in your input, so that the music fonts are included in the PMW
+output. Alternatively, if you are using the CUPS printing system, which uses
+&'GhostScript'& to interpret PostScript for printing, ensuring that the music
+fonts are known to &'GhostScript'& may be sufficient.
 
 
 .section "Uninstalling PMW"
@@ -710,7 +713,7 @@ before printing.
 .vitem "&%-C%& <&'arg'&>"
 
 Show the setting of a compile-time option and then exit with its value, which
-is 1 for `set' and 0 for `unset'. The possible arguments are &`B2PF`& for B2PF
+is 1 for `set' and 0 for `unset'. The possible arguments are &`b2pf`& for B2PF
 support (&R; &<<SUBSECTb2pffont>>&) and &`musicxml`& for MusicXML support (&R;
 &<<APPA>>&).
 
@@ -822,7 +825,7 @@ If you use this option, there is no need to install the font(s) for
 &'GhostScript'& (or any other display program), nor do you need to download
 them separately to a PostScript printer. However, it does mean that each PMW
 output file is bigger by about 40K for PMW-Music and 31K for PMW-Alpha. Note
-that this option applies only to PMW's music fonts. See also the &%incpmwfont%&
+that this option applies only to PMW's music fonts. See also the &%incPMWfont%&
 header directive. The &%textfont%& directive (&R; &<<SUBSECTtextfont>>&)
 provides a way of including other fonts in the output.
 
@@ -2267,8 +2270,9 @@ natural) has the effect of moving the accidental 5 points to the left. This is
 sufficient to get it clear.
 
 
-.subsection "The [reset] directive"
+.subsection "The [reset] and [backup] directives"
 .index "&%[reset]%&"
+.index "&%[backup]%&
 .index "overprinting" "single bars"
 If a stave can mostly be encoded using only a single PMW stave, but there are
 one or two bars where stems in opposite directions are required, the
@@ -2279,6 +2283,7 @@ could be encoded on a single PMW stave like this:
 .code
 [stems up] Ae' [reset] [stems down] e_/b da |
 .endd
+There is also a &%[backup]%& directive, which just backs up by one note.
 
 
 .subsection "Invisible rests"
@@ -2848,8 +2853,8 @@ introductory &`@`& character to the end of the line are ignored.
 Line breaks are not permitted within the options that follow a note between two
 backslash characters, whereas other white space is allowed.
 .next
-When a directive takes a list of numerical arguments, these can be separated
-by commas and/or white space, but must all be on one line.
+When a directive name is followed by a list of stave numbers, these can be
+separated by commas and/or white space, but must all be on one line.
 .next
 Line breaks are not permitted within the arguments of a macro call (&R;
 &<<SECTdefine>>&), nor within the argument of a string repetition (&R;
@@ -3030,11 +3035,11 @@ at the start of the new movement.
 .index "movement" "first "
 .index "directives" "first movement only"
 However, the following directives may appear at the start of the first movement
-only: &%b2pffont%&, &%landscape%&, &%magnification%&, &%maxvertjustify%&,
-&%midifornotesoff%&, &%musicfont%&, &%nokerning%&, &%page%&, &%pagelength%&,
-&%righttoleft%&, &%sheetdepth%&, &%sheetsize%&, &%sheetwidth%&, and
-&%textfont%&.
-
+only: &%b2pffont%&, &%drawbarlines%&, &%drawstavelines%&, &%eps%&,
+&%incPMWfont%&, &%landscape%&, &%magnification%&, &%maxvertjustify%&,
+&%midifornotesoff%&, &%musicfont%&, &%nokerning%&, &%nowidechars%&, &%page%&,
+&%pagelength%&, &%righttoleft%&, &%sheetdepth%&, &%sheetsize%&, &%sheetwidth%&,
+and &%textfont%&.
 
 
 .section "Input preprocessing" SECTpreprocess
@@ -5212,9 +5217,10 @@ is the same value as &%headtop%&.
 stave of the current system to the bottom of the bottom stave.
 .next
 &%topleft%&: This variable contains the coordinates of the position at which
-PMW starts writing on a page, relative to the current origin. This is normally
-one inch down from the top of the paper, and indented according to the sheet
-width and line length. This variable can be used with &%translate%& to move the
+PMW starts writing on a page, relative to the current origin. When encountered,
+it pushes &'two'& values onto the stack. The normal starting position is one
+inch down from the top of the paper, and indented according to the sheet width
+and line length. This variable can be used with &%translate%& to move the
 origin to a fixed point
 .index "crop marks"
 on the page in order to draw such things as crop marks.
@@ -5250,7 +5256,7 @@ the input than its first use as a reference. If a variable is set in one
 drawing function and used in another, the definition of the one in which it is
 set must come first in the PMW input file. This is not always possible. For
 example, when the defining function calls the other function, the called
-function must come first. In such a case, a dummy drawing function that is
+function must come first. In such cases, a dummy drawing function that is
 defined but never obeyed can be used for the sole purpose of defining user
 variable names.
 
@@ -6536,7 +6542,7 @@ of the different styles in section &<<SUBSECThalfaccs>>&.
 .index "time signatures" "modified"
 This directive, which applies to the current movement only, causes the length
 of each note to be halved throughout the movement. It also affects the current
-time signature and any subsequent time signature settingss as follows:
+time signature and any subsequent time signature settings as follows:
 .ilist
 &`C`& and &`A`& cannot be halved. The signatures &`2*C`& and &`2*A`& can be
 halved, and turn into &`C`& and &`A`& respectively.
@@ -6697,7 +6703,7 @@ of these is present, the number specifies an absolute value.
 .subsection "IncPMWfont aka IncludePMWfont"
 .index "&%incpmwfont%&"
 This directive, which takes no arguments, is permitted only in the first
-movement. It has exactly the same effect as the &%-incpmwfont%& command line
+movement. It has exactly the same effect as the &%-incPMWfont%& command line
 option, which is to include the PostScript Type 1 version of the PMW-Music font
 and/or the PMW-Alpha font in every output file that needs them.
 
@@ -6935,8 +6941,9 @@ directive applies only to the movement in which it appears. If you use
 
 It its simplest form, &%layout%& is followed by a list of numbers, separated by
 commas or white space. If the list is long, it can be split into several lines
-of input. Each number in the list specifies the number of bars in a system. If
-there are more systems than numbers, the list is restarted from the beginning.
+of input (unlike lists of staves in directives such as &%breakbarlines%&). Each
+number in the list specifies the number of bars in a system. If there are more
+systems than numbers, the list is restarted from the beginning.
 .code
 layout 4
 .endd
@@ -7743,10 +7750,11 @@ default font at the start of each string is the font specified by the
 default font is the bold font. However, changes of font are permitted within
 the strings. The default size of the text for &%printtime%& is that specified
 by &%timefont%&, with 11.8 points as the ultimate default. However, as shown in
-the third example above, you can follow each text string with &`/s`& and a
-number, to specify a particular size for a given string. The number refers to
-the list of text sizes specified by the &%textsizes%& directive, which in this
-example has set size 2 to 20 points.
+the third example above, you can follow each text string with &`/s`& or &`/S`&
+and a number, to specify a particular size for a given string (&R;
+&<<SUBSECTtextsizeoption>>&). For &`s`&, the number refers to the list of text
+sizes specified by the &%textsizes%& directive, which in this example has set
+size 2 to 20 points. For &`/S`&, the number refers to one of the fixed sizes.
 .index "time signatures" "circle"
 The fourth example uses character 147 from the music font (requested by the
 asterisks) to output an old-fashioned signature in the form of a circle.
@@ -7836,9 +7844,9 @@ repeats like this:
 .music "music67" 32 0,-16
 
 You can use conditional pre-processing directives (&R;
-&<<SUBSECTconditional>>&) to arrange for wings to appear only parts, and not on
-a score. If there is more than one stave in a system, `wings' are added to the
-top and bottom staves only.
+&<<SUBSECTconditional>>&) to arrange for wings to appear only in parts, and not
+in a score. If there is more than one stave in a system, wings are added to
+the top and bottom staves only.
 
 
 .subsection "Righttoleft" SUBSECTrighttoleft
@@ -8119,7 +8127,7 @@ all of which are present throughout the piece, it is a common requirement that
 there be more space between the last vocal stave (whichever it is) and the
 first accompaniment stave. Changing the stave spacing every time the last vocal
 line is suspended or resumed can be avoided by using a triple in the
-&%stavespacing%& directive. Whenever three numbers appear as a argument to
+&%stavespacing%& directive. Whenever three numbers appear as an argument to
 &%stavespacing%&, the second number specifies a &'minimum'& space &'above'& the
 given stave, and the third specifies the space below it.
 .code
@@ -8138,8 +8146,9 @@ A value of zero may be given for the spacing. This causes two successive staves
 to appear on top of each other, and can be useful for setting two lines of
 music on the same stave. It can also be useful for a figured bass line, using
 invisible notes to set the horizontal positioning for the figures. However, if
-only a few bars of a piece require overprinting, the &%[reset]%& stave
-directive may be more convenient than the use of a complete overprinted stave.
+only a few bars of a piece require overprinting, the &%[reset]%& or
+&%[backup]%& stave directives may be more convenient than the use of a complete
+overprinted stave.
 
 
 
@@ -8293,9 +8302,9 @@ any system that contains only one stave.
 .index "fonts" "additional"
 .index "additional fonts"
 This directive is permitted only in the first movement. By default, all text
-string use the &'Times'& series of fonts. This directive can be used to specify
-alternative fonts and also to define up to twelve additional fonts. It takes
-the following form:
+strings use the &'Times'& series of fonts. This directive can be used to
+specify alternative fonts and also to define up to twelve additional fonts. It
+takes the following form:
 .display
 &`textfont`& <&'fontword'&> "<&'full font name'&>"
 .endd
@@ -8548,7 +8557,7 @@ underlaid text.
 underlaysize 9.5
 .endd
 Individual items of underlay text can be output at different sizes by using
-the &`/s`& or &`\S`& text qualifier. The size parameters for underlaid and
+the &`/s`& or &`/S`& text qualifier. The size parameters for underlaid and
 overlaid text are separate and independent.
 
 
@@ -8658,23 +8667,24 @@ This is notated by three vertical bars in succession.
 .index "bar lines" "empty bar"
 .index "empty bar"
 To encode a totally empty bar it is necessary to include at least one space
-between two vertical bar characters.
+between two vertical bar characters. The amount of horizontal space that is
+inserted after a bar line is controlled by the &%barlinespace%& directive.
 
 .index "bar lines" "styles"
-There are six different styles for barlines (&R; &<<SUBSECTbarlinestyle>>&). The
-default style can be set by &%barlinestyle%& (for the whole piece) or
-&%[barlinestyle]%& (for an individual stave). In addition, the style of any
-individual bar line may be specified by following the vertical bar character
-with a digit in the range 0&--5. Note that the &%breakbarlines%& directive can
-be used to specify breaks in bar lines at particular staves. This overall
-setting can be overridden for individual bars by using the &%[breakbarline]%&
-or &%[unbreakbarline]%& stave directives.
+There are six different styles for single barlines (&R;
+&<<SUBSECTbarlinestyle>>&). The default style can be set by &%barlinestyle%&
+(for the whole piece) or &%[barlinestyle]%& (for an individual stave). In
+addition, the style of any individual bar line may be specified by following
+the vertical bar character with a digit in the range 0&--5. Note that the
+&%breakbarlines%& directive can be used to specify breaks in bar lines at
+particular staves. This overall setting can be overridden for individual bars
+by using the &%[breakbarline]%& or &%[unbreakbarline]%& stave directives.
 
-The amount of horizontal space that is inserted after a bar line is controlled
-by the &%barlinespace%& directive. Normally, the end of a bar marks the end of
-a set of beamed notes. It is, however, possible to carry a beam over the bar
-line and into the next bar. This is done by following the vertical bar
-character by an equals sign in the input (&R; &<<SUBSECTbeamoverbar>>&).
+Normally, the end of a bar marks the end of a set of beamed notes. If a bar
+line encoding is followed by an equals sign, any existing beam is carried over
+the bar line and into the next bar if it starts with a suitable note (&R;
+&<<SUBSECTbeamoverbar>>&). This applies all forms of bar line, including
+invisible bar lines.
 
 
 .subsection "Invisible bar lines" SUBSECTinvisbar
@@ -9191,18 +9201,25 @@ of a rest sign, the conventional `repeat previous bar' sign
 .index "rests" "length"
 The primary length of a note or rest (visible or invisible) is indicated by the
 case of its letter. An upper case (capital) letter is used for a minim, and a
-lower case (small) letter for a crotchet.
+lower case (small) letter for a crotchet. The primary length is changed by the 
+addition of &`+`&, &`-`&, and &`=`& characters, which follow any
+quotes or grave accents that adjust the note's octave, for example: &`C'+`&.
+These characters can be freely mixed on any note, but &`+`& normally follows an 
+upper case letter whereas &`-`& and &`=`& normally follow a lower case letter.
+The only restriction is the maximum and minimum supported note length (breve 
+and hemi-demi-semiquaver).
+
 .index "breve" "specifying"
-Notes or rests longer than a minim are constructed by the addition of plus
-signs, each of which doubles the length. One plus makes a semibreve, two make a
-breve.
 .index "flags"
 .index "notes" "flags"
-Notes or rests shorter than a crotchet have `flags'. A minus sign is a single
-flag for a quaver, an equals sign is two flags for a semiquaver, an equals
-followed by a minus sign is three flags for a demi-semiquaver, and two equals
-signs are four flags for a hemi-demi-semiquaver. If the note letter is followed
-by quotes or grave accents as part of its pitch, the flags follow these.
+A plus character doubles the note's length. If used after an upper case letter
+it gives a semibreve (one plus) or a breve (two plusses). A hyphen halves the
+note length and an equals sign divides it by four. If used after a lower case
+letter, the number of horizontal lines in these characters is equal to the
+number of `flags' that are attached to the stem of the note. A minus sign is a
+single flag for a quaver, an equals sign is two flags for a semiquaver, an
+equals followed by a minus sign is three flags for a demi-semiquaver, and two
+equals signs are four flags for a hemi-demi-semiquaver.
 
 .index "&%[doublenotes]%&"
 .index "&%doublenotes%&"
@@ -9250,7 +9267,7 @@ are five beats in a bar.
 .endd
 This example outputs a semibreve followed by a plus, indicating a note whose
 length is equal to five crotchets. Here are some examples of notes and rests of
-different lengths without any halving or doubling:
+different lengths without any automatic halving or doubling:
 .itable none 0 0 2  60 left 200 left
 .row &`A++`&    "breve"
 .row &`#B`+`&   "semibreve"
@@ -9579,8 +9596,12 @@ follows:
 .row &`\g/\`&             "grace note with slanted line"
 .row &`\h\`&              "do not put on coupled stave (&R; &<<SUBSECTcoupleintro>>&)"
 .row &`\m\`&              "masquerade note (&R; &<<SUBSECTmasquerade>>&)"
-.row &`\nh\`&             "use harmonic (diamond) notehead"
-.row &`\nx\`&             "use cross notehead"
+.row &`\nd\`&             "`direct' notehead"
+.row &`\nh\`&             "harmonic (diamond) notehead"
+.row &`\nn\`&             "normal notehead"
+.row &`\no\`&             "notehead only, no stem"
+.row &`\nx\`&             "cross notehead"
+.row &`\nz\`&             "no notehead"
 .row &`\o\`&              "small circle over note (harmonic)"
 .row &`\sd\`&             "force note stem down"
 .row &`\su\`&             "force note stem up"
@@ -9601,7 +9622,9 @@ follows:
 .row &`\x\`&              "cancel default expression (&R; &<<SECTrepexpr>>&)"
 .endtable
 
-.music "music39" 132 4,-12
+Here are some examples (there is further discussion below):
+
+.music "music39" 164 4,-12
 
 More than one of these character sequences can be present between the
 backslashes, and spaces can be used to separate them, for example:
@@ -9634,6 +9657,11 @@ any other note or rest &`\C\`& is ignored. In fact, &`\C\`& flips the centring
 state of the note or rest, so &`R!\C\`& can be used for a whole bar rest that
 is &'not'& centred.
 
+The options that start with the letter &`n`& adjust the notehead setting for an
+individual note. The default is set by the &%[noteheads]%& stave directive,
+whose description contains the full details (&R; &<<SUBSECTnoteheadstave>>&).
+In a chord, these options apply only to the note on which they appear, so it is
+possible to have a mixture of noteheads in a chord.
 
 
 .subsection "General accent notation" SUBSECTgenaccnot
@@ -10949,10 +10977,11 @@ syllable can be moved up, down, left or right as required. However, it is
 normally easier to input underlay in longer strings. If a string of underlay
 text contains space and/or hyphen characters, it is automatically split up by
 PMW and allocated to the notes that follow. However, after an occurrence of the
-&%[reset]%& directive (&R; &<<SUBSECTreset>>&), distribution of underlay
-syllables is suspended until the overprinting notes or rests have reached the
-reset point. In the following example, the words `brown fox' are associated
-with the final two crotchets in the bar.
+&%[reset]%& or &%[backup]%& directives (&R; &<<SUBSECTreset>>&,
+&<<SUBSECTbackup>>&), distribution of underlay syllables is suspended until the
+overprinting notes or rests have reached the reset/backup point. In the
+following example, the words `brown fox' are associated with the final two
+crotchets in the bar.
 .code
 "The quick brown fox"/ul gg [reset] eeee |
 .endd
@@ -11399,6 +11428,45 @@ for setting the key and the time.
 The use of this directive is not confined to overprinted staves.
 
 
+.subsection "[Backup]" SUBSECTbackup
+.index "&%[backup]%&"
+.index "overprinting" "previous note"
+This directive moves the musical position in the bar back to that of the
+previous note, thus allowing the previous note to be overprinted. To overprint
+a whole bar, see &%[reset]%& (&R; &<<SUBSECTreset>>&), and to overprint a whole
+stave, use another stave with zero stavespacing (&R;
+&<<SUBSECTstavespacing>>&). &%[Backup]%& is an alternative to &%[reset]%&
+followed by invisible rests, but is not exactly equivalent:
+
+.ilist
+After &%[reset]%& the state of the implied accidentals (relevant for MIDI
+output) is re-initialized from the key signature, whereas there is no change
+for &%[backup]%&.
+.next
+&%[Backup]%& is permitted inside irregular note groups such as triplets,
+provided that it follows at least one note, whereas &%[reset]%& is not allowed.
+.endlist
+Here's an example of the use of &%[backup]%& to create a non-standard shorthand
+for a minim that is to be played as four quavers. A macro is used to
+demonstrate how this can be packaged for multiple uses.
+
+.code
+*define X() &&1-\nz\[backup]&&1+
+[stave 1 treble 1]
+&X(g) #&X(g)\>\ &X(c')
+.endd
+
+.music "music71" 36 4,-18
+
+The argument of the macro is a note letter with an optional octave indication.
+This is first output as a quaver without a notehead (using &`\nz\`&), followed
+by an overprinted minim, which is coded as a doubled crotched so that a single
+lower case letter can be used for both notes. Note that the shorter of the two
+notes is given first so that the whole item has the length of a minim. Note
+also that an accidental may precede the whole item, and note options may
+follow.
+
+
 .subsection "[Baritone]"
 .index "&%[baritone]%&"
 This specifies an F clef based on the third stave line (&R; &<<SECTclef>>&).
@@ -11569,15 +11637,15 @@ zero).
 .index "treble/bass coupling"
 .index "bass/treble coupling"
 .index "staves" "coupled"
-A single music part, notated as one PMW stave, can be spread across a pair of
-bass and treble staves. This is commonly found in keyboard music. If &%[couple
-up]%& is given on a bass clef stave, it specifies that notes higher than middle
-C should be positioned on the stave above, which is assumed to be a treble clef
-stave. Similarly, &%[couple down]%& couples a treble clef stave to the bass
-clef stave below, and there is also &%[couple off]%& to terminate the coupling.
-A stave can be coupled only one way at once. However, there is no reason why a
-pair of staves should not both be simultaneously coupled to each other. An
-example of coupling is given in section &<<SUBSECTcoupleintro>>&.
+A single music part, notated as one PMW stave, can be spread across two staves.
+This is a common requirement in keyboard music. If &%[couple up]%& is given on
+a bass clef stave, it specifies that notes higher than middle C should be
+positioned on the stave above, which is assumed to be a treble clef stave.
+Similarly, &%[couple down]%& couples a treble clef stave to the bass clef stave
+below, and there is also &%[couple off]%& to terminate the coupling. A stave
+can be coupled only one way at once. However, there is no reason why a pair of
+staves should not both be simultaneously coupled to each other. An example of
+coupling is given in section &<<SUBSECTcoupleintro>>&.
 
 &*Warning 1:*& Coupling only works properly if the upper stave is using the
 treble clef and the lower one is using the bass clef.
@@ -12348,28 +12416,24 @@ in musical extracts and examination papers to indicate a pitch without
 specifying a time value. This character is in PMW's font and can be positioned
 as a text item, and it is also available as an exotic fifth form of notehead.
 It is possible to use any of the noteheads without stems. &%[Noteheads]%&
-controls these features. It must be followed by one of the words `normal',
-`harmonic', `cross', `none', `only', or `direct', and it sets the style for
-subsequent notes.
+controls the default settings of these features for subsequent notes. It must
+be followed by one of the words `normal', `harmonic', `cross', `none', `only',
+or `direct'.
 
 .music "music65" 35 10,-18
 
-For individual notes, the option settings &`\nh\`& and &`\nx\`& can be used to
-override the default and force a harmonic (diamond) or cross-shaped notehead.
-This makes it possible to have different noteheads within a chord.
-.code
-a b [noteheads cross] c d | e\nh\ [noteheads normal] f
-.endd
-This example shows the second two notes in the first bar with cross-shaped
-noteheads, and the first note in the second bar as a diamond. &%[Noteheads
-only]%&
+For individual notes, option settings such as &`\nh\`& and &`\nx\`& can be used
+to override the default, which makes it possible to have different noteheads
+within a chord.
+
 .index "stemless notes"
 .index "stems" "invisible"
 .index "invisible items" "stems"
-requests that all stems and beams be suppressed until another occurrence of
-&%[noteheads]%& with a argument other than `only'. It does not change the type
-of notehead, so &%[noteheads none noteheads only]%& makes subsequent notes
-invisible.
+&%[Noteheads only]%& and &%[noteheads direct]%& cause subsequent notes not to
+have stems. For the former, the notehead type is not altered, so &%[noteheads
+cross noteheads only]%& gives stemless crosses, and &%[noteheads none noteheads
+only]%& makes subsequent notes invisible. Any setting other than `only' or
+`direct' enables note stems.
 
 Because this is quite a long directive to type, and one which might appear
 frequently in some music, abbreviations are provided as follows:
@@ -12385,7 +12449,7 @@ frequently in some music, abbreviations are provided as follows:
 When &%[noteheads direct]%& is selected (to show notes as &{{&#178;}}&),
 ledger lines are output as normal, but there are no stems or beams. When no
 noteheads are being output (&%[noteheads none]%&), breves and semibreves are
-completely invisible, but stems and beams are still drawn for other notes, but
+completely invisible. Stems and beams are still drawn for other notes, but
 no ledger lines. See &%[notes]%& for a way of suppressing noteheads &'and'&
 stems, but still drawing beams. With cross-shaped noteheads there is no
 difference between the appearance of a crotchet and a minim. Breves are
@@ -12594,11 +12658,14 @@ to be overprinted on the stave. &%[Reset]%& has the effect of resetting the
 horizontal position to the start of the current bar. Anything that follows it
 is overprinted on top of whatever has already been specified. If a large number
 of bars require overprinting, it may be more convenient to set up an entire
-overprinting stave by specifying a stave spacing of zero. &%[Reset]%& should in
-any case be used with caution, because it can cause unexpected effects if items
-such as slurs are in use. The distribution of pending underlay or overlay
-syllables is suspended after &%[reset]%& until the position in the bar has
-`caught up' to the reset point.
+overprinting stave by specifying a stave spacing of zero. If only a single note
+is overprinted, the &%[backup]%& directive (&R; &<<SUBSECTbackup>>&) may be
+more convenient.
+
+&%[Reset]%& should be used with caution, because it can cause unexpected
+effects if items such as slurs are in use. The distribution of pending underlay
+or overlay syllables is suspended after &%[reset]%& until the position in the
+bar has `caught up' to the reset point.
 .code
 [stems up] gabc' [reset] [stems down] efga |
 .endd
@@ -15181,7 +15248,10 @@ dagger affect only the movement in which they appear.
 .section "Note and rest components"
 The order of the items that go to make up one note is given below. Few notes
 require all possible components to be present and many are not relevant for
-rests.
+rests. An upper case letter sets the initial note length of a minim, and a
+lower case letter is a crotchet, with &`+`&, &`-`&, &`=`&, and &`!`& characters
+available to adjust the length. Except for &`!`&, which may only follow an
+upper case letter, these can be freely intermixed.
 
 .itable none 0 0 2  100 left  250 left
 .row "accidental"          "&`# ## $ $$ %`&
@@ -15194,10 +15264,10 @@ rests.
 .row "&~&~&~bracketed"     "&`) ]`&"
 .row "&~&~&~moved"         "&`<`& &~or&~ &`<`&&'number'&"
 .row "note or rest letter" "&`a-g A-G q-t Q-T`&"
-.row "octave sign"         "&`'`& &~to raise,&~ &```& &~to lower"
-.row "note flags"          "&`- = =- ==`& &~following a small letter"
-.row ""                    "&`+ ++`& &~following a capital letter"
-.row ""                    "&`!`& &~following a note or rest letter"
+.row "octave change"       "&`'`& &~to raise,&~ &```& &~to lower"
+.row "note length flags"   "&`- = =- ==`& &~divide length by 2, 4, 8, or 16"
+.row ""                    "&`+ ++`& &~multiply length by 2 or 4"
+.row ""                    "&`!`& &~note length is bar length"
 .row "move dot"            "&`>`& &~or&~ &'number'&&`>`&"
 .row "dot(s)"              "&`.`& &~or&~ &`..`& &~or&~ &`.+`&"
 .row "expression/options"  "&`\`&&'expression and options indications'&&`\`&"
@@ -15249,8 +15319,12 @@ The possible expression/option codes are:
 .row &`h`&            "don't output on coupled stave"
 .row &`l`&<&'n'&>     "rest level"
 .row &`m`&<&'flags'&> "masquerade"
-.row &`nh`&           "use harmonic (diamond) notehead"
-.row &`nx`&           "use cross notehead"
+.row &`nd`&           "`direct' notehead"
+.row &`nh`&           "harmonic (diamond) notehead"
+.row &`nn`&           "normal notehead"
+.row &`no`&           "notehead only, no stem"
+.row &`nx`&           "cross notehead"
+.row &`nz`&           "no notehead"
 .row &`o`&            "indicate harmonic with small circle"
 .row &`sl`&<&'n'&>    "extend stem length"
 .row &`sl-`&<&'n'&>   "shorten stem length"
@@ -15504,21 +15578,21 @@ These directives occur in square brackets interspersed in among the notes and
 rests:
 
 .itable none 0 0 2  160 left  250 left
-.row "&`[\!\]`&"                 "repeated accent movement"
-.row "&`[\.\]`&"                 "repeated staccato"
-.row "&`[\..\]`&"                "repeated staccatissimo"
-.row "&`[\-\]`&"                 "repeated accent"
-.row "&`[\>\]`&"                 "repeated horizontal wedge accent"
-.row "&`[\v\]`&"                 "repeated small vertical wedge accent"
-.row "&`[\V\]`&"                 "repeated large vertical wedge accent"
-.row "&`[\&#39;\]`&"             "repeated `start of bar' accent"
-.row "&`[\d\]`&"                 "repeated string down bow"
-.row "&`[\u\]`&"                 "repeated string up bow"
-.row "&`[\o\]`&"                 "repeated harmonic ring"
-.row "&`[\a`&<&'n'&>&`\]`&"      "repeated accent <&'n'&>"
-.row "&`[\/\]`&"                 "repeated single tremolo"
-.row "&`[\//\]`&"                "repeated double tremolo"
-.row "&`[\///\]`&"               "repeated triple tremolo"
+.row "&`[\!\]`&"                 "repeat accent movement"
+.row "&`[\.\]`&"                 "repeat staccato"
+.row "&`[\..\]`&"                "repeat staccatissimo"
+.row "&`[\-\]`&"                 "repeat accent"
+.row "&`[\>\]`&"                 "repeat horizontal wedge accent"
+.row "&`[\v\]`&"                 "repeat small vertical wedge accent"
+.row "&`[\V\]`&"                 "repeat large vertical wedge accent"
+.row "&`[\&#39;\]`&"             "repeat `start of bar' accent"
+.row "&`[\d\]`&"                 "repeat string down bow"
+.row "&`[\u\]`&"                 "repeat string up bow"
+.row "&`[\o\]`&"                 "repeat harmonic ring"
+.row "&`[\a`&<&'n'&>&`\]`&"      "repeat accent <&'n'&>"
+.row "&`[\/\]`&"                 "repeat single tremolo"
+.row "&`[\//\]`&"                "repeat double tremolo"
+.row "&`[\///\]`&"               "repeat triple tremolo"
 .row "&`[\\]`&"                  "no repeated marks"
 .row "&`[`&<&'n'&&`>]`&"         "specify repeated input bars"
 .row "&`[1st]`&"                 "first time bar"
@@ -15530,6 +15604,7 @@ rests:
 .row "&`[all]`&"                             "end 1st/2nd time bars"
 .row "&`[alto `&<&'octave'&>&`]`&"           "select alto clef"
 .row "&`[assume `&<&'setting'&>&`]`&"        "assume key, time, or clef"
+.row "&`[backup]`&"                          "backup to previous note in bar"
 .row "&`[baritone `&<&'octave'&>&`]`&"       "select baritone clef"
 .row "&`[barlinestyle `&<&'n'&>&`]`&"        "select bar line style for stave"
 .row "&`[barnumber`&<&'/options'&>&`]`&"     "explicit bar number"
