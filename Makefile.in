@@ -13,13 +13,13 @@ SUPPORT_XML=@SUPPORT_XML@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 
-BINDIR=$(DESTDIR)@prefix@/bin
-DATADIR=$(DESTDIR)@prefix@/share/pmw
-MANDIR=$(DESTDIR)@prefix@/man
+BINDIR=@prefix@/bin
+DATADIR=@prefix@/share/pmw
+MANDIR=@prefix@/man
 
 # BINDIR is the directory in which the pmw command is installed.
 # DATADIR is the directory in which the fontmetrics, the PostScript fonts,
-#   and the PostScript header file are installed, in a subdirectory called pmw.
+#   and the PostScript header file are installed.
 # MANDIR is the directory in which the man pages are installed.
 
 # The compile commands can be very long. To make the output look better,
