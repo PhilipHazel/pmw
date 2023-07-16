@@ -47,11 +47,31 @@ Cygwin environment. PMW is distributed as a source tarball and licenced under
 the GNU GPL. </p>
 
 <p>
-Download the source for the latest release:
-&nbsp;&nbsp;<b><a
+<script type="text/javascript">
 
-href="https://github.com/PhilipHazel/pmw/releases/download/pmw-5.10/pmw-5.10.tar.gz">pmw-5.10.tar.gz</a></b>
-&nbsp;&nbsp;(released 08 June 2022)
+const httpRequest = new XMLHttpRequest();
+httpRequest.onreadystatechange = () => {
+	if(httpRequest.readyState === XMLHttpRequest.DONE
+			&& httpRequest.status === 200) {
+		const data = JSON.parse(httpRequest.responseText);
+		const aelem = document.getElementById("release-url");
+		const spanelem = document.getElementById("release-date");
+		const publishDate = new Date(data.published_at);
+		const formatter = new Intl.DateTimeFormat("en-UK", { year: "numeric", month: "long", day: "numeric" });
+		spanelem.innerHTML = "(released on " + formatter.format(publishDate) + ")";
+		aelem.innerHTML = data.assets[0].name;
+		aelem.setAttribute("href", data.assets[0].browser_download_url);
+	}
+};
+
+httpRequest.open("GET", "https://api.github.com/repos/PhilipHazel/pmw/releases/latest");
+httpRequest.send();
+</script>
+Download the source for the latest release:
+&nbsp;&nbsp;<b><a id="release-url"
+
+href=""></a></b>
+&nbsp;&nbsp;<span id="release-date">(fetching data...)</span>
 </p>
 
 <p>
