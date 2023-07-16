@@ -1027,23 +1027,23 @@ usint value;
 
 srs.noteflags |= nf_stem;   /* All except "only" and "direct" set a stem */
 
-if (dir->arg1 < nh_number) 
+if (dir->arg1 < nh_number)
   {
   value = dir->arg1;
   }
-else    
+else
   {
   read_nextword();
-  if (Ustrcmp(read_wordbuffer, "only") == 0) 
+  if (Ustrcmp(read_wordbuffer, "only") == 0)
     {
     value = srs.noteheadstyle & nh_mask;  /* Existing value */
     srs.noteflags &= ~nf_stem;
-    }  
+    }
   else if (Ustrcmp(read_wordbuffer, "direct") == 0)
     {
     value = nh_direct;
     srs.noteflags &= ~nf_stem;
-    }  
+    }
   else if (Ustrcmp(read_wordbuffer, "normal") == 0) value = nh_normal;
   else if (Ustrcmp(read_wordbuffer, "harmonic") == 0) value = nh_harmonic;
   else if (Ustrcmp(read_wordbuffer, "cross") == 0) value = nh_cross;

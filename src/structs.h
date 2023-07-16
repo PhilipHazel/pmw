@@ -219,7 +219,7 @@ typedef struct {
   uint16_t spitch;
   uint8_t  acc_orig;
   uint8_t  char_orig;
-  uint8_t  noteheadstyle; 
+  uint8_t  noteheadstyle;
 } b_notestr;
 
 typedef b_bytevaluestr b_noteheadsstr;
@@ -273,7 +273,7 @@ typedef struct {
 typedef struct {
   BSTRHEAD;
   int32_t moff;
-} b_resetstr;    
+} b_resetstr;
 
 typedef struct {
   BSTRHEAD;
@@ -644,7 +644,7 @@ typedef struct sreadstr {
   uint8_t    accrit;
    int8_t    beamstemforce;
   uint8_t    chordcount;    /* Number of notes in last note/chord */
-  uint8_t    noteheadstyle; 
+  uint8_t    noteheadstyle;
   uint8_t    ornament;
   uint8_t    pletflags;
    int8_t    stemsdirection;

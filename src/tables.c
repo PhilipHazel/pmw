@@ -447,7 +447,7 @@ sreadstr init_sreadstr = {
   3,                  /* accrit */
   0,                  /* beamstemforce */
   0,                  /* chordcount */
-  nh_normal,          /* noteheadstyle */ 
+  nh_normal,          /* noteheadstyle */
   0,                  /* ornament */
   0,                  /* pletflags */
   0,                  /* stemsdirection: 0 => auto */
