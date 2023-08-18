@@ -13,9 +13,13 @@ SUPPORT_XML=@SUPPORT_XML@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 
-BINDIR=@prefix@/bin
-DATADIR=@prefix@/share/pmw
-MANDIR=@prefix@/man
+# The "$(DESTDIR) variable is normally expected to be empty, but can be
+# set to a "staging" directory in which the files will be installed.
+# This process is used by Linux distributions to prepare packages (rpm,
+# deb, ...). Do not remove!
+BINDIR=$(DESTDIR)/@prefix@/bin
+DATADIR=$(DESTDIR)/@prefix@/share/pmw
+MANDIR=$(DESTDIR)/@prefix@/man
 
 # BINDIR is the directory in which the pmw command is installed.
 # DATADIR is the directory in which the fontmetrics, the PostScript fonts,
