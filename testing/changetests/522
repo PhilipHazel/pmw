@@ -1,0 +1,9 @@
+draw test
+  0 sin 0 cos 2 sqrt
+  45 dup sin exch cos 
+  30 dup sin exch cos 
+  60 dup sin exch cos 
+  pstack
+enddraw
+
+heading draw test   

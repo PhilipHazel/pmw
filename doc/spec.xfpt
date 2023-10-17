@@ -12,7 +12,7 @@
 . the <bookinfo> element must also be updated for each new edition.
 . /////////////////////////////////////////////////////////////////////////////
 
-.set version "5.21"
+.set version "5.22"
 . Zero-width space
 .set B "&#x200B;"
 . Right-pointing hand
@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>10 July 2023</date>
+<date>17 October 2023</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
-  <revnumber>5.21</revnumber>
-  <date>10 July 2023</date>
+  <revnumber>5.22</revnumber>
+  <date>17 October 2023</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2023</year><holder>Philip Hazel</holder></copyright>
@@ -4836,6 +4836,7 @@ using a macro with arguments to call the drawing function (&R;
 &<<SUBSECTmacarg>>&).
 
 
+
 .section "Arithmetic operators"
 .index "drawing facility" "arithmetic operators"
 .index "arithmetic operators for &%draw%&"
@@ -4861,6 +4862,24 @@ follows:
 .code
 3 4 add 5 mul 6 add 7 div
 .endd
+
+
+.section "Mathematical function operators"
+.index "drawing facility" "mathematical functions"
+.index "mathematical functions for &%draw%&"
+The following operators make some mathematical functions available in drawing
+descriptions:
+.ilist
+&%cos%&: Replace the top number on the stack, which is interpreted as an angle
+in degrees, with the value of its cosine.
+.next
+&%sin%&: Replace the top number on the stack, which is interpreted as an angle
+in degrees, with the value of its sine.
+.next
+&%sqrt%&: Replace tne top number on the stack with its square root. The number
+must not be negative.
+.endlist
+
 
 
 .section "Truth values"
@@ -9201,12 +9220,12 @@ of a rest sign, the conventional `repeat previous bar' sign
 .index "rests" "length"
 The primary length of a note or rest (visible or invisible) is indicated by the
 case of its letter. An upper case (capital) letter is used for a minim, and a
-lower case (small) letter for a crotchet. The primary length is changed by the 
+lower case (small) letter for a crotchet. The primary length is changed by the
 addition of &`+`&, &`-`&, and &`=`& characters, which follow any
 quotes or grave accents that adjust the note's octave, for example: &`C'+`&.
-These characters can be freely mixed on any note, but &`+`& normally follows an 
+These characters can be freely mixed on any note, but &`+`& normally follows an
 upper case letter whereas &`-`& and &`=`& normally follow a lower case letter.
-The only restriction is the maximum and minimum supported note length (breve 
+The only restriction is the maximum and minimum supported note length (breve
 and hemi-demi-semiquaver).
 
 .index "breve" "specifying"

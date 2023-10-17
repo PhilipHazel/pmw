@@ -2,6 +2,12 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
+Version 5.22 xx-xxx-2023
+------------------------
+
+1. Added new draw operators for mathematical functions sin, cos, sqrt.
+
+
 Version 5.21 15-July-2023
 -------------------------
 

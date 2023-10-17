@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: July 2023 */
+/* This file last modified: October 2023 */
 
 #include "pmw.h"
 
@@ -244,7 +244,7 @@ aborts the run after outputting additional information. */
 { ec_major,   "no current point for \"%s\" command while drawing \"%s\"%s" },
 { ec_major,   "%sMisused \"def\" operator while drawing \"%s\"%s" },
 /* 155-159 */
-{ ec_major,   "division by zero while drawing %s\"%s\"%s" },
+{ ec_major,   "%s while drawing \"%s\"%s" },  /* Div by 0 or sqrt -ve */
 
 /* End of drawing errors */
 

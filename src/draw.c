@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: October 2023 */
 
 #include "pmw.h"
 
@@ -16,8 +16,8 @@ new operators into the check_ptr() function. */
 enum {
   dr_accleft, dr_add, dr_and,
   dr_barnumber, dr_bra,
-  dr_copy, dr_currentgray, dr_currentlinewidth, dr_currentpoint, dr_curveto,
-    dr_cvs,
+  dr_copy, dr_cos, dr_currentgray, dr_currentlinewidth, dr_currentpoint, 
+    dr_curveto, dr_cvs,
   dr_def, dr_div, dr_draw, dr_dup,
   dr_end, dr_eq, dr_exch, dr_exit,
   dr_false, dr_fill, dr_fillretain, dr_fontsize,
@@ -26,16 +26,16 @@ enum {
   dr_if, dr_ifelse,
   dr_jump,
   dr_ket,
-  dr_le, dr_leftbarx, dr_linebottom,
-  dr_linelength, dr_lineto, dr_linetop, dr_loop, dr_lt,
+  dr_le, dr_leftbarx, dr_linebottom, dr_linelength, dr_lineto, dr_linetop, 
+    dr_loop, dr_lt,
   dr_magnification, dr_moveto, dr_mul,
   dr_ne, dr_neg, dr_not, dr_number,
   dr_or, dr_originx, dr_originy,
   dr_pagelength, dr_pagenumber, dr_pop, dr_pstack,
   dr_rcurveto, dr_repeat, dr_rlineto, dr_rmoveto, dr_roll,
-  dr_setgray, dr_setlinewidth, dr_show, dr_stavesize,
-  dr_stavespace, dr_stavestart, dr_stembottom, dr_stemtop,
-  dr_stringwidth, dr_stroke, dr_sub, dr_systemdepth,
+  dr_setgray, dr_setlinewidth, dr_show, dr_sin, dr_sqrt, dr_stavesize,
+    dr_stavespace, dr_stavestart, dr_stembottom, dr_stemtop,
+    dr_stringwidth, dr_stroke, dr_sub, dr_systemdepth,
   dr_text, dr_topleft, dr_translate, dr_true,
   dr_varname, dr_varref,
   dr_xor
@@ -61,6 +61,7 @@ static uint32_t stack_rqd[] = {
   0u,                 /* barnumber */
   0u,                 /* bra */
   0x00000001u,        /* copy */
+  0x00000002u,        /* cos */
   0u,                 /* currentgray */
   0u,                 /* currentlinewidth */
   0u,                 /* currentpoint */
@@ -121,6 +122,8 @@ static uint32_t stack_rqd[] = {
   0x00000002u,        /* setgray */
   0x00000002u,        /* setlinewidth */
   0x00000003u,        /* show */
+  0x00000002u,        /* sin */
+  0x00000002u,        /* sqrt */
   0u,                 /* stavesize */
   0u,                 /* stavespace */
   0u,                 /* stavestart */
@@ -178,6 +181,7 @@ static draw_op draw_operators[] = {
   { "and",          dr_and },
   { "barnumber",    dr_barnumber },
   { "copy",         dr_copy },
+  { "cos",          dr_cos },
   { "currentgray",  dr_currentgray },
   { "currentlinewidth", dr_currentlinewidth },
   { "currentpoint", dr_currentpoint },
@@ -235,6 +239,8 @@ static draw_op draw_operators[] = {
   { "setgray",      dr_setgray },
   { "setlinewidth", dr_setlinewidth },
   { "show",         dr_show },
+  { "sin",          dr_sin },
+  { "sqrt",         dr_sqrt },  
   { "stavesize",    dr_stavesize },
   { "stavespace",   dr_stavespace },
   { "stavestart",   dr_stavestart },
@@ -791,6 +797,7 @@ while (pp != p && pp->d.val != dr_end)
     case dr_barnumber:
     case dr_bra:
     case dr_copy:
+    case dr_cos: 
     case dr_currentgray:
     case dr_currentlinewidth:
     case dr_currentpoint:
@@ -848,6 +855,8 @@ while (pp != p && pp->d.val != dr_end)
     case dr_setgray:
     case dr_setlinewidth:
     case dr_show:
+    case dr_sin:
+    case dr_sqrt:  
     case dr_stavesize:
     case dr_stavespace:
     case dr_stavestart:
@@ -1105,7 +1114,8 @@ while (p->d.val != dr_end)
     break;
 
     case dr_div:
-    if (draw_stack[out_drawstackptr-1].d.val == 0) draw_error(ERR155, "", t);
+    if (draw_stack[out_drawstackptr-1].d.val == 0) 
+      draw_error(ERR155, "division by zero", t);
     draw_stack[out_drawstackptr-2].d.val =
       mac_muldiv(draw_stack[out_drawstackptr-2].d.val, 1000,
         draw_stack[out_drawstackptr-1].d.val);
@@ -1435,6 +1445,25 @@ while (p->d.val != dr_end)
     case dr_setlinewidth:
     draw_thickness = mac_muldiv(draw_stack[--out_drawstackptr].d.val,
       out_stavemagn, 1000);
+    break;
+    
+    case dr_sin:
+    draw_stack[out_drawstackptr-1].d.val = 
+      (int)(sin((double)(draw_stack[out_drawstackptr-1].d.val)*3.14159/180000.0)
+        * 1000.0);
+    break;
+
+    case dr_cos:
+    draw_stack[out_drawstackptr-1].d.val = 
+      (int)(cos((double)(draw_stack[out_drawstackptr-1].d.val)*3.14159/180000.0)
+        * 1000.0);
+    break;
+
+    case dr_sqrt:
+    if (draw_stack[out_drawstackptr-1].d.val < 0) 
+      draw_error(ERR155, "negative argument for square root", t);
+    else draw_stack[out_drawstackptr-1].d.val = 
+      (int)(sqrt((double)(draw_stack[out_drawstackptr-1].d.val)/1000.0)*1000.0);
     break;
 
     case dr_stringwidth:

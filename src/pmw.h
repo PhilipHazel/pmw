@@ -10,8 +10,8 @@
 
 /* This file is included by all the other sources except rdargs.c. */
 
-#define PMW_VERSION "5.21"
-#define PMW_DATE    "15-July-2023"
+#define PMW_VERSION "5.22"
+#define PMW_DATE    "16-October-2023"
 #define COPYRIGHT   "Copyright (c) Philip Hazel 2023"
 
 /* Standard C headers */
