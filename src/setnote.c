@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: July 2023 */
+/* This file last modified: October 2023 */
 
 #include "pmw.h"
 
@@ -40,14 +40,16 @@ static uschar *tailstrings[] = {
   US"E", US";v|;xv", US";v|;v|;xvxv", US";v|;v|;v|;xvxvxv" };
 
 /* This table must be kept instep with the definitions of notehead types
-(nh_xx) in pmw.h. */
+(nh_xx) in pmw.h. Each line specifies the noteheads for each type of note,
+starting with breve. */
 
 static uschar headchars[] = {
   '1', '2', 'M', 'L', 'L', 'L', 'L', 'L',    /* normal */
   'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n',    /* cross */
   'm', 'm', 'm', 'l', 'l', 'l', 'l', 'l',    /* harmonic */
    0,   0,   0,   0,   0,   0,   0,   0,     /* none */
-  178, 178, 178, 178, 178, 178, 178, 178     /* direct */
+  178, 178, 178, 178, 178, 178, 178, 178,    /* direct */
+  201, 201, 201, 200, 200, 200, 200, 200     /* circular */
 };
 
 /* Table giving musical character identifiers for accidentals, plain,
@@ -313,6 +315,7 @@ int bot = P_0L;
 BOOL ledgered = FALSE;
 BOOL positioned = FALSE;
 BOOL inverted = (n_flags & nf_invert) != 0;
+BOOL stemcent = (n_flags & nf_stemcent) != 0;
 
 TRACE("show_note() start\n");
 
@@ -436,7 +439,7 @@ where there is a complete character available in the music font. */
 p = buff;  /* Pointer for generating music font string. */
 
 if (n_notetype < dsquaver && n_stemlength == 0 &&
-    n_noteheadstyle == nh_normal && !n_smallhead &&
+    n_noteheadstyle == nh_normal && !n_smallhead && !stemcent &&
     (n_flags & (nf_invert|nf_stem)) == nf_stem)
   {
   if ((n_flags & nf_appogg) != 0) *p++ = n_upflag? 129 : 130;
@@ -467,11 +470,87 @@ if ((n_flags & nf_stem) != 0)
   p += sprintf(CS p, "%s",
     tailstrings[n_notetype + (n_upflag? NOTETYPE_COUNT : 0)]);
 
+
+  /* ===================================================================== */
+  /* Handle experimental centred stems separately so as not to pollute the
+  normal stem handling. */
+
+  if (stemcent)
+    {
+    int32_t centx = x + (n_upflag? -1:+1) * mac_muldiv(
+      ((n_noteheadstyle == nh_circular)? -900 : 0) + STEMCENTADJUST,
+      out_stavemagn, 1000);
+
+    if (n_upflag)
+      {
+      if (yy <= y)    /* Stem is standard or lengthened */
+        {
+        int32_t z = yy;
+        while (z <= y)
+          {
+          p += sprintf(CS p, "Jww|");
+          z += font10;
+          }
+        p -= 3;
+        *p = 0;
+        (void)sprintf(CS p, "q");
+        if (n_noteheadstyle != nh_cross) (void)sprintf(CS p, "qvq");
+        }
+
+      else            /* Stem is shortened */
+        {
+        int32_t z = yy - font10 - font2;
+        p += sprintf(CS p, "xxx");
+        while (z <= y)
+          {
+          p += sprintf(CS p, "q|");
+          z += font2;
+          }
+        *(--p) = 0;
+        }
+      }
+
+    else  /* Stem down */
+      {
+      if (yy >= y)    /* Stem is standard or lengthened */
+        {
+        int32_t z = yy;
+        while (z >= y)
+          {
+          p += sprintf(CS p, "Kxx~");
+          z -= font10;
+          }
+        p -= 3;
+        *p = 0;
+        (void)sprintf(CS p, "r");
+        }
+
+      else            /* stem is shortened */
+        {
+        int32_t z = yy + font10 + font2;
+        p += sprintf(CS p, "www");
+        while (z >= y)
+          {
+          p += sprintf(CS p, "r~v");
+          z -= font1;
+          }
+        *(--p) = 0;
+        }
+      }
+
+    ps_musstring(buff, fontsize, centx, yy);
+    p = buff;
+    }
+
+  /* End of handling centred stems -- deal with traditional stems. */
+  /* ===================================================================== */
+
+
   /* Notes with stems up */
 
-  if (n_upflag)
+  else if (n_upflag)
     {
-    if (yy <= y)    /* stem is lengthened */
+    if (yy <= y)    /* Stem is standard or lengthened */
       {
       int stemch = (n_noteheadstyle == nh_cross)? 'o' : 'J';
       int32_t z = yy;
@@ -482,6 +561,7 @@ if ((n_flags & nf_stem) != 0)
         }
       p -= 3;
       *p = 0;
+//      if (n_noteheadstyle == nh_circular) sprintf(CS p, "v%c", stemch);
       ps_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z < y + font10) *p++ = stemch;
@@ -498,6 +578,7 @@ if ((n_flags & nf_stem) != 0)
         z += font2;
         }
       *(--p) = 0;
+//      if (n_noteheadstyle == nh_circular) sprintf(CS p, "v%c", stemch);
       ps_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z > y) *p++ = 'q';
@@ -508,7 +589,7 @@ if ((n_flags & nf_stem) != 0)
 
   else
     {
-    if (yy >= y)    /* stem is lengthened */
+    if (yy >= y)    /* Stem is standard or lengthened */
       {
       int stemch = (n_noteheadstyle == nh_cross)? 'p' : 'K';
       int32_t z = yy;
@@ -567,10 +648,10 @@ if (n_noteheadstyle != nh_none)
       }
     }
 
-  /* The special case of a small note head is dealt with below; just omit
-  the note head at this point. */
+  /* The special cases of a small note head or a circular note head are dealt
+  with below; just omit the note head at this point. */
 
-  if (!n_smallhead)
+  if (!n_smallhead && n_noteheadstyle != nh_circular)
     {
     *p++ = headchars[n_notetype + NOTETYPE_COUNT*n_noteheadstyle];
 
@@ -588,10 +669,11 @@ if (n_noteheadstyle != nh_none)
 *p = 0;
 ps_musstring(buff, fontsize, x, y);
 
-/* In the special case of a small note head, the note head was skipped above.
-The printing position should be in the correct place for a full size note head
-if a stem or ledger lines were output above. Arrange to output the notehead at
-the cue size, with a relative position adjusted to allow for the head size. */
+/* In the special cases of a small or circular note head, the note head was
+skipped above. The printing position should be in the correct place for a full
+size note head if a stem or ledger lines were output above. Arrange to output
+the notehead at the cue size, with a relative position adjusted to allow for
+the head size. */
 
 if (n_smallhead)
   {
@@ -619,6 +701,23 @@ if (n_smallhead)
     ps_musstring(buff, sm_fontsize, x, y);
     }
   }
+
+else if (n_noteheadstyle == nh_circular)
+  {
+  p = buff;
+  *p++ = headchars[n_notetype + NOTETYPE_COUNT*n_noteheadstyle];
+  *p = 0;
+
+  x += mac_muldiv((n_upflag? 300 : -1200), out_stavemagn, 1000);
+
+  ps_musstring(buff, fontsize, x, y);
+
+
+
+
+
+  }
+
 
 /* Return TRUE if there were ledger lines. */
 
@@ -1844,8 +1943,10 @@ if (n_notetype >= quaver)
 
     if (out_beaming)
       {
+      int scadjust = ((n_flags & nf_stemcent) == 0)? 0 :
+        n_upflag? -STEMCENTADJUST : +STEMCENTADJUST;
       n_stemlength = (n_upfactor*(beam_firstY + mac_muldiv(beam_slope,
-        out_findXoffset(out_moff+n_gracemoff) + out_Xadjustment +
+        out_findXoffset(out_moff+n_gracemoff) + out_Xadjustment + scadjust +
           (75*out_stavemagn)/100 +
             (n_upflag? beam_Xcorrection : 0) -
               beam_firstX, 1000) -

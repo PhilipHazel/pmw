@@ -2,9 +2,9 @@
 *  PMW native stave directive reading functions  *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2023 */
 /* This file created: February 2021 */
-/* This file last modified: July 2023 */
+/* This file last modified: October 2023 */
 
 #include "pmw.h"
 
@@ -1048,9 +1048,10 @@ else
   else if (Ustrcmp(read_wordbuffer, "harmonic") == 0) value = nh_harmonic;
   else if (Ustrcmp(read_wordbuffer, "cross") == 0) value = nh_cross;
   else if (Ustrcmp(read_wordbuffer, "none") == 0) value = nh_none;
+  else if (Ustrcmp(read_wordbuffer, "circular") == 0) value = nh_circular;
   else
     {
-    error(ERR8, "\"normal\", \"harmonic\", \"cross\", \"none\", \"only\", or \"direct\"");
+    error(ERR8, "\"normal\", \"harmonic\", \"cross\", \"circular\", \"none\", \"only\", or \"direct\"");
     value = nh_normal;
     }
   }
@@ -1861,8 +1862,30 @@ p_stemlength(void)
 static void
 p_stems(void)
 {
-int8_t *p = (dir->arg1)? &srs.stemsdirection : &srs.tiesplacement;
+int8_t *p;
+
 read_nextword();
+
+if (dir->arg1)    /* "Stems" directive has additional settings */
+  {
+  if (Ustrcmp(read_wordbuffer, "central") == 0)
+    {
+    srs.noteflags |= nf_stemcent;
+    return;
+    }
+  if (Ustrcmp(read_wordbuffer, "beside") == 0)
+    {
+    srs.noteflags &= ~nf_stemcent;
+    return;
+    }
+
+  p = &srs.stemsdirection;
+  }
+
+else p = &srs.tiesplacement;
+
+/* Common to stems and ties */
+
 if (Ustrcmp(read_wordbuffer, "auto") == 0) *p = 0;
 else if (Ustrcmp(read_wordbuffer, "up") == 0 || Ustrcmp(read_wordbuffer, "above") == 0) *p = +1;
 else if (Ustrcmp(read_wordbuffer, "down") == 0 || Ustrcmp(read_wordbuffer, "below") == 0) *p = -1;
@@ -2163,6 +2186,7 @@ static dirstr read_stavedirlist[] = {
   { "bottommargin",   p_pvalue,        b_pagebotmargin, TRUE },
   { "bowing",         p_bowing,        0, TRUE },
   { "breakbarline",   p_common,        b_breakbarline, TRUE },
+  { "c",              p_noteheads,     nh_circular, TRUE },
   { "cbaritone",      p_clef,          clef_cbaritone, FALSE },
   { "comma",          p_common,        b_comma, FALSE },
   { "contrabass",     p_clef,          clef_contrabass, FALSE },

@@ -8,7 +8,7 @@ IsFixedPitch false
 FontBBox -150 -1400 50000 2300
 UnderlinePosition -98
 UnderlineThickness 54
-Version 51
+Version 60
 EncodingScheme FontSpecific
 StartCharMetrics 162
 C 32 ; WX 750 ; N sp ; B 0 0 0 0 ;
@@ -177,7 +177,9 @@ C 195 ; WX 0 ; N accent8 ; B 280 -16 420 420 ;
 C 196 ; WX 0 ; N rturn ; B -50 -50 850 450 ;
 C 197 ; WX 0 ; N irturn ; B -50 -50 850 450 ;
 C 198 ; WX 0 ; N bhcirc ; B 200 -20 1040 400 ;
-C 199 ; WX 0 ; N bhcirc ; B 200 0 1040 420 ; 
+C 199 ; WX 0 ; N bhcirc ; B 200 0 1040 420 ;
+C 200 ; WX 840 ; N PMWrcnh ; B 200 0 600 400 ;
+C 201 ; WX 840 ; N PMWrmnh ; B 150 0 550 400 ;
 C 247 ; WX 10000 ; N stave210 ; B 0 380 10000 1220 ;
 C 248 ; WX 10000 ; N stave310 ; B 0 -20 10000 1620 ;
 C 249 ; WX 10000 ; N stave410 ; B 0 -20 10000 1220 ;

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: July 2021 */
+/* This file last modified: October 2023 */
 
 #include "pmw.h"
 
@@ -497,6 +497,20 @@ uint8_t taildirflags[MAX_BEAMNOTES];
 beam_firstX += n_cueadjust;
 xright += n_cueadjust;
 
+/* Adjust for centralized stems */
+
+if ((beam_first->flags & nf_stemcent) != 0)
+  {
+  beam_firstX += (beam_upflag? -1 : +1) * 
+    mac_muldiv(STEMCENTADJUST, out_stavemagn, 1000);
+  } 
+
+if ((beam_last->flags & nf_stemcent) != 0)
+  {
+  xright += (beam_upflag? -1 : +1) * 
+    mac_muldiv(STEMCENTADJUST, out_stavemagn, 1000);
+  } 
+
 /* Adjust parameters for cue or grace notes */
 
 if (n_fontsize != 10000)
@@ -545,7 +559,7 @@ if (beam_accrit != 0)
   return;
   }
 
-/* "Normal" beams - first draw beams which go right through all notes */
+/* "Normal" beams - first draw beams that go right through all notes */
 
 for (int i = 1; i <= throughlevel; i++)
   {
@@ -644,7 +658,7 @@ for (int level = throughlevel + 1; level <= 4; level++)
       int32_t XLadjust = 0;
       int32_t XRadjust = 0;
       int Dlevel = level;
-
+      
       donesomething = TRUE;    /* note to keep going */
 
       /* If both notes are shorter or equal to the current notetype, draw a
@@ -723,6 +737,16 @@ for (int level = throughlevel + 1; level <= 4; level++)
 
         if (left_up && left->abspitch != 0) XLadjust = beam_Xcorrection;
         if (right_up || right->spitch == 0) XRadjust = beam_Xcorrection;
+        
+        /* Hack for centred stems */
+        
+        if ((left->flags & nf_stemcent) != 0)
+          XLadjust += mac_muldiv(left_up? -STEMCENTADJUST : +STEMCENTADJUST,
+            out_stavemagn, 1000);
+             
+        if ((right->flags & nf_stemcent) != 0)
+          XRadjust += mac_muldiv(right_up? -STEMCENTADJUST : +STEMCENTADJUST,
+            out_stavemagn, 1000);
 
         /* If the right note is a rest, we must be at the end of a beam,
         beaming over a rest, so make the right hand end the same as the end of
@@ -758,6 +782,12 @@ for (int level = throughlevel + 1; level <= 4; level++)
           int32_t x = out_findXoffset(leftmoff) + adjusts[adjustptr] +
             sladjust + (left_up? beam_Xcorrection : 0);
 
+          /* Hack for centred stems */
+          
+          if ((left->flags & nf_stemcent) != 0)
+            x += mac_muldiv(left_up? -STEMCENTADJUST : +STEMCENTADJUST,
+              out_stavemagn, 1000);
+
           if (left_up != beam_upflag) Dlevel = throughlevel - level + 1;
           ps_beam(x, x + mac_muldiv(curmovt->beamflaglength, out_stavemagn,
             1000), Dlevel, 0);
@@ -777,6 +807,12 @@ for (int level = throughlevel + 1; level <= 4; level++)
           int32_t x = out_findXoffset(rightmoff) + adjusts[rightadjustptr] +
             sradjust + (right_up? beam_Xcorrection : 0);
 
+          /* Hack for centred stems */
+          
+          if ((right->flags & nf_stemcent) != 0)
+            x += mac_muldiv(right_up? -STEMCENTADJUST : +STEMCENTADJUST,
+              out_stavemagn, 1000);
+  
           if (right_up != beam_upflag) Dlevel = throughlevel - level + 1;
           ps_beam(x - mac_muldiv(curmovt->beamflaglength, out_stavemagn, 1000),
             x, Dlevel, 0);

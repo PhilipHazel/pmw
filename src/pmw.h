@@ -2,11 +2,11 @@
 *              Main header for PMW               *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2023 */
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: July 2023 */
+/* This file last modified: October 2023 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
@@ -83,6 +83,7 @@
 #define PAGE_LEFTBARSPACE           8000  /* Space at left of lefthand bar */
 #define READ_FOOTINGSIZE            8000  /* Default size ) for headings */
 #define READ_PAGEHEADINGSIZE       10000  /* Default size ) there is a list */
+#define STEMCENTADJUST              2545  /* Adjustment for central stems */
 #define STEMSTACKSIZE                 50  /* Size of pending stem stack */
 #define STRETCHTHRESHDEN               2  /* Currently fixed stretching */
 #define STRETCHTHRESHNUM               1  /*   threshold of 1/2 */
@@ -635,6 +636,7 @@ space in 32-bits. */
 #define nf_stem        0x02000000u  /* This note has a stem */
 #define nf_stemup      0x04000000u  /* Stem direction */
 #define nf_tripletize  0x08000000u  /* Check note for tripletizing */
+#define nf_stemcent    0x10000000u  /* Place stem central to note */
 
 #define nf_couple      (nf_coupleU+nf_coupleD)
 #define nf_dotted      (nf_dot+nf_dot2+nf_plus)
@@ -657,6 +659,7 @@ enum { nh_normal,           /* conventional noteheads */
        nh_harmonic,         /* diamond-shaped */
        nh_none,             /* no noteheads */
        nh_direct,           /* fancy 'w' */
+       nh_circular,         /* special circular shape */ 
        nh_number            /* number of special noteheads values */
 };
 

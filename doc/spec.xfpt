@@ -417,9 +417,10 @@ and MIDI voice numbers.
 .next
 &_share/pmw/PSheader_& is the PostScript header file for PMW output.
 .next
-&_share/pmw/psfonts/PMW-Music.pfa_& and &_share/pmw/psfonts/PMW-Music.otf_&
+&_share/pmw/psfonts/PMW-Music.pfa_& and &_share/pmw/psfonts/PMW-Music.ttf_&
 are both copies of the PMW-Music font, in two different formats. The first is a
-PostScript Type 1 font and the second is an OpenType font.
+PostScript Type 1 font and the second is an TrueType font. (In releases 5.20 
+and 5.21 this was an OpenType font. It has changed for technical reasons.)
 .next
 &_share/pmw/psfonts/PMW-Alpha_& is an auxiliary music font. This is a Type 3
 PostScript font (so no extension in its name).
@@ -503,8 +504,8 @@ ln -s /usr/local/share/pmw/psfonts/PMW-Alpha \
       /usr/share/fonts/gsfonts/PMW-Alpha
 ln -s /usr/local/share/pmw/psfonts/PMW-Music.pfa \
       /usr/share/fonts/gsfonts/PMW-Music.pfa
-ln -s /usr/local/share/pmw/psfonts/PMW-Music.otf \
-      /usr/share/fonts/gsfonts/PMW-Music.otf
+ln -s /usr/local/share/pmw/psfonts/PMW-Music.ttf \
+      /usr/share/fonts/gsfonts/PMW-Music.ttf
 .endd
 When &'GhostScript'& cannot find a font, it makes a substitution, which in the
 case of PMW-Music usually results in nonsense characters on the screen. The
@@ -9584,6 +9585,7 @@ follows:
 .index "length" "of stems"
 .index "centred notes"
 .index "noteheads" "bracketed"
+.index "noteheads" "shape"
 
 .itable none 0 0 2  66 left  300 left
 .row &`\/\`&              "single tremolo mark"
@@ -9615,6 +9617,7 @@ follows:
 .row &`\g/\`&             "grace note with slanted line"
 .row &`\h\`&              "do not put on coupled stave (&R; &<<SUBSECTcoupleintro>>&)"
 .row &`\m\`&              "masquerade note (&R; &<<SUBSECTmasquerade>>&)"
+.row &`\nc\`&             "circular notehead"
 .row &`\nd\`&             "`direct' notehead"
 .row &`\nh\`&             "harmonic (diamond) notehead"
 .row &`\nn\`&             "normal notehead"
@@ -12428,22 +12431,23 @@ to them, for example, in an error message.
 .index "`direct' character for noteheads"
 .index "noteheads" "`direct' character"
 .index "pitch, indicating without duration"
-Three alternative notehead shapes are supported: diamond-shaped for string
-harmonics, cross-shaped, and invisible (that is, no noteheads at all). The
-character &{{&#178;}}& (which is called `direct') is sometimes seen on a stave
-in musical extracts and examination papers to indicate a pitch without
-specifying a time value. This character is in PMW's font and can be positioned
-as a text item, and it is also available as an exotic fifth form of notehead.
-It is possible to use any of the noteheads without stems. &%[Noteheads]%&
-controls the default settings of these features for subsequent notes. It must
-be followed by one of the words `normal', `harmonic', `cross', `none', `only',
-or `direct'.
+Four alternative notehead shapes are supported: diamond-shaped for string
+harmonics, cross-shaped, circular, and invisible (that is, no noteheads at
+all). The character &{{&#178;}}& (which is called `direct') is sometimes seen
+on a stave in musical extracts and examination papers to indicate a pitch
+without specifying a time value. This character is in PMW's font and can be
+positioned as a text item, and it is also available as an exotic additional
+form of notehead. You can use any of the notehead shapes without stems.
+
+&%[Noteheads]%& controls the default settings of these features for subsequent
+notes. It must be followed by one of the words `normal', `harmonic', `cross',
+'circular', `none', `only', or `direct'.
 
 .music "music65" 35 10,-18
 
-For individual notes, option settings such as &`\nh\`& and &`\nx\`& can be used
-to override the default, which makes it possible to have different noteheads
-within a chord.
+For individual notes, option settings such as &`\nh\`& and &`\nx\`& (&R;
+&<<SUBSECTnoteexpr>>&) can be used to override the default, which makes it
+possible to have different noteheads within a chord.
 
 .index "stemless notes"
 .index "stems" "invisible"
@@ -12458,8 +12462,9 @@ Because this is quite a long directive to type, and one which might appear
 frequently in some music, abbreviations are provided as follows:
 
 .itable none 0 0 3  30 left  80 left  200 left
-.row &`[o]`&  "is equivalent to"  "&`[noteheads normal]`&"
+.row &`[c]`&  "is equivalent to"  "&`[noteheads central]`&"
 .row &`[h]`&  "is equivalent to"  "&`[noteheads harmonic]`&"
+.row &`[o]`&  "is equivalent to"  "&`[noteheads normal]`&"
 .row &`[x]`&  "is equivalent to"  "&`[noteheads cross]`&"
 .row &`[z]`&  "is equivalent to"  "&`[noteheads none]`&"
 .endtable
@@ -12472,7 +12477,8 @@ completely invisible. Stems and beams are still drawn for other notes, but
 no ledger lines. See &%[notes]%& for a way of suppressing noteheads &'and'&
 stems, but still drawing beams. With cross-shaped noteheads there is no
 difference between the appearance of a crotchet and a minim. Breves are
-distinguished from semibreves only when normal noteheads are used.
+distinguished from semibreves only when normal noteheads are used, and minims
+and semibreves look the same with circular noteheads.
 
 
 .subsection "[Notes]"
@@ -13580,15 +13586,23 @@ instructed to automatically shorten the stems of notes whose stems point the
 .subsection "[Stems]"
 .index "&%[stems]%&"
 .index "stems" "direction"
-Normally PMW chooses for itself in which direction to draw note stems. Details
-of the rules it uses are given in section &<<SECTstemdir>>&. Some variation is
-possible by means of the &%stemswap%& header directive (&R;
-&<<SUBSECTstemswap>>&). You can also force note stems to point upwards or
-downwards, wherever the noteheads are on the stave. For individual notes there
-are options to do this; the &%[stems]%& directive sets a default for any notes
-that are not explicitly marked. It must be followed by one of the words `up'
-(or `above'), `down' (or `below'), or `auto' &-- the last causing a reversion
-to the default state.
+This directive controls the vertical direction of stems and can also adjust
+their horizontal positioning. Normally PMW chooses for itself in which
+direction to draw note stems. Details of the rules it uses are given in section
+&<<SECTstemdir>>&. Some variation is possible by means of the &%stemswap%&
+header directive (&R; &<<SUBSECTstemswap>>&). You can also force note stems to
+point upwards or downwards, wherever the noteheads are on the stave. For
+individual notes there are options to do this; the &%[stems]%& directive sets a
+default for any notes that are not explicitly marked. When used for this
+purpose it must be followed by one of the words `up' (or `above'), `down' (or
+`below'), or `auto' &-- the last causing a reversion to the default state.
+
+.index "stems" "central with notehead"
+The &%[stems]%& directive may also be followed by `central'. This causes note 
+stems to be positioned horizontally aligned with the centres of noteheads
+instead of at the edges. This feature is provided for some experimental music
+notation; it can be turned off by the word `beside'. Currently this works only 
+with full-sized notes, not cue or grace notes.
 
 
 .subsection "[Suspend]" SUBSECTsuspend
@@ -14729,6 +14743,8 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row ""     197 ""        0.0    &{{&#197;}}&        "inverted reversed turn"
 .row ""     198 ""        0.0    &{{&#198;}}&        "top half circle"
 .row ""     199 ""        0.0    &{{&#199;}}&        "bottom half circle"
+.row ""     200 ""        0.84   &{{&#200;}}&        "circular crotchet notehead"
+.row ""     201 ""        0.84   &{{&#201;}}&        "circular minim notehead"
 .row ""     247 ""        10.0   ""                  "long 2-line stave"
 .row ""     248 ""        10.0   ""                  "long 3-line stave"
 .row ""     249 ""        10.0   ""                  "long 4-line stave"
@@ -14744,15 +14760,18 @@ distance that depends on the point size of the font.
 
 &*Note*&: All these characters exist as actual characters in the original
 PostScript version of the font, which is in a file called &_PMW-Music.pfa_&.
-From release 5.20 an OpenType version called &_PMW-Music.otf_& is also provided
-because the PostScript font formats are becoming obsolete. However, OpenType
-does not support leftwards, upwards, or downwards movements in fonts whose
-primary movement is to the right. For this reason, the PMW program has been
-updated so that it no longer relies on the font mechanism for such movements.
-Instead, when it encounters any of these characters, it emulates what would
-happen with the PostScript font. This means that PMW output works with either
-form of the font, but if the OpenType font is used with any other program, the
-characters with unsupported movements are not available.
+From release 5.22 a TrueType version called &_PMW-Music.ttf_& is also provided
+because the PostScript font formats are becoming obsolete. (In releases 5.20 
+and 5.21 an OpenType font was distributed. For technical reasons, this has had 
+to change to TrueType.)
+
+The TrueType format does not support leftwards, upwards, or downwards movements
+in fonts whose primary movement is to the right. For this reason, the PMW
+program has been updated so that it no longer relies on the font mechanism for
+such movements. Instead, when it encounters any of these characters, it
+emulates what would happen with the PostScript font. This means that PMW output
+works with either form of the font, but if the TrueType font is used with any
+other program, the characters with unsupported movements are not available.
 
 The values given in the table above are the factors by which the font's point
 size must be multiplied in order to get the relevant distance. For example, if
@@ -15338,6 +15357,7 @@ The possible expression/option codes are:
 .row &`h`&            "don't output on coupled stave"
 .row &`l`&<&'n'&>     "rest level"
 .row &`m`&<&'flags'&> "masquerade"
+.row &`nc`&           "circular notehead"
 .row &`nd`&           "`direct' notehead"
 .row &`nh`&           "harmonic (diamond) notehead"
 .row &`nn`&           "normal notehead"
@@ -15637,6 +15657,7 @@ rests:
 .row "&`[bowing above]`&"                    "bowing marks above"
 .row "&`[bowing below]`&"                    "bowing marks below"
 .row "&`[breakbarline]`&"                    "break one bar line on one stave"
+.row "&`[c]`&"                               "synonym for &`[noteheads circular]`&"
 .row "&`[cbaritone `&<&'octave'&>&`]`&"      "select cbaritone clef"
 .row "&`[comma]`&"                           "comma pause"
 .row "&`[contrabass `&<&'octave'&>&`]`&"     "select contrabass clef"
@@ -15729,6 +15750,7 @@ rests:
 .row "&`[stave `&<&'n'&>&` ...]`&"           "start new stave"
 .row "&`[stemlength `&<&'n'&>&`]`&"          "set default stemlengh adjustment"
 .row "&`[stems `&<&'direction'&>&`]`&"       "force/unforce stem direction"
+.row "&`[stems `&<&'alignment'&>&`]`&"       "set/unset centralized stems"
 .row "&`[suspend]`&"                         "suspend stave at next system"
 .row "&`[tenor `&<&'octave'&>&`]`&"          "select tenor clef"
 .row "&`[text `&<&'name'&>&`]`&"             "select default text type"

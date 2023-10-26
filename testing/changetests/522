@@ -1,3 +1,6 @@
+justify top left
+nocheck notime unfinished
+
 draw test
   0 sin 0 cos 2 sqrt
   45 dup sin exch cos 
@@ -7,3 +10,65 @@ draw test
 enddraw
 
 heading draw test   
+
+*define TL 4    @ tag length
+*define TW 1.5  @ tag width
+
+draw flag
+  dup
+  headright exch {1.4 sub}{3.545 sub} ifelse
+  exch {stemtop}{stembottom &TW add} ifelse moveto 
+  dup 
+  sin &TL mul /lsin exch def
+  cos dup &TL mul /lcos exch def 
+  lcos lsin rlineto
+  &TW exch div neg 0 exch rlineto
+  lcos neg lsin neg rlineto   
+  fill  
+enddraw
+
+*define fu(0) [draw &&1 1 flag] 
+*define fd(0) [draw &&1 0 flag] 
+
+[stave 1 treble 1 stems central noteheads circular]
+
+&fu a &fu(5) a &fu(10) a &fu(15) a &fu(20) a &fu(25) a &fu(30) a &fu(35) a 
+&fu(40) a |
+[newline]
+&fu a &fu(-5) a &fu(-10) a &fu(-15) a &fu(-20) a &fu(-25) a &fu(-30) a 
+&fu(-35) a &fu(-40) a |
+[newline]
+&fd c' &fd(5) c' &fd(10) c' &fd(15) c' &fd(20) c' &fd(25) c' &fd(30) c' &fd(35) c' 
+&fd(40) c' |
+[newline]
+&fd c' &fd(-5) c' &fd(-10) c' &fd(-15) c' &fd(-20) c' &fd(-25) c' &fd(-30) c' 
+&fd(-35) c' &fd(-40) c' |
+[endstave]
+
+
+[newmovement]
+unfinished
+notime nocheck
+
+[stave 1 treble 1]
+[stems central]
+g g\sl2\ g\sl-2\ [x] g [h] g [c] g [o] |
+c' c'\sl2\ c'\sl-2\ [x] c' [h] c' [c] c' [o] | 
+g-g-; g-b-; [x] g-b-; [h] c'-a-; [o] |
+c'-c'-; c'-a-; [x] c'-a-; [h] c'-a-; [o] |
+g=g=; g=b=; [x] g=b=; [h] c'=a=; [o] |
+g=g-; g=b-; [x] g=b-; [h] c'=a-; [o] |
+g-g=; g-b=; [x] g-b=; [h] c'-a=; [o] |
+g-g=g=g-; | c'-c'=c'=c'-; |
+g=g=
+[endstave]
+
+
+[newmovement]
+unfinished
+notime nocheck
+
+[stave 1 treble 1 noteheads circular]
+g g- c' c'-; g-g-; c'-x; G C' g G+ | (ceg) |
+[endstave]
+

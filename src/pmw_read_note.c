@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: March 2021 */
-/* This file last modified: July 2023 */
+/* This file last modified: October 2023 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -1996,6 +1996,11 @@ for (;;)
           flags |= nf_stem;
           switch(read_c)
             {
+            case 'c':
+            noteheadstyle |= nh_circular;
+            flags &= ~nf_stem;
+            break;
+
             case 'd':
             noteheadstyle |= nh_direct;
             flags &= ~nf_stem;
@@ -2018,7 +2023,7 @@ for (;;)
             break;
 
             default:
-            error(ERR8, "nd, nh, nn, no, nx, or nz");
+            error(ERR8, "nc, nd, nh, nn, no, nx, or nz");
             break;
             }
           }

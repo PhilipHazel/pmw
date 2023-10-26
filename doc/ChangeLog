@@ -7,6 +7,16 @@ Version 5.22 xx-xxx-2023
 
 1. Added new draw operators for mathematical functions sin, cos, sqrt.
 
+2. Implement [stems central] and [stems beside] for exotic notation.
+
+3. Implement [noteheads circular] aka [c] and note option \nc\ for exotic
+notation, including adding two new noteheads to the PMW-Music font.
+
+4. Add mathematical functions sin, cos, and sqrt to the drawing facility.
+
+5. The non-PFA version of the font is now TTF rather than OTF because I 
+couldn't persuade fontforge to set the right encoding for OTF.
+
 
 Version 5.21 15-July-2023
 -------------------------
