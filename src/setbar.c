@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: October 2023 */
 
 #include "pmw.h"
 
@@ -758,25 +758,23 @@ copies of stave zero. */
 
 wk_cont = wk_cont_save;
 
-/* Output the bar number if required, above the top stave. Bar 1 never
-gets a bar number, and [nocount] bars only do so if forced by [barnumber]. The
-curmovt->barnumber_interval value is negative if numbers at the start of lines
-are required, greater than zero for numbering every nth bar, or zero for no
-automatic bar numbering. In any individual bar, [barnumber] can force a bar
+/* Output the bar number if required, above the top stave. Bar 1 gets a bar
+number only if forced, and [nocount] bars only do so if forced by [barnumber].
+The curmovt->barnumber_interval value is negative if numbers at the start of
+lines are required, greater than zero for numbering every nth bar, or zero for
+no automatic bar numbering. In any individual bar, [barnumber] can force a bar
 number or no bar number. */
 
 bn = curmovt->barvector[curbarnumber];
 
-if (((bn & 0xffffu) == 0 ||         /* No fraction */
-    bp->barnoforce == bnf_yes) &&   /* Or forced bar number */
+if ((bp->barnoforce == bnf_yes) ||  /* Forced bar number */
+    ((bn & 0xffffu) == 0 &&         /* No fraction */
     bn > 0x10000u &&                /* Greater than bar 1 */
     bp->barnoforce != bnf_no &&     /* Not disabled */
-     (
-       (curmovt->barnumber_interval > 0 &&
-         (bn >> 16)  % curmovt->barnumber_interval == 0) ||
-       (curmovt->barnumber_interval < 0 && out_startlinebar) ||
-       bp->barnoforce == bnf_yes
-     ))
+     ((curmovt->barnumber_interval > 0 &&
+       (bn >> 16)  % curmovt->barnumber_interval == 0) ||
+      (curmovt->barnumber_interval < 0 && out_startlinebar)
+     )))
   {
   uschar s[24];
   size_t n;

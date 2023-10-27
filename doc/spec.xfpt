@@ -11510,12 +11510,13 @@ subsequent bar lines in the stave (&R; &<<SUBSECTbarlinestyle>>&).
 .index "numbering bars"
 The header directive &%barnumbers%& (&R; &<<SUBSECTheadbarno>>&) is used to
 request automatic bar numbering. The stave directive &%[barnumber]%& is used to
-control bar numbering for individual bars. If &%[barnumber]%& appears
-without any arguments, a number is output for the current bar, independently
-of the overall setting. This is the only way to generate a number with a
-fractional part for an uncounted bar. The size of font used and whether or not
-the number is enclosed in a box or ring is controlled by the header directive.
-The default is not to use boxes, and the default size is 10 points.
+control bar numbering for individual bars. If &%[barnumber]%& appears without
+any arguments, a number is output for the current bar, independently of the
+overall setting. This is the only way to generate a number with a fractional
+part for an uncounted bar, or to generate a number for bar 1, which is not
+normally numbered. The size of font used and whether or not the number is
+enclosed in a box or ring is controlled by the header directive. The default is
+not to use boxes, and the default size is 10 points.
 
 The position of the bar number can be altered by following the directive with a
 slash, one of the letters &`l`&, &`r`&, &`u`&, or &`d`&, and a number. This is

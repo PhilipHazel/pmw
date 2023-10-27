@@ -17,6 +17,8 @@ notation, including adding two new noteheads to the PMW-Music font.
 5. The non-PFA version of the font is now TTF rather than OTF because I 
 couldn't persuade fontforge to set the right encoding for OTF.
 
+6. [barnumber] can now be used to force a bar number for bar 1.
+
 
 Version 5.21 15-July-2023
 -------------------------
