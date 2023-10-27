@@ -466,6 +466,12 @@ if ((n_flags & nf_stem) != 0)
   positioned = TRUE;
   if ((n_flags & nf_appogg) != 0) *p++ = n_upflag? 129 : 130;
 
+  /* The variable yy is equal to the note's y coordinate adjusted for any
+  change in stemlength. A string of music characters is constructed to be
+  output at this y coordinate, starting with any tails, followed by stem and
+  up/down movements. Afterwards, there may be a final stem character to be
+  output at the base y coordinate. */
+
   yy = y + ((n_upflag? -1 : +1) * n_stemlength * out_stavemagn)/1000;
   p += sprintf(CS p, "%s",
     tailstrings[n_notetype + (n_upflag? NOTETYPE_COUNT : 0)]);
@@ -493,20 +499,28 @@ if ((n_flags & nf_stem) != 0)
           }
         p -= 3;
         *p = 0;
-        (void)sprintf(CS p, "q");
-        if (n_noteheadstyle != nh_cross) (void)sprintf(CS p, "qvq");
+        ps_musstring(buff, fontsize, centx, yy);
+        p = buff;
+        if (z < y + font10)
+          {
+          if (n_noteheadstyle == nh_harmonic) p += sprintf(CS p, "~q");
+          *p++ = 'J';
+          }
         }
 
       else            /* Stem is shortened */
         {
         int32_t z = yy - font10 - font2;
         p += sprintf(CS p, "xxx");
+        if (n_noteheadstyle == nh_harmonic) z += font2;
         while (z <= y)
           {
           p += sprintf(CS p, "q|");
           z += font2;
           }
         *(--p) = 0;
+        ps_musstring(buff, fontsize, centx, yy);
+        p = buff;
         }
       }
 
@@ -522,12 +536,19 @@ if ((n_flags & nf_stem) != 0)
           }
         p -= 3;
         *p = 0;
-        (void)sprintf(CS p, "r");
+        ps_musstring(buff, fontsize, centx, yy);
+        p = buff;
+        if (z > y - font10)
+          {
+          if (n_noteheadstyle == nh_harmonic) p += sprintf(CS p, "|r");
+          *p++ = 'K';
+          }
         }
 
-      else            /* stem is shortened */
+      else            /* Stem is shortened */
         {
         int32_t z = yy + font10 + font2;
+        if (n_noteheadstyle == nh_harmonic) z -= font2;
         p += sprintf(CS p, "www");
         while (z >= y)
           {
@@ -535,11 +556,20 @@ if ((n_flags & nf_stem) != 0)
           z -= font1;
           }
         *(--p) = 0;
+        ps_musstring(buff, fontsize, centx, yy);
+        p = buff;
         }
       }
 
-    ps_musstring(buff, fontsize, centx, yy);
-    p = buff;
+    /* Output any additional bits at the centralized x coordinate and the base
+    y coordinate. */
+
+    if (p != buff)
+      {
+      *p = 0;
+      ps_musstring(buff, fontsize, centx, y);
+      p = buff;
+      }
     }
 
   /* End of handling centred stems -- deal with traditional stems. */
@@ -561,7 +591,6 @@ if ((n_flags & nf_stem) != 0)
         }
       p -= 3;
       *p = 0;
-//      if (n_noteheadstyle == nh_circular) sprintf(CS p, "v%c", stemch);
       ps_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z < y + font10) *p++ = stemch;
@@ -578,7 +607,6 @@ if ((n_flags & nf_stem) != 0)
         z += font2;
         }
       *(--p) = 0;
-//      if (n_noteheadstyle == nh_circular) sprintf(CS p, "v%c", stemch);
       ps_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z > y) *p++ = 'q';

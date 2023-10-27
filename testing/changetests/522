@@ -72,3 +72,14 @@ notime nocheck
 g g- c' c'-; g-g-; c'-x; G C' g G+ | (ceg) |
 [endstave]
 
+
+[newmovement]
+unfinished notime nocheck
+
+[stave 1 treble 1 stems central]
+a a\sl4\ [h] a\sl4\ A\sl4\ [c] a\sl4\ [c stems central] a\sl4\ [x] a\sl4\ [o] |
+a a\sl-4\ [h] a\sl-4\ A\sl-4\ [c] a\sl-4\ [c stems central] a\sl-4\ [x] a\sl-4\ [o] |
+c' c'\sl4\ [h] c'\sl4\ C'\sl4\ [c] c'\sl4\ [c] c'\sl4\ [x] c'\sl4\ |
+c' c'\sl-4\ [h] c'\sl-4\ C'\sl-4\ [c] c'\sl-4\ [c] c'\sl-4\ [x] c'\sl-4\ |
+[endstave]
+
