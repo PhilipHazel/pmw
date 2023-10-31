@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: June 2022 */
+/* This file last modified: October 2023 */
 
 extern void         debug_bar(void);
 extern void         debug_header(void);
@@ -107,7 +107,9 @@ extern void         ps_musstring(uschar *, int32_t, int32_t, int32_t);
 extern void         ps_path(int32_t *, int32_t *, int *, int32_t);
 extern void         ps_relmusstring(uschar *, int32_t, int32_t, int32_t);
 extern void         ps_rotate(double);
-extern void         ps_setdash(int32_t, int32_t, uint32_t);
+extern void         ps_setcapandjoin(uint32_t);
+extern void         ps_setcolour(int32_t *);
+extern void         ps_setdash(int32_t, int32_t);
 extern void         ps_setgray(int32_t);
 extern void         ps_slur(int32_t, int32_t, int32_t, int32_t, uint32_t,
                       int32_t);

@@ -11,6 +11,7 @@
 % Updated for custom font encoding: July 2022
 % Modified custom font encoding to modify rather than replace: May 2023
 % Allow custom encoding to apply to fonts that use Standard Encoding: May 2023
+% Add abbreviation for setrgbcolor: October 2023
 
 
 % We are going to bind each text font twice, to give us 512 characters to play
@@ -178,6 +179,7 @@ UpperEncoding 0 [
 /Slw/setlinewidth load def
 /Slc/setlinecap load def
 /Slj/setlinejoin load def
+/Sc/setrgbcolor load def
 /Sg/setgray load def
 /Sd/setdash load def
 /T/translate load def

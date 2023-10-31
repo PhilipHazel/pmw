@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: May 2021 */
-/* This file last modified: June 2023 */
+/* This file last modified: October 2023 */
 
 #include "pmw.h"
 
@@ -30,7 +30,7 @@ static int32_t ps_fmatrix[6];
 static stavelist *ps_curlist;
 static uint32_t ps_curnumber;
 
-static int32_t  ps_gray;
+static int32_t  ps_colour[3];
 static int32_t  ps_ymax;
 
 static uschar  *ps_IdStrings[font_tablen+1];
@@ -719,10 +719,10 @@ Special action is needed for the music font. The PostScript Type 1 font
 contains a few characters that output nothing but whose horizontal spacial
 increment is negative and also some characters (both blank and non-blank) with
 vertical movement - features which are useful for building composite things
-from strings in this font. Annoyingly, OpenType fonts do not permit negative
-horizontal advance values, nor both horizontal and vertical movement in the
-same font, and an OpenType font is now desirable because Type 1 fonts are
-becoming obsolete.
+from strings in this font. Annoyingly, TrueType/OpenType fonts do not permit
+negative horizontal advance values, nor both horizontal and vertical movement
+in the same font, and a Truetype or OpenType font is now desirable because Type
+1 fonts are becoming obsolete.
 
 We get round this restriction by separating out substrings that start with an
 unsupported moving character and consist only of position moving characters.
@@ -747,6 +747,16 @@ ps_string(uint32_t *s, fontinststr *fdata, int32_t *xu, int32_t *yu,
 {
 int32_t x = *xu;
 int32_t y = *yu;
+BOOL setcolour = ps_colour[0] + ps_colour[1] + ps_colour[2] != 0;
+
+if (setcolour)
+  {
+  if (ps_colour[0] == ps_colour[1] && ps_colour[1] == ps_colour[2])
+    ps_printf(" %s Sg", sff(ps_colour[0]));
+  else
+    ps_printf(" %s %s %s Sc", sff(ps_colour[0]), sff(ps_colour[1]),
+      sff(ps_colour[2]));
+  }
 
 /* Process the string in substrings in which all the characters have the same
 font, handling the music font specially, as noted above. */
@@ -837,6 +847,8 @@ if (update)
   *xu = x;
   *yu = y;
   }
+
+if (setcolour) ps_printf(" 0 Sg");
 }
 
 
@@ -1445,6 +1457,35 @@ ps_printf(" %d %s", count - 1, SFF("%f %f %f ll", psxtran(x[0]),
 
 
 /*************************************************
+*         Stroke or fill a path                  *
+*************************************************/
+
+/* Used by ps_path() and ps_abspath() below.
+
+Argument: line thickness for stroke; -1 for fill
+Returns:  nothing
+*/
+
+static void
+strokeorfill(int32_t thickness)
+{
+BOOL setcolour = ps_colour[0] + ps_colour[1] + ps_colour[2] != 0;
+if (setcolour)
+  {
+  if (ps_colour[0] == ps_colour[1] && ps_colour[1] == ps_colour[2])
+    ps_printf(" %s Sg", sff(ps_colour[0]));
+  else
+    ps_printf(" %s %s %s Sc", sff(ps_colour[0]), sff(ps_colour[1]),
+      sff(ps_colour[2]));
+  }
+if (thickness >= 0) ps_printf(" %s Slw S", sff(thickness));
+  else ps_printf(" F");
+if (setcolour) ps_printf(" 0 Sg");
+}
+
+
+
+/*************************************************
 *         Output and stroke or fill a path       *
 *************************************************/
 
@@ -1483,10 +1524,7 @@ while (*c != path_end) switch(*c++)
   break;
   }
 
-if (ps_gray != 0) ps_printf(" %s Sg", sff(ps_gray));
-if (thickness >= 0) ps_printf(" %s Slw S", sff(thickness));
-  else ps_printf(" F");
-if (ps_gray != 0) ps_printf(" 0 Sg");
+strokeorfill(thickness);
 }
 
 
@@ -1529,19 +1567,17 @@ while (*c != path_end) switch(*c++)
   break;
   }
 
-if (ps_gray != 0) ps_printf(" %s Sg", sff(ps_gray));
-if (thickness >= 0) ps_printf(" %s Slw S", sff(thickness));
-  else ps_printf(" F");
-if (ps_gray != 0) ps_printf(" 0 Sg");
+strokeorfill(thickness);
 }
 
 
 
 /*************************************************
-*            Set gray level                      *
+*            Set gray level or colour            *
 *************************************************/
 
-/* All that happens here is that the gray level is remembered for later use.
+/* All that happens here is that the gray level or colour is remembered for
+later use.
 
 Argument:  the gray level
 Returns:   nothing
@@ -1550,13 +1586,19 @@ Returns:   nothing
 void
 ps_setgray(int32_t gray)
 {
-ps_gray = gray;
+ps_colour[0] = ps_colour[1] = ps_colour[2] = gray;
+}
+
+void
+ps_setcolour(int32_t *colour)
+{
+memcpy(ps_colour, colour, 3 * sizeof(int32_t));
 }
 
 
 
 /*************************************************
-*            Set dash and capandjoin             *
+*                   Set dash                     *
 *************************************************/
 
 /* The set values are remembered so that repetition is avoided.
@@ -1564,13 +1606,12 @@ ps_gray = gray;
 Arguments:
   dashlength    the dash length
   gaplength     the gap length
-  caj           the cap-and-join value
 
 Returns:        nothing
 */
 
 void
-ps_setdash(int32_t dashlength, int32_t gaplength, uint32_t caj)
+ps_setdash(int32_t dashlength, int32_t gaplength)
 {
 if (dashlength != out_dashlength || gaplength != out_dashgaplength)
   {
@@ -1579,7 +1620,23 @@ if (dashlength != out_dashlength || gaplength != out_dashgaplength)
   out_dashlength = dashlength;
   out_dashgaplength = gaplength;
   }
+}
 
+
+
+/*************************************************
+*                Set cap and join                *
+*************************************************/
+
+/* The set value is remembered so that repetition is avoided.
+
+Argument: the cap and join flag bits
+Returns:  nothing
+*/
+
+void
+ps_setcapandjoin(uint32_t caj)
+{
 if (caj != ps_caj)
   {
   if ((caj & caj_round) != 0) ps_printf(" 1 Slc");

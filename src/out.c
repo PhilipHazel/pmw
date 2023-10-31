@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: May 2021 */
-/* This file last modified: June 2022 */
+/* This file last modified: October 2023 */
 
 #include "pmw.h"
 
@@ -1959,8 +1959,8 @@ if ((boxring & text_boxed) != 0)
   this feature. Might also need to adjust 15 below somehow. */
 
   /*
-  ps_setdash(0, 0, caj_round | caj_round_join);
-  ps_setdash(0, 0, caj_butt | caj_bevel_join);
+  ps_setcapandjoin(caj_round | caj_round_join);
+  ps_setcapandjoin(caj_butt | caj_bevel_join);
   */
 
   ps_lines(xx, yy, 6, fdata->size/15);
@@ -2549,12 +2549,15 @@ while (out_overdraw != NULL)
   out_overdraw = this->next;
   if (this->texttype)
     {
+    ps_setcolour(this->d.t.colour);
     out_string(this->d.t.text, &(this->d.t.fdata), this->d.t.xx,
       this->d.t.yy, this->d.t.boxring);
+    ps_setgray(0);
     }
   else
     {
-    ps_setgray(this->d.g.gray);
+    ps_setcolour(this->d.g.colour);
+    ps_setdash(this->d.g.dash[0], this->d.g.dash[1]);
     out_ystave = this->d.g.ystave;
     ps_path(this->d.g.x, this->d.g.y, this->d.g.c, this->d.g.linewidth);
     mem_free_cached((void **)(&main_freeoverdrawstr), this);
@@ -2595,7 +2598,8 @@ out_bbox[3] = INT32_MAX;
 /* Initialize for outputting the music */
 
 ps_setgray(0);
-ps_setdash(0, 0, caj_butt);
+ps_setdash(0, 0);
+ps_setcapandjoin(caj_butt);
 out_yposition = 0;
 out_drawstackptr = 0;
 

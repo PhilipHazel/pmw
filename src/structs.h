@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: July 2023 */
+/* This file last modified: October 2023 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -474,14 +474,14 @@ typedef struct {
   uint16_t  size;
 } drawtextstr;
 
-
 /* Layout of data structure used for saving drawing operations until the
 end of a stave - to ensure they are over everything else. Use a union
 to handle the two different types. */
 
 struct overdrawstr_graphic {
   int32_t linewidth;
-  int32_t gray;
+  int32_t dash[2];
+  int32_t colour[3];
   int32_t ystave;
   int32_t *x;
   int32_t *y;
@@ -492,6 +492,7 @@ struct overdrawstr_text {
   uint32_t *text;
   fontinststr fdata;
   uint32_t boxring;
+  int32_t colour[3]; 
   int32_t xx;
   int32_t yy;
   int32_t matrix[6];

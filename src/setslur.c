@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: July 2021 */
-/* This file last modified: July 2021 */
+/* This file last modified: October 2023 */
 
 #include "pmw.h"
 
@@ -1055,7 +1055,8 @@ if ((flags & sflag_l) != 0)
   if ((flags & sflag_idot) != 0)
     {
     thickness = out_stavemagn;
-    ps_setdash(out_dashlength, (out_dashgaplength*95)/100, caj_round);
+    ps_setdash(out_dashlength, (out_dashgaplength*95)/100);
+    ps_setcapandjoin(caj_round);
     if (abs(co) < 2*out_dashlength + out_dashgaplength)
       adjust = above*(2*out_dashlength + out_dashgaplength) - co;
     }
@@ -1068,7 +1069,8 @@ if ((flags & sflag_l) != 0)
     ps_line(ix1, iy1 + co - above*(out_dashlength+out_dashgaplength), ix1,
       iy1 - adjust, thickness, 0);
 
-  ps_setdash(0, 0, caj_butt);    /* Clear saved setting if no jogs */
+  ps_setdash(0, 0);             /* Clear saved setting if no jogs */
+  ps_setcapandjoin(caj_butt);
   return;
   }
 
@@ -1235,8 +1237,8 @@ if ((flags & sflag_i) != 0)
   if (dashcount > 1)
     {
     gaplength = (length - dashcount * dashlength)/(dashcount - 1);
-    ps_setdash(dashlength, gaplength,
-      ((flags & sflag_idot) == 0)? caj_butt : caj_round);
+    ps_setdash(dashlength, gaplength);
+    ps_setcapandjoin(((flags & sflag_idot) == 0)? caj_butt : caj_round);
     }
 
   /* Invert drawing order of partial curve that ends at the full end */
@@ -1254,7 +1256,8 @@ if ((flags & sflag_i) != 0)
 
   cc[2] = path_end;
   ps_abspath(x, y, cc, thickness);
-  ps_setdash(0, 0, caj_butt);
+  ps_setdash(0, 0);                /* Reset default */
+  ps_setcapandjoin(caj_butt);
   ed_adjust = 0;
   }
 

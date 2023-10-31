@@ -19,6 +19,11 @@ couldn't persuade fontforge to set the right encoding for OTF.
 
 6. [barnumber] can now be used to force a bar number for bar 1.
 
+7. More additions to the drawing facility: setdash provides for simple dashed 
+lines; setcolor (or setcolour) provides for colour. There are also currentdash 
+and currentcolor operators. An incompatible change is that text in drawings now
+takes note of the colour or grayscale setting.
+
 
 Version 5.21 15-July-2023
 -------------------------

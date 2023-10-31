@@ -5,7 +5,7 @@ page 2 2
 
 draw x
   0 0 moveto   0 10 lineto   10 10 lineto   10 0 lineto  0 0 lineto
-  setgray fill
+  setgray fill 0 setgray
   0 0 moveto "x" show
   6 0 moveto "x"/rot30/s2 show  
 enddraw
@@ -28,7 +28,7 @@ draw demo
   left -4 moveto 0 24 rlineto right 20 lineto 
   0 -24 rlineto left -4 lineto 
   1 setgray fillretain 
-  0 setgray 0.4 setlinewidth stroke
+  0 setgray 0.4 setlinewidth stroke 0 setgray
   left right add 2 div 10 moveto
   show 0 -10 rmoveto show 
 enddraw

@@ -253,7 +253,33 @@ rm 10 ss(3.1)289 371 s
 mf 10 ss(5)365 347 s(5)381 347 s(5)397 349 s(5)413 349 s(@)429 347 s
 rm 10 ss(4)359 371 s mf 10 ss
 (FFFCCCCCC)64 347 s (C)419 347 s
-
+rm 12 ss(T)64 303 s(op)-0.96 0 rs[10 10] 0 Sd 64 311 Mt 104 311 Lt
+0.5 Slw S[] 0 Sd 104 311 Mt 144 311 Lt 0.5 Slw S[4 2] 0 Sd 144 311 Mt
+154 311 Mt 184 311 Lt 0.5 Slw S mf 10 ss(!)64 274 s
+%1/1
+[] 0 Sd[10 10] 0 Sd 85 294 Mt 125 294 Lt 0.5 Slw S[] 0 Sd 125 294 Mt
+165 294 Lt 0.5 Slw S[4 2] 0 Sd 165 294 Mt 175 294 Mt 205 294 Lt
+0.5 Slw S(5)85 276 s[] 0 Sd 101 266 Mt 141 266 Lt 0.5 Slw S(5)101 276 s
+(@)117 274 s
+(CCCCC)64 274 s (C)107 274 s
+(!)64 230 s
+%2/1
+[10 10] 0 Sd[] 0 Sd[4 2] 0 Sd(5)85 232 s[] 0 Sd(5)101 232 s(@)117 230 s
+rm 10 ss(2)64 254 s mf 10 ss
+(CCCCC)64 230 s (C)107 230 s
+[10 10] 0 Sd 85 250 Mt 125 250 Lt 0.5 Slw S[] 0 Sd 125 250 Mt 165 250 Lt
+0.5 Slw S[4 2] 0 Sd 165 250 Mt 175 250 Mt 205 250 Lt 0.5 Slw S[] 0 Sd
+101 222 Mt 141 222 Lt 0.5 Slw S rm 12 ss(T)64 186 s(op)-0.96 0 rs
+64 174 Mt 74 174 Lt 0.5 Sg 4 Slw S 0 Sg 74 174 Mt 78 174 Mt 88 174 Lt
+1 0 0 Sc 4 Slw S 0 Sg 88 174 Mt 92 174 Mt 102 174 Lt 0.3 0.59 0.11 Sc
+4 Slw S 0 Sg 102 174 Mt 106 174 Mt 116 174 Lt 0.45 Sg 4 Slw S 0 Sg
+0 1 0 Sc rm 10 ss(T)120 174 s(e)-0.7 0 rs(xt in dra)-0.15 0 rs(w)
+-0.15 0 rs 0 Sg mf 10 ss(!)64 147 s
+%1/1
+(5)85 149 s(@)101 147 s
+(CCC)64 147 s (C)91 147 s
+0 0 1 Sc rm 10 ss(T)85 137 s(e)-0.7 0 rs(xt in o)-0.15 0 rs(v)-0.15 0 rs
+(erdra)-0.15 0 rs(w)-0.15 0 rs 0 Sg
 pagesave restore showpage
 
 %%Trailer

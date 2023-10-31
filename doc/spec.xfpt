@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>17 October 2023</date>
+<date>31 October 2023</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.22</revnumber>
-  <date>17 October 2023</date>
+  <date>31 October 2023</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2023</year><holder>Philip Hazel</holder></copyright>
@@ -419,7 +419,7 @@ and MIDI voice numbers.
 .next
 &_share/pmw/psfonts/PMW-Music.pfa_& and &_share/pmw/psfonts/PMW-Music.ttf_&
 are both copies of the PMW-Music font, in two different formats. The first is a
-PostScript Type 1 font and the second is an TrueType font. (In releases 5.20 
+PostScript Type 1 font and the second is an TrueType font. (In releases 5.20
 and 5.21 this was an OpenType font. It has changed for technical reasons.)
 .next
 &_share/pmw/psfonts/PMW-Alpha_& is an auxiliary music font. This is a Type 3
@@ -5032,9 +5032,9 @@ PMW follows the PostScript model in the way drawn marks on the page are
 specified. There are operators that set up a description of a &'path'& on the
 page, and this outline is then either filled in completely, using the &%fill%&
 operator, or a line of given thickness is drawn along the path, using the
-&%setlinewidth%& and &%stroke%& operators. A path normally consists of several
-segments, which may be lines or curves. There can be gaps in the path. A single
-path can consist of a number of disconnected segments.
+&%stroke%& operator. A path normally consists of several segments, which may be
+lines or curves. There can be gaps in the path. A single path can consist of a
+number of disconnected segments.
 
 A path definition must always start with a &%moveto%& operation, in order to
 establish an initial current point. Thereafter, a mixture of moving and drawing
@@ -5049,8 +5049,20 @@ Whenever a pair of coordinates is required to be on the stack, it is always the
 x-coordinate that must be pushed first, and the y-coordinate second. The
 graphic operators are as follows:
 .ilist
-&%currentgray%&: Push onto the stack the current value of the gray setting &--
-see &%setgray%& below.
+&%currentcolor%&: Push onto the stack the three values of the current colour
+setting &-- see &%setcolor%& below (&%currentcolour%& is a synonym).
+.next
+&%currentdash%&: Push onto the stack the two values of the current dash setting
+&-- see &%setdash%& below.
+.next
+&%currentgray%&: Push onto the stack the current value of the grey setting &--
+see &%setgray%& below (&%currentgrey%& is a synonym). If the current colour is
+not a grey setting (the red, green, and blue values are not all the same), a
+grey value is computed using the formula from the NTSC video standard for
+converting colour television to black and white, as used by PostScript:
+.display
+&'gray'& = 0.3 x &'red'& + 0.59 x &'green'& + 0.11 x &'blue'&
+.endd
 .next
 &%currentlinewidth%&: Push onto the stack the current value of the line width
 setting &-- see &%setlinewidth%& below.
@@ -5097,8 +5109,30 @@ are taken as relative to the existing current point.
 &%rmoveto%&: This operator acts like &%moveto%&, except that the coordinates
 are taken as relative to the existing current point.
 .next
-&%setgray%&: This operator is used to specify a gray shade for drawn items
-resulting from the use of &%stroke%& or &%fill%&. It does not apply to text.
+&%setcolor%& or &%setcolour%&: This operator specifies a colour for subsequent
+items drawn by &%stroke%& or &%fill%& and also for text that is output by
+&%show%&. Three numbers on the stack specify the red, green, and blue
+components of the colour. Their values must be between 0 (none) and 1
+(maximum). This example sets a shade of purple:
+.code
+0.5 0.2 1 setcolor
+.endd
+For shades of grey the three values are identical; see the &%setgray%& operator
+below.
+.next
+&%setdash%&: This operator enables &%stroke%& to draw simple dashed lines.
+There must be two numbers on the stack: a dash length and a gap length. For
+example,
+.code
+10 3 setdash
+.endd
+causes any subsequently drawn lines to consist of dashes of length 10,
+interspersed with gaps of length 3.
+.next
+&%setgray%& or &%setgrey%&: This operator is used to specify a grey shade for
+drawn items resulting from the use of &%stroke%& or &%fill%&. It has exactly
+the same effect as &%setcolor%& with three identical arguments. From release
+5.22 a colour or grey setting also applies to text that is output by &%show%&.
 A single number between 0 (black) and 1 (white) is taken from the stack. For
 example:
 .code
@@ -13599,10 +13633,10 @@ purpose it must be followed by one of the words `up' (or `above'), `down' (or
 `below'), or `auto' &-- the last causing a reversion to the default state.
 
 .index "stems" "central with notehead"
-The &%[stems]%& directive may also be followed by `central'. This causes note 
+The &%[stems]%& directive may also be followed by `central'. This causes note
 stems to be positioned horizontally aligned with the centres of noteheads
 instead of at the edges. This feature is provided for some experimental music
-notation; it can be turned off by the word `beside'. Currently this works only 
+notation; it can be turned off by the word `beside'. Currently this works only
 with full-sized notes, not cue or grace notes.
 
 
@@ -14762,8 +14796,8 @@ distance that depends on the point size of the font.
 &*Note*&: All these characters exist as actual characters in the original
 PostScript version of the font, which is in a file called &_PMW-Music.pfa_&.
 From release 5.22 a TrueType version called &_PMW-Music.ttf_& is also provided
-because the PostScript font formats are becoming obsolete. (In releases 5.20 
-and 5.21 an OpenType font was distributed. For technical reasons, this has had 
+because the PostScript font formats are becoming obsolete. (In releases 5.20
+and 5.21 an OpenType font was distributed. For technical reasons, this has had
 to change to TrueType.)
 
 The TrueType format does not support leftwards, upwards, or downwards movements

@@ -16,8 +16,8 @@ new operators into the check_ptr() function. */
 enum {
   dr_accleft, dr_add, dr_and,
   dr_barnumber, dr_bra,
-  dr_copy, dr_cos, dr_currentgray, dr_currentlinewidth, dr_currentpoint, 
-    dr_curveto, dr_cvs,
+  dr_copy, dr_cos, dr_currentcolor, dr_currentdash, dr_currentgray,
+    dr_currentlinewidth, dr_currentpoint, dr_curveto, dr_cvs,
   dr_def, dr_div, dr_draw, dr_dup,
   dr_end, dr_eq, dr_exch, dr_exit,
   dr_false, dr_fill, dr_fillretain, dr_fontsize,
@@ -26,16 +26,16 @@ enum {
   dr_if, dr_ifelse,
   dr_jump,
   dr_ket,
-  dr_le, dr_leftbarx, dr_linebottom, dr_linelength, dr_lineto, dr_linetop, 
+  dr_le, dr_leftbarx, dr_linebottom, dr_linelength, dr_lineto, dr_linetop,
     dr_loop, dr_lt,
   dr_magnification, dr_moveto, dr_mul,
   dr_ne, dr_neg, dr_not, dr_number,
   dr_or, dr_originx, dr_originy,
   dr_pagelength, dr_pagenumber, dr_pop, dr_pstack,
   dr_rcurveto, dr_repeat, dr_rlineto, dr_rmoveto, dr_roll,
-  dr_setgray, dr_setlinewidth, dr_show, dr_sin, dr_sqrt, dr_stavesize,
-    dr_stavespace, dr_stavestart, dr_stembottom, dr_stemtop,
-    dr_stringwidth, dr_stroke, dr_sub, dr_systemdepth,
+  dr_setcolor, dr_setdash, dr_setgray, dr_setlinewidth, dr_show, dr_sin,
+    dr_sqrt, dr_stavesize, dr_stavespace, dr_stavestart, dr_stembottom,
+    dr_stemtop, dr_stringwidth, dr_stroke, dr_sub, dr_systemdepth,
   dr_text, dr_topleft, dr_translate, dr_true,
   dr_varname, dr_varref,
   dr_xor
@@ -62,6 +62,8 @@ static uint32_t stack_rqd[] = {
   0u,                 /* bra */
   0x00000001u,        /* copy */
   0x00000002u,        /* cos */
+  0u,                 /* currentcolor */
+  0u,                 /* currentdash */
   0u,                 /* currentgray */
   0u,                 /* currentlinewidth */
   0u,                 /* currentpoint */
@@ -119,6 +121,8 @@ static uint32_t stack_rqd[] = {
   0x00000022u,        /* rlineto */
   0x00000022u,        /* rmoveto */
   0x00000022u,        /* roll */
+  0x00000222u,        /* setcolor */
+  0x00000022u,        /* setdash */
   0x00000002u,        /* setgray */
   0x00000002u,        /* setlinewidth */
   0x00000003u,        /* show */
@@ -149,7 +153,8 @@ static uint32_t stack_rqd[] = {
 *************************************************/
 
 static BOOL currentpoint;
-static int gray;
+static int32_t colour[3];
+static int32_t dash[2];
 static int level;
 static int xp, yp, cp;
 static usint next_variable = 0;
@@ -182,7 +187,11 @@ static draw_op draw_operators[] = {
   { "barnumber",    dr_barnumber },
   { "copy",         dr_copy },
   { "cos",          dr_cos },
+  { "currentcolor", dr_currentcolor },
+  { "currentcolour",dr_currentcolor },
+  { "currentdash",  dr_currentdash },
   { "currentgray",  dr_currentgray },
+  { "currentgrey",  dr_currentgray },
   { "currentlinewidth", dr_currentlinewidth },
   { "currentpoint", dr_currentpoint },
   { "curveto",      dr_curveto },
@@ -236,11 +245,15 @@ static draw_op draw_operators[] = {
   { "rlineto",      dr_rlineto },
   { "rmoveto",      dr_rmoveto },
   { "roll",         dr_roll },
+  { "setcolor",     dr_setcolor },
+  { "setcolour",    dr_setcolor },
+  { "setdash",      dr_setdash },
   { "setgray",      dr_setgray },
+  { "setgrey",      dr_setgray },
   { "setlinewidth", dr_setlinewidth },
   { "show",         dr_show },
   { "sin",          dr_sin },
-  { "sqrt",         dr_sqrt },  
+  { "sqrt",         dr_sqrt },
   { "stavesize",    dr_stavesize },
   { "stavespace",   dr_stavespace },
   { "stavestart",   dr_stavestart },
@@ -739,7 +752,9 @@ if (last == NULL) out_overdraw = new; else
 
 new->next = NULL;
 new->texttype = FALSE;
-new->d.g.gray = gray;
+memcpy(new->d.g.colour, colour, 3 * sizeof(int32_t));
+new->d.g.dash[0] = dash[0];
+new->d.g.dash[1] = dash[1];
 new->d.g.linewidth = thickness;
 new->d.g.ystave = out_ystave;
 
@@ -797,7 +812,9 @@ while (pp != p && pp->d.val != dr_end)
     case dr_barnumber:
     case dr_bra:
     case dr_copy:
-    case dr_cos: 
+    case dr_cos:
+    case dr_currentcolor:
+    case dr_currentdash:
     case dr_currentgray:
     case dr_currentlinewidth:
     case dr_currentpoint:
@@ -852,11 +869,13 @@ while (pp != p && pp->d.val != dr_end)
     case dr_rlineto:
     case dr_rmoveto:
     case dr_roll:
+    case dr_setcolor:
+    case dr_setdash:
     case dr_setgray:
     case dr_setlinewidth:
     case dr_show:
     case dr_sin:
-    case dr_sqrt:  
+    case dr_sqrt:
     case dr_stavesize:
     case dr_stavespace:
     case dr_stavestart:
@@ -1055,9 +1074,34 @@ while (p->d.val != dr_end)
       }
     break;
 
+    case dr_currentcolor:
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = colour[0];
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = colour[1];
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = colour[2];
+    break;
+
+    case dr_currentdash:
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = dash[0];
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = dash[1];
+    break;
+
+    /* The formula for converting a non-grey colour to grey is taken from the
+    NTSC video standard that is used to convert colour television to black and
+    white, as described in the PostScript documentation. The formula is:
+    gray = 0.3*red + 0.59*green + 0.11*blue. */
+
     case dr_currentgray:
     draw_stack[out_drawstackptr].dtype = dd_number;
-    draw_stack[out_drawstackptr++].d.val = gray;
+    if (colour[0] == colour[1] && colour[1] == colour[2])
+      draw_stack[out_drawstackptr++].d.val = colour[0];
+    else
+      draw_stack[out_drawstackptr++].d.val =
+        (30 * colour[0] + 59 * colour[1] + 11 * colour[2])/100;
     break;
 
     case dr_currentlinewidth:
@@ -1114,7 +1158,7 @@ while (p->d.val != dr_end)
     break;
 
     case dr_div:
-    if (draw_stack[out_drawstackptr-1].d.val == 0) 
+    if (draw_stack[out_drawstackptr-1].d.val == 0)
       draw_error(ERR155, "division by zero", t);
     draw_stack[out_drawstackptr-2].d.val =
       mac_muldiv(draw_stack[out_drawstackptr-2].d.val, 1000,
@@ -1437,32 +1481,46 @@ while (p->d.val != dr_end)
       }
     break;
 
+    case dr_setcolor:
+    colour[2] = draw_stack[--out_drawstackptr].d.val;
+    colour[1] = draw_stack[--out_drawstackptr].d.val;
+    colour[0] = draw_stack[--out_drawstackptr].d.val;
+    ps_setcolour(colour);
+    break;
+
+    case dr_setdash:
+    dash[1] = draw_stack[--out_drawstackptr].d.val;
+    dash[0] = draw_stack[--out_drawstackptr].d.val;
+    ps_setdash(dash[0], dash[1]);
+    break;
+
     case dr_setgray:
-    gray = draw_stack[--out_drawstackptr].d.val;
-    ps_setgray(gray);
+    colour[0] = draw_stack[--out_drawstackptr].d.val;
+    colour[1] = colour[2] = colour[0];
+    ps_setcolour(colour);
     break;
 
     case dr_setlinewidth:
     draw_thickness = mac_muldiv(draw_stack[--out_drawstackptr].d.val,
       out_stavemagn, 1000);
     break;
-    
+
     case dr_sin:
-    draw_stack[out_drawstackptr-1].d.val = 
+    draw_stack[out_drawstackptr-1].d.val =
       (int)(sin((double)(draw_stack[out_drawstackptr-1].d.val)*3.14159/180000.0)
         * 1000.0);
     break;
 
     case dr_cos:
-    draw_stack[out_drawstackptr-1].d.val = 
+    draw_stack[out_drawstackptr-1].d.val =
       (int)(cos((double)(draw_stack[out_drawstackptr-1].d.val)*3.14159/180000.0)
         * 1000.0);
     break;
 
     case dr_sqrt:
-    if (draw_stack[out_drawstackptr-1].d.val < 0) 
+    if (draw_stack[out_drawstackptr-1].d.val < 0)
       draw_error(ERR155, "negative argument for square root", t);
-    else draw_stack[out_drawstackptr-1].d.val = 
+    else draw_stack[out_drawstackptr-1].d.val =
       (int)(sqrt((double)(draw_stack[out_drawstackptr-1].d.val)/1000.0)*1000.0);
     break;
 
@@ -1532,6 +1590,7 @@ while (p->d.val != dr_end)
           new->texttype = TRUE;
           new->d.t.text = d->text;
           new->d.t.boxring = boxring;
+          memcpy(new->d.t.colour, colour, 3 * sizeof(int32_t)); 
           new->d.t.xx = xx;
           new->d.t.yy = out_ystave - yy;
           new->d.t.fdata = *fdata;
@@ -1657,9 +1716,11 @@ if (args != NULL)
   for (int i = 1; i <= args[0].d.val; i++)
     draw_stack[out_drawstackptr++] = args[i];
 
-xp = yp = cp = level = gray = 0;
+xp = yp = cp = level = colour[0] = colour[1] = colour[2] =
+  dash[0] = dash[1] = 0;
 currentpoint = FALSE;
 ps_setgray(0);
+ps_setdash(0,0);
 (void)sub_draw(t, NULL, x, y, c, overflag);
 ps_setgray(0);
 }

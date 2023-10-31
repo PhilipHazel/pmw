@@ -90,3 +90,74 @@ barnumbers 1
 [stave 1 treble 1]
 [barnumber] ffgg | [2] ffgg | [nocount barnumber] ffgg | ffgg |
 [endstave]
+
+
+[newmovement]
+nocheck notime unfinished
+
+draw dtest
+  0 20 moveto
+  40 0 rlineto
+  10 10 setdash
+  currentpoint
+  stroke
+  moveto
+  40 0 rlineto
+  0 0 setdash
+  currentpoint
+  stroke
+  moveto
+  10 0 rmoveto
+  30 0 rlineto
+  4 2 setdash 
+  stroke    
+enddraw
+
+draw dtest2
+  0 -8 moveto
+  40 0 rlineto
+  stroke
+enddraw
+
+heading "Top"
+heading draw dtest
+
+[stave 1 treble 1]
+[draw dtest] g [draw dtest2] g |
+[newline] [overdraw dtest] g [overdraw dtest2] g
+[endstave]
+
+
+[newmovement]
+nocheck notime unfinished
+
+draw colourtest
+  0 0 moveto
+  10 0 rlineto
+  4 setlinewidth
+  0.5 setgrey
+  currentpoint stroke moveto 4 0 rmoveto
+  10 0 rlineto
+  1 0 0 setcolour
+  currentpoint stroke moveto 4 0 rmoveto
+  10 0 rlineto
+  0.3 0.59 0.11 setcolor
+  currentpoint stroke moveto 4 0 rmoveto
+  10 0 rlineto
+  currentgrey setgray
+  currentpoint stroke moveto 4 0 rmoveto
+  "Text in draw" 0 1 0 setcolor show 
+enddraw
+
+draw overcolourtext
+  0 -10 moveto
+  "Text in overdraw" 0 0 1 setcolour show
+enddraw    
+
+heading "Top"
+heading draw colourtest 10
+
+[stave 1 treble 1]
+[overdraw overcolourtext] g
+[endstave]
+
