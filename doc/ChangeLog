@@ -12,17 +12,19 @@ Version 5.22 xx-xxx-2023
 3. Implement [noteheads circular] aka [c] and note option \nc\ for exotic
 notation, including adding two new noteheads to the PMW-Music font.
 
-4. Add mathematical functions sin, cos, and sqrt to the drawing facility.
-
-5. The non-PFA version of the font is now TTF rather than OTF because I 
+4. The non-PFA version of the font is now TTF rather than OTF because I
 couldn't persuade fontforge to set the right encoding for OTF.
 
-6. [barnumber] can now be used to force a bar number for bar 1.
+5. [barnumber] can now be used to force a bar number for bar 1.
 
-7. More additions to the drawing facility: setdash provides for simple dashed 
-lines; setcolor (or setcolour) provides for colour. There are also currentdash 
+6. More additions to the drawing facility: setdash provides for simple dashed
+lines; setcolor (or setcolour) provides for colour. There are also currentdash
 and currentcolor operators. An incompatible change is that text in drawings now
 takes note of the colour or grayscale setting.
+
+7. Tidy colour handling in ps.c; removes some redundant settings. Ensure colour
+is preserved over a drawing instead of forcing black afterwards. This is in
+preparation for the possible use of colour other than in drawings.
 
 
 Version 5.21 15-July-2023

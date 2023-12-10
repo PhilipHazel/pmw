@@ -270,16 +270,16 @@ rm 10 ss(2)64 254 s mf 10 ss
 [10 10] 0 Sd 85 250 Mt 125 250 Lt 0.5 Slw S[] 0 Sd 125 250 Mt 165 250 Lt
 0.5 Slw S[4 2] 0 Sd 165 250 Mt 175 250 Mt 205 250 Lt 0.5 Slw S[] 0 Sd
 101 222 Mt 141 222 Lt 0.5 Slw S rm 12 ss(T)64 186 s(op)-0.96 0 rs
-64 174 Mt 74 174 Lt 0.5 Sg 4 Slw S 0 Sg 74 174 Mt 78 174 Mt 88 174 Lt
-1 0 0 Sc 4 Slw S 0 Sg 88 174 Mt 92 174 Mt 102 174 Lt 0.3 0.59 0.11 Sc
-4 Slw S 0 Sg 102 174 Mt 106 174 Mt 116 174 Lt 0.45 Sg 4 Slw S 0 Sg
-0 1 0 Sc rm 10 ss(T)120 174 s(e)-0.7 0 rs(xt in dra)-0.15 0 rs(w)
--0.15 0 rs 0 Sg mf 10 ss(!)64 147 s
+64 174 Mt 74 174 Lt 0.5 Sg 4 Slw S 74 174 Mt 78 174 Mt 88 174 Lt
+1 0 0 Sc 4 Slw S 88 174 Mt 92 174 Mt 102 174 Lt 0.3 0.59 0.11 Sc 4 Slw S
+102 174 Mt 106 174 Mt 116 174 Lt 0.45 Sg 4 Slw S 0 1 0 Sc rm 10 ss
+(T)120 174 s(e)-0.7 0 rs(xt in dra)-0.15 0 rs(w)-0.15 0 rs 0 Sg mf 10 ss(!)
+64 147 s
 %1/1
 (5)85 149 s(@)101 147 s
 (CCC)64 147 s (C)91 147 s
 0 0 1 Sc rm 10 ss(T)85 137 s(e)-0.7 0 rs(xt in o)-0.15 0 rs(v)-0.15 0 rs
-(erdra)-0.15 0 rs(w)-0.15 0 rs 0 Sg
+(erdra)-0.15 0 rs(w)-0.15 0 rs
 pagesave restore showpage
 
 %%Trailer

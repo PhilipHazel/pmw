@@ -1590,7 +1590,7 @@ while (p->d.val != dr_end)
           new->texttype = TRUE;
           new->d.t.text = d->text;
           new->d.t.boxring = boxring;
-          memcpy(new->d.t.colour, colour, 3 * sizeof(int32_t)); 
+          memcpy(new->d.t.colour, colour, 3 * sizeof(int32_t));
           new->d.t.xx = xx;
           new->d.t.yy = out_ystave - yy;
           new->d.t.fdata = *fdata;
@@ -1711,6 +1711,7 @@ out_dodraw(tree_node *t, drawitem *args, BOOL overflag)
 int32_t x[100];
 int32_t y[100];
 int c[100];
+int32_t save_colour[3];
 
 if (args != NULL)
   for (int i = 1; i <= args[0].d.val; i++)
@@ -1719,10 +1720,11 @@ if (args != NULL)
 xp = yp = cp = level = colour[0] = colour[1] = colour[2] =
   dash[0] = dash[1] = 0;
 currentpoint = FALSE;
+ps_getcolour(save_colour);
 ps_setgray(0);
 ps_setdash(0,0);
 (void)sub_draw(t, NULL, x, y, c, overflag);
-ps_setgray(0);
+ps_setcolour(save_colour);
 }
 
 

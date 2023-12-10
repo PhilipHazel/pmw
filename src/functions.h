@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: October 2023 */
+/* This file last modified: December 2023 */
 
 extern void         debug_bar(void);
 extern void         debug_header(void);
@@ -96,6 +96,7 @@ extern void         ps_barline(int32_t, int32_t, int32_t, int, int32_t);
 extern void         ps_beam(int32_t, int32_t, int, int);
 extern void         ps_brace(int32_t, int32_t, int32_t, int32_t);
 extern void         ps_bracket(int32_t, int32_t, int32_t, int32_t);
+extern void         ps_getcolour(int32_t *);
 extern void         ps_go(void);
 extern void         ps_grestore(void);
 extern void         ps_gsave(void);

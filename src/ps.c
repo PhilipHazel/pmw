@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: May 2021 */
-/* This file last modified: October 2023 */
+/* This file last modified: December 2023 */
 
 #include "pmw.h"
 
@@ -17,6 +17,7 @@
 
 static BOOL ps_EPS = FALSE;
 static BOOL ps_slurA = FALSE;
+static BOOL ps_changecolour= FALSE;
 
 static uint32_t ps_caj;
 static int  ps_chcount;
@@ -30,7 +31,8 @@ static int32_t ps_fmatrix[6];
 static stavelist *ps_curlist;
 static uint32_t ps_curnumber;
 
-static int32_t  ps_colour[3];
+static int32_t  ps_wantcolour[3] = {0, 0, 0};
+static int32_t  ps_curcolour[3] = {0, 0, 0};
 static int32_t  ps_ymax;
 
 static uschar  *ps_IdStrings[font_tablen+1];
@@ -311,6 +313,24 @@ if (ps_chcount > 0 && ps_chcount + len > 72)
 while (ps_chcount == 0 && *p == ' ') { p++; len--; }
 fputs(p, ps_file);
 ps_chcount = (p[len-1] == '\n')? 0 : ps_chcount + len;
+}
+
+
+
+/*************************************************
+*            Manage colour setting               *
+*************************************************/
+
+static void
+setcolour(void)
+{
+if (ps_wantcolour[0] == ps_wantcolour[1] && ps_wantcolour[1] == ps_wantcolour[2])
+  ps_printf(" %s Sg", sff(ps_wantcolour[0]));
+else
+  ps_printf(" %s %s %s Sc", sff(ps_wantcolour[0]), sff(ps_wantcolour[1]),
+    sff(ps_wantcolour[2]));
+memcpy(ps_curcolour, ps_wantcolour, 2 * sizeof(int32_t));
+ps_changecolour = FALSE;
 }
 
 
@@ -747,16 +767,8 @@ ps_string(uint32_t *s, fontinststr *fdata, int32_t *xu, int32_t *yu,
 {
 int32_t x = *xu;
 int32_t y = *yu;
-BOOL setcolour = ps_colour[0] + ps_colour[1] + ps_colour[2] != 0;
 
-if (setcolour)
-  {
-  if (ps_colour[0] == ps_colour[1] && ps_colour[1] == ps_colour[2])
-    ps_printf(" %s Sg", sff(ps_colour[0]));
-  else
-    ps_printf(" %s %s %s Sc", sff(ps_colour[0]), sff(ps_colour[1]),
-      sff(ps_colour[2]));
-  }
+if (ps_changecolour) setcolour();
 
 /* Process the string in substrings in which all the characters have the same
 font, handling the music font specially, as noted above. */
@@ -847,8 +859,6 @@ if (update)
   *xu = x;
   *yu = y;
   }
-
-if (setcolour) ps_printf(" 0 Sg");
 }
 
 
@@ -875,6 +885,8 @@ Returns:     nothing
 void
 ps_barline(int32_t x, int32_t ytop, int32_t ybot, int type, int32_t magn)
 {
+if (ps_changecolour) setcolour();
+
 /* Use music font characters if appropriate. */
 
 if (!bar_use_draw &&
@@ -951,6 +963,7 @@ Returns:     nothing
 void
 ps_brace(int32_t x, int32_t ytop, int32_t ybot, int32_t magn)
 {
+if (ps_changecolour) setcolour();
 ps_printf(" %s br%s", SFF("%f %f %f", ((ybot-ytop+16*magn)*23)/12000,
   psxtran(x)+1500, psytran((ytop-16*magn+ybot)/2)),
   (curmovt->bracestyle)? "2":"");
@@ -976,6 +989,7 @@ Returns:     nothing
 void
 ps_bracket(int32_t x, int32_t ytop, int32_t ybot, int32_t magn)
 {
+if (ps_changecolour) setcolour();
 ps_printf("%s", SFF(" %f %f %f k", psxtran(x), psytran(ytop)+16*magn,
   psytran(ybot)));
 }
@@ -1011,6 +1025,9 @@ uschar buff[256];
 int ch, i;
 int32_t chwidth = 0;
 int32_t x = leftx;
+
+ps_setgray(0);
+if (ps_changecolour) setcolour();
 
 /* Output the stave using PostScript drawing primitives. */
 
@@ -1113,6 +1130,8 @@ ps_muschar(int32_t x, int32_t y, uint32_t ch, int32_t pointsize)
 {
 int32_t xfudge = 0;
 
+if (ps_changecolour) setcolour();
+
 /* Use a local font data structure which has no rotation. */
 
 ps_mfdata.size = pointsize;
@@ -1165,43 +1184,30 @@ for (mfstr *p = out_mftable[ch]; p != NULL; p = p->next)
 /* There are two versions, one with absolute coordinates, and one with relative
 coordinates, to save having to pass a flag each time (most of the calls are
 with absolute coordinates). The strings are always quite short; we have to
-convert to 32-bits.
+convert to 32-bits by calling string_pmw().
 
 Arguments:
   s          the string
   pointsize  the pointsize for the font
-  x          the absolute x coordinate
-  y          the absolute y coordinate
+  x          the x coordinate
+  y          the y coordinate
 
 Returns:     nothing
 */
 
-static void
-musstring(uschar *s, int32_t pointsize, int32_t x, int32_t y, BOOL absolute)
-{
-ps_mfdata.size = pointsize;
-ps_string(string_pmw(s, font_mf), &ps_mfdata, &x, &y, absolute, FALSE);
-}
-
-
-
 void
 ps_musstring(uschar *s, int32_t pointsize, int32_t x, int32_t y)
 {
-musstring(s, pointsize, x, y, TRUE);
-
-//ps_mfdata.size = pointsize;
-//ps_basic_string(string_pmw(s, 0), font_mf, &ps_mfdata, TRUE, x, y);
+ps_mfdata.size = pointsize;
+ps_string(string_pmw(s, font_mf), &ps_mfdata, &x, &y, TRUE, FALSE);
 }
 
 
 void
 ps_relmusstring(uschar *s, int32_t pointsize, int32_t x, int32_t y)
 {
-musstring(s, pointsize, x, y, FALSE);
-
-//ps_mfdata.size = pointsize;
-//ps_basic_string(string_pmw(s, 0), font_mf, &ps_mfdata, FALSE, x, y);
+ps_mfdata.size = pointsize;
+ps_string(string_pmw(s, font_mf), &ps_mfdata, &x, &y, FALSE, FALSE);
 }
 
 
@@ -1231,6 +1237,8 @@ int32_t depth = -out_stavemagn*((n_fontsize * sign *
   (int)(((double)curmovt->beamthickness) /
     cos(atan((double)beam_slope/1000.0))))/10000)/1000;
 int32_t y0, y1;
+
+if (ps_changecolour) setcolour();
 
 y1 = y0 = out_ystave - beam_firstY +
   mac_muldiv(n_fontsize, (level - 1) * sign * 3 * out_stavemagn, 10000);
@@ -1310,6 +1318,8 @@ ps_slur(int32_t x0, int32_t y0, int32_t x1, int32_t y1, uint32_t flags,
 {
 int32_t length = x1 - x0;
 
+if (ps_changecolour) setcolour();
+
 y0 = out_ystave - y0;
 y1 = out_ystave - y1;
 
@@ -1371,6 +1381,8 @@ int32_t len = (int32_t)zz;  /* Don't cast sqrt; it gives a compiler warning */
 int32_t dashlength = 0;
 int32_t gaplength = 0;
 int dashcount, spacecount;
+
+if (ps_changecolour) setcolour();
 
 /* Handle "editorial" lines: won't exist if dashed or dotted */
 
@@ -1448,6 +1460,7 @@ Returns:      nothing
 void
 ps_lines(int32_t *x, int32_t *y, int count, int32_t thickness)
 {
+if (ps_changecolour) setcolour();
 for (int i = count - 1; i > 0; i--)
   ps_printf("%s", SFF(" %f %f", psxtran(x[i]), psytran(out_ystave - y[i])));
 ps_printf(" %d %s", count - 1, SFF("%f %f %f ll", psxtran(x[0]),
@@ -1469,18 +1482,9 @@ Returns:  nothing
 static void
 strokeorfill(int32_t thickness)
 {
-BOOL setcolour = ps_colour[0] + ps_colour[1] + ps_colour[2] != 0;
-if (setcolour)
-  {
-  if (ps_colour[0] == ps_colour[1] && ps_colour[1] == ps_colour[2])
-    ps_printf(" %s Sg", sff(ps_colour[0]));
-  else
-    ps_printf(" %s %s %s Sc", sff(ps_colour[0]), sff(ps_colour[1]),
-      sff(ps_colour[2]));
-  }
+if (ps_changecolour) setcolour();
 if (thickness >= 0) ps_printf(" %s Slw S", sff(thickness));
   else ps_printf(" F");
-if (setcolour) ps_printf(" 0 Sg");
 }
 
 
@@ -1579,20 +1583,45 @@ strokeorfill(thickness);
 /* All that happens here is that the gray level or colour is remembered for
 later use.
 
-Argument:  the gray level
+Argument:  the colour or the gray level
 Returns:   nothing
 */
 
 void
-ps_setgray(int32_t gray)
-{
-ps_colour[0] = ps_colour[1] = ps_colour[2] = gray;
-}
-
-void
 ps_setcolour(int32_t *colour)
 {
-memcpy(ps_colour, colour, 3 * sizeof(int32_t));
+memcpy(ps_wantcolour, colour, 3 * sizeof(int32_t));
+ps_changecolour =
+    ps_wantcolour[0] != ps_curcolour[0] ||
+    ps_wantcolour[1] != ps_curcolour[1] ||
+    ps_wantcolour[2] != ps_curcolour[2];
+}
+
+
+void
+ps_setgray(int32_t gray)
+{
+int temp[3];
+temp[0] = temp[1] = temp[2] = gray;
+ps_setcolour(temp);
+}
+
+
+
+/*************************************************
+*            Retrieve current colour             *
+*************************************************/
+
+/* Used to preserve the colour over a drawing.
+
+Argument: pointer to where to put the colour values
+Returns:  nothing
+*/
+
+void
+ps_getcolour(int32_t *colour)
+{
+memcpy(colour, ps_wantcolour, 3 * sizeof(int32_t));
 }
 
 
