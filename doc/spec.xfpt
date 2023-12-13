@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>31 October 2023</date>
+<date>13 December 2023</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.22</revnumber>
-  <date>31 October 2023</date>
+  <date>13 December 2023</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2023</year><holder>Philip Hazel</holder></copyright>
@@ -1768,10 +1768,10 @@ except for the first line.
 barnumbers 10
 .endd
 This causes PMW to output a bar number every 10 bars. You can choose any number
-you like; specifying 1 causes every bar to be numbered. If the word `boxed'
-appears after the directive name, the numbers are enclosed in a rectangular
-box. You may also specify the point size of the font after the word `line' or
-the count.
+you like; specifying 1 causes every bar to be numbered. If the word `boxed' or
+`roundboxed' appears after the directive name, the numbers are enclosed in a
+rectangular box with mitred or round corners, respectively. You may also
+specify the point size of the font after the word `line' or the count.
 .code
 barnumbers boxed line 9
 .endd
@@ -4818,7 +4818,6 @@ be used safely. &'User variables'& (&R; &<<SECTuservar>>&) must be used
 instead.
 
 
-
 .section "Drawings with arguments"
 Whenever a drawing function is called, either by the &%[draw]%& directive or as
 part of some other directive (for example, &%heading%&), its name may be
@@ -4835,7 +4834,6 @@ heading draw 44 logo
 There is no explicit facility for default values, but these can be provided by
 using a macro with arguments to call the drawing function (&R;
 &<<SUBSECTmacarg>>&).
-
 
 
 .section "Arithmetic operators"
@@ -4882,7 +4880,6 @@ must not be negative.
 .endlist
 
 
-
 .section "Truth values"
 .index "drawing facility" "true values"
 The operators &%false%& and &%true%& push the values 0 and 1 onto the stack,
@@ -4915,6 +4912,7 @@ leaves the value 1 (&'true'&) on the stack, and
 .endd
 yields 0 (&'false'&). The conditional operators can be used to test these
 values.
+
 
 .section "Bitwise and logical operators"
 .index "drawing facility" "logical operators"
@@ -4977,8 +4975,6 @@ one place and the result is:
 .figure fig04
 
 
-
-
 .section "Coordinate systems"
 .index "drawing facility" "coordinate systems"
 .index "drawing facility" "coordinate origin"
@@ -5035,6 +5031,12 @@ operator, or a line of given thickness is drawn along the path, using the
 &%stroke%& operator. A path normally consists of several segments, which may be
 lines or curves. There can be gaps in the path. A single path can consist of a
 number of disconnected segments.
+
+At the start of an external call to a draw function, the current colour is set
+to black, the current line width is set to 0.5, and the current setting for
+dashed lines is no dashes. However, these values are not changed when a drawing
+function is called from within another drawing function (&R;
+&<<SECTdrawsub>>&).
 
 A path definition must always start with a &%moveto%& operation, in order to
 establish an initial current point. Thereafter, a mixture of moving and drawing
@@ -5416,12 +5418,15 @@ associated with it.
 
 
 
-.section "Drawing subroutines"
+.section "Drawing subroutines"  SECTdrawsub
 .index "drawing facility" "subroutines"
 One drawing can be called as a subroutine from within another by means of the
-&%draw%& operator. The drawing stack and the current graphics state (current
-position and current path) are passed over to the called drawing. For example,
-to draw two crosses below the stave on either side of a note's position:
+&%draw%& operator. The caller and the called drawing both see the same drawing
+stack and graphics state (current position, current path, line width, colour,
+etc). Changes made by the subroutine can therefore affect the caller. The
+behaviour is as if the &%draw%& operation is replaced by the text of the
+subroutine. For example, to draw two crosses below the stave on either side of
+a note's position:
 .code
 draw cross
   -4  0 rmoveto 8 0 rlineto
@@ -5945,13 +5950,14 @@ of &%barnumbers%& being as follows:
 .display
 &`barnumbers`& <&'enclosure'&> <&'interval'&> <&'fontsize'&> <&'fontname'&>
 .endd
-The first argument, which is optional, must be one of the words `boxed' or
-`ringed'. These specify that barnumbers are to appear inside rectangular boxes,
-or roughly circular rings, respectively. If neither word is given, the numbers
-appear without any special identification. The second argument must be present,
-and is either the word `line' or a number. If `line' is given, a bar number is
-output over the first bar of every line of music except the first line of each
-movement. If a number is given, it specifies the interval between bar numbers.
+The first argument, which is optional, must be one of the words `boxed', 
+`roundboxed', or `ringed'. These specify that barnumbers are to appear inside
+rectangular boxes (with either mitred or round corners), or roughly circular
+rings. If none of these words are given, the numbers appear without any special
+identification. The second argument must be present, and is either the word
+`line' or a number. If `line' is given, a bar number is output over the first
+bar of every line of music except the first line of each movement. If a number
+is given, it specifies the interval between bar numbers.
 .code
 barnumbers boxed 10
 .endd
@@ -7832,17 +7838,19 @@ at the start of the first bar of a system (that is, at the start of a line). By
 default, such marks are aligned with the first note in the bar. If
 `linestartleft' is present, these marks are instead placed at the start of the
 line; `nolinestartleft' can be used to restore the default in a following
-movement. If <&'style'&> is present, it must be one of the words `boxed'
-(enclose in a rectangular box), `ringed' (enclose in a ring), or `plain' (do
-not enclose). The size is the font size, and the final argument specifies the
-font to be used (&R; &<<SECTtextfonts>>&).
+movement. If <&'style'&> is present, it must be one of the words `boxed' or
+`roundboxed' (enclose in a rectangular box, in the second case with rounded
+corners), `ringed' (enclose in a ring), or `plain' (do not enclose). The size
+is the font size, and the final argument specifies the font to be used (&R;
+&<<SECTtextfonts>>&).
 .code
 rehearsalmarks boxed 13
 rehearsalmarks ringed italic
 rehearsalmarks 11 bolditalic
 rehearsalmarks linestartleft plain 14 bold
 .endd
-By default, rehearsal marks are enclosed in a box, using a 12-point roman font.
+By default, rehearsal marks are enclosed in a box with mitred corners, using a
+12-point roman font.
 
 
 
@@ -10727,7 +10735,8 @@ are available:
 .row &`/nc`&          "do not centre"               "&BM12;&~&~ignored for underlay/overlay"
 .row &`/ne`&          "do not align the end"        "&BM12;"
 .row "&~"             ""                            "&BM12;"
-.row &`/box`&         "enclose in a box"     "&BM12;"
+.row &`/box`&         "enclose in a box (mitred corners)"     "&BM12;"
+.row &`/rbox`&        "enclose in a box (round corners)"      "&BM12;"
 .row &`/ring`&        "enclose in a ring"    "&BM12;"
 .row &`/rot`&<&'n'&>  "rotate by <&'n'&> degrees"   "&BB12;"
 .row "&~"
@@ -10862,9 +10871,9 @@ note spacing.
 .index "text" "boxed"
 .index "text" "ringed"
 The longer the string is, the more elliptical a ring will be. For a single
-character, the ring is approximately circular. If the &`/box`& or &`/ring`&
-options are used with underlay or overlay, they apply to each individual
-syllable.
+character, the ring is approximately circular. If the &`/box`&, &`rbox`&, or
+&`/ring`& options are used with underlay or overlay, they apply to each
+individual syllable.
 
 
 .subsection "Text sizes" SUBSECTtextsizeoption
@@ -10980,11 +10989,12 @@ option in this example, to centre the text below each note:
 .index "rehearsal marks"
 Rehearsal marks are specified as text items enclosed in square brackets. The
 text may be longer than one character. It is output above the stave, and by
-default is in bold type and enclosed in a rectangular box. The
-&%rehearsalmarks%& directive can be used to change the size and the font, and
-to specify a ring instead of a box, or printing with no enclosure at all. If
-necessary, a rehearsal mark can be moved up, down, left or right, in the same
-manner as other text.
+default is in bold type and enclosed in a rectangular box with mitred corners.
+The &%rehearsalmarks%& directive can be used to change the size and the font,
+to specify round corners for the box, or to specify a ring instead of a box, or
+to specify no enclosure at all. If necessary, a rehearsal mark can be moved up,
+down, left or right, in the same manner as other text. However, any other
+options that are given with the string are ignored (with a warning).
 .code
 ["A"/u2]
 .endd
@@ -12103,9 +12113,9 @@ set to the length of the text plus a little bit. The text is centred in the
 gap, rotated so that it has the same slope as the line. The text option must be
 the last option for &%[linegap]%& because any further options are taken as
 options that apply to the string. The following text options are available:
-&`/u`&, &`/d`&, &`/l`&, &`/r`&, &`/s`&, &`/S`&, &`/box`&, and &`/ring`&. The
-movements are relative to a coordinate system whose `horizontal' axis lies on
-the line joining the ends of the gap.
+&`/u`&, &`/d`&, &`/l`&, &`/r`&, &`/s`&, &`/S`&, &`/box`&, &`/rbox`&, and
+&`/ring`&. The movements are relative to a coordinate system whose `horizontal'
+axis lies on the line joining the ends of the gap.
 .endlist
 
 A drawing or text string can be associated with the start or end of a line by
@@ -15514,7 +15524,7 @@ follow-on strings (&R; &<<SUBSECTfollowon>>&).
 .row &`/a`&<&'n'&>     "position <&'n'&> points above the stave"
 .row &`/b`&            "position below the stave"
 .row &`/bar`&          "position at previous bar line"
-.row &`/box`&          "enclose in a rectangular box"
+.row &`/box`&          "enclose in a rectangular box (mitred)"
 .row &`/bu`&           "position below, at the underlay level"
 .row &`/b`&<&'n'&>     "position <&'n'&> points below the stave"
 .row &`/c`&            "centre the string horizontally at its position"
@@ -15532,6 +15542,7 @@ follow-on strings (&R; &<<SUBSECTfollowon>>&).
 .row &`/ne`&           "cancel a previous &`/e`&"
 .row &`/ol`&           "string is overlay"
 .row &`/r`&<&'n'&>     "move right <&'n'&> points"
+.row &`/rbox`&          "enclose in a rectangular box (rounded)"
 .row &`/rc`&<&'n'&>    "position right <&'n'&> crotchets"
 .row &`/ring`&         "enclose in a ring shape"
 .row &`/rot`&<&'n'&>   "rotate <&'n'&> degrees"

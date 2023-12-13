@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: February 2021 */
-/* This file last modified: October 2023 */
+/* This file last modified: December 2023 */
 
 #include "pmw.h"
 
@@ -306,7 +306,8 @@ for (int i = 0; i < out_drawstackptr; i++)
 
     if (d->size != 0) eprintf("/s%d", d->size + 1);
     if (d->rotate != 0) eprintf("/rot%s", sff(d->rotate));
-    if ((d->flags & text_boxed) != 0) eprintf("/box");
+    if ((d->flags & text_boxrounded) != 0) eprintf("/rbox");
+      else if ((d->flags & text_boxed) != 0) eprintf("/box");
     if ((d->flags & text_centre) != 0) eprintf("/c");
     if ((d->flags & text_endalign) != 0) eprintf("/e");
     if ((d->flags & text_ringed) != 0) eprintf("/ring");
@@ -426,6 +427,13 @@ while (read_c == '/')
       read_i += 2;
       read_nextc();
       if (read_expect_integer(&rotate, TRUE, TRUE)) textptr->rotate = rotate;
+      break;
+      }
+    else if (Ustrncmp(main_readbuffer + read_i, "box", 3) == 0)
+      {
+      read_i += 3;
+      read_nextc();
+      textptr->flags |= text_boxed | text_boxrounded;
       break;
       }
     else if (Ustrncmp(main_readbuffer + read_i, "ing", 3) == 0)
@@ -1554,7 +1562,6 @@ while (p->d.val != dr_end)
         int32_t xx = x[xp-1] + d->xdelta;
         int32_t yy = y[yp-1] + d->ydelta;
         uint32_t flags = d->flags;
-        uint32_t boxring = flags & (text_boxed | text_ringed);
 
         if (!currentpoint) draw_error(ERR153, "show", t);
 
@@ -1589,7 +1596,7 @@ while (p->d.val != dr_end)
           new->next = NULL;
           new->texttype = TRUE;
           new->d.t.text = d->text;
-          new->d.t.boxring = boxring;
+          new->d.t.flags = flags;
           memcpy(new->d.t.colour, colour, 3 * sizeof(int32_t));
           new->d.t.xx = xx;
           new->d.t.yy = out_ystave - yy;
@@ -1601,7 +1608,7 @@ while (p->d.val != dr_end)
             }
           }
 
-        else out_string(d->text, fdata, xx, out_ystave - yy, boxring);
+        else out_string(d->text, fdata, xx, out_ystave - yy, flags);
         }
       }
     break;
@@ -1723,8 +1730,11 @@ currentpoint = FALSE;
 ps_getcolour(save_colour);
 ps_setgray(0);
 ps_setdash(0,0);
+ps_setcapandjoin(0);
+draw_thickness = 500;
 (void)sub_draw(t, NULL, x, y, c, overflag);
 ps_setcolour(save_colour);
+ps_setcapandjoin(0);
 }
 
 

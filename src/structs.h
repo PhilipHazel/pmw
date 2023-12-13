@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: October 2023 */
+/* This file last modified: November 2023 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -491,7 +491,7 @@ struct overdrawstr_graphic {
 struct overdrawstr_text {
   uint32_t *text;
   fontinststr fdata;
-  uint32_t boxring;
+  uint32_t flags;
   int32_t colour[3]; 
   int32_t xx;
   int32_t yy;

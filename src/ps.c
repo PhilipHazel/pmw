@@ -329,7 +329,7 @@ if (ps_wantcolour[0] == ps_wantcolour[1] && ps_wantcolour[1] == ps_wantcolour[2]
 else
   ps_printf(" %s %s %s Sc", sff(ps_wantcolour[0]), sff(ps_wantcolour[1]),
     sff(ps_wantcolour[2]));
-memcpy(ps_curcolour, ps_wantcolour, 2 * sizeof(int32_t));
+memcpy(ps_curcolour, ps_wantcolour, 3 * sizeof(int32_t));
 ps_changecolour = FALSE;
 }
 

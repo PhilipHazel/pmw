@@ -7,6 +7,7 @@ draw test
   30 dup sin exch cos 
   60 dup sin exch cos 
   pstack
+  9 { pop } repeat 
 enddraw
 
 heading draw test   
@@ -159,5 +160,41 @@ heading draw colourtest 10
 
 [stave 1 treble 1]
 [overdraw overcolourtext] g
+[endstave]
+
+
+[newmovement]
+nocheck
+rehearsalmarks roundboxed
+barnumbers 1000
+heading 2 ""
+
+draw bs
+  0 -15 moveto "A"/box show
+  0 -30 moveto "A"/rbox pstack show
+enddraw    
+
+draw a
+  0 0 moveto 0 -30 rlineto 3 setlinewidth stroke
+enddraw
+
+draw b
+  0 0 moveto 0 -30 rlineto stroke
+enddraw
+
+[stave 1 treble 1] 
+["A"] "\rm\A"/rbox g [draw bs] g g [overdraw bs] g |
+["A"/ul] g ["B"/u10 draw a] g ["C"/S2/r10 draw b]  g |
+[endstave]
+
+
+[newmovement]
+nocheck
+barnumbers roundboxed 1
+
+[stave 1 treble 1 text underlay]
+[line/u10] gg [linegap/"1 2 3"/rbox] ggg [endline] 
+[line/u10] gg [linegap/"42"/rbox/S6] ggg [endline] |
+ggg |
 [endstave]
 

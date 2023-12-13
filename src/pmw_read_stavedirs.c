@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2023 */
 /* This file created: February 2021 */
-/* This file last modified: October 2023 */
+/* This file last modified: December 2023 */
 
 #include "pmw.h"
 
@@ -1698,7 +1698,7 @@ while (read_c == '/')
           read_nextc();
           p->textflags |= text_boxed;
           }
-        else error(ERR8, "/box, /ring, or /s");
+        else error(ERR8, "/box");
         break;
 
         case 'd':
@@ -1732,7 +1732,13 @@ while (read_c == '/')
         break;
 
         case 'r':
-        if (Ustrncmp(main_readbuffer + read_i, "ing", 3) == 0)
+        if (Ustrncmp(main_readbuffer + read_i, "box", 3) == 0)
+          {
+          read_i += 3;
+          read_nextc();
+          p->textflags |= text_boxed | text_boxrounded;
+          }
+        else if (Ustrncmp(main_readbuffer + read_i, "ing", 3) == 0)
           {
           read_i += 3;
           read_nextc();
@@ -1746,7 +1752,7 @@ while (read_c == '/')
         break;
 
         default:
-        error(ERR8, "/box, /ring, or /s");
+        error(ERR8, "/box, /d, /l, /r, /rbox, /ring, /s, or /u");
         break;
         }
       }

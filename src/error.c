@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: October 2023 */
+/* This file last modified: December 2023 */
 
 #include "pmw.h"
 
@@ -274,7 +274,8 @@ aborts the run after outputting additional information. */
 /* 175-179 */
 { ec_major,   "duplicate glyph name \"%s\" in line %d of %s\n%s" },
 { ec_major,   "duplicate font encoding value %d in line %d of %s\n%s" },
-{ ec_major,   "[backup] must follow a note" }
+{ ec_major,   "[backup] must follow a note" },
+{ ec_warning, "non-movement options on rehearsal marks are ignored" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

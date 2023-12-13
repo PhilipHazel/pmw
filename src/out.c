@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: May 2021 */
-/* This file last modified: October 2023 */
+/* This file last modified: December 2023 */
 
 #include "pmw.h"
 
@@ -789,9 +789,10 @@ if (s != NULL && *s != 0)
 
   if (rehearse)
     {
-    usint style = curmovt->rehearsalstyle;
-    int32_t yextra = (style == text_boxed)? 2000 :
-                     (style == text_ringed)? 4000 : 0;
+    usint style = flags; 
+//    usint style = curmovt->rehearsalstyle;
+    int32_t yextra = ((style & text_boxed) != 0)? 2000 :
+                     ((style & text_ringed) != 0)? 4000 : 0;
 
     /* At the start of a bar, unless an offset is provided, if we are at the
     start of a line, align with the very start if rehearsallsleft is set or
@@ -841,7 +842,7 @@ if (s != NULL && *s != 0)
     if ((flags & (text_boxed | text_ringed)) != 0)
       y += (above? 2 : (-2))*out_stavemagn;
     out_string(s, fdata, x + p->x, out_ystave - ((y + p->y)*out_stavemagn)/1000,
-      flags & (text_boxed | text_ringed));
+      flags);
     }
   }
 
@@ -1766,14 +1767,14 @@ Arguments:
   fdata       pointer to font instance data
   x           x-coordinate for the start
   y           y-coordinate for the start
-  boxring     flags: text_boxed or text_ringed for boxed or ringed text, else 0
+  boxring     text flags
 
 Returns:      nothing
 */
 
 void
 out_string(uint32_t *s, fontinststr *fdata, int32_t x, int32_t y,
-  uint32_t boxring)
+  uint32_t flags)
 {
 BOOL rotated;
 int32_t y0, y1;
@@ -1783,6 +1784,7 @@ int32_t ystart = y;
 int32_t magn;
 int i = 0;
 int nonskip = 0;
+uint32_t boxring = flags & (text_boxed | text_boxrounded | text_ringed);
 uint32_t buff[256];
 
 /* Make a copy of the string, interpreting the specials, and outputting as we
@@ -1958,12 +1960,11 @@ if ((boxring & text_boxed) != 0)
   /* This is how to get rounded or bevelled corners if we set up options for
   this feature. Might also need to adjust 15 below somehow. */
 
-  /*
-  ps_setcapandjoin(caj_round | caj_round_join);
-  ps_setcapandjoin(caj_butt | caj_bevel_join);
-  */
+  /* Set rounded corners if wanted */
 
+  if ((boxring & text_boxrounded) != 0) ps_setcapandjoin(caj_round_join);
   ps_lines(xx, yy, 6, fdata->size/15);
+  ps_setcapandjoin(caj_mitre_join);
   }
 
 /* Ringed string - the paths routine is also stave-relative */
@@ -2151,6 +2152,7 @@ int lastystave;
 int zerocopycount = 0;
 int32_t previous_stavedepth = INT32_MAX;   /* Non-zero is what matters */
 int32_t depthvector[MAX_STAVE+1];
+int32_t save_colour[3];
 snamestr **stavenames = out_sysblock->stavenames;
 
 TRACE("out_system() start\n");
@@ -2543,16 +2545,17 @@ if (rightbarx > leftbarx) for (curstave = 1; curstave <= out_laststave;
 have been drawn, do them now. The overdrawstr blocks are cached for re-use, but
 the x, y, c vectors, being of different sizes, are not. */
 
+ps_getcolour(save_colour);
 while (out_overdraw != NULL)
   {
   overdrawstr *this = out_overdraw;
   out_overdraw = this->next;
+
   if (this->texttype)
     {
     ps_setcolour(this->d.t.colour);
     out_string(this->d.t.text, &(this->d.t.fdata), this->d.t.xx,
-      this->d.t.yy, this->d.t.boxring);
-    ps_setgray(0);
+      this->d.t.yy, this->d.t.flags);
     }
   else
     {
@@ -2561,9 +2564,9 @@ while (out_overdraw != NULL)
     out_ystave = this->d.g.ystave;
     ps_path(this->d.g.x, this->d.g.y, this->d.g.c, this->d.g.linewidth);
     mem_free_cached((void **)(&main_freeoverdrawstr), this);
-    ps_setgray(0);
     }
   }
+ps_setcolour(save_colour);
 
 TRACE("out_system() end\n");
 }

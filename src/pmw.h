@@ -6,7 +6,7 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: October 2023 */
+/* This file last modified: December 2023 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
@@ -371,7 +371,7 @@ enum error_number {
   ERR140,ERR141,ERR142,ERR143,ERR144,ERR145,ERR146,ERR147,ERR148,ERR149,
   ERR150,ERR151,ERR152,ERR153,ERR154,ERR155,ERR156,ERR157,ERR158,ERR159,
   ERR160,ERR161,ERR162,ERR163,ERR164,ERR165,ERR166,ERR167,ERR168,ERR169,
-  ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176,ERR177
+  ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176,ERR177,ERR178
 };
 
 /* Types of input file */
@@ -423,15 +423,16 @@ enum { lv_barcount, lv_repeatcount, lv_repeatptr, lv_newpage };
 #define text_baralign   0x00000008u  /* Align text at starting barline */
 #define text_barcentre  0x00000010u  /* Centre the text in the bar */
 #define text_boxed      0x00000020u  /* Enclose in a box */
-#define text_centre     0x00000040u  /* Centred  */
-#define text_endalign   0x00000080u  /* End aligned */
-#define text_fb         0x00000100u  /* Figured bass */
-#define text_followon   0x00000200u  /* Follow-on to previous */
-#define text_middle     0x00000400u  /* Put halfway betwen staves */
-#define text_rehearse   0x00000800u  /* Rehearsal mark */
-#define text_ringed     0x00001000u  /* Enclose in a ring */
-#define text_timealign  0x00002000u  /* Align with time signature */
-#define text_ul         0x00004000u  /* Underlay, but with text_above = overlay */
+#define text_boxrounded 0x00000040u  /* ... with rounded corners */
+#define text_centre     0x00000080u  /* Centred  */
+#define text_endalign   0x00000100u  /* End aligned */
+#define text_fb         0x00000200u  /* Figured bass */
+#define text_followon   0x00000400u  /* Follow-on to previous */
+#define text_middle     0x00000800u  /* Put halfway betwen staves */
+#define text_rehearse   0x00001000u  /* Rehearsal mark */
+#define text_ringed     0x00002000u  /* Enclose in a ring */
+#define text_timealign  0x00004000u  /* Align with time signature */
+#define text_ul         0x00008000u  /* Underlay; with text_above = overlay */
 
 /* Flags for stave name texts */
 
@@ -659,7 +660,7 @@ enum { nh_normal,           /* conventional noteheads */
        nh_harmonic,         /* diamond-shaped */
        nh_none,             /* no noteheads */
        nh_direct,           /* fancy 'w' */
-       nh_circular,         /* special circular shape */ 
+       nh_circular,         /* special circular shape */
        nh_number            /* number of special noteheads values */
 };
 

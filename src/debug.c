@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: July 2023 */
+/* This file last modified: December 2023 */
 
 #include "pmw.h"
 
@@ -281,6 +281,7 @@ static textflag_name textflags[] = {
   { text_baralign,  "baralign" },
   { text_barcentre, "barcentre" },
   { text_boxed,     "boxed" },
+  { text_boxrounded,"boxrounded" },
   { text_centre,    "centre" },
   { text_endalign,  "endalign" },
   { text_fb,        "fb" },

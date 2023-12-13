@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: January 2021 */
-/* This file last modified: June 2023 */
+/* This file last modified: December 2023 */
 
 #include "pmw.h"
 
@@ -1830,7 +1830,7 @@ Arguments:
   b         points to a structure to return data
   rehearse  TRUE for a rehearsal string
   opts      if not NULL, restrict to these options
-  opterror  string for bad option error
+  opterror  string for bad option error when opts not NULL
 
 Returns:   TRUE if the options end with /" (current character is then ")
 */
@@ -1853,7 +1853,7 @@ read_basestring(basestavestring *b, BOOL rehearse, const char *opts,
   const char *opterror)
 {
 b->hadab = FALSE;
-b->flags = srs.textflags;
+b->flags = rehearse? 0 : srs.textflags;
 b->offset = b->adjustx = b->adjusty = b->halfway = b->rotate = 0;
 b->size = -1;
 
@@ -2017,7 +2017,13 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
     break;
 
     case 'r':
-    if (Ustrncmp(main_readbuffer + read_i, "ing", 3) == 0)
+    if (Ustrncmp(main_readbuffer + read_i, "box", 3) == 0)
+      {
+      b->flags |= text_boxed | text_boxrounded;
+      read_i += 3;
+      read_nextc();
+      }
+    else if (Ustrncmp(main_readbuffer + read_i, "ing", 3) == 0)
       {
       b->flags |= text_ringed;
       read_i += 3;
@@ -2090,7 +2096,7 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
 
     default:
     error_skip(ERR8, ('/'<<8) | ' ', "/a, /ao, /b, /bar, /box, /bu, /d, /e, "
-      "/F, /fb, /h, /l, /m, /ol, /r, /ring, /S, /s, /u or /ul");
+      "/F, /fb, /h, /l, /m, /ol, /r, /rbox, /ring, /S, /s, /u or /ul");
     break;
     }
   }
@@ -2167,17 +2173,24 @@ basestavestring *s3 = NULL;
 /* Read the basic string. If it ends with /" there is special handling for
 underlay/overlay. */
 
-more = read_basestring(s1, rehearse, NULL,
-  "/a, /ao, /b, /bar, /box, /bu, /d, /e, /F, /fb, "
-  "/h, /l, /m, /ol, /r, /ring, /S, /s, /u or /ul");
-
+more = read_basestring(s1, rehearse, NULL, NULL);
 if (s1->string == NULL) return;    /* There's been an error */
 
-undoverlay = (s1->flags & text_ul) != 0;
+/* Non-movement options and size settings are ignored on rehearsal marks; they
+always use the rehearsal marks style and size. Warn if any are present. */
+
+if (rehearse && (s1->flags != 0 || s1->size >= 0)) 
+  {
+  error(ERR178);
+  s1->flags = 0;  /* No flags */
+  s1->size = -1;  /* Unset */ 
+  }
 
 /* Now that we know what type of text this is, we can set up the default font
 for underlay, overlay, figured bass, or general text, and also set the size if
 it is not set. */
+
+undoverlay = (s1->flags & text_ul) != 0;  /* Save repeated testing */
 
 if (undoverlay)
   {
@@ -2204,9 +2217,7 @@ else if ((s1->flags & text_fb) != 0)
 else if (rehearse)
   {
   default_font = curmovt->fonttype_rehearse;
-  if (s1->size >= 0) error(ERR11, "/s or /S on a rehearsal mark");
   s1->size = 0;
-  s1->flags |= curmovt->rehearsalstyle;
   }
 
 else
@@ -2341,7 +2352,7 @@ if ((s1->flags & text_absolute) != 0 && !s1->hadab)
 
 /* Override flags for rehearsal strings. */
 
-if (rehearse) s1->flags = text_rehearse | text_above;
+if (rehearse) s1->flags = text_rehearse | text_above | curmovt->rehearsalstyle;
 
 /* Set up a stave text block that is not (yet) connected to the current bar's
 chain of items. */

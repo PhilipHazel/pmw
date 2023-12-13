@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: June 2023 */
+/* This file last modified: December 2023 */
 
 #include "pmw.h"
 
@@ -622,6 +622,8 @@ if (isalpha(read_c))
   read_sigc();
   if (Ustrcmp(read_wordbuffer, "boxed") == 0)
     curmovt->barnumber_textflags = text_boxed;
+  else if (Ustrcmp(read_wordbuffer, "roundboxed") == 0)
+    curmovt->barnumber_textflags = text_boxed | text_boxrounded;
   else if (Ustrcmp(read_wordbuffer, "ringed") == 0)
     curmovt->barnumber_textflags = text_ringed;
   else wordread = TRUE;
@@ -1760,13 +1762,15 @@ while (isalpha(read_c))
     continue;
     }
 
-  if (Ustrcmp(read_wordbuffer, "boxed") == 0)
+  if (Ustrcmp(read_wordbuffer, "roundboxed") == 0)
+    curmovt->rehearsalstyle = text_boxed | text_boxrounded;
+  else if (Ustrcmp(read_wordbuffer, "boxed") == 0)
     curmovt->rehearsalstyle = text_boxed;
   else if (Ustrcmp(read_wordbuffer, "ringed") == 0)
     curmovt->rehearsalstyle = text_ringed;
   else if (Ustrcmp(read_wordbuffer, "plain") == 0)
     curmovt->rehearsalstyle = 0;
-  else error(ERR8, "\"boxed\", \"ringed\", or \"plain\"");
+  else error(ERR8, "\"boxed\", \"roundboxed\", \"ringed\", or \"plain\"");
 
   break;
   }

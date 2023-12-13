@@ -39,7 +39,7 @@ BAR 0 (1)
   "\it\abcd" flags = none
   "\rm\def"/u2/s3 flags = none
   "\it\xyz"/rot30 flags = none
-  "\rm\A" flags = above rehearse
+  "\rm\A" flags = above boxed rehearse
   [all]
   [breakbarline]
   [comma]

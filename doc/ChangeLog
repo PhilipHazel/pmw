@@ -26,6 +26,12 @@ takes note of the colour or grayscale setting.
 is preserved over a drawing instead of forcing black afterwards. This is in
 preparation for the possible use of colour other than in drawings.
 
+8. Add options for rounded corners on boxes: /rbox for strings and "roundboxed" 
+for rehearsal marks.
+
+9. Give a warning for string options on rehearsal marks that are ignored 
+because the style and size are taken from the "rehearsalmarks" directive.
+
 
 Version 5.21 15-July-2023
 -------------------------
