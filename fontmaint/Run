@@ -1,0 +1,21 @@
+#! /bin/sh
+
+# Make PFA font from raw source and then run the given file with it.
+
+if [ $# -ne 1 ]; then
+  echo "One file name expected"
+  exit 1
+fi
+
+if [ ! -e $1 ]; then
+  echo "$1 does not exist"
+  exit 1
+fi
+
+t1asm -a PMW-Music.raw PMW-Music.pfa
+
+if [ $? != 0 ]; then
+  exit 1
+fi
+cat PMW-Music.pfa $1 >zztest.ps
+gv zztest.ps &

@@ -1,0 +1,51 @@
+%!
+
+/c (\112\113\115\310\157\160\311) def
+
+/PMW-Music findfont 10 scalefont setfont
+gsave 72 700 moveto 1 1 2{pop
+
+gsave (FFF) show grestore
+
+(! ) show c show
+
+72 600 moveto 4 4 scale} for grestore
+
+100 200 translate
+
+0.3 0.3 0.3 setrgbcolor
+0.2 setlinewidth 
+0 0 moveto 0 240 lineto stroke
+0 0 moveto 400 0 lineto stroke
+0 40 moveto 400 40 lineto stroke
+0 80 moveto 400 80 lineto stroke
+0 120 moveto 400 120 lineto stroke
+0 160 moveto 400 160 lineto stroke
+
+[1] 0 setdash
+10 10 150 {
+0 exch moveto 400 0 rlineto stroke
+} for  
+
+[] 0 setdash
+
+10 10 400 {
+0 moveto 0 160 rlineto stroke
+} for
+
+0 0 0 setrgbcolor
+0 0 moveto 
+
+%/Times-Roman findfont 100 scalefont setfont
+%(B) show
+
+/PMW-Music findfont 100 scalefont setfont
+c show
+
+%0 0 moveto (\311) show
+
+%/Times-Roman findfont 100 scalefont setfont
+%(C) show
+
+
+showpage

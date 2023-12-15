@@ -1,20 +1,47 @@
 %!
 % Demonstrate all chars of PMW music file
+% P. Hazel, written August 1992, added to as necessary
 
-/Mt{moveto}def 
+/Mt{moveto}def /Lt{lineto}def /Rl{rlineto}def /Slw{setlinewidth}def
 /Sf{setfont}def
+
+/sef{scalefont /oldfont exch def
+/newfont oldfont maxlength dict def
+oldfont{exch dup /FID ne{dup /Encoding eq
+{exch dup length array copy
+newfont 3 1 roll put} {exch newfont 3 1 roll put}ifelse}
+{pop pop}ifelse}
+
+forall
+1 /aacute 2 /acircumflex 3 /adieresis 4 /agrave 5 /ccedilla
+6 /eacute 7 /ecircumflex 8 /edieresis 9 /egrave
+10 /iacute 11 /icircumflex 12 /idieresis 13 /igrave 14 /ntilde
+15 /oacute 16 /ocircumflex 17 /odieresis 18 /ograve
+19 /uacute 20 /ucircumflex 21 /udieresis 22 /ugrave
+
+22{newfont /Encoding get 3 1 roll put}repeat
+/nextfont nextfont 1 add def
+nextfont 10 string cvs cvn newfont definefont pop newfont def
+}def
+
+/nextfont 0 def
+
 
 /Mus /PMW-Music findfont 10 scalefont def
 /Tit /Times-Roman findfont 20 scalefont def
-/rm  /Times-Roman findfont 10 scalefont def
-
+/rm  /Times-Roman findfont 10 sef
+/bf  /Times-Bold  findfont 10 scalefont def
+/it  /Times-Italic findfont 10 scalefont def
+/bi  /Times-BoldItalic findfont 10 scalefont def
+/sy  /Symbol findfont 10 scalefont def
 /lhs 50 def
 /sep 60 def
 /top 740 def
 
-180 790 Mt Tit Sf (The PMW PostScript music font) show
 
-Mus Sf
+180 790 Mt Tit setfont (The PMW PostScript music font) show
+
+Mus setfont
 lhs top Mt (FFFFF) show lhs top Mt
 (! " # $z %z &z 'z (z )z  *  +  ,  -  .  /zz  0  1  2  3  4  5  6  7) show
 
@@ -39,7 +66,7 @@ lhs top Mt (FFFFF) show lhs top Mt
 /top top sep sub def
 lhs top Mt (FFFFF) show lhs top Mt
 (\260  \261  \262  \263  \264  \265  \266 \267 \270  \275 \276 \277 \300 ) show
-(\301 \302 \303  \304  \305  \306  \307) show
+(\301 \302 \303  \304  \305  \306  \307  \310  \311) show
 
 % Long stave lines
 
@@ -68,7 +95,7 @@ lhs top Mt rm Sf (B) show Mus Sf (\264) show rm Sf ( D7) show
 Mus Sf (\265) show rm Sf ( E) show Mus Sf (\266) show
 
 
-lhs top 110 sub Mt rm Sf 
+lhs top 110 sub Mt rm Sf
 
 (Version ) show
 

@@ -417,10 +417,9 @@ and MIDI voice numbers.
 .next
 &_share/pmw/PSheader_& is the PostScript header file for PMW output.
 .next
-&_share/pmw/psfonts/PMW-Music.pfa_& and &_share/pmw/psfonts/PMW-Music.ttf_&
+&_share/pmw/psfonts/PMW-Music.pfa_& and &_share/pmw/psfonts/PMW-Music.otf_&
 are both copies of the PMW-Music font, in two different formats. The first is a
-PostScript Type 1 font and the second is an TrueType font. (In releases 5.20
-and 5.21 this was an OpenType font. It has changed for technical reasons.)
+PostScript Type 1 font and the second is an OpenType font.
 .next
 &_share/pmw/psfonts/PMW-Alpha_& is an auxiliary music font. This is a Type 3
 PostScript font (so no extension in its name).
@@ -504,8 +503,8 @@ ln -s /usr/local/share/pmw/psfonts/PMW-Alpha \
       /usr/share/fonts/gsfonts/PMW-Alpha
 ln -s /usr/local/share/pmw/psfonts/PMW-Music.pfa \
       /usr/share/fonts/gsfonts/PMW-Music.pfa
-ln -s /usr/local/share/pmw/psfonts/PMW-Music.ttf \
-      /usr/share/fonts/gsfonts/PMW-Music.ttf
+ln -s /usr/local/share/pmw/psfonts/PMW-Music.otf \
+      /usr/share/fonts/gsfonts/PMW-Music.otf
 .endd
 When &'GhostScript'& cannot find a font, it makes a substitution, which in the
 case of PMW-Music usually results in nonsense characters on the screen. The
@@ -14805,17 +14804,15 @@ distance that depends on the point size of the font.
 
 &*Note*&: All these characters exist as actual characters in the original
 PostScript version of the font, which is in a file called &_PMW-Music.pfa_&.
-From release 5.22 a TrueType version called &_PMW-Music.ttf_& is also provided
-because the PostScript font formats are becoming obsolete. (In releases 5.20
-and 5.21 an OpenType font was distributed. For technical reasons, this has had
-to change to TrueType.)
+From release 5.20 an OpenType version called &_PMW-Music.otf_& is also provided
+because the PostScript font formats are becoming obsolete.
 
-The TrueType format does not support leftwards, upwards, or downwards movements
+The OpenType format does not support leftwards, upwards, or downwards movements
 in fonts whose primary movement is to the right. For this reason, the PMW
 program has been updated so that it no longer relies on the font mechanism for
 such movements. Instead, when it encounters any of these characters, it
 emulates what would happen with the PostScript font. This means that PMW output
-works with either form of the font, but if the TrueType font is used with any
+works with either form of the font, but if the OpenType font is used with any
 other program, the characters with unsupported movements are not available.
 
 The values given in the table above are the factors by which the font's point

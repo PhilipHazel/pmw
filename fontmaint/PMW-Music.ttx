@@ -1,0 +1,3011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ttFont sfntVersion="OTTO" ttLibVersion="4.43">
+
+  <GlyphOrder>
+    <!-- The 'id' attribute is only for humans; it is ignored when parsed. -->
+    <GlyphID id="0" name=".notdef"/>
+    <GlyphID id="1" name="PMWspace"/>
+    <GlyphID id="2" name="PMWtrebleclef"/>
+    <GlyphID id="3" name="PMWbassclef"/>
+    <GlyphID id="4" name="PMWaltoclef"/>
+    <GlyphID id="5" name="PMWstar"/>
+    <GlyphID id="6" name="PMWsharp"/>
+    <GlyphID id="7" name="PMWdoublesharp"/>
+    <GlyphID id="8" name="PMWflat"/>
+    <GlyphID id="9" name="PMWnatural"/>
+    <GlyphID id="10" name="PMWtfermata"/>
+    <GlyphID id="11" name="PMWbrest"/>
+    <GlyphID id="12" name="PMWsbrest"/>
+    <GlyphID id="13" name="PMWmrest"/>
+    <GlyphID id="14" name="PMWcrest"/>
+    <GlyphID id="15" name="PMWqrest"/>
+    <GlyphID id="16" name="PMWbfermata"/>
+    <GlyphID id="17" name="PMWlongrest"/>
+    <GlyphID id="18" name="PMWbreve"/>
+    <GlyphID id="19" name="PMWsemibreve"/>
+    <GlyphID id="20" name="PMWuminim"/>
+    <GlyphID id="21" name="PMWdminim"/>
+    <GlyphID id="22" name="PMWucrotchet"/>
+    <GlyphID id="23" name="PMWdcrotchet"/>
+    <GlyphID id="24" name="PMWuquaver"/>
+    <GlyphID id="25" name="PMWdquaver"/>
+    <GlyphID id="26" name="PMWusquaver"/>
+    <GlyphID id="27" name="PMWdsquaver"/>
+    <GlyphID id="28" name="PMWusqtail"/>
+    <GlyphID id="29" name="PMWdsqtail"/>
+    <GlyphID id="30" name="PMWledger"/>
+    <GlyphID id="31" name="PMWvdot"/>
+    <GlyphID id="32" name="PMWhdot"/>
+    <GlyphID id="33" name="PMWbarsingle"/>
+    <GlyphID id="34" name="PMWbardouble"/>
+    <GlyphID id="35" name="PMWbarthick"/>
+    <GlyphID id="36" name="PMWstave1"/>
+    <GlyphID id="37" name="PMWpstave1"/>
+    <GlyphID id="38" name="PMWuqtail"/>
+    <GlyphID id="39" name="PMWstave10"/>
+    <GlyphID id="40" name="PMWpstave10"/>
+    <GlyphID id="41" name="PMWdqtail"/>
+    <GlyphID id="42" name="PMWrepeatdots"/>
+    <GlyphID id="43" name="PMWustem"/>
+    <GlyphID id="44" name="PMWdstem"/>
+    <GlyphID id="45" name="PMWcnh"/>
+    <GlyphID id="46" name="PMWmnh"/>
+    <GlyphID id="47" name="PMWcomma"/>
+    <GlyphID id="48" name="PMWmordent"/>
+    <GlyphID id="49" name="PMWdmordent"/>
+    <GlyphID id="50" name="PMWimordent"/>
+    <GlyphID id="51" name="PMWdimordent"/>
+    <GlyphID id="52" name="PMWturn"/>
+    <GlyphID id="53" name="PMWhbar"/>
+    <GlyphID id="54" name="PMWaccent1"/>
+    <GlyphID id="55" name="PMWcaesura"/>
+    <GlyphID id="56" name="PMWaccent2"/>
+    <GlyphID id="57" name="PMWaccent3"/>
+    <GlyphID id="58" name="PMWaccent4"/>
+    <GlyphID id="59" name="PMWaccent5"/>
+    <GlyphID id="60" name="PMWbardotted"/>
+    <GlyphID id="61" name="PMWcaesura1"/>
+    <GlyphID id="62" name="PMWlittle8"/>
+    <GlyphID id="63" name="PMWC"/>
+    <GlyphID id="64" name="PMWcut"/>
+    <GlyphID id="65" name="PMWtilde"/>
+    <GlyphID id="66" name="PMWthumba"/>
+    <GlyphID id="67" name="PMWthumbb"/>
+    <GlyphID id="68" name="PMWds1"/>
+    <GlyphID id="69" name="PMWds2"/>
+    <GlyphID id="70" name="PMWdowna"/>
+    <GlyphID id="71" name="PMWdownb"/>
+    <GlyphID id="72" name="PMWupa"/>
+    <GlyphID id="73" name="PMWupb"/>
+    <GlyphID id="74" name="PMWiturn"/>
+    <GlyphID id="75" name="PMWseven"/>
+    <GlyphID id="76" name="PMWfour"/>
+    <GlyphID id="77" name="PMWhcnh"/>
+    <GlyphID id="78" name="PMWhmnh"/>
+    <GlyphID id="79" name="PMWxnh"/>
+    <GlyphID id="80" name="PMWxustem"/>
+    <GlyphID id="81" name="PMWxdstem"/>
+    <GlyphID id="82" name="PMWfustem"/>
+    <GlyphID id="83" name="PMWfdstem"/>
+    <GlyphID id="84" name="PMWsix"/>
+    <GlyphID id="85" name="PMWgdot"/>
+    <GlyphID id="86" name="PMWgring"/>
+    <GlyphID id="87" name="PMWr1"/>
+    <GlyphID id="88" name="PMWfs"/>
+    <GlyphID id="89" name="PMWtick"/>
+    <GlyphID id="90" name="PMWuacc"/>
+    <GlyphID id="91" name="PMWdacc"/>
+    <GlyphID id="92" name="PMWgrid"/>
+    <GlyphID id="93" name="PMWbarshort"/>
+    <GlyphID id="94" name="PMWbreath"/>
+    <GlyphID id="95" name="PMWvring"/>
+    <GlyphID id="96" name="PMWcross"/>
+    <GlyphID id="97" name="PMWtrill"/>
+    <GlyphID id="98" name="PMWscaesura"/>
+    <GlyphID id="99" name="PMWlcaesura"/>
+    <GlyphID id="100" name="PMWsbra"/>
+    <GlyphID id="101" name="PMWsket"/>
+    <GlyphID id="102" name="PMWrbra"/>
+    <GlyphID id="103" name="PMWrket"/>
+    <GlyphID id="104" name="PMWrep"/>
+    <GlyphID id="105" name="PMWrepdots"/>
+    <GlyphID id="106" name="PMWvtilde"/>
+    <GlyphID id="107" name="PMWtrem"/>
+    <GlyphID id="108" name="PMWcirc"/>
+    <GlyphID id="109" name="PMWcutcirc"/>
+    <GlyphID id="110" name="PMWslur1"/>
+    <GlyphID id="111" name="PMWslur2"/>
+    <GlyphID id="112" name="PMWup"/>
+    <GlyphID id="113" name="PMWdown"/>
+    <GlyphID id="114" name="PMWiC"/>
+    <GlyphID id="115" name="PMWicut"/>
+    <GlyphID id="116" name="PMWunibreve"/>
+    <GlyphID id="117" name="PMWaccent6"/>
+    <GlyphID id="118" name="PMWsrbra"/>
+    <GlyphID id="119" name="PMWsrket"/>
+    <GlyphID id="120" name="PMWangle1"/>
+    <GlyphID id="121" name="PMWangle2"/>
+    <GlyphID id="122" name="PMWangle3"/>
+    <GlyphID id="123" name="PMWangle4"/>
+    <GlyphID id="124" name="PMWped"/>
+    <GlyphID id="125" name="PMWuvtilde"/>
+    <GlyphID id="126" name="PMWdvtilde"/>
+    <GlyphID id="127" name="PMWnail"/>
+    <GlyphID id="128" name="PMWangle5"/>
+    <GlyphID id="129" name="PMWangle6"/>
+    <GlyphID id="130" name="PMWstave21"/>
+    <GlyphID id="131" name="PMWstave31"/>
+    <GlyphID id="132" name="PMWstave41"/>
+    <GlyphID id="133" name="PMWstave61"/>
+    <GlyphID id="134" name="PMWhclef"/>
+    <GlyphID id="135" name="PMWoldbassclef"/>
+    <GlyphID id="136" name="PMWoldaltoclef"/>
+    <GlyphID id="137" name="PMWbratop"/>
+    <GlyphID id="138" name="PMWbrabot"/>
+    <GlyphID id="139" name="PMWdirect"/>
+    <GlyphID id="140" name="PMWfive"/>
+    <GlyphID id="141" name="PMWmajor"/>
+    <GlyphID id="142" name="PMWdimsh"/>
+    <GlyphID id="143" name="PMWhdimsh"/>
+    <GlyphID id="144" name="PMWgcross"/>
+    <GlyphID id="145" name="PMWledger2"/>
+    <GlyphID id="146" name="PMWhalfsharp1"/>
+    <GlyphID id="147" name="PMWhalfsharp2"/>
+    <GlyphID id="148" name="PMWhalfflat1"/>
+    <GlyphID id="149" name="PMWhalfflat2"/>
+    <GlyphID id="150" name="PMWicomma"/>
+    <GlyphID id="151" name="PMWaccent7"/>
+    <GlyphID id="152" name="PMWaccent8"/>
+    <GlyphID id="153" name="PMWrturn"/>
+    <GlyphID id="154" name="PMWirturn"/>
+    <GlyphID id="155" name="PMWthcirc"/>
+    <GlyphID id="156" name="PMWbhcirc"/>
+    <GlyphID id="157" name="PMWrcnh"/>
+    <GlyphID id="158" name="PMWrmnh"/>
+    <GlyphID id="159" name="PMWstave210"/>
+    <GlyphID id="160" name="PMWstave310"/>
+    <GlyphID id="161" name="PMWstave410"/>
+    <GlyphID id="162" name="PMWstave610"/>
+  </GlyphOrder>
+
+  <head>
+    <!-- Most of this table will be recalculated by the compiler -->
+    <tableVersion value="1.0"/>
+    <fontRevision value="1.0"/>
+    <checkSumAdjustment value="0x8b9f0c04"/>
+    <magicNumber value="0x5f0f3cf5"/>
+    <flags value="00000000 00000011"/>
+    <unitsPerEm value="1000"/>
+    <created value="Fri Dec 15 14:25:01 2023"/>
+    <modified value="Fri Dec 15 14:25:01 2023"/>
+    <xMin value="-543"/>
+    <yMin value="-1200"/>
+    <xMax value="10000"/>
+    <yMax value="2219"/>
+    <macStyle value="00000000 00000000"/>
+    <lowestRecPPEM value="3"/>
+    <fontDirectionHint value="2"/>
+    <indexToLocFormat value="0"/>
+    <glyphDataFormat value="0"/>
+  </head>
+
+  <hhea>
+    <tableVersion value="0x00010000"/>
+    <ascent value="991"/>
+    <descent value="-9"/>
+    <lineGap value="200"/>
+    <advanceWidthMax value="10000"/>
+    <minLeftSideBearing value="-543"/>
+    <minRightSideBearing value="-3260"/>
+    <xMaxExtent value="10000"/>
+    <caretSlopeRise value="1000"/>
+    <caretSlopeRun value="-35"/>
+    <caretOffset value="386"/>
+    <reserved0 value="0"/>
+    <reserved1 value="0"/>
+    <reserved2 value="0"/>
+    <reserved3 value="0"/>
+    <metricDataFormat value="0"/>
+    <numberOfHMetrics value="160"/>
+  </hhea>
+
+  <maxp>
+    <tableVersion value="0x5000"/>
+    <numGlyphs value="163"/>
+  </maxp>
+
+  <OS_2>
+    <!-- The fields 'usFirstCharIndex' and 'usLastCharIndex'
+         will be recalculated by the compiler -->
+    <version value="3"/>
+    <xAvgCharWidth value="1331"/>
+    <usWeightClass value="400"/>
+    <usWidthClass value="5"/>
+    <fsType value="00000000 00000100"/>
+    <ySubscriptXSize value="650"/>
+    <ySubscriptYSize value="600"/>
+    <ySubscriptXOffset value="3"/>
+    <ySubscriptYOffset value="75"/>
+    <ySuperscriptXSize value="650"/>
+    <ySuperscriptYSize value="600"/>
+    <ySuperscriptXOffset value="-12"/>
+    <ySuperscriptYOffset value="350"/>
+    <yStrikeoutSize value="54"/>
+    <yStrikeoutPosition value="1188"/>
+    <sFamilyClass value="0"/>
+    <panose>
+      <bFamilyType value="0"/>
+      <bSerifStyle value="0"/>
+      <bWeight value="5"/>
+      <bProportion value="0"/>
+      <bContrast value="0"/>
+      <bStrokeVariation value="0"/>
+      <bArmStyle value="0"/>
+      <bLetterForm value="0"/>
+      <bMidline value="0"/>
+      <bXHeight value="0"/>
+    </panose>
+    <ulUnicodeRange1 value="00000000 00000000 00000000 00000011"/>
+    <ulUnicodeRange2 value="00000000 00000000 00000000 00000000"/>
+    <ulUnicodeRange3 value="00000000 00000000 00000000 00000000"/>
+    <ulUnicodeRange4 value="00000000 00000000 00000000 00000000"/>
+    <achVendID value="UKWN"/>
+    <fsSelection value="00000000 01000000"/>
+    <usFirstCharIndex value="32"/>
+    <usLastCharIndex value="250"/>
+    <sTypoAscender value="991"/>
+    <sTypoDescender value="-9"/>
+    <sTypoLineGap value="200"/>
+    <usWinAscent value="2219"/>
+    <usWinDescent value="1200"/>
+    <ulCodePageRange1 value="00000000 00000000 00000000 00000001"/>
+    <ulCodePageRange2 value="00000000 00000000 00000000 00000000"/>
+    <sxHeight value="1980"/>
+    <sCapHeight value="400"/>
+    <usDefaultChar value="0"/>
+    <usBreakChar value="32"/>
+    <usMaxContext value="0"/>
+  </OS_2>
+
+  <name>
+    <namerecord nameID="1" platformID="1" platEncID="0" langID="0x0" unicode="True">
+      PMW
+    </namerecord>
+    <namerecord nameID="2" platformID="1" platEncID="0" langID="0x0" unicode="True">
+      Regular
+    </namerecord>
+    <namerecord nameID="3" platformID="1" platEncID="0" langID="0x0" unicode="True">
+      1.000;UKWN;PMW-Music
+    </namerecord>
+    <namerecord nameID="4" platformID="1" platEncID="0" langID="0x0" unicode="True">
+      PMW
+    </namerecord>
+    <namerecord nameID="5" platformID="1" platEncID="0" langID="0x0" unicode="True">
+      Version 1.000;hotconv 1.1.0;makeotfexe 2.6.0
+    </namerecord>
+    <namerecord nameID="6" platformID="1" platEncID="0" langID="0x0" unicode="True">
+      PMW-Music
+    </namerecord>
+    <namerecord nameID="17" platformID="1" platEncID="0" langID="0x0" unicode="True">
+      Music
+    </namerecord>
+    <namerecord nameID="1" platformID="3" platEncID="1" langID="0x409">
+      PMW
+    </namerecord>
+    <namerecord nameID="2" platformID="3" platEncID="1" langID="0x409">
+      Regular
+    </namerecord>
+    <namerecord nameID="3" platformID="3" platEncID="1" langID="0x409">
+      1.000;UKWN;PMW-Music
+    </namerecord>
+    <namerecord nameID="4" platformID="3" platEncID="1" langID="0x409">
+      PMW
+    </namerecord>
+    <namerecord nameID="5" platformID="3" platEncID="1" langID="0x409">
+      Version 1.000;hotconv 1.1.0;makeotfexe 2.6.0
+    </namerecord>
+    <namerecord nameID="6" platformID="3" platEncID="1" langID="0x409">
+      PMW-Music
+    </namerecord>
+  </name>
+
+  <cmap>
+    <tableVersion version="0"/>
+    <cmap_format_4 platformID="0" platEncID="3" language="0">
+      <map code="0x20" name="PMWspace"/><!-- SPACE -->
+      <map code="0x21" name="PMWtrebleclef"/><!-- EXCLAMATION MARK -->
+      <map code="0x22" name="PMWbassclef"/><!-- QUOTATION MARK -->
+      <map code="0x23" name="PMWaltoclef"/><!-- NUMBER SIGN -->
+      <map code="0x24" name="PMWstar"/><!-- DOLLAR SIGN -->
+      <map code="0x25" name="PMWsharp"/><!-- PERCENT SIGN -->
+      <map code="0x26" name="PMWdoublesharp"/><!-- AMPERSAND -->
+      <map code="0x27" name="PMWflat"/><!-- APOSTROPHE -->
+      <map code="0x28" name="PMWnatural"/><!-- LEFT PARENTHESIS -->
+      <map code="0x29" name="PMWtfermata"/><!-- RIGHT PARENTHESIS -->
+      <map code="0x2a" name="PMWbrest"/><!-- ASTERISK -->
+      <map code="0x2b" name="PMWsbrest"/><!-- PLUS SIGN -->
+      <map code="0x2c" name="PMWmrest"/><!-- COMMA -->
+      <map code="0x2d" name="PMWcrest"/><!-- HYPHEN-MINUS -->
+      <map code="0x2e" name="PMWqrest"/><!-- FULL STOP -->
+      <map code="0x2f" name="PMWbfermata"/><!-- SOLIDUS -->
+      <map code="0x30" name="PMWlongrest"/><!-- DIGIT ZERO -->
+      <map code="0x31" name="PMWbreve"/><!-- DIGIT ONE -->
+      <map code="0x32" name="PMWsemibreve"/><!-- DIGIT TWO -->
+      <map code="0x33" name="PMWuminim"/><!-- DIGIT THREE -->
+      <map code="0x34" name="PMWdminim"/><!-- DIGIT FOUR -->
+      <map code="0x35" name="PMWucrotchet"/><!-- DIGIT FIVE -->
+      <map code="0x36" name="PMWdcrotchet"/><!-- DIGIT SIX -->
+      <map code="0x37" name="PMWuquaver"/><!-- DIGIT SEVEN -->
+      <map code="0x38" name="PMWdquaver"/><!-- DIGIT EIGHT -->
+      <map code="0x39" name="PMWusquaver"/><!-- DIGIT NINE -->
+      <map code="0x3a" name="PMWdsquaver"/><!-- COLON -->
+      <map code="0x3b" name="PMWusqtail"/><!-- SEMICOLON -->
+      <map code="0x3c" name="PMWdsqtail"/><!-- LESS-THAN SIGN -->
+      <map code="0x3d" name="PMWledger"/><!-- EQUALS SIGN -->
+      <map code="0x3e" name="PMWvdot"/><!-- GREATER-THAN SIGN -->
+      <map code="0x3f" name="PMWhdot"/><!-- QUESTION MARK -->
+      <map code="0x40" name="PMWbarsingle"/><!-- COMMERCIAL AT -->
+      <map code="0x41" name="PMWbardouble"/><!-- LATIN CAPITAL LETTER A -->
+      <map code="0x42" name="PMWbarthick"/><!-- LATIN CAPITAL LETTER B -->
+      <map code="0x43" name="PMWstave1"/><!-- LATIN CAPITAL LETTER C -->
+      <map code="0x44" name="PMWpstave1"/><!-- LATIN CAPITAL LETTER D -->
+      <map code="0x45" name="PMWuqtail"/><!-- LATIN CAPITAL LETTER E -->
+      <map code="0x46" name="PMWstave10"/><!-- LATIN CAPITAL LETTER F -->
+      <map code="0x47" name="PMWpstave10"/><!-- LATIN CAPITAL LETTER G -->
+      <map code="0x48" name="PMWdqtail"/><!-- LATIN CAPITAL LETTER H -->
+      <map code="0x49" name="PMWrepeatdots"/><!-- LATIN CAPITAL LETTER I -->
+      <map code="0x4a" name="PMWustem"/><!-- LATIN CAPITAL LETTER J -->
+      <map code="0x4b" name="PMWdstem"/><!-- LATIN CAPITAL LETTER K -->
+      <map code="0x4c" name="PMWcnh"/><!-- LATIN CAPITAL LETTER L -->
+      <map code="0x4d" name="PMWmnh"/><!-- LATIN CAPITAL LETTER M -->
+      <map code="0x4e" name="PMWcomma"/><!-- LATIN CAPITAL LETTER N -->
+      <map code="0x4f" name="PMWmordent"/><!-- LATIN CAPITAL LETTER O -->
+      <map code="0x50" name="PMWdmordent"/><!-- LATIN CAPITAL LETTER P -->
+      <map code="0x51" name="PMWimordent"/><!-- LATIN CAPITAL LETTER Q -->
+      <map code="0x52" name="PMWdimordent"/><!-- LATIN CAPITAL LETTER R -->
+      <map code="0x53" name="PMWturn"/><!-- LATIN CAPITAL LETTER S -->
+      <map code="0x54" name="PMWhbar"/><!-- LATIN CAPITAL LETTER T -->
+      <map code="0x55" name="PMWaccent1"/><!-- LATIN CAPITAL LETTER U -->
+      <map code="0x56" name="PMWcaesura"/><!-- LATIN CAPITAL LETTER V -->
+      <map code="0x57" name="PMWaccent2"/><!-- LATIN CAPITAL LETTER W -->
+      <map code="0x58" name="PMWaccent3"/><!-- LATIN CAPITAL LETTER X -->
+      <map code="0x59" name="PMWaccent4"/><!-- LATIN CAPITAL LETTER Y -->
+      <map code="0x5a" name="PMWaccent5"/><!-- LATIN CAPITAL LETTER Z -->
+      <map code="0x5b" name="PMWbardotted"/><!-- LEFT SQUARE BRACKET -->
+      <map code="0x5c" name="PMWcaesura1"/><!-- REVERSE SOLIDUS -->
+      <map code="0x5d" name="PMWlittle8"/><!-- RIGHT SQUARE BRACKET -->
+      <map code="0x5e" name="PMWC"/><!-- CIRCUMFLEX ACCENT -->
+      <map code="0x5f" name="PMWcut"/><!-- LOW LINE -->
+      <map code="0x60" name="PMWtilde"/><!-- GRAVE ACCENT -->
+      <map code="0x61" name="PMWthumba"/><!-- LATIN SMALL LETTER A -->
+      <map code="0x62" name="PMWthumbb"/><!-- LATIN SMALL LETTER B -->
+      <map code="0x63" name="PMWds1"/><!-- LATIN SMALL LETTER C -->
+      <map code="0x64" name="PMWds2"/><!-- LATIN SMALL LETTER D -->
+      <map code="0x65" name="PMWdowna"/><!-- LATIN SMALL LETTER E -->
+      <map code="0x66" name="PMWdownb"/><!-- LATIN SMALL LETTER F -->
+      <map code="0x67" name="PMWupa"/><!-- LATIN SMALL LETTER G -->
+      <map code="0x68" name="PMWupb"/><!-- LATIN SMALL LETTER H -->
+      <map code="0x69" name="PMWiturn"/><!-- LATIN SMALL LETTER I -->
+      <map code="0x6a" name="PMWseven"/><!-- LATIN SMALL LETTER J -->
+      <map code="0x6b" name="PMWfour"/><!-- LATIN SMALL LETTER K -->
+      <map code="0x6c" name="PMWhcnh"/><!-- LATIN SMALL LETTER L -->
+      <map code="0x6d" name="PMWhmnh"/><!-- LATIN SMALL LETTER M -->
+      <map code="0x6e" name="PMWxnh"/><!-- LATIN SMALL LETTER N -->
+      <map code="0x6f" name="PMWxustem"/><!-- LATIN SMALL LETTER O -->
+      <map code="0x70" name="PMWxdstem"/><!-- LATIN SMALL LETTER P -->
+      <map code="0x71" name="PMWfustem"/><!-- LATIN SMALL LETTER Q -->
+      <map code="0x72" name="PMWfdstem"/><!-- LATIN SMALL LETTER R -->
+      <map code="0x73" name="PMWsix"/><!-- LATIN SMALL LETTER S -->
+      <map code="0x74" name="PMWgdot"/><!-- LATIN SMALL LETTER T -->
+      <map code="0x75" name="PMWgring"/><!-- LATIN SMALL LETTER U -->
+      <map code="0x7a" name="PMWr1"/><!-- LATIN SMALL LETTER Z -->
+      <map code="0x7d" name="PMWfs"/><!-- RIGHT CURLY BRACKET -->
+      <map code="0x80" name="PMWtick"/><!-- ???? -->
+      <map code="0x81" name="PMWuacc"/><!-- ???? -->
+      <map code="0x82" name="PMWdacc"/><!-- ???? -->
+      <map code="0x83" name="PMWgrid"/><!-- ???? -->
+      <map code="0x84" name="PMWbarshort"/><!-- ???? -->
+      <map code="0x85" name="PMWbreath"/><!-- ???? -->
+      <map code="0x86" name="PMWvring"/><!-- ???? -->
+      <map code="0x87" name="PMWcross"/><!-- ???? -->
+      <map code="0x88" name="PMWtrill"/><!-- ???? -->
+      <map code="0x89" name="PMWscaesura"/><!-- ???? -->
+      <map code="0x8a" name="PMWlcaesura"/><!-- ???? -->
+      <map code="0x8b" name="PMWsbra"/><!-- ???? -->
+      <map code="0x8c" name="PMWsket"/><!-- ???? -->
+      <map code="0x8d" name="PMWrbra"/><!-- ???? -->
+      <map code="0x8e" name="PMWrket"/><!-- ???? -->
+      <map code="0x8f" name="PMWrep"/><!-- ???? -->
+      <map code="0x90" name="PMWrepdots"/><!-- ???? -->
+      <map code="0x91" name="PMWvtilde"/><!-- ???? -->
+      <map code="0x92" name="PMWtrem"/><!-- ???? -->
+      <map code="0x93" name="PMWcirc"/><!-- ???? -->
+      <map code="0x94" name="PMWcutcirc"/><!-- ???? -->
+      <map code="0x95" name="PMWslur1"/><!-- ???? -->
+      <map code="0x96" name="PMWslur2"/><!-- ???? -->
+      <map code="0x97" name="PMWup"/><!-- ???? -->
+      <map code="0x98" name="PMWdown"/><!-- ???? -->
+      <map code="0x99" name="PMWiC"/><!-- ???? -->
+      <map code="0x9a" name="PMWicut"/><!-- ???? -->
+      <map code="0x9b" name="PMWunibreve"/><!-- ???? -->
+      <map code="0x9c" name="PMWaccent6"/><!-- ???? -->
+      <map code="0x9d" name="PMWsrbra"/><!-- ???? -->
+      <map code="0x9e" name="PMWsrket"/><!-- ???? -->
+      <map code="0x9f" name="PMWangle1"/><!-- ???? -->
+      <map code="0xa0" name="PMWangle2"/><!-- NO-BREAK SPACE -->
+      <map code="0xa1" name="PMWangle3"/><!-- INVERTED EXCLAMATION MARK -->
+      <map code="0xa2" name="PMWangle4"/><!-- CENT SIGN -->
+      <map code="0xa3" name="PMWped"/><!-- POUND SIGN -->
+      <map code="0xa4" name="PMWuvtilde"/><!-- CURRENCY SIGN -->
+      <map code="0xa5" name="PMWdvtilde"/><!-- YEN SIGN -->
+      <map code="0xa6" name="PMWnail"/><!-- BROKEN BAR -->
+      <map code="0xa7" name="PMWangle5"/><!-- SECTION SIGN -->
+      <map code="0xa8" name="PMWangle6"/><!-- DIAERESIS -->
+      <map code="0xa9" name="PMWstave21"/><!-- COPYRIGHT SIGN -->
+      <map code="0xaa" name="PMWstave31"/><!-- FEMININE ORDINAL INDICATOR -->
+      <map code="0xab" name="PMWstave41"/><!-- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK -->
+      <map code="0xac" name="PMWstave61"/><!-- NOT SIGN -->
+      <map code="0xad" name="PMWhclef"/><!-- SOFT HYPHEN -->
+      <map code="0xae" name="PMWoldbassclef"/><!-- REGISTERED SIGN -->
+      <map code="0xaf" name="PMWoldaltoclef"/><!-- MACRON -->
+      <map code="0xb0" name="PMWbratop"/><!-- DEGREE SIGN -->
+      <map code="0xb1" name="PMWbrabot"/><!-- PLUS-MINUS SIGN -->
+      <map code="0xb2" name="PMWdirect"/><!-- SUPERSCRIPT TWO -->
+      <map code="0xb3" name="PMWfive"/><!-- SUPERSCRIPT THREE -->
+      <map code="0xb4" name="PMWmajor"/><!-- ACUTE ACCENT -->
+      <map code="0xb5" name="PMWdimsh"/><!-- MICRO SIGN -->
+      <map code="0xb6" name="PMWhdimsh"/><!-- PILCROW SIGN -->
+      <map code="0xb7" name="PMWgcross"/><!-- MIDDLE DOT -->
+      <map code="0xb8" name="PMWledger2"/><!-- CEDILLA -->
+      <map code="0xbd" name="PMWhalfsharp1"/><!-- VULGAR FRACTION ONE HALF -->
+      <map code="0xbe" name="PMWhalfsharp2"/><!-- VULGAR FRACTION THREE QUARTERS -->
+      <map code="0xbf" name="PMWhalfflat1"/><!-- INVERTED QUESTION MARK -->
+      <map code="0xc0" name="PMWhalfflat2"/><!-- LATIN CAPITAL LETTER A WITH GRAVE -->
+      <map code="0xc1" name="PMWicomma"/><!-- LATIN CAPITAL LETTER A WITH ACUTE -->
+      <map code="0xc2" name="PMWaccent7"/><!-- LATIN CAPITAL LETTER A WITH CIRCUMFLEX -->
+      <map code="0xc3" name="PMWaccent8"/><!-- LATIN CAPITAL LETTER A WITH TILDE -->
+      <map code="0xc4" name="PMWrturn"/><!-- LATIN CAPITAL LETTER A WITH DIAERESIS -->
+      <map code="0xc5" name="PMWirturn"/><!-- LATIN CAPITAL LETTER A WITH RING ABOVE -->
+      <map code="0xc6" name="PMWthcirc"/><!-- LATIN CAPITAL LETTER AE -->
+      <map code="0xc7" name="PMWbhcirc"/><!-- LATIN CAPITAL LETTER C WITH CEDILLA -->
+      <map code="0xc8" name="PMWrcnh"/><!-- LATIN CAPITAL LETTER E WITH GRAVE -->
+      <map code="0xc9" name="PMWrmnh"/><!-- LATIN CAPITAL LETTER E WITH ACUTE -->
+      <map code="0xf7" name="PMWstave210"/><!-- DIVISION SIGN -->
+      <map code="0xf8" name="PMWstave310"/><!-- LATIN SMALL LETTER O WITH STROKE -->
+      <map code="0xf9" name="PMWstave410"/><!-- LATIN SMALL LETTER U WITH GRAVE -->
+      <map code="0xfa" name="PMWstave610"/><!-- LATIN SMALL LETTER U WITH ACUTE -->
+    </cmap_format_4>
+    <cmap_format_0 platformID="1" platEncID="0" language="0">
+      <map code="0x9" name="PMWspace"/>
+      <map code="0xd" name="PMWspace"/>
+      <map code="0x20" name="PMWspace"/>
+      <map code="0x21" name="PMWtrebleclef"/>
+      <map code="0x22" name="PMWbassclef"/>
+      <map code="0x23" name="PMWaltoclef"/>
+      <map code="0x24" name="PMWstar"/>
+      <map code="0x25" name="PMWsharp"/>
+      <map code="0x26" name="PMWdoublesharp"/>
+      <map code="0x27" name="PMWflat"/>
+      <map code="0x28" name="PMWnatural"/>
+      <map code="0x29" name="PMWtfermata"/>
+      <map code="0x2a" name="PMWbrest"/>
+      <map code="0x2b" name="PMWsbrest"/>
+      <map code="0x2c" name="PMWmrest"/>
+      <map code="0x2d" name="PMWcrest"/>
+      <map code="0x2e" name="PMWqrest"/>
+      <map code="0x2f" name="PMWbfermata"/>
+      <map code="0x30" name="PMWlongrest"/>
+      <map code="0x31" name="PMWbreve"/>
+      <map code="0x32" name="PMWsemibreve"/>
+      <map code="0x33" name="PMWuminim"/>
+      <map code="0x34" name="PMWdminim"/>
+      <map code="0x35" name="PMWucrotchet"/>
+      <map code="0x36" name="PMWdcrotchet"/>
+      <map code="0x37" name="PMWuquaver"/>
+      <map code="0x38" name="PMWdquaver"/>
+      <map code="0x39" name="PMWusquaver"/>
+      <map code="0x3a" name="PMWdsquaver"/>
+      <map code="0x3b" name="PMWusqtail"/>
+      <map code="0x3c" name="PMWdsqtail"/>
+      <map code="0x3d" name="PMWledger"/>
+      <map code="0x3e" name="PMWvdot"/>
+      <map code="0x3f" name="PMWhdot"/>
+      <map code="0x40" name="PMWbarsingle"/>
+      <map code="0x41" name="PMWbardouble"/>
+      <map code="0x42" name="PMWbarthick"/>
+      <map code="0x43" name="PMWstave1"/>
+      <map code="0x44" name="PMWpstave1"/>
+      <map code="0x45" name="PMWuqtail"/>
+      <map code="0x46" name="PMWstave10"/>
+      <map code="0x47" name="PMWpstave10"/>
+      <map code="0x48" name="PMWdqtail"/>
+      <map code="0x49" name="PMWrepeatdots"/>
+      <map code="0x4a" name="PMWustem"/>
+      <map code="0x4b" name="PMWdstem"/>
+      <map code="0x4c" name="PMWcnh"/>
+      <map code="0x4d" name="PMWmnh"/>
+      <map code="0x4e" name="PMWcomma"/>
+      <map code="0x4f" name="PMWmordent"/>
+      <map code="0x50" name="PMWdmordent"/>
+      <map code="0x51" name="PMWimordent"/>
+      <map code="0x52" name="PMWdimordent"/>
+      <map code="0x53" name="PMWturn"/>
+      <map code="0x54" name="PMWhbar"/>
+      <map code="0x55" name="PMWaccent1"/>
+      <map code="0x56" name="PMWcaesura"/>
+      <map code="0x57" name="PMWaccent2"/>
+      <map code="0x58" name="PMWaccent3"/>
+      <map code="0x59" name="PMWaccent4"/>
+      <map code="0x5a" name="PMWaccent5"/>
+      <map code="0x5b" name="PMWbardotted"/>
+      <map code="0x5c" name="PMWcaesura1"/>
+      <map code="0x5d" name="PMWlittle8"/>
+      <map code="0x5e" name="PMWC"/>
+      <map code="0x5f" name="PMWcut"/>
+      <map code="0x60" name="PMWtilde"/>
+      <map code="0x61" name="PMWthumba"/>
+      <map code="0x62" name="PMWthumbb"/>
+      <map code="0x63" name="PMWds1"/>
+      <map code="0x64" name="PMWds2"/>
+      <map code="0x65" name="PMWdowna"/>
+      <map code="0x66" name="PMWdownb"/>
+      <map code="0x67" name="PMWupa"/>
+      <map code="0x68" name="PMWupb"/>
+      <map code="0x69" name="PMWiturn"/>
+      <map code="0x6a" name="PMWseven"/>
+      <map code="0x6b" name="PMWfour"/>
+      <map code="0x6c" name="PMWhcnh"/>
+      <map code="0x6d" name="PMWhmnh"/>
+      <map code="0x6e" name="PMWxnh"/>
+      <map code="0x6f" name="PMWxustem"/>
+      <map code="0x70" name="PMWxdstem"/>
+      <map code="0x71" name="PMWfustem"/>
+      <map code="0x72" name="PMWfdstem"/>
+      <map code="0x73" name="PMWsix"/>
+      <map code="0x74" name="PMWgdot"/>
+      <map code="0x75" name="PMWgring"/>
+      <map code="0x7a" name="PMWr1"/>
+      <map code="0x7d" name="PMWfs"/>
+      <map code="0x80" name="PMWrturn"/>
+      <map code="0x81" name="PMWirturn"/>
+      <map code="0x82" name="PMWbhcirc"/>
+      <map code="0x83" name="PMWrmnh"/>
+      <map code="0x9c" name="PMWstave610"/>
+      <map code="0x9d" name="PMWstave410"/>
+      <map code="0xa1" name="PMWbratop"/>
+      <map code="0xa2" name="PMWangle4"/>
+      <map code="0xa3" name="PMWped"/>
+      <map code="0xa4" name="PMWangle5"/>
+      <map code="0xa6" name="PMWhdimsh"/>
+      <map code="0xa8" name="PMWoldbassclef"/>
+      <map code="0xa9" name="PMWstave21"/>
+      <map code="0xab" name="PMWmajor"/>
+      <map code="0xac" name="PMWangle6"/>
+      <map code="0xae" name="PMWthcirc"/>
+      <map code="0xb1" name="PMWbrabot"/>
+      <map code="0xb4" name="PMWdvtilde"/>
+      <map code="0xb5" name="PMWdimsh"/>
+      <map code="0xbb" name="PMWstave31"/>
+      <map code="0xbf" name="PMWstave310"/>
+      <map code="0xc0" name="PMWhalfflat1"/>
+      <map code="0xc1" name="PMWangle3"/>
+      <map code="0xc2" name="PMWstave61"/>
+      <map code="0xc7" name="PMWstave41"/>
+      <map code="0xca" name="PMWangle2"/>
+      <map code="0xcb" name="PMWhalfflat2"/>
+      <map code="0xcc" name="PMWaccent8"/>
+      <map code="0xd6" name="PMWstave210"/>
+      <map code="0xe1" name="PMWgcross"/>
+      <map code="0xe5" name="PMWaccent7"/>
+      <map code="0xe7" name="PMWicomma"/>
+      <map code="0xe9" name="PMWrcnh"/>
+      <map code="0xf8" name="PMWoldaltoclef"/>
+      <map code="0xfc" name="PMWledger2"/>
+    </cmap_format_0>
+    <cmap_format_4 platformID="3" platEncID="1" language="0">
+      <map code="0x20" name="PMWspace"/><!-- SPACE -->
+      <map code="0x21" name="PMWtrebleclef"/><!-- EXCLAMATION MARK -->
+      <map code="0x22" name="PMWbassclef"/><!-- QUOTATION MARK -->
+      <map code="0x23" name="PMWaltoclef"/><!-- NUMBER SIGN -->
+      <map code="0x24" name="PMWstar"/><!-- DOLLAR SIGN -->
+      <map code="0x25" name="PMWsharp"/><!-- PERCENT SIGN -->
+      <map code="0x26" name="PMWdoublesharp"/><!-- AMPERSAND -->
+      <map code="0x27" name="PMWflat"/><!-- APOSTROPHE -->
+      <map code="0x28" name="PMWnatural"/><!-- LEFT PARENTHESIS -->
+      <map code="0x29" name="PMWtfermata"/><!-- RIGHT PARENTHESIS -->
+      <map code="0x2a" name="PMWbrest"/><!-- ASTERISK -->
+      <map code="0x2b" name="PMWsbrest"/><!-- PLUS SIGN -->
+      <map code="0x2c" name="PMWmrest"/><!-- COMMA -->
+      <map code="0x2d" name="PMWcrest"/><!-- HYPHEN-MINUS -->
+      <map code="0x2e" name="PMWqrest"/><!-- FULL STOP -->
+      <map code="0x2f" name="PMWbfermata"/><!-- SOLIDUS -->
+      <map code="0x30" name="PMWlongrest"/><!-- DIGIT ZERO -->
+      <map code="0x31" name="PMWbreve"/><!-- DIGIT ONE -->
+      <map code="0x32" name="PMWsemibreve"/><!-- DIGIT TWO -->
+      <map code="0x33" name="PMWuminim"/><!-- DIGIT THREE -->
+      <map code="0x34" name="PMWdminim"/><!-- DIGIT FOUR -->
+      <map code="0x35" name="PMWucrotchet"/><!-- DIGIT FIVE -->
+      <map code="0x36" name="PMWdcrotchet"/><!-- DIGIT SIX -->
+      <map code="0x37" name="PMWuquaver"/><!-- DIGIT SEVEN -->
+      <map code="0x38" name="PMWdquaver"/><!-- DIGIT EIGHT -->
+      <map code="0x39" name="PMWusquaver"/><!-- DIGIT NINE -->
+      <map code="0x3a" name="PMWdsquaver"/><!-- COLON -->
+      <map code="0x3b" name="PMWusqtail"/><!-- SEMICOLON -->
+      <map code="0x3c" name="PMWdsqtail"/><!-- LESS-THAN SIGN -->
+      <map code="0x3d" name="PMWledger"/><!-- EQUALS SIGN -->
+      <map code="0x3e" name="PMWvdot"/><!-- GREATER-THAN SIGN -->
+      <map code="0x3f" name="PMWhdot"/><!-- QUESTION MARK -->
+      <map code="0x40" name="PMWbarsingle"/><!-- COMMERCIAL AT -->
+      <map code="0x41" name="PMWbardouble"/><!-- LATIN CAPITAL LETTER A -->
+      <map code="0x42" name="PMWbarthick"/><!-- LATIN CAPITAL LETTER B -->
+      <map code="0x43" name="PMWstave1"/><!-- LATIN CAPITAL LETTER C -->
+      <map code="0x44" name="PMWpstave1"/><!-- LATIN CAPITAL LETTER D -->
+      <map code="0x45" name="PMWuqtail"/><!-- LATIN CAPITAL LETTER E -->
+      <map code="0x46" name="PMWstave10"/><!-- LATIN CAPITAL LETTER F -->
+      <map code="0x47" name="PMWpstave10"/><!-- LATIN CAPITAL LETTER G -->
+      <map code="0x48" name="PMWdqtail"/><!-- LATIN CAPITAL LETTER H -->
+      <map code="0x49" name="PMWrepeatdots"/><!-- LATIN CAPITAL LETTER I -->
+      <map code="0x4a" name="PMWustem"/><!-- LATIN CAPITAL LETTER J -->
+      <map code="0x4b" name="PMWdstem"/><!-- LATIN CAPITAL LETTER K -->
+      <map code="0x4c" name="PMWcnh"/><!-- LATIN CAPITAL LETTER L -->
+      <map code="0x4d" name="PMWmnh"/><!-- LATIN CAPITAL LETTER M -->
+      <map code="0x4e" name="PMWcomma"/><!-- LATIN CAPITAL LETTER N -->
+      <map code="0x4f" name="PMWmordent"/><!-- LATIN CAPITAL LETTER O -->
+      <map code="0x50" name="PMWdmordent"/><!-- LATIN CAPITAL LETTER P -->
+      <map code="0x51" name="PMWimordent"/><!-- LATIN CAPITAL LETTER Q -->
+      <map code="0x52" name="PMWdimordent"/><!-- LATIN CAPITAL LETTER R -->
+      <map code="0x53" name="PMWturn"/><!-- LATIN CAPITAL LETTER S -->
+      <map code="0x54" name="PMWhbar"/><!-- LATIN CAPITAL LETTER T -->
+      <map code="0x55" name="PMWaccent1"/><!-- LATIN CAPITAL LETTER U -->
+      <map code="0x56" name="PMWcaesura"/><!-- LATIN CAPITAL LETTER V -->
+      <map code="0x57" name="PMWaccent2"/><!-- LATIN CAPITAL LETTER W -->
+      <map code="0x58" name="PMWaccent3"/><!-- LATIN CAPITAL LETTER X -->
+      <map code="0x59" name="PMWaccent4"/><!-- LATIN CAPITAL LETTER Y -->
+      <map code="0x5a" name="PMWaccent5"/><!-- LATIN CAPITAL LETTER Z -->
+      <map code="0x5b" name="PMWbardotted"/><!-- LEFT SQUARE BRACKET -->
+      <map code="0x5c" name="PMWcaesura1"/><!-- REVERSE SOLIDUS -->
+      <map code="0x5d" name="PMWlittle8"/><!-- RIGHT SQUARE BRACKET -->
+      <map code="0x5e" name="PMWC"/><!-- CIRCUMFLEX ACCENT -->
+      <map code="0x5f" name="PMWcut"/><!-- LOW LINE -->
+      <map code="0x60" name="PMWtilde"/><!-- GRAVE ACCENT -->
+      <map code="0x61" name="PMWthumba"/><!-- LATIN SMALL LETTER A -->
+      <map code="0x62" name="PMWthumbb"/><!-- LATIN SMALL LETTER B -->
+      <map code="0x63" name="PMWds1"/><!-- LATIN SMALL LETTER C -->
+      <map code="0x64" name="PMWds2"/><!-- LATIN SMALL LETTER D -->
+      <map code="0x65" name="PMWdowna"/><!-- LATIN SMALL LETTER E -->
+      <map code="0x66" name="PMWdownb"/><!-- LATIN SMALL LETTER F -->
+      <map code="0x67" name="PMWupa"/><!-- LATIN SMALL LETTER G -->
+      <map code="0x68" name="PMWupb"/><!-- LATIN SMALL LETTER H -->
+      <map code="0x69" name="PMWiturn"/><!-- LATIN SMALL LETTER I -->
+      <map code="0x6a" name="PMWseven"/><!-- LATIN SMALL LETTER J -->
+      <map code="0x6b" name="PMWfour"/><!-- LATIN SMALL LETTER K -->
+      <map code="0x6c" name="PMWhcnh"/><!-- LATIN SMALL LETTER L -->
+      <map code="0x6d" name="PMWhmnh"/><!-- LATIN SMALL LETTER M -->
+      <map code="0x6e" name="PMWxnh"/><!-- LATIN SMALL LETTER N -->
+      <map code="0x6f" name="PMWxustem"/><!-- LATIN SMALL LETTER O -->
+      <map code="0x70" name="PMWxdstem"/><!-- LATIN SMALL LETTER P -->
+      <map code="0x71" name="PMWfustem"/><!-- LATIN SMALL LETTER Q -->
+      <map code="0x72" name="PMWfdstem"/><!-- LATIN SMALL LETTER R -->
+      <map code="0x73" name="PMWsix"/><!-- LATIN SMALL LETTER S -->
+      <map code="0x74" name="PMWgdot"/><!-- LATIN SMALL LETTER T -->
+      <map code="0x75" name="PMWgring"/><!-- LATIN SMALL LETTER U -->
+      <map code="0x7a" name="PMWr1"/><!-- LATIN SMALL LETTER Z -->
+      <map code="0x7d" name="PMWfs"/><!-- RIGHT CURLY BRACKET -->
+      <map code="0x80" name="PMWtick"/><!-- ???? -->
+      <map code="0x81" name="PMWuacc"/><!-- ???? -->
+      <map code="0x82" name="PMWdacc"/><!-- ???? -->
+      <map code="0x83" name="PMWgrid"/><!-- ???? -->
+      <map code="0x84" name="PMWbarshort"/><!-- ???? -->
+      <map code="0x85" name="PMWbreath"/><!-- ???? -->
+      <map code="0x86" name="PMWvring"/><!-- ???? -->
+      <map code="0x87" name="PMWcross"/><!-- ???? -->
+      <map code="0x88" name="PMWtrill"/><!-- ???? -->
+      <map code="0x89" name="PMWscaesura"/><!-- ???? -->
+      <map code="0x8a" name="PMWlcaesura"/><!-- ???? -->
+      <map code="0x8b" name="PMWsbra"/><!-- ???? -->
+      <map code="0x8c" name="PMWsket"/><!-- ???? -->
+      <map code="0x8d" name="PMWrbra"/><!-- ???? -->
+      <map code="0x8e" name="PMWrket"/><!-- ???? -->
+      <map code="0x8f" name="PMWrep"/><!-- ???? -->
+      <map code="0x90" name="PMWrepdots"/><!-- ???? -->
+      <map code="0x91" name="PMWvtilde"/><!-- ???? -->
+      <map code="0x92" name="PMWtrem"/><!-- ???? -->
+      <map code="0x93" name="PMWcirc"/><!-- ???? -->
+      <map code="0x94" name="PMWcutcirc"/><!-- ???? -->
+      <map code="0x95" name="PMWslur1"/><!-- ???? -->
+      <map code="0x96" name="PMWslur2"/><!-- ???? -->
+      <map code="0x97" name="PMWup"/><!-- ???? -->
+      <map code="0x98" name="PMWdown"/><!-- ???? -->
+      <map code="0x99" name="PMWiC"/><!-- ???? -->
+      <map code="0x9a" name="PMWicut"/><!-- ???? -->
+      <map code="0x9b" name="PMWunibreve"/><!-- ???? -->
+      <map code="0x9c" name="PMWaccent6"/><!-- ???? -->
+      <map code="0x9d" name="PMWsrbra"/><!-- ???? -->
+      <map code="0x9e" name="PMWsrket"/><!-- ???? -->
+      <map code="0x9f" name="PMWangle1"/><!-- ???? -->
+      <map code="0xa0" name="PMWangle2"/><!-- NO-BREAK SPACE -->
+      <map code="0xa1" name="PMWangle3"/><!-- INVERTED EXCLAMATION MARK -->
+      <map code="0xa2" name="PMWangle4"/><!-- CENT SIGN -->
+      <map code="0xa3" name="PMWped"/><!-- POUND SIGN -->
+      <map code="0xa4" name="PMWuvtilde"/><!-- CURRENCY SIGN -->
+      <map code="0xa5" name="PMWdvtilde"/><!-- YEN SIGN -->
+      <map code="0xa6" name="PMWnail"/><!-- BROKEN BAR -->
+      <map code="0xa7" name="PMWangle5"/><!-- SECTION SIGN -->
+      <map code="0xa8" name="PMWangle6"/><!-- DIAERESIS -->
+      <map code="0xa9" name="PMWstave21"/><!-- COPYRIGHT SIGN -->
+      <map code="0xaa" name="PMWstave31"/><!-- FEMININE ORDINAL INDICATOR -->
+      <map code="0xab" name="PMWstave41"/><!-- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK -->
+      <map code="0xac" name="PMWstave61"/><!-- NOT SIGN -->
+      <map code="0xad" name="PMWhclef"/><!-- SOFT HYPHEN -->
+      <map code="0xae" name="PMWoldbassclef"/><!-- REGISTERED SIGN -->
+      <map code="0xaf" name="PMWoldaltoclef"/><!-- MACRON -->
+      <map code="0xb0" name="PMWbratop"/><!-- DEGREE SIGN -->
+      <map code="0xb1" name="PMWbrabot"/><!-- PLUS-MINUS SIGN -->
+      <map code="0xb2" name="PMWdirect"/><!-- SUPERSCRIPT TWO -->
+      <map code="0xb3" name="PMWfive"/><!-- SUPERSCRIPT THREE -->
+      <map code="0xb4" name="PMWmajor"/><!-- ACUTE ACCENT -->
+      <map code="0xb5" name="PMWdimsh"/><!-- MICRO SIGN -->
+      <map code="0xb6" name="PMWhdimsh"/><!-- PILCROW SIGN -->
+      <map code="0xb7" name="PMWgcross"/><!-- MIDDLE DOT -->
+      <map code="0xb8" name="PMWledger2"/><!-- CEDILLA -->
+      <map code="0xbd" name="PMWhalfsharp1"/><!-- VULGAR FRACTION ONE HALF -->
+      <map code="0xbe" name="PMWhalfsharp2"/><!-- VULGAR FRACTION THREE QUARTERS -->
+      <map code="0xbf" name="PMWhalfflat1"/><!-- INVERTED QUESTION MARK -->
+      <map code="0xc0" name="PMWhalfflat2"/><!-- LATIN CAPITAL LETTER A WITH GRAVE -->
+      <map code="0xc1" name="PMWicomma"/><!-- LATIN CAPITAL LETTER A WITH ACUTE -->
+      <map code="0xc2" name="PMWaccent7"/><!-- LATIN CAPITAL LETTER A WITH CIRCUMFLEX -->
+      <map code="0xc3" name="PMWaccent8"/><!-- LATIN CAPITAL LETTER A WITH TILDE -->
+      <map code="0xc4" name="PMWrturn"/><!-- LATIN CAPITAL LETTER A WITH DIAERESIS -->
+      <map code="0xc5" name="PMWirturn"/><!-- LATIN CAPITAL LETTER A WITH RING ABOVE -->
+      <map code="0xc6" name="PMWthcirc"/><!-- LATIN CAPITAL LETTER AE -->
+      <map code="0xc7" name="PMWbhcirc"/><!-- LATIN CAPITAL LETTER C WITH CEDILLA -->
+      <map code="0xc8" name="PMWrcnh"/><!-- LATIN CAPITAL LETTER E WITH GRAVE -->
+      <map code="0xc9" name="PMWrmnh"/><!-- LATIN CAPITAL LETTER E WITH ACUTE -->
+      <map code="0xf7" name="PMWstave210"/><!-- DIVISION SIGN -->
+      <map code="0xf8" name="PMWstave310"/><!-- LATIN SMALL LETTER O WITH STROKE -->
+      <map code="0xf9" name="PMWstave410"/><!-- LATIN SMALL LETTER U WITH GRAVE -->
+      <map code="0xfa" name="PMWstave610"/><!-- LATIN SMALL LETTER U WITH ACUTE -->
+    </cmap_format_4>
+  </cmap>
+
+  <post>
+    <formatType value="3.0"/>
+    <italicAngle value="2.0"/>
+    <underlinePosition value="-71"/>
+    <underlineThickness value="54"/>
+    <isFixedPitch value="0"/>
+    <minMemType42 value="0"/>
+    <maxMemType42 value="0"/>
+    <minMemType1 value="0"/>
+    <maxMemType1 value="0"/>
+  </post>
+
+  <CFF>
+    <major value="1"/>
+    <minor value="0"/>
+    <CFFFont name="PMW-Music">
+      <version value="60.01"/>
+      <Notice value="Copyright (c) October 2023 Philip Hazel"/>
+      <FullName value="PMW-Music"/>
+      <FamilyName value="PMW-Music"/>
+      <Weight value="Medium"/>
+      <isFixedPitch value="0"/>
+      <ItalicAngle value="2"/>
+      <UnderlinePosition value="-98"/>
+      <UnderlineThickness value="54"/>
+      <PaintType value="0"/>
+      <CharstringType value="2"/>
+      <FontMatrix value="0.001 0 0 0.001 0 0"/>
+      <FontBBox value="-543 -1200 10000 2219"/>
+      <StrokeWidth value="0"/>
+      <!-- charset is dumped separately as the 'GlyphOrder' element -->
+      <Encoding>
+        <map code="0x00" name=".notdef"/>
+        <map code="0x20" name="PMWspace"/><!-- SPACE -->
+        <map code="0x21" name="PMWtrebleclef"/><!-- EXCLAMATION MARK -->
+        <map code="0x22" name="PMWbassclef"/><!-- QUOTATION MARK -->
+        <map code="0x23" name="PMWaltoclef"/><!-- NUMBER SIGN -->
+        <map code="0x24" name="PMWstar"/><!-- DOLLAR SIGN -->
+        <map code="0x25" name="PMWsharp"/><!-- PERCENT SIGN -->
+        <map code="0x26" name="PMWdoublesharp"/><!-- AMPERSAND -->
+        <map code="0x27" name="PMWflat"/><!-- APOSTROPHE -->
+        <map code="0x28" name="PMWnatural"/><!-- LEFT PARENTHESIS -->
+        <map code="0x29" name="PMWtfermata"/><!-- RIGHT PARENTHESIS -->
+        <map code="0x2a" name="PMWbrest"/><!-- ASTERISK -->
+        <map code="0x2b" name="PMWsbrest"/><!-- PLUS SIGN -->
+        <map code="0x2c" name="PMWmrest"/><!-- COMMA -->
+        <map code="0x2d" name="PMWcrest"/><!-- HYPHEN-MINUS -->
+        <map code="0x2e" name="PMWqrest"/><!-- FULL STOP -->
+        <map code="0x2f" name="PMWbfermata"/><!-- SOLIDUS -->
+        <map code="0x30" name="PMWlongrest"/><!-- DIGIT ZERO -->
+        <map code="0x31" name="PMWbreve"/><!-- DIGIT ONE -->
+        <map code="0x32" name="PMWsemibreve"/><!-- DIGIT TWO -->
+        <map code="0x33" name="PMWuminim"/><!-- DIGIT THREE -->
+        <map code="0x34" name="PMWdminim"/><!-- DIGIT FOUR -->
+        <map code="0x35" name="PMWucrotchet"/><!-- DIGIT FIVE -->
+        <map code="0x36" name="PMWdcrotchet"/><!-- DIGIT SIX -->
+        <map code="0x37" name="PMWuquaver"/><!-- DIGIT SEVEN -->
+        <map code="0x38" name="PMWdquaver"/><!-- DIGIT EIGHT -->
+        <map code="0x39" name="PMWusquaver"/><!-- DIGIT NINE -->
+        <map code="0x3a" name="PMWdsquaver"/><!-- COLON -->
+        <map code="0x3b" name="PMWusqtail"/><!-- SEMICOLON -->
+        <map code="0x3c" name="PMWdsqtail"/><!-- LESS-THAN SIGN -->
+        <map code="0x3d" name="PMWledger"/><!-- EQUALS SIGN -->
+        <map code="0x3e" name="PMWvdot"/><!-- GREATER-THAN SIGN -->
+        <map code="0x3f" name="PMWhdot"/><!-- QUESTION MARK -->
+        <map code="0x40" name="PMWbarsingle"/><!-- COMMERCIAL AT -->
+        <map code="0x41" name="PMWbardouble"/><!-- LATIN CAPITAL LETTER A -->
+        <map code="0x42" name="PMWbarthick"/><!-- LATIN CAPITAL LETTER B -->
+        <map code="0x43" name="PMWstave1"/><!-- LATIN CAPITAL LETTER C -->
+        <map code="0x44" name="PMWpstave1"/><!-- LATIN CAPITAL LETTER D -->
+        <map code="0x45" name="PMWuqtail"/><!-- LATIN CAPITAL LETTER E -->
+        <map code="0x46" name="PMWstave10"/><!-- LATIN CAPITAL LETTER F -->
+        <map code="0x47" name="PMWpstave10"/><!-- LATIN CAPITAL LETTER G -->
+        <map code="0x48" name="PMWdqtail"/><!-- LATIN CAPITAL LETTER H -->
+        <map code="0x49" name="PMWrepeatdots"/><!-- LATIN CAPITAL LETTER I -->
+        <map code="0x4a" name="PMWustem"/><!-- LATIN CAPITAL LETTER J -->
+        <map code="0x4b" name="PMWdstem"/><!-- LATIN CAPITAL LETTER K -->
+        <map code="0x4c" name="PMWcnh"/><!-- LATIN CAPITAL LETTER L -->
+        <map code="0x4d" name="PMWmnh"/><!-- LATIN CAPITAL LETTER M -->
+        <map code="0x4e" name="PMWcomma"/><!-- LATIN CAPITAL LETTER N -->
+        <map code="0x4f" name="PMWmordent"/><!-- LATIN CAPITAL LETTER O -->
+        <map code="0x50" name="PMWdmordent"/><!-- LATIN CAPITAL LETTER P -->
+        <map code="0x51" name="PMWimordent"/><!-- LATIN CAPITAL LETTER Q -->
+        <map code="0x52" name="PMWdimordent"/><!-- LATIN CAPITAL LETTER R -->
+        <map code="0x53" name="PMWturn"/><!-- LATIN CAPITAL LETTER S -->
+        <map code="0x54" name="PMWhbar"/><!-- LATIN CAPITAL LETTER T -->
+        <map code="0x55" name="PMWaccent1"/><!-- LATIN CAPITAL LETTER U -->
+        <map code="0x56" name="PMWcaesura"/><!-- LATIN CAPITAL LETTER V -->
+        <map code="0x57" name="PMWaccent2"/><!-- LATIN CAPITAL LETTER W -->
+        <map code="0x58" name="PMWaccent3"/><!-- LATIN CAPITAL LETTER X -->
+        <map code="0x59" name="PMWaccent4"/><!-- LATIN CAPITAL LETTER Y -->
+        <map code="0x5a" name="PMWaccent5"/><!-- LATIN CAPITAL LETTER Z -->
+        <map code="0x5b" name="PMWbardotted"/><!-- LEFT SQUARE BRACKET -->
+        <map code="0x5c" name="PMWcaesura1"/><!-- REVERSE SOLIDUS -->
+        <map code="0x5d" name="PMWlittle8"/><!-- RIGHT SQUARE BRACKET -->
+        <map code="0x5e" name="PMWC"/><!-- CIRCUMFLEX ACCENT -->
+        <map code="0x5f" name="PMWcut"/><!-- LOW LINE -->
+        <map code="0x60" name="PMWtilde"/><!-- GRAVE ACCENT -->
+        <map code="0x61" name="PMWthumba"/><!-- LATIN SMALL LETTER A -->
+        <map code="0x62" name="PMWthumbb"/><!-- LATIN SMALL LETTER B -->
+        <map code="0x63" name="PMWds1"/><!-- LATIN SMALL LETTER C -->
+        <map code="0x64" name="PMWds2"/><!-- LATIN SMALL LETTER D -->
+        <map code="0x65" name="PMWdowna"/><!-- LATIN SMALL LETTER E -->
+        <map code="0x66" name="PMWdownb"/><!-- LATIN SMALL LETTER F -->
+        <map code="0x67" name="PMWupa"/><!-- LATIN SMALL LETTER G -->
+        <map code="0x68" name="PMWupb"/><!-- LATIN SMALL LETTER H -->
+        <map code="0x69" name="PMWiturn"/><!-- LATIN SMALL LETTER I -->
+        <map code="0x6a" name="PMWseven"/><!-- LATIN SMALL LETTER J -->
+        <map code="0x6b" name="PMWfour"/><!-- LATIN SMALL LETTER K -->
+        <map code="0x6c" name="PMWhcnh"/><!-- LATIN SMALL LETTER L -->
+        <map code="0x6d" name="PMWhmnh"/><!-- LATIN SMALL LETTER M -->
+        <map code="0x6e" name="PMWxnh"/><!-- LATIN SMALL LETTER N -->
+        <map code="0x6f" name="PMWxustem"/><!-- LATIN SMALL LETTER O -->
+        <map code="0x70" name="PMWxdstem"/><!-- LATIN SMALL LETTER P -->
+        <map code="0x71" name="PMWfustem"/><!-- LATIN SMALL LETTER Q -->
+        <map code="0x72" name="PMWfdstem"/><!-- LATIN SMALL LETTER R -->
+        <map code="0x73" name="PMWsix"/><!-- LATIN SMALL LETTER S -->
+        <map code="0x74" name="PMWgdot"/><!-- LATIN SMALL LETTER T -->
+        <map code="0x75" name="PMWgring"/><!-- LATIN SMALL LETTER U -->
+        <map code="0x7a" name="PMWr1"/><!-- LATIN SMALL LETTER Z -->
+        <map code="0x7d" name="PMWfs"/><!-- RIGHT CURLY BRACKET -->
+        <map code="0x80" name="PMWtick"/><!-- ???? -->
+        <map code="0x81" name="PMWuacc"/><!-- ???? -->
+        <map code="0x82" name="PMWdacc"/><!-- ???? -->
+        <map code="0x83" name="PMWgrid"/><!-- ???? -->
+        <map code="0x84" name="PMWbarshort"/><!-- ???? -->
+        <map code="0x85" name="PMWbreath"/><!-- ???? -->
+        <map code="0x86" name="PMWvring"/><!-- ???? -->
+        <map code="0x87" name="PMWcross"/><!-- ???? -->
+        <map code="0x88" name="PMWtrill"/><!-- ???? -->
+        <map code="0x89" name="PMWscaesura"/><!-- ???? -->
+        <map code="0x8a" name="PMWlcaesura"/><!-- ???? -->
+        <map code="0x8b" name="PMWsbra"/><!-- ???? -->
+        <map code="0x8c" name="PMWsket"/><!-- ???? -->
+        <map code="0x8d" name="PMWrbra"/><!-- ???? -->
+        <map code="0x8e" name="PMWrket"/><!-- ???? -->
+        <map code="0x8f" name="PMWrep"/><!-- ???? -->
+        <map code="0x90" name="PMWrepdots"/><!-- ???? -->
+        <map code="0x91" name="PMWvtilde"/><!-- ???? -->
+        <map code="0x92" name="PMWtrem"/><!-- ???? -->
+        <map code="0x93" name="PMWcirc"/><!-- ???? -->
+        <map code="0x94" name="PMWcutcirc"/><!-- ???? -->
+        <map code="0x95" name="PMWslur1"/><!-- ???? -->
+        <map code="0x96" name="PMWslur2"/><!-- ???? -->
+        <map code="0x97" name="PMWup"/><!-- ???? -->
+        <map code="0x98" name="PMWdown"/><!-- ???? -->
+        <map code="0x99" name="PMWiC"/><!-- ???? -->
+        <map code="0x9a" name="PMWicut"/><!-- ???? -->
+        <map code="0x9b" name="PMWunibreve"/><!-- ???? -->
+        <map code="0x9c" name="PMWaccent6"/><!-- ???? -->
+        <map code="0x9d" name="PMWsrbra"/><!-- ???? -->
+        <map code="0x9e" name="PMWsrket"/><!-- ???? -->
+        <map code="0x9f" name="PMWangle1"/><!-- ???? -->
+        <map code="0xa0" name="PMWangle2"/><!-- NO-BREAK SPACE -->
+        <map code="0xa1" name="PMWangle3"/><!-- INVERTED EXCLAMATION MARK -->
+        <map code="0xa2" name="PMWangle4"/><!-- CENT SIGN -->
+        <map code="0xa3" name="PMWped"/><!-- POUND SIGN -->
+        <map code="0xa4" name="PMWuvtilde"/><!-- CURRENCY SIGN -->
+        <map code="0xa5" name="PMWdvtilde"/><!-- YEN SIGN -->
+        <map code="0xa6" name="PMWnail"/><!-- BROKEN BAR -->
+        <map code="0xa7" name="PMWangle5"/><!-- SECTION SIGN -->
+        <map code="0xa8" name="PMWangle6"/><!-- DIAERESIS -->
+        <map code="0xa9" name="PMWstave21"/><!-- COPYRIGHT SIGN -->
+        <map code="0xaa" name="PMWstave31"/><!-- FEMININE ORDINAL INDICATOR -->
+        <map code="0xab" name="PMWstave41"/><!-- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK -->
+        <map code="0xac" name="PMWstave61"/><!-- NOT SIGN -->
+        <map code="0xad" name="PMWhclef"/><!-- SOFT HYPHEN -->
+        <map code="0xae" name="PMWoldbassclef"/><!-- REGISTERED SIGN -->
+        <map code="0xaf" name="PMWoldaltoclef"/><!-- MACRON -->
+        <map code="0xb0" name="PMWbratop"/><!-- DEGREE SIGN -->
+        <map code="0xb1" name="PMWbrabot"/><!-- PLUS-MINUS SIGN -->
+        <map code="0xb2" name="PMWdirect"/><!-- SUPERSCRIPT TWO -->
+        <map code="0xb3" name="PMWfive"/><!-- SUPERSCRIPT THREE -->
+        <map code="0xb4" name="PMWmajor"/><!-- ACUTE ACCENT -->
+        <map code="0xb5" name="PMWdimsh"/><!-- MICRO SIGN -->
+        <map code="0xb6" name="PMWhdimsh"/><!-- PILCROW SIGN -->
+        <map code="0xb7" name="PMWgcross"/><!-- MIDDLE DOT -->
+        <map code="0xb8" name="PMWledger2"/><!-- CEDILLA -->
+        <map code="0xbd" name="PMWhalfsharp1"/><!-- VULGAR FRACTION ONE HALF -->
+        <map code="0xbe" name="PMWhalfsharp2"/><!-- VULGAR FRACTION THREE QUARTERS -->
+        <map code="0xbf" name="PMWhalfflat1"/><!-- INVERTED QUESTION MARK -->
+        <map code="0xc0" name="PMWhalfflat2"/><!-- LATIN CAPITAL LETTER A WITH GRAVE -->
+        <map code="0xc1" name="PMWicomma"/><!-- LATIN CAPITAL LETTER A WITH ACUTE -->
+        <map code="0xc2" name="PMWaccent7"/><!-- LATIN CAPITAL LETTER A WITH CIRCUMFLEX -->
+        <map code="0xc3" name="PMWaccent8"/><!-- LATIN CAPITAL LETTER A WITH TILDE -->
+        <map code="0xc4" name="PMWrturn"/><!-- LATIN CAPITAL LETTER A WITH DIAERESIS -->
+        <map code="0xc5" name="PMWirturn"/><!-- LATIN CAPITAL LETTER A WITH RING ABOVE -->
+        <map code="0xc6" name="PMWthcirc"/><!-- LATIN CAPITAL LETTER AE -->
+        <map code="0xc7" name="PMWbhcirc"/><!-- LATIN CAPITAL LETTER C WITH CEDILLA -->
+        <map code="0xc8" name="PMWrcnh"/><!-- LATIN CAPITAL LETTER E WITH GRAVE -->
+        <map code="0xc9" name="PMWrmnh"/><!-- LATIN CAPITAL LETTER E WITH ACUTE -->
+        <map code="0xf7" name="PMWstave210"/><!-- DIVISION SIGN -->
+        <map code="0xf8" name="PMWstave310"/><!-- LATIN SMALL LETTER O WITH STROKE -->
+        <map code="0xf9" name="PMWstave410"/><!-- LATIN SMALL LETTER U WITH GRAVE -->
+        <map code="0xfa" name="PMWstave610"/><!-- LATIN SMALL LETTER U WITH ACUTE -->
+      </Encoding>
+      <Private>
+        <BlueScale value="0.039625"/>
+        <BlueShift value="7"/>
+        <BlueFuzz value="1"/>
+        <StdHW value="30"/>
+        <StdVW value="40"/>
+        <StemSnapH value="30"/>
+        <StemSnapV value="40"/>
+        <ForceBold value="0"/>
+        <LanguageGroup value="0"/>
+        <ExpansionFactor value="0.06"/>
+        <initialRandomSeed value="0"/>
+        <defaultWidthX value="0"/>
+        <nominalWidthX value="607"/>
+        <Subrs>
+          <!-- The 'index' attribute is only for humans; it is ignored when parsed. -->
+          <CharString index="0">
+            vmoveto
+            10000 30 -10000 hlineto
+            return
+          </CharString>
+          <CharString index="1">
+            vmoveto
+            1000 30 -1000 hlineto
+            return
+          </CharString>
+          <CharString index="2">
+            400 rmoveto
+            return
+          </CharString>
+          <CharString index="3">
+            380 530 -380 vlineto
+            return
+          </CharString>
+          <CharString index="4">
+            -30 hlineto
+            100 vmoveto
+            30 return
+          </CharString>
+          <CharString index="5">
+            -104 callsubr
+            20 hmoveto
+            -104 callsubr
+            20 hmoveto
+            -104 callsubr
+            20 hmoveto
+            -104 callsubr
+            return
+          </CharString>
+          <CharString index="6">
+            150 -248 221 442 -24 40 -125 -250 -150 250 return
+          </CharString>
+          <CharString index="7">
+            rmoveto
+            55 -45 45 -55 -55 -45 -45 -55 -36 callsubr
+            vhcurveto
+            return
+          </CharString>
+          <CharString index="8">
+            134 -40 69 -40 69 return
+          </CharString>
+          <CharString index="9">
+            30 770 30 hstem
+            return
+          </CharString>
+          <CharString index="10">
+            39 -169 -97 return
+          </CharString>
+          <CharString index="11">
+            10 230 10 return
+          </CharString>
+          <CharString index="12">
+            35 29 29 35 return
+          </CharString>
+          <CharString index="13">
+            -91 callsubr
+            329 -40 -341 vlineto
+            return
+          </CharString>
+          <CharString index="14">
+            rmoveto
+            -51 callsubr
+            -95 callsubr
+            vhcurveto
+            return
+          </CharString>
+          <CharString index="15">
+            30 370 30 370 30 370 30 return
+          </CharString>
+          <CharString index="16">
+            vlineto
+            108 27 rlineto
+            135 vlineto
+            -108 -27 rlineto
+            return
+          </CharString>
+          <CharString index="17">
+            -39 169 97 return
+          </CharString>
+          <CharString index="18">
+            -134 40 -69 return
+          </CharString>
+          <CharString index="19">
+            30 370 -82 callsubr
+            370 -107 callsubr
+            return
+          </CharString>
+          <CharString index="20">
+            460 380 rmoveto
+            120 135 258 -135 -180 vvcurveto
+            -90 -39 -90 -84 -33 vhcurveto
+            -90 -40 -4 16 -41 11 -50 20 -22 40 20 60 40 60 42 0 49 -25 rrcurveto
+            35 -17 50 -5 42 vvcurveto
+            15 -21 72 -28 24 vhcurveto
+            -84 60 -30 -18 -48 -56 return
+          </CharString>
+          <CharString index="21">
+            460 20 rmoveto
+            120 -135 258 135 180 vvcurveto
+            90 -39 90 -84 33 vhcurveto
+            -90 40 -4 -16 -41 -11 -50 -20 -22 -40 20 -60 40 -60 42 0 49 25 rrcurveto
+            35 17 50 5 -42 vvcurveto
+            -15 -21 -72 -28 -24 vhcurveto
+            -84 -60 -30 18 -48 56 return
+          </CharString>
+          <CharString index="22">
+            30 370 -76 callsubr
+            370 -106 callsubr
+            return
+          </CharString>
+          <CharString index="23">
+            -120 -135 -258 135 180 vvcurveto
+            90 39 90 84 33 vhcurveto
+            90 40 4 -16 41 -11 50 -20 22 -40 -20 -60 -40 -60 -42 0 -49 25 rrcurveto
+            -35 17 -50 5 -42 vvcurveto
+            -15 21 -72 28 -24 vhcurveto
+            84 -60 30 18 48 56 return
+          </CharString>
+          <CharString index="24">
+            -120 135 -258 -135 -180 vvcurveto
+            -90 39 -90 84 -33 vhcurveto
+            90 -40 4 16 41 11 50 20 22 40 -20 60 -40 60 -42 0 -49 -25 rrcurveto
+            -35 -17 -50 -5 42 vvcurveto
+            15 21 72 28 24 vhcurveto
+            84 60 30 -18 48 -56 return
+          </CharString>
+          <CharString index="25">
+            -92 callsubr
+            hstem
+            -15 -107 callsubr
+            370 -107 callsubr
+            370 -107 callsubr
+            370 -107 callsubr
+            return
+          </CharString>
+          <CharString index="26">
+            rmoveto
+            50 105 72 65 -77 vhcurveto
+            -111 90 -190 -268 -70 hhcurveto
+            392 vmoveto
+            526 -40 -929 vlineto
+            -19 9 -15 31 7 vhcurveto
+            116 29 285 282 -129 145 -74 89 -138 -23 -60 -92 rrcurveto
+            endchar
+          </CharString>
+          <CharString index="27">
+            40 -79 callsubr
+            return
+          </CharString>
+          <CharString index="28">
+            vstem
+            625 1600 -75 callsubr
+            return
+          </CharString>
+          <CharString index="29">
+            -77 callsubr
+            vlineto
+            return
+          </CharString>
+          <CharString index="30">
+            40 vstem
+            115 32 rmoveto
+            53 -54 121 -21 150 86 169 97 36 -99 callsubr
+            -136 -97 callsubr
+            -101 -58 -52 -71 -20 -62 rrcurveto
+            -7 -25 -4 -18 -7 vvcurveto
+            -1313 40 return
+          </CharString>
+          <CharString index="31">
+            -92 callsubr
+            hstem
+            -15 -106 callsubr
+            370 -106 callsubr
+            370 -106 callsubr
+            370 -106 callsubr
+            return
+          </CharString>
+          <CharString index="32">
+            rmoveto
+            -40 -1232 hlineto
+            -53 54 -121 21 -150 -86 -169 -97 -36 -89 callsubr
+            40 -69 136 -90 callsubr
+            101 58 52 71 20 62 rrcurveto
+            7 25 4 18 7 vvcurveto
+            return
+          </CharString>
+          <CharString index="33">
+            rmoveto
+            68 -57 57 -68 -68 -57 -57 -68 -68 57 -57 68 68 57 57 68 vhcurveto
+            -20 hmoveto
+            -58 -47 -47 -58 -58 -47 47 58 58 47 47 58 58 47 -47 -58 vhcurveto
+            endchar
+          </CharString>
+          <CharString index="34">
+            124 71 -71 callsubr
+            return
+          </CharString>
+          <CharString index="35">
+            -57 callsubr
+            98 27 rlineto
+            -268 vlineto
+            -98 -27 rlineto
+            -135 vlineto
+            98 27 rlineto
+            40 146 rmoveto
+            267 vlineto
+            return
+          </CharString>
+          <CharString index="36">
+            rmoveto
+            -34 59 74 108 123 70 123 70 131 10 34 -59 34 -59 -74 -108 -123 -70 -123 -70 -131 -10 -34 59 rrcurveto
+            return
+          </CharString>
+          <CharString index="37">
+            233 600 200 rmoveto
+            110 -90 90 -110 -110 -90 -90 -110 -110 90 -90 110 110 90 90 110 vhcurveto
+            return
+          </CharString>
+          <CharString index="38">
+            -67 callsubr
+            127 250 return
+          </CharString>
+          <CharString index="39">
+            40 hstem
+            -67 callsubr
+            return
+          </CharString>
+          <CharString index="40">
+            349 193 rmoveto
+            -150 250 -217 -434 36 -18 109 218 150 -248 return
+          </CharString>
+          <CharString index="41">
+            -107 callsubr
+            770 -107 callsubr
+            endchar
+          </CharString>
+          <CharString index="42">
+            rmoveto
+            -83 -67 -67 -83 -83 -67 67 83 83 67 67 83 83 67 -67 -83 vhcurveto
+            return
+          </CharString>
+          <CharString index="43">
+            393 0 vmoveto
+            20 hlineto
+            300 800 rlineto
+            -40 hlineto
+            -300 -800 rlineto
+            return
+          </CharString>
+          <CharString index="44">
+            -110 -70 -170 -60 50 -50 60 60 50 50 60 60 -50 50 -60 hvcurveto
+            return
+          </CharString>
+          <CharString index="45">
+            120 80 80 72 55 hvcurveto
+            110 vlineto
+            -112 -45 -65 -75 -120 hhcurveto
+            return
+          </CharString>
+          <CharString index="46">
+            -106 callsubr
+            770 -106 callsubr
+            endchar
+          </CharString>
+          <CharString index="47">
+            hmoveto
+            -58 callsubr
+            return
+          </CharString>
+          <CharString index="48">
+            670 rmoveto
+            -18 0 -2 -7 -25 hvcurveto
+            44 10 39 20 100 hhcurveto
+            return
+          </CharString>
+          <CharString index="49">
+            630 -40 -630 vlineto
+            180 hmoveto
+            630 -40 -630 vlineto
+            return
+          </CharString>
+          <CharString index="50">
+            rlineto
+            319 -40 -330 vlineto
+            -98 -27 rlineto
+            -135 vlineto
+            return
+          </CharString>
+          <CharString index="51">
+            -20 50 740 50 hstem
+            200 50 740 50 vstem
+            return
+          </CharString>
+          <CharString index="52">
+            -274 194 64 hstem
+            226 64 vstem
+            226 return
+          </CharString>
+          <CharString index="53">
+            -277 194 64 hstem
+            240 50 vstem
+            290 return
+          </CharString>
+          <CharString index="54">
+            165 180 220 220 -165 180 return
+          </CharString>
+          <CharString index="55">
+            -165 -180 -220 -220 165 -180 return
+          </CharString>
+          <CharString index="56">
+            -32 callsubr
+            -35 29 -29 35 return
+          </CharString>
+          <CharString index="57">
+            100 39 -20 -44 10 hvcurveto
+            7 -25 0 2 -18 hhcurveto
+            return
+          </CharString>
+          <CharString index="58">
+            -49 vlineto
+            128 -218 -18 -190 -50 -99 return
+          </CharString>
+          <CharString index="59">
+            30 hstem
+            170 30 300 30 vstem
+            500 return
+          </CharString>
+          <CharString index="60">
+            rmoveto
+            1220 -40 -1220 vlineto
+            endchar
+          </CharString>
+          <CharString index="61">
+            -40 hmoveto
+            -145 -115 -115 -145 return
+          </CharString>
+          <CharString index="62">
+            30 vstem
+            -15 vmoveto
+            30 1630 -30 hlineto
+            return
+          </CharString>
+          <CharString index="63">
+            vmoveto
+            480 200 -480 hlineto
+            endchar
+          </CharString>
+          <CharString index="64">
+            -277 194 64 hstem
+            44 50 vstem
+            return
+          </CharString>
+          <CharString index="65">
+            vvcurveto
+            -35 29 -29 35 -95 callsubr
+            return
+          </CharString>
+          <CharString index="66">
+            hhcurveto
+            -95 callsubr
+            35 -29 29 -35 return
+          </CharString>
+          <CharString index="67">
+            -257 -350 40 1020 40 hstem
+            return
+          </CharString>
+          <CharString index="68">
+            200 hstem
+            0 20 440 20 vstem
+            return
+          </CharString>
+          <CharString index="69">
+            vmoveto
+            -216 64 216 vlineto
+            endchar
+          </CharString>
+          <CharString index="70">
+            -7 90 40 160 40 vstem
+            90 return
+          </CharString>
+          <CharString index="71">
+            -55 45 -45 55 55 45 45 55 return
+          </CharString>
+          <CharString index="72">
+            115 145 145 115 return
+          </CharString>
+          <CharString index="73">
+            83 -167 0 -184 -142 return
+          </CharString>
+          <CharString index="74">
+            -35 -29 -29 -35 -35 29 -29 35 return
+          </CharString>
+          <CharString index="75">
+            35 -29 29 -35 -35 -29 -29 -35 return
+          </CharString>
+          <CharString index="76">
+            100 hstem
+            105 40 360 40 vstem
+            return
+          </CharString>
+          <CharString index="77">
+            40 26 40 85 85 -26 40 -40 return
+          </CharString>
+        </Subrs>
+      </Private>
+      <CharStrings>
+        <CharString name=".notdef">
+          -107 0 50 600 50 hstem
+          0 vmoveto
+          500 700 -500 hlineto
+          250 -305 rmoveto
+          -170 255 rlineto
+          340 hlineto
+          -140 -300 rmoveto
+          170 255 rlineto
+          -510 vlineto
+          -370 -45 rmoveto
+          170 255 170 -255 rlineto
+          -370 555 rmoveto
+          170 -255 -170 -255 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWC">
+          393 560 670 rmoveto
+          -60 -50 -50 -60 -60 50 -50 60 60 50 50 60 170 -110 70 -130 -205 -52 callsubr
+          205 -62 callsubr
+          -135 -110 135 190 190 110 135 135 -50 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWaccent1">
+          445 vmoveto
+          670 155 -670 155 rlineto
+          -30 vlineto
+          535 -125 -535 -125 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWaccent2">
+          160 75 rmoveto
+          165 330 200 -345 97 194 -225 386 -275 -550 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWaccent3">
+          560 575 rmoveto
+          -165 -330 -200 345 -97 -194 225 -386 275 550 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWaccent4">
+          350 hmoveto
+          90 400 -90 -100 0 0 -90 100 rlinecurve
+          endchar
+        </CharString>
+        <CharString name="PMWaccent5">
+          350 -105 callsubr
+          -90 -400 90 100 0 0 90 -100 rlinecurve
+          endchar
+        </CharString>
+        <CharString name="PMWaccent6">
+          0 20 360 20 hstem
+          340 20 vstem
+          340 hmoveto
+          20 400 -20 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWaccent7">
+          366 hmoveto
+          18 97 38 213 50 vvcurveto
+          47 -41 24 -33 -35 -41 -24 -47 -50 38 -213 18 -97 vhcurveto
+          7 -18 22 0 9 18 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWaccent8">
+          676 -20 hstem
+          0 85 vstem
+          340 -105 callsubr
+          18 -97 38 -213 -50 vvcurveto
+          -47 -41 -24 -33 -35 -41 24 47 50 38 213 18 97 vhcurveto
+          7 18 22 0 9 -18 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWaltoclef">
+          893 200 168 77 50 vstem
+          200 hmoveto
+          168 1600 -168 hlineto
+          295 -880 rmoveto
+          70 -100 50 -100 15 -120 100 20 rcurveline
+          -4 20 -5 20 -5 35 rrcurveto
+          130 50 170 100 100 150 -100 -676 -135 hhcurveto
+          -80 -50 5 70 -100 hvcurveto
+          50 10 32 30 60 vvcurveto
+          55 -45 45 -55 -55 -45 -45 -55 -105 180 -120 145 220 170 180 220 160 -70 210 -220 -100 -100 -20 -180 -135 vhcurveto
+          -30 100 -60 80 -40 51 40 51 60 80 30 100 rrcurveto
+          -180 135 100 -20 100 hhcurveto
+          220 70 210 160 220 -170 180 -220 -145 -180 -120 -105 -36 callsubr
+          60 -32 30 -50 10 hvcurveto
+          70 100 50 5 80 135 100 -676 -150 hhcurveto
+          -100 -170 100 130 -50 hvcurveto
+          5 35 5 20 4 20 -100 20 rcurveline
+          -15 -120 -50 -100 -70 -100 rrcurveto
+          720 -50 -1600 50 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWangle1">
+          -54 callsubr
+          42 rmoveto
+          216 -246 -64 196 -152 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWangle2">
+          -43 callsubr
+          94 42 rmoveto
+          152 196 64 -246 -216 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWangle3">
+          -54 callsubr
+          194 rmoveto
+          216 -50 -152 -196 -64 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWangle4">
+          -43 callsubr
+          44 194 rmoveto
+          246 64 -196 152 -50 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWangle5">
+          -55 callsubr
+          42 rmoveto
+          64 216 -246 -64 182 hlineto
+          -384 -38 callsubr
+        </CharString>
+        <CharString name="PMWangle6">
+          -55 callsubr
+          258 rmoveto
+          -182 -64 246 216 -64 hlineto
+          448 -38 callsubr
+        </CharString>
+        <CharString name="PMWbardotted">
+          -7 0 30 vstem
+          0 vmoveto
+          30 125 -103 callsubr
+          150 -103 callsubr
+          150 -103 callsubr
+          150 -103 callsubr
+          150 -103 callsubr
+          150 -103 callsubr
+          125 -30 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWbardouble">
+          153 0 30 140 -45 callsubr
+          170 -1630 rmoveto
+          30 1630 -30 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWbarshort">
+          -7 0 80 vstem
+          80 hmoveto
+          530 -80 -530 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWbarsingle">
+          -7 0 -45 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWbarthick">
+          153 0 200 vstem
+          -15 vmoveto
+          200 1630 -200 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWbassclef">
+          893 1390 1390 -100 callsubr
+          -400 vmoveto
+          55 -45 45 -55 -55 -45 -45 -55 -55 45 -45 55 55 45 45 55 vhcurveto
+          -1190 170 rmoveto
+          -100 88 -88 100 100 88 88 100 100 -88 88 -100 -50 -20 -10 -23 -40 vhcurveto
+          40 110 100 130 110 -10 rrcurveto
+          220 180 -250 -240 -80 80 -400 -635 -404 hvcurveto
+          700 360 20 444 10 80 rrcurveto
+          210 40 -110 365 -320 hhcurveto
+          -393 -120 -190 -240 hvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWbfermata">
+          -150 600 rmoveto
+          -390 250 -210 250 250 250 210 390 vhcurveto
+          -350 -100 -150 -115 -250 hhcurveto
+          -250 -150 115 350 -100 hvcurveto
+          420 -120 rmoveto
+          -45 35 -35 45 45 35 35 45 45 -35 35 -45 -45 -35 -35 -45 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWbhcirc">
+          -56 callsubr
+          400 vmoveto
+          -230 190 -190 230 230 190 190 230 vhcurveto
+          -50 hmoveto
+          -205 -165 -165 -205 -205 -165 165 205 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWbrabot">
+          0 200 vstem
+          0 vmoveto
+          150 250 -250 -150 250 -150 150 -50 hvcurveto
+          1600 -200 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWbratop">
+          0 200 vstem
+          0 vmoveto
+          200 1600 hlineto
+          50 150 150 250 -150 -250 -250 -150 hvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWbreath">
+          -90 20 hstem
+          565 20 140 20 vstem
+          335 -90 rmoveto
+          250 1290 -20 -1270 -230 hlineto
+          640 hmoveto
+          -230 1270 -20 -1290 250 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWbrest">
+          53 0 vmoveto
+          400 400 -400 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWbreve">
+          733 -10 20 380 20 hstemhm
+          0 40 100 40 800 40 100 40 hintmask 00111100
+          40 -115 rmoveto
+          -58 callsubr
+          880 -60 callsubr
+          -840 315 rmoveto
+          hintmask 11000000
+          -95 100 -115 200 200 100 115 95 95 -100 115 -200 -200 -100 -115 -95 vhcurveto
+          110 hmoveto
+          105 85 85 105 105 85 -85 -105 -105 -85 -85 -105 -105 -85 85 105 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWcaesura">
+          -64 callsubr
+          320 hmoveto
+          20 hlineto
+          300 800 rlineto
+          -40 hlineto
+          -300 -800 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWcaesura1">
+          -64 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWcirc">
+          393 -20 50 740 50 hstem
+          200 50 740 50 vstem
+          1040 -105 callsubr
+          230 -190 190 -230 -230 -190 -190 -230 -230 190 -190 230 230 190 190 230 vhcurveto
+          -50 hmoveto
+          -205 -165 -165 -205 -205 -165 165 205 205 165 165 205 205 165 -165 -205 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWcnh">
+          233 99 55 rmoveto
+          40 -69 132 -90 callsubr
+          169 97 32 -99 callsubr
+          -132 -97 callsubr
+          -169 -97 -32 -89 callsubr
+          rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWcomma">
+          -7 300 150 rmoveto
+          82 -68 68 -82 -82 -68 -68 -82 -82 68 -68 82 9 8 0 1 8 vhcurveto
+          -20 -55 -48 -135 -120 -65 rrcurveto
+          -39 vlineto
+          162 30 150 260 153 vvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWcrest">
+          53 204 -140 rmoveto
+          -243 266 269 145 179 -211 14 -16 9 17 -16 19 -160 190 rcurveline
+          -151 182 76 47 199 288 -300 314 rcurveline
+          -18 -10 57 -60 135 -143 -88 -143 -157 -215 rlinecurve
+          249 -292 -206 206 -273 -250 410 -340 rlinecurve
+          7 -6 17 1 -9 11 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWcross">
+          195 59 hstem
+          325 50 vstem
+          100 195 rmoveto
+          225 -225 50 225 225 50 -225 225 -50 -225 -225 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWcut">
+          393 402 26 vstem
+          560 670 rmoveto
+          -60 -50 -50 -60 -60 50 -50 60 60 50 50 60 170 -110 70 -132 hvcurveto
+          200 -26 -200 vlineto
+          -175 -52 callsubr
+          175 hvcurveto
+          -200 26 200 vlineto
+          -62 callsubr
+          -9 -9 0 1 -8 hvcurveto
+          648 vlineto
+          1 10 10 0 10 hhcurveto
+          -50 callsubr
+          -161 49 rmoveto
+          -637 vlineto
+          -112 27 -83 124 167 vvcurveto
+          165 83 123 110 29 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWcutcirc">
+          393 200 50 357 26 357 50 vstem
+          1040 -105 callsubr
+          225 -182 186 -225 8 vhcurveto
+          181 -26 -181 vlineto
+          -225 -8 -182 -186 -225 vvcurveto
+          -225 182 -186 225 -8 vhcurveto
+          -181 26 181 vlineto
+          225 8 182 186 225 vvcurveto
+          -50 hmoveto
+          -200 -158 -162 -199 -6 vhcurveto
+          738 vlineto
+          199 -6 158 -162 -200 vvcurveto
+          -740 hmoveto
+          200 158 162 199 6 vhcurveto
+          -738 vlineto
+          -199 6 -158 162 200 vvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWdacc">
+          -92 -539 rmoveto
+          494 -497 45 45 -494 497 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWdcrotchet">
+          233 75 -78 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWdimordent">
+          -69 callsubr
+          148 -250 127 250 -101 callsubr
+          -127 -250 -148 250 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWdimsh">
+          68 625 300 rmoveto
+          165 -135 135 -165 -165 -135 -135 -165 -165 135 -135 165 165 135 135 165 vhcurveto
+          -46 callsubr
+          -145 -115 -35 callsubr
+          -35 callsubr
+          -115 -145 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWdirect">
+          393 990 612 rmoveto
+          -88 172 -136 -56 -104 -212 -164 -328 rcurveline
+          -146 216 -126 -238 -149 238 -77 -136 164 -278 127 254 148 -254 259 522 78 157 115 65 87 -142 rlinecurve
+          8 -12 12 17 -8 15 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWdminim">
+          233 75 40 hintmask 00000000
+          -73 callsubr
+          hintmask 10000000
+          -9 -39 rmoveto
+          53 -54 121 -21 150 86 169 97 36 -99 callsubr
+          -136 -97 callsubr
+          -101 -58 -52 -71 -20 -62 rrcurveto
+          -7 -25 -4 -18 -7 vvcurveto
+          -1313 40 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWdmordent">
+          625 -68 callsubr
+          125 250 150 -250 73 142 rlineto
+          -303 40 383 vlineto
+          14 28 -101 callsubr
+          -86 -172 rlineto
+          327 -40 -403 vlineto
+          -150 250 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWdoublesharp">
+          -7 270 200 rmoveto
+          97 97 rlineto
+          -6 10 4 -4 19 -41 callsubr
+          -35 -29 -29 -35 -16 4 -6 1 -2 hvcurveto
+          -99 -99 -99 99 rlineto
+          1 2 4 6 16 vvcurveto
+          -51 callsubr
+          19 4 4 6 10 vhcurveto
+          97 -97 -97 -97 rlineto
+          6 -10 -4 4 -19 hhcurveto
+          -33 callsubr
+          -95 callsubr
+          16 -4 6 -1 2 hvcurveto
+          99 99 99 -99 rlineto
+          -1 -2 -4 -6 -16 -42 callsubr
+          35 -29 29 -35 -19 -4 -4 -6 -10 vhcurveto
+          -97 97 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWdown">
+          -15 -13 rmoveto
+          386 -460 -138 -116 282 -25 25 282 -138 -116 -386 460 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWdowna">
+          350 -31 callsubr
+          145 25 rmoveto
+          325 360 -325 40 425 -440 -425 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWdownb">
+          -50 -31 callsubr
+          105 375 rmoveto
+          -425 440 425 -40 -325 -360 325 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWdqtail">
+          515 20 vstem
+          89 -1198 rmoveto
+          68 268 614 223 -412 654 rrcurveto
+          -49 callsubr
+          rrcurveto
+          -166 -83 -153 -88 -94 hhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWdquaver">
+          233 75 40 345 -78 callsubr
+          264 674 225 -430 653 vhcurveto
+          -49 callsubr
+          -74 -149 -131 -86 -99 -15 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWds1">
+          893 0 70 400 60 410 70 hstem
+          150 160 220 60 220 160 vstem
+          968 530 rmoveto
+          -12 249 -164 200 -202 19 rrcurveto
+          152 vlineto
+          16 -14 14 -16 -16 -14 -14 -16 vhcurveto
+          -152 vlineto
+          -202 -19 -164 -200 -12 -249 rrcurveto
+          -152 hlineto
+          -16 -14 -14 -16 -16 14 -14 16 hvcurveto
+          152 hlineto
+          12 -249 164 -200 202 -19 rrcurveto
+          -152 vlineto
+          -16 14 -14 16 16 14 14 16 vhcurveto
+          152 vlineto
+          202 19 164 200 12 249 rrcurveto
+          152 hlineto
+          16 14 14 16 16 -14 14 -16 hvcurveto
+          -152 hlineto
+          -158 hmoveto
+          -220 398 hlineto
+          124 -13 89 -173 7 -212 rrcurveto
+          -280 hmoveto
+          -220 hlineto
+          7 212 89 173 124 13 rrcurveto
+          -458 vmoveto
+          -398 vlineto
+          -124 13 -89 173 -7 212 rrcurveto
+          280 hmoveto
+          220 hlineto
+          -7 -212 -89 -173 -124 -13 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWds2">
+          893 566 611 rmoveto
+          -108 72 -69 33 -45 72 -72 122 180 111 140 -119 rrcurveto
+          -24 7 -60 -18 -50 vvcurveto
+          -57 62 -39 63 31 vhcurveto
+          61 30 -36 83 -42 38 -89 80 -136 -11 -81 -21 rrcurveto
+          -97 -25 -66 -81 -96 vvcurveto
+          1 -141 166 -119 94 -63 -386 -376 rcurveline
+          58 -32 381 373 rlineto
+          82 -58 163 -84 -116 vvcurveto
+          -80 -108 -112 -173 131 vhcurveto
+          43 -13 49 28 55 vvcurveto
+          56 -91 45 -56 -56 vhcurveto
+          -31 -31 7 -56 43 -39 104 -85 52 -9 115 14 rrcurveto
+          118 18 92 68 172 vvcurveto
+          147 -132 82 -117 83 vhcurveto
+          361 350 -56 35 -360 -349 rlineto
+          307 5 rmoveto
+          -27 -31 -1 -33 27 -36 29 -26 39 -3 33 29 26 33 1 33 -28 34 -33 30 -32 -5 -34 -25 rrcurveto
+          -837 -124 rmoveto
+          -27 -27 -2 -40 29 -33 24 -28 52 3 22 25 27 36 2 32 -29 32 -26 28 -41 -2 -31 -26 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWdsqtail">
+          484 -357 rmoveto
+          -41 vlineto
+          89 -214 -124 -89 -90 -67 rrcurveto
+          -81 -113 -113 -2 -43 hhcurveto
+          -329 14 vlineto
+          71 390 535 -19 -226 452 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWdsquaver">
+          233 75 40 385 -77 callsubr
+          65 vlineto
+          13 207 689 283 -380 388 -2 -51 rcurveline
+          119 -144 -39 -128 -164 -164 rrcurveto
+          -76 -76 -87 -40 -72 hhcurveto
+          7 187 330 98 -18 344 rrcurveto
+          106 -7 -53 58 -24 hhcurveto
+          6 -9 7 -8 15 -27 56 -100 -28 -160 -121 -121 rrcurveto
+          -39 -39 -82 -51 -50 hhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWdstem">
+          75 40 vstem
+          87 150 rmoveto
+          -12 -50 rlineto
+          -1300 40 1350 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWdvtilde">
+          -473 191 rmoveto
+          -70 hlineto
+          250 -300 250 300 rlineto
+          -70 hlineto
+          -157 -190 rlineto
+          9 -13 27 -10 28 vhcurveto
+          -72 154 442 181 -413 74 rrcurveto
+          -21 vlineto
+          241 -107 -346 -73 97 -208 14 -29 12 -27 1 -8 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWfdstem">
+          75 40 hstem
+          115 hmoveto
+          200 -40 -200 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWfive">
+          -57 582 80 hstem
+          401 50 vstem
+          401 582 rmoveto
+          -89 50 88 88 80 -88 88 -50 -88 -225 vlineto
+          -97 -216 331 16 -5 -409 -176 -26 rlinecurve
+          -40 -4 -56 46 -45 22 -38 13 -65 -73 90 -33 337 -109 204 535 -471 73 40 85 rcurveline
+          endchar
+        </CharString>
+        <CharString name="PMWflat">
+          -107 0 50 vstem
+          50 308 -81 callsubr
+        </CharString>
+        <CharString name="PMWfour">
+          153 177 56 hstem
+          302 72 101 64 vstem
+          374 hmoveto
+          177 101 -156 64 156 138 56 -138 156 -64 -156 -101 447 -40 vlineto
+          -313 -447 rlineto
+          -56 281 -177 vlineto
+          233 vmoveto
+          -244 hlineto
+          244 350 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWfs">
+          -57 endchar
+        </CharString>
+        <CharString name="PMWfustem">
+          585 40 vstem
+          625 200 rmoveto
+          200 -40 -200 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWgcross">
+          -57 275 20 210 20 hstem
+          588 525 rmoveto
+          -12 hlineto
+          -76 -108 -76 108 rlineto
+          -24 hlineto
+          88 -125 -88 -125 rlineto
+          24 hlineto
+          76 108 76 -108 rlineto
+          24 hlineto
+          -88 125 88 125 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWgdot">
+          -57 600 400 -100 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWgrid">
+          190 20 380 20 380 20 380 20 380 20 105 20 hstem
+          490 20 530 20 530 20 530 20 530 20 530 20 vstem
+          510 hmoveto
+          190 530 -190 20 190 530 -190 20 190 530 -190 20 190 530 -190 20 190 530 -190 20 1935 -2770 -1935 vlineto
+          20 210 rmoveto
+          -102 callsubr
+          20 hmoveto
+          -104 callsubr
+          -2730 -105 callsubr
+          -102 callsubr
+          20 hmoveto
+          -104 callsubr
+          -2730 -105 callsubr
+          -102 callsubr
+          20 hmoveto
+          -104 callsubr
+          -2730 -105 callsubr
+          -102 callsubr
+          20 hmoveto
+          -104 callsubr
+          -2730 -105 callsubr
+          105 2730 -105 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWgring">
+          -57 275 -96 callsubr
+          hstem
+          375 -96 callsubr
+          vstem
+          625 400 -74 callsubr
+        </CharString>
+        <CharString name="PMWhalfflat1">
+          -107 10 40 vstem
+          -138 588 rmoveto
+          -110 vlineto
+          466 201 rlineto
+          110 vlineto
+          -278 -481 -81 callsubr
+        </CharString>
+        <CharString name="PMWhalfflat2">
+          -107 304 40 vstem
+          304 308 rmoveto
+          50 -105 72 -65 -77 vhcurveto
+          -111 -90 190 -268 70 hhcurveto
+          392 vmoveto
+          526 40 -929 vlineto
+          -19 -9 -15 -31 7 vhcurveto
+          -116 29 -285 282 129 145 74 89 138 -23 60 -92 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWhalfsharp1">
+          -183 157 40 vstem
+          157 -414 rmoveto
+          40 339 hlineto
+          -41 1 rlineto
+          -319 40 329 -91 callsubr
+          269 -94 callsubr
+          41 -1 -72 callsubr
+          -41 1 rlineto
+          -267 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWhalfsharp2">
+          -37 callsubr
+          300 rmoveto
+          -730 40 740 vlineto
+          160 40 rlineto
+          -720 40 733 -94 callsubr
+          -160 -40 -57 callsubr
+          138 37 rmoveto
+          160 40 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWhbar">
+          570 60 hstem
+          100 570 rmoveto
+          500 60 -500 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWhclef">
+          893 500 200 200 200 vstem
+          700 -105 callsubr
+          800 -200 -800 vlineto
+          600 hmoveto
+          800 -200 -800 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWhcnh">
+          233 350 -105 callsubr
+          -260 -200 260 -200 260 200 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWhdimsh">
+          68 625 300 rmoveto
+          75 -27 68 -47 54 vhcurveto
+          100 100 -29 29 -100 -100 rlineto
+          47 -54 -68 27 -75 hhcurveto
+          -165 -135 -135 -165 -75 27 -68 47 -54 hvcurveto
+          -100 -100 29 -29 100 100 rlineto
+          -47 54 68 -27 75 hhcurveto
+          165 135 135 165 hvcurveto
+          -46 callsubr
+          -65 -59 23 38 -45 vhcurveto
+          361 361 rlineto
+          45 -38 23 -59 -65 vvcurveto
+          -520 hmoveto
+          145 115 115 145 65 59 -23 -38 45 vhcurveto
+          -361 -361 rlineto
+          -45 38 -23 59 65 vvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWhdot">
+          -207 129 200 -93 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWhmnh">
+          233 350 425 rmoveto
+          -265 -225 265 -225 265 225 rlineto
+          -60 hmoveto
+          -205 -175 -205 175 205 175 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWiC">
+          393 160 -59 callsubr
+          135 110 -135 -190 -190 -110 -135 -135 -120 -65 75 112 -45 hvcurveto
+          -110 vlineto
+          -72 55 80 -80 120 hhcurveto
+          205 -53 callsubr
+          -205 -130 -63 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWicomma">
+          -7 150 vmoveto
+          -82 68 -68 82 82 68 68 82 82 -68 68 -82 -9 -8 0 -1 -8 vhcurveto
+          20 55 48 135 120 65 rrcurveto
+          39 vlineto
+          -162 -30 -150 -260 -153 vvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWicut">
+          393 302 26 vstem
+          167 -59 callsubr
+          10 10 0 -1 10 hvcurveto
+          -648 vlineto
+          -1 -8 -9 0 -9 hhcurveto
+          -120 -65 75 112 -45 hvcurveto
+          -110 vlineto
+          -72 55 80 -80 120 hhcurveto
+          -200 26 200 vlineto
+          175 -53 callsubr
+          -175 hvcurveto
+          200 -26 -200 vlineto
+          -132 -63 callsubr
+          159 49 rmoveto
+          110 -29 83 -123 -165 vvcurveto
+          -167 -83 -124 -112 -27 vhcurveto
+          637 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWimordent">
+          -69 callsubr
+          -101 callsubr
+          rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWirturn">
+          375 50 hstem
+          -87 callsubr
+          -108 -129 rcurveline
+          -232 -50 175 vlineto
+          -34 -40 rlineto
+          -84 callsubr
+          108 129 rcurveline
+          232 50 -175 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWiturn">
+          375 50 hstem
+          -86 callsubr
+          -108 129 rcurveline
+          232 -50 -175 vlineto
+          -34 40 rlineto
+          -83 callsubr
+          108 -129 rcurveline
+          -232 50 175 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWlcaesura">
+          -7 0 30 1140 30 hstem
+          5 30 vstem
+          35 hmoveto
+          1200 -30 -1200 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWledger">
+          185 30 hstem
+          -70 185 rmoveto
+          840 30 -840 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWledger2">
+          175 50 hstem
+          -70 175 rmoveto
+          840 50 -840 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWlittle8">
+          165 296 rmoveto
+          -122 161 -91 -152 -86 hhcurveto
+          -72 -112 178 96 200 hvcurveto
+          -8 107 rmoveto
+          58 -36 54 96 64 hhcurveto
+          83 34 -202 -14 -139 hvcurveto
+          -69 -35 rmoveto
+          -68 -202 38 -236 146 hhcurveto
+          147 117 184 140 -149 hvcurveto
+          56 173 -42 196 -126 hhcurveto
+          -124 -91 -156 -116 113 hvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWlongrest">
+          2893 50 300 hstem
+          0 40 2920 40 vstem
+          600 vmoveto
+          -800 40 250 2920 -250 40 800 -40 -250 -2920 250 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWmajor">
+          143 0 40 hstem
+          0 vmoveto
+          700 hlineto
+          -350 650 rlineto
+          270 -610 rmoveto
+          -540 hlineto
+          270 520 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWmnh">
+          233 84 29 476 27 vstem
+          99 55 rmoveto
+          40 -69 132 -90 callsubr
+          169 97 32 -99 callsubr
+          -132 -97 callsubr
+          -169 -97 -32 -89 callsubr
+          rrcurveto
+          25 16 -71 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWmordent">
+          350 -68 callsubr
+          73 142 rlineto
+          -303 40 383 vlineto
+          14 28 -101 callsubr
+          -86 -172 rlineto
+          327 -40 -403 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWmrest">
+          53 0 -39 callsubr
+          0 -44 callsubr
+        </CharString>
+        <CharString name="PMWnail">
+          555 40 hstem
+          18 447 rmoveto
+          40 9 40 12 28 vhcurveto
+          515 hlineto
+          13 -28 8 -40 -40 vvcurveto
+          40 hlineto
+          409 -637 0 -409 vvcurveto
+          545 148 rmoveto
+          -473 hlineto
+          103 156 267 0 103 -156 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWnatural">
+          -157 0 40 240 40 vstem
+          0 vmoveto
+          -140 vlineto
+          280 140 rlineto
+          -430 40 965 vlineto
+          -280 -140 rlineto
+          435 -40 -830 vlineto
+          40 255 rmoveto
+          240 120 rlineto
+          -235 vlineto
+          -240 -120 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWoldaltoclef">
+          893 650 50 200 50 hstem
+          201 168 76 50 vstem
+          369 hmoveto
+          1600 -168 -1600 vlineto
+          594 390 rmoveto
+          -390 0 0 292 -30 callsubr
+          -242 0 0 140 310 0 0 -165 vhcurveto
+          -185 200 185 hlineto
+          165 0 0 311 139 0 0 242 -30 callsubr
+          -292 0 0 -389 -261 0 0 -115 hvcurveto
+          -185 650 -50 -1600 50 650 185 hlineto
+          115 0 0 -260 hvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWoldbassclef">
+          893 1269 1048 rmoveto
+          -33 35 -54 0 -33 -35 -38 -38 2 -54 36 -36 33 -35 54 0 33 35 33 35 0 57 -33 36 rrcurveto
+          -3 416 rmoveto
+          -33 35 -54 0 -33 -35 -33 -35 0 -58 33 -35 33 -35 54 0 33 35 33 35 0 58 -33 35 rrcurveto
+          -720 -290 rmoveto
+          35 35 0 15 -35 35 -86 86 -142 5 -106 -106 -159 -159 77 -181 137 -69 108 -54 123 -4 115 58 247 123 95 279 -233 233 -166 165 -299 30 -229 -228 -237 -237 -6 -361 251 -251 rrcurveto
+          251 -251 274 0 251 251 rrcurveto
+          228 228 10 234 150 vvcurveto
+          -40 hlineto
+          -320 -178 -142 -102 -68 vhcurveto
+          -195 -130 -182 -10 -225 150 -180 120 -145 341 262 261 196 196 272 -12 155 -155 187 -187 -40 -242 -262 -127 -78 -39 -111 0 -77 39 -135 68 -47 153 157 78 129 43 -11 -189 146 146 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWped">
+          793 286 744 rmoveto
+          -95 -11 -208 -87 17 -209 35 -135 107 31 31 91 rrcurveto
+          58 0 40 -13 -11 vhcurveto
+          -188 -203 30 378 293 38 -29 -29 -53 -218 115 -180 29 -46 0 -98 -29 2 -51 5 -89 -29 -57 -87 rrcurveto
+          -42 -31 48 -2 20 hhcurveto
+          65 62 73 40 38 hvcurveto
+          42 -9 60 -47 58 -53 122 71 rcurveline
+          60 -95 147 -2 89 86 37 -53 40 -13 85 2 67 4 33 38 29 33 42 60 24 107 -68 135 rrcurveto
+          145 -72 -153 104 -222 -29 0 -15 29 hhcurveto
+          173 136 -143 -115 60 hvcurveto
+          46 -85 36 -113 -33 -49 -25 -31 -29 -24 -51 9 -60 11 -155 173 155 138 22 18 -24 17 -22 -22 -71 -67 -74 -111 45 -100 22 -46 -124 -38 -67 40 rrcurveto
+          -102 62 197 -18 165 vvcurveto
+          84 -48 40 -74 -73 -125 -111 -189 109 vhcurveto
+          -62 -35 -44 26 -69 49 -67 9 rlinecurve
+          40 58 40 151 -55 91 -85 142 -9 127 51 2 180 18 154 -280 -245 96 7 -43 20 -51 47 -13 142 -33 -29 164 -56 62 -93 105 -84 2 -94 -9 rrcurveto
+          367 -378 rmoveto
+          47 25 44 -51 -63 vvcurveto
+          -66 -16 -27 -71 -42 vhcurveto
+          -46 80 -27 106 69 38 rrcurveto
+          633 -300 rmoveto
+          -53 4 -66 47 56 2 66 -56 hhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWpstave1">
+          393 785 30 hstem
+          785 -106 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWpstave10">
+          9393 785 30 hstem
+          785 -107 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWqrest">
+          -17 600 vmoveto
+          -62 19 -33 25 -20 vhcurveto
+          105 -74 113 92 47 70 -229 -545 rcurveline
+          43 hlineto
+          272 643 rlineto
+          -43 hlineto
+          -10 -24 -78 -83 -40 -35 -31 -26 -54 -12 19 48 rrcurveto
+          80 235 -238 46 -220 vvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWr1">
+          -507 endchar
+        </CharString>
+        <CharString name="PMWrbra">
+          -257 250 750 rmoveto
+          -300 -550 0 0 300 -550 -200 550 0 0 200 550 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWrcnh">
+          -70 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWrep">
+          -107 0 vmoveto
+          250 hlineto
+          550 800 rlineto
+          -250 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWrepdots">
+          150 650 -100 callsubr
+          700 -500 -100 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWrepeatdots">
+          -7 129 200 -93 callsubr
+          400 vmoveto
+          35 -29 29 -35 -35 -29 -29 -35 -35 29 -29 35 35 29 29 35 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWrket">
+          -257 -80 750 rmoveto
+          200 -550 0 0 -200 -550 300 550 0 0 -300 550 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWrmnh">
+          -70 callsubr
+          -40 hmoveto
+          -90 -70 -70 -90 -90 -70 70 90 90 70 70 90 90 70 -70 -90 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWrturn">
+          -87 callsubr
+          -192 -226 rcurveline
+          -84 callsubr
+          192 226 rcurveline
+          endchar
+        </CharString>
+        <CharString name="PMWsbra">
+          -40 callsubr
+          0 80 vstem
+          -350 vmoveto
+          250 40 -170 1020 170 40 -250 hlineto
+          endchar
+        </CharString>
+        <CharString name="PMWsbrest">
+          53 200 -39 callsubr
+          200 -44 callsubr
+        </CharString>
+        <CharString name="PMWscaesura">
+          -7 -200 30 340 30 hstem
+          5 30 vstem
+          35 -200 rmoveto
+          400 -30 -400 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWsemibreve">
+          233 -10 20 380 20 hstem
+          50 200 rmoveto
+          -95 100 -115 200 200 100 115 95 95 -100 115 -200 -200 -100 -115 -95 vhcurveto
+          110 hmoveto
+          105 85 85 105 105 85 -85 -105 -105 -85 -85 -105 -105 -85 85 105 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWseven">
+          -57 605 71 hstem
+          259 -12 rmoveto
+          103 312 160 18 -4 40 -142 -19 100 303 rlineto
+          10 -357 vlineto
+          -59 -140 14 -10 rlineto
+          50 32 51 29 24 hhcurveto
+          217 hlineto
+          -83 -250 -330 -41 4 -40 312 40 -99 -302 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWsharp">
+          -37 callsubr
+          -430 rmoveto
+          40 339 hlineto
+          160 40 rlineto
+          -319 40 329 -91 callsubr
+          269 -94 callsubr
+          -160 -40 -72 callsubr
+          160 40 rlineto
+          -267 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWsix">
+          -107 139 319 rmoveto
+          20 82 124 -15 50 -39 61 -53 -1 -167 -50 -76 -48 -52 -72 25 -36 29 -54 57 -21 91 26 115 rrcurveto
+          418 339 rmoveto
+          -25 38 -102 -6 -37 -9 -100 167 rcurveline
+          -30 -20 91 -157 -103 -17 -69 -57 -60 -66 rlinecurve
+          -118 -176 6 -217 112 -97 102 -82 91 0 85 82 112 139 -47 161 -63 46 -60 50 -130 -2 -62 -48 10 64 25 47 33 41 52 53 54 35 50 12 97 -158 rcurveline
+          29 25 -92 146 30 8 77 -1 26 -11 rlinecurve
+          endchar
+        </CharString>
+        <CharString name="PMWsket">
+          -40 callsubr
+          90 80 vstem
+          170 -350 rmoveto
+          1100 -250 -40 170 -1020 -170 -40 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWslur1">
+          300 -255 rmoveto
+          280 -495 280 0 280 495 rrcurveto
+          10 vlineto
+          -280 -405 -280 0 -280 405 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWslur2">
+          300 -255 rmoveto
+          420 -495 400 0 420 495 rrcurveto
+          10 vlineto
+          -420 -405 -400 0 -420 405 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWspace">
+          143 endchar
+        </CharString>
+        <CharString name="PMWsrbra">
+          -257 252 642 rmoveto
+          -240 -226 -8 -154 248 -262 rrcurveto
+          8 hlineto
+          -136 318 -2 46 144 278 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWsrket">
+          -257 -96 642 rmoveto
+          144 -278 -2 -46 -136 -318 rrcurveto
+          8 hlineto
+          248 262 -8 154 -240 226 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWstar">
+          393 404 360 rmoveto
+          -25 -19 -19 -25 -25 -19 19 25 25 19 19 25 25 19 -19 -25 vhcurveto
+          61 -44 rmoveto
+          1 9 13 16 14 2 rrcurveto
+          90 hlineto
+          11 13 -16 -8 7 hvcurveto
+          -8 7 20 -15 24 -41 callsubr
+          -24 -20 -15 -8 -7 hvcurveto
+          -8 -7 -13 -16 -11 hhcurveto
+          -90 hlineto
+          -14 2 -13 16 8 vvcurveto
+          -6 7 -2 21 8 11 64 64 rcurveline
+          8 8 21 -2 11 -1 11 -1 25 4 17 17 25 25 0 41 -25 25 -25 25 -41 0 -25 -25 -17 -17 -4 -25 1 -11 1 -11 2 -21 -8 -8 -64 -64 rcurveline
+          -11 -8 -21 2 -7 5 -9 1 -16 13 -2 14 rrcurveto
+          90 vlineto
+          11 16 13 8 7 vhcurveto
+          8 7 15 20 24 vvcurveto
+          -32 callsubr
+          -24 15 -20 8 -7 vhcurveto
+          8 -7 16 -13 1 -11 rrcurveto
+          -90 vlineto
+          -2 -14 -16 -13 -9 -1 -7 -6 -21 -2 -11 8 -64 64 rcurveline
+          -8 8 2 21 1 11 1 11 -4 25 -17 17 -25 25 -41 0 -25 -25 -25 -25 0 -41 25 -25 17 -17 25 -4 11 1 11 1 21 2 8 -7 64 -64 rcurveline
+          8 -11 -2 -21 -5 -7 -1 -9 -13 -16 -14 -2 rrcurveto
+          -90 hlineto
+          -11 -13 16 8 -7 hvcurveto
+          8 -7 -20 15 -24 hhcurveto
+          -33 callsubr
+          24 20 15 8 7 hvcurveto
+          8 7 13 16 11 hhcurveto
+          90 hlineto
+          14 -2 13 -16 -8 vvcurveto
+          6 -7 2 -21 -8 -11 -64 -64 rcurveline
+          -8 -8 -21 2 -11 1 -11 1 -25 -4 -17 -17 -25 -25 0 -41 25 -25 25 -25 41 0 25 25 17 17 4 25 -1 11 -1 11 -2 21 8 8 64 64 rcurveline
+          11 8 21 -2 7 -6 9 -1 16 -13 2 -14 rrcurveto
+          -90 vlineto
+          -11 -16 -13 -8 -7 vhcurveto
+          -8 -7 -15 -20 -24 -42 callsubr
+          24 -15 20 -8 7 vhcurveto
+          -8 7 -16 13 11 vvcurveto
+          90 vlineto
+          2 14 16 13 9 1 7 6 21 2 11 -8 64 -64 rcurveline
+          8 -8 -2 -21 -1 -11 -1 -11 4 -25 17 -17 25 -25 41 0 25 25 25 25 0 41 -25 25 -17 17 -25 4 -11 -1 -11 -1 -21 -2 -8 8 -64 64 rcurveline
+          -8 11 2 21 4 7 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWstave1">
+          393 -15 -85 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWstave10">
+          9393 -15 -88 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWstave21">
+          393 385 -98 callsubr
+          385 -61 callsubr
+        </CharString>
+        <CharString name="PMWstave210">
+          9393 385 -98 callsubr
+          385 -66 callsubr
+        </CharString>
+        <CharString name="PMWstave31">
+          393 -15 30 770 -98 callsubr
+          -15 -106 callsubr
+          770 -61 callsubr
+        </CharString>
+        <CharString name="PMWstave310">
+          9393 -15 30 770 -98 callsubr
+          -15 -107 callsubr
+          770 -66 callsubr
+        </CharString>
+        <CharString name="PMWstave41">
+          393 -15 -76 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWstave410">
+          9393 -15 -82 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWstave61">
+          393 -15 30 370 -85 callsubr
+          370 -106 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWstave610">
+          9393 -15 30 370 -88 callsubr
+          370 -107 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWtfermata">
+          -150 -100 rmoveto
+          350 100 150 115 250 hhcurveto
+          250 150 -115 -350 100 hvcurveto
+          390 -250 210 -250 -250 -250 -210 -390 vhcurveto
+          420 140 rmoveto
+          -45 35 -35 45 45 35 35 45 45 -35 35 -45 -45 -35 -35 -45 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWthcirc">
+          -56 callsubr
+          840 hmoveto
+          230 -190 190 -230 -230 -190 -190 -230 vhcurveto
+          50 hmoveto
+          205 165 165 205 205 165 -165 -205 vhcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWthumba">
+          475 -48 callsubr
+          325 -65 callsubr
+          30 hmoveto
+          100 -80 80 -100 -100 -80 -80 -100 -86 59 -71 81 -18 vhcurveto
+          -35 -226 rlineto
+          150 hlineto
+          -35 226 rlineto
+          81 18 59 71 86 vvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWthumbb">
+          -105 -48 callsubr
+          75 -65 callsubr
+          -330 hmoveto
+          -100 80 -80 100 100 80 80 100 86 -59 71 -81 18 vhcurveto
+          35 226 rlineto
+          -150 hlineto
+          35 -226 rlineto
+          -81 -18 -59 -71 -86 vvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWtick">
+          -7 30 340 rmoveto
+          34 34 85 -204 235 604 -30 10 -205 -532 -74 175 -65 -65 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWtilde">
+          -207 380 188 rmoveto
+          50 -43 0 0 50 43 50 50 rcurveline
+          25 25 45 68 -27 10 -21 8 -24 -33 -25 -25 -25 -25 -23 0 -25 25 -110 120 rcurveline
+          -50 43 0 0 -50 -43 -50 -50 rcurveline
+          -25 -25 -45 -68 27 -10 21 -8 24 33 25 25 25 25 23 0 25 -25 100 -110 rcurveline
+          endchar
+        </CharString>
+        <CharString name="PMWtrebleclef">
+          893 140 780 rmoveto
+          -37 -133 -9 -109 42 -133 81 -247 204 -156 261 4 43 1 42 4 42 8 26 -139 rcurveline
+          33 -180 33 -266 -180 -33 -66 -9 -67 9 -61 33 104 19 114 137 -133 110 -128 109 -147 -105 -10 -113 -19 -180 166 -57 147 -10 rrcurveto
+          52 43 4 15 47 hvcurveto
+          190 71 -53 252 -33 199 -26 141 rcurveline
+          124 30 104 68 50 122 57 143 -9 152 -95 118 -86 105 -123 51 -133 -23 -10 -1 -9 -1 -9 -4 -60 316 rcurveline
+          31 30 37 37 44 45 66 71 43 66 28 95 rrcurveto
+          32 109 0 133 76 vvcurveto
+          -4 67 -10 133 -47 99 -33 66 -33 43 -57 47 rrcurveto
+          0 -4 -4 0 vhcurveto
+          -81 -85 -62 -76 -42 -114 -85 -218 47 -304 38 -95 -150 -100 -220 -300 -37 -135 rrcurveto
+          435 555 rmoveto
+          -19 171 -5 166 76 109 19 34 52 14 38 9 33 -5 33 -19 19 -23 38 -43 13 -57 -13 -52 -37 -112 -93 -92 -152 -106 rrcurveto
+          83 -560 rmoveto
+          -114 -38 -90 -90 -11 -124 -14 -142 76 -133 128 -52 -99 48 -53 152 57 104 35 58 57 31 64 9 104 -547 rcurveline
+          -83 -20 -91 5 -82 22 -162 47 -99 128 -19 171 -10 95 4 71 28 90 151 249 -15 -30 184 182 rrcurveto
+          124 -458 rmoveto
+          26 26 -2 -5 26 hvcurveto
+          152 -34 71 -199 -52 -147 -25 -75 -45 -47 -78 -32 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWtrem">
+          100 20 460 20 vstem
+          100 hmoveto
+          -175 vlineto
+          500 175 rlineto
+          175 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWtrill">
+          193 529 501 rmoveto
+          -68 40 -88 -36 -100 -4 48 172 rcurveline
+          -20 13 -60 -11 -20 -6 -52 -176 rcurveline
+          -46 -3 -45 5 -45 -10 -86 -22 7 -112 51 -42 32 -22 20 -1 56 -5 -40 -140 rcurveline
+          -24 -100 64 -52 104 20 69 22 32 64 -5 94 -15 90 -19 0 -58 30 40 128 rcurveline
+          128 28 44 8 42 13 -10 -57 rlinecurve
+          -92 -428 rlineto
+          96 hlineto
+          88 404 8 46 4 14 48 12 rlinecurve
+          32 8 1 0 7 -16 37 -71 65 13 2 74 2 45 -21 13 -33 14 -58 20 -89 -44 -33 -32 rrcurveto
+          -408 -176 rmoveto
+          -42 -12 -21 20 -17 16 -24 35 12 39 44 10 80 4 rcurveline
+          56 -180 rmoveto
+          44 -11 -4 -35 4 -42 -2 -44 3 -42 -35 -23 -66 -30 -1 41 19 54 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWturn">
+          -86 callsubr
+          -192 226 rcurveline
+          -83 callsubr
+          192 -226 rcurveline
+          endchar
+        </CharString>
+        <CharString name="PMWuacc">
+          372 726 rmoveto
+          654 475 -38 48 -654 -475 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWucrotchet">
+          233 585 -80 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWuminim">
+          233 84 29 472 40 -36 27 hintmask 10100000
+          -73 callsubr
+          hintmask 01000000
+          501 1529 -75 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWunibreve">
+          973 0 40 100 40 1040 40 100 40 vstem
+          40 -115 rmoveto
+          630 -40 -630 vlineto
+          180 hmoveto
+          630 -40 -630 vlineto
+          1120 -60 callsubr
+          -571 140 rmoveto
+          171 82 -10 200 -182 73 rrcurveto
+          156 11 77 -136 -58 vvcurveto
+          -163 -60 -41 -152 32 vhcurveto
+          361 172 rmoveto
+          163 -217 90 -235 -48 vhcurveto
+          -213 48 -235 -81 -173 vvcurveto
+          -176 252 -72 199 46 vhcurveto
+          195 -45 254 69 179 vvcurveto
+          -412 -148 rmoveto
+          -50 32 -116 176 87 87 47 -38 113 -176 -81 -81 rrcurveto
+          -223 331 rmoveto
+          36 3 47 -7 12 -6 -181 -90 37 -208 165 -55 rrcurveto
+          -47 -94 -7 135 -68 hvcurveto
+          -78 152 62 75 109 8 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWup">
+          15 -13 rmoveto
+          386 460 138 -116 -25 282 -282 -25 138 -116 -386 -460 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWupa">
+          181 596 rmoveto
+          168 -649 168 649 -36 9 -132 -508 -132 508 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWupb">
+          219 -206 rmoveto
+          132 508 132 -508 36 9 -168 649 -168 -649 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWuqtail">
+          800 420 rmoveto
+          -32 vlineto
+          506 682 -721 150 20 400 rrcurveto
+          -357 vlineto
+          71 89 -62 -187 94 hvcurveto
+          -34 callsubr
+          -243 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWuquaver">
+          593 585 40 285 70 -79 callsubr
+          975 vlineto
+          67 -11 80 -67 84 -168 -34 callsubr
+          -248 rrcurveto
+          -32 vlineto
+          506 682 -678 90 443 vvcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWusqtail">
+          950 40 vstem
+          900 820 rmoveto
+          273 334 -407 51 -140 349 rrcurveto
+          -21 -274 hlineto
+          25 137 -35 -82 95 hvcurveto
+          72 -63 83 -91 -117 -164 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWusquaver">
+          593 585 40 325 -80 callsubr
+          727 vlineto
+          27 97 -45 -67 50 hvcurveto
+          93 -122 -54 -139 -40 -102 7 -50 rcurveline
+          246 528 -387 -28 -39 290 rrcurveto
+          35 148 -69 -89 71 hvcurveto
+          89 -113 -3 -106 -76 -112 -4 -50 rcurveline
+          328 414 -536 103 -52 336 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWustem">
+          585 40 vstem
+          613 250 rmoveto
+          12 50 rlineto
+          1300 -40 -1350 vlineto
+          endchar
+        </CharString>
+        <CharString name="PMWuvtilde">
+          -106 295 rmoveto
+          70 hlineto
+          -250 300 -250 -300 rlineto
+          70 hlineto
+          157 190 rlineto
+          -9 13 -27 10 -28 vhcurveto
+          72 -154 -441 -181 413 -74 rrcurveto
+          21 vlineto
+          -242 107 346 73 -97 208 -14 29 -12 27 -1 8 rrcurveto
+          endchar
+        </CharString>
+        <CharString name="PMWvdot">
+          414 600 -93 callsubr
+          endchar
+        </CharString>
+        <CharString name="PMWvring">
+          85 -96 callsubr
+          hstem
+          225 -96 callsubr
+          vstem
+          475 210 -74 callsubr
+        </CharString>
+        <CharString name="PMWvtilde">
+          -190 280 rmoveto
+          43 50 0 0 -43 50 -50 50 rcurveline
+          -25 25 -68 45 -10 -27 -8 -21 33 -24 25 -25 25 -25 0 -23 -25 -25 -120 -110 rcurveline
+          -43 -50 0 0 43 -50 50 -50 rcurveline
+          25 -25 68 -45 10 27 8 21 -33 24 -25 25 -25 25 0 23 25 25 110 100 rcurveline
+          endchar
+        </CharString>
+        <CharString name="PMWxdstem">
+          75 40 hstem
+          115 -1200 -47 callsubr
+        </CharString>
+        <CharString name="PMWxnh">
+          233 76 382 rmoveto
+          236 -182 -236 -182 30 -36 244 190 244 -190 30 36 -236 182 236 182 -30 36 -244 -190 -244 190 rlineto
+          endchar
+        </CharString>
+        <CharString name="PMWxustem">
+          585 40 vstem
+          625 380 -47 callsubr
+        </CharString>
+      </CharStrings>
+    </CFFFont>
+
+    <GlobalSubrs>
+      <!-- The 'index' attribute is only for humans; it is ignored when parsed. -->
+    </GlobalSubrs>
+  </CFF>
+
+  <hmtx>
+    <mtx name=".notdef" width="500" lsb="0"/>
+    <mtx name="PMWC" width="1000" lsb="60"/>
+    <mtx name="PMWaccent1" width="0" lsb="0"/>
+    <mtx name="PMWaccent2" width="0" lsb="122"/>
+    <mtx name="PMWaccent3" width="0" lsb="98"/>
+    <mtx name="PMWaccent4" width="0" lsb="260"/>
+    <mtx name="PMWaccent5" width="0" lsb="260"/>
+    <mtx name="PMWaccent6" width="0" lsb="340"/>
+    <mtx name="PMWaccent7" width="0" lsb="272"/>
+    <mtx name="PMWaccent8" width="0" lsb="246"/>
+    <mtx name="PMWaltoclef" width="1500" lsb="200"/>
+    <mtx name="PMWangle1" width="330" lsb="44"/>
+    <mtx name="PMWangle2" width="330" lsb="44"/>
+    <mtx name="PMWangle3" width="330" lsb="44"/>
+    <mtx name="PMWangle4" width="330" lsb="44"/>
+    <mtx name="PMWangle5" width="333" lsb="44"/>
+    <mtx name="PMWangle6" width="333" lsb="44"/>
+    <mtx name="PMWbardotted" width="600" lsb="0"/>
+    <mtx name="PMWbardouble" width="760" lsb="0"/>
+    <mtx name="PMWbarshort" width="600" lsb="0"/>
+    <mtx name="PMWbarsingle" width="600" lsb="0"/>
+    <mtx name="PMWbarthick" width="760" lsb="0"/>
+    <mtx name="PMWbassclef" width="1500" lsb="200"/>
+    <mtx name="PMWbfermata" width="0" lsb="-150"/>
+    <mtx name="PMWbhcirc" width="0" lsb="0"/>
+    <mtx name="PMWbrabot" width="0" lsb="0"/>
+    <mtx name="PMWbratop" width="0" lsb="0"/>
+    <mtx name="PMWbreath" width="0" lsb="335"/>
+    <mtx name="PMWbrest" width="660" lsb="0"/>
+    <mtx name="PMWbreve" width="1340" lsb="0"/>
+    <mtx name="PMWcaesura" width="1000" lsb="-20"/>
+    <mtx name="PMWcaesura1" width="1000" lsb="-20"/>
+    <mtx name="PMWcirc" width="1000" lsb="200"/>
+    <mtx name="PMWcnh" width="840" lsb="83"/>
+    <mtx name="PMWcomma" width="600" lsb="-13"/>
+    <mtx name="PMWcrest" width="660" lsb="-24"/>
+    <mtx name="PMWcross" width="0" lsb="100"/>
+    <mtx name="PMWcut" width="1000" lsb="62"/>
+    <mtx name="PMWcutcirc" width="1000" lsb="200"/>
+    <mtx name="PMWdacc" width="0" lsb="-92"/>
+    <mtx name="PMWdcrotchet" width="840" lsb="75"/>
+    <mtx name="PMWdimordent" width="0" lsb="-18"/>
+    <mtx name="PMWdimsh" width="675" lsb="25"/>
+    <mtx name="PMWdirect" width="1000" lsb="0"/>
+    <mtx name="PMWdminim" width="840" lsb="75"/>
+    <mtx name="PMWdmordent" width="0" lsb="-18"/>
+    <mtx name="PMWdoublesharp" width="600" lsb="20"/>
+    <mtx name="PMWdown" width="0" lsb="-15"/>
+    <mtx name="PMWdowna" width="0" lsb="105"/>
+    <mtx name="PMWdownb" width="0" lsb="105"/>
+    <mtx name="PMWdqtail" width="0" lsb="89"/>
+    <mtx name="PMWdquaver" width="840" lsb="75"/>
+    <mtx name="PMWds1" width="1500" lsb="-30"/>
+    <mtx name="PMWds2" width="1500" lsb="15"/>
+    <mtx name="PMWdsqtail" width="0" lsb="90"/>
+    <mtx name="PMWdsquaver" width="840" lsb="75"/>
+    <mtx name="PMWdstem" width="0" lsb="75"/>
+    <mtx name="PMWdvtilde" width="0" lsb="-543"/>
+    <mtx name="PMWfdstem" width="0" lsb="75"/>
+    <mtx name="PMWfive" width="550" lsb="29"/>
+    <mtx name="PMWflat" width="500" lsb="10"/>
+    <mtx name="PMWfour" width="760" lsb="21"/>
+    <mtx name="PMWfs" width="550" lsb="0"/>
+    <mtx name="PMWfustem" width="0" lsb="585"/>
+    <mtx name="PMWgcross" width="550" lsb="400"/>
+    <mtx name="PMWgdot" width="550" lsb="400"/>
+    <mtx name="PMWgrid" width="0" lsb="490"/>
+    <mtx name="PMWgring" width="550" lsb="375"/>
+    <mtx name="PMWhalfflat1" width="500" lsb="-138"/>
+    <mtx name="PMWhalfflat2" width="500" lsb="-1"/>
+    <mtx name="PMWhalfsharp1" width="424" lsb="59"/>
+    <mtx name="PMWhalfsharp2" width="600" lsb="-8"/>
+    <mtx name="PMWhbar" width="0" lsb="100"/>
+    <mtx name="PMWhclef" width="1500" lsb="500"/>
+    <mtx name="PMWhcnh" width="840" lsb="90"/>
+    <mtx name="PMWhdimsh" width="675" lsb="-1"/>
+    <mtx name="PMWhdot" width="400" lsb="1"/>
+    <mtx name="PMWhmnh" width="840" lsb="85"/>
+    <mtx name="PMWiC" width="1000" lsb="36"/>
+    <mtx name="PMWicomma" width="600" lsb="0"/>
+    <mtx name="PMWicut" width="1000" lsb="47"/>
+    <mtx name="PMWimordent" width="0" lsb="-18"/>
+    <mtx name="PMWirturn" width="0" lsb="-37"/>
+    <mtx name="PMWiturn" width="0" lsb="-37"/>
+    <mtx name="PMWlcaesura" width="600" lsb="5"/>
+    <mtx name="PMWledger" width="0" lsb="-70"/>
+    <mtx name="PMWledger2" width="0" lsb="-70"/>
+    <mtx name="PMWlittle8" width="0" lsb="8"/>
+    <mtx name="PMWlongrest" width="3500" lsb="0"/>
+    <mtx name="PMWmajor" width="750" lsb="0"/>
+    <mtx name="PMWmnh" width="840" lsb="83"/>
+    <mtx name="PMWmordent" width="0" lsb="-18"/>
+    <mtx name="PMWmrest" width="660" lsb="0"/>
+    <mtx name="PMWnail" width="0" lsb="-22"/>
+    <mtx name="PMWnatural" width="450" lsb="0"/>
+    <mtx name="PMWoldaltoclef" width="1500" lsb="201"/>
+    <mtx name="PMWoldbassclef" width="1500" lsb="-151"/>
+    <mtx name="PMWped" width="1400" lsb="-1"/>
+    <mtx name="PMWpstave1" width="1000" lsb="0"/>
+    <mtx name="PMWpstave10" width="10000" lsb="0"/>
+    <mtx name="PMWqrest" width="590" lsb="0"/>
+    <mtx name="PMWr1" width="100" lsb="0"/>
+    <mtx name="PMWrbra" width="350" lsb="25"/>
+    <mtx name="PMWrcnh" width="840" lsb="200"/>
+    <mtx name="PMWrep" width="500" lsb="0"/>
+    <mtx name="PMWrepdots" width="0" lsb="-50"/>
+    <mtx name="PMWrepeatdots" width="600" lsb="1"/>
+    <mtx name="PMWrket" width="350" lsb="-80"/>
+    <mtx name="PMWrmnh" width="840" lsb="200"/>
+    <mtx name="PMWrturn" width="0" lsb="-37"/>
+    <mtx name="PMWsbra" width="350" lsb="0"/>
+    <mtx name="PMWsbrest" width="660" lsb="0"/>
+    <mtx name="PMWscaesura" width="600" lsb="5"/>
+    <mtx name="PMWsemibreve" width="840" lsb="50"/>
+    <mtx name="PMWseven" width="550" lsb="-15"/>
+    <mtx name="PMWsharp" width="600" lsb="-8"/>
+    <mtx name="PMWsix" width="500" lsb="34"/>
+    <mtx name="PMWsket" width="350" lsb="-80"/>
+    <mtx name="PMWslur1" width="0" lsb="300"/>
+    <mtx name="PMWslur2" width="0" lsb="300"/>
+    <mtx name="PMWspace" width="750" lsb="0"/>
+    <mtx name="PMWsrbra" width="350" lsb="69"/>
+    <mtx name="PMWsrket" width="350" lsb="-96"/>
+    <mtx name="PMWstar" width="1000" lsb="-8"/>
+    <mtx name="PMWstave1" width="1000" lsb="0"/>
+    <mtx name="PMWstave10" width="10000" lsb="0"/>
+    <mtx name="PMWstave21" width="1000" lsb="0"/>
+    <mtx name="PMWstave210" width="10000" lsb="0"/>
+    <mtx name="PMWstave31" width="1000" lsb="0"/>
+    <mtx name="PMWstave310" width="10000" lsb="0"/>
+    <mtx name="PMWstave41" width="1000" lsb="0"/>
+    <mtx name="PMWstave410" width="10000" lsb="0"/>
+    <mtx name="PMWstave61" width="1000" lsb="0"/>
+    <mtx name="PMWstave610" width="10000" lsb="0"/>
+    <mtx name="PMWtfermata" width="0" lsb="-150"/>
+    <mtx name="PMWthcirc" width="0" lsb="0"/>
+    <mtx name="PMWthumba" width="0" lsb="170"/>
+    <mtx name="PMWthumbb" width="0" lsb="170"/>
+    <mtx name="PMWtick" width="600" lsb="10"/>
+    <mtx name="PMWtilde" width="400" lsb="118"/>
+    <mtx name="PMWtrebleclef" width="1500" lsb="108"/>
+    <mtx name="PMWtrem" width="0" lsb="100"/>
+    <mtx name="PMWtrill" width="800" lsb="-33"/>
+    <mtx name="PMWturn" width="0" lsb="-37"/>
+    <mtx name="PMWuacc" width="0" lsb="334"/>
+    <mtx name="PMWucrotchet" width="840" lsb="81"/>
+    <mtx name="PMWuminim" width="840" lsb="81"/>
+    <mtx name="PMWunibreve" width="1580" lsb="0"/>
+    <mtx name="PMWup" width="0" lsb="-16"/>
+    <mtx name="PMWupa" width="0" lsb="181"/>
+    <mtx name="PMWupb" width="0" lsb="183"/>
+    <mtx name="PMWuqtail" width="0" lsb="604"/>
+    <mtx name="PMWuquaver" width="1200" lsb="81"/>
+    <mtx name="PMWusqtail" width="0" lsb="605"/>
+    <mtx name="PMWusquaver" width="1200" lsb="81"/>
+    <mtx name="PMWustem" width="0" lsb="585"/>
+    <mtx name="PMWuvtilde" width="0" lsb="-536"/>
+    <mtx name="PMWvdot" width="0" lsb="286"/>
+    <mtx name="PMWvring" width="0" lsb="225"/>
+    <mtx name="PMWvtilde" width="0" lsb="-446"/>
+    <mtx name="PMWxdstem" width="0" lsb="75"/>
+    <mtx name="PMWxnh" width="840" lsb="76"/>
+    <mtx name="PMWxustem" width="0" lsb="585"/>
+  </hmtx>
+
+  <DSIG>
+    <!-- note that the Digital Signature will be invalid after recompilation! -->
+    <tableHeader flag="0x0" numSigs="0" version="1"/>
+  </DSIG>
+
+</ttFont>

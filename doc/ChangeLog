@@ -12,24 +12,21 @@ Version 5.22 xx-xxx-2023
 3. Implement [noteheads circular] aka [c] and note option \nc\ for exotic
 notation, including adding two new noteheads to the PMW-Music font.
 
-4. The non-PFA version of the font is now TTF rather than OTF because I
-couldn't persuade fontforge to set the right encoding for OTF.
+4. [barnumber] can now be used to force a bar number for bar 1.
 
-5. [barnumber] can now be used to force a bar number for bar 1.
-
-6. More additions to the drawing facility: setdash provides for simple dashed
+5. More additions to the drawing facility: setdash provides for simple dashed
 lines; setcolor (or setcolour) provides for colour. There are also currentdash
 and currentcolor operators. An incompatible change is that text in drawings now
 takes note of the colour or grayscale setting.
 
-7. Tidy colour handling in ps.c; removes some redundant settings. Ensure colour
+6. Tidy colour handling in ps.c; removes some redundant settings. Ensure colour
 is preserved over a drawing instead of forcing black afterwards. This is in
 preparation for the possible use of colour other than in drawings.
 
-8. Add options for rounded corners on boxes: /rbox for strings and "roundboxed" 
-for rehearsal marks.
+7. Add options for rounded corners on boxes: /rbox for strings and "roundboxed"
+for rehearsal marks and bar numbers.
 
-9. Give a warning for string options on rehearsal marks that are ignored 
+8. Give a warning for string options on rehearsal marks that are ignored
 because the style and size are taken from the "rehearsalmarks" directive.
 
 
