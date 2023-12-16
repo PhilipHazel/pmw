@@ -501,11 +501,7 @@ if ((n_flags & nf_stem) != 0)
         *p = 0;
         ps_musstring(buff, fontsize, centx, yy);
         p = buff;
-        if (z < y + font10)
-          {
-          if (n_noteheadstyle == nh_harmonic) p += sprintf(CS p, "~q");
-          *p++ = 'J';
-          }
+        if (z < y + font10) *p++ = 'J';
         }
 
       else            /* Stem is shortened */
@@ -538,11 +534,7 @@ if ((n_flags & nf_stem) != 0)
         *p = 0;
         ps_musstring(buff, fontsize, centx, yy);
         p = buff;
-        if (z > y - font10)
-          {
-          if (n_noteheadstyle == nh_harmonic) p += sprintf(CS p, "|r");
-          *p++ = 'K';
-          }
+        if (z > y - font10) *p++ = 'K';
         }
 
       else            /* Stem is shortened */
