@@ -276,6 +276,8 @@ fi
 valgrind=
 withvalgrind=
 
+# **** NOTE **** Building in a non-source directory doesn't yet work. ****
+
 # Clean up the distribution and then do at least one build and test in a
 # directory other than the source directory. It doesn't work unless the
 # source directory is cleaned up first.
