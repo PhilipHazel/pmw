@@ -789,7 +789,7 @@ if (s != NULL && *s != 0)
 
   if (rehearse)
     {
-    usint style = flags; 
+    usint style = flags;
 //    usint style = curmovt->rehearsalstyle;
     int32_t yextra = ((style & text_boxed) != 0)? 2000 :
                      ((style & text_ringed) != 0)? 4000 : 0;

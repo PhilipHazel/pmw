@@ -492,7 +492,7 @@ struct overdrawstr_text {
   uint32_t *text;
   fontinststr fdata;
   uint32_t flags;
-  int32_t colour[3]; 
+  int32_t colour[3];
   int32_t xx;
   int32_t yy;
   int32_t matrix[6];

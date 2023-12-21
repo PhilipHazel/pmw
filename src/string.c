@@ -2179,11 +2179,11 @@ if (s1->string == NULL) return;    /* There's been an error */
 /* Non-movement options and size settings are ignored on rehearsal marks; they
 always use the rehearsal marks style and size. Warn if any are present. */
 
-if (rehearse && (s1->flags != 0 || s1->size >= 0)) 
+if (rehearse && (s1->flags != 0 || s1->size >= 0))
   {
   error(ERR178);
   s1->flags = 0;  /* No flags */
-  s1->size = -1;  /* Unset */ 
+  s1->size = -1;  /* Unset */
   }
 
 /* Now that we know what type of text this is, we can set up the default font

@@ -483,9 +483,9 @@ if ((n_flags & nf_stem) != 0)
 
   if (stemcent)
     {
-    BOOL nhcross = n_noteheadstyle == nh_cross; 
-    BOOL nhharm = n_noteheadstyle == nh_harmonic; 
-    BOOL nhcirc = n_noteheadstyle == nh_circular; 
+    BOOL nhcross = n_noteheadstyle == nh_cross;
+    BOOL nhharm = n_noteheadstyle == nh_harmonic;
+    BOOL nhcirc = n_noteheadstyle == nh_circular;
     int32_t centx = x + (n_upflag? -1:+1) * mac_muldiv(
       ((n_noteheadstyle == nh_circular)? -900 : 0) + STEMCENTADJUST,
       out_stavemagn, 1000);
@@ -494,7 +494,7 @@ if ((n_flags & nf_stem) != 0)
       {
       if (yy <= y)    /* Stem is standard or lengthened */
         {
-        int stemch = nhcross? 'J' : 'o'; 
+        int stemch = nhcross? 'J' : 'o';
         int32_t z = yy;
         while (z <= y)
           {
@@ -528,7 +528,7 @@ if ((n_flags & nf_stem) != 0)
       {
       if (yy >= y)    /* Stem is standard or lengthened */
         {
-        int stemch = nhcross? 'K' : 'p'; 
+        int stemch = nhcross? 'K' : 'p';
         int32_t z = yy;
         while (z >= y)
           {
