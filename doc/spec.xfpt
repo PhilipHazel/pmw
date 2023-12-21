@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>13 December 2023</date>
+<date>21 December 2023</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.22</revnumber>
-  <date>13 December 2023</date>
+  <date>21 December 2023</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2023</year><holder>Philip Hazel</holder></copyright>
@@ -221,19 +221,21 @@ quality. Moreover, only a subset of MusicXML features is supported. It is very
 much `work in progress' and therefore relegated to an appendix of this
 document.
 
-The output of PMW is a PostScript file. This can be previewed on screen using
-&'GhostScript'& or similar software. If you have a printer that understands
-PostScript, PMW output can be printed directly; otherwise, conversion software
-such as &'GhostScript'& is required. &'GhostScript'& can also be used to
-convert PostScript files into Portable Document Format (PDF) files. PMW can
-be requested to produce its output as encapsulated PostScript (see the &%-eps%&
-option). This is useful if the music is an illustration that will subsequently
-be included in another document.
+The output of PMW is a PostScript file. PostScript is a page description
+language created by Adobe, originally for controlling laser printers. Some
+printers can interpret PostScript directly; for others intermediate translation
+software such as &'GhostScript'& is needed. Appropriate translation is often
+automatically installed in printing systems. &'GhostScript'& can also be used
+to interpret PostScript for display on the screen or convert it into a
+Portable Document Format (PDF) file. The PDF format is widely supported by
+viewing and printing software.
 
-PMW can also output a MIDI file for playing through the computer's sound system
-by an application such as &'Timidity'&. MIDI output is not at all
-sophisticated, and is intended for `proof-hearing' purposes rather than for
-performance.
+PMW can be requested to produce its output as `encapsulated PostScript' (see
+the &%-eps%& option). This is useful if the music is an illustration that will
+subsequently be included in another document. PMW can also output a MIDI file
+for playing through the computer's sound system by an application such as
+&'Timidity'&. MIDI output is not at all sophisticated, and is intended for
+`proof-hearing' purposes rather than for performance.
 
 Early versions of PMW were called &'Philip's Music Scribe'&, and ran on Acorn's
 RISC OS operating system in the 1990s. Version 4.00 was the first version for
@@ -245,14 +247,14 @@ generally overhaul what is now quite old code. Chapter &<<CHAP500>>& has
 details of the changes; in the majority of cases existing input files should
 continue to work without change or with only minor adjustments.
 
-PMW comes with a PostScript font called PMW-Music. This contains all the
-music shapes (notes, rests, accidentals, bar lines, clefs, etc.) that PMW
-requires. I acknowledge with gratitude the help of Richard Hallas, who created
-the original versions of some of the characters in this font and improved many
-others. The half sharp and half flat characters were contributed by Hosam Adeeb
-Nashed. Richard also contributed a second font called PMW-Alpha. It contains
-additional characters that may be useful for certain types of music (see
-chapter &<<CHAPpmwalpha>>&).
+PMW comes with a font called PMW-Music. This contains all the music shapes
+(notes, rests, accidentals, bar lines, clefs, etc.) that PMW requires. I
+acknowledge with gratitude the help of Richard Hallas, who created the original
+versions of some of the characters in this font and improved many others. The
+half sharp and half flat characters were contributed by Hosam Adeeb Nashed.
+Richard also contributed a second font called PMW-Alpha. It contains additional
+characters that may be useful for certain types of music (see chapter
+&<<CHAPpmwalpha>>&).
 
 The PMW input encoding is intended to be easy for a musician to remember. It
 makes use of as many familiar music notations as possible within the
@@ -354,7 +356,7 @@ a vocal part, that is, the words that are to be sung. The less formal term
 . ////////////////////////////////////////////////////////////////////////////
 . ////////////////////////////////////////////////////////////////////////////
 
-.chapter "Installing PMW"
+.chapter "Installing and setting up PMW"
 .index-from I01 "installing PMW"
 .index "Windows, running PMW under"
 .index "MacOS X, running PMW under"
@@ -403,8 +405,8 @@ The files that are installed in the prefix directory are as follows:
 .ilist
 &_bin/pmw_& is the PMW command.
 .next
-&_man/man1/pmw.1_& is a short `man' page that describes the command options for
-PMW.
+&_man/man1/pmw.1_& is a short `man' page that describes the command line
+options for PMW.
 .next
 &_share/pmw/macros_& is a directory that contains files of `standard macros'
 (&R; &<<CHAPstdmacs>>&).
@@ -451,48 +453,31 @@ files. This is experimental code which is far from complete. See appendix
 
 Once you have installed PMW, you can use the &(pmw)& command to generate
 PostScript from input files, as described in chapter &<<CHAPrunningpmw>>&
-below. However, before you can print pages or view the output on the screen,
-you need to arrange for the PostScript music fonts to be available for your
-printer or viewer.
+below. However, before you can print the output or view it on the screen, or
+convert it to a PDF, you need to arrange for the PostScript music fonts to be
+accessible by the processing software.
 
 
-.section "Viewing PMW output on the screen"
-.index "viewing music on screen"
+.section "Setting up for &'GhostScript'& and &(evince)&" SECTsetup
 .index &'GhostScript'&
 .index "&(evince)& document viewer"
-The &'GhostScript'& application can be used to view PMW output on screen,
-either from a PostScript file written by PMW, or from a PDF after conversion by
-the &(ps2pdf)& command (which itself uses &'GhostScript'&). The &(gs)& command
-is very basic; a more friendly interface is provided by front-end `wrapper'
-applications such as &(gv)&. Another possibility is to use a general-purpose
-document viewer such as &(evince)&, which can display PostScript or PDF files
-and has the added advantage of showing thumbnails of all the pages.
-
-Note that the &(gv)& command has a useful option called &%-watch%&; it causes
-the file to be re-displayed whenever it changes. If you set this and leave
-&(gv)& running, you can edit the input and reprocess it with PMW, and &(gv)&
-will notice the updated output file and automatically re-display the page it
-was previously displaying. This option can be made the default in a &_.gv_&
-initialization file. If you are using &(evince)& this action happens
-automatically.
-
+The &'GhostScript'& application can be used to view PMW output on the screen,
+either directly from a PostScript file, or from a PDF after conversion by the
+&(ps2pdf)& command (which itself uses &'GhostScript'&). The &(evince)& document
+viewer can also do this because it makes use of &'GhostScript'& when displaying
+a PostScript file. Other document viewers may only support PDF files.
 &'GhostScript'& needs to be told where the PostScript music fonts are before it
-can correctly display a PMW output file or convert it into a PDF. An easy way
-of doing this is to set the &`GS_FONTPATH`& environment variable, for example:
+can correctly display a PMW output file or convert it into a PDF. The easiest
+way of doing this is to set the &`GS_FONTPATH`& environment variable, for
+example:
 .code
 export GS_FONTPATH=/usr/local/share/pmw/psfonts
 .endd
-Setting this variable also works for &(evince)& because it makes use of
-&'GhostScript'& when displaying a PostScript file. However, setting
-&`GS_FONTPATH`& may not work when you try to print the music because the
-setting may not be carried over into the printing environment. One way round
-this is to use the &(ps2pdf)& command to convert the PostScript to a PDF before
-printing.
 
-An alternative to setting &`GS_FONTPATH`& is to install symbolic links from a
-suitable font directory to PMW's &_psfonts_& directory. This should then also
-work for printing. You can find out which directories &'GhostScript'& searches
-for its fonts by running the following command:
+A more complicated alternative to setting &`GS_FONTPATH`& is to install
+symbolic links from a suitable font directory to PMW's &_psfonts_& directory.
+You can find out which directories &'GhostScript'& searches for its fonts by
+running the following command:
 .code
 gs -h
 .endd
@@ -507,23 +492,75 @@ ln -s /usr/local/share/pmw/psfonts/PMW-Music.otf \
       /usr/share/fonts/gsfonts/PMW-Music.otf
 .endd
 When &'GhostScript'& cannot find a font, it makes a substitution, which in the
-case of PMW-Music usually results in nonsense characters on the screen. The
-basic &(gs)& command writes information about which fonts it is using to the
-standard output.
+case of PMW-Music usually results in nonsense. The basic &(gs)& command writes
+information about which fonts it is using to the standard output.
 
 
 
-.section "Including the music fonts in the output file"
+.section "Uninstalling PMW"
+.index "uninstalling PMW"
+If you want to uninstall PMW, you can use the command:
+.code
+make uninstall
+.endd
+This removes the files that were installed. It does not remove directories.
+
+.index-to I01
+
+
+
+
+. ////////////////////////////////////////////////////////////////////////////
+. ////////////////////////////////////////////////////////////////////////////
+
+.chapter "Processing PMW output"
+.index &'GhostScript'&
+.index "&(evince)& document viewer"
+.index "PDF files"
+As mentioned above, &'GhostScript'& and &(evince)& can process both PostScript
+and PDF files. Other software may also be able to handle both formats, but PDF
+files are more widely supported. The &(ps2pdf)& command, which comes with
+&'GhostScript'&, can be used to turn a PostScript file into a PDF file by a
+command such as:
+.code
+ps2pdf some-file.ps
+.endd
+The resulting PDF is completely freestanding because it contains all the
+necessary font information. If you are using release 8 or later of &'AFPL
+GhostScript'&, characters from the PMW-Music font are included as outlines,
+which means that the PDF can be displayed nicely at any size on the screen.
+Earlier releases of &'GhostScript'& include the music characters as bitmaps,
+which does not give such a good display. Characters from the PMW-Alpha font are
+still included as bitmaps, because it is a Type 3 PostScript font.
+
+
+.section "Viewing PMW output on the screen"
+.index "viewing music on screen"
+&'GhostScript'&'s &(gs)& command is very basic; a more friendly interface is
+provided by front-end `wrapper' applications such as &(gv)& or the &(evince)&
+command, which has the added advantage of showing thumbnails of all the pages.
+Note that the &(gv)& command has a useful option called &%-watch%&; it causes
+the file to be re-displayed whenever it changes. If you set this and leave
+&(gv)& running, you can edit the input and reprocess it with PMW, and &(gv)&
+will notice the updated output file and automatically re-display the page it
+was previously displaying. This option can be made the default in a &_.gv_&
+initialization file. If you are using &(evince)& this action happens
+automatically.
+
+
+.section "Including music fonts in the PostScript file"
 .index "fonts" "including in the output"
 .index "music font, including in the output"
 If you use the &%-incPMWfont%& option on the &(pmw)& command line, or put it in
 your &_.pmwrc_& file, or use the &%incPMWfont%& directive in your input file,
 PMW includes the PostScript Type 1 version of the PMW-Music font and/or the
-PMW-Alpha font in every output file that needs them. This resulting files are
-freestanding PostScript files that should be printable or viewable without any
-special action. However, the files are larger by about 30&--40K for each of the
-two fonts. This facility is not available with the OpenType version of
-PMW-Music, as such fonts cannot be embedded within a PostScript program.
+PMW-Alpha font in every output file that needs them. The resulting files are
+freestanding PostScript files that should be printable or viewable without the
+need to take any action concerning the music fonts. However, PostScript Type 1
+fonts are gradually becoming obsolete, so this facility should be used with
+caution. Also, the files are larger by about 30&--40K for each of the two
+fonts. It is not possible to embed the OpenType version of PMW-Music within a
+PostScript program.
 
 
 .section "Problems with displaying staves and bar lines"
@@ -582,88 +619,23 @@ higher pixel resolution, and antialiasing is not needed even when it is
 possible (which it is not on black-and-white printers).
 
 
-.section "PDF files"
-.index "PDF files"
-You can use a command such as &(ps2pdf)&, which comes with &'GhostScript'&, to
-turn a PostScript output file from PMW into a PDF file. If you are using
-release 8 or later of &'AFPL GhostScript'&, characters from the PMW-Music font
-are included as outlines, which means that the PDF can be displayed nicely at
-any size on the screen. Earlier releases of &'GhostScript'& include the music
-characters as bitmaps, which does not give such a good display. Characters from
-the PMW-Alpha font are still included as bitmaps, because it is a Type 3
-PostScript font.
+.section "Printing PMW output"
+.index "printing PMW output"
+If you do not have a printer that can interpret PostScript directly, you have
+to use an application such as &'GhostScript'& to interpret the output of PMW
+and convert it for your printer. In many Unix-like systems the CUPS printing
+system is set up to do this automatically, so if you are using CUPS it may
+just work without needing any further configuration. However, you may first
+have to convert the PostScript to a PDF (as described at the start of this
+chapter) in order to include the music font information before printing.
 
 
-.section "Printing PMW output on a non-PostScript printer"
-.index "non-PostScript printer"
-If you do not have a PostScript printer, or one that can interpret PostScript
-directly, you have to use an application such as &'GhostScript'& to interpret
-the output of PMW and convert it for your printer. In many Unix-like systems
-the CUPS printing system is set up to do this automatically, so if you are
-using CUPS it may `just work'.
-
-
-.section "Printing PMW output on a PostScript printer"
-.index "PostScript printer"
-Unless you use the &%-incPMWfont%& command line option or the &%incPMWfont%&
-directive, the PostScript output that PMW generates is not totally
-freestanding. It expects the PMW PostScript music font to be loaded into the
-printer in advance. If this has not been done, an error will occur.
-
-If you have full control of a PostScript printer, you can load the Music
-font(s) into it once, and then send any number of music files to be printed. To
-do this, you need to know the printer's password. Then you must make a copy of
-the PMW music fonts with the password included, for sending to the printer. The
-fonts are distributed in the &_psfonts_& directory in the PMW distribution.
-Near the top of each font file you will find these lines:
-.code
-%%BeginExitServer: 000000
-%%serverdict begin 000000 exitserver
-%%EndExitServer
-.endd
-.index "default" "password, PostScript printer"
-The value 000000 is the default password in new PostScript printers. If
-you haven't changed it, all you need to do is to remove the two percent signs
-(which are PostScript comment characters) at the start of the second line, so
-that it reads as follows:
-.code
-serverdict begin 000000 exitserver
-.endd
-Then if you `print' this file, the font will be permanently loaded into the
-printer, until it is powered off. &*Note:*& you must not make this change on a
-copy of the font that is to be used by &'GhostScript'&, because &'GhostScript'&
-does not cope with such lines.
-
-When a font is loaded into a PostScript printer, it may generate a warning
-message. This is perfectly normal and can be ignored. The message is usually
-something like this:
-.code
-%%[ exitserver: permanent state may be changed ]%%
-.endd
-If you do not have full control over the printer, or do not want to load the
-fonts permanently, you should always use the &%-incPMWfont%& option on the PMW
-command line, or put it in your &_.pmwrc_& file, or include the &%incPMWfont%&
-directive in your input, so that the music fonts are included in the PMW
-output. Alternatively, if you are using the CUPS printing system, which uses
-&'GhostScript'& to interpret PostScript for printing, ensuring that the music
-fonts are known to &'GhostScript'& may be sufficient.
-
-
-.section "Uninstalling PMW"
-.index "uninstalling PMW"
-If you want to uninstall PMW, you can use the command:
-.code
-make uninstall
-.endd
-This removes the files that were installed. It does not remove directories.
-
-.index-to I01
 
 
 . ////////////////////////////////////////////////////////////////////////////
 . ////////////////////////////////////////////////////////////////////////////
 
-.chapter "Running PMW" CHAPrunningpmw
+.chapter "The PMW command" CHAPrunningpmw
 .index-from I02 "command line interface"
 .index "default" "output destination"
 The PMW command has the following form:
@@ -685,10 +657,11 @@ pmw -format A5 -a5ona4 -pamphlet myscore
 pmw -s 3 -o quartet.ps quartet.pmw
 pmw -f viola -o quartet.ps -midi /tmp/quartet.mid quartet.pmw
 .endd
+
+
+.section "General command line options"
 .index "command line options"
 .index "options" "command line"
-The command line options are as follows:
-
 .vlist
 .vitem &%-a4ona3%&
 
@@ -697,18 +670,20 @@ produces (&R; &<<SECTpapersizes>>&). In the common case, this size is identical
 to the paper size, in which case one image fits exactly onto one piece of paper
 when printed.
 .index "two-up printing"
-However, PMW also supports &'two-up'& printing, in which two page images are
-put next to each other on a larger piece of paper. This option specifies that
-the images are A4-sized, but are to be output two-up, assuming A3 paper.
-
-.vitem &%-a5ona4%&
-
-The pages are A5-sized; arrange them two-up, assuming A4 paper.
+However, PMW also supports &'two-up'& imposition, in which two page images are
+put next to each other, to be printed on a larger piece of paper. This option
+specifies that the images are A4-sized, but are to be output two-up, assuming
+A3 paper.
 
 .vitem &%-a4sideways%&
 
-The paper is A4, but the printer feeds it sideways, so rotate the page images
-before printing.
+Rotate the page images by 90 degrees. This can be useful for a printer that
+has a sideways paper feed.
+
+.vitem &%-a5ona4%&
+
+The pages are A5-sized; arrange them two-up, assuming A4 paper. The
+&%sheetsize%& directive should be used to set the image size to A5.
 
 .vitem "&%-C%& <&'arg'&>"
 
@@ -716,12 +691,6 @@ Show the setting of a compile-time option and then exit with its value, which
 is 1 for `set' and 0 for `unset'. The possible arguments are &`b2pf`& for B2PF
 support (&R; &<<SUBSECTb2pffont>>&) and &`musicxml`& for MusicXML support (&R;
 &<<APPA>>&).
-
-.vitem "&%-c%& <&'number'&>"
-
-Set the number of copies to be printed as <&'number'&>. This number is honoured
-by PostScript printers. It may not be honoured by other programs that interpret
-PostScript.
 
 .vitem &%-drawbarlines%&
 
@@ -750,12 +719,6 @@ draws stave lines whose thickness is 0.4 points. A value of zero disables the
 drawing of stave lines. &%-dsl%& is a synonym for &%-drawstavelines%&; a
 non-zero value for this option overrides &%-nowidechars%&. See also the
 &%drawstavelines%& header directive.
-
-.vitem &%-duplex%&
-
-Set the `duplex' option in the generated PostScript output. This should be
-honoured by PostScript printers that can print on both sides of the paper (see
-also &%-tumble%&).
 
 .vitem &%-eps%&
 
@@ -817,17 +780,16 @@ testing new versions of the header file.
 
 Output a list of command line options, then stop. No file is read.
 
-.vitem "&%-incPMWfont%& or &%incpmwfont%& or &%-ipf%&"
+.vitem "&%-incPMWfont%& or &%-incpmwfont%& or &%-ipf%&"
 
-This option causes PMW to include the PMW-Music font within the PostScript
-output that it generates. If the PMW-Alpha font is used, that is also included.
-If you use this option, there is no need to install the font(s) for
-&'GhostScript'& (or any other display program), nor do you need to download
-them separately to a PostScript printer. However, it does mean that each PMW
-output file is bigger by about 40K for PMW-Music and 31K for PMW-Alpha. Note
-that this option applies only to PMW's music fonts. See also the &%incPMWfont%&
-header directive. The &%textfont%& directive (&R; &<<SUBSECTtextfont>>&)
-provides a way of including other fonts in the output.
+This option causes PMW to include the PostScript Type 1 PMW-Music font within
+the PostScript output that it generates. If the PMW-Alpha font is used, that is
+also included. If you use this option, there is no need to install the font(s)
+for &'GhostScript'& (or any other display program). However, it does mean that
+each PMW output file is bigger by about 40K for PMW-Music and 31K for
+PMW-Alpha. Note that this option applies only to PMW's music fonts. See also
+the &%incPMWfont%& header directive. The &%textfont%& directive (&R;
+&<<SUBSECTtextfont>>&) provides a way of including other fonts in the output.
 
 .vitem "&%-MF%& <&'directory list'&>"
 
@@ -871,13 +833,6 @@ example:
 003 electric grand piano
 .endd
 
-.vitem &%-manualfeed%&
-
-Set the `manualfeed' option in the generated PostScript. Most PostScript
-printers interpret this to mean that the paper should be taken from an
-alternate input tray or slot. Some also require the user to push a button
-before each page is printed.
-
 .vitem "&%-midi%& <&'file'&>"
 
 .index "MIDI" "command line option"
@@ -905,12 +860,6 @@ This option specifies which movement is to be output as MIDI (&%-mm%& is a
 synonym). Only one movement can be output in this manner. The default is the
 first movement in the file.
 
-.vitem &%-noid%&
-
-This options stops PMW outputting its version identification before any error
-messages. It is used by the test scripts so that output from different versions
-can easily be compared.
-
 .vitem "&%-norc%& or &%-nopmwrc%&"
 
 If this option is used, it must be the very first option that follows the
@@ -933,7 +882,6 @@ characters in the music font correspond to F and C in text fonts.) With
 &%-nowidechars%&, the same stave is output as CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.
 &%-nw%& is an abbreviation for &%-nowidechars%&. The &%-drawstavelines%& option
 overrides this option. See also the &%nowidechars%& header directive.
-
 
 .vitem "&%-o%& <&'file'&>"
 
@@ -973,8 +921,9 @@ Outputting all pages at once on a single-sided printer is useful for producing
 master copies for reproduction elsewhere. If you want to produce a final
 two-sided copy directly, use &%-pamphlet%& with &%-printside%& 1 to output all
 the first sides, and then use &%-printside%& 2 to output the second sides for
-printing on the backs of the same sheets. On a duplex (two-sided) printer, you
-may need to set the &%-tumble%& option to get all the pages the right way up.
+printing on the backs of the same sheets. On a duplex (two-sided) PostScript
+printer you may need to set the &%-tumble%& option to get all the pages the
+right way up.
 
 When selecting individual pages to output with the pamphlet option, you should
 select only one member of each pair. The partner page is automatically added to
@@ -1059,11 +1008,6 @@ transposition, and a negative one downwards transposition. A transposition of
 zero may also be entered; this is not the same as no transposition at all. For
 more details about transposition, see section &<<SECTtransposition>>&.
 
-.vitem &%-tumble%&
-
-When &%-duplex%& is set, &%-tumble%& sets the PostScript option for `tumbled'
-duplex printing.
-
 .vitem "&%-V%& or &%--version%&"
 
 Output the PMW version number to the standard output, then stop. No file is
@@ -1074,6 +1018,38 @@ read.
 Output verification information about the typesetting to the standard error
 file (&R; &<<SECTinfo>>&).
 .endlist
+
+
+
+.section "Options for PostScript printers"
+.index "PostScript" "printer options"
+These options are useful if the output from PMW is sent to a printer that
+interprets PostScript. They have no effect if the output is viewed on the
+screen or converted to a PDF.
+
+.vlist
+.vitem "&%-c%& <&'number'&>"
+
+Set the number of copies to be printed as <&'number'&>.
+
+.vitem &%-duplex%&
+
+Set the `duplex' option in the generated PostScript output. This should be
+honoured by PostScript printers that can print on both sides of the paper.
+
+.vitem &%-manualfeed%&
+
+Set the `manualfeed' option in the generated PostScript. Most PostScript
+printers interpret this to mean that the paper should be taken from an
+alternate input tray or slot. Some also require the user to push a button
+before each page is printed.
+
+.vitem &%-tumble%&
+
+When &%-duplex%& is set, &%-tumble%& sets the PostScript option for `tumbled'
+duplex printing.
+.endlist
+
 
 
 .section "Debugging options"
@@ -1272,18 +1248,18 @@ unfinished
 
 [stave 1 treble 1 text underlay]
 "Hap-py birth-day to you, hap-py birth-day to you. Hap-py"
-[nocheck] [nocount] c-. c= |
-dcf | E c-. c= | dcg | F c-. c= |
+[nocheck] [nocount] c-.; c= |
+dcf | E c-.; c= | dcg | F c-.; c= |
 [endstave]
 
 [stave 2 bass 0]
 [nocheck] r | F. | C. | c d e | F. |
 [endstave]
 .endd
-Let's suppose the file called &_bday_&. If you have PMW installed, you can
+Let's suppose the file is called &_bday_&. If you have PMW installed, you can
 process such a file by running this command:
 .code
-pmw -incPMWfont bday
+pmw bday
 .endd
 If there are no errors in the notation, there will be no output on the
 screen, but a new file called &_bday.ps_& will have been created. You can
@@ -1291,14 +1267,15 @@ view this on screen by running:
 .code
 gv bday.ps
 .endd
-or by using another PostScript viewer such as &(evince)&. The result should
-look like this:
+or by using another PostScript viewer such as &(evince)&. You may need to set
+the environment variable &`GS_FONTPATH`& (&R; &<<SECTsetup>>&) first. The
+result should look like this:
 
 .music music01 88 0,-22 centre
 
-If there are errors in the file, one or more messages will be written to the
-standard error file, and should therefore appear on your screen. The messages
-should be self-explanatory. Correct the error(s), and try again.
+If there are errors in the input file, one or more messages will be written to
+the standard error file, and should therefore appear on your screen. The
+messages should be self-explanatory. Correct the error(s), and try again.
 
 We now explain what the different parts of this input file mean to PMW. The
 data is in two parts: first there is header information, such as the textual
@@ -1466,7 +1443,9 @@ being mnemonically like the flag used to distinguish a quaver from a crotchet.
 A dotted note is coded by adding a full stop, as in the first, third, and
 fifth bars. An equals sign (two flags) signifies a semiquaver. Sequences of
 notes that are shorter than a crotchet are automatically beamed together unless
-separated by a semicolon (&R; &<<SUBSECTbeams>>&).
+separated by a semicolon (&R; &<<SUBSECTbeams>>&). The convention in vocal
+parts is not to beam notes that are sung to different syllables, which is why
+semicolons are used here.
 
 The only new feature in the second stave is the use of the letter &`r`& for a
 rest. This example has no accidentals, but if you need one, it is entered
@@ -2868,9 +2847,8 @@ Line breaks inside quoted strings are converted to spaces.
 
 .subsection "Ignoring line breaks" SUBSECTconcatenation
 .index "line breaks" "ignoring"
-.index "line concatenation"
 .index "concatenating input lines"
-.index "lines" "concatenating"
+.index "lines" "concatenating input"
 .index "&A3; (line concatenator)"
 The restrictions on line breaks just described may occasionally cause a very
 long line to be required. For example, a macro that generates a number of bars
@@ -4010,8 +3988,8 @@ details of character handling or font encodings, you can ignore it and the
 following two sections, and skip to section &<<SUBSECTescaped>>& (&'Escaped
 characters'&) below.
 
-Basic fonts in PostScript contain up to 256 characters, many more than are
-available on a computer's keyboard. The basic computer character set, often
+Basic fonts in PostScript can display up to 256 characters, many more than are
+available on a computer's keyboard. The original computer character set, often
 referred to as ASCII, comprises 95 characters (including space), whose code
 values lie between 32 and 126, inclusive. These are the characters you can type
 on the keyboard. Codes less than 32, together with code 127, are used for
@@ -5949,7 +5927,7 @@ of &%barnumbers%& being as follows:
 .display
 &`barnumbers`& <&'enclosure'&> <&'interval'&> <&'fontsize'&> <&'fontname'&>
 .endd
-The first argument, which is optional, must be one of the words `boxed', 
+The first argument, which is optional, must be one of the words `boxed',
 `roundboxed', or `ringed'. These specify that barnumbers are to appear inside
 rectangular boxes (with either mitred or round corners), or roughly circular
 rings. If none of these words are given, the numbers appear without any special
@@ -12023,10 +12001,10 @@ put first on all staves.
 
 
 .subsection "[Line]" SUBSECTline
-.index "lines, straight"
+.index "lines" "straight"
 .index "straight lines"
-.index "line over notes"
-.index "line under notes"
+.index "lines" "over notes"
+.index "lines" "under notes"
 .index "&%[line]%&"
 .index "&%[xline]%&"
 .index "bracket, horizontal"
@@ -12065,7 +12043,7 @@ used in &%[endslur]%& to identify tagged slurs is also available in
 .subsection "[Linegap]" SUBSECTlinegap
 .index "&%[linegap]%&"
 .index "gaps" "in lines"
-.index "lines, gaps in"
+.index "lines" "gaps in"
 The directive &%[linegap]%& requests that a gap be left in a line that was set
 up by the &%[line]%& directive. The following options are provided:
 .ilist

@@ -1,0 +1,84 @@
+Heading "|Credo"
+*Define F "\bi\f"
+Suspend 1-5
+Time 3/4
+Linelength 500
+Notespacing *1.1
+Systemgap 55
+Bracket 1-5 Brace 6-7 
+Bracestyle 1
+Breakbarlines 1 2 3 4 5
+Barnumbers line
+Startlinespacing 4 0 4
+Unfinished
+
+[stave 1 treble 1 text underlay] 
+[13] R! | @13
+"Cre-do, cre-do in un-um De-um,"
+&F/a e'c'r | e'-; e'=; e'=; e'-; e'-; g' | e'rr | @16
+[endstave]
+
+[stave 2 treble 1 text underlay] 
+[13] R! | @13
+"Cre-do, cre-do in un-um De-um,"
+&F/a/d2 c'gr | c'-; c'=; c'=; c'-; c'-; b | c'rr | @16
+[endstave]
+
+[stave 3 treble 1 text underlay] 
+[13] R!| @13
+"Cre-do, cre-do in un-um De-um,"
+&F/a/d3 ger | g-; g=; g=; g-; g-; g | grr | @16
+[endstave]
+
+[stave 4 treble 1 text underlay]
+[13] R!| @13
+"Cre-do, cre-do in un-um De-um,"
+&F/a c'c'r | e'-; e'=; e'=; e'-; e'-; d' | e'rr | @16
+[endstave]
+
+[stave 5 bass text underlay] 
+[13] R! | @13
+"Cre-do, cre-do in un-um De-um,"
+&F/a/l6/d6 c'cr | c'-; c'=; c'=; c'-; c'-; g | c'rr | @16
+[endstave]
+
+[stave 6 treble 1]
+"\rm\Allegro Maestoso"/a/l14/u2
+&F; c-g`=g`=; c-g`=g`=; c-g`=g`= | @1
+(e'=c'=)(d'=b=)c'=(d'=b=); (e'=c'=)(d'=b=)(e'=c'=)(f'=d'=);
+(g'=b=)(a'=c'=)(f'=d'=)(g'=b=) | @2
+(e'-c'-); g`=g`=; c-g`=g`=; c-g`=g`= | @3
+(e'=c'=)(d'=b=)(e'=c'=)(f'=d'=); (g'=e'=)(f'=d'=)(e'=c'=)(f'=d'=);
+(g'=e'=)(a'=f'=)($b'=g'=)(g'=e'=) | @4
+f-\sd\c=c=; f-c=c=; f-c=c=; [reset] (a'-\su\f'-); | @5
+(a'=f'=)($b'=g'=)(c''=a'=)(b'=g'=); (a'=f'=)(b'=g'=)(g'=e'=)(a'=f'=);
+(f'=d'=)(g'=e'=)(e'=c'=)(f'=d'=) | @6
+(d'-%b-)d=d=; g-d=d=; g-d=d= | @7
+(%b=g=)(a=#f=)(b=g=)(c'=a=); (d'=b=)(c'=a=)(d'=b=)(e'=c'=);
+(%f'=d'=)(g'=e'=)(f'=d'=)(e'=c'=) | @8
+(d'-b-)d'=d'=; g'-d'=d'=; g'-d'=d'= | @9
+[move 6]G'.\su\ [reset]
+g'-b=b=; e'-b=b=; e'-b=b= | @10
+[stems up][ties up] g'_g'-; f' e'-; [stems down][ties auto][reset]
+e'-c'=b=; a-a-; b-c'- | @11
+[stems up] e' d'-.\tr\c'=-d'=-; q [stems down] [reset]
+c'-a=g= f (c'-e-)g'=g'= [stems auto] | @12
+c''r-e=c'=; d-b- | @13
+(c'-e-); g`=g`=; c-g`=g`=; c-g`=g`= | @14
+(e'=c'=)(d'=b=)c'=(d'=b=); (e'=c'=)(d'=b=)(e'=c'=)(f'=d'=);
+(g'=b=)(a'=c'=)(f'=d'=)(g'=b=) | @15
+(e'-c'-); g`=g`=; c-g`=g`=; c-g`=g`= | @16
+[endstave]
+
+[stave 7 bass]
+c-g`=g`=; c-g`=g`=; c-g`=g`=  | @1
+c-(c'=e=)(d'=g=); (e'-c'-)(e'-c'-); (d'-g-)(d'-g-) | @2
+c'-; g`=g`=; c-g`=g`=; c-g`=g`= | c-c-; c'-g-; e-c- | @4
+f-c=c=; f-c=c=; f-c=c= | f-f`-; f-g-; a-f- | @6
+g-d=d=; g-d=d=; g-d=d= | g-g-; d-g-; b`-d- | g`- r-rr | @9
+r-g=g=; c'-g=g=; c'-g=g= | r-c=c=; f-d=d=; g-e=e= | @11
+a-f=f=; b-g=g= (c'c) | r-g=g=; c'-c-; g-g`- | @13
+c-; g`=g`=; c-g`=g`=; c-g`=g`= | @14
+c-(c'=e=)(d'=g=); (e'-c'-)(e'-c'-); (d'-g-)(d'-g-) | @15 
+c-; g`=g`=; c-g`=g`=; c-g`=g`= | @16
+[endstave]

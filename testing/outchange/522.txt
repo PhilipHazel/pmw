@@ -1,10 +1,10 @@
 ** Warning: non-movement options on rehearsal marks are ignored
-   Detected near line 187 of changetests/522
+   Detected near line 193 of changetests/522
 ["A"/ul] g ["B"/u10 draw a] g ["C"/S2/r10 draw b]  g |
 ------->
 
 ** Warning: non-movement options on rehearsal marks are ignored
-   Detected near line 187 of changetests/522
+   Detected near line 193 of changetests/522
 ["A"/ul] g ["B"/u10 draw a] g ["C"/S2/r10 draw b]  g |
 ----------------------------------------->
 

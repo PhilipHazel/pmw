@@ -2,8 +2,8 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
-Version 5.22 xx-xxx-2023
-------------------------
+Version 5.22 21-December-2023
+-----------------------------
 
 1. Added new draw operators for mathematical functions sin, cos, sqrt.
 
@@ -19,9 +19,9 @@ lines; setcolor (or setcolour) provides for colour. There are also currentdash
 and currentcolor operators. An incompatible change is that text in drawings now
 takes note of the colour or grayscale setting.
 
-6. Tidy colour handling in ps.c; removes some redundant settings. Ensure colour
-is preserved over a drawing instead of forcing black afterwards. This is in
-preparation for the possible use of colour other than in drawings.
+6. Tidy colour/grayscale handling in ps.c; removes some redundant settings.
+Ensure colour is preserved over a drawing instead of forcing black afterwards.
+This is in preparation for the possible use of colour other than in drawings.
 
 7. Add options for rounded corners on boxes: /rbox for strings and "roundboxed"
 for rehearsal marks and bar numbers.

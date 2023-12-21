@@ -1,0 +1,217 @@
+heading 10 "" -24
+heading 17 "|Beati mundo corde"
+@ heading 13 "|for mixed choir (SATB) a capella" 21
+heading 11.5 "|Motet for mixed choir (SATB) a capella" 21
+heading 10 "||\it\Text: Mt 5,8-10; Ps 126,1-2,5-6"
+heading 10 "||\it\Music: Christoph Dalitz (2023)" 36
+@pageheading "\pe\||\po\"
+pagefooting 11 "License: CC BY-SA||Source: http://music.dalitio.de/"
+page 2
+
+magnification 1.2
+shortenstems 4
+hairpinlinewidth 0.5
+linelength 485
+justify top left right
+barnumbers line 10
+stemswap down
+
+*include "StdMacs"
+
+breakbarlines
+underlaysize 12
+overlaysize 12
+key E$
+time C
+unfinished
+bracket 1-4
+stavespacing 1/0 2/65 3/0
+systemgap 75
+
+@--- Soprano -----------------------------------------------------------
+[stave 1 treble 1 stems up ties above triplets above text underlay]
+R+ | R r &p/a6 [slur] g | g-g-g-f- fe [endslur] | [slur/a11] </a24 {efg} ac' < |
+[sghere 85] {bag} ag_ [endslur] | G R | Rr r- &p/a6 [slur] a- | aa-g-; g-f-f [endslur] |
+[sghere 65] [slur/a10] </a28 {fga} b-.b=; b-; < e'-\f\_ | e'-d'-c'-b- c'b_ [endslur] | B R |
+rr- &mp/a6/l10 [slur] c'-; c'-b-b-a- | aa-a-; a-g-g-f- | fF. [endslur] |
+[ssnext 55 sghere +10] R+ | [slur/a-2] </a16 ff {fga} | < b [endslur] B r | r [slur/a-1/ru4] </a18 g {gab} [endslur] < |
+[stems auto triplets auto ties auto text underlay]
+"reg-num, reg-num cae-lo-==== ======="
+[ssnext 50] c'C'r | fF &f/a4 b |  b e'. d'-c'-b- | c'-b-a-g-; a-b-c' |
+"rum, cae-lo-=== ===== rum."
+B+ | "rit. molto"/a6 be'. d'-c'-b- | c'. b-a-g- a | G+ |||
+[endstave]
+
+@--- Alto --------------------------------------------------------------
+[stave 2 treble 1 stems down ties below triplets below text underlay]
+[ulhere -6] "Be-a-ti mun-do cor-de, quo-ni-am ip-si"
+R+ | R r g | g-g-g-f- fe | {efg} ca |
+[ulhere -6] "De-um vi-de-bunt. # Be-a-ti pa-ci-fi-ci,"
+{gfe} fe_ | E R | Rr r-f- | ff-e-; e-d-d |
+[ulhere -6] "quo-ni-am fi-li-i De - i vo-ca-bun-tur."
+{def} g-.g=; g-; g-_ | g-b-a-g- ag_ | G R |
+"Be-a-ti qui per-se-cu-ti-o-nem pa-ti-un-tur"
+r r- a-; a-g-g-f- | ff-f-; f-e-e-d- | dD. |
+[ulhere -6] "quo-ni-am # ip-so-rum, ip-so-rum est"
+[sshere +6 ssnext 55] R+ | dd {def} | gGr | r e {efg} |
+[stems auto triplets auto ties auto text underlay]
+"reg-num, reg-=== ==== num cae-lo-="
+[ssnext 50] aAr | r &f/a4/l8 b. a-g-f- | g-f-e-d- E | r eea_ |
+"===== rum, cae-lo-==== rum."
+a-g-f-e- F | G.g | a. g-f-e- f | E+ |||
+[endstave]
+
+@--- Tenor -------------------------------------------------------------
+[stave 3 trebletenor 1 ties above stems up triplets above text underlay]
+r &mf/a6/l8 [slur/a6/co4] g {gfe} | gG. [endslur] | R+ | R+ |
+R+ | r &mf/a6/l8 [slur/a6/co4] g {gfe} | a A. [endslur] | R+ |
+R+ | R+ | r &mf/a6/l8 [slur/a12/lr4] b {bag} |
+[ulhere -6] "# # prop-ter jus\-"
+c'C' [endslur] r | R+ | R {bag} |
+[text overlay olhere -4] "ti-ti-am"
+[ssnext 55] A G | B R | [slur/a4] </b22 bb {bc'd'} | < e' [endslur] E' r |
+[stems auto triplets auto ties auto text underlay]
+[ulhere -4] "ip-so-rum est reg-num cae-lo-= ====="
+[ssnext 50] r [slur/ld6] </a10 a {abc'} | < d' [endslur] D' r | r &f/a4 bb e'_ | e'-d'-c'-b- C' |
+"=== rum, cae-lo-=== rum."
+d'E'd' | E' be'_ | e'd' C' | B+ |||
+[endstave]
+
+@--- Bass --------------------------------------------------------------
+[stave 4 trebletenor 1 stems down ties below triplets below text underlay]
+[ulhere -6] "Be-a - - - ti"
+r g {gfe} | gG. | R+ | R+ |
+[ulhere -6] "Be-a - - - ti"
+R+ | r g {gfe} | f\V/u2\ F. | R+ |
+[ulhere -6] "Be-a - -"
+R+ | R+ | r g {gfe} |
+"- ti"
+a\V/u2\ Ar | R+ | R+\l-12\ |
+[ulhere -6] "prop-ter jus-ti-ti-am quo-ni-am # ip-so-rum"
+{fed} ee | B` R | gg {gab} | c'C' r |
+[stems auto triplets auto ties auto bass 0]
+[ulhere -4] "ip-so-rum est reg-num cae-lo-==="
+r [slur/b/ru3] </a8 f {fga} | < b [endslur] B &f/a10 b | e. f- ge | A. f |
+"= rum, cae-lo-rum."
+B+ | EE | A+ | E+ "Fine"/b24/e |||
+[endstave]
+
+
+@=== Versus I ===========================================================
+[newmovement]
+stavespacing 1/0 2/55 3/0
+systemgap 65
+heading 12 "Verse I (optional, see preface)|"
+key E$
+time C
+startnotime
+barnumbers 0
+nocheck
+unfinished
+
+@--- Soprano -----------------------------------------------------------
+[stave 1 treble 1 stems up ties above text underlay]
+[ulhere -6] "In^#convertendo#captivi-ta-tem Si-on fa^cti#sumus si-cut som-ni-an-tes."
+[noteheads only sghere 55] G+ gf g.G | G+ ggfe g.F "Tempo suggestions: \*76\ \s187\ \*55\ / \*76\\*63\ \s187\ \*53\ / \*77\ \s187\ \*51\"/a12/e |
+[sghere 75] R! | R! |
+[ssnext 50 noteheads only] B+ ga b.B | q bbb | [noteheads normal] c'_E'e' |
+[stems auto ties auto newline]
+"Do-mi-nus fa-= ce-re cum e-is."
+d'.c'- bb_ | bbag | C'+ | B+ ||
+[endstave]
+
+@--- Alto --------------------------------------------------------------
+[stave 2 treble 1 stems down ties below text underlay]
+[noteheads only] Q! | E+ eedc e.D |
+Q! | Q! |
+[ulhere 0] "Tu^nc#dicebant in-ter gen-tes: Mag-ni-fi-ca-vit"
+[ssnext 50 noteheads only] G+ efg.G | q ggg | [noteheads normal] A.g |
+[stems auto ties auto]
+"Do-mi-nus fa-ce-re cum e-== is."
+f.e-D | e.d-ce | fEf | G+ ||
+
+[endstave]
+
+@--- Tenor -------------------------------------------------------------
+[stave 3 bass 0 ties above stems up text underlay]
+R! | R! |
+[ulhere -4] "Tu^nc#repletum # # # # et^#lingua#nostra ex-sul-ta-ti-o-ne."
+"^####est#gaudi-o os nos-trum,"
+[noteheads only] A+ ag a.A | A+ aabfa.G |
+[ssnext 50 noteheads only] B+ bc' $d'.D' | q $d'd'd' | [noteheads normal] C'C' |
+[stems auto ties auto trebletenor 1]
+"Do-= mi-nus fa-ce-re cum e-=== is."
+f_b.b-a | ggab | a.b-c'd' | E'+ ||
+[endstave]
+
+@--- Bass --------------------------------------------------------------
+[stave 4 bass 0 stems down ties below text underlay]
+Q! | Q! |
+[noteheads only] Q! | F+ ffddf.E |
+[noteheads only] E+ ee e.E | q eee | [noteheads normal] A`A` |
+[stems auto ties auto]
+"Do-mi-nus fa-ce-re cum e-is."
+b`b`B` | eefe | A`+ | E+ "Da Capo al Fine"/b36/e ||
+[endstave]
+
+
+@=== Versus II ===========================================================
+[newmovement]
+stavespacing 1/0 2/55 3/0
+systemgap 65
+heading 12 "Verse II (obligatory)|"
+key E$
+time C
+startnotime
+barnumbers 0
+nocheck
+unfinished
+
+
+
+@--- Soprano -----------------------------------------------------------
+[stave 1 treble 1 stems up ties above text underlay]
+[ulhere -6] "Qu^i#semin-ant in la-cri-mis, in^#exsul-ta-ti-o-ne me-tent."
+[noteheads only sghere 55]
+ G+ gf ggG | G+ ggfe g.F "Tempo suggestions: \*76\ \s187\ \*55\ / \*76\\*63\ \s187\ \*53\ / \*77\ \s187\ \*51\"/a12/e|
+[sghere 75] R! | R! |
+[ssnext 50 noteheads only] B+ bbga b.B | q bbb |
+[stems auto ties auto noteheads normal newline]
+"ma-= ni-pu-== los su-os."
+c'_E'e' | d'.c'- bg | C'+ | B+ ||
+[endstave]
+
+@--- Alto --------------------------------------------------------------
+[stave 2 treble 1 stems down ties below text underlay]
+[noteheads only] Q! | E+ eedc e.D |
+Q! | Q! |
+[ulhere 0] "Ve^nientes#autem#venient#cum ex-sul-ta-ti-o-ne, por-tan-tes"
+[ssnext 50 noteheads only] G+ ggefg.G | q ggg |
+[stems auto ties auto noteheads normal]
+"ma-ni-pu-los su-== os."
+A.g | FG | fEf | G+ ||
+
+[endstave]
+
+@--- Tenor -------------------------------------------------------------
+[stave 3 bass 0 ties above stems up text underlay]
+R! | R! |
+[ulhere -4] "Eu^ntes i-bant et fle-bant, se^men#spar-gen-dum por-tan-tes."
+[noteheads only] A+ aag a.A | A+ abfa.G |
+[ssnext 50 noteheads only] B+ bbbc' $d'.D' | q $d'd'd' |
+[stems auto ties auto noteheads normal trebletenor 1]
+"ma-ni-pu-= los su-=== os."
+C'C' | f_Bb | a.b-c'd' | E'+ ||
+[endstave]
+
+@--- Bass --------------------------------------------------------------
+[stave 4 bass 0 stems down ties below text underlay]
+Q! | Q! |
+[noteheads only] Q! | F+ dddf.E |
+[noteheads only] E+ eeee e.E | q eee |
+[stems auto ties auto noteheads normal]
+"ma-ni-pu-los su-os."
+A`A` | B`E | A`+ | E+ "Da Capo al Fine"/b36/e ||
+[endstave]
+
+

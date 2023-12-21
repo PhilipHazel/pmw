@@ -1,0 +1,508 @@
+@ PMW input for musical fragments showing some of the fancy things it can do.
+@ Philip Hazel, April 2022
+
+Heading "|PMW Demonstration" 20
+Heading 12 "This document is a demonstration of some of the fancy things that
+can be done using the PMW music typesetting program. It is generated from a
+single PMW input file, using multiple `movements'. Other examples show longer
+extracts of real music." 
+Heading "" 28
+
+PageFooting "|\--\p\\--"
+
+@ ==========================================================================
+Heading 10 "\bf\Custom time signatures and old clefs"
+Justify top left
+Clefstyle 3
+TextSizes 10 20 8
+Textfont extra 1 "Helvetica-Bold"   @ Used in later movement
+Unfinished
+
+PrintTime 8/8 "3+3+2" "8"
+PrintTime 3/4 "3"/s2 ""
+PrintTime 3/2 "\**147\" ""
+PrintTime 5/4 "3 2" "4 4"
+
+[stave 1 treble 1]
+[time 8/8] g-g-g-; b-b-b-; g-g- |
+[time 3/4] dfa |
+[time 5/4] ggg : G |
+[time 3/2] [alto] GEC |
+[move 4 bass 0] R! |
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Clefstyle 0
+PrintTime 8/8 "8" "8"
+PrintTime 3/4 "3" "4"
+PrintTime 3/2 "3" "2"
+PrintTime 5/4 "5" "4"
+
+Heading 10 "\bf\Mis-matched time signatures and tripletizing"
+Unfinished
+
+draw vline 6.2 -2 moveto 0 -22 rlineto 0.1 setlinewidth stroke enddraw
+
+[stave 1 treble 1 time 2/4 ns *1.4]
+gb | 
+"Default"/b/m/s3/l2 g-. [draw vline] g=; f-. [draw vline] g=; | 
+[tripletize] "Tripletized"/b/m/s3/l2 f-. [draw vline] g=; f-. [draw vline] g=; |
+[endstave]
+
+[stave 2 treble 1 time 6/8->2/4]
+[3]  &*2(g-x2;) |
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Heading 10 "\bf\Incipits and Ossia"
+Startbracketbar 1
+Unfinished
+
+[stave 1 soprano 1 key F time C nocheck]
+A |
+[treble 1 key a$ time c]
+Rc'd' | [nocheck] q |?
+[endstave]
+
+[stave 2 tenor 1 key F time C nocheck]
+C\M+\ |
+[treble 1 key a$ time c]
+Ead' | [nocheck] q |?
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement thisline]
+Bracket
+Clefsize 0.8
+Join
+Linelength -16
+StartNoTime
+Stavesizes 2/0.75
+Time 3/8
+Unfinished
+
+[stave 1 noclef 1 justify -left +right]
+|
+< [slur] e'=-d'=-%f'=-d'=-; [es] c'-%b-\tr\ < |
+"\bi\f"/m c'=c''-%b'-a'=_ |
+a'=g'-%b'-c''= |
+[slur] a'=-c''=-a'=-f'=-; [es] e'-d'-\tr\ |
+[endstaff]
+
+[stave 2 omitempty]
+| |
+[treble 1] "\rm\(ad libitum)"/e/b0/u4/l28 c'=p-%b-a=_ | 
+a=g-%b-c'= [move -2 alto 1] |
+[slur] a=-c'=-a=-f=-; [es] e-d-\tr\ |
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Stavesizes 2/1
+Linelength +16
+Heading "" -16
+Heading 16 "|Tacet" 20
+
+[stave 1 treble 1 justify +right] [space 200] [40]R! | [endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Nocheck
+Notime
+Repeatstyle 3
+Unfinished
+Heading 10 "\bf\Ancient" 12
+
+draw dot
+  0 headbottom 2 linebottom sub add moveto "\mf\?" show
+enddraw
+*define bd() [notes off draw dot] &&1-; [notes on]
+
+[stave 1 tenor 1]
+"Ma-gni-fi-=cat"/ul [noteheads only] cdc_ff ||
+[treble o] ra | &bd(a) b-g :)|
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement thisline]
+Beamthickness 1
+MakeKey X1 $2 $-6
+Repeatstyle 0
+Time 2/4
+Unfinished
+
+[stave 1 treble 1 justify -left +right]
+"\bf\Modern"/a/bar/u8
+[key X1] g.g- |= g-g. |
+[beamslope 0.1]  [beamacc 2] {5/x g-g-g-g-g-} |
+[beamslope -0.1] [beamrit] {5/x g-g-g-g-g-} |
+[endstave] 
+
+
+
+@ ==========================================================================
+[newmovement]
+Beamthickness 1.8
+Heading 10 "\bf\Gaps in slurs and lines"
+Unfinished
+
+[stave 1 treble 1]
+r [slur/co3/lu2] G`+ [slurgap/w30/r10] | [key e$] c G' [es] | 
+[slur] c-c-e [slurgap/"With text"/u2] gc'-x |
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement thisline]
+unfinished
+nocheck
+notime
+notespacing *1.2
+
+draw blip
+  linegapx linegapy moveto
+  0 linegapx 2 mul lineto
+  linegapx neg linegapy neg lineto
+  0.3 setlinewidth stroke
+enddraw  
+
+draw ped
+  0 0 moveto "\**163\ " show
+enddraw  
+
+*define ped  [line/=P/b/h/ol/d4 linegap/h0/w30/draw ped]   
+*define blip [linegap/=P/draw blip] 
+*define ep   [endline/=P]
+
+[stave 1 bass 0 justify -left +right]
+r- &ped %a &blip b-_; b-; e &blip a`-_ |
+a`- G` &ep r-r |
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Heading 10 "\bf\Two parts to a stave"
+Bracket
+Brace 2-5
+Breakbarlines 1
+Join 1-5
+Stavespacing 2/0 4/0
+Key G
+Time 2*C
+StartNoTime
+Unfinished
+
+[stave 1 "\sc\PEOPLE'S|PART"/c treble 1]
+G+ | GFGG |
+[endstave]
+
+[stave 2 "\sc\CHOIR|OR|ORGAN"/c/m treble 1 stems up]
+RD | DDDG |
+[endstave]
+
+[stave 3 treble 1 stems down]
+B`+ | A`A`B`D |
+[endstave]
+
+[stave 4 bass 0 stems up]
+G+ | GFGG |
+[endstave]
+
+[stave 5 bass 0 stems down]
+G`+ | DDG`B` |
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement thisline]
+Bracket
+Brace 1-3
+Breakbarlines 3
+Key Gm
+Time 3/4
+Shortenstems 2
+Stavespacing 1/0 2/52 3/40
+Unfinished
+
+[stave 1 "Manual"/m/v treble 1  justify -left +right stems up ties above]
+"\bf\Maestoso"/a/ts/u6 [nocheck slur] d-\-!\x |
+gA_ [es] |                            
+a-r- "senza misura"/m a'_/a a'-_/a a'=-g'=-f'=-%e'=- |
+[endstave]
+
+[stave 2 treble 1 stems down ties below]
+[nocheck slur/b/ci2] "\bi\f"/l4 b`- [move 5] c- [space 4] |
+d%E_ [es] |
+e-q-Q |
+[endstave]
+
+[stave 3 bass 0]
+[nocheck] [slur/ci1] "\rm\Gt. to 15th. coup. to Full Sw." g-\-\x |
+gC'_ [es] | c'-r-rr |
+[endstave]
+
+[stave 4 "\mf\{{wvv\rm\Pedal"/v bass 0]
+[nocheck] "\rm\Ped. 16 && 8ft. coup. to Gt. and Ch"/d4 g`-a`- |
+b`A`_ | A`._ |
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Heading 10 "\bf\Transposed notes and key/chord names" 30
+Notime
+Stavespacing 44
+Unfinished
+
+[stave 1 treble 1 textfont roman]
+"\rm\\tC"/a "Untranposed input"/b14/s3/bar (ceg)x2 |
+[transpose 3]
+"\rm\\tC"/a "Transpose +3"/b14/s3/bar (ceg)x2 |
+[transpose -1]
+"\rm\\tC"/a "Transpose -1"/b14/s3/bar (ceg)x2 |
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement thisline]
+Linelength -80
+
+[stave 1 noclef justify -left +right]
+"\mu\\131\xxxx~\183\|wwwtxtwwtxxxtx~u"/a "\bf\Guitar tablature"/a30/bar &*4(t) |
+"\mu\\131\xxxx~\183\|wwwtxtwwtxxxtx~u"/a &*4(t) |
+T! |
+[space -0.5] |?
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Linelength +80
+Clefsize 0.7
+Nocheck
+Notime
+Unfinished
+Heading 10 "\bf\Noteheads etc" 16
+
+[stave 1 omitempty alto 1 ns *1.2]
+(: "\rm\III"/b [line/b/h/ol/lr12/d6/rr10] [h] C\d/u2 o\_/g/s 
+  [move 2 treble o move 2] G'\o\ [space -4] |
+G'\uo\_/g/s [move -8 alto h move 4] C\o\ :) [space -4] [o el] |
+|?
+(c`c\sm\) (c`c\)\) (c`c\nh\) (c`c\nx\) (b`dfg) a`-\M\ [tremolo/x3/j1] a`-\M\ 
+[space 2] (g`\sp\b`dg) (g`\ar\b`dg) (a`\aru\cea) (e`\ard\g`b`e) |?
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Nocheck
+Notime
+Heading 10 "\bf\Slur control"
+Unfinished
+
+[stave 1 treble 1]
+[slur] c'x2 [es] 
+[slur/u4/e] c'x2 [es] 
+[slur/u4/i] c'x2 [es] 
+[slur/u4 slurgap/h0/w0/"("] c'x2 [slurgap/h1/w0/")" es] 
+[slur/co4] c'x2 [es] 
+[slur/co8] c'x2 [es]
+[slur/clu8/cll8] c'x2 [es]
+[slur/co32/w/rd2] c'x fx [es]
+|?
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Heading 10 "\bf\Fancy notations" 24
+
+draw circle
+  -1.5 headbottom 3 sub moveto
+   3 -2.5  7 -2.5  10   0 rcurveto
+   3    3  3    7   0  10 rcurveto
+  -3  2.5 -7  2.5 -10   0 rcurveto
+  -3   -3 -3   -7   0 -10 rcurveto
+  0.4 setlinewidth stroke
+enddraw  
+
+*define circ  [draw circle]
+*define gtb1 "\rm\beginning)"/a/c/s3 
+*define gtb2 "\rm\(Go to"/a/c/s3
+
+*define mp "\it\m\bi\p"/m
+*define f  "\bi\f"/m
+*define sfz "\it\s\bi\fz"/m
+
+unfinished
+bracket
+brace 1-2
+beamendrests
+
+textsizes 10 8 7 8
+tripletfont 8 italic
+time C
+
+[stave 1 omitempty] [name "\bf\Piano"/m treble 1]
+"\*c\\rm\ = 80\*u\\xb9\"/a/c
+[footnote "1. This is an example of a footnote, commonly used to discuss
+metronome markings. Footnotes are attached to a specific bar, as opposed to
+footings, which belong to a page."] 
+"effervescent"/b/l20 
+
+[couple down] r [space 4] &sfz/a/u2 (#c'=d''=)r=r= &circ 
+[slur/b/ld3/lr1] a`=\su\ {/rx/u35 re'\-\
+c`\-\} [es] [space -4] [move 12 comma] &gtb1/u10/l2 &gtb2/l2 :)| 
+| 
+[sshere +20
+space 2] &circ [slur/a/ld28/w] g`-\.su\($e'-\.sd\$b'-); r {6/u42 &mp/l16/u8
+[xslur/a/u1] #c=\sd\ [es] #f= [es] %c=\.c su\ [slur/a/co12/clr3/ll3/lu2]
+a`=\su\ [space 4] $e=$a=}; [es] q= &circ &sfz/b/d8 </b/d6/r12
+[slur/b/lr7/ru2/co2] d``=\su\ b=-\sd\#f'=-\sd\ #c=-\c\ [es] #e`=-\.\ [space 4]|
+[endstave]
+
+
+[stave 2 omitempty bass 0]
+"\rm\(Before each repeat pause briefly."/b/l16/d4/s4
+"\rm\When playing through do NOT pause.)"/b/l16/s4
+[ulhere -22]
+r-.; &f/a/d2/l2 (g`=\sl2\$b`=) qqq :) | @1
+|
+[ulhere -36]
+q- q- rq r=q= [notes off] r- | @5
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Heading "" 20
+Heading 10 "\xx1\Text tricks and drawing" 4
+brace
+join
+Notime
+Textsizes 10 10/0.8 10/1.5 10/1/20 10/1/-20 20 6
+
+[stave 1/0 noclef textfont roman]
+"Normal  "/b0 "Squashed  "/F/s2 "Stretched "/F/s3 "Slanted   "/F/s4 "Weird  "/F/s5
+"\it\Italic  "/F "\bf\Bold  "/F "\bi\Bold italic  "/F
+"Big "/F/s6 "\sc\SMALL CAPS  "/F "Small"/F/s7
+
+""
+
+"Sloping down "/rot-20 " Sloping up   "/F/rot20 "Vertical"/F/rot-90
+"        "/F "Vertical"/F/rot90
+"                          "/F "Upside-down"/F/rot180
+
+|?
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement thisline]
+Textsizes 10 30
+Nocheck
+Notime
+Heading 2 ""
+
+draw warn
+  -10 -18 moveto 6 14 lineto 22 -18 lineto -10 -18 lineto 6 14 lineto
+  1.8 setlinewidth stroke
+  0 -14 moveto "!"/s2 show
+enddraw   
+
+[stave 1/0 noclef justify -left +right]
+[draw warn] "\bf\Scale practice must be maintained"/b/r26
+
+[9] Q |?
+[endstave]
+
+
+
+@ ==========================================================================
+[newmovement]
+Heading "" 30
+Textsizes 10 8
+Unfinished
+
+*define 0 "0"/s2/c
+*define 1 "1"/s2/c
+*define 2 "2"/s2/c
+*define 3 "3"/s2/c
+
+*define L() "\sc\&&1"/bu/c 
+*define st  "\sc\SEMITONE"/b
+
+draw boxa
+  /ox originx def
+  /ot stemtop 16 gt { stemtop } { 16 } ifelse def 
+enddraw
+
+draw boxb
+  0.2 setlinewidth
+  /by -26 def 
+  ox originx sub 2 sub dup dup /lx exch def by moveto ot 13 add lineto
+  lx neg 10 add 0 rlineto 10 by lineto lx by lineto 
+  stroke 
+enddraw
+
+*define boxa [draw boxa]
+*define boxb [draw boxb]
+
+[stave 1 alto 1 text above textfont roman ulevel -12 ns *1.3]
+&0 C` &1 d` &boxa &2 &L(E) &st e` |
+&boxb &3 &L(F) f` &0 g` &1 a` &2 &L(B) &boxa &st b` |
+&boxb &3 &L(C) C &0 d &1 &L(E) &boxa &st e |
+&boxb &2 &L(F) f &3 g &0 a &1 &L(B) &boxa &st b |
+&boxb &2 &L(C) C'+ ||
+[endstave]
+
+
+@ ==========================================================================
+[newmovement]
+Heading "" 10
+Heading 10 "\bf\Stave lines (up to 6 can be specified)" 10
+Nocheck
+Notime
+Stavespacing 0 7/40
+Unfinished
+
+@Heading 10 "\mf\DDD\169\\169\\169\"
+
+[stave 1/0 omitempty noclef 1] "zero"/c B+\C\ | [endstave]
+[stave 2/1 omitempty] [1] |? [noclef 1] "one"/c B+\C\ | | "one+two"/c B+\C\ | 
+[endstave]
+[stave 3/2 omitempty] [2] |? [noclef 1] "two"/c B+\C\ |? B+\C\ | [endstave]
+[stave 4/3 omitempty] [4] |? [noclef 1] "three"/c B+\C\ | [endstave]
+[stave 5/4 omitempty] [5] |? [noclef 1] "four"/c B+\C\ | [endstave]
+[stave 6/5 omitempty] [6] |? [noclef 1] "five"/c B+\C\ | [endstave]
+[stave 7/6 omitempty] [7] |? [noclef 1] "six"/c B+\C\ | [endstave]
+[stave 8 omitempty] |? [endstave]  @Just some space
+
+
+@ ==========================================================================
