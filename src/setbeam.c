@@ -501,15 +501,17 @@ xright += n_cueadjust;
 
 if ((beam_first->flags & nf_stemcent) != 0)
   {
-  beam_firstX += (beam_upflag? -1 : +1) * 
-    mac_muldiv(STEMCENTADJUST, out_stavemagn, 1000);
-  } 
+  beam_firstX += (beam_upflag? -1 : +1) *
+    mac_muldiv(STEMCENTADJUST + ((beam_first->noteheadstyle == nh_circular)?
+      -900 : 0), out_stavemagn, 1000);
+  }
 
 if ((beam_last->flags & nf_stemcent) != 0)
   {
-  xright += (beam_upflag? -1 : +1) * 
-    mac_muldiv(STEMCENTADJUST, out_stavemagn, 1000);
-  } 
+  xright += (beam_upflag? -1 : +1) *
+    mac_muldiv(STEMCENTADJUST + ((beam_first->noteheadstyle == nh_circular)?
+      -900 : 0), out_stavemagn, 1000);
+  }
 
 /* Adjust parameters for cue or grace notes */
 
@@ -658,7 +660,7 @@ for (int level = throughlevel + 1; level <= 4; level++)
       int32_t XLadjust = 0;
       int32_t XRadjust = 0;
       int Dlevel = level;
-      
+
       donesomething = TRUE;    /* note to keep going */
 
       /* If both notes are shorter or equal to the current notetype, draw a
@@ -737,13 +739,13 @@ for (int level = throughlevel + 1; level <= 4; level++)
 
         if (left_up && left->abspitch != 0) XLadjust = beam_Xcorrection;
         if (right_up || right->spitch == 0) XRadjust = beam_Xcorrection;
-        
+
         /* Hack for centred stems */
-        
+
         if ((left->flags & nf_stemcent) != 0)
           XLadjust += mac_muldiv(left_up? -STEMCENTADJUST : +STEMCENTADJUST,
             out_stavemagn, 1000);
-             
+
         if ((right->flags & nf_stemcent) != 0)
           XRadjust += mac_muldiv(right_up? -STEMCENTADJUST : +STEMCENTADJUST,
             out_stavemagn, 1000);
@@ -783,7 +785,7 @@ for (int level = throughlevel + 1; level <= 4; level++)
             sladjust + (left_up? beam_Xcorrection : 0);
 
           /* Hack for centred stems */
-          
+
           if ((left->flags & nf_stemcent) != 0)
             x += mac_muldiv(left_up? -STEMCENTADJUST : +STEMCENTADJUST,
               out_stavemagn, 1000);
@@ -808,11 +810,11 @@ for (int level = throughlevel + 1; level <= 4; level++)
             sradjust + (right_up? beam_Xcorrection : 0);
 
           /* Hack for centred stems */
-          
+
           if ((right->flags & nf_stemcent) != 0)
             x += mac_muldiv(right_up? -STEMCENTADJUST : +STEMCENTADJUST,
               out_stavemagn, 1000);
-  
+
           if (right_up != beam_upflag) Dlevel = throughlevel - level + 1;
           ps_beam(x - mac_muldiv(curmovt->beamflaglength, out_stavemagn, 1000),
             x, Dlevel, 0);

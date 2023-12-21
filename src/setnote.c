@@ -483,6 +483,9 @@ if ((n_flags & nf_stem) != 0)
 
   if (stemcent)
     {
+    BOOL nhcross = n_noteheadstyle == nh_cross; 
+    BOOL nhharm = n_noteheadstyle == nh_harmonic; 
+    BOOL nhcirc = n_noteheadstyle == nh_circular; 
     int32_t centx = x + (n_upflag? -1:+1) * mac_muldiv(
       ((n_noteheadstyle == nh_circular)? -900 : 0) + STEMCENTADJUST,
       out_stavemagn, 1000);
@@ -491,24 +494,25 @@ if ((n_flags & nf_stem) != 0)
       {
       if (yy <= y)    /* Stem is standard or lengthened */
         {
+        int stemch = nhcross? 'J' : 'o'; 
         int32_t z = yy;
         while (z <= y)
           {
-          p += sprintf(CS p, "Jww|");
+          p += sprintf(CS p, "%cww|", stemch);
           z += font10;
           }
         p -= 3;
         *p = 0;
         ps_musstring(buff, fontsize, centx, yy);
         p = buff;
-        if (z < y + font10) *p++ = 'J';
+        if (z < y + font10) *p++ = stemch;
         }
 
       else            /* Stem is shortened */
         {
         int32_t z = yy - font10 - font2;
         p += sprintf(CS p, "xxx");
-        if (n_noteheadstyle == nh_harmonic) z += font2;
+        if (nhharm || (nhcirc && !out_beaming)) z += font2;
         while (z <= y)
           {
           p += sprintf(CS p, "q|");
@@ -524,24 +528,25 @@ if ((n_flags & nf_stem) != 0)
       {
       if (yy >= y)    /* Stem is standard or lengthened */
         {
+        int stemch = nhcross? 'K' : 'p'; 
         int32_t z = yy;
         while (z >= y)
           {
-          p += sprintf(CS p, "Kxx~");
+          p += sprintf(CS p, "%cxx~", stemch);
           z -= font10;
           }
         p -= 3;
         *p = 0;
         ps_musstring(buff, fontsize, centx, yy);
         p = buff;
-        if (z > y - font10) *p++ = 'K';
+        if (z > y - font10) *p++ = stemch;
         }
 
       else            /* Stem is shortened */
         {
         int32_t z = yy + font10 + font2;
-        if (n_noteheadstyle == nh_harmonic) z -= font2;
         p += sprintf(CS p, "www");
+        if (nhharm || (nhcirc && !out_beaming)) z -= font2;
         while (z >= y)
           {
           p += sprintf(CS p, "r~v");
