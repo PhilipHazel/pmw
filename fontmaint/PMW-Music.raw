@@ -1,6 +1,6 @@
-%!PS-AdobeFont-1.0: PMW-Music 060.001
-%%CreationDate: October 2023
-% Copyright (c) 2023 Philip Hazel
+%!FontType1-1.0: PMW-Music 060.002
+%%CreationDate: January 2024
+% Copyright (c) 2024 Philip Hazel
 
 %%BeginExitServer: 000000
 %%serverdict begin 000000 exitserver
@@ -10,9 +10,10 @@
 %%BeginResource: font PMW-Music
 
 11 dict begin
-/FontInfo 8 dict dup begin
-/version (60.01) readonly def
-/Notice (Copyright (c) October 2023 Philip Hazel) readonly def
+/FontInfo
+9 dict dup begin
+/version (60.02) readonly def
+/Notice (Copyright (c) January 2024 Philip Hazel) readonly def
 /FullName (PMW-Music) readonly def
 /FamilyName (PMW-Music) readonly def
 /Weight (Medium) readonly def
@@ -26,30 +27,184 @@ end readonly def
 /FontType 1 def
 /FontMatrix [0.001 0 0 0.001 0 0] readonly def
 /FontBBox {-150 -1400 50000 2300} readonly def
-/Encoding 256 array def
-0 1 31 {Encoding exch /.notdef put} for
-Encoding 32 [/sp/trebleclef/bassclef/altoclef/star/sharp/doublesharp
-/flat/natural/tfermata/brest/sbrest/mrest/crest/qrest/bfermata
-/longrest/breve/semibreve/uminim/dminim/ucrotchet/dcrotchet/uquaver/dquaver
-/usquaver/dsquaver/usqtail/dsqtail/ledger/vdot/hdot/barsingle/bardouble
-/barthick/stave1/pstave1/uqtail/stave10/pstave10/dqtail/repeatdots
-/ustem/dstem/cnh/mnh/comma/mordent/dmordent/imordent/dimordent/turn
-/hbar/accent1/caesura/accent2/accent3/accent4/accent5/bardotted
-/caesura1/little8/C/cut/tilde/thumba/thumbb/ds1/ds2/downa/downb/upa
-/upb/iturn/seven/four/hcnh/hmnh/xnh/xustem/xdstem/fustem/fdstem/six
-/gdot/gring/d1/d4/u4/l1/r1/bs/ds/fs/us/.notdef/tick/uacc/dacc/grid
-/barshort/breath/vring/cross/trill/scaesura/lcaesura/sbra/sket/rbra
-/rket/rep/repdots/vtilde/trem/circ/cutcirc/slur1/slur2/up/down
-/iC/icut/unibreve/accent6/srbra/srket/angle1/angle2/angle3/angle4
-/ped/uvtilde/dvtilde/nail/angle5/angle6/stave21/stave31/stave41/stave61
-/hclef/oldbassclef/oldaltoclef/bratop/brabot/direct/five/major/dimsh
-/hdimsh/gcross/ledger2/srm1/srm2/u12/d12/halfsharp1/halfsharp2
-/halfflat1/halfflat2/icomma/accent7/accent8/rturn/irturn/thcirc/bhcirc
-/rcnh/rmnh]
-putinterval
-202 1 246 {Encoding exch /.notdef put}for
-Encoding 247 [/stave210/stave310/stave410/stave610
-/.notdef/.notdef/.notdef/.notdef/.notdef]putinterval
+/Encoding 256 array
+0 1 255 {1 index exch /.notdef put} for
+dup 32 /PMWspace put
+dup 33 /PMWtrebleclef put
+dup 34 /PMWbassclef put
+dup 35 /PMWaltoclef put
+dup 36 /PMWstar put
+dup 37 /PMWsharp put
+dup 38 /PMWdoublesharp put
+dup 39 /PMWflat put
+dup 40 /PMWnatural put
+dup 41 /PMWtfermata put
+dup 42 /PMWbrest put
+dup 43 /PMWsbrest put
+dup 44 /PMWmrest put
+dup 45 /PMWcrest put
+dup 46 /PMWqrest put
+dup 47 /PMWbfermata put
+dup 48 /PMWlongrest put
+dup 49 /PMWbreve put
+dup 50 /PMWsemibreve put
+dup 51 /PMWuminim put
+dup 52 /PMWdminim put
+dup 53 /PMWucrotchet put
+dup 54 /PMWdcrotchet put
+dup 55 /PMWuquaver put
+dup 56 /PMWdquaver put
+dup 57 /PMWusquaver put
+dup 58 /PMWdsquaver put
+dup 59 /PMWusqtail put
+dup 60 /PMWdsqtail put
+dup 61 /PMWledger put
+dup 62 /PMWvdot put
+dup 63 /PMWhdot put
+dup 64 /PMWbarsingle put
+dup 65 /PMWbardouble put
+dup 66 /PMWbarthick put
+dup 67 /PMWstave1 put
+dup 68 /PMWpstave1 put
+dup 69 /PMWuqtail put
+dup 70 /PMWstave10 put
+dup 71 /PMWpstave10 put
+dup 72 /PMWdqtail put
+dup 73 /PMWrepeatdots put
+dup 74 /PMWustem put
+dup 75 /PMWdstem put
+dup 76 /PMWcnh put
+dup 77 /PMWmnh put
+dup 78 /PMWcomma put
+dup 79 /PMWmordent put
+dup 80 /PMWdmordent put
+dup 81 /PMWimordent put
+dup 82 /PMWdimordent put
+dup 83 /PMWturn put
+dup 84 /PMWhbar put
+dup 85 /PMWaccent1 put
+dup 86 /PMWcaesura put
+dup 87 /PMWaccent2 put
+dup 88 /PMWaccent3 put
+dup 89 /PMWaccent4 put
+dup 90 /PMWaccent5 put
+dup 91 /PMWbardotted put
+dup 92 /PMWcaesura1 put
+dup 93 /PMWlittle8 put
+dup 94 /PMWC put
+dup 95 /PMWcut put
+dup 96 /PMWtilde put
+dup 97 /PMWthumba put
+dup 98 /PMWthumbb put
+dup 99 /PMWds1 put
+dup 100 /PMWds2 put
+dup 101 /PMWdowna put
+dup 102 /PMWdownb put
+dup 103 /PMWupa put
+dup 104 /PMWupb put
+dup 105 /PMWiturn put
+dup 106 /PMWseven put
+dup 107 /PMWfour put
+dup 108 /PMWhcnh put
+dup 109 /PMWhmnh put
+dup 110 /PMWxnh put
+dup 111 /PMWxustem put
+dup 112 /PMWxdstem put
+dup 113 /PMWfustem put
+dup 114 /PMWfdstem put
+dup 115 /PMWsix put
+dup 116 /PMWgdot put
+dup 117 /PMWgring put
+dup 118 /PMWd1 put
+dup 119 /PMWd4 put
+dup 120 /PMWu4 put
+dup 121 /PMWl1 put
+dup 122 /PMWr1 put
+dup 123 /PMWbs put
+dup 124 /PMWds put
+dup 125 /PMWfs put
+dup 126 /PMWus put
+% GAP
+dup 128 /PMWtick put
+dup 129 /PMWuacc put
+dup 130 /PMWdacc put
+dup 131 /PMWgrid put
+dup 132 /PMWbarshort put
+dup 133 /PMWbreath put
+dup 134 /PMWvring put
+dup 135 /PMWcross put
+dup 136 /PMWtrill put
+dup 137 /PMWscaesura put
+dup 138 /PMWlcaesura put
+dup 139 /PMWsbra put
+dup 140 /PMWsket put
+dup 141 /PMWrbra put
+dup 142 /PMWrket put
+dup 143 /PMWrep put
+dup 144 /PMWrepdots put
+dup 145 /PMWvtilde put
+dup 146 /PMWtrem put
+dup 147 /PMWcirc put
+dup 148 /PMWcutcirc put
+dup 149 /PMWslur1 put
+dup 150 /PMWslur2 put
+dup 151 /PMWup put
+dup 152 /PMWdown put
+dup 153 /PMWiC put
+dup 154 /PMWicut put
+dup 155 /PMWunibreve put
+dup 156 /PMWaccent6 put
+dup 157 /PMWsrbra put
+dup 158 /PMWsrket put
+dup 159 /PMWangle1 put
+dup 160 /PMWangle2 put
+dup 161 /PMWangle3 put
+dup 162 /PMWangle4 put
+dup 163 /PMWped put
+dup 164 /PMWuvtilde put
+dup 165 /PMWdvtilde put
+dup 166 /PMWnail put
+dup 167 /PMWangle5 put
+dup 168 /PMWangle6 put
+dup 169 /PMWstave21 put
+dup 170 /PMWstave31 put
+dup 171 /PMWstave41 put
+dup 172 /PMWstave61 put
+dup 173 /PMWhclef put
+dup 174 /PMWoldbassclef put
+dup 175 /PMWoldaltoclef put
+dup 176 /PMWbratop put
+dup 177 /PMWbrabot put
+dup 178 /PMWdirect put
+dup 179 /PMWfive put
+dup 180 /PMWmajor put
+dup 181 /PMWdimsh put
+dup 182 /PMWhdimsh put
+dup 183 /PMWgcross put
+dup 184 /PMWledger2 put
+dup 185 /PMWsrm1 put
+dup 186 /PMWsrm2 put
+dup 187 /PMWu12 put
+dup 188 /PMWd12 put
+dup 189 /PMWhalfsharp1 put
+dup 190 /PMWhalfsharp2 put
+dup 191 /PMWhalfflat1 put
+dup 192 /PMWhalfflat2 put
+dup 193 /PMWicomma put
+dup 194 /PMWaccent7 put
+dup 195 /PMWaccent8 put
+dup 196 /PMWrturn put
+dup 197 /PMWirturn put
+dup 198 /PMWthcirc put
+dup 199 /PMWbhcirc put
+dup 200 /PMWrcnh put
+dup 201 /PMWrmnh put
+% GAP
+dup 247 /PMWstave210 put
+dup 248 /PMWstave310 put
+dup 249 /PMWstave410 put
+dup 250 /PMWstave610 put
+readonly def
 currentdict end
 currentfile eexec
 dup /Private 15 dict dup begin
@@ -482,93 +637,93 @@ ND
   endchar
   }ND
 
-/sp {
+/PMWspace {
   0 750 hsbw
   endchar
   }ND
 
-/d1 {
+/PMWd1 {
   0 0 0 -100 sbw
   endchar
   }ND
 
-/d4 {
+/PMWd4 {
   0 0 0 -400 sbw
   endchar
   }ND
 
-/u4 {
+/PMWu4 {
   0 0 0 400 sbw
   endchar
   }ND
 
-/l1 {
+/PMWl1 {
   0 -100 hsbw
   endchar
   }ND
 
-/r1 {
+/PMWr1 {
   0 100 hsbw
   endchar
   }ND
 
-/bs {
+/PMWbs {
   0 -330 hsbw
   endchar
   }ND
 
-/ds {
+/PMWds {
   0 0 0 -200 sbw
   endchar
   }ND
 
-/fs {
+/PMWfs {
   0 550 hsbw
   endchar
   }ND
 
-/us {
+/PMWus {
   0 0 0 200 sbw
   endchar
   }ND
 
-/srm1 {
+/PMWsrm1 {
   0 0 -420 400 sbw
   endchar
   }ND
 
-/srm2 {
+/PMWsrm2 {
   0 0 -760 -400 sbw
   endchar
   }ND
 
-/u12 {
+/PMWu12 {
   0 0 0 1200 sbw
   endchar
   }ND
 
-/d12 {
+/PMWd12 {
   0 0 0 -1200 sbw
   endchar
   }ND
 
 % -------- Staves --------
 
-/pstave1 {
+/PMWpstave1 {
   0 1000 hsbw
   785 30 hstem
   785 4 callsubr
   endchar
   }ND
 
-/pstave10 {
+/PMWpstave10 {
   0 10000 hsbw
   785 30 hstem
   785 5 callsubr
   endchar
   }ND
 
-/stave1 {
+/PMWstave1 {
   0 1000 hsbw
   7 callsubr
   -15 4 callsubr
@@ -579,7 +734,7 @@ ND
   endchar
   }ND
 
-/stave10 {
+/PMWstave10 {
   0 10000 hsbw
   7 callsubr
   -15 5 callsubr
@@ -590,7 +745,7 @@ ND
   endchar
   }ND
 
-/stave21 {
+/PMWstave21 {
   0 1000 hsbw
    385 30 hstem
   1185 30 hstem
@@ -599,7 +754,7 @@ ND
   endchar
   }ND
 
-/stave210 {
+/PMWstave210 {
   0 10000 hsbw
    385 30 hstem
   1185 30 hstem
@@ -608,7 +763,7 @@ ND
   endchar
   }ND
 
-/stave31 {
+/PMWstave31 {
   0 1000 hsbw
   -15 30 hstem
   785 30 hstem
@@ -619,7 +774,7 @@ ND
   endchar
   }ND
 
-/stave310 {
+/PMWstave310 {
   0 10000 hsbw
   -15 30 hstem
   785 30 hstem
@@ -630,7 +785,7 @@ ND
   endchar
   }ND
 
-/stave41 {
+/PMWstave41 {
   0 1000 hsbw
   6 callsubr
   -15 4 callsubr
@@ -640,7 +795,7 @@ ND
   endchar
   }ND
 
-/stave410 {
+/PMWstave410 {
   0 10000 hsbw
   6 callsubr
   -15 5 callsubr
@@ -650,7 +805,7 @@ ND
   endchar
   }ND
 
-/stave61 {
+/PMWstave61 {
   0 1000 hsbw
   7 callsubr
   1985 30 hstem
@@ -663,7 +818,7 @@ ND
   endchar
   }ND
 
-/stave610 {
+/PMWstave610 {
   0 10000 hsbw
   7 callsubr
   1985 30 hstem
@@ -678,7 +833,7 @@ ND
 
 % -------- Other glyphs, in alphabetical order --------
 
-/accent1 {
+/PMWaccent1 {
   0 0 hsbw
   445 vmoveto
   670 155 rlineto
@@ -690,7 +845,7 @@ ND
   endchar
   }ND
 
-/accent2 {
+/PMWaccent2 {
   0 0 hsbw
   160 75 rmoveto
   165 330 rlineto
@@ -702,7 +857,7 @@ ND
   endchar
   }ND
 
-/accent3 {
+/PMWaccent3 {
   0 0 hsbw
   560 575 rmoveto
   -165 -330 rlineto
@@ -714,7 +869,7 @@ ND
   endchar
   }ND
 
-/accent4 {
+/PMWaccent4 {
   0 0 hsbw
   350 hmoveto
   90 400 rlineto
@@ -723,7 +878,7 @@ ND
   endchar
   }ND
 
-/accent5 {
+/PMWaccent5 {
   0 0 hsbw
   350 400 rmoveto
   -90 -400 rlineto
@@ -732,7 +887,7 @@ ND
   endchar
   }ND
 
-/accent6 {
+/PMWaccent6 {
   0 0 hsbw
   340 20 vstem
   0 20 hstem
@@ -745,7 +900,7 @@ ND
   endchar
   }ND
 
-/accent7 {
+/PMWaccent7 {
   0 0 hsbw
   366 hmoveto
   18 97 38 213 0 50 rrcurveto
@@ -757,7 +912,7 @@ ND
   endchar
   }ND
 
-/accent8 {
+/PMWaccent8 {
   0 0 hsbw
   0 85 vstem
   676 -20 hstem
@@ -771,7 +926,7 @@ ND
   endchar
   }ND
 
-/altoclef {
+/PMWaltoclef {
   0 1500 hsbw
   200 168 vstem
   445 50 vstem
@@ -820,7 +975,7 @@ ND
   endchar
   }ND
 
-/angle1 {
+/PMWangle1 {
   0 330 hsbw
   240 50 vstem
   194 64 hstem
@@ -834,7 +989,7 @@ ND
   endchar
   }ND
 
-/angle2 {
+/PMWangle2 {
   0 330 hsbw
   44 50 vstem
   194 64 hstem
@@ -848,7 +1003,7 @@ ND
   endchar
   }ND
 
-/angle3 {
+/PMWangle3 {
   0 330 hsbw
   194 64 hstem
   240 50 vstem
@@ -862,7 +1017,7 @@ ND
   endchar
   }ND
 
-/angle4 {
+/PMWangle4 {
   0 330 hsbw
   194 64 hstem
   44 50 vstem
@@ -876,7 +1031,7 @@ ND
   endchar
   }ND
 
-/angle5 {
+/PMWangle5 {
   0 333 hsbw
   194 64 hstem
   226 64 vstem
@@ -892,7 +1047,7 @@ ND
   endchar
   }ND
 
-/angle6 {
+/PMWangle6 {
   0 333 hsbw
   194 64 hstem
   226 64 vstem
@@ -908,7 +1063,7 @@ ND
   endchar
   }ND
 
-/bardotted {
+/PMWbardotted {
   0 600 hsbw
   0 30 vstem
   0 hmoveto
@@ -922,7 +1077,7 @@ ND
   endchar
   }ND
 
-/bardouble {
+/PMWbardouble {
   0 760 hsbw
   0 30 vstem
   170 30 vstem
@@ -931,7 +1086,7 @@ ND
   endchar
   }ND
 
-/barshort {
+/PMWbarshort {
   0 600 hsbw
   0 80 vstem
   80 hmoveto
@@ -942,14 +1097,14 @@ ND
   endchar
   }ND
 
-/barsingle {
+/PMWbarsingle {
   0 600 hsbw
   0 30 vstem
   0 -15 10 callsubr
   endchar
   }ND
 
-/barthick {
+/PMWbarthick {
   0 760 hsbw
   0 200 vstem
   0 -15 rmoveto
@@ -960,7 +1115,7 @@ ND
   endchar
   }ND
 
-/bassclef {
+/PMWbassclef {
   0 1500 hsbw
   1290 1390 9 callsubr
   0 -400 9 callsubr
@@ -980,7 +1135,7 @@ ND
   endchar
   }ND
 
-/bfermata {
+/PMWbfermata {
   0 0 hsbw
   -150 600 rmoveto
   -390 250 -210 250 vhcurveto
@@ -996,7 +1151,7 @@ ND
   endchar
   }ND
 
-/bhcirc {
+/PMWbhcirc {
   0 0 hsbw
   -20 50 hstem
   770 50 hstem
@@ -1012,7 +1167,7 @@ ND
   endchar
   }ND
 
-/brabot {
+/PMWbrabot {
   0 0 hsbw
   0 200 vstem
   0 hmoveto
@@ -1024,7 +1179,7 @@ ND
   endchar
   }ND
 
-/bratop {
+/PMWbratop {
   0 0 hsbw
   0 200 vstem
   0 hmoveto
@@ -1036,7 +1191,7 @@ ND
   endchar
   }ND
 
-/breath {
+/PMWbreath {
   0 0 hsbw
   -90 20 hstem
   565 20 vstem
@@ -1058,7 +1213,7 @@ ND
   endchar
   }ND
 
-/brest {
+/PMWbrest {
   0 660 hsbw
   0 hmoveto
   400 hlineto
@@ -1068,7 +1223,7 @@ ND
   endchar
   }ND
 
-/breve {
+/PMWbreve {
   0 1340 hsbw
   0 40 vstem
   140 40 vstem
@@ -1087,7 +1242,7 @@ ND
   endchar
   }ND
 
-/C {
+/PMWC {
   0 1000 hsbw
   560 670 rmoveto
   -60 -50 -50 -60 hvcurveto
@@ -1107,7 +1262,7 @@ ND
   endchar
   }ND
 
-/caesura {
+/PMWcaesura {
   0 1000 hsbw
   0 hmoveto
   16 callsubr
@@ -1116,14 +1271,14 @@ ND
   endchar
   }ND
 
-/caesura1 {
+/PMWcaesura1 {
   0 1000 hsbw
   0 hmoveto
   16 callsubr
   endchar
   }ND
 
-/circ {
+/PMWcirc {
   0 1000 hsbw
   -20 50 hstem
   770 50 hstem
@@ -1142,13 +1297,13 @@ ND
   endchar
   }ND
 
-/cnh {
+/PMWcnh {
   0 840 hsbw
   15 callsubr
   endchar
   }ND
 
-/comma {
+/PMWcomma {
   0 600 hsbw
   300 150 rmoveto
   82 -68 68 -82 vhcurveto
@@ -1162,7 +1317,7 @@ ND
   endchar
   }ND
 
-/crest {
+/PMWcrest {
   0 660 hsbw
   204 -140 rmoveto
   -243 266 269 145 179 -211 rrcurveto
@@ -1180,7 +1335,7 @@ ND
   endchar
   }ND
 
-/cross {
+/PMWcross {
   0 0 hsbw
   195 59 hstem
   325 50 vstem
@@ -1200,7 +1355,7 @@ ND
   endchar
   }ND
 
-/cut {
+/PMWcut {
   0 1000 hsbw
   402 26 vstem
   560 670 rmoveto
@@ -1233,7 +1388,7 @@ ND
   endchar
   }ND
 
-/cutcirc {
+/PMWcutcirc {
   0 1000 hsbw
   607 26 vstem
   25 callsubr
@@ -1260,7 +1415,7 @@ ND
   endchar
   }ND
 
-/dacc {
+/PMWdacc {
   0 0 hsbw
   -92 -539 rmoveto
   494 -497 rlineto
@@ -1270,14 +1425,14 @@ ND
   endchar
   }ND
 
-/dcrotchet {
+/PMWdcrotchet {
   0 840 hsbw
   17 callsubr
   closepath
   endchar
   }ND
 
-/dimordent {
+/PMWdimordent {
   0 0 hsbw
   22 callsubr
   127 250 rlineto
@@ -1290,7 +1445,7 @@ ND
   endchar
   }ND
 
-/dimsh {
+/PMWdimsh {
   25 675 hsbw
   600 300 rmoveto
   165 -135 135 -165 vhcurveto
@@ -1307,7 +1462,7 @@ ND
   endchar
   }ND
 
-/direct {
+/PMWdirect {
   0 1000 hsbw
   990 612 rmoveto
   -88 172 -136 -56 -104 -212 rrcurveto
@@ -1326,7 +1481,7 @@ ND
   endchar
   }ND
 
-/dminim {
+/PMWdminim {
   0 840 hsbw
   14 callsubr
   17 callsubr
@@ -1334,7 +1489,7 @@ ND
   endchar
   }ND
 
-/dmordent {
+/PMWdmordent {
   0 0 hsbw
   625 40 hstem
   22 callsubr
@@ -1346,7 +1501,7 @@ ND
   endchar
   }ND
 
-/doublesharp {
+/PMWdoublesharp {
   0 600 hsbw
   270 200 rmoveto
   97 97 rlineto
@@ -1380,7 +1535,7 @@ ND
   endchar
   }ND
 
-/down {
+/PMWdown {
   0 0 hsbw
   -15 -13 rmoveto
   386 -460 rlineto
@@ -1393,7 +1548,7 @@ ND
   endchar
   }ND
 
-/downa {
+/PMWdowna {
   0 0 hsbw
   105 40 vstem
   505 40 vstem
@@ -1410,7 +1565,7 @@ ND
   endchar
   }ND
 
-/downb {
+/PMWdownb {
   0 0 hsbw
   105 40 vstem
   505 40 vstem
@@ -1427,7 +1582,7 @@ ND
   endchar
   }ND
 
-/dqtail {
+/PMWdqtail {
   0 0 hsbw
   515 20 vstem
   89 -1198 rmoveto
@@ -1439,7 +1594,7 @@ ND
   endchar
   }ND
 
-/dquaver {
+/PMWdquaver {
   0 840 hsbw
   460 40 vstem
   17 callsubr
@@ -1451,7 +1606,7 @@ ND
   endchar
   }ND
 
-/ds1 {
+/PMWds1 {
   0 1500 hsbw
   150 160 vstem
   530 60 vstem
@@ -1501,7 +1656,7 @@ ND
   endchar
   }ND
 
-/ds2 {
+/PMWds2 {
   0 1500 hsbw
   566 611 rmoveto
   -108 72 -69 33 -45 72 rrcurveto
@@ -1542,7 +1697,7 @@ ND
   endchar
   }ND
 
-/dsquaver {
+/PMWdsquaver {
   0 840 hsbw
   500 40 vstem
   17 callsubr
@@ -1560,7 +1715,7 @@ ND
   endchar
   }ND
 
-/dsqtail {
+/PMWdsqtail {
   0 0 hsbw
   484 -357 rmoveto
   0 -41 rlineto
@@ -1573,7 +1728,7 @@ ND
   endchar
   }ND
 
-/dstem {
+/PMWdstem {
   0 0 hsbw
   75 40 vstem
   87 150 rmoveto
@@ -1586,7 +1741,7 @@ ND
   endchar
   }ND
 
-/dvtilde {
+/PMWdvtilde {
   0 0 0 400 sbw
   -473 191 rmoveto
   -70 hlineto
@@ -1603,7 +1758,7 @@ ND
   endchar
   }ND
 
-/fdstem {
+/PMWfdstem {
   0 0 hsbw
   75 40 hstem
   115 hmoveto
@@ -1611,7 +1766,7 @@ ND
   endchar
   }ND
 
-/five {
+/PMWfive {
   0 550 hsbw
   582 80 hstem
   401 50 vstem
@@ -1636,7 +1791,7 @@ ND
   endchar
   }ND
 
-/fustem {
+/PMWfustem {
   0 0 hsbw
   585 40 vstem
   625 200 rmoveto
@@ -1644,7 +1799,7 @@ ND
   endchar
   }ND
 
-/flat {
+/PMWflat {
   0 500 hsbw
   0 50 vstem
   50 308 rmoveto
@@ -1662,7 +1817,7 @@ ND
   endchar
   }ND
 
-/four {
+/PMWfour {
   0 760 hsbw
   302 72 vstem
   475 64 vstem
@@ -1696,7 +1851,7 @@ ND
   endchar
   }ND
 
-/gcross {
+/PMWgcross {
   0 550 hsbw
   505 20 hstem
   275 20 hstem
@@ -1717,13 +1872,13 @@ ND
   endchar
   }ND
 
-/gdot {
+/PMWgdot {
   0 550 hsbw
   500 400 9 callsubr
   endchar
   }ND
 
-/grid {
+/PMWgrid {
   0 0 hsbw
   490 20 vstem
   1040 20 vstem
@@ -1763,7 +1918,7 @@ ND
   endchar
   }ND
 
-/gring {
+/PMWgring {
   0 550 hsbw
   375 10 vstem
   615 10 vstem
@@ -1773,7 +1928,7 @@ ND
   endchar
   }ND
 
-/halfflat1 {
+/PMWhalfflat1 {
   -138 500 hsbw
   148 40 vstem
   588 vmoveto
@@ -1796,7 +1951,7 @@ ND
   endchar
   } ND
 
-/halfflat2 {
+/PMWhalfflat2 {
   -1 500 hsbw
   305 40 vstem
   305 308 rmoveto
@@ -1814,7 +1969,7 @@ ND
   endchar
   } ND
 
-/halfsharp1 {
+/PMWhalfsharp1 {
   59 424 hsbw
   98 40 vstem
   98 -414 rmoveto
@@ -1854,7 +2009,7 @@ ND
   endchar
   } ND
 
-/halfsharp2 {
+/PMWhalfsharp2 {
   -8 600 hsbw
   98 40 vstem
   298 40 vstem
@@ -1885,7 +2040,7 @@ ND
   endchar
   } ND
 
-/hbar {
+/PMWhbar {
   0 0 hsbw
   570 60 hstem
   100 570 rmoveto
@@ -1896,7 +2051,7 @@ ND
   endchar
   }ND
 
-/hclef {
+/PMWhclef {
   0 1500 hsbw
   500 200 vstem
   900 200 vstem
@@ -1907,7 +2062,7 @@ ND
   endchar
   }ND
 
-/hcnh {
+/PMWhcnh {
   0 840 hsbw
   350 400 rmoveto
   -260 -200 rlineto
@@ -1917,7 +2072,7 @@ ND
   endchar
   }ND
 
-/hdimsh {
+/PMWhdimsh {
   25 675 hsbw
   600 300 rmoveto
   0 75 -27 68 -47 54 rrcurveto
@@ -1950,7 +2105,7 @@ ND
   endchar
   }ND
 
-/hmnh {
+/PMWhmnh {
   0 840 hsbw
   350 425 rmoveto
   -265 -225 rlineto
@@ -1965,13 +2120,13 @@ ND
   endchar
   }ND
 
-/hdot {
+/PMWhdot {
   0 400 hsbw
   65 200 11 callsubr
   endchar
   }ND
 
-/iC {
+/PMWiC {
   0 1000 hsbw
   160 670 rmoveto
   -18 0 0 -2 -25 -7 rrcurveto
@@ -1991,7 +2146,7 @@ ND
   endchar
   }ND
 
-/icomma {
+/PMWicomma {
   0 600 hsbw
   0 150 rmoveto
   -82 68 -68 82 vhcurveto
@@ -2005,7 +2160,7 @@ ND
   endchar
   }ND
 
-/icut {
+/PMWicut {
   0 1000 hsbw
   302 26 vstem
   167 670 rmoveto
@@ -2037,7 +2192,7 @@ ND
   endchar
   }ND
 
-/imordent {
+/PMWimordent {
   0 0 hsbw
   22 callsubr
   127 250 rlineto
@@ -2046,7 +2201,7 @@ ND
   endchar
   }ND
 
-/iturn {
+/PMWiturn {
   0 0 hsbw
   375 50 hstem
   400 200 rmoveto
@@ -2080,7 +2235,7 @@ ND
   endchar
   }ND
 
-/irturn {
+/PMWirturn {
   0 0 hsbw
   375 50 hstem
   400 200 rmoveto
@@ -2114,7 +2269,7 @@ ND
   endchar
   }ND
 
-/lcaesura {
+/PMWlcaesura {
   0 600 hsbw
   5 30 vstem
   0 30 hstem
@@ -2127,7 +2282,7 @@ ND
   endchar
   }ND
 
-/ledger {
+/PMWledger {
   0 0 hsbw
   185 30 hstem
   -70 185 rmoveto
@@ -2138,7 +2293,7 @@ ND
   endchar
   }ND
 
-/ledger2 {
+/PMWledger2 {
   0 0 hsbw
   175 50 hstem
   -70 175 rmoveto
@@ -2149,7 +2304,7 @@ ND
   endchar
   }ND
 
-/little8 {
+/PMWlittle8 {
   0 0 hsbw
   165 296 rmoveto
   161 -122 -91 -152 -86 0 rrcurveto
@@ -2168,7 +2323,7 @@ ND
   endchar
   }ND
 
-/longrest {
+/PMWlongrest {
   0 3500 hsbw
   0 40 vstem
   2960 40 vstem
@@ -2189,7 +2344,7 @@ ND
   endchar
   }ND
 
-/major {
+/PMWmajor {
   0 750 hsbw
   0 40 hstem
   0 hmoveto
@@ -2203,7 +2358,7 @@ ND
   endchar
   }ND
 
-/mnh {
+/PMWmnh {
   0 840 hsbw
   589 27 vstem
   84 29 vstem
@@ -2212,7 +2367,7 @@ ND
   endchar
   }ND
 
-/mordent {
+/PMWmordent {
   0 0 hsbw
   350 40 hstem
   22 callsubr
@@ -2221,14 +2376,14 @@ ND
   endchar
   }ND
 
-/mrest {
+/PMWmrest {
   0 660 hsbw
   0 200 hstem
   0 8 callsubr
   endchar
   }ND
 
-/nail {
+/PMWnail {
   0 0 hsbw
   555 40 hstem
   18 447 rmoveto
@@ -2245,7 +2400,7 @@ ND
   endchar
   }ND
 
-/natural {
+/PMWnatural {
   0 450 hsbw
   0 40 vstem
   280 40 vstem
@@ -2268,7 +2423,7 @@ ND
   endchar
   }ND
 
-/oldaltoclef {
+/PMWoldaltoclef {
   0 1500 hsbw
   201 168 vstem
   445 50 vstem
@@ -2306,7 +2461,7 @@ ND
   endchar
   }ND
 
-/oldbassclef {
+/PMWoldbassclef {
   0 1500 hsbw
   1269 1048 rmoveto
   -33 35 -54 0 -33 -35 rrcurveto
@@ -2340,7 +2495,7 @@ ND
   endchar
   }ND
 
-/ped {
+/PMWped {
   0 1400 hsbw
 
   286 744 rmoveto
@@ -2389,7 +2544,7 @@ ND
   endchar
   }ND
 
-/qrest {
+/PMWqrest {
   0 590 hsbw
   600 vmoveto
   0 -62 19 -33 25 -20 rrcurveto
@@ -2405,7 +2560,7 @@ ND
   endchar
   }ND
 
-/rbra {
+/PMWrbra {
   0 350 hsbw
   250 750 rmoveto
   -300 -550 0 0 300 -550 rrcurveto
@@ -2414,7 +2569,7 @@ ND
   endchar
   }ND
 
-/rcnh {
+/PMWrcnh {
   0 840 hsbw
   600 200 rmoveto
   110 -90 90 -110 vhcurveto
@@ -2425,7 +2580,7 @@ ND
   endchar
   }ND
 
-/rmnh {
+/PMWrmnh {
   0 840 hsbw
   600 200 rmoveto
   110 -90 90 -110 vhcurveto
@@ -2442,7 +2597,7 @@ ND
   endchar
   }ND
 
-/rep {
+/PMWrep {
   0 500 hsbw
   0 hmoveto
   250 hlineto
@@ -2452,21 +2607,21 @@ ND
   endchar
   }ND
 
-/repdots {
+/PMWrepdots {
   0 0 hsbw
   50 650 9 callsubr
   700 -500 9 callsubr
   endchar
   }ND
 
-/repeatdots {
+/PMWrepeatdots {
   0 600 hsbw
   65 200 11 callsubr
   0 400 11 callsubr
   endchar
   }ND
 
-/rket {
+/PMWrket {
   0 350 hsbw
   -80 750 rmoveto
   200 -550 0 0 -200 -550 rrcurveto
@@ -2475,7 +2630,7 @@ ND
   endchar
   }ND
 
-/rturn {
+/PMWrturn {
   0 0 hsbw
   400 200 rmoveto
   60 180 rmoveto
@@ -2501,14 +2656,14 @@ ND
   endchar
   }ND
 
-/semibreve {
+/PMWsemibreve {
   0 840 hsbw
   50 200 rmoveto
   12 callsubr
   endchar
   }ND
 
-/sbra {
+/PMWsbra {
   0 350 hsbw
   0 80 vstem
   -350 40 hstem
@@ -2525,14 +2680,14 @@ ND
   endchar
   }ND
 
-/sbrest {
+/PMWsbrest {
   0 660 hsbw
   200 200 hstem
   200 8 callsubr
   endchar
   }ND
 
-/scaesura {
+/PMWscaesura {
   0 600 hsbw
   5 30 vstem
   170 30 hstem
@@ -2545,7 +2700,7 @@ ND
   endchar
   }ND
 
-/sket {
+/PMWsket {
   0 350 hsbw
   90 80 vstem
   -350 40 hstem
@@ -2562,7 +2717,7 @@ ND
   endchar
   }ND
 
-/seven {
+/PMWseven {
   0 550 hsbw
   605 71 hstem
   259 -12 rmoveto
@@ -2586,7 +2741,7 @@ ND
   endchar
   }ND
 
-/sharp {
+/PMWsharp {
   0 600 hsbw
   90 40 vstem
   290 40 vstem
@@ -2627,7 +2782,7 @@ ND
   endchar
   }ND
 
-/six {
+/PMWsix {
   0 500 hsbw
   139 319 rmoveto
   20 82 124 -15 50 -39 rrcurveto
@@ -2656,7 +2811,7 @@ ND
   endchar
   }ND
 
-/slur1 {
+/PMWslur1 {
   0 0 hsbw
   300 -255 rmoveto
   280 -495 280 0 280 495 rrcurveto
@@ -2666,7 +2821,7 @@ ND
   endchar
   }ND
 
-/slur2 {
+/PMWslur2 {
   0 0 hsbw
   300 -255 rmoveto
   420 -495 400 0 420 495 rrcurveto
@@ -2676,7 +2831,7 @@ ND
   endchar
   }ND
 
-/srbra {
+/PMWsrbra {
   0 350 hsbw
   252 642 rmoveto
   -240 -226 -8 -154 248 -262 rrcurveto
@@ -2686,7 +2841,7 @@ ND
   endchar
   }ND
 
-/srket {
+/PMWsrket {
   0 350 hsbw
   -96 642 rmoveto
   144 -278 -2 -46 -136 -318 rrcurveto
@@ -2696,7 +2851,7 @@ ND
   endchar
   }ND
 
-/star {
+/PMWstar {
   0 1000 hsbw
   % Innercircle
   404 360 rmoveto
@@ -2806,7 +2961,7 @@ ND
   endchar
   }ND
 
-/tfermata {
+/PMWtfermata {
   0 0 hsbw
   -150 -100 rmoveto
   100 350 150 115 250 0 rrcurveto
@@ -2823,7 +2978,7 @@ ND
   endchar
   }ND
 
-/thcirc {
+/PMWthcirc {
   0 0 hsbw
   -20 50 hstem
   770 50 hstem
@@ -2839,7 +2994,7 @@ ND
   endchar
   }ND
 
-/thumba {
+/PMWthumba {
   0 0 hsbw
   500 30 vstem
   170 30 vstem
@@ -2858,7 +3013,7 @@ ND
   endchar
   }ND
 
-/thumbb {
+/PMWthumbb {
   0 0 hsbw
   500 30 vstem
   170 30 vstem
@@ -2877,7 +3032,7 @@ ND
   endchar
   }ND
 
-/tick {
+/PMWtick {
   0 600 hsbw
   30 340 rmoveto
   34 34 rlineto
@@ -2891,7 +3046,7 @@ ND
   endchar
   }ND
 
-/tilde {
+/PMWtilde {
   0 400 hsbw
   380 188 rmoveto
   50 -43 0 0 50 43 rrcurveto
@@ -2910,7 +3065,7 @@ ND
   endchar
   }ND
 
-/trebleclef {
+/PMWtrebleclef {
   0 1500 hsbw
   140 780 rmoveto
   -37 -133 -9 -109 42 -133 rrcurveto
@@ -2969,7 +3124,7 @@ ND
   endchar
   }ND
 
-/trem {
+/PMWtrem {
   0 0 0 400 sbw
   100 20 vstem
   580 20 vstem
@@ -2981,7 +3136,7 @@ ND
   endchar
   }ND
 
-/trill {
+/PMWtrill {
   0 800 hsbw
   529 501 rmoveto
   -68 40 -88 -36 -100 -4 rrcurveto
@@ -3022,7 +3177,7 @@ ND
   endchar
   }ND
 
-/turn {
+/PMWturn {
   0 0 hsbw
   400 200 rmoveto
   60 -180 rmoveto
@@ -3048,7 +3203,7 @@ ND
   endchar
   }ND
 
-/uacc {
+/PMWuacc {
   0 0 hsbw
   372 726 rmoveto
   654 475 rlineto
@@ -3058,14 +3213,14 @@ ND
   endchar
   }ND
 
-/ucrotchet {
+/PMWucrotchet {
   0 840 hsbw
   18 callsubr
   closepath
   endchar
   }ND
 
-/uminim {
+/PMWuminim {
   0 840 hsbw
   589 27 vstem
   84 29 vstem
@@ -3075,7 +3230,7 @@ ND
   endchar
   }ND
 
-/unibreve {
+/PMWunibreve {
   0 1580 hsbw
   0 40 vstem
   140 40 vstem
@@ -3113,7 +3268,7 @@ ND
   endchar
   }ND
 
-/up {
+/PMWup {
   0 0 hsbw
   15 -13 rmoveto
   386 460 rlineto
@@ -3126,7 +3281,7 @@ ND
   endchar
   }ND
 
-/upa {
+/PMWupa {
   0 0 hsbw
   181 596 rmoveto
   168 -649 rlineto
@@ -3138,7 +3293,7 @@ ND
   endchar
   }ND
 
-/upb {
+/PMWupb {
   0 0 hsbw
   219 -206 rmoveto
   132 508 rlineto
@@ -3150,7 +3305,7 @@ ND
   endchar
   }ND
 
-/uqtail {
+/PMWuqtail {
   0 0 hsbw
   800 420 rmoveto
   -32 vlineto
@@ -3162,7 +3317,7 @@ ND
   endchar
   }ND
 
-/uquaver {
+/PMWuquaver {
   0 1200 hsbw
   910 70 vstem
   18 callsubr
@@ -3175,7 +3330,7 @@ ND
   endchar
   }ND
 
-/usquaver {
+/PMWusquaver {
   0 1200 hsbw
   950 40 vstem
   18 callsubr
@@ -3192,7 +3347,7 @@ ND
   endchar
   }ND
 
-/usqtail {
+/PMWusqtail {
   0 0 hsbw
   950 40 vstem
   900 820 rmoveto
@@ -3205,7 +3360,7 @@ ND
   endchar
   }ND
 
-/ustem {
+/PMWustem {
   0 0 hsbw
   585 40 vstem
   613 250 rmoveto
@@ -3218,7 +3373,7 @@ ND
   endchar
   }ND
 
-/uvtilde {
+/PMWuvtilde {
   0 0 0 400 sbw
   -106 295 rmoveto
   70 hlineto
@@ -3235,13 +3390,13 @@ ND
   endchar
   }ND
 
-/vdot {
+/PMWvdot {
   0 0 hsbw
   350 600 11 callsubr
   endchar
   }ND
 
-/vring {
+/PMWvring {
   0 0 hsbw
   225 10 vstem
   465 10 vstem
@@ -3251,7 +3406,7 @@ ND
   endchar
   }ND
 
-/vtilde {
+/PMWvtilde {
   0 0 0 400 sbw
   -190 280 rmoveto
   43 50 0 0 -43 50 rrcurveto
@@ -3270,7 +3425,7 @@ ND
   endchar
   }ND
 
-/xnh {
+/PMWxnh {
   0 840 hsbw
   76 382 rmoveto
   236 -182 rlineto
@@ -3288,7 +3443,7 @@ ND
   endchar
   }ND
 
-/xdstem {
+/PMWxdstem {
   0 0 hsbw
   75 40 hstem
   115 -1200 rmoveto
@@ -3296,7 +3451,7 @@ ND
   endchar
   }ND
 
-/xustem {
+/PMWxustem {
   0 0 hsbw
   585 40 vstem
   625 380 rmoveto

@@ -2,6 +2,16 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
+Version 5.2x xx-xx-2024
+-----------------------
+
+1. Revised the PMW-Music font to make it easier to generate the OTF version 
+(and possibly work only on that in the future). The names of all the characters 
+in the font are now prefixed with "PMW", and some minor reorganization has 
+happened. One dictionary's size was too small, but this never caused any 
+problems. Re-generated the PFA and OTF versions of the font.
+
+
 Version 5.22 21-December-2023
 -----------------------------
 

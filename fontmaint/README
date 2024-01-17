@@ -3,14 +3,13 @@ The PMW-Music Font: history and maintenance notes
 
 Files in this directory:
 
-GOADB          data used in conversion to OpenType (see below)
 PMW-Music-T3   the original PostScript Type 3 font
 PMW-Music.otf  the OpenType font
 PMW-Music.pfa  the PostScript Type 1 font
 PMW-Music.raw  the input to t1asm to make the .pfa font
-PMW-Music.ttx  the edited ttx file for correcting the OTF encoding
+PMW-Music.ttx  the ttx file made from the OTF font
 README         this file
-Run            a short script for running the Show... tests
+Run            a short script for running the Show... tests with the .pfa font
 ShowMusic      a PostScript program to demonstrate the font
 ShowOne        a PostScript program for looking at individual characters
 
@@ -21,16 +20,16 @@ for why).
 History of the font
 ===================
 
-In the late 1980s, the earliest implementation of PMW-Music was as a PostScript
+In the late 1980s, the first implementation of PMW-Music was as a PostScript
 Type 3 font, because at that time Adobe was keeping its Type 1 font format
 secret by encrypting such fonts. In 2003 I was able to re-implement the font as
 a PostScript Type 1 font, using the now public specification as implemented by
 the t1asm/t1disasm commands. This greatly improved the appearance of the
 characters. Nearly 20 years passed...
 
-In 2022 I learned that Adobe are to discontinue support for Type 1 fonts in
-January 2023. This, of course, doesn't stop anybody else from continuing to use
-them, and in particular, I assume (hope) that GhostScript will continue to
+In 2022 I learned that Adobe were going to discontinue support for Type 1 fonts
+in January 2023. This, of course, doesn't stop anybody else from continuing to
+use them, and in particular, I assume (hope) that GhostScript will continue to
 work. However, it seemed prudent to investigate alternatives.
 
 Adobe's policy of secrecy forced others to create their own font formats. In
@@ -43,11 +42,12 @@ For PMW-Music there is one major shortcoming of OpenType. In the PostScript
 fonts, each character can have both horizontal and vertical movement associated
 with it, and these values can be positive or negative. After a character has
 been rendered, the current position can be made to move in any direction,
-including backwards. I made use of this by creating a number of characters
-that do no drawing, but which move in various ways. These can be used in
-character strings to make composite shapes by positioning other characters
-appropriately. There are also some "vertical tilde" characters that move
-upwards so that several of the in succession create a vertical squiggle.
+including backwards. I made use of this by creating a number of characters that
+do no drawing, but which move in various ways. These can be used in character
+strings to make composite shapes by positioning other characters appropriately.
+There are also some vertical tilde characters that move upwards so that
+several of them in succession create a vertical squiggle, and a tremolo
+character that moves upwards for successive tremolo bars.
 
 OpenType fonts do not support such usage. Indeed, the conversion program that I
 used (see below) warned that it was setting leftwards movements to zero, and it
@@ -55,13 +55,14 @@ ignored vertical movements altogether. It seems that OpenType fonts can either
 have horizontal or vertical movements, but not both, and in the same direction
 for all characters.
 
-Changing the characteristics of the music font would seriously break PMW, not
-to mention backwards compatibility with existing input files. However, this
-issue can be overcome fairly easily. I modified the code of PMW so that it no
-longer outputs "movement only" characters in the music font, but emulates their
-action instead. It also handles the "vertical tilde" character specially. This
-means that PMW can now work with either the PostScript (.pfa) font or the
-OpenType (.otf) font.
+Changing the characteristics of the music font would seriously break the
+expected behaviour of PMW, not to mention backwards compatibility with existing
+input files. I therefore modified the code of PMW so that it no longer outputs
+movement-only characters in the music font, but instead emulates their action
+by splitting the string and outputting it in multiple parts at appropriate
+postitions. The vertical tilde and tremolo characters are also handled
+specially. This means that PMW can now work with either the PostScript (.pfa)
+font or the OpenType (.otf) font.
 
 If the OpenType font is used by any other program, the special moving
 characters do not work. This required some minor adjustments to the PMW
@@ -85,14 +86,15 @@ When adding characters to the font, remember to update the AFM file that is in
 What I did to make an OpenType Font
 ===================================
 
-Adobe provide a number of font maintenance tools which are Python programs.
+Adobe provide a number of font maintenance tools that are Python programs.
 
 1. The package is a Python thing that has to be installed using "pipx" (itself
-installed by "pacman -S python-pipx"). Then "pipx install afdko" installs stuff
-in ~/.local. The acronym stands for "Adobe Font Development Kit for OpenType".
+installed in Arch Linux by "pacman -S python-pipx"). Then "pipx install afdko"
+installs stuff in ~/.local. The acronym stands for "Adobe Font Development Kit
+for OpenType".
 
-2. I created a file called GOADB (Glyph Order and Alias DataBase) containing
-   lines like these:
+2. For the first attempt I created a file called GOADB (Glyph Order and Alias
+   DataBase) containing lines like these:
 
      PMWtrebleclef   trebleclef    uni0021
      PMWbassclef     bassclef      uni0022
@@ -103,61 +105,56 @@ in ~/.local. The acronym stands for "Adobe Font Development Kit for OpenType".
    slot number within the new font. I decided to change all the names because
    some of the originals (for example, "comma") are the same as "standard"
    glyph names, and were causing confusion. The unsupported movement-only
-   characters are commented out, causing them to be omitted from the
+   characters were commented out, causing them to be omitted from the
    conversion.
 
-3. The following command does the conversion:
+   HOWEVER: this lead to an OTF font that had the wrong encoding, and altnough
+   this could be patched up, it was not ideal. So:
 
-   PATH=~/.local/bin:$PATH ~/.local/bin/makeotf -r -gs -f PMW-Music.pfa -gf GOADB
+3. Instead of using GOADB, I renamed all the characters in the original font
+   (in the .raw file) by adding "PMW" at the start of each name, and turning sp
+   into PMWspace. This solved the encoding issue.
 
-   There are a lot of warning messages. -r makes a "release" as opposed to a
-   "development" version. It seemed to do some additional tidying. -gs omits
-   any glyphs not in GOADB. This created PMW-Music.otf. However, when tested in
-   a PostScript program, the encoding was incorrect.
+4. The following command does the conversion:
 
-4. The encoding can be fixed by making use of the ttx tool that is part of the
-Adobe package.
+   PATH=~/.local/bin:$PATH ~/.local/bin/makeotf -r -f PMW-Music.pfa
 
-5. Decode the OpenType into an XML file using the command:
+   There are a lot of warning messages. The -r option makes a "release" as
+   opposed to a "development" version. It seemed to do some additional tidying.
+   This command creates PMW-Music.otf.
 
-   /home/ph10/.local/pipx/venvs/afdko/bin/ttx PMW-Music.otf
+5. The encoding can be double-checked by making use of the ttx tool that is
+   part of the Adobe package. Decode the OpenType font into an XML file using
+   the command:
 
-6. Edit the XML file, changing the line
+   ~/.local/pipx/venvs/afdko/bin/ttx PMW-Music.otf
 
-     <Encoding name="Standardencoding"/>
-
-   to
-
-     <Encoding>
-       <map code="0x00" name=".notdef"/>
-       <map code="0x20" name="PMWspace"/>
-       ...etc
-     </Encoding>
-
-   The lines are copied from one of the "cmap" entries further up in the XML
-   file. I don't know why the cmap data is not being used.
-
-7. Turn the XML back into an OpenType font using ttx as above on the .ttx file.
-   Note that it won't overwrite an existing file; it adds #1 to the name, so
-   delete the original file first.
+   The XML (.ttx) file can be inspected. In principle this could also be edited
+   to add new characters directly to the OTF font. If ttx is called for a .ttx
+   file, it makes an .otf file. Note that it won't overwrite an existing file;
+   it adds #1 to the name, so delete or rename the original file first.
 
                      ******* WARNING *******
 
 If the OpenType file is loaded into FontForge and then recreated, the encoding
-gets reset to StandardEncoding, which is a pain.
+gets reset to StandardEncoding, which is a pain. This suggests that using
+FontForge to maintain the font is not reasonable, because the encoding would
+have to be patched up (by editing the ttx file) each time.
 
-If both a .pfa and a .otf version of the same font exist, GhostScript prefers
-the .otf version at present, at least if they are in the same directory.
+If both a Type 1 and an OpenType version of the same font exist, GhostScript
+sometimes prefers one and sometimes the other. If they are both in the same
+directory, my guess is that it uses the one with the higher inode number.
 
 
 Testing
 =======
 
-"Run ShowOne" rebuilds the PFA file from raw and then uses it on the ShowOne
+"Run ShowOne" rebuilds the Type 1 file from raw and then uses it on the ShowOne
 test file. "Run ShowMusic" rebuilds and runs the ShowMusic test file.
 
-To test the OTF file, isolate it in a directory on its own, then set
-GS_FONTPATH to that directory when running gv on ShowOne, ShowMusic, or a PMW
-output file.
+To test the OTF file, set GS_FONTPATH to its directory when running gv on
+ShowOne, ShowMusic, or a PMW output file. If you use gs instead of gv, it
+outputs details of font loading, so you can check that it is loading the
+.otf rather than the .pfa file.
 
-15 December 2023
+17 January 2024
