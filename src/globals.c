@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: July 2023 */
+/* This file last modified: December 2024 */
 
 #include "pmw.h"
 
@@ -298,7 +298,12 @@ uint32_t     read_absnotespacing[NOTETYPE_COUNT] =
 int8_t      *read_baraccs;
 int8_t      *read_baraccs_tp;
 b_notestr  **read_beamstack;
-uint32_t     read_c = 0;
+
+/* It is important that read_c be a signed integer rather than unsigned,
+because otherwise the EOF value (0xFFFFFFFF) is not treated as -1 and in some
+environments functions like isspace() crash. */
+
+int32_t      read_c = 0;
 FILE        *read_filehandle = NULL;
 uschar      *read_filename = NULL;
 filestackstr read_filestack[MAX_INCLUDE];

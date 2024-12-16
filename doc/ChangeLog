@@ -11,6 +11,11 @@ in the font are now prefixed with "PMW", and some minor reorganization has
 happened. One dictionary's size was too small, but this never caused any 
 problems. Re-generated the PFA and OTF versions of the font.
 
+2. @prlw1 encountered a crash on a BSD system. It turns out that passing 
+0xFFFFFFFF (the EOF value) as an unsigned integer to isspace() etc caused this. 
+Changing the "current character" integer variable read_c to be signed should 
+solve this.
+
 
 Version 5.22 21-December-2023
 -----------------------------

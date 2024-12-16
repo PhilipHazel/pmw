@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: December 2020 */
-/* This file last modified: July 2023 */
+/* This file last modified: December 2024 */
 
 
 /*************************************************
@@ -344,7 +344,7 @@ extern uint32_t     read_absnotespacing[];
 extern int8_t      *read_baraccs;
 extern int8_t      *read_baraccs_tp;
 extern b_notestr  **read_beamstack;
-extern uint32_t     read_c;
+extern int32_t      read_c;  /* This must be signed */
 extern FILE        *read_filehandle;
 extern uschar      *read_filename;
 extern filestackstr read_filestack[];
