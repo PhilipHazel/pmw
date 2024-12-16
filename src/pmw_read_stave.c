@@ -2,9 +2,9 @@
 *        PMW native stave reading functions      *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2024 */
 /* This file created: December 2020 */
-/* This file last modified: May 2022 */
+/* This file last modified: December 2024 */
 
 #include "pmw.h"
 
@@ -90,7 +90,11 @@ for (;;)
     if (read_do_stavedirective())   /* Check for ] after [endstave */
       {
       read_sigc();
-      if (read_c != ']') error_skip(ERR8, ']');
+      if (read_c != ']') 
+        {
+        error(ERR8, "]");
+        if (read_c != ENDFILE) read_i--;  /* Back up to re-read */ 
+        } 
       return TRUE;
       }
     }

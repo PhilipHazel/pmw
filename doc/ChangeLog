@@ -16,6 +16,9 @@ problems. Re-generated the PFA and OTF versions of the font.
 Changing the "current character" integer variable read_c to be signed should 
 solve this.
 
+3. The error message given if the closing ] was missing after [endstave was 
+incorrect, and the next character was ignored, leading to confusion.
+
 
 Version 5.22 21-December-2023
 -----------------------------
