@@ -61,7 +61,7 @@ aa
 
 3. >()<
 4. >aa<
-** Error: after &* unsigned number followed by "(" expected
+** Error: after &* an unsigned number followed by "(" is expected
    Detected near line 36 of preproctests/errors
 *comment 5. &z(&*(a))
 ------------>

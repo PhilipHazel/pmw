@@ -19,6 +19,19 @@ solve this.
 3. The error message given if the closing ] was missing after [endstave was 
 incorrect, and the next character was ignored, leading to confusion.
 
+4. Fixed a number of issues raised by Stanislav Paskalev as a result of 
+fuzzing:
+
+  (a) Invalid repetition syntax such as &*8**** (missing parens after &*8) 
+      could cause a segfault.
+      
+  (b) Outputting the error when a binary zero is encountered could read 
+      uninitialised memory or could loop forever. 
+      
+  (c) Certain errors, if detected after the end of file had been reached, could
+      cause a segfault by trying to read from a closed file handle.
+ 
+
 
 Version 5.22 21-December-2023
 -----------------------------

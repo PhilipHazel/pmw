@@ -2,9 +2,9 @@
 *        PMW native input reading functions      *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
-/* This file created: December 2020 */
-/* This file last modified: April 2022 */
+/* Copyright Philip Hazel 2024 */
+/* This file created: December 2024 */
+/* This file last modified: December 2024 */
 
 /* This file contains the top-level function and character handling functions
 that are called from the modules that read headings and staves. */
@@ -784,14 +784,17 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
       }
     }
 
-  /* Set up for a replication call */
+  /* Set up for a replication call. Note that it is necessary to check that the
+  call to sscanf() has actually set a value in "len" because if &* is followed
+  by digits but not '(' sscanf() will return 1. */
 
   else if (inbuffer[in] == '*')
     {
-    int len;
-    if (sscanf((char *)(inbuffer + in + 1), "%u(%n", &count, &len) <= 0)
+    int len = -1;
+    if (sscanf((char *)(inbuffer + in + 1), "%u(%n", &count, &len) <= 0 ||
+         len < 0)
       {
-      error(ERR8, "after &* unsigned number followed by \"(\"");
+      error(ERR8, "after &* an unsigned number followed by \"(\" is");
       continue;
       }
     in += len;

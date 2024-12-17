@@ -2,9 +2,9 @@
 *            PMW error message handling          *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2024 */
 /* This file created: December 2020 */
-/* This file last modified: December 2023 */
+/* This file last modified: December 2024 */
 
 #include "pmw.h"
 
@@ -374,32 +374,31 @@ if (main_state == STATE_READ)
 
   (void)fprintf(stderr, "%s", buffer);
 
-  /* Show where in the line, except at end of file. */
-
-  if (read_c != ENDFILE)
-    {
-    for (usint i = 0; i < in - 1; i++) (void)fprintf(stderr, "-");
-    (void)fprintf(stderr, ">\n");
-    }
-
-  /* For certain input errors we skip along the input to one or two designated
+  /* Unless we are at the end of the file, show where in the line we are. Then,
+  for certain input errors we skip along the input to one or two designated
   characters. In all cases, stop at the end of the line. The skip setting
   should never happen while expanding macros, but double-check just in case. */
 
-  if (!macro_expanding && skip != 0)
+  if (read_filehandle != NULL)
     {
-    if (skip == '\n')   /* Can optimize newline (alone) case */
+    for (usint i = 0; i < in - 1; i++) (void)fprintf(stderr, "-");
+    (void)fprintf(stderr, ">\n");
+
+    if (!macro_expanding && skip != 0)
       {
-      read_c = '\n';
-      read_i = main_readlength;
-      }
-    else
-      {
-      uint32_t skip1 = skip & 0xff;
-      uint32_t skip2 = skip >> 8;
-      while (read_c != ENDFILE && read_c != skip1 &&
-             read_c != skip2 && read_c != '\n')
-         read_nextc();
+      if (skip == '\n')   /* Can optimize newline (alone) case */
+        {
+        read_c = '\n';
+        read_i = main_readlength;
+        }
+      else
+        {
+        uint32_t skip1 = skip & 0xff;
+        uint32_t skip2 = skip >> 8;
+        while (read_c != ENDFILE && read_c != skip1 &&
+               read_c != skip2 && read_c != '\n')
+           read_nextc();
+        }
       }
     }
   }

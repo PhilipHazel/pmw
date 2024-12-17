@@ -2,9 +2,9 @@
 *         PMW general reading functions          *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2024 */
 /* This file created: December 2020 */
-/* This file last modified: May 2023 */
+/* This file last modified: December 2024 */
 
 #include "pmw.h"
 
@@ -340,6 +340,9 @@ Returns:   TRUE if line read, FALSE at EOF
 BOOL
 read_physical_line(size_t i)
 {
+BOOL binfound = FALSE;
+size_t binoffset;
+
 if (i == 0 && main_readbuffer[0] != 0 && main_readbuffer[0] != '\n')
   {
   uschar *temp = main_readbuffer_previous;
@@ -353,11 +356,16 @@ for (;;)
   {
   int ch = fgetc(read_filehandle);
 
-  /* Binary zeros are not supported. Give an error and ignore. */
+  /* Binary zeros are not supported. Remember where the first one was. */
 
   if (ch == 0)
     {
-    error(ERR2);
+    if (!binfound)
+      {
+      binoffset = i;
+      if (binoffset == 0) binoffset++; 
+      binfound = TRUE;
+      }
     continue;
     }
 
@@ -384,6 +392,15 @@ for (;;)
     }
 
   main_readbuffer[i++] = ch;
+  }
+
+/* Give an error if any binary zeros were found - can't do earlier as we need
+the complete line for reflection. */
+
+if (binfound)
+  {
+  read_i = binoffset;
+  error(ERR2);
   }
 
 main_readlength = i;
