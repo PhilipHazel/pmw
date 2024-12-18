@@ -265,7 +265,7 @@ typedef uint8_t CBOOL;
 
 /* Miscellaneous definitions. */
 
-#define ENDFILE            0xffffffffu       /* Too large to be a character */
+#define ENDFILE            (-1)
 #define FIXED_UNSET        ((int32_t)(~0u))
 #define KEY_UNSET          0xffffffffu
 #define SIZE_UNSET         ((size_t)(~0uL))

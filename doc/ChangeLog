@@ -30,6 +30,11 @@ fuzzing:
       
   (c) Certain errors, if detected after the end of file had been reached, could
       cause a segfault by trying to read from a closed file handle.
+      
+5. Fix a number of signed/unsigned warnings caused by change 2 above.
+
+6. Updated two test files that had somehow been overlooked when the font was 
+revised back in January 2024. 
  
 
 

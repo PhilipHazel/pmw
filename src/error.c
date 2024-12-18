@@ -393,8 +393,8 @@ if (main_state == STATE_READ)
         }
       else
         {
-        uint32_t skip1 = skip & 0xff;
-        uint32_t skip2 = skip >> 8;
+        int32_t skip1 = skip & 0xff;
+        int32_t skip2 = skip >> 8;
         while (read_c != ENDFILE && read_c != skip1 &&
                read_c != skip2 && read_c != '\n')
            read_nextc();

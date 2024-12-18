@@ -2,9 +2,9 @@
 *        PMW native header reading functions     *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2024 */
 /* This file created: December 2020 */
-/* This file last modified: December 2023 */
+/* This file last modified: December 2024 */
 
 #include "pmw.h"
 
@@ -1181,7 +1181,7 @@ for (i = 0;; i++)
     }
   else
     {
-    uint32_t peek_c = main_readbuffer[read_i];
+    int32_t peek_c = main_readbuffer[read_i];
     ac = (read_c == '#')? ac_sh : ac_fl;
     if (peek_c == read_c)
       {

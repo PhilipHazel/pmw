@@ -83,7 +83,7 @@ static escapedchars esclist[] = {
 #define esclist_size (sizeof(esclist)/sizeof(escapedchars))
 
 typedef struct escaccstr {
-  uint32_t escape;
+  int32_t escape;
   uint32_t unicode;
   }
 escaccstr;
