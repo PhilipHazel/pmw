@@ -5,37 +5,54 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 Version 5.2x xx-xx-2024
 -----------------------
 
-1. Revised the PMW-Music font to make it easier to generate the OTF version 
-(and possibly work only on that in the future). The names of all the characters 
-in the font are now prefixed with "PMW", and some minor reorganization has 
-happened. One dictionary's size was too small, but this never caused any 
+1. Revised the PMW-Music font to make it easier to generate the OTF version
+(and possibly work only on that in the future). The names of all the characters
+in the font are now prefixed with "PMW", and some minor reorganization has
+happened. One dictionary's size was too small, but this never caused any
 problems. Re-generated the PFA and OTF versions of the font.
 
-2. @prlw1 encountered a crash on a BSD system. It turns out that passing 
-0xFFFFFFFF (the EOF value) as an unsigned integer to isspace() etc caused this. 
-Changing the "current character" integer variable read_c to be signed should 
+2. @prlw1 encountered a crash on a BSD system. It turns out that passing
+0xFFFFFFFF (the EOF value) as an unsigned integer to isspace() etc caused this.
+Changing the "current character" integer variable read_c to be signed should
 solve this.
 
-3. The error message given if the closing ] was missing after [endstave was 
+3. The error message given if the closing ] was missing after [endstave was
 incorrect, and the next character was ignored, leading to confusion.
 
-4. Fixed a number of issues raised by Stanislav Paskalev as a result of 
+4. Fixed a number of issues raised by Stanislav Paskalev as a result of
 fuzzing:
 
-  (a) Invalid repetition syntax such as &*8**** (missing parens after &*8) 
+  (a) Invalid repetition syntax such as &*8**** (missing parens after &*8)
       could cause a segfault.
-      
-  (b) Outputting the error when a binary zero is encountered could read 
-      uninitialised memory or could loop forever. 
-      
+
+  (b) Outputting the error when a binary zero is encountered could read
+      uninitialised memory or could loop forever.
+
   (c) Certain errors, if detected after the end of file had been reached, could
       cause a segfault by trying to read from a closed file handle.
-      
+
+  (d) Fixed three memory handling bugs provoked by repetition syntax with
+      extremely long and/or nested arguments.
+
+  (e) Another memory bug if a macro call was missing a closing ) and its
+      argument contained another macro call and the line ended with &&.
+
+  (f) An off-by-one error in managing the macro argument buffer.
+
+  (g) The limit on nested macro arguments was not being correctly enforced,
+      manifesting as a memory leak.
+
+  (h) Put a limit of 1000 on text repetition counts to catch crazies.
+
+  (i) A line that exceeded the maximum length, either originally or when macro
+      expanded, could cause a loop when trying to output the error message. Now
+      the line is truncated.
+
 5. Fix a number of signed/unsigned warnings caused by change 2 above.
 
-6. Updated two test files that had somehow been overlooked when the font was 
-revised back in January 2024. 
- 
+6. Updated two test files that had somehow been overlooked when the font was
+revised back in January 2024.
+
 
 
 Version 5.22 21-December-2023

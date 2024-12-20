@@ -655,7 +655,7 @@ same buffer for this. We use the same extension amount and maximum size in both
 cases.
 
 Arguments:
-  next        macro expansion nest level: negative => expanding an input line
+  nest        macro expansion nest level: negative => expanding an input line
   inptr       points to existing input buffer     ) for an argument, these
   outptr      points to existing output buffer    )   are the same buffer
   outsizeptr  points to current output buffer size
@@ -719,8 +719,6 @@ expand_string(uschar *inbuffer, size_t in, size_t inlen,
   uschar *outbuffer, size_t out, size_t outlen, int nest)
 {
 DEBUG(D_macro) fprintf(stderr, "Macro expand: %s", inbuffer);
-
-if (nest >= MAX_MACRODEPTH) error(ERR22, MAX_MACRODEPTH);  /* Hard */
 
 while (in <= inlen)  /* Include terminating zero to get buffer extension */
   {
@@ -797,6 +795,7 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
       error(ERR8, "after &* an unsigned number followed by \"(\" is");
       continue;
       }
+    if (count > MAX_REPCOUNT) error(ERR180, MAX_REPCOUNT);   /* Hard */   
     in += len;
     mm = &replicate_macro;  /* Pseudo macro for code sharing below */
     }
@@ -838,6 +837,10 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
     uschar *argbuff = main_argbuffer[nestarg];
     size_t args[MAX_MACROARGS];
     size_t ap = 0;   /* Offset in argbuff */
+    
+    /* Safety limit on depth of nested macros */
+    
+    if (nestarg >= MAX_MACRODEPTH) error(ERR22, MAX_MACRODEPTH);  /* Hard */
 
     /* Set up with no arguments */
 
@@ -859,15 +862,21 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
         while ((ch = inbuffer[++in]) != '\n' && ch != 0 &&
               ((ch != ',' && ch != ')') || bracount > 0 || inquotes))
           {
-          if (ap >= main_argbuffer_size[nestarg])
+          if (ap + 1 >= main_argbuffer_size[nestarg])
             {
             extend_expand_buffers(nestarg, &(main_argbuffer[nestarg]),
               &(main_argbuffer[nestarg]), &(main_argbuffer_size[nestarg]));
             argbuff = main_argbuffer[nestarg];
             }
 
-          if (ch == '&' && !isalnum(inbuffer[in+1]) && inbuffer[in+1] != '*')
-            argbuff[ap++] = inbuffer[++in];  /* Escaped literal */
+          if (ch == '&')
+            {
+            if (inbuffer[in+1] == 0 || inbuffer[in+1] == '\n')
+              error(ERR179);
+            else if (!isalnum(inbuffer[in+1]) && inbuffer[in+1] != '*')
+              argbuff[ap++] = inbuffer[++in];  /* Escaped literal */
+            else argbuff[ap++] = ch;
+            }
 
           else
             {
@@ -927,8 +936,14 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
       size_t new_ap;
       if (args[i] == SIZE_UNSET || Ustrchr(argbuff + args[i], '&') == NULL)
         continue;
+
+      /* A nested expand may extend the argument buffer and may change its
+      address. */
+
       new_ap = expand_string(argbuff, args[i], Ustrlen(argbuff + args[i]),
         argbuff, ap, main_argbuffer_size[nestarg], nestarg);
+      argbuff = main_argbuffer[nestarg];
+
       args[i] = ap;
       ap = new_ap + 1;  /* Final zero must remain */
       }
@@ -954,7 +969,7 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
             if (ss != NULL)
               {
               size_t ssl = Ustrlen(ss);
-              if (ssl > outlen - out)
+              while (ssl + 1 > outlen - out)
                 extend_expand_buffers(nest, &inbuffer, &outbuffer, &outlen);
               Ustrcpy(outbuffer + out, ss);
               out += ssl;

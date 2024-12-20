@@ -275,7 +275,10 @@ aborts the run after outputting additional information. */
 { ec_major,   "duplicate glyph name \"%s\" in line %d of %s\n%s" },
 { ec_major,   "duplicate font encoding value %d in line %d of %s\n%s" },
 { ec_major,   "[backup] must follow a note" },
-{ ec_warning, "non-movement options on rehearsal marks are ignored" }
+{ ec_warning, "non-movement options on rehearsal marks are ignored" },
+{ ec_major,   "'&' at end of line while reading macro or repetition argument" },
+/* 180-184 */
+{ ec_failed,  "repetition count is too large (max %d)" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))
@@ -379,7 +382,7 @@ if (main_state == STATE_READ)
   characters. In all cases, stop at the end of the line. The skip setting
   should never happen while expanding macros, but double-check just in case. */
 
-  if (read_filehandle != NULL)
+  if (read_filehandle != NULL && in != 0)
     {
     for (usint i = 0; i < in - 1; i++) (void)fprintf(stderr, "-");
     (void)fprintf(stderr, ">\n");
