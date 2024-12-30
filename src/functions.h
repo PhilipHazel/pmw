@@ -176,7 +176,7 @@ extern BOOL         string_read_plain(void);
 extern void         string_relativize(void);
 extern void         string_stavestring(BOOL);
 extern int32_t      string_width(uint32_t *, fontinststr *, int32_t *);
-extern int          strncmpic(const char*, const char *, int);
+extern int          strncmpic(const unsigned char*, const unsigned char *, int);
 
 extern uint32_t     transpose_key(uint32_t);
 extern int16_t      transpose_note(int16_t, int16_t *, uint8_t *, uint8_t,

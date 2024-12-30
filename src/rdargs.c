@@ -314,8 +314,8 @@ for (;;)
     {
     if ((argflags & rdargflag_n) != 0)
       {
-      if (!isdigit(nextstring[0]) &&
-        (nextstring[0] != '-' || !isdigit(nextstring[1]))) break;
+      if (!isdigit((unsigned char)nextstring[0]) &&
+        (nextstring[0] != '-' || !isdigit((unsigned char)nextstring[1]))) break;
       }
     else if (nextstring[0] == '-') break;
     }
@@ -393,7 +393,7 @@ while ((ch = keystring[++i]) != 0)
       }
 
     default:
-    if (isdigit(keystring[i]))
+    if (isdigit((unsigned char)keystring[i]))
       {
       argcount = keystring[i] - '0';
       if (argcount == 0) argcount = 1;
