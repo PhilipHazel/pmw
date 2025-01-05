@@ -230,7 +230,7 @@ char *sss = (char *)ss;
 if (map != NULL) *map = 0;
 if (slp != NULL) *slp = NULL;
 
-while (isdigit(*sss))
+while (isdigit((unsigned char)*sss))
   {
   long int s = strtol(sss, &sss, 0);
   long int t = s;

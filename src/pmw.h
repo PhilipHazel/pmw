@@ -258,7 +258,7 @@ typedef uint8_t CBOOL;
 #define Ustrcpy(s,t)         strcpy(CS(s),CCS(t))
 #define Ustrlen(s)           (size_t)strlen(CCS(s))
 #define Ustrncmp(s,t,n)      strncmp(CCS(s),CCS(t),n)
-#define Ustrncmpic(s,t,n)    strncmpic(CCS(s),CCS(t),n)
+#define Ustrncmpic(s,t,n)    strncmpic(CUS(s),CUS(t),n)
 #define Ustrncpy(s,t,n)      strncpy(CS(s),CS(t),n)
 #define Ustrrchr(s,n)        US strrchr(CCS(s),n)
 #define Ustrstr(s, t)        US strstr(CS(s),CS(t))

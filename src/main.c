@@ -167,7 +167,7 @@ static debug_bit_table debug_options[] = {
 *************************************************/
 
 int
-strncmpic(const char *s, const char *t, int n)
+strncmpic(const unsigned char *s, const unsigned char *t, int n)
 {
 while (n--)
   {
@@ -208,7 +208,7 @@ for(;;)
 
   adding = *string++ == '+';
   s = string;
-  while (isalnum(*string) || *string == '_') string++;
+  while (isalnum((unsigned char)*string) || *string == '_') string++;
   len = string - s;
 
   start = debug_options;
