@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: January 2025 */
+/* This file last modified: February 2025 */
 
 #include "pmw.h"
 
@@ -431,7 +431,7 @@ format_double(double n, char *s)
 {
 char *p;
 if (fabs(n) < 0.0001) n = 0.0;
-sprintf(s, "%.*f", string_double_precision, n);
+snprintf(s, BSIZ, "%.*f", string_double_precision, n);
 p = s + strlen(s);
 while (p[-1] == '0') p--;
 if (p[-1] == '.') p--;
