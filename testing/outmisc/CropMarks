@@ -5,6 +5,10 @@
 %%Requirements: numcopies(1)
 %%EndComments
 
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
 %%BeginProlog
 %%Standard Header Omitted (testing)
 %%EndProlog
@@ -28,24 +32,22 @@
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-6 852.5 Mt 6 872.5 Lt -4 842.5 Mt -24 842.5 Lt 0.5 Slw S 6 122.5 Mt
-6 102.5 Lt -4 132.5 Mt -24 132.5 Lt 0.5 Slw S 506 852.5 Mt 506 872.5 Lt
-516 842.5 Mt 536 842.5 Lt 0.5 Slw S 506 122.5 Mt 506 102.5 Lt
-516 132.5 Mt 536 132.5 Lt 0.5 Slw S rm 17 ss(<)46 760 s(heading)
-229.089 760 s(>)456.412 760 s rm 8 ss(<)46 160 s(footing)244.444 160 s(>)
-461.488 160 s
+54 722.5 Mt 54 742.5 Lt 44 712.5 Mt 24 712.5 Lt 0.5 Slw S 54 -7.5 Mt
+54 -27.5 Lt 44 2.5 Mt 24 2.5 Lt 0.5 Slw S 554 722.5 Mt 554 742.5 Lt
+564 712.5 Mt 584 712.5 Lt 0.5 Slw S 554 -7.5 Mt 554 -27.5 Lt 564 2.5 Mt
+584 2.5 Lt 0.5 Slw S rm 17 ss(<)94 630 s(heading)277.089 630 s(>)
+504.412 630 s rm 8 ss(<)94 30 s(footing)292.444 30 s(>)509.488 30 s
 pagesave restore showpage
 
 %%Page: 2 2
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-6 852.5 Mt 6 872.5 Lt -4 842.5 Mt -24 842.5 Lt 0.5 Slw S 6 122.5 Mt
-6 102.5 Lt -4 132.5 Mt -24 132.5 Lt 0.5 Slw S 506 852.5 Mt 506 872.5 Lt
-516 842.5 Mt 536 842.5 Lt 0.5 Slw S 506 122.5 Mt 506 102.5 Lt
-516 132.5 Mt 536 132.5 Lt 0.5 Slw S rm 10 ss(<)46 770 s(heading)
-240.17 770 s(>)460.36 770 s rm 8 ss(<)46 160 s(footing)244.444 160 s(>)
-461.488 160 s
+54 722.5 Mt 54 742.5 Lt 44 712.5 Mt 24 712.5 Lt 0.5 Slw S 54 -7.5 Mt
+54 -27.5 Lt 44 2.5 Mt 24 2.5 Lt 0.5 Slw S 554 722.5 Mt 554 742.5 Lt
+564 712.5 Mt 584 712.5 Lt 0.5 Slw S 554 -7.5 Mt 554 -27.5 Lt 564 2.5 Mt
+584 2.5 Lt 0.5 Slw S rm 10 ss(<)94 640 s(heading)288.17 640 s(>)
+508.36 640 s rm 8 ss(<)94 30 s(footing)292.444 30 s(>)509.488 30 s
 pagesave restore showpage
 
 %%Trailer

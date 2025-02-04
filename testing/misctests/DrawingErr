@@ -1,0 +1,117 @@
+magnification 1.5
+unfinished
+nocheck
+justify left top
+
+draw pstacktest
+  3 setgray currentgray
+  4 setlinewidth currentlinewidth
+  magnification
+  pagelength   
+  "cde" 45.6 { /x 1 1 add def } "xyz"/s2/rot6/c 
+  "A"/box "B"/ring "C"/e "D"/u4.4/r6.2
+  pstack
+enddraw
+
+draw errortest
+  1 "two" add
+enddraw   
+
+draw box
+  -2 headleft sub accleft sub stembottom 1.3 sub moveto
+  stemtop stembottom sub 2.6 add dup 0 exch rlineto
+  headleft headright add 4 add accleft add dup 0 rlineto exch
+  0 exch neg rlineto
+  neg 0 rlineto
+  0.5 setlinewidth
+  stroke
+enddraw
+
+draw bra
+  -2 headleft sub accleft sub headbottom linebottom add moveto
+  -2 0 rlineto
+  -4 headleft sub accleft sub headtop linetop sub lineto
+   2 0 rlineto
+   0.5 setlinewidth
+  stroke
+enddraw
+
+draw save
+  originx headbottom
+enddraw
+
+draw connect
+  exch originx sub 3 add dup 3 add 2 div
+  3 1 roll exch 2 sub moveto
+  -12 lineto
+  3 headbottom 2 sub lineto
+  stroke
+enddraw
+
+draw curve
+  3 headbottom 12 sub moveto
+  20 -20 40 -20 60 0 rcurveto
+  stroke
+enddraw
+
+draw triangle
+  3 -12 moveto
+  -3 -6 rlineto
+  6 0 rlineto
+  -3 6 rlineto
+  currentpoint
+  fill
+  2 sub moveto 0 -16 rlineto stroke
+enddraw
+
+draw cross
+  -10 0 rmoveto
+   20 0 rlineto
+   -10 -10 rmoveto
+   0  20 rlineto
+   stroke
+enddraw
+
+draw testcross
+  -40 -12 moveto draw cross
+  -40 -24 moveto 0 -10 rlineto stroke
+  40 -12 moveto draw cross
+enddraw
+
+
+
+[stave 1 treble 1]
+[draw save]
+a
+[draw box]
+$a\sl4\
+[draw box]
+f'
+[draw box] (fg)
+[space 10]
+[draw box] (f'g') |
+[space 10] 
+[draw bra]
+(#fc')
+[space 10]
+[draw bra]
+(g#d')
+[draw connect]
+a |
+
+[newline]
+[draw curve]
+a [space 40]
+a [space 10]
+[draw triangle]
+a
+qqqq [draw testcross] g qq |
+[endstave]
+
+[stave 2 bass 0]
+[endstave]
+
+[newmovement thispage]
+heading draw pstacktest   
+heading draw errortest
+

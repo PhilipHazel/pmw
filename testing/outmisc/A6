@@ -28,33 +28,33 @@
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-bf 28 ss(A6)138.142 760 s it 12 ss(Dedication)128.586 720 s rm 24 ss(TITLE)
-121.926 692 s bf 12 ss(Composer)222.594 642 s mf 10 ss(!)35.25 595 s
-bf 11.8 ss(4)48.25 603 s(4)48.25 595.15 s mf 10 ss(!)35.25 551 s
-bf 11.8 ss(4)48.25 559 s(4)48.25 551.15 s mf 10 ss 16 551(@)35.25 595 b
-31.75 611 551 k
+bf 28 ss(A6)138.142 341 s it 12 ss(Dedication)128.586 301 s rm 24 ss(TITLE)
+121.926 273 s bf 12 ss(Composer)222.594 223 s mf 10 ss(!)35.25 176 s
+bf 11.8 ss(4)48.25 184 s(4)48.25 176.15 s mf 10 ss(!)35.25 132 s
+bf 11.8 ss(4)48.25 140 s(4)48.25 132.15 s mf 10 ss 16 132(@)35.25 176 b
+31.75 192 132 k
 %1/2
-(B)62.65 551 s(@)60.65 551 s
+(B)62.65 132 s(@)60.65 132 s
 %1/1
-16 567(B)62.65 595 b 16 567(@)60.65 595 b
-(CC)35.25 595 s (C)54.15 595 s
-(CC)35.25 551 s (C)54.15 551 s
-6.25 421 Mt 6.25 391 Lt 6.25 421 Mt -23.75 421 Lt 0.2 Slw S 6.25 842 Mt
-6.25 872 Lt 6.25 842 Mt -23.75 842 Lt 0.2 Slw S 304.25 421 Mt
-304.25 391 Lt 304.25 421 Mt 334.25 421 Lt 0.2 Slw S 304.25 842 Mt
-304.25 872 Lt 304.25 842 Mt 334.25 842 Lt 0.2 Slw S rm 10 ss(\251 somebody)
-35.25 449 s
+16 148(B)62.65 176 b 16 148(@)60.65 176 b
+(CC)35.25 176 s (C)54.15 176 s
+(CC)35.25 132 s (C)54.15 132 s
+6.25 2 Mt 6.25 -28 Lt 6.25 2 Mt -23.75 2 Lt 0.2 Slw S 6.25 423 Mt
+6.25 453 Lt 6.25 423 Mt -23.75 423 Lt 0.2 Slw S 304.25 2 Mt
+304.25 -28 Lt 304.25 2 Mt 334.25 2 Lt 0.2 Slw S 304.25 423 Mt
+304.25 453 Lt 304.25 423 Mt 334.25 423 Lt 0.2 Slw S rm 10 ss(\251 somebody)
+35.25 30 s
 pagesave restore showpage
 
 %%Page: 3 2
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-rm 12 ss(>>)35.25 770 s(3<<)255.714 770 s 6.25 421 Mt 6.25 391 Lt
-6.25 421 Mt -23.75 421 Lt 0.2 Slw S 6.25 842 Mt 6.25 872 Lt 6.25 842 Mt
--23.75 842 Lt 0.2 Slw S 304.25 421 Mt 304.25 391 Lt 304.25 421 Mt
-334.25 421 Lt 0.2 Slw S 304.25 842 Mt 304.25 872 Lt 304.25 842 Mt
-334.25 842 Lt 0.2 Slw S rm 8 ss(>>)35.25 449 s(<<)266.226 449 s
+rm 12 ss(>>)35.25 351 s(3<<)255.714 351 s 6.25 2 Mt 6.25 -28 Lt
+6.25 2 Mt -23.75 2 Lt 0.2 Slw S 6.25 423 Mt 6.25 453 Lt 6.25 423 Mt
+-23.75 423 Lt 0.2 Slw S 304.25 2 Mt 304.25 -28 Lt 304.25 2 Mt
+334.25 2 Lt 0.2 Slw S 304.25 423 Mt 304.25 453 Lt 304.25 423 Mt
+334.25 423 Lt 0.2 Slw S rm 8 ss(>>)35.25 30 s(<<)266.226 30 s
 pagesave restore showpage
 
 %%Trailer

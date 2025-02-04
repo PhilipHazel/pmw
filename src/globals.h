@@ -2,10 +2,9 @@
 *         PMW global variable definitions        *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: December 2024 */
-
+/* This file last modified: January 2025 */
 
 /*************************************************
 *               Tables in tables.c               *
@@ -115,16 +114,16 @@ extern usint        error_maximum;
 extern b2pf_context **font_b2pf_contexts;
 extern uint32_t    *font_b2pf_options;
 #endif
-extern int32_t      font_cosr;                 /* Cosine for rotations */
-extern uint32_t     font_count;                /* Number of typefaces */
-extern uschar      *font_data_default;         /* For AFM files, etc */
-extern uschar      *font_data_extra;           /* -F argument */
-extern fontstr     *font_list;                 /* List of typefaces */
-extern size_t       font_list_size;
-extern uschar      *font_music_default;
-extern uschar      *font_music_extra;
-extern int32_t      font_sinr;                 /* Sine for rotations */
-extern uint32_t     font_table[];              /* Fonts by type, e.g. font_rm */
+extern int32_t      font_cosr;                   /* Cosine for rotations */
+extern uint32_t     font_count;                  /* Number of typefaces */
+extern uschar      *font_data_default;           /* For AFM files, etc */
+extern uschar      *font_data_extra;             /* -F argument */
+extern fontstr     *font_list;                   /* List of typefaces */
+extern size_t       font_list_size;              
+extern uschar      *font_music_default;          
+extern uschar      *font_music_extra;            
+extern int32_t      font_sinr;                   /* Sine for rotations */
+extern uint32_t     font_table[];                /* Fonts by type, e.g. font_rm */
 
 extern BOOL         macro_expanding;
 extern size_t       macro_in;
@@ -172,7 +171,7 @@ extern uint32_t     main_sheetwidth;
 extern BOOL         main_showid;
 extern int          main_state;
 extern BOOL         main_suppress_output;
-extern BOOL         main_testing;
+extern int          main_testing;
 extern int32_t      main_tracepos;
 extern int32_t      main_transpose;
 extern BOOL         main_transposedaccforce;
@@ -248,6 +247,7 @@ extern b_drawstr  **out_drawqueue ;
 extern size_t       out_drawqueue_ptr;
 extern size_t       out_drawqueue_size;
 extern int          out_drawstackptr;
+extern FILE        *out_file;
 extern uschar      *out_filename;
 extern int32_t      out_gracefudge;
 extern BOOL         out_gracenotes;
@@ -312,6 +312,18 @@ extern int32_t      out_ystave;
 extern uint32_t     page_firstnumber;
 extern uint32_t     page_increment;
 
+extern BOOL         PDF;
+
+extern BOOL         pout_changecolour;
+extern int32_t      pout_curcolour[];
+extern stavelist   *pout_curlist;
+extern uint32_t     pout_curnumber;
+extern fontinststr  pout_mfdata;
+extern uint8_t      pout_stavechar1[];
+extern uint8_t      pout_stavechar10[];
+extern int32_t      pout_wantcolour[];
+extern int32_t      pout_ymax;
+
 extern movtstr     *premovt;
 
 extern int          print_copies;
@@ -335,7 +347,6 @@ extern BOOL         print_side2;
 extern BOOL         print_tumble;
 extern int32_t      print_xmargin;
 
-extern FILE        *ps_file;
 extern const uschar *ps_header;
 
 extern BOOL         pmw_reading_stave;
@@ -373,6 +384,7 @@ extern stavestr    *st;
 extern int          stave_use_draw;
 extern BOOL         stave_use_widechars;
 extern uschar      *stdmacs_dir;
+extern int          string_double_precision;
 
 extern contstr     *wk_cont;
 

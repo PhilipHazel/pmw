@@ -32,9 +32,8 @@ a4
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-rm 17 ss(left )184 760 s(5)299.75 760 s( right)387.637 760 s rm 12 ss
-(left )179 743 s( right)403.332 743 s rm 8 ss(L)179 630 s(R)
-423.664 630 s
+rm 17 ss(left )184 160 s(5)299.75 160 s( right)387.637 160 s rm 12 ss
+(left )179 143 s( right)403.332 143 s rm 8 ss(L)179 30 s(R)423.664 30 s
 pagesave restore showpage
 
 %%Trailer

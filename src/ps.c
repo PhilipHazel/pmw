@@ -2,9 +2,9 @@
 *             PMW PostScript functions           *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: May 2021 */
-/* This file last modified: December 2023 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 
@@ -17,271 +17,16 @@
 
 static BOOL ps_EPS = FALSE;
 static BOOL ps_slurA = FALSE;
-static BOOL ps_changecolour= FALSE;
 
 static uint32_t ps_caj;
 static int  ps_chcount;
 static int  ps_curfont;
 static BOOL ps_curfontX;
 
-static fontinststr ps_mfdata = { NULL, 0, 0 };
 static fontinststr ps_curfontdata = { NULL, 0, 0 };
 static int32_t ps_fmatrix[6];
 
-static stavelist *ps_curlist;
-static uint32_t ps_curnumber;
-
-static int32_t  ps_wantcolour[3] = {0, 0, 0};
-static int32_t  ps_curcolour[3] = {0, 0, 0};
-static int32_t  ps_ymax;
-
 static uschar  *ps_IdStrings[font_tablen+1];
-
-
-/************************************************
-*             Data tables                       *
-************************************************/
-
-/* Characters in the music font for stave fragments with different numbers of
-lines, both 100 points long and 10 points long. */
-
-static uint8_t stavechar10[] = { 0, 'G', 247, 248, 249, 'F', 250 };
-static uint8_t stavechar1[] =  { 0, 'D', 169, 170, 171, 'C', 172 };
-
-/* In order to support the PMW-Music font in OpenType format, we have to treat
-some characters specially. In the .pfa font these characters move leftwards or
-up or down after printing, a facility that isn't available in OpenType. These
-strings define the characters that need special treatment:
-
-  umovechars are movement-only characters unsupported in OpenType
-  amovechars are all movement-only characters
-  vshowchars are printing characters with vertical movement
-*/
-
-static const uschar *umovechars = CUS"\166\167\170\171\173\174\176\271\272\273\274";
-static const uschar *amovechars = CUS"\040\166\167\170\171\172\173\174\175\176\271\272\273\274";
-static const uschar *vshowchars = CUS"\221\222\244\245";
-
-
-
-/************************************************
-*                 Macros                        *
-************************************************/
-
-/* Coordinate translation for character output */
-
-#define psxtran(x) ((x) + print_xmargin)
-
-#define psytran(y) (ps_ymax - (y))
-
-
-
-/*************************************************
-*        Initialize page list data               *
-*************************************************/
-
-/* This function is called at the start of the output phase. Its job is to set
-up the page number previous to the the first page to be printed, in
-ps_curnumber, and to set ps_curlist to point the first page selection item.
-
-Argument:    TRUE if printing is to be in reverse order
-Returns:     nothing
-*/
-
-static void
-setup_pagelist(BOOL reverse)
-{
-ps_curlist = print_pagelist;
-if (reverse)
-  {
-  if (ps_curlist == NULL)
-    ps_curnumber = print_lastpagenumber + 1;
-  else
-    {
-    while (ps_curlist->next != NULL) ps_curlist = ps_curlist->next;
-    ps_curnumber = ps_curlist->last + 1;
-    }
-  }
-else
-  {
-  if (ps_curlist == NULL) ps_curnumber = page_firstnumber - 1;
-    else ps_curnumber = ps_curlist->first - 1;
-  }
-}
-
-
-
-/*************************************************
-*            Get next page to print              *
-*************************************************/
-
-/* This is called from get_pages() to get the next specified page, skipping any
-that do not exist. We have to handle both backwards and forward movement.
-
-Argument:  nothing
-Returns:   pointer to a pagestr, or NULL if no more.
-*/
-
-static pagestr *
-nextpage(void)
-{
-for (;;)
-  {
-  pagestr *yield;
-
-  /* Start by getting the next page's number into ps_curnumber. If no page
-  selection was specified it's just an increment or decrement of the current
-  number. Otherwise, seek the next page from the list of required pages. */
-
-  /* Find next page number in forwards order. */
-
-  if (!print_reverse)
-    {
-    ps_curnumber++;
-    if (ps_curlist == NULL)  /* No page selection was specified */
-      {
-      if (ps_curnumber > print_lastpagenumber) return NULL;
-      }
-    else if (ps_curnumber > ps_curlist->last)
-      {
-      if (ps_curlist->next == NULL) return NULL;
-      ps_curlist = ps_curlist->next;
-      ps_curnumber = ps_curlist->first;
-      }
-    }
-
-  /* Find next page number in reverse order. */
-
-  else
-    {
-    ps_curnumber--;
-    if (ps_curlist == NULL)  /* No page selection was specified */
-      {
-      if (ps_curnumber < page_firstnumber) return NULL;
-      }
-    else if (ps_curnumber < ps_curlist->first)
-      {
-      if (ps_curlist->prev == NULL) return NULL;
-      ps_curlist = ps_curlist->prev;
-      ps_curnumber = ps_curlist->last;
-      }
-    }
-
-  /* Search for a page with the require number; if not found, loop to look for
-  the next one. If we are in pamphlet mode with no explicit page list and the
-  page number is past halfway and the mate exists, don't return the page. */
-
-  for (yield = main_pageanchor; yield != NULL; yield = yield->next)
-    {
-    if (yield->number == ps_curnumber) break;
-    }
-  if (yield == NULL) continue;   /* Page not found */
-
-  if (print_pamphlet &&
-      ps_curlist == NULL &&
-      ps_curnumber > print_lastpagenumber/2)
-    {
-    pagestr *p = main_pageanchor;
-    uint32_t mate = print_lastpagenumber - ps_curnumber + 1;
-    while (p != NULL)
-      {
-      if (p->number == mate) break;
-      p = p->next;
-      }
-    if (p != NULL) continue;     /* Skip this page */
-    }
-
-  return yield;
-  }
-}
-
-
-
-/*************************************************
-*          Get next page(s) to print             *
-*************************************************/
-
-/* The function called from ps_go(). It returns page structures for one or two
-pages, depending on the imposition. The yield is FALSE if there are no more
-pages.
-
-Arguments:
-  p1         where to put a pointer to the first page
-  p2         where to put a pointer to the second page
-
-Returns:     FALSE if there are no more pages
-*/
-
-static BOOL
-get_pages(pagestr **p1, pagestr **p2)
-{
-usint n;
-BOOL swap = FALSE;
-*p2 = NULL;
-
-/* Loop for skipping unwanted pages (side selection). For pamphlet printing,
-side 1 contains odd-numbered pages less than half the total, and even-numbered
-pages greater than half. We may get either kind of page given. */
-
-for (;;)
-  {
-  BOOL nodd;
-
-  if ((*p1 = nextpage()) == NULL) return FALSE;
-  n = (*p1)->number;
-  nodd = (n & 1) != 0;
-
-  if (!print_pamphlet || n <= print_lastpagenumber/2)
-    {
-    if ((print_side1 && nodd) || (print_side2 && !nodd)) break;
-    }
-  else
-    {
-    if ((print_side1 && !nodd) || (print_side2 && nodd)) break;
-    }
-  }
-
-/* Handle 1-up printing: nothing more to do */
-
-if (print_imposition != pc_a5ona4 && print_imposition != pc_a4ona3)
-  return TRUE;
-
-/* Handle 2-up printing. For non-pamphlet ordering, just get the next page and
-set the order swap flag if required. */
-
-if (!print_pamphlet)
-  {
-  if ((*p2 = nextpage()) == NULL) ps_curnumber--;  /* To get correct display */
-  swap = print_reverse;
-  }
-
-/* For pamphlet printing, find the mate of the first page, and set the swap
-flag if necessary, to ensure the odd-numbered page is on the right. */
-
-else
-  {
-  n = print_lastpagenumber - n + 1;
-  swap = (n & 1) == 0;
-  *p2 = main_pageanchor;
-  while (*p2 != NULL)
-    {
-    if ((*p2)->number == n) break;
-    *p2 = (*p2)->next;
-    }
-  }
-
-/* Swap page order if necessary */
-
-if (swap)
-  {
-  pagestr *temp = *p1;
-  *p1 = *p2;
-  *p2 = temp;
-  }
-
-return TRUE;
-}
-
 
 
 /*************************************************
@@ -306,12 +51,12 @@ va_end(ap);
 
 if (ps_chcount > 0 && ps_chcount + len > 72)
   {
-  fputc('\n', ps_file);
+  fputc('\n', out_file);
   ps_chcount = 0;
   }
 
 while (ps_chcount == 0 && *p == ' ') { p++; len--; }
-fputs(p, ps_file);
+fputs(p, out_file);
 ps_chcount = (p[len-1] == '\n')? 0 : ps_chcount + len;
 }
 
@@ -324,14 +69,16 @@ ps_chcount = (p[len-1] == '\n')? 0 : ps_chcount + len;
 static void
 setcolour(void)
 {
-if (ps_wantcolour[0] == ps_wantcolour[1] && ps_wantcolour[1] == ps_wantcolour[2])
-  ps_printf(" %s Sg", sff(ps_wantcolour[0]));
+if (pout_wantcolour[0] == pout_wantcolour[1] && 
+    pout_wantcolour[1] == pout_wantcolour[2])
+  ps_printf(" %s Sg", sff(pout_wantcolour[0]));
 else
-  ps_printf(" %s %s %s Sc", sff(ps_wantcolour[0]), sff(ps_wantcolour[1]),
-    sff(ps_wantcolour[2]));
-memcpy(ps_curcolour, ps_wantcolour, 3 * sizeof(int32_t));
-ps_changecolour = FALSE;
+  ps_printf(" %s %s %s Sc", sff(pout_wantcolour[0]), sff(pout_wantcolour[1]),
+    sff(pout_wantcolour[2]));
+memcpy(pout_curcolour, pout_wantcolour, 3 * sizeof(int32_t));
+pout_changecolour = FALSE;
 }
+
 
 
 
@@ -430,7 +177,7 @@ else
 /* This function writes the terminating ')' and an appropriate command.
 
 Arguments:
-  absolute      TRUE if the coordinates are absolute, else relative
+  absolute      TRUE if absolute, FALSE if relative
   w             extra space width
   x             x-coordinate
   y             y-coordinate
@@ -439,13 +186,13 @@ Arguments:
 static void
 ps_endstring(BOOL absolute, int32_t w, int32_t x, int32_t y)
 {
-fputc(')', ps_file);   /* Does not check ps_chcount */
+fputc(')', out_file);   /* Does not check ps_chcount */
 ps_chcount++;
 
 if (absolute)
   {
-  if (w != 0) ps_printf("%s", SFF("%f %f %f ws", w, psxtran(x), psytran(y)));
-    else ps_printf("%s", SFF("%f %f s", psxtran(x), psytran(y)));
+  if (w != 0) ps_printf("%s", SFF("%f %f %f ws", w, poutx(x), pouty(y)));
+    else ps_printf("%s", SFF("%f %f s", poutx(x), pouty(y)));
   }
 else if (x == 0 && y == 0)  /* Relative, but no movement */
   {
@@ -473,7 +220,6 @@ Arguments:
   s            the PMW string
   f            the font
   fdata        points to font instance size etc data
-  absolute     TRUE if the coordinates are absolute, else relative
   x            the x coordinate
   y            the y coordinate
 
@@ -481,13 +227,13 @@ Returns:       nothing
 */
 
 static void
-ps_basic_string(uint32_t *s, usint f, fontinststr *fdata, BOOL absolute,
-  int32_t x, int32_t y)
+ps_basic_string(uint32_t *s, usint f, fontinststr *fdata, int32_t x, int32_t y)
 {
 fontstr *fs = &(font_list[font_table[f & ~font_small]]);
 kerntablestr *ktable = fs->kerns;
 fontinststr tfd = *fdata;
 BOOL instring = FALSE;
+BOOL absolute = TRUE;
 uint32_t *p, *endp;
 
 /* Initialize start and end. */
@@ -523,92 +269,8 @@ string and we know that it's all in the same font. */
 
 if (main_righttoleft || ps_EPS)
   {
-  int32_t swidth = 0;
-  int32_t last_width = 0;
-  int32_t last_r2ladjust = 0;
-
-  for (p = s; *p != 0; p++)
-    {
-    uint32_t c = PCHAR(*p);
-
-    /* Non-standardly encoded font */
-
-    if ((fs->flags & ff_stdencoding) == 0)
-      {
-      int cj = c;
-
-      /* Fudges for various special cases in the music font, where the
-      adjustment bounding box is taken from another character. */
-
-      if (f == font_mf)
-        {
-        switch(c)
-          {
-          case 'J':       /* Additional stem characters - adjust as for note */
-          case 'K':
-          case 'o':
-          case 'p':
-          case 'q':
-          case 'r':
-          cj = '5';
-          break;
-
-          case '7':       /* Up quaver - adjust as for down quaver */
-          cj = '8';
-          break;
-
-          case '9':       /* Up semiquaver - adjust as for down semiquaver */
-          cj = ':';
-          break;
-
-          default:
-          break;
-          }
-        }
-
-      last_width = fs->widths[c];
-      last_r2ladjust = fs->r2ladjusts[cj];
-      }
-
-    /* Standardly encoded font */
-
-    else
-      {
-      last_width = fs->widths[c];
-      last_r2ladjust = fs->r2ladjusts[c];
-      }
-
-    /* Amass the total string width */
-
-    swidth += last_width;
-
-    /* If there is another character, scan the kerning table. At present,
-    kerning is supported only for characters whose code points are no greater
-    than 0xffff. */
-
-    if (main_kerning && fs->kerncount > 0 && p[1] != 0 && c <= 0xffffu)
-      {
-      uint32_t cc = PCHAR(p[1]);
-      if (cc <= 0xffffu)
-        {
-        int bot = 0;
-        int top = fs->kerncount;
-        uint32_t pair = (c << 16) | cc;
-
-        while (bot < top)
-          {
-          int mid = (bot + top)/2;
-          kerntablestr *k = &(ktable[mid]);
-          if (pair == k->pair)
-            {
-            swidth += k->kwidth;
-            break;
-            }
-          if (pair < k->pair) top = mid; else bot = mid + 1;
-          }
-        }
-      }
-    }
+  int32_t last_width, last_r2ladjust; 
+  int32_t swidth = pout_getswidth(s, f, fs, &last_width, &last_r2ladjust);
 
   /* For right-to-left, adjust the printing position for the string by the
   length of the string, adjusted for the actual bounding box of the final
@@ -661,22 +323,22 @@ for (p = s; *p != 0; p++)
     {
     if (ps_chcount > 0 && ps_chcount + endp - p > 73)
       {
-      fputc('\n', ps_file);
+      fputc('\n', out_file);
       ps_chcount = 0;
       }
-    fputc('(', ps_file);
+    fputc('(', out_file);
     ps_chcount++;
     instring = TRUE;
     }
 
   if (pc == '(' || pc == ')' || pc == '\\')
-    ps_chcount += fprintf(ps_file, "\\%c", pc);
+    ps_chcount += fprintf(out_file, "\\%c", pc);
   else if (pc >= 32 && pc <= 126)
     {
-    fputc(pc, ps_file);
+    fputc(pc, out_file);
     ps_chcount++;
     }
-  else ps_chcount += fprintf(ps_file, "\\%03o", pc);
+  else ps_chcount += fprintf(out_file, "\\%03o", pc);
 
   /* If there is another character, scan the kerning table */
 
@@ -715,8 +377,7 @@ for (p = s; *p != 0; p++)
         xadjust = mac_muldiv(xadjust, tfd.matrix[0], 65536);
         }
       ps_endstring(absolute, tfd.spacestretch, x, y);
-      absolute = FALSE;
-      instring = FALSE;
+      absolute = instring = FALSE;
       x = main_righttoleft? -xadjust : xadjust;
       y = yadjust;
       }
@@ -733,29 +394,14 @@ if (instring) ps_endstring(absolute, tfd.spacestretch, x, y);
 *************************************************/
 
 /* The x and y coordinates are updated if requested - note that y goes
-downwards.
-
-Special action is needed for the music font. The PostScript Type 1 font
-contains a few characters that output nothing but whose horizontal spacial
-increment is negative and also some characters (both blank and non-blank) with
-vertical movement - features which are useful for building composite things
-from strings in this font. Annoyingly, TrueType/OpenType fonts do not permit
-negative horizontal advance values, nor both horizontal and vertical movement
-in the same font, and a Truetype or OpenType font is now desirable because Type
-1 fonts are becoming obsolete.
-
-We get round this restriction by separating out substrings that start with an
-unsupported moving character and consist only of position moving characters.
-The already-existing code that suppresses the output of a substring that just
-moves the position then kicks in. Also, we terminate a substring after any
-printing character that has vertical movement.
+downwards. Change colour if required, then call the common PS/PDF output 
+function with the PS basic string output function.
 
 Arguments:
   s             the PMW string
   fdata         points to font instance data
   xu            pointer to the x coordinate
   yu            pointer to the y coordinate
-  absolute      TRUE for absolute coordinaates, FALSE for relative
   update        if TRUE, update the x,y positions
 
 Returns:        nothing
@@ -763,102 +409,10 @@ Returns:        nothing
 
 void
 ps_string(uint32_t *s, fontinststr *fdata, int32_t *xu, int32_t *yu,
-  BOOL absolute, BOOL update)
+  BOOL update)
 {
-int32_t x = *xu;
-int32_t y = *yu;
-
-if (ps_changecolour) setcolour();
-
-/* Process the string in substrings in which all the characters have the same
-font, handling the music font specially, as noted above. */
-
-while (*s != 0)
-  {
-  int32_t stringheight;
-  uint32_t save1;
-  uint32_t *p = s;
-  usint f = PFONT(*s);
-
-  /* Handle strings in the music font */
-
-  if ((f & ~font_small) == font_mf)
-    {
-    BOOL skip = TRUE;
-
-    /* Starts with an unsupported mover, leave skip TRUE so no output will
-    happen, but the current point will be adjusted. */
-
-    if (Ustrchr(umovechars, PCHAR(*s)) != NULL)
-      {
-      while (*s != 0 && PFONT(*s) == f &&
-             Ustrchr(amovechars, PCHAR(*s)) != NULL) s++;
-      }
-
-    /* Does not start with an unsupported mover; end when one is encountered.
-    Also end (but include the character) if a vertical movement is needed. */
-
-    else
-      {
-      while (*s != 0 && PFONT(*s) == f)
-        {
-        uint32_t c = PCHAR(*s);
-        if (Ustrchr(umovechars, c) != NULL) break;
-        if (Ustrchr(amovechars, c) == NULL) skip = FALSE;
-        s++;
-        if (Ustrchr(vshowchars, c) != NULL) break;
-        }
-      }
-
-    /* End substring */
-
-    save1 = *s;
-    *s = 0;          /* Temporary terminator */
-
-    /* If this substring consists entirely of printing-point-moving characters
-    (skip == TRUE) we do not need actually to output it. Otherwise, we can
-    temporarily remove any trailing moving characters while outputting as they
-    don't achieve anything useful. Of course they need to be restored
-    afterwards so that the position update below works correctly. */
-
-    if (!skip)
-      {
-      uint32_t save2;
-      uint32_t *t = s - 1;
-      while (t > p && Ustrchr(amovechars, PCHAR(*t)) != NULL) t--;
-      save2 = *(++t);
-      *t = 0;
-      ps_basic_string(p, f, fdata, absolute, x, y);
-      *t = save2;
-      }
-    }
-
-  /* The font is not the music font */
-
-  else
-    {
-    while (*s != 0 && PFONT(*s) == f) s++;
-    save1 = *s;
-    *s = 0;          /* Temporary terminator */
-    ps_basic_string(p, f, fdata, absolute, x, y);
-    }
-
-  /* Update the position. Note that we must use the original size (in fdata)
-  because string_width() does its own adjustment for small caps and the small
-  music font. */
-
-  x += string_width(p, fdata, &stringheight);
-  y -= stringheight;
-  *s = save1;   /* Restore */
-  }
-
-/* Pass back the end position if required. */
-
-if (update)
-  {
-  *xu = x;
-  *yu = y;
-  }
+if (pout_changecolour) setcolour();
+pout_string(s, fdata, xu, yu, update, ps_basic_string);
 }
 
 
@@ -885,7 +439,7 @@ Returns:     nothing
 void
 ps_barline(int32_t x, int32_t ytop, int32_t ybot, int type, int32_t magn)
 {
-if (ps_changecolour) setcolour();
+if (pout_changecolour) setcolour();
 
 /* Use music font characters if appropriate. */
 
@@ -896,17 +450,17 @@ if (!bar_use_draw &&
   if (main_righttoleft)
     x += mac_muldiv(font_list[font_mf].r2ladjusts[type], 10*magn, 1000);
 
-  ps_mfdata.size = 10 * magn;
-  if (ps_needchangefont(font_mf, &ps_mfdata, FALSE))
-    ps_setfont(font_mf, &ps_mfdata, FALSE);
+  pout_mfdata.size = 10 * magn;
+  if (ps_needchangefont(font_mf, &pout_mfdata, FALSE))
+    ps_setfont(font_mf, &pout_mfdata, FALSE);
 
   ytop += 16*(magn - out_stavemagn);
 
   if (ytop != ybot)  /* The barline is more than one character deep. */
-    ps_printf(" %s(%c)%s", SFF("%f %f", 16*magn, psytran(ybot)), type,
-      SFF("%f %f b", psxtran(x), psytran(ytop)));
+    ps_printf(" %s(%c)%s", SFF("%f %f", 16*magn, pouty(ybot)), type,
+      SFF("%f %f b", poutx(x), pouty(ytop)));
   else  /* A single barline character is sufficient. */
-    ps_printf("(%c)%s", type, SFF("%f %f s", psxtran(x), psytran(ytop)));
+    ps_printf("(%c)%s", type, SFF("%f %f s", poutx(x), pouty(ytop)));
   }
 
 /* Long dashed lines have to be drawn, as do other lines if they are shorter
@@ -922,22 +476,22 @@ else
   x += half_thickness;
 
   if (type == bar_dotted)
-    ps_printf("%s", SFF(" %f %f %f %f %f [%f %f] dl", psxtran(x),
-      psytran(ytop - 16*out_stavemagn - yadjust),
-        psxtran(x), psytran(ybot - yadjust), 2*half_thickness, 7*half_thickness,
+    ps_printf("%s", SFF(" %f %f %f %f %f [%f %f] dl", poutx(x),
+      pouty(ytop - 16*out_stavemagn - yadjust),
+        poutx(x), pouty(ybot - yadjust), 2*half_thickness, 7*half_thickness,
           7*half_thickness));
 
   else
     {
-    ps_printf(" %s", SFF("%f %f %f %f %f l", psxtran(x),
-      psytran(ytop - 16*out_stavemagn - yadjust),
-        psxtran(x), psytran(ybot - yadjust), 2*half_thickness));
+    ps_printf(" %s", SFF("%f %f %f %f %f l", poutx(x),
+      pouty(ytop - 16*out_stavemagn - yadjust),
+        poutx(x), pouty(ybot - yadjust), 2*half_thickness));
     if (type == bar_double)
       {
       int32_t xx = x + 2*magn;
-      ps_printf(" %s", SFF("%f %f %f %f %f l", psxtran(xx),
-        psytran(ytop - 16*out_stavemagn - yadjust),
-          psxtran(xx), psytran(ybot - yadjust), 2*half_thickness));
+      ps_printf(" %s", SFF("%f %f %f %f %f l", poutx(xx),
+        pouty(ytop - 16*out_stavemagn - yadjust),
+          poutx(xx), pouty(ybot - yadjust), 2*half_thickness));
       }
     }
   }
@@ -963,9 +517,9 @@ Returns:     nothing
 void
 ps_brace(int32_t x, int32_t ytop, int32_t ybot, int32_t magn)
 {
-if (ps_changecolour) setcolour();
+if (pout_changecolour) setcolour();
 ps_printf(" %s br%s", SFF("%f %f %f", ((ybot-ytop+16*magn)*23)/12000,
-  psxtran(x)+1500, psytran((ytop-16*magn+ybot)/2)),
+  poutx(x)+1500, pouty((ytop-16*magn+ybot)/2)),
   (curmovt->bracestyle)? "2":"");
 }
 
@@ -989,9 +543,9 @@ Returns:     nothing
 void
 ps_bracket(int32_t x, int32_t ytop, int32_t ybot, int32_t magn)
 {
-if (ps_changecolour) setcolour();
-ps_printf("%s", SFF(" %f %f %f k", psxtran(x), psytran(ytop)+16*magn,
-  psytran(ybot)));
+if (pout_changecolour) setcolour();
+ps_printf("%s", SFF(" %f %f %f k", poutx(x), pouty(ytop)+16*magn,
+  pouty(ybot)));
 }
 
 
@@ -1026,8 +580,8 @@ int ch, i;
 int32_t chwidth = 0;
 int32_t x = leftx;
 
-ps_setgray(0);
-if (ps_changecolour) setcolour();
+pout_setgray(0);
+if (pout_changecolour) setcolour();
 
 /* Output the stave using PostScript drawing primitives. */
 
@@ -1050,7 +604,7 @@ if (stave_use_draw > 0)
     break;
     }
 
-  ps_printf("%s %d ST\n", SFF("%f %f %f %f %f", psxtran(x), psytran(y),
+  ps_printf("%s %d ST\n", SFF("%f %f %f %f %f", poutx(x), pouty(y),
     rightx - leftx, thickness, gap), stavelines);
   return;
   }
@@ -1059,20 +613,20 @@ if (stave_use_draw > 0)
 
 if (stave_use_widechars)
   {
-  ch = stavechar10[stavelines];
+  ch = pout_stavechar10[stavelines];
   i = 100;
   }
 else
   {
-  ch = stavechar1[stavelines];
+  ch = pout_stavechar1[stavelines];
   i = 10;
   }
 
 /* Select appropriate size of music font */
 
-ps_mfdata.size = 10 * out_stavemagn;
-if (ps_needchangefont(font_mf, &ps_mfdata, FALSE))
-  ps_setfont(font_mf, &ps_mfdata, FALSE);
+pout_mfdata.size = 10 * out_stavemagn;
+if (ps_needchangefont(font_mf, &pout_mfdata, FALSE))
+  ps_setfont(font_mf, &pout_mfdata, FALSE);
 
 /* Build character string of (optionally) 100-point & 10-point chars; some of
 them are non-printing and have to be octal-escaped. */
@@ -1084,7 +638,7 @@ for (; i >= 10; i /= 10)
     else sprintf(CS sbuff, "\\%03o", ch);
   chwidth = i * out_stavemagn;
   while (rightx - x >= chwidth) { Ustrcat(buff, sbuff); x += chwidth; }
-  ch = stavechar1[stavelines];
+  ch = pout_stavechar1[stavelines];
   }
 
 /* Now print it, forcing it onto a separate line (for human legibility). We use
@@ -1094,14 +648,14 @@ overflow. */
 Ustrcat(buff, ")");
 if (ps_chcount > 0) ps_chcount = INT_MAX/2;
 
-ps_printf("%s%s s", buff, SFF("%f %f", psxtran(main_righttoleft? x:leftx),
-  psytran(y)));
+ps_printf("%s%s s", buff, SFF("%f %f", poutx(main_righttoleft? x:leftx),
+  pouty(y)));
 
 /* If there's a fraction of 10 points left, deal with it */
 
 if (x < rightx)
   ps_printf(" (%s)%s s", sbuff, SFF("%f %f",
-    psxtran(main_righttoleft? rightx : (rightx - chwidth)), psytran(y)));
+    poutx(main_righttoleft? rightx : (rightx - chwidth)), pouty(y)));
 
 ps_printf("\n");
 }
@@ -1128,51 +682,8 @@ Returns:     nothing
 void
 ps_muschar(int32_t x, int32_t y, uint32_t ch, int32_t pointsize)
 {
-int32_t xfudge = 0;
-
-if (ps_changecolour) setcolour();
-
-/* Use a local font data structure which has no rotation. */
-
-ps_mfdata.size = pointsize;
-
-/* There may be a chain of strings/displacements */
-
-for (mfstr *p = out_mftable[ch]; p != NULL; p = p->next)
-  {
-  int i = 0;
-  int32_t nxfudge = 0;
-  uint32_t c = p->ch;
-  uint32_t s[8];
-
-  /* Nasty fudge for bracketed accidentals in right-to-left mode: when the
-  brackets come as individual values, swap them round and fudge the spacing of
-  the remaining chars. This is needed for flats, in practice. */
-
-  if (main_righttoleft) switch (c)
-    {
-    case 139: c = 140; nxfudge = -1600; break;
-    case 140: c = 139; break;
-    case 141: c = 142; nxfudge = -1600; break;
-    case 142: c = 141; break;
-    default: break;
-    }
-
-  /* Extract up to 4 music font characters from c */
-
-  while (c != 0)
-    {
-    s[i++] = c & 255;
-    c >>= 8;
-    }
-  s[i] = 0;
-
-  ps_basic_string(s, font_mf, &ps_mfdata, TRUE,
-    x + mac_muldiv(p->x, pointsize, 10000) + xfudge,
-    y - mac_muldiv(p->y, pointsize, 10000));
-
-  xfudge += nxfudge;
-  }
+if (pout_changecolour) setcolour();
+pout_muschar(x, y, ch, pointsize, ps_basic_string);
 }
 
 
@@ -1181,10 +692,8 @@ for (mfstr *p = out_mftable[ch]; p != NULL; p = p->next)
 *     Output an ASCII string in the music font   *
 *************************************************/
 
-/* There are two versions, one with absolute coordinates, and one with relative
-coordinates, to save having to pass a flag each time (most of the calls are
-with absolute coordinates). The strings are always quite short; we have to
-convert to 32-bits by calling string_pmw().
+/* The strings are always quite short; we have to convert to 32-bits by calling
+string_pmw().
 
 Arguments:
   s          the string
@@ -1198,16 +707,8 @@ Returns:     nothing
 void
 ps_musstring(uschar *s, int32_t pointsize, int32_t x, int32_t y)
 {
-ps_mfdata.size = pointsize;
-ps_string(string_pmw(s, font_mf), &ps_mfdata, &x, &y, TRUE, FALSE);
-}
-
-
-void
-ps_relmusstring(uschar *s, int32_t pointsize, int32_t x, int32_t y)
-{
-ps_mfdata.size = pointsize;
-ps_string(string_pmw(s, font_mf), &ps_mfdata, &x, &y, FALSE, FALSE);
+pout_mfdata.size = pointsize;
+ps_string(string_pmw(s, font_mf), &pout_mfdata, &x, &y, FALSE);
 }
 
 
@@ -1218,7 +719,8 @@ ps_string(string_pmw(s, font_mf), &ps_mfdata, &x, &y, FALSE, FALSE);
 
 /* This function is called several times for a multi-line beam, with the level
 number increasing each time. Information about the slope and other features is
-in beam_* variables.
+in beam_* variables. Preparatory computation is now moved into a pout function 
+that is common with PDF.
 
 Arguments:
   x0            starting x coordinate, relative to start of bar
@@ -1232,58 +734,11 @@ Returns:        nothing
 void
 ps_beam(int32_t x0, int32_t x1, int level, int levelchange)
 {
-int sign = (beam_upflag)? (+1) : (-1);
-int32_t depth = -out_stavemagn*((n_fontsize * sign *
-  (int)(((double)curmovt->beamthickness) /
-    cos(atan((double)beam_slope/1000.0))))/10000)/1000;
-int32_t y0, y1;
-
-if (ps_changecolour) setcolour();
-
-y1 = y0 = out_ystave - beam_firstY +
-  mac_muldiv(n_fontsize, (level - 1) * sign * 3 * out_stavemagn, 10000);
-
-y0 -= mac_muldiv(x0-beam_firstX, beam_slope, 1000);
-y1 -= mac_muldiv(x1-beam_firstX, beam_slope, 1000);
-
-/* For accellerando and ritardando beams, adjust the ends, and make a little
-bit thinner. */
-
-if (levelchange != 0)
-  {
-  int32_t adjust = mac_muldiv(n_fontsize,
-    abs(levelchange) * sign * 4 * out_stavemagn, 10000);
-  depth = (depth*17)/20;
-  if (levelchange < 0)
-    {
-    y0 += adjust;
-    y1 += adjust/8;
-    }
-  else
-    {
-    y0 += adjust/8;
-    y1 += adjust;
-    }
-  }
-
-/* Get absolute x values and write the PostScript */
-
-x0 += out_barx;
-x1 += out_barx;
-
-/* When printing right-to-left, adjust by one note's printing adjustment.
-The value can't just be read from the font, as it needs fiddling, so we
-just fudge a fixed value. */
-
-if (main_righttoleft)
-  {
-  int32_t adjust = sign * mac_muldiv(n_fontsize/2, out_stavemagn, 1000);
-  x0 -= adjust;
-  x1 -= adjust;
-  }
-
+int32_t y0, y1, depth;
+if (pout_changecolour) setcolour();
+pout_beam(&x0, &x1, &y0, &y1, &depth, level, levelchange);
 ps_printf("%s", SFF(" %f %f %f %f %f m",
-  depth, psxtran(x1), psytran(y1), psxtran(x0), psytran(y0)));
+  depth, poutx(x1), pouty(y1), poutx(x0), pouty(y0)));
 }
 
 
@@ -1318,7 +773,7 @@ ps_slur(int32_t x0, int32_t y0, int32_t x1, int32_t y1, uint32_t flags,
 {
 int32_t length = x1 - x0;
 
-if (ps_changecolour) setcolour();
+if (pout_changecolour) setcolour();
 
 y0 = out_ystave - y0;
 y1 = out_ystave - y1;
@@ -1342,8 +797,8 @@ else if (ps_slurA)
 
 /* Keeping these as two separate calls enables the output to be split. */
 
-ps_printf("%s", SFF(" %f %f %f %f", psxtran(x0), psytran(y0), psxtran(x1),
-  psytran(y1)));
+ps_printf("%s", SFF(" %f %f %f %f", poutx(x0), pouty(y0), poutx(x1),
+  pouty(y1)));
 ps_printf(" %s cv%s%s", sff(((flags & sflag_b) != 0)? (-co) : co),
   ((flags & sflag_w) == 0)? "" : "w",
   ((flags & sflag_e) == 0)? "" : "e");
@@ -1382,14 +837,14 @@ int32_t dashlength = 0;
 int32_t gaplength = 0;
 int dashcount, spacecount;
 
-if (ps_changecolour) setcolour();
+if (pout_changecolour) setcolour();
 
 /* Handle "editorial" lines: won't exist if dashed or dotted */
 
 if ((flags & tief_editorial) != 0)
   {
   ps_printf("%s", SFF(" GS %f %f T %f R 0 2.0 Mt 0 -2.0 Lt S GR",
-   psxtran((x0+x1)/2), psytran(out_ystave - (y0+y1)/2),
+   poutx((x0+x1)/2), pouty(out_ystave - (y0+y1)/2),
    (int32_t)(atan2(yy, xx)*180000.0/3.14159)));
   }
 
@@ -1436,8 +891,8 @@ if (gaplength > 0)
 
 /* Do the line */
 
-ps_printf(" %s l%s", SFF("%f %f %f %f %f", psxtran(x1), psytran(out_ystave - y1),
-  psxtran(x0), psytran(out_ystave - y0), thickness), reset);
+ps_printf(" %s l%s", SFF("%f %f %f %f %f", poutx(x1), pouty(out_ystave - y1),
+  poutx(x0), pouty(out_ystave - y0), thickness), reset);
 }
 
 
@@ -1460,11 +915,11 @@ Returns:      nothing
 void
 ps_lines(int32_t *x, int32_t *y, int count, int32_t thickness)
 {
-if (ps_changecolour) setcolour();
+if (pout_changecolour) setcolour();
 for (int i = count - 1; i > 0; i--)
-  ps_printf("%s", SFF(" %f %f", psxtran(x[i]), psytran(out_ystave - y[i])));
-ps_printf(" %d %s", count - 1, SFF("%f %f %f ll", psxtran(x[0]),
-  psytran(out_ystave - y[0]), thickness));
+  ps_printf("%s", SFF(" %f %f", poutx(x[i]), pouty(out_ystave - y[i])));
+ps_printf(" %d %s", count - 1, SFF("%f %f %f ll", poutx(x[0]),
+  pouty(out_ystave - y[0]), thickness));
 }
 
 
@@ -1482,7 +937,7 @@ Returns:  nothing
 static void
 strokeorfill(int32_t thickness)
 {
-if (ps_changecolour) setcolour();
+if (pout_changecolour) setcolour();
 if (thickness >= 0) ps_printf(" %s Slw S", sff(thickness));
   else ps_printf(" F");
 }
@@ -1511,18 +966,18 @@ ps_path(int32_t *x, int32_t *y, int *c, int32_t thickness)
 while (*c != path_end) switch(*c++)
   {
   case path_move:
-  ps_printf("%s", SFF(" %f %f Mt", psxtran(*x++), psytran(out_ystave - *y++)));
+  ps_printf("%s", SFF(" %f %f Mt", poutx(*x++), pouty(out_ystave - *y++)));
   break;
 
   case path_line:
-  ps_printf("%s", SFF(" %f %f Lt", psxtran(*x++), psytran(out_ystave - *y++)));
+  ps_printf("%s", SFF(" %f %f Lt", poutx(*x++), pouty(out_ystave - *y++)));
   break;
 
   case path_curve:
   ps_printf("%s", SFF(" %f %f %f %f %f %f Ct",
-    psxtran(x[0]), psytran(out_ystave - y[0]),
-      psxtran(x[1]), psytran(out_ystave - y[1]),
-        psxtran(x[2]), psytran(out_ystave - y[2])));
+    poutx(x[0]), pouty(out_ystave - y[0]),
+      poutx(x[1]), pouty(out_ystave - y[1]),
+        poutx(x[2]), pouty(out_ystave - y[2])));
   x += 3;
   y += 3;
   break;
@@ -1540,7 +995,7 @@ strokeorfill(thickness);
 /* This function (similar to the one above) is used for fancy slurs, when the
 coordinate system has been rotated and translated so that its origin is at the
 centre of the slur with the x axis joining the endpoints. The coordinates must
-therefore not use psxtran/psytran.
+therefore not use poutx/pouty.
 
 Arguments:
   x            vector of x coordinates
@@ -1572,56 +1027,6 @@ while (*c != path_end) switch(*c++)
   }
 
 strokeorfill(thickness);
-}
-
-
-
-/*************************************************
-*            Set gray level or colour            *
-*************************************************/
-
-/* All that happens here is that the gray level or colour is remembered for
-later use.
-
-Argument:  the colour or the gray level
-Returns:   nothing
-*/
-
-void
-ps_setcolour(int32_t *colour)
-{
-memcpy(ps_wantcolour, colour, 3 * sizeof(int32_t));
-ps_changecolour =
-    ps_wantcolour[0] != ps_curcolour[0] ||
-    ps_wantcolour[1] != ps_curcolour[1] ||
-    ps_wantcolour[2] != ps_curcolour[2];
-}
-
-
-void
-ps_setgray(int32_t gray)
-{
-int temp[3];
-temp[0] = temp[1] = temp[2] = gray;
-ps_setcolour(temp);
-}
-
-
-
-/*************************************************
-*            Retrieve current colour             *
-*************************************************/
-
-/* Used to preserve the colour over a drawing.
-
-Argument: pointer to where to put the colour values
-Returns:  nothing
-*/
-
-void
-ps_getcolour(int32_t *colour)
-{
-memcpy(colour, ps_wantcolour, 3 * sizeof(int32_t));
 }
 
 
@@ -1742,7 +1147,7 @@ Returns:     nothing
 void
 ps_translate(int32_t x, int32_t y)
 {
-ps_printf("%s", SFF(" %f %f T", psxtran(x), psytran(out_ystave - y)));
+ps_printf("%s", SFF(" %f %f T", poutx(x), pouty(out_ystave - y)));
 }
 
 
@@ -1810,24 +1215,24 @@ while (Ufgets(read_stringbuffer, read_stringbuffer_size, f) != NULL)
                Ustrstr(read_stringbuffer, "EPSF-") != NULL)
     {
     insert_eps = TRUE;
-    fputs("/epspicsave save def/a4{null pop}def\n", ps_file);
-    fputs("/showpage{initgraphics}def/copypage{null pop}def\n", ps_file);
+    fputs("/epspicsave save def/a4{null pop}def\n", out_file);
+    fputs("/showpage{initgraphics}def/copypage{null pop}def\n", out_file);
     }
   else
     {
     if (ps_EPS && Ustrncmp(read_stringbuffer, "%EPS ", 5) == 0)
-      Ufputs(read_stringbuffer+5, ps_file);
+      Ufputs(read_stringbuffer+5, out_file);
     else if (read_stringbuffer[0] != '\n' &&
       (read_stringbuffer[0] != '%' || read_stringbuffer[1] == '%'))
-        Ufputs(read_stringbuffer, ps_file);
+        Ufputs(read_stringbuffer, out_file);
     }
 
   line1 = FALSE;
   }
 
 if (read_stringbuffer[Ustrlen(read_stringbuffer)-1] != '\n')
-  fputc('\n', ps_file);
-if (insert_eps) fputs("epspicsave restore\n", ps_file);
+  fputc('\n', out_file);
+if (insert_eps) fputs("epspicsave restore\n", out_file);
 fclose(f);
 ps_chcount = 0;
 }
@@ -1880,18 +1285,18 @@ while ((s = Ufgets(buff, sizeof(buff), f)) != NULL)
 
 if (s == NULL)
   {
-  fprintf(ps_file, "\n%%%%BeginResource: font %s\n", name);
+  fprintf(out_file, "\n%%%%BeginResource: font %s\n", name);
   rewind(f);
   }
-else fprintf(ps_file, "%s", CS buff);
+else fprintf(out_file, "%s", CS buff);
 
 while ((s = Ufgets(buff, sizeof(buff), f)) != NULL)
   {
-  fprintf(ps_file, "%s", CS buff);
+  fprintf(out_file, "%s", CS buff);
   if (Ustrncmp(buff, "%%EndResource", 13) == 0) break;
   }
 
-if (s == NULL) fprintf(ps_file, "\n%%%%EndResource\n\n");
+if (s == NULL) fprintf(out_file, "\n%%%%EndResource\n\n");
 fclose(f);
 }
 
@@ -1911,7 +1316,6 @@ Returns:   nothing
 void
 ps_go(void)
 {
-time_t timer;
 int32_t w = 0, d = 0;
 int count = 0;
 int fcount = 1;
@@ -1922,70 +1326,64 @@ int fonts_to_include_count = 0;
 int32_t scaled_main_sheetwidth =
   mac_muldiv(main_sheetwidth, print_magnification, 1000);
 
+/* Initialize the indirect function pointers for PostScript output. */
+
+ofi_abspath = ps_abspath;
+ofi_barline = ps_barline;
+ofi_beam = ps_beam;
+ofi_brace = ps_brace;
+ofi_bracket = ps_bracket;
+ofi_getcolour = pout_getcolour;
+ofi_grestore = ps_grestore;
+ofi_gsave = ps_gsave;
+ofi_line = ps_line;
+ofi_lines = ps_lines;
+ofi_muschar = ps_muschar;
+ofi_musstring = ps_musstring;
+ofi_path = ps_path;
+ofi_rotate = ps_rotate;
+ofi_setcapandjoin = ps_setcapandjoin;
+ofi_setcolour = pout_setcolour;
+ofi_setdash = ps_setdash;
+ofi_setgray = pout_setgray;
+ofi_slur = ps_slur;
+ofi_startbar = ps_startbar;
+ofi_stave = ps_stave;
+ofi_string = ps_string;
+ofi_translate = ps_translate;
+
 /* Initialize the current page number and page list data */
 
 ps_EPS = (print_imposition == pc_EPS);
-setup_pagelist(ps_EPS? FALSE : print_reverse);
+pout_setup_pagelist(ps_EPS? FALSE : print_reverse);
 
-/* Set the top of page y coordinate; the PostScript is relative to the usual
-bottom of page origin. Before the invention of the imposition parameter, we
-computed this from the pagelength, but with some minima imposed. For
-compatibility, keep this unchanged for cases when imposition is defaulted. For
-EPS, we use the sheetsize, whatever it may be. */
+/* Set the top of page y coordinate and width and depth for translation; the
+PostScript is relative to the usual bottom of page origin. */
 
-if (ps_EPS) ps_ymax = main_truepagelength + 50000; else
-  {
-  if (main_landscape)
-    {
-    if (main_truepagelength < 492000)
-      ps_ymax = mac_muldiv(526000, 1000, print_magnification);
-        else ps_ymax = main_truepagelength + 34000;
-    }
-  else
-    {
-    if (main_truepagelength < 720000)
-      ps_ymax = mac_muldiv(770000, 1000, print_magnification);
-        else ps_ymax = main_truepagelength + 50000;
-    }
-
-  /* Take the opportunity of setting true paper sizes for imposing */
-
-  switch(print_imposition)
-    {
-    case pc_a5ona4:
-    w = 595000;
-    d = 842000;
-    ps_ymax = main_truepagelength + 50000;
-    break;
-
-    case pc_a4ona3:
-    w = 842000;
-    d = 1190000;
-    ps_ymax = main_truepagelength + 50000;
-    break;
-    }
-  }
+if (ps_EPS) pout_ymax = main_truepagelength + 50000;
+  else pout_set_ymax_etc(&w, &d);
 
 /* Adjust paper size to the magnification */
 
 print_sheetwidth = mac_muldiv(main_sheetwidth, 1000, main_magnification);
-ps_ymax = mac_muldiv(ps_ymax, 1000, main_magnification);
+pout_ymax = mac_muldiv(pout_ymax, 1000, main_magnification);
 
 /* Initializing stuff at the start of the PostScript file. We are attempting to
 keep to the 3.0 structuring conventions. Initial comments ("header") come
 first. */
 
-if (!main_testing)
+if (main_testing == 0)  /* Any non-zero value discards this */
   {
+  time_t timer;
   time (&timer);
-  fprintf(ps_file, "%%!PS-Adobe-3.0%s\n", ps_EPS? " EPSF-3.0" : "");
-  fprintf(ps_file, "%%%%Creator: Philip's Music Writer (PMW) %s\n", PMW_VERSION);
-  fprintf(ps_file, "%%%%CreationDate: %s", ctime(&timer));
+  fprintf(out_file, "%%!PS-Adobe-3.0%s\n", ps_EPS? " EPSF-3.0" : "");
+  fprintf(out_file, "%%%%Creator: Philip's Music Writer (PMW) %s\n", PMW_VERSION);
+  fprintf(out_file, "%%%%CreationDate: %s", ctime(&timer));
   }
 
-if (ps_EPS) fprintf(ps_file, "%%%%BoundingBox: (atend)\n");
-  else fprintf(ps_file, "%%%%Pages: (atend)\n");
-fprintf(ps_file, "%%%%DocumentNeededResources: font ");
+if (ps_EPS) fprintf(out_file, "%%%%BoundingBox: (atend)\n");
+  else fprintf(out_file, "%%%%Pages: (atend)\n");
+fprintf(out_file, "%%%%DocumentNeededResources: font ");
 
 /* Scan the fonts, set the ps id and process each unique one, remembering those
 that are to be included in the output. */
@@ -2002,13 +1400,13 @@ for (int i = 0; i < font_tablen; i++)
 
   if (++fcount > 3)
     {
-    fprintf(ps_file, "\n%%%%+ font ");
+    fprintf(out_file, "\n%%%%+ font ");
     fcount = 1;
     }
 
   fontid = font_table[i];
   fs = font_list + fontid;
-  fprintf(ps_file, "%s ", fs->name);
+  fprintf(out_file, "%s ", fs->name);
 
   /* Remember which fonts are to be included. If -incPMWfont was set, do
   this automatically for music fonts. */
@@ -2019,52 +1417,52 @@ for (int i = 0; i < font_tablen; i++)
     fonts_to_include[fonts_to_include_count++] = fontid;
   }
 
-fprintf(ps_file, "\n");
+fprintf(out_file, "\n");
 
 /* List the included fonts */
 
 if (fonts_to_include_count > 0)
   {
   fcount = 1;
-  fprintf(ps_file, "%%%%DocumentSuppliedResources: font");
+  fprintf(out_file, "%%%%DocumentSuppliedResources: font");
   for (int i = 0; i < fonts_to_include_count; i++)
     {
     if (++fcount > 3)
       {
-      fprintf(ps_file, "\n%%%%+ font");
+      fprintf(out_file, "\n%%%%+ font");
       fcount = 1;
       }
-    fprintf(ps_file, " %s", (font_list[fonts_to_include[i]]).name);
+    fprintf(out_file, " %s", (font_list[fonts_to_include[i]]).name);
     }
-  fprintf(ps_file, "\n");
+  fprintf(out_file, "\n");
   }
 
-if (!ps_EPS) fprintf(ps_file,
+if (!ps_EPS) fprintf(out_file,
   "%%%%Requirements: numcopies(%d)\n", print_copies);
-fprintf(ps_file, "%%%%EndComments\n\n");
+fprintf(out_file, "%%%%EndComments\n\n");
 
 /* Deal with a known paper size */
 
 switch (main_sheetsize)
   {
   case sheet_A3:
-  fprintf(ps_file, "%%%%BeginPaperSize: a3\na3\n%%%%EndPaperSize\n\n");
+  fprintf(out_file, "%%%%BeginPaperSize: a3\na3\n%%%%EndPaperSize\n\n");
   break;
 
   case sheet_A4:
-  fprintf(ps_file, "%%%%BeginPaperSize: a4\na4\n%%%%EndPaperSize\n\n");
+  fprintf(out_file, "%%%%BeginPaperSize: a4\na4\n%%%%EndPaperSize\n\n");
   break;
 
   case sheet_A5:
-  fprintf(ps_file, "%%%%BeginPaperSize: a5\na5\n%%%%EndPaperSize\n\n");
+  fprintf(out_file, "%%%%BeginPaperSize: a5\na5\n%%%%EndPaperSize\n\n");
   break;
 
   case sheet_B5:
-  fprintf(ps_file, "%%%%BeginPaperSize: b5\nb5\n%%%%EndPaperSize\n\n");
+  fprintf(out_file, "%%%%BeginPaperSize: b5\nb5\n%%%%EndPaperSize\n\n");
   break;
 
   case sheet_letter:
-  fprintf(ps_file, "%%%%BeginPaperSize: letter\nletter\n%%%%EndPaperSize\n\n");
+  fprintf(out_file, "%%%%BeginPaperSize: letter\nletter\n%%%%EndPaperSize\n\n");
   break;
 
   default:
@@ -2074,7 +1472,7 @@ switch (main_sheetsize)
 /* Next, the file's prologue, which contains any bespoke font encodings and the
 standard PostScript header. */
 
-fprintf(ps_file, "%%%%BeginProlog\n");
+fprintf(out_file, "%%%%BeginProlog\n");
 
 for (int i = 0; i < font_tablen; i++)
   {
@@ -2090,8 +1488,8 @@ for (int i = 0; i < font_tablen; i++)
         uschar name[128];
         sprintf(CS name, "%sEnc%c", f->name, (k == 0)? 'L':'U');
 
-        if (k == 0) fprintf(ps_file, "%%%%Custom encodings for %s\n", f->name);
-        fprintf(ps_file, "/%s 256 array def\n", name);
+        if (k == 0) fprintf(out_file, "%%%%Custom encodings for %s\n", f->name);
+        fprintf(out_file, "/%s 256 array def\n", name);
 
         /* Scan the relevant half of the encoding */
 
@@ -2126,27 +1524,27 @@ for (int i = 0; i < font_tablen; i++)
 
           if (ce - cc == 1)
             {
-            fprintf(ps_file, "%s %d /%s put\n", name, cc - k,
+            fprintf(out_file, "%s %d /%s put\n", name, cc - k,
               (f->encoding[cc] == NULL)? US".notdef" : f->encoding[cc]);
             }
 
           else if (ce - cc > 0)
             {
             int n = 0;
-            fprintf(ps_file, "%s %d [\n", name, cc - k);
+            fprintf(out_file, "%s %d [\n", name, cc - k);
 
             for (; cc < ce; cc++)
               {
               if (n++ > 7)
                 {
-                fprintf(ps_file, "\n");
+                fprintf(out_file, "\n");
                 n = 1;
                 }
-              fprintf(ps_file, "/%s", (f->encoding[cc] == NULL)?
+              fprintf(out_file, "/%s", (f->encoding[cc] == NULL)?
                 US".notdef" : f->encoding[cc]);
               }
 
-            fprintf(ps_file, "] putinterval\n");
+            fprintf(out_file, "] putinterval\n");
             }
 
           /* Set start of next sequence */
@@ -2157,7 +1555,7 @@ for (int i = 0; i < font_tablen; i++)
 
           if (notdefcount > 0)
             {
-            fprintf(ps_file, "%d 1 %d {%s exch /.notdef put} for\n",
+            fprintf(out_file, "%d 1 %d {%s exch /.notdef put} for\n",
               cc - k, cc - k + notdefcount - 1, name);
             cc += notdefcount;
             }
@@ -2167,19 +1565,19 @@ for (int i = 0; i < font_tablen; i++)
     }         /* End unique font handling */
   }           /* End font scan */
 
-/* In testing mode we omit the standard header (to save space in the test
+/* In any testing mode we omit the standard header (to save space in the test
 output files). The name of the header file is NOT relative to the main input
 file. If it is not absolute, it is taken relative to the current directory. */
 
-if (!main_testing) ps_include(ps_header, FALSE);
-  else fprintf(ps_file, "%%%%Standard Header Omitted (testing)\n");
-fprintf(ps_file, "%%%%EndProlog\n\n");
+if (main_testing == 0) ps_include(ps_header, FALSE);
+  else fprintf(out_file, "%%%%Standard Header Omitted (testing)\n");
+fprintf(out_file, "%%%%EndProlog\n\n");
 
 /* The setup section sets up the printing device. We include the font finding
 in here, as it seems the right place. Include any relevant fonts in the output
 file. */
 
-fprintf(ps_file, "%%%%BeginSetup\n");
+fprintf(out_file, "%%%%BeginSetup\n");
 
 for (int i = 0; i < fonts_to_include_count; i++)
   {
@@ -2197,8 +1595,8 @@ for (int i = 0; i < font_tablen; i++)
     {
     fontstr *f = font_list + font_table[i];
     uschar *s = f->name;
-    fprintf(ps_file, "%%%%IncludeResource: font %s\n", s);
-    fprintf(ps_file, "/%s /%sX /%s inf\n", font_IdStrings[i],
+    fprintf(out_file, "%%%%IncludeResource: font %s\n", s);
+    fprintf(out_file, "/%s /%sX /%s inf\n", font_IdStrings[i],
       font_IdStrings[i], s);
     }
   }
@@ -2214,27 +1612,27 @@ with duplex and tumble options, and end the setup section. */
 if (!ps_EPS)
   {
   /*********
-  fprintf(ps_file,
+  fprintf(out_file,
     "currentdict /a4_done known not {a4 /a4_done true def} if\n");
   **********/
 
-  if (print_copies != 1) fprintf(ps_file, "/#copies %d def\n", print_copies);
+  if (print_copies != 1) fprintf(out_file, "/#copies %d def\n", print_copies);
   if (print_manualfeed || print_duplex)
     {
-    fprintf(ps_file, "statusdict begin");
-    if (print_manualfeed) fprintf(ps_file, " /manualfeed true def");
+    fprintf(out_file, "statusdict begin");
+    if (print_manualfeed) fprintf(out_file, " /manualfeed true def");
     if (print_duplex)
       {
-      fprintf(ps_file, " true setduplexmode");
-      if (print_tumble) fprintf(ps_file, " true settumble");
+      fprintf(out_file, " true setduplexmode");
+      if (print_tumble) fprintf(out_file, " true settumble");
       }
-    fprintf(ps_file, " end\n");
+    fprintf(out_file, " end\n");
     }
   }
 
-fprintf(ps_file, "%%%%EndSetup\n\n");
+fprintf(out_file, "%%%%EndSetup\n\n");
 
-/* Now the requested pages. The get_pages() function returns one or two
+/* Now the requested pages. The pout_get_pages() function returns one or two
 pages. When printing 2-up either one of them may be null. Start with curmovt
 set to NULL so that a "change of movement" happens at the start. */
 
@@ -2246,23 +1644,23 @@ for (;;)
   int32_t scaled = 1000;
   BOOL recto = FALSE;
 
-  if (!get_pages(&ps_1stpage, &ps_2ndpage)) break;
+  if (!pout_get_pages(&ps_1stpage, &ps_2ndpage)) break;
 
   if (ps_1stpage != NULL && ps_2ndpage != NULL)
-    fprintf(ps_file, "%%%%Page: %d&%d %d\n", ps_1stpage->number,
+    fprintf(out_file, "%%%%Page: %d&%d %d\n", ps_1stpage->number,
       ps_2ndpage->number, ++count);
   else if (ps_1stpage != NULL)
     {
-    fprintf(ps_file, "%%%%Page: %d %d\n", ps_1stpage->number, ++count);
+    fprintf(out_file, "%%%%Page: %d %d\n", ps_1stpage->number, ++count);
     recto = (ps_1stpage->number & 1) != 0;
     }
   else
     {
-    fprintf(ps_file, "%%%%Page: %d %d\n", ps_2ndpage->number, ++count);
+    fprintf(out_file, "%%%%Page: %d %d\n", ps_2ndpage->number, ++count);
     recto = (ps_2ndpage->number & 1) != 0;
     }
 
-  fprintf(ps_file, "%%%%BeginPageSetup\n/pagesave save def\n");
+  fprintf(out_file, "%%%%BeginPageSetup\n/pagesave save def\n");
 
   ps_chcount = 0;    /* No characters in the current line. */
   ps_curfont = -1;   /* No font currently set. */
@@ -2352,7 +1750,7 @@ for (;;)
 
   /* End of setup */
 
-  fprintf(ps_file, "%%%%EndPageSetup\n");
+  fprintf(out_file, "%%%%EndPageSetup\n");
 
   /* When printing 2-up, we may get one or both pages; when not printing 2-up,
   we may get either page given, but not both. */
@@ -2367,7 +1765,7 @@ for (;;)
     {
     if (ps_chcount > 0)
       {
-      fprintf(ps_file, "\n");
+      fprintf(out_file, "\n");
       ps_chcount = 0;
       }
     if (print_imposition == pc_a5ona4 || print_imposition == pc_a4ona3)
@@ -2386,31 +1784,31 @@ for (;;)
   because it means an EPS file can be printed or displayed. So we don't cut out
   showpage. */
 
-  fprintf(ps_file, "\npagesave restore showpage\n\n");
+  fprintf(out_file, "\npagesave restore showpage\n\n");
   }
 
 /* Do PostScript trailer */
 
-fprintf(ps_file, "%%%%Trailer\n");
+fprintf(out_file, "%%%%Trailer\n");
 
 if (ps_EPS)
   {
   if (main_righttoleft)
     ps_printf("%s", SFF("%%%%BoundingBox: %f %f %f %f\n",
       main_sheetwidth -
-        mac_muldiv(psxtran(out_bbox[2]), main_magnification, 1000),
-      mac_muldiv(psytran(out_bbox[1]), main_magnification, 1000),
+        mac_muldiv(poutx(out_bbox[2]), main_magnification, 1000),
+      mac_muldiv(pouty(out_bbox[1]), main_magnification, 1000),
       main_sheetwidth -
-        mac_muldiv(psxtran(out_bbox[0]), main_magnification, 1000),
-      mac_muldiv(psytran(out_bbox[3]), main_magnification, 1000)));
+        mac_muldiv(poutx(out_bbox[0]), main_magnification, 1000),
+      mac_muldiv(pouty(out_bbox[3]), main_magnification, 1000)));
   else
     ps_printf("%s", SFF("%%%%BoundingBox: %f %f %f %f\n",
-      mac_muldiv(psxtran(out_bbox[0]), main_magnification, 1000),
-      mac_muldiv(psytran(out_bbox[1]), main_magnification, 1000),
-      mac_muldiv(psxtran(out_bbox[2]), main_magnification, 1000),
-      mac_muldiv(psytran(out_bbox[3]), main_magnification, 1000)));
+      mac_muldiv(poutx(out_bbox[0]), main_magnification, 1000),
+      mac_muldiv(pouty(out_bbox[1]), main_magnification, 1000),
+      mac_muldiv(poutx(out_bbox[2]), main_magnification, 1000),
+      mac_muldiv(pouty(out_bbox[3]), main_magnification, 1000)));
   }
-else fprintf(ps_file, "%%%%Pages: %d\n", count);
+else fprintf(out_file, "%%%%Pages: %d\n", count);
 }
 
 /* End of ps.c */

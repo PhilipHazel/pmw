@@ -1,0 +1,26 @@
+#! /bin/perl
+
+# This script reads the PMW-Music.otf file and encodes it in ASCII hexadecimal
+# for inclusion in a PDF document. 
+
+open(OUT, ">PMW-Music.otf.hexasc" || die "Couldn't open PMW-Music.otf.hexasc");
+open(IN, "<PMW-Music.otf") || die "Couldn't open PMW-Music.otf";
+
+$xcount = 0;     # Count within hex line
+
+while(<IN>)
+  {
+  foreach (split //)
+    {
+    if ($xcount >= 60)
+      {
+      printf OUT "\n";
+      $xcount = 0;
+      }
+    printf OUT "%02x", ord;
+    $xcount += 2;
+    }
+  }
+printf OUT ">\n";
+
+# End

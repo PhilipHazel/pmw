@@ -1,7 +1,7 @@
 %%Pages: (atend)
 %%DocumentNeededResources: font Times-Roman Times-Italic 
 %%+ font Times-Bold Times-BoldItalic Symbol 
-%%+ font PMW-Music NewCenturySchlbk-Bold Helvetica 
+%%+ font PMW-Music Helvetica-Oblique Helvetica 
 %%Requirements: numcopies(1)
 %%EndComments
 
@@ -26,8 +26,8 @@ a4
 /sy /syX /Symbol inf
 %%IncludeResource: font PMW-Music
 /mf /mfX /PMW-Music inf
-%%IncludeResource: font NewCenturySchlbk-Bold
-/xx1 /xx1X /NewCenturySchlbk-Bold inf
+%%IncludeResource: font Helvetica-Oblique
+/xx1 /xx1X /Helvetica-Oblique inf
 %%IncludeResource: font Helvetica
 /xx8 /xx8X /Helvetica inf
 %%EndSetup
@@ -60,8 +60,8 @@ rm 16 ss( )sh rmX 16 ss(\217)sh mf 14.4 ss(1)42.666 425.333 s rm 16 ss( )
 76.326 345.333 s bf 12 ss(bold )103.998 345.333 s bi 12 ss(bolditalic )
 129.678 345.333 s sy 12 ss(symbol )178.686 345.333 s mf 10.8 ss(5)
 223.83 345.333 s mf 12 ss(5)241.002 345.333 s xx1 12 ss(xx1 )
-260.082 345.333 s xx8 12 ss(xx8 )285.078 345.333 s rm 12 ss( roman)
-307.086 345.333 s mf 10 ss(!)42.666 288.333 s bf 11.8 ss(4)
+260.082 345.333 s xx8 12 ss(xx8 )282.09 345.333 s rm 12 ss( roman)
+304.098 345.333 s mf 10 ss(!)42.666 288.333 s bf 11.8 ss(4)
 58.666 296.333 s(4)58.666 288.483 s mf 10 ss(!)42.666 288.333 s
 bf 11.8 ss(4)58.666 296.333 s(4)58.666 288.483 s mf 10 ss(")
 42.166 244.333 s bf 11.8 ss(4)58.666 252.333 s(4)58.666 244.483 s

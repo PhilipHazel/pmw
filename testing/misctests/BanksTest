@@ -140,7 +140,8 @@ Notespacing *1
 *Define fff &fffv "\x1\fff"/a/u2/e
 *Define sf  &sfv  "\x1\sf"/a/u2/e
 
-Textfont extra 1 "PMW-Alpha"
+@ Was Textfont extra 1 "PMW-Alpha"
+Textfont extra 1 "Helvetica"
 
 @Midichannel 1 "piano"/15 1-2
 @Playtempo 120

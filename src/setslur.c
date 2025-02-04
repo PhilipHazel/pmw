@@ -2,9 +2,9 @@
 *            PMW code for setting slurs          *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: July 2021 */
-/* This file last modified: October 2023 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 
@@ -966,14 +966,15 @@ out_slurclx = out_slurcly = out_slurcrx = out_slurcry = 0;
 *************************************************/
 
 /* Originally there were only simple slurs, and these were drawn by the
-ps_slur() function. When things got more complicated, additional work would
-have had to be done in the PostScript header file. However, in the meanwhile,
-the ps_path() function had been invented for drawing arbitrary shapes at the
-logical (non-device) level. This function (out_slur()) is now called where
-ps_slur() used to be called. In principle, it could do all the output. However,
-to keep the size of PostScript down and for compatibility with the previous
-PostScript, it still calls ps_slur() for PostScript output of complete,
-non-dashed, curved slurs that can be handled by the old code.
+ps_slur() function for PostScript output (before support for PDF was added).
+When things got more complicated, additional work would have had to be done in
+the PostScript header file. However, in the meanwhile, the ps_path() function
+had been invented for drawing arbitrary shapes. The function defined here,
+out_slur(), is now called where ps_slur() used to be called. In principle, it
+could do all the output. However, to keep the size of PostScript down and for
+compatibility with the previous PostScript, ps_slur() was still called for
+output of complete, non-dashed, curved slurs that can be handled by the old
+code. Nowadays we use ofi_slur() to get the PS/PDF switch.
 
 New functionality is added in here, and in time I may remove the special
 PostScript into here as well. Each change will cause the PostScript to change,
@@ -1012,12 +1013,12 @@ int above  = ((flags & sflag_b) == 0)? (+1) : (-1);
 
 if (ix1 == ix0 && iy1 == iy0) return;   /* Avoid crash */
 
-/* Use ps_slur() to output complete, curved, non-dashed slurs to maintain
+/* Use ofi_slur() to output complete, curved, non-dashed slurs to maintain
 compatibility and smaller PostScript files. */
 
 if (start == 0 && stop == 1000 && (flags & (sflag_l | sflag_i)) == 0)
   {
-  ps_slur(ix0, iy0, ix1, iy1, flags, co);
+  ofi_slur(ix0, iy0, ix1, iy1, flags, co);
   return;
   }
 
@@ -1042,35 +1043,40 @@ if ((flags & sflag_l) != 0)
     lineflags |= ((flags & sflag_idot) == 0)?
       tief_dashed : tief_dotted | tief_savedash;
   if ((flags & sflag_e) != 0) lineflags |= tief_editorial;
-  ps_line(ix0, iy0 + co, ix1, iy1 + co, thickness, lineflags);
+  ofi_line(ix0, iy0 + co, ix1, iy1 + co, thickness, lineflags);
 
-  /* Don't pass any flag settings for drawing the jogs; for dotted lines the
-  previous savedash ensures that the same setting is used for them. For dashed
-  lines the jogs shouldn't be dashed. For dotted lines we may need to lengthen
-  the jog to ensure at least one extra dot is drawn, and we change the
-  thickness. Also, reduce the gap length slightly because there's an optical
-  illusion that makes it look bigger than it is. Avoid redrawing the dot at the
-  joining point. */
+  /* Don't pass any flag settings for drawing the final jog; for dotted lines
+  the previous tief_savedash ensures that the same setting is used for jogs.
+  For dashed lines the jogs shouldn't be dashed. For dotted lines we may need
+  to lengthen the jog to ensure at least one extra dot is drawn, and we change
+  the thickness. Also, reduce the gap length slightly because there's an
+  optical illusion that makes it look bigger than it is. Avoid redrawing the
+  dot at the joining point. */
 
   if ((flags & sflag_idot) != 0)
     {
     thickness = out_stavemagn;
-    ps_setdash(out_dashlength, (out_dashgaplength*95)/100);
-    ps_setcapandjoin(caj_round);
+    ofi_setdash(out_dashlength, (out_dashgaplength*95)/100);
+    ofi_setcapandjoin(caj_round);
     if (abs(co) < 2*out_dashlength + out_dashgaplength)
       adjust = above*(2*out_dashlength + out_dashgaplength) - co;
     }
   else  co += (above*thickness)/2;
+  
+  /* Add tief_savedash if this is not the final jog. This is used by PDF (but 
+  not PS) output (it is ignored by the latter). */
 
   if ((flags & sflag_ol) == 0)
-    ps_line(ix0, iy0 + co - above*(out_dashlength+out_dashgaplength), ix0,
-      iy0 - adjust, thickness, 0);
+    ofi_line(ix0, iy0 + co - above*(out_dashlength+out_dashgaplength), ix0,
+      iy0 - adjust, thickness, 
+      ((flags & (sflag_or|sflag_idot)) == sflag_idot)? tief_savedash : 0);
+
   if ((flags & sflag_or) == 0)
-    ps_line(ix1, iy1 + co - above*(out_dashlength+out_dashgaplength), ix1,
+    ofi_line(ix1, iy1 + co - above*(out_dashlength+out_dashgaplength), ix1,
       iy1 - adjust, thickness, 0);
 
-  ps_setdash(0, 0);             /* Clear saved setting if no jogs */
-  ps_setcapandjoin(caj_butt);
+  ofi_setdash(0, 0);
+  ofi_setcapandjoin(caj_butt);
   return;
   }
 
@@ -1108,11 +1114,11 @@ g = ((double)stop)/1000.0;
 /* Preserve current coordinate system, translate and rotate so that the end
 points of the slur lie on the x-axis, symetrically about the origin. For
 ps_translate, the y value is relative to the stave base. Thereafter use
-ps_abspath() for absolute values. */
+ofi_abspath() for absolute values. */
 
-ps_gsave();
-ps_translate((ix0+ix1+6*out_stavemagn)/2, (iy0+iy1)/2);
-ps_rotate(atan2(yy, xx));
+ofi_gsave();
+ofi_translate((ix0+ix1+6*out_stavemagn)/2, (iy0+iy1)/2);
+ofi_rotate(atan2(yy, xx));
 
 /* Set up traditional Bezier coordinates for the complete slur. */
 
@@ -1237,8 +1243,8 @@ if ((flags & sflag_i) != 0)
   if (dashcount > 1)
     {
     gaplength = (length - dashcount * dashlength)/(dashcount - 1);
-    ps_setdash(dashlength, gaplength);
-    ps_setcapandjoin(((flags & sflag_idot) == 0)? caj_butt : caj_round);
+    ofi_setdash(dashlength, gaplength);
+    ofi_setcapandjoin(((flags & sflag_idot) == 0)? caj_butt : caj_round);
     }
 
   /* Invert drawing order of partial curve that ends at the full end */
@@ -1255,9 +1261,9 @@ if ((flags & sflag_i) != 0)
   /* Draw the dashed curve, and set editorial line adjustment to zero. */
 
   cc[2] = path_end;
-  ps_abspath(x, y, cc, thickness);
-  ps_setdash(0, 0);                /* Reset default */
-  ps_setcapandjoin(caj_butt);
+  ofi_abspath(x, y, cc, thickness);
+  ofi_setdash(0, 0);                /* Reset default */
+  ofi_setcapandjoin(caj_butt);
   ed_adjust = 0;
   }
 
@@ -1299,7 +1305,7 @@ else
 
   /* Fill the path (thickness = -1) */
 
-  ps_abspath(x, y, cc, -1);
+  ofi_abspath(x, y, cc, -1);
   }
 
 /* Deal with editorial slurs - only draw the mark when drawing the middle
@@ -1344,12 +1350,12 @@ if ((flags & sflag_e) != 0 && start < 500 && stop > 500)
   cc[0] = path_move;
   cc[1] = path_line;
   cc[2] = path_end;
-  ps_abspath(x, y, cc, 400);
+  ofi_abspath(x, y, cc, 400);
   }
 
 /* Restore the former coordinate system. */
 
-ps_grestore();
+ofi_grestore();
 }
 
 /* End of setslur.c */

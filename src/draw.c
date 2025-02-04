@@ -2,9 +2,9 @@
 *             PMW drawing functions              *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: February 2021 */
-/* This file last modified: December 2023 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 
@@ -688,6 +688,7 @@ draw_error(int n, const char *s, tree_node *t)
 const char *inhf = (curstave < 0)? " in a heading or footing" : "";
 error(n, s, t->name, inhf);
 do_pstack("** Draw stack contents when error detected:\n", "\n");
+eprintf("*** PMW abandoned\n");
 exit(EXIT_FAILURE);
 }
 
@@ -1206,7 +1207,7 @@ while (p->d.val != dr_end)
     case dr_fill:
     if (!currentpoint) draw_error(ERR153, "fill", t);
     c[cp++] = path_end;
-    if (overflag) setup_overdraw(-1, x, y, c); else ps_path(x, y, c, -1);
+    if (overflag) setup_overdraw(-1, x, y, c); else ofi_path(x, y, c, -1);
     cp = xp = yp = 0;
     currentpoint = FALSE;
     break;
@@ -1214,7 +1215,7 @@ while (p->d.val != dr_end)
     case dr_fillretain:
     if (!currentpoint) draw_error(ERR153, "fillretain", t);
     c[cp++] = path_end;
-    if (overflag) setup_overdraw(-1, x, y, c); else ps_path(x, y, c, -1);
+    if (overflag) setup_overdraw(-1, x, y, c); else ofi_path(x, y, c, -1);
     break;
 
     case dr_fontsize:
@@ -1493,19 +1494,19 @@ while (p->d.val != dr_end)
     colour[2] = draw_stack[--out_drawstackptr].d.val;
     colour[1] = draw_stack[--out_drawstackptr].d.val;
     colour[0] = draw_stack[--out_drawstackptr].d.val;
-    ps_setcolour(colour);
+    ofi_setcolour(colour);
     break;
 
     case dr_setdash:
     dash[1] = draw_stack[--out_drawstackptr].d.val;
     dash[0] = draw_stack[--out_drawstackptr].d.val;
-    ps_setdash(dash[0], dash[1]);
+    ofi_setdash(dash[0], dash[1]);
     break;
 
     case dr_setgray:
     colour[0] = draw_stack[--out_drawstackptr].d.val;
     colour[1] = colour[2] = colour[0];
-    ps_setcolour(colour);
+    ofi_setcolour(colour);
     break;
 
     case dr_setlinewidth:
@@ -1658,7 +1659,7 @@ while (p->d.val != dr_end)
     if (!currentpoint) draw_error(ERR153, "stroke", t);
     c[cp++] = path_end;
     if (overflag) setup_overdraw(draw_thickness, x, y, c);
-      else ps_path(x, y, c, draw_thickness);
+      else ofi_path(x, y, c, draw_thickness);
     cp = xp = yp = 0;
     currentpoint = FALSE;
     break;
@@ -1724,18 +1725,19 @@ if (args != NULL)
   for (int i = 1; i <= args[0].d.val; i++)
     draw_stack[out_drawstackptr++] = args[i];
 
-xp = yp = cp = level = colour[0] = colour[1] = colour[2] =
-  dash[0] = dash[1] = 0;
+colour[0] = colour[1] = colour[2] = 0;
+xp = yp = cp = level = dash[0] = dash[1] = 0;
+ 
 currentpoint = FALSE;
-ps_getcolour(save_colour);
-ps_setgray(0);
-ps_setdash(0,0);
-ps_setcapandjoin(0);
+ofi_getcolour(save_colour);
+ofi_setdash(0,0);
+ofi_setcapandjoin(0);
 draw_thickness = 500;
+if ((main_testing & mtest_forcered) != 0) colour[0] = 1000;
+ofi_setcolour(colour);
 (void)sub_draw(t, NULL, x, y, c, overflag);
-ps_setcolour(save_colour);
-ps_setcapandjoin(0);
+ofi_setcolour(save_colour);
+ofi_setcapandjoin(0);
 }
-
 
 /* End of draw.c */

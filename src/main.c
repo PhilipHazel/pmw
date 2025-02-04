@@ -2,9 +2,9 @@
 *        PMW entry point and initialization      *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: June 2023 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -58,6 +58,7 @@ static const char *arg_pattern =
   "o/k,"
   "p/k,"
   "pamphlet/s,"
+  "pdf/s,"
   "printadjust/k/2/m,"
   "printgutter/k,"
   "printscale/k,"
@@ -66,7 +67,7 @@ static const char *arg_pattern =
   "SM/k,"
   "s/k,"
   "t/k/n,"
-  "testing/s,"
+  "testing/n=2,"
   "tumble/s,"
   "-version=V/s,"
   "v/s";
@@ -106,6 +107,7 @@ enum {
   arg_o,
   arg_p,
   arg_pamphlet,
+  arg_pdf,
   arg_printadjustx,
   arg_printadjusty,
   arg_printgutter,
@@ -503,6 +505,7 @@ PF("-nr                   synonym for -norepeats\n");
 PF("-nw                   synonym for -nowidechars\n");
 PF("-o <file>             specify output file ('-' for stdout)\n");
 PF("-p <list>             select pages\n");
+PF("-pdf                  output PDF instead of PostScript\n");
 PF("-pamphlet             print pages in pamphlet order\n");
 PF("-printadjust <x> <y>  move on page by (x,y)\n");
 PF("-printgutter <x>      move recto/verso pages by x/-x\n");
@@ -616,11 +619,8 @@ if (results[arg_v].number != 0)
   main_verify = TRUE;
   }
 
-if (results[arg_testing].number != 0)
-  {
-  main_testing = TRUE;
+if ((main_testing = results[arg_testing].number) != 0)
   main_showid = FALSE;
-  }
 
 if (results[arg_d].text != NULL)
   {
@@ -827,6 +827,20 @@ if (results[arg_printside].presence != arg_present_not)
   if (n == 1) print_side2 = FALSE;
     else if (n == 2) print_side1 = FALSE;
       else error(ERR141);  /* Hard */
+  }
+
+/* Deal with selecting PDF output */
+
+if (results[arg_pdf].number != 0)
+  {
+  if (print_imposition == pc_EPS) error(ERR181);  /* Hard */
+  if (print_copies != 1) error(ERR182, "copies"); /* Warning */
+  if (print_pagefeed == pc_a4sideways)
+    {
+    error(ERR182, "a4sideways");                  /* Warning */
+    print_pagefeed = pc_normal;
+    }
+  PDF = TRUE;
   }
 }
 
@@ -1105,12 +1119,12 @@ if (main_filename != NULL)
     {
     uschar *p, *q;
     size_t len = Ustrlen(main_filename);
-    out_filename = mem_get(len + 4);
+    out_filename = mem_get(len + 5);
     Ustrcpy(out_filename, main_filename);
     if ((p = Ustrrchr(out_filename, '.')) != NULL &&
         ((q = Ustrrchr(out_filename, '/')) == NULL || q < p))
       len = p - out_filename;
-    Ustrcpy(out_filename + len, ".ps");
+    Ustrcpy(out_filename + len, PDF? ".pdf" : ".ps");
     }
   }
 
@@ -1123,7 +1137,7 @@ else
 /* Read the input file */
 
 main_state = STATE_READ;
-if (main_verify) eprintf( "Reading...\n");
+if (main_verify) eprintf( "Reading input file\n");
 read_file(FT_AUTO);
 main_truepagelength = main_pagelength;  /* Save unscaled value */
 
@@ -1142,7 +1156,7 @@ if (!main_suppress_output)
   {
   main_state = STATE_PAGINATE;
   wk_cont = mem_get_independent((main_maxstave+1)*sizeof(contstr));
-  if (main_verify) eprintf( "Paginating...\n");
+  if (main_verify) eprintf( "Paginating\n");
   paginate();
   }
 
@@ -1163,14 +1177,15 @@ we'll be writing to stdout. */
 
 if (out_filename != NULL && Ustrcmp(out_filename, "-") != 0)
   {
-  if (main_verify) eprintf( "\nWriting PostScript file \"%s\"...\n", out_filename);
-  ps_file = Ufopen(out_filename, "w");
-  if (ps_file == NULL)
+  if (main_verify) eprintf( "\nWriting %s file \"%s\"\n",
+    PDF? "PDF" : "PostScript", out_filename);
+  out_file = Ufopen(out_filename, "w");
+  if (out_file == NULL)
     error(ERR23, out_filename, strerror(errno));  /* Hard error */
   }
 else
   {
-  ps_file = stdout;
+  out_file = stdout;
   if (main_verify) eprintf( "\nWriting Postscript to stdout...\n");
   }
 
@@ -1199,8 +1214,8 @@ print_pageorigin =
   (main_landscape? 4 : 0);
 
 main_state = STATE_WRITE;
-ps_go();
-if (ps_file != stdout) fclose(ps_file);
+if (PDF) pdf_go(); else ps_go();
+if (out_file != stdout) fclose(out_file);
 main_state = STATE_ENDING;
 
 /* Output warning if coupled staves were not spaced by a multiple of 4 */

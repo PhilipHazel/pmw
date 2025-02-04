@@ -2,9 +2,9 @@
 *        PMW code for setting one note/chord     *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: October 2023 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 
@@ -264,11 +264,11 @@ if ((flags & (orn_rbra|orn_rket|orn_sbra|orn_sket)) != 0) y += yadjust;
 yb = y + byadjust;
 
 if ((flags & orn_rbra) != 0)
-  ps_musstring(US"\215", fontsize, x - (35*out_stavemagn)/100 - bxadjustL, yb);
+  ofi_musstring(US"\215", fontsize, x - (35*out_stavemagn)/100 - bxadjustL, yb);
 else if ((flags & orn_sbra) != 0)
-  ps_musstring(US"\213", fontsize, x - (35*out_stavemagn)/100 - bxadjustL, yb);
+  ofi_musstring(US"\213", fontsize, x - (35*out_stavemagn)/100 - bxadjustL, yb);
 
-ps_musstring(str, fontsize, x, y);
+ofi_musstring(str, fontsize, x, y);
 
 /* We have to convert the string to 32-bit in order to get its width. */
 
@@ -281,7 +281,7 @@ if ((flags & (orn_rket|orn_sket)) != 0)
   fdata.spacestretch = 0;
   swidth = string_width(string_pmw(str, font_mf), &fdata, NULL);
   if (swidth == 0) swidth = (58*fontsize)/100;
-  ps_musstring(((flags & orn_rket) != 0)? US"\216" : US"\214",
+  ofi_musstring(((flags & orn_rket) != 0)? US"\216" : US"\214",
     fontsize, x + mac_muldiv(swidth, out_stavemagn, 1000) + bxadjustR, yb);
   }
 }
@@ -387,9 +387,9 @@ if (out_stavelines >= 5 && n_noteheadstyle != nh_none)
         }
 
       *(--p) = 0;  /* removes redundant last move */
-      ps_musstring(buff, fontsize, xx, yy);
+      ofi_musstring(buff, fontsize, xx, yy);
       if (n_notetype == breve)
-        ps_musstring(buff, fontsize, xx + breve_right, yy);
+        ofi_musstring(buff, fontsize, xx + breve_right, yy);
       }
 
     /* Otherwise we have to position each ledger separately. */
@@ -410,7 +410,7 @@ if (out_stavelines >= 5 && n_noteheadstyle != nh_none)
       while ((ledgergap > 0 && yy <= y) ||
              (ledgergap < 0 && yy >= y))
         {
-        ps_musstring((yy == y && !n_upflag && inverted)? buff+1 : buff,
+        ofi_musstring((yy == y && !n_upflag && inverted)? buff+1 : buff,
           fontsize, xx, yy);
         yy += ledgergap * out_pitchmagn;
         }
@@ -424,7 +424,7 @@ if (out_stavelines >= 5 && n_noteheadstyle != nh_none)
         while ((ledgergap > 0 && yy <= y) ||
                (ledgergap < 0 && yy >= y))
           {
-          ps_musstring((yy == y && !n_upflag && inverted)? buff+1 : buff,
+          ofi_musstring((yy == y && !n_upflag && inverted)? buff+1 : buff,
             fontsize, xx, yy);
           yy += ledgergap * out_pitchmagn;
           }
@@ -445,7 +445,7 @@ if (n_notetype < dsquaver && n_stemlength == 0 &&
   if ((n_flags & nf_appogg) != 0) *p++ = n_upflag? 129 : 130;
   *p++ = common_notes[n_notetype + n_upflag*6];
   *p = 0;
-  ps_musstring(buff, fontsize, x, y);
+  ofi_musstring(buff, fontsize, x, y);
   return ledgered;  /* TRUE if there were ledger lines */
   }
 
@@ -503,7 +503,7 @@ if ((n_flags & nf_stem) != 0)
           }
         p -= 3;
         *p = 0;
-        ps_musstring(buff, fontsize, centx, yy);
+        ofi_musstring(buff, fontsize, centx, yy);
         p = buff;
         if (z < y + font10) *p++ = stemch;
         }
@@ -519,7 +519,7 @@ if ((n_flags & nf_stem) != 0)
           z += font2;
           }
         *(--p) = 0;
-        ps_musstring(buff, fontsize, centx, yy);
+        ofi_musstring(buff, fontsize, centx, yy);
         p = buff;
         }
       }
@@ -537,7 +537,7 @@ if ((n_flags & nf_stem) != 0)
           }
         p -= 3;
         *p = 0;
-        ps_musstring(buff, fontsize, centx, yy);
+        ofi_musstring(buff, fontsize, centx, yy);
         p = buff;
         if (z > y - font10) *p++ = stemch;
         }
@@ -553,7 +553,7 @@ if ((n_flags & nf_stem) != 0)
           z -= font1;
           }
         *(--p) = 0;
-        ps_musstring(buff, fontsize, centx, yy);
+        ofi_musstring(buff, fontsize, centx, yy);
         p = buff;
         }
       }
@@ -564,7 +564,7 @@ if ((n_flags & nf_stem) != 0)
     if (p != buff)
       {
       *p = 0;
-      ps_musstring(buff, fontsize, centx, y);
+      ofi_musstring(buff, fontsize, centx, y);
       p = buff;
       }
     }
@@ -588,7 +588,7 @@ if ((n_flags & nf_stem) != 0)
         }
       p -= 3;
       *p = 0;
-      ps_musstring(buff, fontsize, x, yy);
+      ofi_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z < y + font10) *p++ = stemch;
       if (n_noteheadstyle == nh_harmonic) *p++ = 'q';
@@ -604,7 +604,7 @@ if ((n_flags & nf_stem) != 0)
         z += font2;
         }
       *(--p) = 0;
-      ps_musstring(buff, fontsize, x, yy);
+      ofi_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z > y) *p++ = 'q';
       }
@@ -625,7 +625,7 @@ if ((n_flags & nf_stem) != 0)
         }
       p -= 3;
       *p = 0;
-      ps_musstring(buff, fontsize, x, yy);
+      ofi_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z > y - font10) *p++ = stemch;
       if (n_noteheadstyle == nh_harmonic) *p++ = 'r';
@@ -641,7 +641,7 @@ if ((n_flags & nf_stem) != 0)
         z -= font1;
         }
       *(--p) = 0;
-      ps_musstring(buff, fontsize, x, yy);
+      ofi_musstring(buff, fontsize, x, yy);
       p = buff;
       if (z < y) *p++ = 'r';
       }
@@ -692,57 +692,68 @@ if (n_noteheadstyle != nh_none)
 /* Output the music font string. */
 
 *p = 0;
-ps_musstring(buff, fontsize, x, y);
+ofi_musstring(buff, fontsize, x, y);
 
-/* In the special cases of a small or circular note head, the note head was
-skipped above. The printing position should be in the correct place for a full
-size note head if a stem or ledger lines were output above. Arrange to output
-the notehead at the cue size, with a relative position adjusted to allow for
-the head size. */
+/* In the special cases of a small note head, the note head output was skipped
+above. The printing position should be in the correct place for a full size
+note head if a stem or ledger lines were output above. Arrange to output the
+notehead at the cue size, with a position adjusted to allow for the head size.
+
+Originally we made use of a function called ps_relmusstring(), which output
+relative to the end of the previous output because this is trivial in
+PostScript, which has an operator that does this. PDF, however, does not, so
+instead we measure the previous string and calculate the absolute position of
+the notehead. As this was the only use of relative string output, it is
+simplest to do the same for both PS and PDF. */
 
 if (n_smallhead)
   {
   int32_t cue_fontsize = (curmovt->fontsizes)->fontsize_cue.size;
   int32_t sm_fontsize = (cue_fontsize * out_stavemagn)/1000;
 
-  p = buff;
-  *p++ = headchars[n_notetype + NOTETYPE_COUNT*n_noteheadstyle];
-  *p = 0;
+  /* We have to convert the previous string to 32-bit in order to get its
+  width. */
 
   if (positioned && (n_flags & nf_stem) != 0)
     {
-    x = 0;
+    int32_t height;
+    fontinststr fdata;
+    fdata.size = sm_fontsize;
+    fdata.matrix = NULL;
+    fdata.spacestretch = 0;
+    x += string_width(string_pmw(buff, font_mf), &fdata, &height);
     if ((n_upflag && (n_flags & nf_invert) == 0) ||
         (!n_upflag && (n_flags & nf_invert) != 0))
       x += 6000 - 3 * (cue_fontsize / 5);
-    y = 2000 - cue_fontsize / 5;
-    ps_relmusstring(buff, sm_fontsize, x, y);
+    y -= height + 2000 - cue_fontsize / 5;
     }
+
+  /* Stem and/or ledger lines were not positioned above. */
 
   else
     {
     x += (((n_notetype == breve)? 19:11)*out_stavemagn)/10;
     y -= (5*out_stavemagn)/10;
-    ps_musstring(buff, sm_fontsize, x, y);
     }
+
+  /* Output the relevant note head */
+
+  p = buff;
+  *p++ = headchars[n_notetype + NOTETYPE_COUNT*n_noteheadstyle];
+  *p = 0;
+  ofi_musstring(buff, sm_fontsize, x, y);
   }
+
+/* Similarly for a circular note head. */
 
 else if (n_noteheadstyle == nh_circular)
   {
   p = buff;
   *p++ = headchars[n_notetype + NOTETYPE_COUNT*n_noteheadstyle];
   *p = 0;
-
   x += mac_muldiv((n_upflag? 300 : -1200), out_stavemagn, 1000);
-
-  ps_musstring(buff, fontsize, x, y);
-
-
-
-
-
+  ofi_musstring(buff, fontsize, x, y);
   }
-
 
 /* Return TRUE if there were ledger lines. */
 
@@ -806,7 +817,7 @@ if (notetype <= minim)
     }
 
   if (loffset != 0)
-    ps_musstring(US"=", fontsize, x - (10*out_stavemagn)/10, out_ystave -
+    ofi_musstring(US"=", fontsize, x - (10*out_stavemagn)/10, out_ystave -
       ((yoffset + loffset)*out_stavemagn)/1000);
   }
 
@@ -827,7 +838,7 @@ if (notetype >= 0)
     s = US"\220\217";
     y += 4*out_stavemagn;
     }
-  ps_musstring(s, fontsize, x, y);
+  ofi_musstring(s, fontsize, x, y);
   }
 
 /* Output a conventional multibar rest sign if the option is set and the number
@@ -835,11 +846,11 @@ of bars is suitable.  */
 
 else if (MFLAG(mf_codemultirests) && out_manyrest < 9)
   {
-  ps_musstring(multireststrings[out_manyrest - 2], fontsize, x, y - 2000);
+  ofi_musstring(multireststrings[out_manyrest - 2], fontsize, x, y - 2000);
   }
 
 /* Output a |----| long rest sign. If the bar is unusually long or unusually
-short, draw the long rest symbol; note that ps_line() works in conventional
+short, draw the long rest symbol; note that ofi_line() works in conventional
 coordinates relative to the base line of the stave. The variable n_longrestmid
 contains the mid-point of the long rest. */
 
@@ -870,14 +881,14 @@ else
     xr = out_barlinex - mac_muldiv(adjust, out_stavemagn, 1000);
     xl = 2*n_longrestmid - xr;
 
-    ps_line(xl, 8*out_stavemagn, xr, 8*out_stavemagn, hthick, 0);
-    ps_line(xl, 4*out_stavemagn, xl, 12*out_stavemagn, vthick, 0);
-    ps_line(xr, 4*out_stavemagn, xr, 12*out_stavemagn, vthick, 0);
+    ofi_line(xl, 8*out_stavemagn, xr, 8*out_stavemagn, hthick, 0);
+    ofi_line(xl, 4*out_stavemagn, xl, 12*out_stavemagn, vthick, 0);
+    ofi_line(xr, 4*out_stavemagn, xr, 12*out_stavemagn, vthick, 0);
     }
 
   /* Use the long rest character */
 
-  else ps_muschar(x, y, mc_longrest, fontsize);
+  else ofi_muschar(x, y, mc_longrest, fontsize);
   }
 }
 
@@ -927,7 +938,7 @@ if ((bar_cont->flags & cf_notes) != 0 && (n_flags & nf_hidden) == 0)
     if (n_acc == ac_hs && curmovt->halfsharpstyle != 0) offset += 24;
     if (n_acc == ac_hf && curmovt->halfflatstyle != 0) offset += 24;
     x_acc = xn - mac_muldiv(n_accleft, n_fontsize, 10000);
-    ps_muschar(x_acc,
+    ofi_muschar(x_acc,
       out_ystave - (n_pitch - P_1S)*out_pitchmagn - n_pcorrection,
         acctable[offset], fontsize);
      }
@@ -993,13 +1004,13 @@ if ((bar_cont->flags & cf_notes) != 0 && (n_flags & nf_hidden) == 0)
     /* Output the dot(s). The '+' character is 135 (0x87) in the music font. */
 
     x_dot = xn + dotpos;
-    ps_musstring(dotplus? US"\x87" : US"?", fontsize, x_dot,
+    ofi_musstring(dotplus? US"\x87" : US"?", fontsize, x_dot,
       out_ystave - dotlevel - n_pcorrection);
 
     if ((n_flags & nf_dot2) != 0)
       {
       x_dot += (35*out_stavemagn)/10;
-      ps_musstring(US"?", fontsize, x_dot, out_ystave - dotlevel - n_pcorrection);
+      ofi_musstring(US"?", fontsize, x_dot, out_ystave - dotlevel - n_pcorrection);
       }
     if (dotplus) x_dot += 4*out_stavemagn;  /* Extra for ) */
     }
@@ -1042,8 +1053,8 @@ if ((bar_cont->flags & cf_notes) != 0 && (n_flags & nf_hidden) == 0)
         }
       }
 
-    ps_musstring(bra, bfontsize, x_acc - (35*out_stavemagn)/10 + adjustbra, yb);
-    ps_musstring(ket, bfontsize, x_dot + (40*out_stavemagn)/10 + adjustket, yb);
+    ofi_musstring(bra, bfontsize, x_acc - (35*out_stavemagn)/10 + adjustbra, yb);
+    ofi_musstring(ket, bfontsize, x_dot + (40*out_stavemagn)/10 + adjustket, yb);
     }
   }
 
@@ -1561,7 +1572,7 @@ for (; n_ornament->type == b_ornament;
       break;
 
       default:
-      ps_musstring(s, size, x, out_ystave - mac_muldiv(y, out_stavemagn, 1000));
+      ofi_musstring(s, size, x, out_ystave - mac_muldiv(y, out_stavemagn, 1000));
       break;
       }
     }
@@ -2360,7 +2371,7 @@ shownote();
 out_lastnotex = n_x;
 
 /* Print tremolo bars if required between this note and its predecessor. Note
-that the x-values required by ps_beam() are relative to the bar start. Ignore
+that the x-values required by ofi_beam() are relative to the bar start. Ignore
 if inside a beam, or if this note is a rest. (The first can't be a rest if we
 have got this far.) We make use of the beam drawing function - hence the
 setting of various beam_xxx variables. */
@@ -2424,7 +2435,7 @@ if (out_tremolo != NULL && n_pitch != 0 && !out_beaming)
       x1 -= xx;
       if ((n_flags & nf_stem) == 0) x1 -= n_accleft;
       }
-    ps_beam(x0, x1, i, 0);
+    ofi_beam(x0, x1, i, 0);
     }
 
   }

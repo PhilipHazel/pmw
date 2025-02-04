@@ -2,9 +2,9 @@
 *       PMW global variable instantiations       *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: December 2024 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 
@@ -69,7 +69,7 @@ uint32_t    *font_b2pf_options = NULL;
 
 int32_t      font_cosr = 1000;
 uint32_t     font_count = 0;
-uschar      *font_data_default = US FONTMETRICS;
+uschar      *font_data_default = US FONTMETRICS ":" FONTDIR;
 uschar      *font_data_extra = NULL;
 fontstr     *font_list = NULL;
 size_t       font_list_size = 0;
@@ -125,7 +125,7 @@ uint32_t     main_sheetwidth = 595000;
 BOOL         main_showid = TRUE;
 int          main_state = STATE_INIT;
 BOOL         main_suppress_output = FALSE;
-BOOL         main_testing = FALSE;
+int          main_testing = 0;
 int32_t      main_tracepos = INT32_MAX - 1;
 int32_t      main_transpose = NO_TRANSPOSE;
 BOOL         main_transposedaccforce = TRUE;
@@ -201,6 +201,7 @@ b_drawstr  **out_drawqueue = NULL;
 size_t       out_drawqueue_ptr = 0;
 size_t       out_drawqueue_size = 0;
 int          out_drawstackptr;
+FILE        *out_file;
 uschar      *out_filename = NULL;
 int32_t      out_gracefudge;
 BOOL         out_gracenotes;
@@ -265,6 +266,23 @@ int32_t      out_ystave;
 uint32_t     page_firstnumber = 1;
 uint32_t     page_increment = 1;
 
+BOOL         PDF = FALSE;
+
+BOOL         pout_changecolour = FALSE;
+int32_t      pout_curcolour[3] = {0, 0, 0};
+stavelist   *pout_curlist;
+uint32_t     pout_curnumber;
+fontinststr  pout_mfdata = { NULL, 0, 0 };   /* For temporary use */
+
+/* Characters in the music font for stave fragments with different numbers of
+lines, both 10 points long and 100 points long. */
+
+uint8_t      pout_stavechar1[] =  { 0, 'D', 169, 170, 171, 'C', 172 };
+uint8_t      pout_stavechar10[] = { 0, 'G', 247, 248, 249, 'F', 250 };
+
+int32_t      pout_wantcolour[3] = {0, 0, 0};
+int32_t      pout_ymax;
+
 movtstr     *premovt = NULL;
 
 int          print_copies = 1;
@@ -288,7 +306,6 @@ BOOL         print_side2 = TRUE;
 BOOL         print_tumble = FALSE;
 int32_t      print_xmargin = 0;
 
-FILE        *ps_file;
 const uschar *ps_header = CUS PSHEADER;
 
 BOOL         pmw_reading_stave = FALSE;
@@ -332,7 +349,36 @@ stavestr    *st = NULL;
 int          stave_use_draw = 0;
 BOOL         stave_use_widechars = TRUE;
 uschar      *stdmacs_dir = US STDMACS;
+int          string_double_precision = 2;
 
 contstr     *wk_cont;
+
+
+/* -------- Switched function pointers -------- */
+
+void         (*ofi_abspath)(int32_t *, int32_t *, int *, int32_t);
+void         (*ofi_barline)(int32_t, int32_t, int32_t, int, int32_t);
+void         (*ofi_beam)(int32_t, int32_t, int, int);
+void         (*ofi_brace)(int32_t, int32_t, int32_t, int32_t);
+void         (*ofi_bracket)(int32_t, int32_t, int32_t, int32_t);
+void         (*ofi_getcolour)(int32_t *);
+void         (*ofi_grestore)(void);
+void         (*ofi_gsave)(void);
+void         (*ofi_line)(int32_t, int32_t, int32_t, int32_t, int32_t, uint32_t);
+void         (*ofi_lines)(int32_t *, int32_t *, int, int32_t);
+void         (*ofi_muschar)(int32_t, int32_t, uint32_t, int32_t);
+void         (*ofi_musstring)(uschar *, int32_t, int32_t, int32_t);
+void         (*ofi_path)(int32_t *, int32_t *, int *, int32_t);
+void         (*ofi_rotate)(double);
+void         (*ofi_setcapandjoin)(uint32_t);
+void         (*ofi_setcolour)(int32_t *);
+void         (*ofi_setdash)(int32_t, int32_t);
+void         (*ofi_setgray)(int32_t);
+void         (*ofi_slur)(int32_t, int32_t, int32_t, int32_t, uint32_t, int32_t);
+void         (*ofi_startbar)(int, int);
+void         (*ofi_stave)(int32_t, int32_t, int32_t, int);
+void         (*ofi_string)(uint32_t *, fontinststr *, int32_t *, int32_t *,
+               BOOL);
+void         (*ofi_translate)(int32_t, int32_t);
 
 /* End of globals.c */

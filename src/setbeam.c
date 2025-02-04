@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: October 2023 */
+/* This file last modified: December 2024 */
 
 #include "pmw.h"
 
@@ -555,7 +555,7 @@ if (beam_accrit != 0)
 
   for (int i = 0; i < count; i++)
     {
-    ps_beam(beam_firstX, xright, 1, i*sign);
+    ofi_beam(beam_firstX, xright, 1, i*sign);
     }
   beam_accrit = 0;
   return;
@@ -565,7 +565,7 @@ if (beam_accrit != 0)
 
 for (int i = 1; i <= throughlevel; i++)
   {
-  ps_beam(beam_firstX, xright, i, 0);
+  ofi_beam(beam_firstX, xright, i, 0);
   lastlen /= 2;
   }
 
@@ -760,7 +760,7 @@ for (int level = throughlevel + 1; level <= 4; level++)
 
         /* Now generate the beam */
 
-        ps_beam(
+        ofi_beam(
           out_findXoffset(leftmoff) + sladjust + adjusts[adjustptr] + XLadjust,
             xr, Dlevel, 0);
         taildirflags[notenumber]   |= 1;
@@ -791,7 +791,7 @@ for (int level = throughlevel + 1; level <= 4; level++)
               out_stavemagn, 1000);
 
           if (left_up != beam_upflag) Dlevel = throughlevel - level + 1;
-          ps_beam(x, x + mac_muldiv(curmovt->beamflaglength, out_stavemagn,
+          ofi_beam(x, x + mac_muldiv(curmovt->beamflaglength, out_stavemagn,
             1000), Dlevel, 0);
           taildirflags[notenumber] |= 1;
           }
@@ -816,7 +816,7 @@ for (int level = throughlevel + 1; level <= 4; level++)
               out_stavemagn, 1000);
 
           if (right_up != beam_upflag) Dlevel = throughlevel - level + 1;
-          ps_beam(x - mac_muldiv(curmovt->beamflaglength, out_stavemagn, 1000),
+          ofi_beam(x - mac_muldiv(curmovt->beamflaglength, out_stavemagn, 1000),
             x, Dlevel, 0);
           taildirflags[notenumber+1] |= 2;
           skipnote = TRUE;
@@ -881,7 +881,7 @@ for (int level = throughlevel + 1; level <= 4; level++)
     {
     int32_t x = out_findXoffset(leftmoff) + adjusts[adjustptr] + sradjust +
       ((beam_upflag && !lastopposite)? beam_Xcorrection: 0);
-    ps_beam(x - mac_muldiv(curmovt->beamflaglength, out_stavemagn, 1000), x,
+    ofi_beam(x - mac_muldiv(curmovt->beamflaglength, out_stavemagn, 1000), x,
       level, 0);
     }
 

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: October 2023 */
+/* This file last modified: December 2023 */
 
 #include "pmw.h"
 
@@ -150,7 +150,7 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
   /* Initiate PostScript bar (generates a comment), and arrange for lastp to
   point to the data for the topmost real stave. */
 
-  ps_startbar(curbarnumber, curstave);
+  ofi_startbar(curbarnumber, curstave);
   if (curstave > 0) lastp = p;
 
   /* Miscellaneous initialization */
@@ -650,9 +650,9 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
       if (barchar == bar_thick)
         {
         int32_t gap = mac_muldiv(3500, out_barlinemagn, 1000);
-        ps_barline(out_barlinex - (3*out_barlinemagn)/2, ybarstart, out_ybarend,
+        ofi_barline(out_barlinex - (3*out_barlinemagn)/2, ybarstart, out_ybarend,
           bar_thick, out_barlinemagn);
-        ps_barline(out_barlinex - gap, ybarstart, out_ybarend, bar_single,
+        ofi_barline(out_barlinex - gap, ybarstart, out_ybarend, bar_single,
           out_barlinemagn);
         }
 
@@ -667,7 +667,7 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
 
         if (barlinestyle < 4 || barchar == bar_double)
           {
-          ps_barline(out_barlinex - x, ybarstart, out_ybarend, barchar,
+          ofi_barline(out_barlinex - x, ybarstart, out_ybarend, barchar,
             out_barlinemagn);
           }
 
@@ -676,7 +676,7 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
 
         else
           {
-          ps_musstring((barlinestyle == 4)?
+          ofi_musstring((barlinestyle == 4)?
             US"~x\211yyyyyyx\211" : US"|\211yyyyyyxxxxx\211",
             10*out_stavemagn, out_barlinex, out_ystave);
           }
@@ -719,12 +719,12 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
             if (style < 4 || barchar == bar_double)
               {
               if (barchar == bar_double) x = 2*out_stavemagn;
-              ps_barline(out_lastbarlinex - x, ybarstart, out_ybarend, barchar,
+              ofi_barline(out_lastbarlinex - x, ybarstart, out_ybarend, barchar,
                 out_barlinemagn);
               }
             else
               {
-              ps_musstring((style == 4)?
+              ofi_musstring((style == 4)?
                 US"~x\211yyyyyyx\211" : US"|\211yyyyyyxxxxx\211",
                 10*out_stavemagn, out_lastbarlinex, out_ystave);
               }
@@ -738,7 +738,7 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
 
       if (ss->stavelines > 0)
         {
-        ps_stave((!out_startlinebar)? out_lastbarlinex - x :
+        ofi_stave((!out_startlinebar)? out_lastbarlinex - x :
           out_sysblock->startxposition + out_sysblock->xjustify,
             out_ystave, out_barlinex, ss->stavelines);
         }

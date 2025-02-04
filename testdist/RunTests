@@ -20,8 +20,9 @@ echo "*** Running distributed tests ***"
 
 for x in infiles/* ; do
   file=`basename $x`
-  $valgrind $vopt ../src/pmw -norc -testing -F ../fontmetrics -H ../PSheader \
-    -MF ../psfonts -SM ../macros -o test.ps infiles/$file
+
+  $valgrind $vopt ../src/pmw -norc -testing 7 -F ../fontmetrics \
+    -H ../PSheader -MF ../psfonts -SM ../macros -o test.ps infiles/$file
 
   diff -u outfiles/$file.ps test.ps >test.diff
   if [ $? != 0 ] ; then
@@ -30,7 +31,20 @@ for x in infiles/* ; do
     if [ "$autoquit" = "autoquit" ]; then exit 1; fi 
     rc=1
   else
-    echo $file test succeeded
+    echo $file PostScript test succeeded
+  fi
+
+  $valgrind $vopt ../src/pmw -norc -pdf -testing 7 -F ../fontmetrics \
+    -H ../PSheader -MF ../psfonts -SM ../macros -o test.pdf infiles/$file
+
+  diff -u outfiles/$file.pdf test.pdf >test.diff
+  if [ $? != 0 ] ; then
+    mv test.diff test-$file.diff
+    echo "*** $file test failed - see test-$file.diff ***"
+    if [ "$autoquit" = "autoquit" ]; then exit 1; fi 
+    rc=1
+  else
+    echo $file PDF test succeeded
   fi
 done
 

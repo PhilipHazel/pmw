@@ -32,32 +32,32 @@ a5
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-rm 17 ss(Heading 1)34 760 s(Heading 1)329.654 760 s rm 8 ss(F)34 270 s
-(ooting 1)-0.12 0 rs(F)369.224 270 s(ooting 1)-0.12 0 rs
+rm 17 ss(Heading 1)34 520 s(Heading 1)329.654 520 s rm 8 ss(F)34 30 s
+(ooting 1)-0.12 0 rs(F)369.224 30 s(ooting 1)-0.12 0 rs
 pagesave restore showpage
 
 %%Page: 2 2
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-rm 12 ss(Heading 2)34 760 s(Heading 2)350.344 760 s rm 8 ss(F)34 270 s
-(ooting 2)-0.12 0 rs(F)369.224 270 s(ooting 2)-0.12 0 rs
+rm 12 ss(Heading 2)34 520 s(Heading 2)350.344 520 s rm 8 ss(F)34 30 s
+(ooting 2)-0.12 0 rs(F)369.224 30 s(ooting 2)-0.12 0 rs
 pagesave restore showpage
 
 %%Page: 3 3
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-rm 12 ss(Heading 3)34 760 s(Heading 3)350.344 760 s rm 8 ss(F)34 270 s
-(ooting 3)-0.12 0 rs(F)369.224 270 s(ooting 3)-0.12 0 rs
+rm 12 ss(Heading 3)34 520 s(Heading 3)350.344 520 s rm 8 ss(F)34 30 s
+(ooting 3)-0.12 0 rs(F)369.224 30 s(ooting 3)-0.12 0 rs
 pagesave restore showpage
 
 %%Page: 4 4
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-rm 12 ss(Heading 4)34 760 s(Heading 4)350.344 760 s rm 8 ss(F)34 270 s
-(ooting 4)-0.12 0 rs(F)369.224 270 s(ooting 4)-0.12 0 rs
+rm 12 ss(Heading 4)34 520 s(Heading 4)350.344 520 s rm 8 ss(F)34 30 s
+(ooting 4)-0.12 0 rs(F)369.224 30 s(ooting 4)-0.12 0 rs
 pagesave restore showpage
 
 %%Trailer

@@ -1,0 +1,81 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginProlog
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+1.5 dup scale
+%%EndPageSetup
+mf 10 ss(!)42.666 503.333 s bf 11.8 ss(4)58.666 511.333 s(4)
+58.666 503.483 s mf 10 ss(")42.166 459.333 s bf 11.8 ss(4)
+58.666 467.333 s(4)58.666 459.483 s mf 10 ss
+16 459.333(@)42.666 503.333 b 39.166 519.333 459.333 k
+%1/2
+(@)164.066 459.333 s
+%1/1
+(5)72.566 507.333 s 82.066 506.033 Mt 82.066 528.633 Lt
+96.566 528.633 Lt 96.566 506.033 Lt 82.066 506.033 Lt 0.5 Slw S(')
+84.066 507.333 s(J)88.566 511.333 s(JL)88.566 507.333 s
+103.566 504.033 Mt 103.566 522.633 Lt 113.566 522.633 Lt
+113.566 504.033 Lt 103.566 504.033 Lt 0.5 Slw S(6)105.566 517.333 s
+118.566 502.033 Mt 118.566 522.633 Lt 134.566 522.633 Lt
+134.566 502.033 Lt 118.566 502.033 Lt 0.5 Slw S(J)120.566 505.333 s(}L)
+120.566 505.333 s(5)120.566 503.333 s 140.066 504.033 Mt
+140.066 524.633 Lt 156.066 524.633 Lt 156.066 504.033 Lt
+140.066 504.033 Lt 0.5 Slw S(K)148.066 517.333 s(L)142.766 517.333 s(6)
+148.066 519.333 s 16 475.333(@)164.066 503.333 b
+%2/2
+(@)240.666 459.333 s
+%2/1
+175.666 505.333 Mt 173.666 505.333 Lt 173.666 513.333 Lt
+175.666 513.333 Lt 0.5 Slw S(5)182.666 511.333 s(%)177.666 503.333 s(5)
+182.666 503.333 s 201.666 505.333 Mt 199.666 505.333 Lt
+199.666 517.333 Lt 201.666 517.333 Lt 0.5 Slw S(%)203.666 513.333 s(5)
+208.666 513.333 s(5)208.666 505.333 s 75.566 505.333 Mt
+151.616 491.333 Lt 227.666 505.333 Lt 0.5 Slw S(5)224.666 507.333 s
+16 475.333(@)240.666 503.333 b
+(FCCCCCCCCC)42.666 503.333 s (C)230.666 503.333 s
+(FCCCCCCCCC)42.666 459.333 s (C)230.666 459.333 s
+(!)42.666 415.333 s(")42.166 371.333 s 16 371.333(@)42.666 415.333 b
+39.166 431.333 371.333 k
+%3/2
+(@)276.666 371.333 s
+%3/1
+69.666 407.333 Mt 89.666 387.333 109.666 387.333 129.666 407.333 Ct
+0.5 Slw S(5)66.666 419.333 s(5)122.666 419.333 s 151.666 403.333 Mt
+148.666 397.333 Lt 154.666 397.333 Lt 151.666 403.333 Lt F
+151.666 401.333 Mt 151.666 385.333 Lt 0.5 Slw S(5)148.666 419.333 s
+188.666 403.333 Mt 178.666 403.333 Mt 198.666 403.333 Lt
+188.666 393.333 Mt 188.666 413.333 Lt 0.5 Slw S 188.666 391.333 Mt
+188.666 381.333 Lt 0.5 Slw S 268.666 403.333 Mt 258.666 403.333 Mt
+278.666 403.333 Lt 268.666 393.333 Mt 268.666 413.333 Lt 0.5 Slw S(5)
+228.666 417.333 s 16 387.333(@)276.666 415.333 b
+(FFCCC)42.666 415.333 s (C)266.666 415.333 s
+(FFCCC)42.666 371.333 s (C)266.666 371.333 s

@@ -3,7 +3,8 @@ stavespacing 1/0
 bracket
 brace 1-3
 textfont extra 8 "Helvetica"
-textfont extra 1 "NewCenturySchlbk-Bold"
+@textfont extra 1 "NewCenturySchlbk-Bold"
+textfont  extra 1 "Helvetica-Oblique"
 textsizes 10 14 8
 
 justify top left right

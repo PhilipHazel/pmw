@@ -2,8 +2,8 @@
 *            MusicXML input for PMW              *
 *************************************************/
 
-/* Copyright (c) Philip Hazel, 2022 */
-/* This file last modified: April 2022 */
+/* Copyright (c) Philip Hazel, 2025 */
+/* This file last modified: February 2025 */
 
 
 /* This module contains functions for processing heading and general
@@ -407,7 +407,12 @@ if (defaults != NULL)
       pagelength = mac_muldiv(pagelength, main_magnification, 1000);
       linelength = mac_muldiv(linelength, main_magnification, 1000);
 
-      if (linelength > 600000 || pagelength > 850000) main_sheetsize = sheet_A3;
+      if (linelength > 600000 || pagelength > 850000) 
+        {
+        main_sheetsize = sheet_A3;
+        main_sheetdepth = 1190000;
+        main_sheetwidth = 842000; 
+        } 
       main_pagelength = pagelength;
       curmovt->linelength = linelength;
       }

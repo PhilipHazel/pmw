@@ -2,17 +2,17 @@
 *              Main header for PMW               *
 *************************************************/
 
-/* Copyright Philip Hazel 2024 */
+/* Copyright Philip Hazel 2025 */
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: December 2024 */
+/* This file last modified: January 2025 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
 #define PMW_VERSION "5.30-DEV"
 #define PMW_DATE    "16-December-2024"
-#define COPYRIGHT   "Copyright (c) Philip Hazel 2024"
+#define COPYRIGHT   "Copyright (c) Philip Hazel 2025"
 
 /* Standard C headers */
 
@@ -101,6 +101,14 @@
 
 enum { STATE_INIT, STATE_READ, STATE_PAGINATE, STATE_WRITE, STATE_ENDING };
 
+/* Bits in the main_testing variable. For PS output, any non-zero value runs in
+testing mode. Only for PDF are there separate actions. */
+
+#define mtest_version     0x01u   /* Suppress version and date info */
+#define mtest_barids      0x02u   /* Insert bar and page idents (PDF) */
+#define mtest_omitfont    0x04u   /* Omit music font (PDF) */
+#define mtest_forcered    0x08u   /* For red output (PDF) */
+
 /* Characters whose code point is less than LOWCHARLIMIT can be used directly
 in the "doubled-up" font encoding for standardly-encoded fonts. Some other
 Unicode values are translated when a string is read into code points just above
@@ -183,6 +191,9 @@ vector as text sizes specified by the user and the fixed sizes. */
 #define ff_fixedpitch   0x00000002u    /* fixed pitch */
 #define ff_hasfi        0x00000004u    /* has "fi" */
 #define ff_include      0x00000008u    /* to be included in output */
+#define ff_used         0x00000010u    /* font is used (for PDF output) */
+#define ff_usedlower    0x00000020u    /* lower half used (for std enc) */
+#define ff_usedupper    0x00000040u    /* upper half used (for std enc) */
 
 /* Identifiers for each type of font. Any changes in this list must be kept in
 step with the list of font ids which is kept in Font_IdStrings. The
@@ -274,6 +285,8 @@ typedef uint8_t CBOOL;
 /* Functional and shorthand macros */
 
 #define sfb string_format_barnumber
+#define sfd string_format_double
+#define SFD string_format_multiple_double
 #define sff string_format_fixed
 #define SFF string_format_multiple_fixed
 #define sfn string_format_notelength
@@ -325,6 +338,9 @@ typedef uint8_t CBOOL;
 
 #define mac_emptybar(a) (a->next->type == b_barline)
 
+#define poutx(x)  ((x) + print_xmargin)
+#define pouty(y)  (pout_ymax - (y))
+
 /* Tracing and debugging. D_any is set for all -d instances at the start of
 debug decoding. */
 
@@ -373,7 +389,7 @@ enum error_number {
   ERR150,ERR151,ERR152,ERR153,ERR154,ERR155,ERR156,ERR157,ERR158,ERR159,
   ERR160,ERR161,ERR162,ERR163,ERR164,ERR165,ERR166,ERR167,ERR168,ERR169,
   ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176,ERR177,ERR178,ERR179,
-  ERR180
+  ERR180,ERR181,ERR182,ERR183,ERR184,ERR185,ERR186,ERR187
 };
 
 /* Types of input file */

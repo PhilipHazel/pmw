@@ -2,9 +2,10 @@
 @ can be used to draw crop marks on pages. Philip Hazel, July 1994.
 @ Revised to do a better job, July 1995.
 @ ... and again, August 1995!
+@ ... and again, January 2025!
 
 @ These four definitions specify the position of the crop marks relative to the 
-@ area in which PMS prints music. Zero-level for the bottom is the lowest 
+@ area in which PMW prints music. Zero-level for the bottom is the lowest 
 @ possible position for a stave; the zero top level is pagelength points above.
 @ Note that if a heading is printed at the top of the page, its baseline is at
 @ the top zero level, so the actual printing extends a bit higher. The left-hand 
@@ -22,8 +23,6 @@
 @ Those values are, in fact, the correct values for B5 page images, when the
 @ following values are also set:
 
-@ Sheetwidth 499
-@ Sheetdepth 709
 @ Linelength 420
 @ Pagelength 590
 
@@ -71,10 +70,8 @@ pageheading draw crops 0
 @ and have all the crop marks showing you will need to use the image 
 @ adjustment feature of the print configuration dialogue box.
 
-@ Replace what follows with your own PMS input file.
+@ Replace what follows with your own PMW input file.
     
-Sheetwidth 499
-Sheetdepth 709
 Linelength 420
 Pagelength 590
 heading "<|heading|>"

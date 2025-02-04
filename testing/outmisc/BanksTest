@@ -1,7 +1,7 @@
 %%Pages: (atend)
 %%DocumentNeededResources: font Times-Roman Times-Italic 
 %%+ font Times-Bold Times-BoldItalic Symbol 
-%%+ font PMW-Music PMW-Alpha 
+%%+ font PMW-Music Helvetica 
 %%Requirements: numcopies(1)
 %%EndComments
 
@@ -26,57 +26,57 @@ b5
 /sy /syX /Symbol inf
 %%IncludeResource: font PMW-Music
 /mf /mfX /PMW-Music inf
-%%IncludeResource: font PMW-Alpha
-/xx1 /xx1X /PMW-Alpha inf
+%%IncludeResource: font Helvetica
+/xx1 /xx1X /Helvetica inf
 %%EndSetup
 
 %%Page: 1 1
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-bf 28 ss(Eboracum Choral Series)108.23 770 s rm 10 ss(General Editor: )
-189.275 754 s bf 10 ss(Francis J)253.705 754 s(ackson)-0.15 0 rs
+bf 28 ss(Eboracum Choral Series)108.23 640 s rm 10 ss(General Editor: )
+189.275 624 s bf 10 ss(Francis J)253.705 624 s(ackson)-0.15 0 rs
 rm 12 ss
-(Banks Music Publications, )83.398 740 s
+(Banks Music Publications, )83.398 610 s
 (The Old F)-0.216 0 rs(or)-0.18 0 rs(ge, Sand Hutton, )-0.216 0 rs
-(Y)-1.08 0 rs(ork )-1.32 0 rs(Y)-1.08 0 rs(O4 1LB)-0.36 0 rs 106 730 Mt
-106 730.375 Lt 256 732.05 Lt 406 730.375 Lt 406 730 Lt 406 729.625 Lt
-256 727.95 Lt 106 729.625 Lt 106 730 Lt F rm 10 ss(S.A.T)46 698 s(.B.)
--0.74 0 rs(ECS ###)430.16 698 s(\(unacc.\))46 688 s it 12 ss(Dedication)
-229.336 696 s rm 24 ss(TITLE)222.676 668 s bf 12 ss(Composer)
-413.344 618 s mf 10 ss(!)50 571 s xx1 11.8 ss(4)70 579 s(4)70 571.15 s
-mf 10 ss(!)50 527 s xx1 11.8 ss(4)70 535 s(4)70 527.15 s mf 10 ss(")
-49.5 483 s xx1 11.8 ss(4)70 491 s(4)70 483.15 s mf 10 ss(")49.5 439 s
-xx1 11.8 ss(4)70 447 s(4)70 439.15 s mf 10 ss 16 439(@)46 571 b
-42.5 587 439 k
+(Y)-1.08 0 rs(ork )-1.32 0 rs(Y)-1.08 0 rs(O4 1LB)-0.36 0 rs 106 600 Mt
+106 600.375 Lt 256 602.05 Lt 406 600.375 Lt 406 600 Lt 406 599.625 Lt
+256 597.95 Lt 106 599.625 Lt 106 600 Lt F rm 10 ss(S.A.T)46 568 s(.B.)
+-0.74 0 rs(ECS ###)430.16 568 s(\(unacc.\))46 558 s it 12 ss(Dedication)
+229.336 566 s rm 24 ss(TITLE)222.676 538 s bf 12 ss(Composer)
+413.344 488 s mf 10 ss(!)50 441 s xx1 11.8 ss(4)70 449 s(4)70 441.15 s
+mf 10 ss(!)50 397 s xx1 11.8 ss(4)70 405 s(4)70 397.15 s mf 10 ss(")
+49.5 353 s xx1 11.8 ss(4)70 361 s(4)70 353.15 s mf 10 ss(")49.5 309 s
+xx1 11.8 ss(4)70 317 s(4)70 309.15 s mf 10 ss 16 309(@)46 441 b
+42.5 457 309 k
 %1/4
-(B)84.4 439 s(@)82.4 439 s
+(B)84.4 309 s(@)82.4 309 s
 %1/3
-16 455(B)84.4 483 b 16 455(@)82.4 483 b
+16 325(B)84.4 353 b 16 325(@)82.4 353 b
 %1/2
-16 499(B)84.4 527 b 16 499(@)82.4 527 b
+16 369(B)84.4 397 b 16 369(@)82.4 397 b
 %1/1
-16 543(B)84.4 571 b 16 543(@)82.4 571 b
-(CCC)46 571 s (C)75.9 571 s
-(CCC)46 527 s (C)75.9 527 s
-(CCC)46 483 s (C)75.9 483 s
-(CCC)46 439 s (C)75.9 439 s
-6 132 Mt 6 102 Lt 6 132 Mt -24 132 Lt 0.2 Slw S 6 842 Mt 6 872 Lt
-6 842 Mt -24 842 Lt 0.2 Slw S 506 132 Mt 506 102 Lt 506 132 Mt
-536 132 Lt 0.2 Slw S 506 842 Mt 506 872 Lt 506 842 Mt 536 842 Lt
-0.2 Slw S rm 10 ss(\251 Banks Music Publications 1995)46 140 s
+16 413(B)84.4 441 b 16 413(@)82.4 441 b
+(CCC)46 441 s (C)75.9 441 s
+(CCC)46 397 s (C)75.9 397 s
+(CCC)46 353 s (C)75.9 353 s
+(CCC)46 309 s (C)75.9 309 s
+6 2 Mt 6 -28 Lt 6 2 Mt -24 2 Lt 0.2 Slw S 6 712 Mt 6 742 Lt 6 712 Mt
+-24 712 Lt 0.2 Slw S 506 2 Mt 506 -28 Lt 506 2 Mt 536 2 Lt 0.2 Slw S
+506 712 Mt 506 742 Lt 506 712 Mt 536 712 Lt 0.2 Slw S rm 10 ss
+(\251 Banks Music Publications 1995)46 10 s
 pagesave restore showpage
 
 %%Page: 2 2
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-rm 12 ss(2)46 770 s 6 132 Mt 6 102 Lt 6 132 Mt -24 132 Lt 0.2 Slw S
-6 842 Mt 6 872 Lt 6 842 Mt -24 842 Lt 0.2 Slw S 506 132 Mt 506 102 Lt
-506 132 Mt 536 132 Lt 0.2 Slw S 506 842 Mt 506 872 Lt 506 842 Mt
-536 842 Lt 0.2 Slw S rm 8 ss(T)389.832 150 s(ypesetting by )-0.64 0 rs
-it 8 ss(K)438.968 150 s(e)-0.28 0 rs(yNote)-0.24 0 rs rm 8 ss
-(Hudders)388.896 140 s rmX 8 ss(\216)sh rm 8 ss(eld, HD4 5PN)sh
+rm 12 ss(2)46 640 s 6 2 Mt 6 -28 Lt 6 2 Mt -24 2 Lt 0.2 Slw S 6 712 Mt
+6 742 Lt 6 712 Mt -24 712 Lt 0.2 Slw S 506 2 Mt 506 -28 Lt 506 2 Mt
+536 2 Lt 0.2 Slw S 506 712 Mt 506 742 Lt 506 712 Mt 536 712 Lt 0.2 Slw S
+rm 8 ss(T)389.832 20 s(ypesetting by )-0.64 0 rs it 8 ss(K)438.968 20 s
+(e)-0.28 0 rs(yNote)-0.24 0 rs rm 8 ss(Hudders)388.896 10 s rmX 8 ss
+(\216)sh rm 8 ss(eld, HD4 5PN)sh
 pagesave restore showpage
 
 %%Trailer

@@ -1,8 +1,2 @@
 Draw stack contents (pstack command):
 3 4 1.5 480 "\rm\cde" 45.6 <code-block> "\rm\xyz"/s2/rot6/c "\rm\A"/box "\rm\B"/ring "\rm\C"/e "\rm\D"/r6.2/u4.4 
-** Error: wrong data type on stack for "add" while drawing "errortest" in a heading or footing
-   Detected in movement 2
-
-** Draw stack contents when error detected:
-3 4 1.5 480 "\rm\cde" 45.6 <code-block> "\rm\xyz"/s2/rot6/c "\rm\A"/box "\rm\B"/ring "\rm\C"/e "\rm\D"/r6.2/u4.4 1 "\rm\two" 
-

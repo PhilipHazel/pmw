@@ -1,7 +1,7 @@
 magnification 2
 @nokerning
 
-textfont extra 1 "Utopia-Regular"
+textfont extra 1 "Helvetica"
 
 heading 10 "WW WA 11 ."
 heading 10 "the 11 quick brown foxes" 20

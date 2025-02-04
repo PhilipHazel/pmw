@@ -2,9 +2,9 @@
 *        PMW native header reading functions     *
 *************************************************/
 
-/* Copyright Philip Hazel 2024 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: December 2024 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 
@@ -799,8 +799,11 @@ if (movement_count == 1) stave_use_draw = x;
 static void
 eps(void)
 {
-if (movement_count == 1) print_imposition = pc_EPS;
-  else error(ERR40, dir->name);
+if (movement_count == 1) 
+  {
+  if (!PDF) print_imposition = pc_EPS;
+  } 
+else error(ERR40, dir->name);
 }
 
 

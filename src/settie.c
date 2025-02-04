@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: July 2021 */
-/* This file last modified: October 2021 */
+/* This file last modified: December 2024 */
 
 
 #include "pmw.h"
@@ -653,7 +653,7 @@ x1 -= (15*out_stavemagn)/10 + n_accleft;
 if ((p0 & P_M) == 0) p0 += (p1 > p0)? (+P_T) : (-P_T);
 if ((p1 & P_M) == 0) p1 += (p1 > p0)? (-P_T) : (+P_T);
 
-ps_line(x0, (p0 - P_1L)*out_pitchmagn,
+ofi_line(x0, (p0 - P_1L)*out_pitchmagn,
   x1, (p1 - P_1L)*out_pitchmagn, (3*out_stavemagn)/10, flags);
 }
 

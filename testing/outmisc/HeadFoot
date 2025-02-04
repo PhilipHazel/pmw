@@ -33,14 +33,14 @@ a4
 /pagesave save def
 1.5 dup scale
 %%EndPageSetup
-rm 17 ss(heading 1)135.999 503.333 s rm 6 ss(heading 2 20)
-135.999 486.333 s rm 8 ss(heading 8 after zero)205.58 486.333 s mf 10 ss(!)
-135.999 461.333 s bf 11.8 ss(4)148.999 469.333 s(4)148.999 461.483 s
+rm 17 ss(heading 1)135.999 156.666 s rm 6 ss(heading 2 20)
+135.999 139.666 s rm 8 ss(heading 8 after zero)205.58 139.666 s mf 10 ss(!)
+135.999 114.666 s bf 11.8 ss(4)148.999 122.666 s(4)148.999 114.816 s
 %1/1
-mf 10 ss(5)162.899 465.333 s(5)189.507 465.333 s(5)216.115 465.333 s(5)
-242.723 465.333 s(@)269.332 461.333 s
-(FCCC)135.999 461.333 s (C)259.332 461.333 s
-rm 8 ss(footing 1)135.999 366.667 s(footing 2)135.999 358.667 s
+mf 10 ss(5)162.899 118.666 s(5)189.507 118.666 s(5)216.115 118.666 s(5)
+242.723 118.666 s(@)269.332 114.666 s
+(FCCC)135.999 114.666 s (C)259.332 114.666 s
+rm 8 ss(footing 1)135.999 20 s(footing 2)135.999 12 s
 pagesave restore showpage
 
 %%Page: 2 2
@@ -48,12 +48,12 @@ pagesave restore showpage
 /pagesave save def
 1.5 dup scale
 %%EndPageSetup
-rm 10 ss(page heading)135.999 513.333 s mf 10 ss(!)135.999 476.333 s
+rm 10 ss(page heading)135.999 166.666 s mf 10 ss(!)135.999 129.666 s
 %2/1
-(5)156.999 480.333 s(5)185.082 480.333 s(5)213.165 480.333 s(5)
-241.248 480.333 s(@)269.332 476.333 s
-(FCCC)135.999 476.333 s (C)259.332 476.333 s
-rm 8 ss(pagefooting)135.999 366.667 s
+(5)156.999 133.666 s(5)185.082 133.666 s(5)213.165 133.666 s(5)
+241.248 133.666 s(@)269.332 129.666 s
+(FCCC)135.999 129.666 s (C)259.332 129.666 s
+rm 8 ss(pagefooting)135.999 20 s
 pagesave restore showpage
 
 %%Page: 3 3
@@ -61,12 +61,12 @@ pagesave restore showpage
 /pagesave save def
 1.5 dup scale
 %%EndPageSetup
-rm 10 ss(page heading)135.999 513.333 s mf 10 ss(!)135.999 476.333 s
+rm 10 ss(page heading)135.999 166.666 s mf 10 ss(!)135.999 129.666 s
 %3/1
-(5)156.999 480.333 s(5)185.082 480.333 s(5)213.165 480.333 s(5)
-241.248 480.333 s(@)269.332 476.333 s
-(FCCC)135.999 476.333 s (C)259.332 476.333 s
-rm 8 ss(pagefooting)135.999 366.667 s
+(5)156.999 133.666 s(5)185.082 133.666 s(5)213.165 133.666 s(5)
+241.248 133.666 s(@)269.332 129.666 s
+(FCCC)135.999 129.666 s (C)259.332 129.666 s
+rm 8 ss(pagefooting)135.999 20 s
 pagesave restore showpage
 
 %%Page: 4 4
@@ -74,12 +74,12 @@ pagesave restore showpage
 /pagesave save def
 1.5 dup scale
 %%EndPageSetup
-rm 10 ss(page heading)135.999 513.333 s mf 10 ss(!)135.999 476.333 s
+rm 10 ss(page heading)135.999 166.666 s mf 10 ss(!)135.999 129.666 s
 %4/1
-(5)156.999 480.333 s(5)184.575 480.333 s(5)212.152 480.333 s(5)
-239.729 480.333 s(B)267.832 476.333 s(@)265.832 476.333 s
-(FCCC)135.999 476.333 s (C)259.332 476.333 s
-rm 8 ss(pagefooting)135.999 366.667 s
+(5)156.999 133.666 s(5)184.575 133.666 s(5)212.152 133.666 s(5)
+239.729 133.666 s(B)267.832 129.666 s(@)265.832 129.666 s
+(FCCC)135.999 129.666 s (C)259.332 129.666 s
+rm 8 ss(pagefooting)135.999 20 s
 pagesave restore showpage
 
 %%Page: 5 5
@@ -87,10 +87,10 @@ pagesave restore showpage
 /pagesave save def
 1.5 dup scale
 %%EndPageSetup
-rm 10 ss(page heading)135.999 513.333 s(mo)135.999 513.333 s(v)
--0.15 0 rs(ed up)-0.15 0 rs rm 12 ss(Ne)135.999 503.333 s(w heading 1)
--0.3 0 rs rm 10 ss(Ne)135.999 491.333 s(w heading 2)-0.25 0 rs rm 8 ss
-(lastfooting)135.999 366.667 s
+rm 10 ss(page heading)135.999 166.666 s(mo)135.999 166.666 s(v)
+-0.15 0 rs(ed up)-0.15 0 rs rm 12 ss(Ne)135.999 156.666 s(w heading 1)
+-0.3 0 rs rm 10 ss(Ne)135.999 144.666 s(w heading 2)-0.25 0 rs rm 8 ss
+(lastfooting)135.999 20 s
 pagesave restore showpage
 
 %%Trailer

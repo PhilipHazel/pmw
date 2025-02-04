@@ -1,7 +1,7 @@
 %%Pages: (atend)
 %%DocumentNeededResources: font Times-Roman Times-Italic 
 %%+ font Times-Bold Times-BoldItalic Symbol 
-%%+ font PMW-Music Utopia-Regular 
+%%+ font PMW-Music Helvetica 
 %%Requirements: numcopies(1)
 %%EndComments
 
@@ -26,8 +26,8 @@ a4
 /sy /syX /Symbol inf
 %%IncludeResource: font PMW-Music
 /mf /mfX /PMW-Music inf
-%%IncludeResource: font Utopia-Regular
-/xx1 /xx1X /Utopia-Regular inf
+%%IncludeResource: font Helvetica
+/xx1 /xx1X /Helvetica inf
 %%EndSetup
 
 %%Page: 1 1
@@ -39,10 +39,9 @@ rm 10 ss(WW )32 375 s(W)-0.3 0 rs(A 11 .)-1.2 0 rs
 (the 11 quick bro)32 365 s(wn fox)-0.25 0 rs(es)-0.15 0 rs it 20 ss(l)
 32 345 s itX 20 ss(\242)sh it 20 ss( )-2.22 0 rs rm 20 ss(Y)47 345 s
 (orkshire)-2.2 0 rs rm [15 0 0 10 0 0] sm(Y)32 325 s(orkshire)-1.65 0 rs
-mf 10 ss(abcdefg)32 305 s xx1 10 ss(Y)32 285 s(or)-0.9 0 rs(kshir)
--0.06 0 rs(e )-0.2 0 rs(YL)-0.6 0 rs sy 10 ss(Yorkshire)32 265 s
-rm 10 ss(111)32 245 s mf 10 ss(!)32 208 s bf 11.8 ss(4)45 216 s(4)
-45 208.15 s
+mf 10 ss(abcdefg)32 305 s xx1 10 ss(Y)32 285 s(or)-1.4 0 rs(kshire )
+0.15 0 rs(YL)-0.9 0 rs sy 10 ss(Yorkshire)32 265 s rm 10 ss(111)32 245 s
+mf 10 ss(!)32 208 s bf 11.8 ss(4)45 216 s(4)45 208.15 s
 %1/1
 mf 10 ss(5)58.9 210 s(5)74.9 210 s(5)90.9 210 s(5)106.9 210 s
 rm [7.07 -7.07 7.07 7.07 0 0] sm(Y)87.01 198 s(orkshire)-0.777 0.777 rs

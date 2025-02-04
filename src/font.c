@@ -2,9 +2,9 @@
 *              PMW font functions                *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: June 2023 */
+/* This file last modified: February 2025 */
 
 #include "pmw.h"
 
@@ -510,13 +510,14 @@ return p;
 *         Find AFM or other file for a font      *
 *************************************************/
 
-/* This is an externally-called function, also called from below.
+/* This is an externally-called function, also called from below. Look first in
+any additional font directories, then in the default one(s).
 
 Arguments:
   name       the font's name
   ext        ".afm", ".utr", ".pfa", etc., or ""
   fextras    list of extra directories to search
-  fdefault   the default directory
+  fdefault   the default directory(s)
   filename   where to return the successful file name
   mandatory  if TRUE, give hard error on failure
 
@@ -528,12 +529,11 @@ font_finddata(uschar *name, const char *ext, uschar *fextras,
   uschar *fdefault, uschar *filename, BOOL mandatory)
 {
 FILE *f = NULL;
+uschar *list = (fextras != NULL)? fextras : fdefault;
 
-/* First look in any additional directories. */
-
-if (fextras != NULL)
+for (;;)
   {
-  uschar *pp = fextras;
+  uschar *pp = list;
   while (*pp != 0)
     {
     int len;
@@ -547,25 +547,22 @@ if (fextras != NULL)
     (void)memcpy(filename, pp, len);
     sprintf(CS (filename + len), "/%s%s", name, ext);
     f = Ufopen(filename, "r");
-    if (f != NULL || *ep == 0) break;
+    if (f != NULL) return f;
+    if (*ep == 0) break;
     pp = ep + 1;
     }
+
+  if (list == fdefault) break;
+  list = fdefault;
   }
 
-/* Try the default directory if not yet found. */
-
-if (f == NULL)
+if (mandatory && f == NULL)
   {
-  sprintf(CS filename, "%s/%s%s", fdefault, name, ext);
-  f = Ufopen(filename, "r");
-  if (mandatory && f == NULL)
-    {
-    const char *s = (*ext == 0)? "Data" : ext;
-    if (fextras == NULL)
-      error(ERR56, s, name, fdefault);           /* Hard error */
-    else
-      error(ERR57, s, name, fextras, fdefault);  /* Hard error */
-    }
+  const char *s = (*ext == 0)? "Data" : ext;
+  if (fextras == NULL)
+    error(ERR56, s, name, fdefault);           /* Hard error */
+  else
+    error(ERR57, s, name, fextras, fdefault);  /* Hard error */
   }
 
 return f;
@@ -604,9 +601,9 @@ return (t == NULL)? c : (uint32_t)(LOWCHARLIMIT + t->value);
 
 
 
-/*************************************************
-*  Load width, kern, & Unicode tables for a font *
-*************************************************/
+/***********************************************************
+*  Load width, kern, encoding, & Unicode tables for a font *
+***********************************************************/
 
 /* This is an externally-callable function. It looks for a mandatory AFM file,
 containing character widths and kerning information, and also checks for an
@@ -634,12 +631,33 @@ uschar line[256];
 fa = font_finddata(fs->name, ".afm", font_data_extra, font_data_default,
   filename, TRUE);   /* Hard error if not found */
 
+/* Initialize the font structure */
+
 fs->widths = mem_get_independent(FONTWIDTHS_SIZE * sizeof(int32_t));
 memset(fs->widths, 0xff, FONTWIDTHS_SIZE * sizeof(int32_t));
+
 fs->r2ladjusts = mem_get_independent(FONTWIDTHS_SIZE * sizeof(int32_t));
 memset(fs->r2ladjusts, 0, FONTWIDTHS_SIZE * sizeof(int32_t));
+
+fs->used = mem_get_independent(FONTWIDTHS_SIZE/8);
+memset(fs->used, 0, FONTWIDTHS_SIZE/8);
+
 fs->heights = NULL;
 fs->kerncount = 0;
+
+/* These are used only by PDF output */
+
+fs->firstcharL = 255;
+fs->lastcharL = 0;
+fs->firstcharU = 512;
+fs->lastcharU = 256;
+
+fs->ascent = 0;
+fs->descent = 0;
+fs->capheight = 0;
+fs->italicangle = 0;
+fs->stemv = 0;
+memset(fs->bbox, 0, 4*sizeof(int32_t));
 
 /* Find the start of the metrics in the AFM file; on the way, check for the
 standard encoding scheme and for fixed pitch. */
@@ -648,11 +666,36 @@ for (;;)
   {
   if (Ufgets(line, sizeof(line), fa) == NULL)
     error(ERR58, filename, "no metric data found", "");  /* Hard */
+
   if (memcmp(line, "EncodingScheme AdobeStandardEncoding", 36) == 0)
     fs->flags |= ff_stdencoding;
-  if (memcmp(line, "IsFixedPitch true", 17) == 0)
+
+  else if (memcmp(line, "IsFixedPitch true", 17) == 0)
     fs->flags |= ff_fixedpitch;
-  if (memcmp(line, "StartCharMetrics", 16) == 0) break;
+
+  else if (memcmp(line, "Ascender", 8) == 0)
+    (void)read_number(&(fs->ascent), line + 8);
+
+  else if (memcmp(line, "Descender", 9) == 0)
+    (void)read_number(&(fs->descent), line + 9);
+
+  else if (memcmp(line, "CapHeight", 9) == 0)
+    (void)read_number(&(fs->capheight), line + 9);
+
+  else if (memcmp(line, "ItalicAngle", 11) == 0)
+    (void)read_number(&(fs->italicangle), line + 11);
+
+   else if (memcmp(line, "StdVW", 5) == 0)
+    (void)read_number(&(fs->stemv), line + 5);
+
+  else if (memcmp(line, "FontBBox", 8) == 0)
+    {
+    uschar *p = line + 8;
+    for (int i = 0; i < 4; i++)
+      p = read_number(&(fs->bbox[i]), p);
+    }
+
+  else if (memcmp(line, "StartCharMetrics", 16) == 0) break;
   }
 
 /* Now we know whether or not the font has standard encoding we can set up the
@@ -723,9 +766,9 @@ if (fu != NULL)
         }
 
       /* We now have a name and a code. The name is saved and pointed to from
-      the encoding vector for appropriate PostScript generation. We also create
-      a tree of names so that the name and its code can be quickly found when
-      reading the AFM file below. */
+      the encoding vector for appropriate PostScript/PDF generation. We also
+      create a tree of names so that the name and its code can be quickly found
+      when reading the AFM file below. */
 
       *ne = 0;
       tn = mem_get(sizeof(tree_node));
@@ -838,6 +881,7 @@ for (;;)
   {
   uschar *cname;
   uschar *ppb;
+  int cnumber;
   int width, code;
   int poffset = -1;
   int r2ladjust = 0;
@@ -850,7 +894,7 @@ for (;;)
   if (memcmp(line, "C ", 2) != 0)
     error(ERR58, filename, "unrecognized metric data line: ", line); /* Hard */
 
-  pp = line + 2;
+  pp = read_number(&cnumber, line + 2);
   while (memcmp(pp, "WX", 2) != 0) pp++;
   pp = read_number(&width, pp+2);
 
@@ -904,9 +948,10 @@ for (;;)
 
       if (code == CHAR_FI) fs->flags |= ff_hasfi;
 
-      /* If the Unicode code point is not less than LOWCHARLIMIT, remember it and
-      its special offset in a tree so that it can be translated when encountered
-      in a string. Then set the translated value for saving the width. */
+      /* If the Unicode code point is not less than LOWCHARLIMIT, remember it
+      and its special offset in a tree so that it can be translated when
+      encountered in a string. Then set the translated value for saving the
+      width. */
 
       if (code >= LOWCHARLIMIT)
         {
@@ -924,6 +969,26 @@ for (;;)
       fs->r2ladjusts[code] = r2ladjust;
       widthset = TRUE;
       }
+    }
+
+  /* If this is not a standardly encoded font, and not the Music or Symbol
+  font, we need to ensure that there is an encoding vector for use in PDF
+  output. One may have been created by reading a .utr file above - if so, just
+  fill in any missing characters we find. */
+
+  else if (PDF && Ustrcmp(fs->name, "PMW-Music") != 0 &&
+                  Ustrcmp(fs->name, "Symbol") != 0)
+    {
+    if (fs->encoding == NULL)
+      {
+      fs->encoding = mem_get_independent(FONTWIDTHS_SIZE * sizeof(char *));
+      for (int i = 0; i < FONTWIDTHS_SIZE; i++) fs->encoding[i] = NULL;
+      }
+
+    /* Some AFM files have character numbers greater than 511. */
+ 
+    if (cnumber >= 0 && cnumber < 512 && fs->encoding[cnumber] == NULL)
+      fs->encoding[cnumber] = mem_copystring(cname);
     }
 
   /* If the font has a .utr file, it will have been read above, and if there is
@@ -972,6 +1037,13 @@ for (;;)
     fs->r2ladjusts[code] = r2ladjust;
     }
   }   /* End of loop for processing character lines */
+
+/* If this is a standardly encoded font, character 173 (U+00AD) is a "soft
+hyphen". This is not a standard character, so our encoding uses a normal
+hyphen. However, it's width won't be set, so we have to fudge it here. */
+
+if ((fs->flags & ff_stdencoding) != 0 && fs->widths[173] < 0)
+  fs->widths[173] = fs->widths[45];
 
 /* Process kerning data (if any); when this is done, we are finished with the
 AFM file. */

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: September 2021 */
+/* This file last modified: December 2024 */
 
 #include "pmw.h"
 
@@ -185,13 +185,13 @@ if (!skip)
   {
   if ((h0->flags & hp_cresc) == 0)
     {
-    ps_line(x0, y0 + dwidth, x1, y1 + y1hole, thickness, 0);
-    ps_line(x0, y0 - dwidth, x1, y1 - y1hole, thickness, 0);
+    ofi_line(x0, y0 + dwidth, x1, y1 + y1hole, thickness, 0);
+    ofi_line(x0, y0 - dwidth, x1, y1 - y1hole, thickness, 0);
     }
   else
     {
-    ps_line(x0, y0 + y0hole, x1, y1 + cwidth, thickness, 0);
-    ps_line(x0, y0 - y0hole, x1, y1 - cwidth, thickness, 0);
+    ofi_line(x0, y0 + y0hole, x1, y1 + cwidth, thickness, 0);
+    ofi_line(x0, y0 - y0hole, x1, y1 - cwidth, thickness, 0);
     }
   }
 
@@ -493,14 +493,14 @@ switch (p->type)
         y[0] = yyl + ly;
         y[1] = yyl;
         y[2] = yyl + mac_muldiv(slope, x[2] - x0, 1000);
-        ps_lines(x, y, 3, curmovt->tripletlinewidth);
+        ofi_lines(x, y, 3, curmovt->tripletlinewidth);
 
         x[0] = mid + 1500 + width;
         x[1] = x[2] = x1;
         y[0] = yyr - mac_muldiv(slope, x1 - x[0], 1000);
         y[1] = yyr;
         y[2] = yyr + ry;
-        ps_lines(x, y, 3, curmovt->tripletlinewidth);
+        ofi_lines(x, y, 3, curmovt->tripletlinewidth);
         }
       }
     }
@@ -535,7 +535,7 @@ switch (p->type)
       if (!out_startlinebar && out_moff == 0 &&
           MFLAG(mf_keydoublebar) && !out_repeatonbarline &&
           curbarnumber != curmovt->startbracketbar)
-        ps_barline(out_lastbarlinex, out_ystave, out_ybarend, bar_double,
+        ofi_barline(out_lastbarlinex, out_ystave, out_ybarend, bar_double,
           ((curmovt->barlinesize > 0)? curmovt->barlinesize : out_stavemagn));
       out_writekey(x, out_ystave - out_Yadjustment, bar_cont->clef, k->key);
       }
@@ -558,7 +558,7 @@ switch (p->type)
   /* Dotted bar line in mid-bar */
 
   case b_dotbar:
-  ps_barline(out_barx+out_findXoffset(out_moff+posx_dotbar)+out_Xadjustment,
+  ofi_barline(out_barx+out_findXoffset(out_moff+posx_dotbar)+out_Xadjustment,
     out_ystave, out_ybarend, bar_dotted, out_barlinemagn);
   out_Xadjustment = out_Yadjustment = 0;
   break;

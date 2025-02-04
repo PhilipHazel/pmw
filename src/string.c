@@ -2,9 +2,9 @@
 *         PMW string handling functions          *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: December 2023 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 
@@ -12,7 +12,7 @@
 #define PSIM 2     /* Number of simultaneous PMW string buffers */
 #define BSIZ 64    /* Size of each buffer (bytes) */
 
-static char        fbuffer[FSIM*BSIZ];
+static char        fbuffer[FSIM*BSIZ];  /* For converted fixed/double values */
 static usint       findex = 0;
 static BOOL        fontwarned = FALSE;
 
@@ -312,12 +312,14 @@ return yield;
 }
 
 
+
 /*************************************************
 *  Format a fixed point number to a given buffer *
 *************************************************/
 
-/* This is used by the two functions that follow. A trailing zero is added, but
-not counted.
+/* This is used by the two functions that follow, for formatting an integer 
+that is in thousandths of a unit. A trailing binary zero is added to the final 
+string, but not counted.
 
 Arguments:
   n         a fixed point number
@@ -404,6 +406,95 @@ va_end(ap);
 return buff;
 }
 
+
+
+/*************************************************
+*    Format a double number to a given buffer    *
+*************************************************/
+
+/* This is used by the two functions that follow to format a double variable to 
+3 decimal places, losing any trailing zeros and the decimal point if the 
+fraction is zero. The C library has no inbuilt way to do this. The precision
+required is taken from a variable (which most of the time is '2' but for
+overall magnification is set to '3'. A trailing binary zero is added to the
+final string, but not counted.
+
+Arguments:
+  n         a double number
+  s         where to put the answer
+
+Yield:      the number of characters
+*/
+
+static int
+format_double(double n, char *s)
+{
+char *p;
+if (fabs(n) < 0.0001) n = 0.0;
+sprintf(s, "%.*f", string_double_precision, n);
+p = s + strlen(s);
+while (p[-1] == '0') p--;
+if (p[-1] == '.') p--;
+*p = 0;
+
+return p - s;
+}
+
+
+
+/*************************************************
+*           Format a double number               *
+*************************************************/
+
+/* Each time called we use a fresh section of the buffer so that up to FSIM
+results can be simultaneously available. */
+
+char *
+string_format_double(double n)
+{
+char *s = fbuffer + findex;
+findex += BSIZ;
+if (findex >= sizeof(fbuffer)) findex = 0;
+(void)format_double(n, s);
+return s;
+}
+
+
+
+/*************************************************
+*         Format multiple double numbers         *
+*************************************************/
+
+/* This handles format strings that contain %f for a double number. The only
+other escape recognized is %%. The yield is a pointer to the result buffer. */
+
+char *
+string_format_multiple_double(const char *format, ...)
+{
+char *buff = fbuffer + findex;
+char *s = buff;
+
+findex += BSIZ;
+if (findex >= sizeof(fbuffer)) findex = 0;
+
+va_list ap;
+va_start(ap, format);
+
+while (*format != 0)
+  {
+  if (*format != '%' || *(++format) == '%')
+    {
+    *s++ = *format++;
+    continue;
+    }
+  if (*format++ != 'f') error (ERR139);   /* Hard internal error */
+  s += format_double(va_arg(ap, double), s);
+  }
+
+va_end(ap);
+*s = 0;
+return buff;
+}
 
 
 

@@ -2,9 +2,9 @@
 *            PMW error message handling          *
 *************************************************/
 
-/* Copyright Philip Hazel 2024 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: December 2024 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 
@@ -219,7 +219,7 @@ static error_struct error_data[] = {
               "was not a multiple of 4 points (scaled to the size of the staves)\n" },
 { ec_failed,  "malformed page list on command line" },
 { ec_failed,  "page range out of order on command line" },
-{ ec_failed,  "internal error: ps_ffprintf() called with invalid % escape" },
+{ ec_failed,  "internal error: SFF() or SFD() called with invalid %% escape" },
 /* 140-144 */
 { ec_failed,  "bad -printscale value on command line" },
 { ec_failed,  "-printside must specify 1 or 2 on command line" },
@@ -278,7 +278,15 @@ aborts the run after outputting additional information. */
 { ec_warning, "non-movement options on rehearsal marks are ignored" },
 { ec_major,   "'&' at end of line while reading macro or repetition argument" },
 /* 180-184 */
-{ ec_failed,  "repetition count is too large (max %d)" }
+{ ec_failed,  "repetition count is too large (max %d)" },
+{ ec_failed,  "-eps and -pdf are mutually exclusive" },
+{ ec_warning, "-%s is ignored with -pdf" },
+{ ec_failed,  "internal error: invalid output layout for PDF" },
+{ ec_warning, "could not find font \"%s\" (use -F option?)" },
+/* 185-189 */
+{ ec_failed,  "PMW in PDF mode does not support %s fonts (%s)" },
+{ ec_failed,  "Font file %s does not look like a Type 3 font" },
+{ ec_warning, "Type 3 font (%s) is not supported in PDF mode" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

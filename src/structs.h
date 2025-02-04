@@ -2,9 +2,9 @@
 *           PMW structure definitions            *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: November 2023 */
+/* This file last modified: January 2025 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -428,14 +428,25 @@ typedef struct fontstr {
   int32_t *widths;          /* Pointer to basic width table */
   int32_t *r2ladjusts;      /* Pointer to right-to-left adjusts */
   int32_t *heights;         /* Pointer to height table, if any */
-  utrtablestr *utr;         /* Unicode translation for nonstd font */
-  uschar **encoding;        /* Optional encoding for non-stdenc fonts */
+  uschar *used;             /* Chars used table (PDF) */ 
+  utrtablestr *utr;         /* Unicode translations or NULL */
+  uschar **encoding;        /* Optional encoding */
   tree_node *high_tree;     /* Tree for data for high val stdenc chars */
   kerntablestr *kerns;      /* Pointer to kerning table */
   int32_t kerncount;        /* Size of kern table */
   int32_t utrcount;         /* Size of utr table */
   uint32_t flags;           /* Various bit flags */
   uint32_t invalid;         /* What to use for unsupported character */
+  uint32_t firstcharL;      /* Lowest char used in low half (for PDF) */
+  uint32_t firstcharU;      /* Lowest char used in high half (for PDF) */
+  uint32_t lastcharL;       /* Highest char used in low half (for PDF) */ 
+  uint32_t lastcharU;       /* Highest char used in high half (for PDF) */
+  int32_t ascent;           /* ) */
+  int32_t descent;          /* ) */
+  int32_t capheight;        /* ) These are all used for PDF output only. */
+  int32_t italicangle;      /* ) */
+  int32_t stemv;            /* ) */
+  int32_t bbox[4];          /* ) */
 } fontstr;
 
 

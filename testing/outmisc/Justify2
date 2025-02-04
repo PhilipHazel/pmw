@@ -32,39 +32,37 @@ a4
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-rm 10 ss(-----)295.675 760 s mf 10 ss(!)261.5 733 s
+rm 10 ss(-----)295.675 190 s mf 10 ss(!)261.5 163 s
 %1/1
-(5)282.5 737 s(5)298.5 737 s(5)314.5 737 s(5)330.5 737 s(@)346.5 733 s
-(CCCCCCCC)261.5 733 s (C)336.5 733 s
-(!)261.5 689 s
+(5)282.5 167 s(5)298.5 167 s(5)314.5 167 s(5)330.5 167 s(@)346.5 163 s
+(CCCCCCCC)261.5 163 s (C)336.5 163 s
+(!)261.5 119 s
 %2/1
-(5)282.5 693 s(5)298.5 693 s(5)314.5 693 s(5)330.5 693 s(@)346.5 689 s
-(CCCCCCCC)261.5 689 s (C)336.5 689 s
-rm 8 ss(-----------)64 600 s
+(5)282.5 123 s(5)298.5 123 s(5)314.5 123 s(5)330.5 123 s(@)346.5 119 s
+(CCCCCCCC)261.5 119 s (C)336.5 119 s
+rm 8 ss(-----------)64 30 s
 pagesave restore showpage
 
 %%Page: 2 2
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-mf 10 ss(!)64 620 s bf 11.8 ss(4)77 628 s(4)77 620.15 s
+mf 10 ss(!)64 50 s bf 11.8 ss(4)77 58 s(4)77 50.15 s
 %1/1
-mf 10 ss(5)90.9 624 s(5)106.9 624 s(5)122.9 624 s(5)138.9 624 s
-(@)154.9 620 s
-(CCCCCCCCC)64 620 s (C)144.9 620 s
-rm 8 ss(----------------)64 600 s
+mf 10 ss(5)90.9 54 s(5)106.9 54 s(5)122.9 54 s(5)138.9 54 s(@)154.9 50 s
+(CCCCCCCCC)64 50 s (C)144.9 50 s
+rm 8 ss(----------------)64 30 s
 pagesave restore showpage
 
 %%Page: 3 3
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-mf 10 ss(!)64 620 s
+mf 10 ss(!)64 50 s
 %2/1
-(5)85 624 s(5)101 624 s(5)117 624 s(5)133 624 s(B)149.5 620 s
-(@)147.5 620 s
-(CCCCCCCC)64 620 s (C)141 620 s
-rm 8 ss(----------------)64 600 s
+(5)85 54 s(5)101 54 s(5)117 54 s(5)133 54 s(B)149.5 50 s(@)147.5 50 s
+(CCCCCCCC)64 50 s (C)141 50 s
+rm 8 ss(----------------)64 30 s
 pagesave restore showpage
 
 %%Trailer

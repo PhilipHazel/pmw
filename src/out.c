@@ -2,9 +2,9 @@
 *        PMW main output control functions       *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: May 2021 */
-/* This file last modified: December 2023 */
+/* This file last modified: January 2025 */
 
 #include "pmw.h"
 
@@ -119,14 +119,14 @@ x0 += out_stavemagn;
 
 for (int i = 0; i < count; i++) s[i] = extension[0];
 s[count] = 0;
-ps_string(s, fdata, &x0, &y, TRUE, FALSE);
+ofi_string(s, fdata, &x0, &y, FALSE);
 
 /* Deal with a final part-line */
 
 if (remain >= uwidth/5)
   {
   x1 -= uwidth;
-  ps_string(extension, fdata, &x1, &y, TRUE, FALSE);
+  ofi_string(extension, fdata, &x1, &y, FALSE);
   }
 }
 
@@ -221,14 +221,14 @@ else
     *pp = 0;
 
     local_fdata.spacestretch = unit - hwidth - swidth;
-    ps_string(s, &local_fdata, &x0, &y, TRUE, FALSE);
+    ofi_string(s, &local_fdata, &x0, &y, FALSE);
     }
 
   /* Otherwise we have to output each hyphen individually */
 
   else for (int i = 0; i <= count; i++)
     {
-    ps_string(hyphen, fdata, &x0, &y, TRUE, FALSE);
+    ofi_string(hyphen, fdata, &x0, &y, FALSE);
     x0 += unit;
     }
   }
@@ -915,10 +915,10 @@ else
     {
     uint32_t commafont;
     b = nb->nbar;
-    if (comma != NULL) ps_string(comma, &out_fdata1, &xt, &yt, TRUE, TRUE);
+    if (comma != NULL) ofi_string(comma, &out_fdata1, &xt, &yt, TRUE);
     if (b->s != NULL)
       {
-      ps_string(b->s, &out_fdata1, &xt, &yt, TRUE, TRUE);
+      ofi_string(b->s, &out_fdata1, &xt, &yt, TRUE);
       commafont = PFTOP(b->s[0]);
       }
     else
@@ -927,7 +927,7 @@ else
       uschar buff[24];
       (void)sprintf(CS buff, "%d", b->n);
       pmws = string_pmw(buff, curmovt->fonttype_repeatbar);
-      ps_string(pmws, &out_fdata1, &xt, &yt, TRUE, TRUE);
+      ofi_string(pmws, &out_fdata1, &xt, &yt, TRUE);
       commafont = PFTOP(pmws[0]);
       }
     nb = nb->next;
@@ -953,7 +953,7 @@ if (rightjog)
   y[n++] = yy - 10*out_stavemagn;
   }
 
-ps_lines(x, y, n, 400);
+ofi_lines(x, y, n, 400);
 return yield;
 }
 
@@ -1077,7 +1077,7 @@ for (int count = 0; !done; count++)
               }
 
             if (extend) ybarend += out_sysblock->stavespacing[stave];
-            ps_barline(out_lastbarlinex, ystave, ybarend, bar_double,
+            ofi_barline(out_lastbarlinex, ystave, ybarend, bar_double,
               curmovt->stavesizes[stave]);
             }
           else xx -= 1000;  /* No double bar - move left a bit. */
@@ -1193,7 +1193,7 @@ for (; list != NULL; list = list->next)
         int32_t adjust = (depthvector[pb1] == depthvector[pb2])?
           7000 : 8500;
         if (overlap) adjust += 1500;
-        ps_brace(out_joinxposition - adjust,
+        ofi_brace(out_joinxposition - adjust,
           out_yposition + depthvector[pb1] - xx,
             out_yposition + depthvector[pb2], out_stavemagn);
         }
@@ -1205,18 +1205,18 @@ for (; list != NULL; list = list->next)
         x[1] = x[2] = x[0]  - (overlap? 2500:1000) - 3000;
         y[0] = y[1] = - depthvector[pb1] + 16*out_stavemagn + xx;
         y[2] = y[3] = - depthvector[pb2];
-        ps_lines(x, y, 4, 400);
+        ofi_lines(x, y, 4, 400);
         }
       }
     break;
 
     case join_bracket:
-    ps_bracket(out_joinxposition-3500, out_yposition + depthvector[pb1] - xx,
+    ofi_bracket(out_joinxposition-3500, out_yposition + depthvector[pb1] - xx,
       out_yposition + depthvector[pb2], out_stavemagn);
     break;
 
     case join_barline:
-    ps_barline(out_joinxposition, out_yposition + depthvector[pb1] - xx,
+    ofi_barline(out_joinxposition, out_yposition + depthvector[pb1] - xx,
       out_yposition + depthvector[pb2], bartype,
       (curmovt->barlinesize > 0)? curmovt->barlinesize : out_stavemagn);
     break;
@@ -1288,7 +1288,7 @@ switch(clef)
   break;
   }
 
-ps_muschar(x,
+ofi_muschar(x,
   y - mac_muldiv(10000 - size, clef_adjusts[clef] * out_stavemagn, 10000),
   clef_chars[clef * 4 + curmovt->clefstyle],
   (size * out_stavemagn)/1000);
@@ -1397,7 +1397,7 @@ else
 
     /* Output the character and adjust the position. */
 
-    ps_muschar(x, y - (offset * out_stavemagn)/1000, ch, 10 * out_stavemagn);
+    ofi_muschar(x, y - (offset * out_stavemagn)/1000, ch, 10 * out_stavemagn);
     x += mac_muldiv(curmovt->accspacing[ac], out_stavemagn, 1000);
     }
   }
@@ -1467,7 +1467,7 @@ else
 
   if (ts == time_common || ts == time_cut)
     {
-    ps_muschar(x, y - 4 * out_stavemagn, ((ts == time_common)?
+    ofi_muschar(x, y - 4 * out_stavemagn, ((ts == time_common)?
       mc_common : mc_cut), 10 * out_stavemagn);
     return;
     }
@@ -1576,10 +1576,10 @@ int style = curmovt->repeatstyle;
 int *xx = repspacing + type + style * 3;
 
 if (xx[0] >= 0)
-  ps_barline(x + (xx[0]*magn)/10, out_ystave, out_ybarend, bar_thick, magn);
+  ofi_barline(x + (xx[0]*magn)/10, out_ystave, out_ybarend, bar_thick, magn);
 
 if (xx[1] >= 0)
-  ps_barline(x + (xx[1]*magn)/10, out_ystave, out_ybarend,
+  ofi_barline(x + (xx[1]*magn)/10, out_ystave, out_ybarend,
     (style == 2)? bar_dotted : bar_single, magn);
 
 out_ascstring((style != 3)? US"xI" : US"IxxyyyyyyI", font_mf, 10*out_stavemagn,
@@ -1601,13 +1601,13 @@ if (MFLAG(mf_repeatwings))
   if (curstave == out_topstave)
     {
     int32_t y = 16*magn;
-    ps_line(x, y, x + dx, y + dy, thick, 0);
+    ofi_line(x, y, x + dx, y + dy, thick, 0);
     }
 
   if (curstave == out_botstave)
     {
     int32_t y = 0;
-    ps_line(x, y, x + dx, y - dy, thick, 0);
+    ofi_line(x, y, x + dx, y - dy, thick, 0);
     }
   }
 }
@@ -1799,7 +1799,7 @@ for (uint32_t *ss = s; *ss != 0; ss++)
   if (i > 250)
     {
     buff[i] = 0;
-    ps_string(buff, fdata, &x, &y, TRUE, TRUE);
+    ofi_string(buff, fdata, &x, &y, TRUE);
     i = 0;
     }
 
@@ -1892,7 +1892,7 @@ for (uint32_t *ss = s; *ss != 0; ss++)
 if (i > 0)
   {
   buff[i] = 0;
-  ps_string(buff, fdata, &x, &y, TRUE, TRUE);
+  ofi_string(buff, fdata, &x, &y, TRUE);
   }
 
 /* Retain final ending position */
@@ -1962,9 +1962,9 @@ if ((boxring & text_boxed) != 0)
 
   /* Set rounded corners if wanted */
 
-  if ((boxring & text_boxrounded) != 0) ps_setcapandjoin(caj_round_join);
-  ps_lines(xx, yy, 6, fdata->size/15);
-  ps_setcapandjoin(caj_mitre_join);
+  if ((boxring & text_boxrounded) != 0) ofi_setcapandjoin(caj_round_join);
+  ofi_lines(xx, yy, 6, fdata->size/15);
+  ofi_setcapandjoin(caj_mitre_join);
   }
 
 /* Ringed string - the paths routine is also stave-relative */
@@ -2010,7 +2010,7 @@ if ((boxring & text_ringed) != 0)
       }
     }
 
-  ps_path(xx, yy, cc, fdata->size/15);
+  ofi_path(xx, yy, cc, fdata->size/15);
   }
 }
 
@@ -2447,7 +2447,7 @@ if (out_sysblock->systemdepth > 0)
   (void)dojoinsign(curmovt->bracelist, depthvector, bracketed, join_brace, 0,
     bar);
 
-  /* Deal with system separators; note that ps_line() has its y origin at
+  /* Deal with system separators; note that ofi_line() has its y origin at
   out_ystave. */
 
   if (!firstsystem && curmovt->systemseplength != 0)
@@ -2459,9 +2459,9 @@ if (out_sysblock->systemdepth > 0)
     int32_t dy = (int32_t)(((double)curmovt->systemseplength) * sin(rangle));
 
     out_ystave = out_yposition;   /* Top stave */
-    ps_line(x0, y0, x0 + dx, y0 + dy, curmovt->systemsepwidth, 0);
+    ofi_line(x0, y0, x0 + dx, y0 + dy, curmovt->systemsepwidth, 0);
     y0 -= 2* curmovt->systemsepwidth;
-    ps_line(x0, y0, x0 + dx, y0 + dy, curmovt->systemsepwidth, 0);
+    ofi_line(x0, y0, x0 + dx, y0 + dy, curmovt->systemsepwidth, 0);
     }
   }
 
@@ -2533,7 +2533,7 @@ if (rightbarx > leftbarx) for (curstave = 1; curstave <= out_laststave;
       if (!ss->omitempty && ss->stavelines > 0)
         {
         out_stavemagn = curmovt->stavesizes[curstave];
-        ps_stave(leftbarx, out_ystave, rightbarx, ss->stavelines);
+        ofi_stave(leftbarx, out_ystave, rightbarx, ss->stavelines);
         lastystave = out_ystave;
         }
       }
@@ -2545,7 +2545,7 @@ if (rightbarx > leftbarx) for (curstave = 1; curstave <= out_laststave;
 have been drawn, do them now. The overdrawstr blocks are cached for re-use, but
 the x, y, c vectors, being of different sizes, are not. */
 
-ps_getcolour(save_colour);
+ofi_getcolour(save_colour);
 while (out_overdraw != NULL)
   {
   overdrawstr *this = out_overdraw;
@@ -2553,20 +2553,20 @@ while (out_overdraw != NULL)
 
   if (this->texttype)
     {
-    ps_setcolour(this->d.t.colour);
+    ofi_setcolour(this->d.t.colour);
     out_string(this->d.t.text, &(this->d.t.fdata), this->d.t.xx,
       this->d.t.yy, this->d.t.flags);
     }
   else
     {
-    ps_setcolour(this->d.g.colour);
-    ps_setdash(this->d.g.dash[0], this->d.g.dash[1]);
+    ofi_setcolour(this->d.g.colour);
+    ofi_setdash(this->d.g.dash[0], this->d.g.dash[1]);
     out_ystave = this->d.g.ystave;
-    ps_path(this->d.g.x, this->d.g.y, this->d.g.c, this->d.g.linewidth);
+    ofi_path(this->d.g.x, this->d.g.y, this->d.g.c, this->d.g.linewidth);
     mem_free_cached((void **)(&main_freeoverdrawstr), this);
     }
   }
-ps_setcolour(save_colour);
+ofi_setcolour(save_colour);
 
 TRACE("out_system() end\n");
 }
@@ -2598,11 +2598,18 @@ out_bbox[2] = 0;
 out_bbox[1] = 0;
 out_bbox[3] = INT32_MAX;
 
-/* Initialize for outputting the music */
+/* Initialize for outputting the music. There's a testing option that forces
+the output to be red for visual comparison against black. */
 
-ps_setgray(0);
-ps_setdash(0, 0);
-ps_setcapandjoin(caj_butt);
+if ((main_testing & mtest_forcered) != 0)
+  {
+  int32_t red[] = { 1000, 0, 0 };
+  ofi_setcolour(red);
+  }
+else ofi_setgray(0);
+
+ofi_setdash(0, 0);
+ofi_setcapandjoin(caj_butt);
 out_yposition = 0;
 out_drawstackptr = 0;
 
