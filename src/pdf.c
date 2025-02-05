@@ -2848,10 +2848,10 @@ filecount is the offset of the xref object. There is no need to increase it
 further. First write the xref table. */
 
 (void)fprintf(out_file, "xref\n0 %d\n", objectcount);
-(void)fprintf(out_file, "0000000000 65535 f\n");
+(void)fprintf(out_file, "0000000000 65535 f\r\n");
 
 for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
-  fprintf(out_file, "%010lu 00000 n\n", p->file_offset);
+  fprintf(out_file, "%010lu 00000 n\r\n", p->file_offset);
 
 /* Now write the trailer, which contains the number of objects and where to
 start. */
@@ -2860,7 +2860,7 @@ fprintf(out_file, "trailer\n<</Size %d/Root 1 0 R/Info 2 0 R>>\n", objectcount);
 
 /* Finally, the offset to the start of the xref table. */
 
-fprintf(out_file, "startxref %u\n%%%%EOF\n", filecount);
+fprintf(out_file, "startxref\n%u\n%%%%EOF\n", filecount);
 }
 
 /* End of pdf.c */
