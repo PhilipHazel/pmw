@@ -1195,7 +1195,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 11 0 obj
-<</Type/Font/SubType/OpenType
+<</Type/Font/Subtype/OpenType
 /Name/rm/BaseFont/Times-Roman/FontDescriptor 10 0 R
 /Encoding 9 0 R/FirstChar 32/LastChar 95/Widths 12 0 R>>
 endobj
@@ -1221,7 +1221,7 @@ endobj
 /FontBBox[-169 -217 1010 883]>>
 endobj
 14 0 obj
-<</Type/Font/SubType/OpenType
+<</Type/Font/Subtype/OpenType
 /Name/it/BaseFont/Times-Italic/FontDescriptor 13 0 R
 /Encoding 9 0 R/FirstChar 49/LastChar 55/Widths 15 0 R>>
 endobj
@@ -1240,7 +1240,7 @@ endobj
 /FontBBox[-168 -218 1000 935]>>
 endobj
 17 0 obj
-<</Type/Font/SubType/OpenType
+<</Type/Font/Subtype/OpenType
 /Name/bf/BaseFont/Times-Bold/FontDescriptor 16 0 R
 /Encoding 9 0 R/FirstChar 32/LastChar 61/Widths 18 0 R>>
 endobj
@@ -1259,7 +1259,7 @@ endobj
 /PMWdstem/PMWcnh 193/PMWicomma]>>
 endobj
 20 0 obj
-<</Type/Font/SubType/OpenType
+<</Type/Font/Subtype/OpenType
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 8 0 R
 /Encoding 19 0 R/FirstChar 33/LastChar 193/Widths 21 0 R>>
 endobj
@@ -1311,7 +1311,7 @@ endobj
 /FontFile3 22 0 R/FontBBox[-894 -1122 3555 1792]>>
 endobj
 25 0 obj
-<</Type/Font/SubType/OpenType
+<</Type/Font/Subtype/OpenType
 /Name/xx1/BaseFont/AdobeArabic-Regular/FontDescriptor 24 0 R
 /Encoding 23 0 R/FirstChar 32/LastChar 201/Widths 26 0 R>>
 endobj
@@ -1355,7 +1355,7 @@ endobj
 /FontFile3 22 0 R/FontBBox[-894 -1122 3555 1792]>>
 endobj
 29 0 obj
-<</Type/Font/SubType/OpenType
+<</Type/Font/Subtype/OpenType
 /Name/xx1X/BaseFont/AdobeArabic-Regular/FontDescriptor 28 0 R
 /Encoding 27 0 R/FirstChar 47/LastChar 95/Widths 30 0 R>>
 endobj
@@ -1390,7 +1390,7 @@ endobj
 /FontFile3 31 0 R/FontBBox[-896 -1181 3657 1792]>>
 endobj
 34 0 obj
-<</Type/Font/SubType/OpenType
+<</Type/Font/Subtype/OpenType
 /Name/xx2/BaseFont/AdobeArabic-Bold/FontDescriptor 33 0 R
 /Encoding 32 0 R/FirstChar 32/LastChar 201/Widths 35 0 R>>
 endobj
@@ -1432,7 +1432,7 @@ endobj
 /FontFile3 31 0 R/FontBBox[-896 -1181 3657 1792]>>
 endobj
 38 0 obj
-<</Type/Font/SubType/OpenType
+<</Type/Font/Subtype/OpenType
 /Name/xx2X/BaseFont/AdobeArabic-Bold/FontDescriptor 37 0 R
 /Encoding 36 0 R/FirstChar 82/LastChar 82/Widths 39 0 R>>
 endobj
@@ -1483,7 +1483,7 @@ xref
 0000019747 00000 n
 trailer
 <</Size 40/Root 1 0 R/Info 2 0 R
-/ID[<60f28e4d31a76ce707e702623a02903e><60f28e4d31a76ce707e702623a02903e>]>>
+/ID[<c77c0869cb9f68f640ff070e10241552><c77c0869cb9f68f640ff070e10241552>]>>
 startxref
 19769
 %%EOF

@@ -973,7 +973,7 @@ are dealing with a Type 3 font. */
 fontobj = new_object(100);
 EO(resources, "/%s%s %d 0 R\n", ID, X, objectcount);
 
-EO(fontobj, "<</Type/Font/SubType/%s\n/Name/%s%s", subtype, ID, X);
+EO(fontobj, "<</Type/Font/Subtype/%s\n/Name/%s%s", subtype, ID, X);
 if (descnum != 0)
   {
   EO(fontobj, "/BaseFont/%s", fs->name);
