@@ -2472,6 +2472,43 @@ mt[3] = r3;
 
 
 /*************************************************
+*       Write out a font as an encoded stream    *
+*************************************************/
+
+static uint32_t
+write_font_stream(FILE *f)
+{
+int c;
+int count = 0;
+long int len;
+int32_t filecount = 0;
+
+fseek(f, 0L, SEEK_END);  /* Get the file length */
+len = ftell(f) * 2 + 1;
+len += len/64;
+
+filecount += fprintf(out_file, "<</Filter/ASCIIHexDecode\n"
+  "/Length %ld>>\nstream\n", len);
+
+rewind(f);
+
+while ((c = fgetc(f)) != EOF)
+  {
+  filecount += fprintf(out_file, "%02x", c);
+  if (++count == 32)
+    {
+    filecount += fprintf(out_file, "\n");
+    count = 0;
+    }
+  }
+
+fclose(f);
+return filecount;
+}
+
+
+
+/*************************************************
 *                Produce PDF output              *
 *************************************************/
 
@@ -3007,18 +3044,10 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
         (main_testing & mtest_omitfont) == 0)
     {
     uschar buffer[256];
-    FILE *f = font_finddata(US "PMW-Music.otf", ".hexasc", font_music_extra,
-     font_music_default, buffer, TRUE);
-
-    fseek(f, 0L, SEEK_END);  /* Get the file length */
-    filecount += fprintf(out_file, "<</Filter/ASCIIHexDecode\n"
-      "/Length %ld>>\nstream\n", ftell(f));
-    rewind(f);
-    es = "endstream\n";
-
-    while (fgets(CS buffer, 256, f) != NULL)
-      filecount += fprintf(out_file, "%s", buffer);
-    fclose(f);
+    FILE *f = font_finddata(US "PMW-Music", ".otf", font_music_extra,
+      font_music_default, buffer, TRUE);
+    es = ">\nendstream\n";
+    filecount += write_font_stream(f);
     }
 
   /* If the object starts with "*FontOTF" it is a placeholder for inserting an
@@ -3027,33 +3056,9 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
   else if (p->data_used >= 8 && Ustrncmp(p->data, "*FontOTF", 8) == 0 &&
              (main_testing & mtest_omitfont) == 0)
     {
-    int c;
-    int count;
-    long int len;
     FILE *f = font_files[atoi((char *)(p->data + 8))];
-
-    fseek(f, 0L, SEEK_END);  /* Get the file length */
-    len = ftell(f) * 2 + 1;
-    len += len/64;
-
-    filecount += fprintf(out_file, "<</Filter/ASCIIHexDecode\n"
-      "/Length %ld>>\nstream\n", len);
-
-    rewind(f);
     es = ">\nendstream\n";
-
-    count = 0;
-    while ((c = fgetc(f)) != EOF)
-      {
-      filecount += fprintf(out_file, "%02x", c);
-      if (++count == 32)
-        {
-        filecount += fprintf(out_file, "\n");
-        count = 0;
-        }
-      }
-
-    fclose(f);
+    filecount += write_font_stream(f);
     }
 
   /* For other objects, the data is in memory. In the case of an object that
