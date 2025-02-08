@@ -2501,7 +2501,8 @@ while ((c = fgetc(f)) != EOF)
     count = 0;
     }
   }
-
+   
+filecount += fprintf(out_file, ">\nendstream\n");
 fclose(f);
 return filecount;
 }
@@ -3031,7 +3032,6 @@ the offsets of all objects. Free each object data memory after writing. */
 objectcount = 1;
 for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
   {
-  const char *es = "";
   p->file_offset = filecount;                    /* Save for index */
   filecount += fprintf(out_file, "%d 0 obj\n", objectcount++);
 
@@ -3046,7 +3046,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
     uschar buffer[256];
     FILE *f = font_finddata(US "PMW-Music", ".otf", font_music_extra,
       font_music_default, buffer, TRUE);
-    es = ">\nendstream\n";
+//    es = ">\nendstream\n";
     filecount += write_font_stream(f);
     }
 
@@ -3057,26 +3057,27 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
              (main_testing & mtest_omitfont) == 0)
     {
     FILE *f = font_files[atoi((char *)(p->data + 8))];
-    es = ">\nendstream\n";
+//    es = ">\nendstream\n";
     filecount += write_font_stream(f);
     }
 
   /* For other objects, the data is in memory. In the case of an object that
   starts with "stream" we must add the length. */
 
-  else
+  else if (p->data_used >=7 && Ustrncmp(p->data, "stream\n", 7) == 0)
     {
-    if (p->data_used >=7 && Ustrncmp(p->data, "stream\n", 7) == 0)
-      {
-      filecount += fprintf(out_file, "<</Length %lu>>\n", p->data_used - 7);
-      es = "endstream\n";
-      }
+    filecount += fprintf(out_file, "<</Length %lu>>\n", p->data_used - 7);
     filecount += fwrite(p->data, 1, p->data_used, out_file);
+    filecount += fprintf(out_file, "endstream\n");
     }
+      
+  /* Not a stream object. */
+   
+  else filecount += fwrite(p->data, 1, p->data_used, out_file);
 
   /* Terminate the object */
 
-  filecount += fprintf(out_file, "%sendobj\n", es);
+  filecount += fprintf(out_file, "endobj\n");
   free(p->data);
   p->data = NULL;  /* Just in case */
   }
