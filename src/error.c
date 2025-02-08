@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: January 2025 */
+/* This file last modified: February 2025 */
 
 #include "pmw.h"
 
@@ -285,8 +285,8 @@ aborts the run after outputting additional information. */
 { ec_warning, "could not find font \"%s\" (use -F option?)" },
 /* 185-189 */
 { ec_failed,  "PMW in PDF mode does not support %s fonts (%s)" },
-{ ec_failed,  "Font file %s does not look like a Type 3 font" },
-{ ec_warning, "Type 3 font (%s) is not supported in PDF mode" }
+{ ec_failed,  "File %s is not a recognized font file" },
+{ ec_failed,  "Type 3 font (%s) is not supported in PDF mode" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

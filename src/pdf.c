@@ -817,8 +817,8 @@ return objectcount;
 *************************************************/
 
 /* This is used for fonts that are not any of the 14 standard PDF fonts,
-whether standardly encoded or not. We seek a font file in various formats; not
-all are actually supported.
+whether standardly encoded or not. We seek a font file in various formats; only
+OpenType fonts are currently supported.
 
 Argument:  pointer to the font structure
 Returns:   a value for a placeholder font item (obj << 8 | type)
@@ -860,30 +860,22 @@ switch(i)
   break;
 
   case fe_pfb:
-  typename = "PFB";
-  break;
-
   case fe_pfa:
   case fe_ttf:
   error(ERR185, font_extensions[i], fs->name);  /* Hard */
   break;
 
-  /* NOTE: TYPE 3 FONTS ARE NOT ACTUALLY SUPPORTED */
-  /* Check a file with no extension to see if it's a Type 3 font. In this case
-  we do not create a new object, because Type 3 file data is all in the font
-  descriptor. Return just the open file index. */
+  /* Check a file with no extension to see if it's a Type 3 font. This just
+  gives a slightly clearer error message. */
 
   case fe_none:
   while (fgets(CS buffer2, 256, f) != NULL)
     {
     if (Ustrcmp(buffer2, "/FontType 3 def\n") == 0)
-      {
-      font_files[nextfontfile++] = f;
-      return nextfontfile;
-      }
+      error(ERR187, buffer1);  /* Hard: type 3 not supported */
     }
   fclose(f);
-  error(ERR186, buffer1);  /* Hard */
+  error(ERR186, buffer1);  /* Hard: unrecognized file */
   break;
   }
 
@@ -938,21 +930,24 @@ if (X[0] != 0)
   lastX -= 256;
   }
 
-/* Make a font descriptor from the AFM information if one isn't provided,
-except for a Type 3 font. */
+/* Make a font descriptor from the AFM information if one isn't provided. Try
+to get the flags right, but the AFM gives no clue about serifs. The usage for 
+the "synbolic" (4) and "non-symbolic" (32) bits is complicated. It seems that 
+one or the other should be set, with "non-symbolic" meaning "only standrd 
+encoding and standard character names". */
 
-if (fontfilenum != 0 && fontfilenum < 256)  /* Type 3 font */
+if (descnum == 0)
   {
-  subtype = "Type3";
-  }
-
-else if (descnum == 0)
-  {
+  int flags = ((fs->flags & ff_stdencoding) != 0)? 32 : 4;
   pdfobject *descobj = new_object(150);
   descnum = objectcount;
+  
+  if ((fs->flags & ff_fixedpitch) != 0) flags |= 1; 
+  if (Ustrncmp(fs->name, "Helvetica", 9) != 0) flags |= 2;  /* Serifs */
+  if (fs->italicangle != 0) flags |= 64; 
 
   EO(descobj, "<</Type/FontDescriptor\n/FontName/%s\n", fs->name);
-  EO(descobj, "/Flags %d\n", ((fs->flags & ff_fixedpitch) != 0)? 1:0);
+  EO(descobj, "/Flags %d\n", flags);
   EO(descobj, "/Ascent %d\n", (fs->ascent > 0)? fs->ascent : fs->bbox[3]);
   EO(descobj, "/Descent %d\n", (fs->descent < 0)? fs->descent : fs->bbox[1]);
   EO(descobj, "/ItalicAngle %d\n", fs->italicangle);
@@ -967,8 +962,7 @@ else if (descnum == 0)
     fs->bbox[2], fs->bbox[3]);
   }
 
-/* Now make the font object and add it to resources. If descnum == 0 here we
-are dealing with a Type 3 font. */
+/* Now make the font object and add it to resources. */
 
 fontobj = new_object(100);
 EO(resources, "/%s%s %d 0 R\n", ID, X, objectcount);
@@ -981,31 +975,8 @@ if (descnum != 0)
   }
 
 if (encobjnum != 0) EO(fontobj, "/Encoding %d 0 R", encobjnum);
-EO(fontobj, "/FirstChar %d/LastChar %d/Widths %d 0 R",
+EO(fontobj, "/FirstChar %d/LastChar %d/Widths %d 0 R>>\n",
   firstX, lastX, make_widths_object(fs, first, last));
-
-/* For non-Type3 fonts we are done. */
-
-if (descnum > 0)
-  {
-  EO(fontobj, ">>\n");
-  return;
-  }
-
-/* For a Type3 font we have to read the font file and generate further entries
-in the font dictionary. However, Type 3 support has never been fully
-implemented. */
-
-error(ERR187, fs->name);   /* Warning */
-
-EO(fontobj, "\n/FontMatrix[1 0 0 1 0 0]/CharProcs<<");
-
-// Generate char procs from font_files[fontfilenum - 1]
-// Number is +1 so as not to be 0
-
-fclose(font_files[fontfilenum - 1]);
-
-EO(fontobj, ">> >>\n");
 }
 
 
@@ -2501,7 +2472,7 @@ while ((c = fgetc(f)) != EOF)
     count = 0;
     }
   }
-   
+
 filecount += fprintf(out_file, ">\nendstream\n");
 fclose(f);
 return filecount;
@@ -2865,7 +2836,8 @@ EO(pages, "]\n/Count %d>>\n", pagecount);
 
 /* If the music font was used, create a placeholder object that represents it.
 At the output stage it will be filled in. Then create a font descriptor for the
-music font. The "8" flag is "glyphs resemble cursive handwriting". */
+music font. The "8" flag is "glyphs resemble cursive handwriting" and "4" is 
+"symbolic". */
 
 if (music_font_used)
   {
@@ -3046,7 +3018,6 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
     uschar buffer[256];
     FILE *f = font_finddata(US "PMW-Music", ".otf", font_music_extra,
       font_music_default, buffer, TRUE);
-//    es = ">\nendstream\n";
     filecount += write_font_stream(f);
     }
 
@@ -3057,7 +3028,6 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
              (main_testing & mtest_omitfont) == 0)
     {
     FILE *f = font_files[atoi((char *)(p->data + 8))];
-//    es = ">\nendstream\n";
     filecount += write_font_stream(f);
     }
 
@@ -3070,9 +3040,9 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
     filecount += fwrite(p->data, 1, p->data_used, out_file);
     filecount += fprintf(out_file, "endstream\n");
     }
-      
+
   /* Not a stream object. */
-   
+
   else filecount += fwrite(p->data, 1, p->data_used, out_file);
 
   /* Terminate the object */
