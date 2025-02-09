@@ -2446,8 +2446,18 @@ mt[3] = r3;
 *       Write out a font as an encoded stream    *
 *************************************************/
 
+/* At the moment, simple hex encoding is used. OTF fonts need an additional 
+entry.
+
+Arguments:
+  f        the font file
+  subtype  a subtype to be defined, or NULL
+  
+Returns:   the number of characters written
+*/  
+
 static uint32_t
-write_font_stream(FILE *f)
+write_font_stream(FILE *f, const char *subtype)
 {
 int c;
 int count = 0;
@@ -2458,8 +2468,9 @@ fseek(f, 0L, SEEK_END);  /* Get the file length */
 len = ftell(f) * 2 + 1;
 len += len/64;
 
-filecount += fprintf(out_file, "<</Filter/ASCIIHexDecode\n"
-  "/Length %ld>>\nstream\n", len);
+filecount += fprintf(out_file, "<</Filter/ASCIIHexDecode\n");
+if (subtype != NULL) filecount += fprintf(out_file, "/Subtype/%s\n", subtype);
+filecount += fprintf(out_file, "/Length %ld>>\nstream\n", len);
 
 rewind(f);
 
@@ -3008,9 +3019,8 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
   filecount += fprintf(out_file, "%d 0 obj\n", objectcount++);
 
   /* If the object starts with the text "*Font PMW-Music" it is a placeholder
-  for inserting the ASCII hex encoded music font. There's a testing option for
-  omitting this, because it's pointless having a copy in every test file
-  output. */
+  for inserting the music font. There's a testing option for omitting this,
+  because it's pointless having a copy in every test file output. */
 
   if (p->data_used >= 15 && Ustrncmp(p->data, "*Font PMW-Music", 15) == 0 &&
         (main_testing & mtest_omitfont) == 0)
@@ -3018,7 +3028,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
     uschar buffer[256];
     FILE *f = font_finddata(US "PMW-Music", ".otf", font_music_extra,
       font_music_default, buffer, TRUE);
-    filecount += write_font_stream(f);
+    filecount += write_font_stream(f, "OpenType");
     }
 
   /* If the object starts with "*FontOTF" it is a placeholder for inserting an
@@ -3028,7 +3038,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
              (main_testing & mtest_omitfont) == 0)
     {
     FILE *f = font_files[atoi((char *)(p->data + 8))];
-    filecount += write_font_stream(f);
+    filecount += write_font_stream(f, "OpenType");
     }
 
   /* For other objects, the data is in memory. In the case of an object that
