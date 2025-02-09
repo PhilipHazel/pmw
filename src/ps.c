@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: May 2021 */
-/* This file last modified: January 2025 */
+/* This file last modified: February 2025 */
 
 #include "pmw.h"
 
@@ -69,7 +69,7 @@ ps_chcount = (p[len-1] == '\n')? 0 : ps_chcount + len;
 static void
 setcolour(void)
 {
-if (pout_wantcolour[0] == pout_wantcolour[1] && 
+if (pout_wantcolour[0] == pout_wantcolour[1] &&
     pout_wantcolour[1] == pout_wantcolour[2])
   ps_printf(" %s Sg", sff(pout_wantcolour[0]));
 else
@@ -269,7 +269,7 @@ string and we know that it's all in the same font. */
 
 if (main_righttoleft || ps_EPS)
   {
-  int32_t last_width, last_r2ladjust; 
+  int32_t last_width, last_r2ladjust;
   int32_t swidth = pout_getswidth(s, f, fs, &last_width, &last_r2ladjust);
 
   /* For right-to-left, adjust the printing position for the string by the
@@ -394,7 +394,7 @@ if (instring) ps_endstring(absolute, tfd.spacestretch, x, y);
 *************************************************/
 
 /* The x and y coordinates are updated if requested - note that y goes
-downwards. Change colour if required, then call the common PS/PDF output 
+downwards. Change colour if required, then call the common PS/PDF output
 function with the PS basic string output function.
 
 Arguments:
@@ -719,7 +719,7 @@ ps_string(string_pmw(s, font_mf), &pout_mfdata, &x, &y, FALSE);
 
 /* This function is called several times for a multi-line beam, with the level
 number increasing each time. Information about the slope and other features is
-in beam_* variables. Preparatory computation is now moved into a pout function 
+in beam_* variables. Preparatory computation is now moved into a pout function
 that is common with PDF.
 
 Arguments:
@@ -843,7 +843,7 @@ if (pout_changecolour) setcolour();
 
 if ((flags & tief_editorial) != 0)
   {
-  ps_printf("%s", SFF(" GS %f %f T %f R 0 2.0 Mt 0 -2.0 Lt S GR",
+  ps_printf("%s", SFF(" GS %f %f T %f R 0.4 Slw 0 2.0 Mt 0 -2.0 Lt S GR",
    poutx((x0+x1)/2), pouty(out_ystave - (y0+y1)/2),
    (int32_t)(atan2(yy, xx)*180000.0/3.14159)));
   }
