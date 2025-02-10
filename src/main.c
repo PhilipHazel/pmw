@@ -63,6 +63,7 @@ static const char *arg_pattern =
   "printgutter/k,"
   "printscale/k,"
   "printside/k/n,"
+  "ps/s,"
   "reverse/s,"
   "SM/k,"
   "s/k,"
@@ -113,6 +114,7 @@ enum {
   arg_printgutter,
   arg_printscale,
   arg_printside,
+  arg_ps,
   arg_reverse,
   arg_SM,
   arg_s,
@@ -458,38 +460,33 @@ pmwrc = "no";
 #endif
 
 (void)printf("PMW version %s\n%s\n\n", PMW_VERSION, COPYRIGHT);
+(void)printf("Default output is:    %s\n", PDF? "PDF" : "PostScript");
 (void)printf("B2PF support:         %s\n", b2pf);
 (void)printf("~/.pmwrc support:     %s\n", pmwrc);
 
-PF("\nOPTIONS\n\n");
+PF("\nGENERAL OPTIONS\n\n");
 PF("-a4ona3               print A4 images 2-up on A3\n");
 PF("-a5ona4               print A5 images 2-up on A4\n");
-PF("-a4sideways           assume A4 paper fed sideways\n");
 PF("-C <arg>              show a compile-time option; exit with its value (0 or 1).\n");
 PF("    b2pf              support for B2PF processing\n");
 PF("    musicxml          support for MusicXML input\n");
-PF("-c <number>           set number of copies\n");
-PF("-d<options>           write debugging info to stderr\n");
+PF("-d<options>           write debugging info to stderr (see below)\n");
 PF("-dbd <m>,<s>,<b>      write debugging bar data (movement, stave, bar) \n");
 PF("-dbl                  synonym for -drawbarlines\n");
 PF("-drawbarlines         don't use characters for bar lines\n");
 PF("-drawstavelines [<n>] don't use characters for stave lines\n");
 PF("-dsl [<n>]            synonym for -drawstavelines\n");
 PF("-dtp <bar>            write debugging position data (-1 for all bars)\n");
-PF("-duplex               set duplex printing in the PostScript\n");
 PF("-em <n>               synonym for -errormaximum\n");
 PF("-eps                  output encapsulated PostScript\n");
 PF("-errormaximum <n>     set maximum number of errors (for testing)\n");
-PF("-F <directory-list>   specify fontmetrics and/or .utr directories\n");
+PF("-F <directory-list>   specify fontmetrics, .utr, and font directories\n");
 PF("-f <name>             specify format name\n");
-PF("-H <file>             specify PostScript header file\n");
-PF("-help                 output this information\n");
-PF("-incPMWfont           include PMW font in the output\n");
+PF("-help                 output this information, then exit\n");
 PF("-ipf                  synonym for -incPMWfont\n");
-PF("-MF <directory-list>  specify PostScript music fonts directories\n");
+PF("-MF <directory-list>  specify music font directories\n");
 PF("-MP <file>            specify MIDIperc file\n");
 PF("-MV <file>            specify MIDIvoices file\n");
-PF("-manualfeed           set manualfeed in the PostScript\n");
 PF("-mb <range>           synonym for -midibars\n");
 PF("-midi <file>          specify MIDI output file\n");
 PF("-midibars <range>     limit MIDI output to given bar range\n");
@@ -505,20 +502,29 @@ PF("-nr                   synonym for -norepeats\n");
 PF("-nw                   synonym for -nowidechars\n");
 PF("-o <file>             specify output file ('-' for stdout)\n");
 PF("-p <list>             select pages\n");
-PF("-pdf                  output PDF instead of PostScript\n");
+PF("-pdf                  select PDF output\n");
 PF("-pamphlet             print pages in pamphlet order\n");
 PF("-printadjust <x> <y>  move on page by (x,y)\n");
 PF("-printgutter <x>      move recto/verso pages by x/-x\n");
 PF("-printscale <n>       scale the image by n\n");
 PF("-printside <n>        print only odd or even sides\n");
+PF("-ps                   select PostScript output\n");
 PF("-reverse              output pages in reverse order\n");
 PF("-SM <directory>       specify standard macros directory\n");
 PF("-s <list>             select staves\n");
 PF("-t <number>           set transposition\n");
 PF("-testing              run in testing mode\n");
-PF("-tumble               set tumble for duplex printing\n");
-PF("-V                    output PMW version number\n");
+PF("-V                    output PMW version number, then exit\n");
 PF("-v                    output verification information\n");
+
+PF("\nPOSTSCRIPT-SPECIFIC OPTIONS\n\n");
+PF("-a4sideways           assume A4 paper fed sideways\n");
+PF("-c <number>           set number of copies\n");
+PF("-duplex               set duplex printing in the PostScript\n");
+PF("-H <file>             specify PostScript header file\n");
+PF("-incPMWfont           include PMW font in the output\n");
+PF("-manualfeed           set manualfeed in the PostScript\n");
+PF("-tumble               set tumble for duplex printing\n");
 
 PF("\nDebug options (+ to add, - to subtract):");
 for (long unsigned int i = 0; i < DEBUG_OPTIONS_COUNT; i++)
@@ -528,15 +534,14 @@ for (long unsigned int i = 0; i < DEBUG_OPTIONS_COUNT; i++)
   }
 PF("\n");
 
-PF("\nDefault output is <input>.ps when a file name is given.\n");
-PF("Default output is stdout if no file name is given.\n");
+PF("\nDefault output is <input>.ps or <input>.pdf when an input file name is given.\n"); 
+PF("Default output is stdout if no input file name is given.\n");
 
 PF("\nEXAMPLES\n\n");
 PF("pmw myscore\n");
 PF("pmw -s 1,2-4 -p 3,6-10,11 -f small -c 2 k491.pmw\n");
 PF("pmw -pamphlet -a5ona4 scorefile\n");
 PF("pmw -s 1 -midi zz.mid -mm 2 -mb 10-20 sonata\n");
-
 }
 
 
@@ -829,18 +834,32 @@ if (results[arg_printside].presence != arg_present_not)
       else error(ERR141);  /* Hard */
   }
 
-/* Deal with selecting PDF output */
+/* Only one of -ps or -pdf is allowed; default is set at build time. */
 
 if (results[arg_pdf].number != 0)
   {
-  if (print_imposition == pc_EPS) error(ERR181);  /* Hard */
-  if (print_copies != 1) error(ERR182, "copies"); /* Warning */
+  if (results[arg_ps].number != 0) error(ERR181, "ps");  /* Hard */
+  PDF = TRUE;
+  }
+else if (results[arg_ps].number != 0) PDF = FALSE;
+
+/* Many PostScript-specific args are either ignored or cause a fatal error when
+output is PDF. */
+
+if (PDF)
+  {
+  if (print_imposition == pc_EPS) error(ERR181, "eps");  /* Hard */
+  if (print_copies != 1) error(ERR182, "c"); /* Warning */
   if (print_pagefeed == pc_a4sideways)
     {
-    error(ERR182, "a4sideways");                  /* Warning */
+    error(ERR182, "a4sideways");                        /* Warning */
     print_pagefeed = pc_normal;
     }
-  PDF = TRUE;
+  if (print_duplex) error(ERR182, "duplex");            /* Warning */
+  if (print_tumble) error(ERR182, "tumble");            /* Warning */
+  if (print_manualfeed) error(ERR182, "manualfeed");    /* Warning */
+  if (results[arg_H].text != NULL) error(ERR182, "H");  /* Warning */
+  if (print_incPMWfont) error(ERR182, "incPMWfont");    /* Warning */
   }
 }
 
@@ -924,7 +943,7 @@ else
       possibly doing damage. */
 
       if (rdargs(nargc, nargv, arg_pattern, results, MAX_COMMANDARGS) != 0)
-      error(ERR26, results[0].text, results[1].text);  /* Hard */
+        error(ERR26, results[0].text, results[1].text);  /* Hard */
       }
 
     /* stat() problem other than file not found is serious */

@@ -21,7 +21,7 @@ echo "*** Running distributed tests ***"
 for x in infiles/* ; do
   file=`basename $x`
 
-  $valgrind $vopt ../src/pmw -norc -testing 7 -F ../fontmetrics \
+  $valgrind $vopt ../src/pmw -norc -ps -testing 7 -F ../fontmetrics \
     -H ../PSheader -MF ../psfonts -SM ../macros -o test.ps infiles/$file
 
   diff -u outfiles/$file.ps test.ps >test.diff
@@ -35,7 +35,7 @@ for x in infiles/* ; do
   fi
 
   $valgrind $vopt ../src/pmw -norc -pdf -testing 7 -F ../fontmetrics \
-    -H ../PSheader -MF ../psfonts -SM ../macros -o test.pdf infiles/$file
+    -MF ../psfonts -SM ../macros -o test.pdf infiles/$file
 
   diff -u outfiles/$file.pdf test.pdf >test.diff
   if [ $? != 0 ] ; then

@@ -8,7 +8,7 @@ use Cwd;
 #   valgrind    run tests under valgrind
 #   autoquit    force quit after test failure instead of interacting
 #   forceupdate force update after test failure instead of interacting
-#   view        display new after test failure then ask again
+#   view        display before running each test
 #   nob2pf      skip B2PF tests (auto skipped if not supported)
 #   nopdf       do only PostScript tests
 #
@@ -225,13 +225,24 @@ while (scalar @dirs > 0)
 
       getcwd() =~ /^(.*)\/testing$/;
       system ("GS_FONTPATH=$1/psfonts:$1/fontextra:\$GS_FONTPATH gv -scale=1 -geometry 1080x980+0+0 test-full.ps");
+
+      for (;;)
+        {
+        print "Continue, Quit? [Q] ";
+        open(T, "/dev/tty") || die "Failed to open /dev/tty: $!\n";
+        $_ = <T>;
+        close(T);
+        exit 1 if /^q?$/i;
+        last if /^c$/i;
+        }
       }
       
     # Each test is run twice, for PostScript and PDF output, by default. 
     # There's an option not to do the PDF test.
     
-    $pdf = ""; 
+    $pdf = "-ps"; 
     $which = "PS"; 
+    $header = "-H ../PSheader"; 
     $outext = ""; 
      
     for (;;)
@@ -239,7 +250,7 @@ while (scalar @dirs > 0)
       # On the PDF pass, check for PostScript-specific tests that are not
       # relevant to PDF.
       
-      if ($pdf ne "" && -e "$tests/$file.nopdf")
+      if ($pdf eq "-pdf" && -e "$tests/$file.nopdf")
         {
         printf("Test $file skipped PDF\n");
         last;
@@ -251,8 +262,7 @@ while (scalar @dirs > 0)
       # each time. In the case of PDF output, there are individual control bits 
       # in the "testing" value. 
       
-      my ($rc) = system("$valgrind $pmw -norc $pdf -testing 7 $options $fontsearch -o test.out $tests/$file" .
-                        " -H  ../PSheader" .
+      my ($rc) = system("$valgrind $pmw -norc $pdf $header -testing 7 $options $fontsearch -o test.out $tests/$file" .
                         " -MF ../psfonts" .
                         " -MP ../MIDIperc" .
                         " -MV ../MIDIvoices" .
@@ -356,8 +366,7 @@ while (scalar @dirs > 0)
       
             if (/^\s*v$/)
               {
-              system("$pmw -norc $pdf $options $fontsearch -o test-full.out $tests/$file" .
-                        " -H  ../PSheader" .
+              system("$pmw -norc $pdf $header $options $fontsearch -o test-full.out $tests/$file" .
                         " -MF ../psfonts" .
                         " -MP ../MIDIperc" .
                         " -MV ../MIDIvoices" .
@@ -450,9 +459,10 @@ while (scalar @dirs > 0)
         
       # If just done PostScript, repeat for PDF.
         
-      if ($pdf eq "" && $dopdf)
+      if ($pdf eq "-ps" && $dopdf)
         {
         $pdf = "-pdf";
+        $header = ""; 
         $which = "PDF";
         $outext = ".pdf"; 
         }

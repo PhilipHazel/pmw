@@ -279,7 +279,7 @@ aborts the run after outputting additional information. */
 { ec_major,   "'&' at end of line while reading macro or repetition argument" },
 /* 180-184 */
 { ec_failed,  "repetition count is too large (max %d)" },
-{ ec_failed,  "-eps and -pdf are mutually exclusive" },
+{ ec_failed,  "-%s and -pdf are mutually exclusive" },
 { ec_warning, "-%s is ignored with -pdf" },
 { ec_failed,  "internal error: invalid output layout for PDF" },
 { ec_warning, "could not find font \"%s\" (use -F option?)" },

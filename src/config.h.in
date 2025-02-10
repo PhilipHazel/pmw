@@ -10,4 +10,7 @@ used as a basis for config.h. */
 /* Define SUPPORT_XML non-zero to include support for MusicXML input files. */
 #define SUPPORT_XML @SUPPORT_XML@
 
+/* Define PDF_DEFAULT non-zero to make the default output format PDF. */
+#define PDF_DEFAULT @PDF_DEFAULT@
+
 /* End of config.h */

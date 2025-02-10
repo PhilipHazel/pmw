@@ -49,9 +49,20 @@ AC_ARG_ENABLE(musicxml,
 if test "x$enable_musicxml" = "xunset"; then enable_musicxml=no; fi
 if test "x$enable_musicxml" = "xyes"; then SUPPORT_XML=1; fi
 
+dnl Handle --enable-pdf-default
+PDF_DEFAULT=0
+AC_ARG_ENABLE(pdf-default,
+  AS_HELP_STRING([--enable-pdf-default], [make default output PDF]),
+  , enable_pdf_default=unset) 
+  
+if test "x$enable_pdf_default" = "xunset"; then pdf_default=PostScript; fi
+if test "x$enable_pdf_default" = "xyes"; then PDF_DEFAULT=1; pdf_default=PDF; fi
+ 
+
 dnl Export these values in addition to the defaults
 AC_SUBST(LFLAGS)
 AC_SUBST(NO_PMWRC)
+AC_SUBST(PDF_DEFAULT)
 AC_SUBST(SUPPORT_B2PF)
 AC_SUBST(SUPPORT_XML)
 
@@ -75,6 +86,7 @@ PMW configuration summary:
     Install pmw command in ...........: ${prefix}/bin
     Install shared data in ...........: ${prefix}/share/pmw
     Install man page in ..............: ${prefix}/man
+    Default output format ............: ${pdf_default} 
     Support .pmwrc file ..............: ${enable_pmwrc}
     Support B2PF text processing .....: ${enable_b2pf}
     Support for MusicXML input .......: ${enable_musicxml}

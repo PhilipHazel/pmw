@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: January 2025 */
+/* This file last modified: February 2025 */
 
 #include "pmw.h"
 
@@ -266,7 +266,7 @@ int32_t      out_ystave;
 uint32_t     page_firstnumber = 1;
 uint32_t     page_increment = 1;
 
-BOOL         PDF = FALSE;
+BOOL         PDF = PDF_DEFAULT;
 
 BOOL         pout_changecolour = FALSE;
 int32_t      pout_curcolour[3] = {0, 0, 0};
