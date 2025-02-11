@@ -832,6 +832,7 @@ make_fileobject(fontstr *fs)
 size_t i;
 FILE *f;
 pdfobject *d;
+int yield;
 char type = 0;
 const char *typename = "";
 uschar buffer1[256];
@@ -880,12 +881,16 @@ switch(i)
   }
 
 /* For non-Type3 fonts, save the open file in the next open file slot and
-create a placeholder object. */
+create two placeholder objects, one for the font, and one for the length.
+Return the number of the font object left shifted 8, with the ls byte
+containing the suffix character for the FontFile setting. */
 
 font_files[nextfontfile] = f;
 d = new_object(150);
+yield = (objectcount << 8) | type;
 EO(d, "*Font%s %d\n", typename, nextfontfile++);
-return (objectcount << 8) | type;
+(void) new_object(10);   /* Length placeholder */
+return yield;
 }
 
 
@@ -931,9 +936,9 @@ if (X[0] != 0)
   }
 
 /* Make a font descriptor from the AFM information if one isn't provided. Try
-to get the flags right, but the AFM gives no clue about serifs. The usage for 
-the "synbolic" (4) and "non-symbolic" (32) bits is complicated. It seems that 
-one or the other should be set, with "non-symbolic" meaning "only standrd 
+to get the flags right, but the AFM gives no clue about serifs. The usage for
+the "synbolic" (4) and "non-symbolic" (32) bits is complicated. It seems that
+one or the other should be set, with "non-symbolic" meaning "only standrd
 encoding and standard character names". */
 
 if (descnum == 0)
@@ -941,10 +946,10 @@ if (descnum == 0)
   int flags = ((fs->flags & ff_stdencoding) != 0)? 32 : 4;
   pdfobject *descobj = new_object(150);
   descnum = objectcount;
-  
-  if ((fs->flags & ff_fixedpitch) != 0) flags |= 1; 
+
+  if ((fs->flags & ff_fixedpitch) != 0) flags |= 1;
   if (Ustrncmp(fs->name, "Helvetica", 9) != 0) flags |= 2;  /* Serifs */
-  if (fs->italicangle != 0) flags |= 64; 
+  if (fs->italicangle != 0) flags |= 64;
 
   EO(descobj, "<</Type/FontDescriptor\n/FontName/%s\n", fs->name);
   EO(descobj, "/Flags %d\n", flags);
@@ -2446,45 +2451,93 @@ mt[3] = r3;
 *       Write out a font as an encoded stream    *
 *************************************************/
 
-/* At the moment, simple hex encoding is used. OTF fonts need an additional 
-entry.
+/* OTF fonts need an additional entry in the stream's dictionary, provided by
+the "subtype" argument. The font is encoded using the ASCII85 encoding, which
+encodes each 4 bytes as a 32-bit number to be encoded in base 85 using ASCII
+printable characters. There is special treatment of zero and for any trailing
+bytes.
 
 Arguments:
-  f        the font file
-  subtype  a subtype to be defined, or NULL
-  
+  f              the font file
+  subtype        a subtype to be defined, or NULL
+  length         the indirect object in which to put the length
+  length_number  the number of the length object
+
 Returns:   the number of characters written
-*/  
+*/
 
 static uint32_t
-write_font_stream(FILE *f, const char *subtype)
+write_font_stream(FILE *f, const char *subtype, pdfobject *length,
+  uint32_t length_number)
 {
-int c;
-int count = 0;
-long int len;
-int32_t filecount = 0;
+char coded[6];
+int c, n;
+uint32_t acc;
+uint32_t lenstart;
+uint32_t filecount = 0;
+uint32_t count = 0;
 
-fseek(f, 0L, SEEK_END);  /* Get the file length */
-len = ftell(f) * 2 + 1;
-len += len/64;
-
-filecount += fprintf(out_file, "<</Filter/ASCIIHexDecode\n");
+filecount += fprintf(out_file, "<</Filter/ASCII85Decode\n");
 if (subtype != NULL) filecount += fprintf(out_file, "/Subtype/%s\n", subtype);
-filecount += fprintf(out_file, "/Length %ld>>\nstream\n", len);
+filecount += fprintf(out_file, "/Length %d 0 R>>\nstream\n", length_number);
 
-rewind(f);
+acc = 0;
+n = 0;
+coded[5] = 0;
+lenstart = filecount;
 
 while ((c = fgetc(f)) != EOF)
   {
-  filecount += fprintf(out_file, "%02x", c);
-  if (++count == 32)
+  acc = (acc << 8) | c;
+  if (++n == 4)
     {
-    filecount += fprintf(out_file, "\n");
-    count = 0;
+    if (acc == 0)
+      {
+      fputc('z', out_file);
+      filecount++;
+      count++;
+      }
+    else
+      {
+      for (int i = 4; i > 0; i--)
+        {
+        coded[i] = (acc % 85) + '!';
+        acc /= 85;
+        }
+      coded[0] = acc + '!';
+      filecount += fprintf(out_file, "%s", coded);
+
+      if ((count += 5) >= 75)
+        {
+        filecount += fprintf(out_file, "\n");
+        count = 0;
+        }
+      }
+    n = 0;
     }
   }
 
-filecount += fprintf(out_file, ">\nendstream\n");
+/* Deal with final fragment */
+
+if (n != 0)
+  {
+  acc <<= (4 - n) * 8;
+  for (int i = 4; i > 0; i--)
+    {
+    coded[i] = (acc % 85) + '!';
+    acc /= 85;
+    }
+  coded[0] = acc + '!';
+  filecount += fprintf(out_file, "%.*s", n + 1, coded);
+  }
+
+/* Finally, the EOD sequence. We then have the length of the stream item and
+can update the length object, which always follows the font object. Then end
+the stream. */
+
+filecount += fprintf(out_file, "~>");
+EO(length, "%d\n", filecount - lenstart);  /* Update the length object */
+filecount += fprintf(out_file, "\nendstream\n");
 fclose(f);
 return filecount;
 }
@@ -2845,15 +2898,16 @@ for (;;)
 
 EO(pages, "]\n/Count %d>>\n", pagecount);
 
-/* If the music font was used, create a placeholder object that represents it.
-At the output stage it will be filled in. Then create a font descriptor for the
-music font. The "8" flag is "glyphs resemble cursive handwriting" and "4" is 
-"symbolic". */
+/* If the music font was used, create a placeholder object that represents it, 
+along with a second placeholder for its length. At the output stage these will
+be filled in. Then create a font descriptor for the music font. The "8" flag is
+"glyphs resemble cursive handwriting" and "4" is "symbolic". */
 
 if (music_font_used)
   {
   (void)new_fixed_object("*Font PMW-Music\n");
   musicbinary_number = objectcount;
+  (void) new_object(10);   /* Length placeholder */
 
   EO(new_object(150),
      "<</Type/FontDescriptor\n"
@@ -3028,7 +3082,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
     uschar buffer[256];
     FILE *f = font_finddata(US "PMW-Music", ".otf", font_music_extra,
       font_music_default, buffer, TRUE);
-    filecount += write_font_stream(f, "OpenType");
+    filecount += write_font_stream(f, "OpenType", p->next, objectcount);
     }
 
   /* If the object starts with "*FontOTF" it is a placeholder for inserting an
@@ -3038,7 +3092,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
              (main_testing & mtest_omitfont) == 0)
     {
     FILE *f = font_files[atoi((char *)(p->data + 8))];
-    filecount += write_font_stream(f, "OpenType");
+    filecount += write_font_stream(f, "OpenType", p->next, objectcount);
     }
 
   /* For other objects, the data is in memory. In the case of an object that
