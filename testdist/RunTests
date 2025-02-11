@@ -27,7 +27,7 @@ for x in infiles/* ; do
   diff -u outfiles/$file.ps test.ps >test.diff
   if [ $? != 0 ] ; then
     mv test.diff test-$file.diff
-    echo "*** $file test failed - see test-$file.diff ***"
+    echo "*** $file PostScript test failed - see test-$file.diff ***"
     if [ "$autoquit" = "autoquit" ]; then exit 1; fi 
     rc=1
   else
@@ -40,7 +40,7 @@ for x in infiles/* ; do
   diff -u outfiles/$file.pdf test.pdf >test.diff
   if [ $? != 0 ] ; then
     mv test.diff test-$file.diff
-    echo "*** $file test failed - see test-$file.diff ***"
+    echo "*** $file PDF test failed - see test-$file.diff ***"
     if [ "$autoquit" = "autoquit" ]; then exit 1; fi 
     rc=1
   else

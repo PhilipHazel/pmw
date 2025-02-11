@@ -14,7 +14,7 @@ endobj
 endobj
 4 0 obj
 <</ProcSet[/PDF/Text]/Font<<
-/mf 10 0 R
+/mf 11 0 R
 >> >>
 endobj
 5 0 obj
@@ -231,6 +231,8 @@ endobj
 *Font PMW-Music
 endobj
 8 0 obj
+endobj
+9 0 obj
 <</Type/FontDescriptor
 /FontName/PMW-Music
 /Flags 12
@@ -243,18 +245,18 @@ endobj
 /FontFile3 7 0 R
 >>
 endobj
-9 0 obj
+10 0 obj
 <</Type/Encoding/BaseEncoding/WinAnsiEncoding/Differences[
 33/PMWtrebleclef 37/PMWsharp 40/PMWnatural 50/PMWsemibreve
 53/PMWucrotchet 64/PMWbarsingle 66/PMWbarthick/PMWstave1
 70/PMWstave10 95/PMWcut]>>
 endobj
-10 0 obj
-<</Type/Font/Subtype/OpenType
-/Name/mf/BaseFont/PMW-Music/FontDescriptor 8 0 R
-/Encoding 9 0 R/FirstChar 33/LastChar 95/Widths 11 0 R>>
-endobj
 11 0 obj
+<</Type/Font/Subtype/OpenType
+/Name/mf/BaseFont/PMW-Music/FontDescriptor 9 0 R
+/Encoding 10 0 R/FirstChar 33/LastChar 95/Widths 12 0 R>>
+endobj
+12 0 obj
 [1500 0 0 0 600 0 0 450
 0 0 0 0 0 0 0 0
 0 840 0 0 840 0 0 0
@@ -265,7 +267,7 @@ endobj
 0 0 0 0 0 0 1000]
 endobj
 xref
-0 12
+0 13
 0000000000 65535 f
 0000000015 00000 n
 0000000061 00000 n
@@ -275,12 +277,13 @@ xref
 0000000307 00000 n
 0000002420 00000 n
 0000002451 00000 n
-0000002638 00000 n
-0000002855 00000 n
-0000003007 00000 n
+0000002466 00000 n
+0000002653 00000 n
+0000002871 00000 n
+0000003024 00000 n
 trailer
-<</Size 12/Root 1 0 R/Info 2 0 R
-/ID[<87bb338dc57d6ea84b9e8af57832a6f1><87bb338dc57d6ea84b9e8af57832a6f1>]>>
+<</Size 13/Root 1 0 R/Info 2 0 R
+/ID[<9e39999a13b9355066eddd1cc5c732dd><9e39999a13b9355066eddd1cc5c732dd>]>>
 startxref
-3176
+3193
 %%EOF
