@@ -2545,6 +2545,22 @@ return filecount;
 
 
 /*************************************************
+*           Free expandable data blocks          *
+*************************************************/
+
+/* This is called from the exit function in main.c so that it is run however
+PMW exits. */
+
+void
+pdf_free_data(void)
+{
+for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
+  if (p->data != NULL) free(p->data);
+}
+
+
+
+/*************************************************
 *                Produce PDF output              *
 *************************************************/
 
@@ -2898,7 +2914,7 @@ for (;;)
 
 EO(pages, "]\n/Count %d>>\n", pagecount);
 
-/* If the music font was used, create a placeholder object that represents it, 
+/* If the music font was used, create a placeholder object that represents it,
 along with a second placeholder for its length. At the output stage these will
 be filled in. Then create a font descriptor for the music font. The "8" flag is
 "glyphs resemble cursive handwriting" and "4" is "symbolic". */
@@ -3112,8 +3128,6 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
   /* Terminate the object */
 
   filecount += fprintf(out_file, "endobj\n");
-  free(p->data);
-  p->data = NULL;  /* Just in case */
   }
 
 /* At this point, objectcount is one more than the number of objects, which is

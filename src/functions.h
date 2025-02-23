@@ -88,6 +88,7 @@ extern void         out_writetime(int32_t, int32_t, usint);
 extern void         paginate(void);
 
 extern void         pdf_go(void);
+extern void         pdf_free_data(void);
 
 extern void         pout_beam(int32_t *, int32_t *, int32_t *, int32_t *,
                       int32_t *, int, int);

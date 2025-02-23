@@ -1063,16 +1063,13 @@ Returns:   nothing
 static void
 tidy_up(void)
 {
-usint i;
-
 if (read_filehandle != NULL) fclose(read_filehandle);
-
 free(font_list);
 
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
 if (font_b2pf_contexts != NULL)
   {
-  for (i = 0; i < font_tablen; i++)
+  for (usint i = 0; i < font_tablen; i++)
     if (font_b2pf_contexts[i] != NULL) b2pf_context_free(font_b2pf_contexts[i]);
   }
 #endif
@@ -1085,12 +1082,12 @@ free(read_stringbuffer);
 
 /* A NULL pointer marks the end of the macro argument expansion buffers. */
 
-for (i = 0; i < MAX_MACRODEPTH; i++)
+for (usint i = 0; i < MAX_MACRODEPTH; i++)
   if (main_argbuffer[i] != NULL) free(main_argbuffer[i]); else break;
 
 /* Free expandable vectors in all movements, then the movements vector. */
 
-for (i = 0; i < movement_count; i++)
+for (usint i = 0; i < movement_count; i++)
   {
   curmovt = movements[i];
   free(curmovt->barvector);
@@ -1098,7 +1095,6 @@ for (i = 0; i < movement_count; i++)
   for (int j = 0; j <= curmovt->lastreadstave; j++)
     if (curmovt->stavetable[j] != NULL) free(curmovt->stavetable[j]->barindex);
   }
-
 free(movements);
 
 /* An expandable XML buffer */
@@ -1106,6 +1102,10 @@ free(movements);
 #if SUPPORT_XML
 free(xml_layout_list);
 #endif
+
+/* PDF expandable data areas */
+
+pdf_free_data();
 
 /* Free the non-expandable memory blocks */
 
