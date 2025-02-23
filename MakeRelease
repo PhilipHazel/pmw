@@ -49,8 +49,7 @@ cp src/Makefile src/*.c src/*.h src/*.in $dir/src
 # Fonts
 
 mkdir $dir/psfonts
-cp psfonts/PMW-Music.pfa psfonts/PMW-Music.otf psfonts/PMW-Music.otf.hexasc \
-  psfonts/PMW-Alpha $dir/psfonts
+cp psfonts/PMW-Music.pfa psfonts/PMW-Music.otf psfonts/PMW-Alpha $dir/psfonts
 
 # Documentation
 

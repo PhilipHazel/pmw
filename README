@@ -1,7 +1,7 @@
 PHILIP'S MUSIC WRITER
 ---------------------
 
-Copyright (c) 2022 Philip Hazel
+Copyright (c) 2025 Philip Hazel
 
 
 DISCUSSION GROUP
@@ -28,8 +28,8 @@ unless your system gives you write access to the relevant directories.
 
 There is a man page that lists the PMW command arguments. However, the main
 documentation is provided only as a PDF file in the doc directory. The reason
-for this is that characters from the music font appear in the text, and I don't
-know of any other way of providing text of this kind.
+for this is that there are music illustrations and characters from the music
+font appear in the text.
 
 
 OTHER SYSTEMS
@@ -51,7 +51,7 @@ has provided notes for building in Apple Macintosh environments, available in
 the file MacOS.txt in the doc directory.
 
 Philip Hazel <Philip.Hazel [AT] gmail.com>
-May 2022
+February 2025
 
 
 LICENCE
