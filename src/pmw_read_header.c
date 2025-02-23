@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: January 2025 */
+/* This file last modified: February 2025 */
 
 #include "pmw.h"
 
@@ -796,12 +796,22 @@ if (movement_count == 1) stave_use_draw = x;
 *                 EPS                            *
 *************************************************/
 
+/* This is synonym for "output eps", which existed before PDF output was 
+implemented. It's small enough not to bother with trying to combine it with the 
+"output" directive. */
+
 static void
 eps(void)
 {
 if (movement_count == 1) 
   {
-  if (!PDF) print_imposition = pc_EPS;
+  if (!PDF || !PDFforced) 
+    {
+    print_imposition = pc_EPS;
+    PDF = FALSE; 
+    PSforced = TRUE; 
+    }
+  else error(ERR188, "eps", "-pdf");    
   } 
 else error(ERR40, dir->name);
 }
@@ -1583,6 +1593,53 @@ else
     }
   }
 }
+
+
+
+/*************************************************
+*                Output                          *
+*************************************************/
+
+static void
+output(void)
+{
+if (movement_count != 1) { error(ERR40, dir->name); return; }
+read_nextword();
+read_sigc();
+
+if (Ustrcmp(read_wordbuffer, "eps") == 0)
+  {
+  if (!PDF || !PDFforced) 
+    {
+    print_imposition = pc_EPS;
+    PDF = FALSE;
+    EPSforced = TRUE;  
+    } 
+  else error(ERR188, "output eps", "PDF");    
+  } 
+else if (Ustrcmp(read_wordbuffer, "pdf") == 0)
+  {
+  if (!PSforced && !EPSforced)
+    {
+    PDF = PDFforced = TRUE;
+    print_imposition = pc_normal;  
+    }
+  else error(ERR188, "output pdf", "PostScript");
+  } 
+else if (Ustrcmp(read_wordbuffer, "ps") == 0 || 
+         Ustrcmp(read_wordbuffer, "postscript") == 0)
+  {
+  if (!PDFforced && !EPSforced)
+    {
+    PDF = FALSE;
+    PSforced = TRUE;
+    print_imposition = pc_normal;  
+    }  
+  else error(ERR188, "output ps", PDFforced? "PDF" : "eps");
+  }
+else error(ERR8, "\"eps\", \"pdf\", or \"ps\"");    
+}
+
 
 
 
@@ -2436,6 +2493,7 @@ static dirstr headlist[] = {
   { "oldrestlevel",     warning,        0, 0 },
   { "oldstemlength",    warning,        0, 0 },
   { "oldstretchrule",   warning,        0, 0 },
+  { "output",           output,         0, 0 },
   { "overlaydepth",     movt_int,       oo(movtstr,overlaydepth), int_f },
   { "overlaysize",      movt_fontsize,  oo(fontsizestr,fontsize_text)+ff_offset_olay*sizeof(fontinststr), TRUE },
   { "page",             page,           0, 0 },

@@ -1,4 +1,4 @@
---- Options: -f myformat ---
+--- Options: -f Myformat ---
 score
 not part
 not only stave 1

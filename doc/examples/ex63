@@ -6,7 +6,6 @@ printtime 8/8 "3+3+2" "8"
 printtime 12/8 "3 2" "2 2"
 printtime 3/4 "3"/s2 ""
 printtime 3/2 "\**147\" ""
-printtime 5/4 "" ""
 
 [stave 1 treble 1 textfont roman]
 [time 8/8] R! | [time 12/8] R! | [time 3/4] R! | [time 3/2] R! |

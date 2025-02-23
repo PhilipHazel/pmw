@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: January 2025 */
+/* This file last modified: February 2025 */
 
 /*************************************************
 *               Tables in tables.c               *
@@ -313,6 +313,9 @@ extern uint32_t     page_firstnumber;
 extern uint32_t     page_increment;
 
 extern BOOL         PDF;
+extern BOOL         PDFforced;
+extern BOOL         PSforced;
+extern BOOL         EPSforced;
 
 extern BOOL         pout_changecolour;
 extern int32_t      pout_curcolour[];

@@ -267,6 +267,9 @@ uint32_t     page_firstnumber = 1;
 uint32_t     page_increment = 1;
 
 BOOL         PDF = PDF_DEFAULT;
+BOOL         PDFforced = FALSE;
+BOOL         PSforced = FALSE;
+BOOL         EPSforced = FALSE;
 
 BOOL         pout_changecolour = FALSE;
 int32_t      pout_curcolour[3] = {0, 0, 0};

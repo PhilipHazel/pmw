@@ -2,7 +2,7 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
-Version 5.2x xx-xx-2024
+Version 5.30 xx-xx-2025
 -----------------------
 
 1. Revised the PMW-Music font to make it easier to generate the OTF version
@@ -53,6 +53,28 @@ fuzzing:
 6. Updated two test files that had somehow been overlooked when the font was
 revised back in January 2024.
 
+7. Fixed a bug in PostScript output; the thickness of the editorial mark on a
+line was not being set, causing a thicker line than intended.
+
+8. The soft hyphen Unicode character U+00AD is output as a normal hyphen, but
+its width was not being correctly set.
+
+9. Changed the widths of some characters in the distributed AFM file for
+Times-Roman to match those of the Nimbus font used by GhostScript.
+
+10. When reading XML input, if the page dimensions were such that PMW set an A3
+paper size, some related values were not correctly set.
+
+11. The -pdf option now exists, to request output as a PDF instead of
+PostScript. There is also a -ps option because which of the two is the default
+can be set at build time.
+
+12. Added the "output" header directive to select PDF, PS, or EPS.
+
+13. The test for a format word by *if was not being done caselessly, as is 
+documented.
+
+14. Added "pdf" as a condition that can be tested by *if.
 
 
 Version 5.22 21-December-2023

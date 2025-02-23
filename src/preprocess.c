@@ -135,6 +135,13 @@ if (Ustrcmp(read_wordbuffer, "if") == 0)
         if (tree_search(macro_tree, read_wordbuffer) != NULL) OK = !OK;
         }
       }
+      
+    /* Test output format */
+
+    else if (Ustrcmp(read_wordbuffer, "pdf") == 0)
+      {
+      if (!PDF) OK = !OK; 
+      }  
 
     /* Test if any format is set */
 

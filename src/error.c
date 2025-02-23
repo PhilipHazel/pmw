@@ -286,7 +286,9 @@ aborts the run after outputting additional information. */
 /* 185-189 */
 { ec_failed,  "PMW in PDF mode does not support %s fonts (%s)" },
 { ec_failed,  "File %s is not a recognized font file" },
-{ ec_failed,  "Type 3 font (%s) is not supported in PDF mode" }
+{ ec_failed,  "Type 3 font (%s) is not supported in PDF mode" },
+{ ec_failed,  "the \"%s\" directive is incompatible with a previous %s\n" 
+              "   setting (either a directive or a command line option)" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

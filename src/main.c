@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: January 2025 */
+/* This file last modified: February 2025 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -464,27 +464,22 @@ pmwrc = "no";
 (void)printf("B2PF support:         %s\n", b2pf);
 (void)printf("~/.pmwrc support:     %s\n", pmwrc);
 
+PF("\nDefault output is <input>.ps or <input>.pdf when an input file name is given.\n");
+PF("Default output is stdout if no input file name is given.\n");
+
 PF("\nGENERAL OPTIONS\n\n");
 PF("-a4ona3               print A4 images 2-up on A3\n");
 PF("-a5ona4               print A5 images 2-up on A4\n");
 PF("-C <arg>              show a compile-time option; exit with its value (0 or 1).\n");
 PF("    b2pf              support for B2PF processing\n");
 PF("    musicxml          support for MusicXML input\n");
-PF("-d<options>           write debugging info to stderr (see below)\n");
-PF("-dbd <m>,<s>,<b>      write debugging bar data (movement, stave, bar) \n");
-PF("-dbl                  synonym for -drawbarlines\n");
-PF("-drawbarlines         don't use characters for bar lines\n");
+PF("-drawbarlines or -dbl don't use characters for bar lines\n");
 PF("-drawstavelines [<n>] don't use characters for stave lines\n");
 PF("-dsl [<n>]            synonym for -drawstavelines\n");
-PF("-dtp <bar>            write debugging position data (-1 for all bars)\n");
-PF("-em <n>               synonym for -errormaximum\n");
 PF("-eps                  output encapsulated PostScript\n");
-PF("-errormaximum <n>     set maximum number of errors (for testing)\n");
 PF("-F <directory-list>   specify fontmetrics, .utr, and font directories\n");
 PF("-f <name>             specify format name\n");
 PF("-help                 output this information, then exit\n");
-PF("-ipf                  synonym for -incPMWfont\n");
-PF("-MF <directory-list>  specify music font directories\n");
 PF("-MP <file>            specify MIDIperc file\n");
 PF("-MV <file>            specify MIDIvoices file\n");
 PF("-mb <range>           synonym for -midibars\n");
@@ -492,28 +487,23 @@ PF("-midi <file>          specify MIDI output file\n");
 PF("-midibars <range>     limit MIDI output to given bar range\n");
 PF("-midimovement <n>     specifies movement for MIDI output\n");
 PF("-mm <n>               synonym for -midimovement\n");
-PF("-noid                 don't show version number for error output\n");
 #if !defined NO_PMWRC || NO_PMWRC == 0
 PF("-norc or -nopmwrc     don't read .pmwrc (must be first option)\n");
 #endif
-PF("-norepeats            do not play repeats in MIDI output\n");
-PF("-nowidechars          don't use 100-point stave chars\n");
-PF("-nr                   synonym for -norepeats\n");
-PF("-nw                   synonym for -nowidechars\n");
+PF("-norepeats or -nr     do not play repeats in MIDI output\n");
+PF("-nowidechars or -nw   don't use 100-point stave chars\n");
 PF("-o <file>             specify output file ('-' for stdout)\n");
 PF("-p <list>             select pages\n");
-PF("-pdf                  select PDF output\n");
 PF("-pamphlet             print pages in pamphlet order\n");
+PF("-pdf                  select PDF output\n");
 PF("-printadjust <x> <y>  move on page by (x,y)\n");
 PF("-printgutter <x>      move recto/verso pages by x/-x\n");
 PF("-printscale <n>       scale the image by n\n");
 PF("-printside <n>        print only odd or even sides\n");
 PF("-ps                   select PostScript output\n");
 PF("-reverse              output pages in reverse order\n");
-PF("-SM <directory>       specify standard macros directory\n");
 PF("-s <list>             select staves\n");
 PF("-t <number>           set transposition\n");
-PF("-testing              run in testing mode\n");
 PF("-V                    output PMW version number, then exit\n");
 PF("-v                    output verification information\n");
 
@@ -522,11 +512,22 @@ PF("-a4sideways           assume A4 paper fed sideways\n");
 PF("-c <number>           set number of copies\n");
 PF("-duplex               set duplex printing in the PostScript\n");
 PF("-H <file>             specify PostScript header file\n");
-PF("-incPMWfont           include PMW font in the output\n");
+PF("-incPMWfont or -ipf   include PMW font in the output\n");
 PF("-manualfeed           set manualfeed in the PostScript\n");
 PF("-tumble               set tumble for duplex printing\n");
 
-PF("\nDebug options (+ to add, - to subtract):");
+PF("\nMAINTENANCE AND DEBUGGING OPTIONS\n\n");
+PF("-d<selectors>         write debugging info to stderr (see below)\n");
+PF("-dbd <m>,<s>,<b>      write debugging bar data (movement, stave, bar) \n");
+PF("-dtp <bar>            write debugging position data (-1 for all bars)\n");
+PF("-em <n>               synonym for -errormaximum\n");
+PF("-errormaximum <n>     set maximum number of errors (for testing)\n");
+PF("-MF <directory-list>  specify music font directories\n");
+PF("-noid                 don't show version number for error output\n");
+PF("-SM <directory>       specify standard macros directory\n");
+PF("-testing [<n>]        run in testing mode\n");
+
+PF("\nDebug selectors (+ to add, - to subtract):");
 for (long unsigned int i = 0; i < DEBUG_OPTIONS_COUNT; i++)
   {
   if ((i & 7) == 0) PF("\n ");
@@ -534,13 +535,10 @@ for (long unsigned int i = 0; i < DEBUG_OPTIONS_COUNT; i++)
   }
 PF("\n");
 
-PF("\nDefault output is <input>.ps or <input>.pdf when an input file name is given.\n"); 
-PF("Default output is stdout if no input file name is given.\n");
-
 PF("\nEXAMPLES\n\n");
 PF("pmw myscore\n");
 PF("pmw -s 1,2-4 -p 3,6-10,11 -f small -c 2 k491.pmw\n");
-PF("pmw -pamphlet -a5ona4 scorefile\n");
+PF("pmw -pdf -pamphlet -a5ona4 scorefile\n");
 PF("pmw -s 1 -midi zz.mid -mm 2 -mb 10-20 sonata\n");
 }
 
@@ -777,7 +775,10 @@ if (results[arg_t].presence != arg_present_not)
 /* Deal with format */
 
 if (results[arg_f].text != NULL)
+  {
   main_format = mem_copystring(US results[arg_f].text);
+  for (uschar *s = main_format; *s != 0; s++) *s = tolower(*s); 
+  } 
 
 /* Deal with copies */
 
@@ -791,12 +792,16 @@ if (results[arg_a4sideways].number != 0) print_pagefeed = pc_a4sideways;
 if (results[arg_a4ona3].number != 0) print_imposition = pc_a4ona3;
 if (results[arg_a5ona4].number != 0) print_imposition = pc_a5ona4;
 if (results[arg_pamphlet].number != 0) print_pamphlet = TRUE;
-if (results[arg_eps].number != 0) print_imposition = pc_EPS;
 if (results[arg_incPMWfont].number != 0) print_incPMWfont = TRUE;
 if (results[arg_manualfeed].number != 0) print_manualfeed = TRUE;
 if (results[arg_duplex].number != 0) print_duplex = TRUE;
 if (results[arg_tumble].number != 0) print_tumble = TRUE;
 
+if (results[arg_eps].number != 0) 
+  {
+  print_imposition = pc_EPS;
+  EPSforced = TRUE;
+  }  
 if (results[arg_printadjustx].text != NULL)
   {
   float d;
@@ -834,14 +839,20 @@ if (results[arg_printside].presence != arg_present_not)
       else error(ERR141);  /* Hard */
   }
 
-/* Only one of -ps or -pdf is allowed; default is set at build time. */
+/* Only one of -ps or -pdf is allowed; default is set at build time. We need to 
+remember if the format is forced in order to handle the header directives that 
+are equivalent to the command line options. */
 
 if (results[arg_pdf].number != 0)
   {
   if (results[arg_ps].number != 0) error(ERR181, "ps");  /* Hard */
-  PDF = TRUE;
+  PDF = PDFforced = TRUE;
   }
-else if (results[arg_ps].number != 0) PDF = FALSE;
+else if (results[arg_ps].number != 0 || print_imposition == pc_EPS) 
+  {
+  PDF = FALSE;
+  PSforced = TRUE; 
+  } 
 
 /* Many PostScript-specific args are either ignored or cause a fatal error when
 output is PDF. */

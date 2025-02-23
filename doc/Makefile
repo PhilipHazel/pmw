@@ -21,7 +21,7 @@
 # it does for the PMW-Music font (perhaps because it's a Type 3?) so we
 # include it explicitly when making the PDF.
 
-PMW=../src/pmw -F ../fontmetrics -H ../PSheader -SM ../macros
+PMW=../src/pmw -ps -F ../fontmetrics -H ../PSheader -SM ../macros
 
 all:                spec.pdf
 
