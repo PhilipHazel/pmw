@@ -3121,9 +3121,11 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
     filecount += fprintf(out_file, "endstream\n");
     }
 
-  /* Not a stream object. */
+  /* Not a stream object. In testing mode there may be empty objects where font
+  data has been omitted. */
 
-  else filecount += fwrite(p->data, 1, p->data_used, out_file);
+  else if (p->data != NULL)
+    filecount += fwrite(p->data, 1, p->data_used, out_file);
 
   /* Terminate the object */
 
