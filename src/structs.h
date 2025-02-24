@@ -428,7 +428,7 @@ typedef struct fontstr {
   int32_t *widths;          /* Pointer to basic width table */
   int32_t *r2ladjusts;      /* Pointer to right-to-left adjusts */
   int32_t *heights;         /* Pointer to height table, if any */
-  uschar *used;             /* Chars used table (PDF) */ 
+  uschar *used;             /* Chars used table (PDF) */
   utrtablestr *utr;         /* Unicode translations or NULL */
   uschar **encoding;        /* Optional encoding */
   tree_node *high_tree;     /* Tree for data for high val stdenc chars */
@@ -439,7 +439,7 @@ typedef struct fontstr {
   uint32_t invalid;         /* What to use for unsupported character */
   uint32_t firstcharL;      /* Lowest char used in low half (for PDF) */
   uint32_t firstcharU;      /* Lowest char used in high half (for PDF) */
-  uint32_t lastcharL;       /* Highest char used in low half (for PDF) */ 
+  uint32_t lastcharL;       /* Highest char used in low half (for PDF) */
   uint32_t lastcharU;       /* Highest char used in high half (for PDF) */
   int32_t ascent;           /* ) */
   int32_t descent;          /* ) */

@@ -268,9 +268,9 @@ return 0;
 *           Extend input buffers                 *
 *************************************************/
 
-/* When the main readbuffer is too small it means the input is crazy. Rather 
-than showing thousands of characters in the error message, truncate it. Setting 
-read_i and macro_i to zero (to cover both the cases of main input or expanded 
+/* When the main readbuffer is too small it means the input is crazy. Rather
+than showing thousands of characters in the error message, truncate it. Setting
+read_i and macro_i to zero (to cover both the cases of main input or expanded
 input) stops the output of a current pointer. */
 
 void
@@ -279,9 +279,9 @@ read_extend_buffers(void)
 if (main_readbuffer_size >= MAIN_READBUFFER_SIZELIMIT)
   {
   Ustrcpy(main_readbuffer+50, "..... etc ......\n");
-  read_i = macro_in = 0;  
+  read_i = macro_in = 0;
   error(ERR5, "input", MAIN_READBUFFER_SIZELIMIT);  /* Hard */
-  } 
+  }
 main_readbuffer_size += MAIN_READBUFFER_CHUNKSIZE;
 main_readbuffer = realloc(main_readbuffer, main_readbuffer_size);
 main_readbuffer_previous = realloc(main_readbuffer_previous,
@@ -372,7 +372,7 @@ for (;;)
     if (!binfound)
       {
       binoffset = i;
-      if (binoffset == 0) binoffset++; 
+      if (binoffset == 0) binoffset++;
       binfound = TRUE;
       }
     continue;

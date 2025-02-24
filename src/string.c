@@ -317,8 +317,8 @@ return yield;
 *  Format a fixed point number to a given buffer *
 *************************************************/
 
-/* This is used by the two functions that follow, for formatting an integer 
-that is in thousandths of a unit. A trailing binary zero is added to the final 
+/* This is used by the two functions that follow, for formatting an integer
+that is in thousandths of a unit. A trailing binary zero is added to the final
 string, but not counted.
 
 Arguments:
@@ -412,8 +412,8 @@ return buff;
 *    Format a double number to a given buffer    *
 *************************************************/
 
-/* This is used by the two functions that follow to format a double variable to 
-3 decimal places, losing any trailing zeros and the decimal point if the 
+/* This is used by the two functions that follow to format a double variable to
+3 decimal places, losing any trailing zeros and the decimal point if the
 fraction is zero. The C library has no inbuilt way to do this. The precision
 required is taken from a variable (which most of the time is '2' but for
 overall magnification is set to '3'. A trailing binary zero is added to the

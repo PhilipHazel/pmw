@@ -1062,13 +1062,13 @@ if ((flags & sflag_l) != 0)
       adjust = above*(2*out_dashlength + out_dashgaplength) - co;
     }
   else  co += (above*thickness)/2;
-  
-  /* Add tief_savedash if this is not the final jog. This is used by PDF (but 
+
+  /* Add tief_savedash if this is not the final jog. This is used by PDF (but
   not PS) output (it is ignored by the latter). */
 
   if ((flags & sflag_ol) == 0)
     ofi_line(ix0, iy0 + co - above*(out_dashlength+out_dashgaplength), ix0,
-      iy0 - adjust, thickness, 
+      iy0 - adjust, thickness,
       ((flags & (sflag_or|sflag_idot)) == sflag_idot)? tief_savedash : 0);
 
   if ((flags & sflag_or) == 0)

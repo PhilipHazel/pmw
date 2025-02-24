@@ -796,23 +796,23 @@ if (movement_count == 1) stave_use_draw = x;
 *                 EPS                            *
 *************************************************/
 
-/* This is synonym for "output eps", which existed before PDF output was 
-implemented. It's small enough not to bother with trying to combine it with the 
+/* This is synonym for "output eps", which existed before PDF output was
+implemented. It's small enough not to bother with trying to combine it with the
 "output" directive. */
 
 static void
 eps(void)
 {
-if (movement_count == 1) 
+if (movement_count == 1)
   {
-  if (!PDF || !PDFforced) 
+  if (!PDF || !PDFforced)
     {
     print_imposition = pc_EPS;
-    PDF = FALSE; 
-    PSforced = TRUE; 
+    PDF = FALSE;
+    PSforced = TRUE;
     }
-  else error(ERR188, "eps", "-pdf");    
-  } 
+  else error(ERR188, "eps", "-pdf");
+  }
 else error(ERR40, dir->name);
 }
 
@@ -1609,35 +1609,35 @@ read_sigc();
 
 if (Ustrcmp(read_wordbuffer, "eps") == 0)
   {
-  if (!PDF || !PDFforced) 
+  if (!PDF || !PDFforced)
     {
     print_imposition = pc_EPS;
     PDF = FALSE;
-    EPSforced = TRUE;  
-    } 
-  else error(ERR188, "output eps", "PDF");    
-  } 
+    EPSforced = TRUE;
+    }
+  else error(ERR188, "output eps", "PDF");
+  }
 else if (Ustrcmp(read_wordbuffer, "pdf") == 0)
   {
   if (!PSforced && !EPSforced)
     {
     PDF = PDFforced = TRUE;
-    print_imposition = pc_normal;  
+    print_imposition = pc_normal;
     }
   else error(ERR188, "output pdf", "PostScript");
-  } 
-else if (Ustrcmp(read_wordbuffer, "ps") == 0 || 
+  }
+else if (Ustrcmp(read_wordbuffer, "ps") == 0 ||
          Ustrcmp(read_wordbuffer, "postscript") == 0)
   {
   if (!PDFforced && !EPSforced)
     {
     PDF = FALSE;
     PSforced = TRUE;
-    print_imposition = pc_normal;  
-    }  
+    print_imposition = pc_normal;
+    }
   else error(ERR188, "output ps", PDFforced? "PDF" : "eps");
   }
-else error(ERR8, "\"eps\", \"pdf\", or \"ps\"");    
+else error(ERR8, "\"eps\", \"pdf\", or \"ps\"");
 }
 
 

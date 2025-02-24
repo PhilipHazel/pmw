@@ -96,7 +96,7 @@ extern void         pout_getcolour(int32_t *);
 extern int32_t      pout_getswidth(uint32_t *, usint, fontstr *, int32_t *,
                       int32_t *);
 extern void         pout_muschar(int32_t, int32_t, uint32_t, int32_t,
-                      void(*)(uint32_t *, usint, fontinststr *, int32_t, 
+                      void(*)(uint32_t *, usint, fontinststr *, int32_t,
                       int32_t));
 extern BOOL         pout_get_pages(pagestr **, pagestr **);
 extern void         pout_set_ymax_etc(int32_t *, int32_t *);
@@ -104,7 +104,7 @@ extern void         pout_setcolour(int32_t *);
 extern void         pout_setgray(int32_t);
 extern void         pout_setup_pagelist(BOOL);
 extern void         pout_string(uint32_t *, fontinststr *, int32_t *,
-                      int32_t *, BOOL, void(*)(uint32_t *, usint, fontinststr *, 
+                      int32_t *, BOOL, void(*)(uint32_t *, usint, fontinststr *,
                       int32_t, int32_t));
 extern void         pmw_read(void);
 extern void         pmw_read_header(void);
@@ -271,7 +271,7 @@ extern void         (*ofi_slur)(int32_t, int32_t, int32_t, int32_t, uint32_t,
                       int32_t);
 extern void         (*ofi_startbar)(int, int);
 extern void         (*ofi_stave)(int32_t, int32_t, int32_t, int);
-extern void         (*ofi_string)(uint32_t *, fontinststr *, int32_t *, 
+extern void         (*ofi_string)(uint32_t *, fontinststr *, int32_t *,
                        int32_t *, BOOL);
 extern void         (*ofi_translate)(int32_t, int32_t);
 

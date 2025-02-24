@@ -986,7 +986,7 @@ for (;;)
       }
 
     /* Some AFM files have character numbers greater than 511. */
- 
+
     if (cnumber >= 0 && cnumber < 512 && fs->encoding[cnumber] == NULL)
       fs->encoding[cnumber] = mem_copystring(cname);
     }

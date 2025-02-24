@@ -1727,7 +1727,7 @@ if (args != NULL)
 
 colour[0] = colour[1] = colour[2] = 0;
 xp = yp = cp = level = dash[0] = dash[1] = 0;
- 
+
 currentpoint = FALSE;
 ofi_getcolour(save_colour);
 ofi_setdash(0,0);

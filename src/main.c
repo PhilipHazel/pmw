@@ -777,8 +777,8 @@ if (results[arg_t].presence != arg_present_not)
 if (results[arg_f].text != NULL)
   {
   main_format = mem_copystring(US results[arg_f].text);
-  for (uschar *s = main_format; *s != 0; s++) *s = tolower(*s); 
-  } 
+  for (uschar *s = main_format; *s != 0; s++) *s = tolower(*s);
+  }
 
 /* Deal with copies */
 
@@ -797,11 +797,11 @@ if (results[arg_manualfeed].number != 0) print_manualfeed = TRUE;
 if (results[arg_duplex].number != 0) print_duplex = TRUE;
 if (results[arg_tumble].number != 0) print_tumble = TRUE;
 
-if (results[arg_eps].number != 0) 
+if (results[arg_eps].number != 0)
   {
   print_imposition = pc_EPS;
   EPSforced = TRUE;
-  }  
+  }
 if (results[arg_printadjustx].text != NULL)
   {
   float d;
@@ -839,8 +839,8 @@ if (results[arg_printside].presence != arg_present_not)
       else error(ERR141);  /* Hard */
   }
 
-/* Only one of -ps or -pdf is allowed; default is set at build time. We need to 
-remember if the format is forced in order to handle the header directives that 
+/* Only one of -ps or -pdf is allowed; default is set at build time. We need to
+remember if the format is forced in order to handle the header directives that
 are equivalent to the command line options. */
 
 if (results[arg_pdf].number != 0)
@@ -848,11 +848,11 @@ if (results[arg_pdf].number != 0)
   if (results[arg_ps].number != 0) error(ERR181, "ps");  /* Hard */
   PDF = PDFforced = TRUE;
   }
-else if (results[arg_ps].number != 0 || print_imposition == pc_EPS) 
+else if (results[arg_ps].number != 0 || print_imposition == pc_EPS)
   {
   PDF = FALSE;
-  PSforced = TRUE; 
-  } 
+  PSforced = TRUE;
+  }
 
 /* Many PostScript-specific args are either ignored or cause a fatal error when
 output is PDF. */

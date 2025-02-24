@@ -795,7 +795,7 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
       error(ERR8, "after &* an unsigned number followed by \"(\" is");
       continue;
       }
-    if (count > MAX_REPCOUNT) error(ERR180, MAX_REPCOUNT);   /* Hard */   
+    if (count > MAX_REPCOUNT) error(ERR180, MAX_REPCOUNT);   /* Hard */
     in += len;
     mm = &replicate_macro;  /* Pseudo macro for code sharing below */
     }
@@ -837,9 +837,9 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
     uschar *argbuff = main_argbuffer[nestarg];
     size_t args[MAX_MACROARGS];
     size_t ap = 0;   /* Offset in argbuff */
-    
+
     /* Safety limit on depth of nested macros */
-    
+
     if (nestarg >= MAX_MACRODEPTH) error(ERR22, MAX_MACRODEPTH);  /* Hard */
 
     /* Set up with no arguments */

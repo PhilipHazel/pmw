@@ -119,9 +119,9 @@ extern uint32_t     font_count;                  /* Number of typefaces */
 extern uschar      *font_data_default;           /* For AFM files, etc */
 extern uschar      *font_data_extra;             /* -F argument */
 extern fontstr     *font_list;                   /* List of typefaces */
-extern size_t       font_list_size;              
-extern uschar      *font_music_default;          
-extern uschar      *font_music_extra;            
+extern size_t       font_list_size;
+extern uschar      *font_music_default;
+extern uschar      *font_music_extra;
 extern int32_t      font_sinr;                   /* Sine for rotations */
 extern uint32_t     font_table[];                /* Fonts by type, e.g. font_rm */
 

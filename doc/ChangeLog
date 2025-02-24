@@ -71,7 +71,7 @@ can be set at build time.
 
 12. Added the "output" header directive to select PDF, PS, or EPS.
 
-13. The test for a format word by *if was not being done caselessly, as is 
+13. The test for a format word by *if was not being done caselessly, as is
 documented.
 
 14. Added "pdf" as a condition that can be tested by *if.

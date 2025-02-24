@@ -90,11 +90,11 @@ for (;;)
     if (read_do_stavedirective())   /* Check for ] after [endstave */
       {
       read_sigc();
-      if (read_c != ']') 
+      if (read_c != ']')
         {
         error(ERR8, "]");
-        if (read_c != ENDFILE) read_i--;  /* Back up to re-read */ 
-        } 
+        if (read_c != ENDFILE) read_i--;  /* Back up to re-read */
+        }
       return TRUE;
       }
     }
