@@ -37,9 +37,12 @@ else
     disp=gv
   fi
   echo ""
-  echo "You must make the PMW fonts available to GhostScript before you can view PMW"
-  echo "output or convert it to a PDF. Setting the GS_FONTPATH environment variable"
-  echo "is the simplest way to do this. For example, in a Bash-like shell:"
+  echo "If you run PMW to generate PDF output, you can view it with any PDF viewer."
+  echo ""
+  echo "If you run PMW to generate PostScript output, you must make the PMW fonts"
+  echo "available to GhostScript before you can view it or convert it to a PDF."
+  echo "Setting the GS_FONTPATH environment variable is the simplest way to do this."
+  echo "For example, in a Bash-like shell:"
   echo ""
   echo "  export GS_FONTPATH=$DATADIR/psfonts:\$GS_FONTPATH"
   echo ""
@@ -47,8 +50,8 @@ else
   echo ""
   echo "  $disp somefile.ps"
   echo ""
-  echo "where somefile.ps is the output from PMW. Please refer to the PMW manual for"
-  echo "further information."
+  echo "where somefile.ps is the PostScript output from PMW. Please refer to the PMW"
+  echo "manual for further information."
 fi
 
 echo "------------------------------------------------------------------------------"
