@@ -1,6 +1,7 @@
 %%Pages: (atend)
-%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%DocumentNeededResources: font PMW-Alpha Times-Italic 
 %%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font Times-Roman 
 %%Requirements: numcopies(1)
 %%EndComments
 
@@ -13,8 +14,8 @@ a4
 %%EndProlog
 
 %%BeginSetup
-%%IncludeResource: font Times-Roman
-/rm /rmX /Times-Roman inf
+%%IncludeResource: font PMW-Alpha
+/rm /rmX /PMW-Alpha inf
 %%IncludeResource: font Times-Italic
 /it /itX /Times-Italic inf
 %%IncludeResource: font Times-Bold
@@ -23,13 +24,21 @@ a4
 /bi /biX /Times-BoldItalic inf
 %%IncludeResource: font Symbol
 /sy /syX /Symbol inf
+%%IncludeResource: font Times-Roman
+/xx1 /xx1X /Times-Roman inf
 %%EndSetup
 
 %%Page: 1 1
 %%BeginPageSetup
 /pagesave save def
 %%EndPageSetup
-bf 17 ss(abcd)64 760 s
+bf 17 ss(abcd)64 760 s rm 20 ss(" # $ % & ' \( \) * + ,. /)64 730 s
+(0123456789)64 700 s(: ; < = > ? B C D E F G)64 670 s
+(H J K L M O P Q R S T V)64 640 s(W Y [ \\ ] ^ _ ` c d e f g)64 610 s
+(h j k m o p q r s t u w y)64 580 s(z { | } ~ \240)64 550 s
+(\262 \263 \264 \265 \266 \267 \270 \271 \272\012 \273 \274 \275 \276)
+64 520 s(\310 \311 \312 \313 \314 \315 \316 \317 \320\012 \321 \322 \323 \324 \325 \326 \327 \330 \331 \332 \333 \336)
+64 490 s
 pagesave restore showpage
 
 %%Trailer

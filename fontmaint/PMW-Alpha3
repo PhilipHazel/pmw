@@ -1,9 +1,12 @@
 %!PS-Adobe-3.0 Resource-Font
-%%Title: PostScript code for PMW-Alpha font
+%%Title: PostScript code for PMW-Alpha3 font
 %%Creator: Acorn Printer Manager (PS support, v0.23) + hand edits by PH
 %%CreationDate: 20:10:20 25-Mar-1993
-%%DocumentSuppliedResources: font PMW-Alpha
+%%DocumentSuppliedResources: font PMW-Alpha3
 %%EndComments
+
+%%Renamed PMW-Alpha3 when converting to a Type 1 font, so as to avoid any
+%%confusion. This is now historical.
 
 
 %%BeginExitServer: 000000
@@ -11,7 +14,7 @@
 %%EndExitServer
 
 %%BeginSetup
-%%BeginResource: font PMW-Alpha
+%%BeginResource: font PMW-Alpha3
 
 % Renamed the font as PMW-Alpha for the port to Linux: 21-Aug-2002 (PH)
 % Removed %%BeginFont, which was accidentally left in after %%BeginResource
@@ -43,7 +46,7 @@
 
 % Added downto and upto: 05-Jun-94 (PH)
 
-/PMW-Alpha 11 dict dup begin
+/PMW-Alpha3 11 dict dup begin
 /FontInfo 10 dict dup begin
   /Notice (Converted by MakePSFont v1.03) def
   /FullName (DL) def

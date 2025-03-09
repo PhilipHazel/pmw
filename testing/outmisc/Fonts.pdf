@@ -14,7 +14,8 @@ endobj
 endobj
 4 0 obj
 <</ProcSet[/PDF/Text]/Font<<
-/bf 12 0 R
+/rm 15 0 R
+/bf 18 0 R
 >> >>
 endobj
 5 0 obj
@@ -24,7 +25,7 @@ endobj
 /Resources 4 0 R>>
 endobj
 6 0 obj
-<</Length 77>>
+<</Length 536>>
 stream
 % ------ Page 1 ------
 q
@@ -33,6 +34,25 @@ BT
 64 760 Td
 /bf 17 Tf
 (abcd)Tj
+0 -30 Td
+/rm 20 Tf
+(" # $ % & ' \( \) * + ,. /)Tj
+0 -30 Td
+(0123456789)Tj
+0 -30 Td
+(: ; < = > ? B C D E F G)Tj
+0 -30 Td
+(H J K L M O P Q R S T V)Tj
+0 -30 Td
+(W Y [ \\ ] ^ _ ` c d e f g)Tj
+0 -30 Td
+(h j k m o p q r s t u w y)Tj
+0 -30 Td
+(z { | } ~ \240)Tj
+0 -30 Td
+(\262 \263 \264 \265 \266 \267 \270 \271 \272\012 \273 \274 \275 \276)Tj
+0 -30 Td
+(\310 \311 \312 \313 \314 \315 \316 \317 \320\012 \321 \322 \323 \324 \325 \326 \327 \330 \331 \332 \333 \336)Tj
 ET
 Q
 endstream
@@ -61,6 +81,86 @@ endobj
 ]>>
 endobj
 11 0 obj
+*FontOTF 0
+endobj
+12 0 obj
+endobj
+13 0 obj
+<</Type/Encoding/BaseEncoding/WinAnsiEncoding/Differences[
+10/(null) 32/PMWAspace 34/PMWAsmsqrest/PMWAsharp
+/PMWAflat/PMWAnatural/PMWAdoubleflat/PMWAsqrest
+/PMWAleftarrow/PMWArightarrow/PMWAstar/PMWAplus
+/PMWAddspace 46/PMWAudot/PMWAcrest/PMWAzero
+/PMWAone/PMWAtwo/PMWAthree/PMWAfour
+/PMWAfive/PMWAsix/PMWAseven/PMWAeight
+/PMWAnine/PMWAsmqrest/PMWAqrest/PMWAdspace
+/PMWAequals/PMWAddot/PMWAsmcrest 66/PMWAbassclef
+/PMWAC/(null)/PMWAdminim/PMWAfermata
+/PMWAtrebleclef/PMWAbeam1d 74/PMWAbeam2d/PMWAbeam15d
+/PMWAcnh/PMWAmnh 79/PMWAds1/PMWAped
+/PMWAbreve/PMWAdcrotchet/PMWAds2/PMWAdquaver
+86/PMWAaltoclef/PMWAsemibreve 89/PMWAdsquaver 91/PMWAlsbrest
+/PMWAnspace/PMWAlmrest/PMWAdoublesharp/PMWArunon
+/PMWAiturn 99/PMWAcut/PMWAdownto/PMWAuminim
+/PMWAf/PMWAxtclef/PMWAbeam1u 106/PMWAbeam2u
+/PMWAbeam15u 109/PMWAm 111/PMWAtrill/PMWAp
+/PMWAxbreve/PMWAucrotchet/PMWAs/PMWAuquaver
+/PMWAupto 119/PMWAxsemibreve 121/PMWAusquaver/PMWAz
+/PMWAsbrest/PMWAbar/PMWAmrest/PMWAturn
+160/PMWAstave 178/PMWAtwothirds/PMWAthreefifths/PMWAonefifth
+/PMWAtwofifths/PMWAfourfifths/PMWAoneseventh/PMWAtwosevenths
+/PMWAonethird/PMWAoneninth/PMWAeightninths/PMWAonequarter
+/PMWAonehalf/PMWAthreequarters 200/PMWAsup0/PMWAsup1
+/PMWAsup2/PMWAsup3/PMWAsup4/PMWAsup5
+/PMWAsup6/PMWAsup7/PMWAsup8/PMWAsup9
+/PMWAsub0/PMWAsub1/PMWAsub2/PMWAsub3
+/PMWAsub4/PMWAsub5/PMWAsub6/PMWAsub7
+/PMWAsub8/PMWAsub9 222/PMWAslash]>>
+endobj
+14 0 obj
+<</Type/FontDescriptor
+/FontName/PMW-Alpha
+/Flags 6
+/Ascent 838
+/Descent -326
+/ItalicAngle 0
+/FontFile3 11 0 R/FontBBox[-360 -326 1324 838]>>
+endobj
+15 0 obj
+<</Type/Font/Subtype/OpenType
+/Name/rm/BaseFont/PMW-Alpha/FontDescriptor 14 0 R
+/Encoding 13 0 R/FirstChar 10/LastChar 222/Widths 16 0 R>>
+endobj
+16 0 obj
+[-1 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 640 0
+260 460 380 360 700 380 924 924
+770 640 260 0 130 380 640 640
+640 640 640 640 640 640 640 640
+260 380 130 564 130 260 0 0
+640 640 0 380 800 640 0 0
+0 0 380 380 0 800 1400 640
+380 720 380 0 640 380 0 380
+0 510 380 510 460 530 700 0
+0 640 817 380 470 640 0 0
+0 0 0 880 0 760 690 640
+380 320 380 817 0 380 0 380
+420 260 20 260 700 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+750 750 750 750 750 750 750 750
+750 750 750 750 750 0 0 0
+0 0 0 0 0 0 300 300
+300 300 300 300 300 300 300 300
+300 300 300 300 300 300 300 300
+300 300 0 0 150]
+endobj
+17 0 obj
 <</Type/FontDescriptor
 /FontName/Times-Bold
 /Flags 34
@@ -71,33 +171,39 @@ endobj
 /CapHeight 676
 /FontBBox[-168 -218 1000 935]>>
 endobj
-12 0 obj
+18 0 obj
 <</Type/Font/Subtype/OpenType
-/Name/bf/BaseFont/Times-Bold/FontDescriptor 11 0 R
-/Encoding 10 0 R/FirstChar 97/LastChar 100/Widths 13 0 R>>
+/Name/bf/BaseFont/Times-Bold/FontDescriptor 17 0 R
+/Encoding 10 0 R/FirstChar 97/LastChar 100/Widths 19 0 R>>
 endobj
-13 0 obj
+19 0 obj
 [500 556 444 556]
 endobj
 xref
-0 14
+0 20
 0000000000 65535 f
 0000000015 00000 n
 0000000061 00000 n
 0000000094 00000 n
 0000000147 00000 n
-0000000208 00000 n
-0000000307 00000 n
-0000000431 00000 n
-0000000462 00000 n
-0000000477 00000 n
-0000000664 00000 n
-0000000754 00000 n
-0000000923 00000 n
-0000001079 00000 n
+0000000219 00000 n
+0000000318 00000 n
+0000000902 00000 n
+0000000933 00000 n
+0000000948 00000 n
+0000001135 00000 n
+0000001225 00000 n
+0000001252 00000 n
+0000001268 00000 n
+0000002662 00000 n
+0000002820 00000 n
+0000002975 00000 n
+0000003632 00000 n
+0000003801 00000 n
+0000003957 00000 n
 trailer
-<</Size 14/Root 1 0 R/Info 2 0 R
-/ID[<127dcf2751dc3868da0e5ea7c2aae861><127dcf2751dc3868da0e5ea7c2aae861>]>>
+<</Size 20/Root 1 0 R/Info 2 0 R
+/ID[<239cf4b1b0a66d934544d4ff1d6ed281><239cf4b1b0a66d934544d4ff1d6ed281>]>>
 startxref
-1113
+3991
 %%EOF

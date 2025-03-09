@@ -12,7 +12,7 @@
 . the <bookinfo> element must also be updated for each new edition.
 . /////////////////////////////////////////////////////////////////////////////
 
-.set version "5.30"
+.set version "5.31"
 . Zero-width space
 .set B "&#x200B;"
 . Right-pointing hand
@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>23 February 2025</date>
+<date>09 March 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
-  <revnumber>5.30</revnumber>
-  <date>23 February 2025</date>
+  <revnumber>5.31</revnumber>
+  <date>09 March 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -247,8 +247,8 @@ acknowledge with gratitude the help of Richard Hallas, who created the original
 versions of some of the characters in this font and improved many others. The
 half sharp and half flat characters were contributed by Hosam Adeeb Nashed.
 Richard also contributed a second font called PMW-Alpha. It contains additional
-characters that may be useful for certain types of music, but is only available
-for PostScript output (see chapter &<<CHAPpmwalpha>>&).
+characters that may be useful for certain types of music (see chapter
+&<<CHAPpmwalpha>>&).
 
 The PMW input encoding is intended to be easy for a musician to remember. It
 makes use of as many familiar music notations as possible within the
@@ -416,8 +416,9 @@ and MIDI voice numbers.
 are both copies of the PMW-Music font, in two different formats. The first is a
 PostScript Type 1 font and the second is an OpenType font.
 .next
-&_share/pmw/psfonts/PMW-Alpha_& is an auxiliary music font. This is a Type 3
-PostScript font (so no extension in its name).
+&_share/pmw/psfonts/PMW-Alpha.pfa_& and &_share/pmw/psfonts/PMW-Alpha.otf_&
+are both copies of an auxiliary music font, in the same two formats as
+PMW-Music.
 .next
 .index "fonts" "metrics"
 &_share/pmw/fontmetrics/_& is a directory that contains files giving character
@@ -873,7 +874,8 @@ for &'GhostScript'& (or any other display program). However, it does mean that
 each PMW output file is bigger by about 40K for PMW-Music and 31K for
 PMW-Alpha. Note that this option applies only to PMW's music fonts. See also
 the &%incPMWfont%& header directive. The &%textfont%& directive (&R;
-&<<SUBSECTtextfont>>&) provides a way of including other fonts in the output.
+&<<SUBSECTtextfont>>&) provides a way of including other fonts in PostScript
+output.
 
 .vitem &%-manualfeed%&
 
@@ -1159,17 +1161,23 @@ command:
 gs -h
 .endd
 For example, if &_/usr/share/fonts/gsfonts_& is in the `search path' given by
-the above command, you might use these commands:
+the above command, you might use these commands for the PMW-Music font:
 .code
-ln -s /usr/local/share/pmw/psfonts/PMW-Alpha \
-      /usr/share/fonts/gsfonts/PMW-Alpha
 ln -s /usr/local/share/pmw/psfonts/PMW-Music.pfa \
       /usr/share/fonts/gsfonts/PMW-Music.pfa
 ln -s /usr/local/share/pmw/psfonts/PMW-Music.otf \
       /usr/share/fonts/gsfonts/PMW-Music.otf
 .endd
+Similarly, if you are going to make use of the PMW-Alpha font:
+.code
+ln -s /usr/local/share/pmw/psfonts/PMW-Alpha.pfa \
+      /usr/share/fonts/gsfonts/PMW-Alpha.pfa
+ln -s /usr/local/share/pmw/psfonts/PMW-Alpha.otf \
+      /usr/share/fonts/gsfonts/PMW-Alpha.otf
+.endd
 Using either of these methods should enable &'GhostScript'& and other viewers
-such as &(evince)& that make use of it to process PMW output correctly.
+such as &(evince)& that make use of it to process PMW's PostScript output
+correctly.
 
 
 .section "Watching a changing file"
@@ -14152,9 +14160,7 @@ fourteen `standard' fonts that can be assumed available in all PDF processors.
 PMW supports only OpenType (&`.otf`&) fonts when generating PDF output. The PDF
 format does support other types of font, but as there are several utilities for
 converting PostScript Type 1 and TrueType fonts to OpenType, this is not seen
-as a major issue. However, the lack of support for PostScript Type 3 fonts
-means that the PMW-Alpha font is not currently available for use in PDF output.
-
+as a major issue.
 
 
 
@@ -14915,10 +14921,12 @@ This example is output as:&~&~ &{&#51;&#63;}& = &{&#149;&#51;&#53;}&
 Richard Hallas contributed an auxiliary font for use with PMW and other
 programs. It is called PMW-Alpha, because it is designed for music symbols that
 are useful in conjunction with normal alphabetic text. The font was originally
-designed as an Acorn RISC OS font; the PostScript Type 3 version was generated
-automatically from the original. This font is not currently available when PMW
-is generating PDF output, because that supports only OpenType fonts. The
-characters that PMW-Alpha contains fall into four classes:
+designed as an Acorn RISC OS font; a PostScript Type 3 version was generated
+automatically from the original and was distributed with PMW up to and
+including version 5.30. Later releases of PMW include a Type 1 version of this
+font, created manually from the Type 3 version, together with an automatically
+generated OpenType version. This means it can be used with both PostScript and
+PDF output. The characters that PMW-Alpha contains fall into four classes:
 .ilist
 There is a set of letters such as &{-f-}& and &{-p-}& which are in a style
 commonly seen in music, and which can be used for dynamic marks.
@@ -15092,12 +15100,12 @@ the upper case G.
 .row M      77   0.38   &{-M-}&  "minim notehead"
 .row O      79   0.80   &{-O-}&
 .row P      80   1.40   &{-P-}&
-.row Q      81   0.64   &{-Q-}&
+.row Q      81   0.64   &{-Q-}&  "`downstem' breve"
 .row R      82   0.38   &{-R-}&
 .row S      83   0.72   &{-S-}&
 .row T      84   0.38   &{-T-}&
 .row V      86   0.64   &{-V-}&
-.row W      87   0.38   &{-W-}&  "semibreve"
+.row W      87   0.38   &{-W-}&  "`downstem' semibreve"
 .row Y      89   0.38   &{-Y-}&
 .row [      91   0.51   &{-[-}&  "minim rest, with ledger"
 .row \      92   0.38   &{-\-}&  "`note' space"
@@ -15118,12 +15126,12 @@ the upper case G.
 .row m      109  0.88   &{-m-}&
 .row o      111  0.76   &{-o-}&
 .row p      112  0.69   &{-p-}&
-.row q      113  0.64   &{-q-}&
+.row q      113  0.64   &{-q-}&  "`upstem' breve"
 .row r      114  0.38   &{-r-}&
 .row s      115  0.32   &{-s-}&
 .row t      116  0.38   &{-t-}&
 .row u      117  0.817  &{-u-}&
-.row w      119  0.38   &{-w-}&  "semibreve"
+.row w      119  0.38   &{-w-}&  "`upstem' semibreve"
 .row y      121  0.38   &{-y-}&
 .row z      122  0.42   &{-z-}&
 .row {      123  0.26   &{-{-}&  "small semibreve rest"

@@ -16,17 +16,13 @@
 # ensure that SDoP sees the metrics for the PMW fonts. Just pointing it
 # at the PMW directory is dangerous because it also uses a file called
 # PSheader. Instead, we make temporary copies for it to use.
-#
-# It seems that gs doesn't pick up the PMW-Alpha font from GS_FONTPATH as
-# it does for the PMW-Music font (perhaps because it's a Type 3?) so we
-# include it explicitly when making the PDF.
 
 PMW=../src/pmw -ps -F ../fontmetrics -H ../PSheader -SM ../macros
 
 all:                spec.pdf
 
 spec.pdf:           spec.ps
-		    gs -q -dNOPAUSE -dBATCH -dPDFSETTINGS=/prepress -sDEVICE=pdfwrite -sOutputFile=spec.pdf ../psfonts/PMW-Alpha spec.ps
+		    GS_FONTPATH=../psfonts gs -q -dNOPAUSE -dBATCH -dPDFSETTINGS=/prepress -sDEVICE=pdfwrite -sOutputFile=spec.pdf spec.ps
 
 postscript:;        mkdir postscript
 

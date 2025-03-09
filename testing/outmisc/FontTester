@@ -1,7 +1,7 @@
 %%Pages: (atend)
 %%DocumentNeededResources: font Times-Roman Times-Italic 
 %%+ font Times-Bold Times-BoldItalic Symbol 
-%%+ font PMW-Music Helvetica 
+%%+ font PMW-Music PMW-Alpha 
 %%Requirements: numcopies(1)
 %%EndComments
 
@@ -26,8 +26,8 @@ a4
 /sy /syX /Symbol inf
 %%IncludeResource: font PMW-Music
 /mf /mfX /PMW-Music inf
-%%IncludeResource: font Helvetica
-/xx1 /xx1X /Helvetica inf
+%%IncludeResource: font PMW-Alpha
+/xx1 /xx1X /PMW-Alpha inf
 %%EndSetup
 
 %%Page: 1 1

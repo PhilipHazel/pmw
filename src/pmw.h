@@ -6,12 +6,12 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: February 2025 */
+/* This file last modified: March 2025 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
-#define PMW_VERSION "5.30"
-#define PMW_DATE    "23-February-2025"
+#define PMW_VERSION "5.31"
+#define PMW_DATE    "09-March-2025"
 #define COPYRIGHT   "Copyright (c) Philip Hazel 2025"
 
 /* Standard C headers */

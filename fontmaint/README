@@ -1,5 +1,5 @@
-The PMW-Music Font: history and maintenance notes
-=================================================
+The PMW-Music Fonts: history and maintenance notes
+==================================================
 
 Files in this directory:
 
@@ -8,6 +8,12 @@ PMW-Music.otf  the OpenType font
 PMW-Music.pfa  the PostScript Type 1 font
 PMW-Music.raw  the input to t1asm to make the .pfa font
 PMW-Music.ttx  the ttx file made from the OTF font
+
+PMW-Alpha3     the PMW-Alpha Type 3 font, renamed as PMW-Alpha3
+PMW-Alpha.otf  OpenType version of PMW-Alpha
+PMW-Alpha.pfa  Type 1 version of PMW-Alpha
+PMW-Alpha.raw  input to t1asm to make the .pfa font
+
 README         this file
 Run            a short script for running the Show... tests with the .pfa font
 ShowMusic      a PostScript program to demonstrate the font
@@ -17,8 +23,8 @@ Some of the strings in ShowMusic do not work with the OpenType font (see below
 for why).
 
 
-History of the font
-===================
+History of the PMW-Music font
+=============================
 
 In the late 1980s, the first implementation of PMW-Music was as a PostScript
 Type 3 font, because at that time Adobe was keeping its Type 1 font format
@@ -70,8 +76,8 @@ specification, which includes characters from the font. I hope that few, if
 any, other cases exist.
 
 
-Maintaining the PostScript font
-===============================
+Maintaining the PMW-Music PostScript font
+=========================================
 
 The base data is a human-readable description of a PostScript type 1 font
 that is in the file PMW-Music.raw. The type 1 font PMW-Music.pfa is built by
@@ -146,15 +152,31 @@ sometimes prefers one and sometimes the other. If they are both in the same
 directory, my guess is that it uses the one with the higher inode number.
 
 
+The PMW-Alpha font
+==================
+
+This font was created by Richard Hallas on an Acorn RiscOS system, using 
+Acorn's font technology. It was eventually able to be exported as a PostScript
+Type 3 font, which was how it was bundled with PMW for many years. In early
+2025, PMW was upgraded to generate PDF output as an alternative to PostScript. 
+In this mode, only OpenType (.otf) fonts - the modern font format - are
+supported. I discovered that there was at least one user of the PMW-Alpha font,
+so something needed to be done. Luckily, once I had figured out how it worked,
+I found it was fairly straightforward to convert the Type 3 font by hand (with
+the aid of a helper program) into the source of a Type 1 font. Then it could be
+processed in exactly the same way as PMW-Music, described above.
+
+
 Testing
 =======
 
 "Run ShowOne" rebuilds the Type 1 file from raw and then uses it on the ShowOne
 test file. "Run ShowMusic" rebuilds and runs the ShowMusic test file.
 
-To test the OTF file, set GS_FONTPATH to its directory when running gv on
+To test an OTF file, set GS_FONTPATH to its directory when running gv on
 ShowOne, ShowMusic, or a PMW output file. If you use gs instead of gv, it
 outputs details of font loading, so you can check that it is loading the
 .otf rather than the .pfa file.
 
-17 January 2024
+Philip Hazel
+06 March 2025

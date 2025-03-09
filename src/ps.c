@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: May 2021 */
-/* This file last modified: February 2025 */
+/* This file last modified: March 2025 */
 
 #include "pmw.h"
 
@@ -1582,7 +1582,7 @@ fprintf(out_file, "%%%%BeginSetup\n");
 for (int i = 0; i < fonts_to_include_count; i++)
   {
   uschar *name = font_list[fonts_to_include[i]].name;
-  include_font(name, (Ustrcmp(name, "PMW-Alpha") == 0)? "" : ".pfa");
+  include_font(name, ".pfa");
   }
 
 /* Now set up the fonts */

@@ -2,8 +2,17 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
-Version 5.30 xx-xx-2025
------------------------
+Version 5.31 09-March-2025
+--------------------------
+
+1. The PMW-Alpha font has (at last) been converted to a Type 1 font, which has 
+itself been converted to OpenType. The two versions (.pfa and .otf) are now 
+distributed instead of the Type 3 font (which itself was converted from an 
+Acorn font).
+
+
+Version 5.30 23-February-2025
+-----------------------------
 
 1. Revised the PMW-Music font to make it easier to generate the OTF version
 (and possibly work only on that in the future). The names of all the characters

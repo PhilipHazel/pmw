@@ -171,7 +171,7 @@ while (scalar @dirs > 0)
     my($file) = shift @files;
     my($options) = "";
     my($testOK) = 1;
-    my($fontsearch) = "-F ../fontmetrics:../fontextra";
+    my($fontsearch) = "-F ../fontmetrics:../fontextra:../psfonts";
 
     # Skip . and .. and any file ending in .opt because that contains options
     # for any given test, and any that end in .inc because they are included

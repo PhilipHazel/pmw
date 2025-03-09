@@ -1,3 +1,21 @@
-musicfont "Times-Bold"
+@ Check changing the music font, though highly unlikely in practice.
 
-heading "\mf\abcd"
+musicfont "Times-Bold"
+heading "\mf\abcd" 30
+
+@ Check the PMW-Alpha font
+
+textfont roman "PMW-Alpha"
+heading 20 "\" # $ % && ' ( ) * + ,. /" 30
+heading 20 "0123456789" 30
+heading 20 ": ; < = > ? B C D E F G" 30
+heading 20 "H J K L M O P Q R S T V" 30
+heading 20 "W Y [ \\ ] ^ _ ` c d e f g" 30
+heading 20 "h j k m o p q r s t u w y" 30
+heading 20 "z { \| } ~ \160\" 30
+heading 20 "\178\ \179\ \180\ \181\ \182\ \183\ \184\ \185\ \186\
+ \187\ \188\ \189\ \190\" 30
+heading 20 "\200\ \201\ \202\ \203\ \204\ \205\ \206\ \207\ \208\
+ \209\ \210\ \211\ \212\ \213\ \214\ \215\ \216\ \217\ \218\ \219\ \222\"  
+
+

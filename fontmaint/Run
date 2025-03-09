@@ -1,24 +1,36 @@
 #! /bin/sh
 
 # Make PFA font from raw source and then run the given file with it.
+# If it's the PMW-Alpha font, also include the old PMW-Alpha3 font.
 
-if [ $# -ne 1 ]; then
-  echo "One file name expected"
+if [ $# -ne 2 ]; then
+  echo "Font name plus file name expected"
   exit 1
 fi
 
-if [ ! -e $1 ]; then
+if [ ! -e $1.raw ]; then
   echo "$1 does not exist"
   exit 1
 fi
 
-t1asm -a PMW-Music.raw PMW-Music.pfa
-
-if [ $? != 0 ]; then
+if [ ! -e $2 ]; then
+  echo "$2 does not exist"
   exit 1
 fi
-cat PMW-Music.pfa $1 >zztest.ps
-gv zztest.ps
-/bin/rm -f zztest.ps
+
+t1asm -a $1.raw $1.pfa
+
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+f3=""
+if [ "$1" = "PMW-Alpha" ] ; then
+  f3=PMW-Alpha3
+fi   
+
+cat $f3 $1.pfa $2 >zztest.ps
+#gv zztest.ps
+#/bin/rm -f zztest.ps
 
 # End

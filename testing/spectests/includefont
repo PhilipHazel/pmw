@@ -1,4 +1,6 @@
-Heading "Test for included font"
+Heading "Test for included music fonts"
+textfont extra 1 "PMW-Alpha"
+Heading "Alpha text: \xx1\abcd"
 
 [stave 1 treble 1]
 abcd | efgr |

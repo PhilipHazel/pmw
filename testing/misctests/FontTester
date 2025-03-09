@@ -4,8 +4,7 @@ Time C
 Breverests
 Stemlengths 0 0 0 0 4 8
 @Printtime 8/4 "\mu\È" "\mu\Ä"
-@ Was: Textfont extra 1 "PMW-Alpha"
-Textfont extra 1 "Helvetica"
+Textfont extra 1 "PMW-Alpha"
 Timefont extra 1
 Hairpinwidth 6 @ 7 is default
 Hairpinlinewidth 0.5 @ 0.2 is default
