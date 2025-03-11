@@ -971,13 +971,12 @@ for (;;)
       }
     }
 
-  /* If this is not a standardly encoded font, and not the Music or Symbol
+  /* If this is not a standardly encoded font, and not the Music
   font, we need to ensure that there is an encoding vector for use in PDF
   output. One may have been created by reading a .utr file above - if so, just
   fill in any missing characters we find. */
 
-  else if (PDF && Ustrcmp(fs->name, "PMW-Music") != 0 &&
-                  Ustrcmp(fs->name, "Symbol") != 0)
+  else if (PDF && Ustrcmp(fs->name, "PMW-Music") != 0)
     {
     if (fs->encoding == NULL)
       {

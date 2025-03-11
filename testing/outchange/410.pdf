@@ -15,8 +15,8 @@ endobj
 4 0 obj
 <</ProcSet[/PDF/Text]/Font<<
 /rm 12 0 R
-/sy 15 0 R
-/mf 18 0 R
+/sy 16 0 R
+/mf 19 0 R
 >> >>
 endobj
 5 0 obj
@@ -104,6 +104,10 @@ endobj
 0 722]
 endobj
 14 0 obj
+<</Type/Encoding/BaseEncoding/WinAnsiEncoding/Differences[
+175/arrowdown]>>
+endobj
+15 0 obj
 <</Type/FontDescriptor
 /FontName/Symbol
 /Flags 6
@@ -113,28 +117,28 @@ endobj
 /StemV 85
 /FontBBox[-180 -293 1090 1010]>>
 endobj
-15 0 obj
-<</Type/Font/Subtype/OpenType
-/Name/sy/BaseFont/Symbol/FontDescriptor 14 0 R
-/FirstChar 175/LastChar 175/Widths 16 0 R>>
-endobj
 16 0 obj
-[603]
+<</Type/Font/Subtype/OpenType
+/Name/sy/BaseFont/Symbol/FontDescriptor 15 0 R
+/Encoding 14 0 R/FirstChar 175/LastChar 175/Widths 17 0 R>>
 endobj
 17 0 obj
+[603]
+endobj
+18 0 obj
 <</Type/Encoding/BaseEncoding/WinAnsiEncoding/Differences[
 33/PMWtrebleclef/PMWbassclef]>>
 endobj
-18 0 obj
+19 0 obj
 <</Type/Font/Subtype/OpenType
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 9 0 R
-/Encoding 17 0 R/FirstChar 33/LastChar 34/Widths 19 0 R>>
+/Encoding 18 0 R/FirstChar 33/LastChar 34/Widths 20 0 R>>
 endobj
-19 0 obj
+20 0 obj
 [1500 1500]
 endobj
 xref
-0 20
+0 21
 0000000000 65535 f
 0000000015 00000 n
 0000000061 00000 n
@@ -150,14 +154,15 @@ xref
 0000001123 00000 n
 0000001279 00000 n
 0000001369 00000 n
-0000001519 00000 n
-0000001656 00000 n
-0000001678 00000 n
-0000001785 00000 n
-0000001938 00000 n
+0000001461 00000 n
+0000001611 00000 n
+0000001764 00000 n
+0000001786 00000 n
+0000001893 00000 n
+0000002046 00000 n
 trailer
-<</Size 20/Root 1 0 R/Info 2 0 R
-/ID[<9c3d2c44bc62b14691525c370e24d8d5><9c3d2c44bc62b14691525c370e24d8d5>]>>
+<</Size 21/Root 1 0 R/Info 2 0 R
+/ID[<ee8bfed38c04083f5219a9a8cc997938><ee8bfed38c04083f5219a9a8cc997938>]>>
 startxref
-1966
+2074
 %%EOF

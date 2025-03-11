@@ -13,6 +13,9 @@ Acorn font).
 2. Updated the character names in the PMW-Music AFM file. This was overlooked 
 in change 1 for 5.30.
 
+3. An encoding was not being included in PDF output for the Symbol font (it's 
+not strictly necessary) but eliminating this anomaly makes things tidier.
+
 
 Version 5.30 23-February-2025
 -----------------------------
