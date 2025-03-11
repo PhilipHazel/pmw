@@ -10,6 +10,9 @@ itself been converted to OpenType. The two versions (.pfa and .otf) are now
 distributed instead of the Type 3 font (which itself was converted from an 
 Acorn font).
 
+2. Updated the character names in the PMW-Music AFM file. This was overlooked 
+in change 1 for 5.30.
+
 
 Version 5.30 23-February-2025
 -----------------------------
