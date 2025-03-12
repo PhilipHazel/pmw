@@ -16,6 +16,12 @@ in change 1 for 5.30.
 3. An encoding was not being included in PDF output for the Symbol font (it's 
 not strictly necessary) but eliminating this anomaly makes things tidier.
 
+4. Now that 2 above has happened, the encoding for PDF output can now be taken 
+from the PMW-Music AFM file rather than a separate special table.
+
+5. An unset encoding was ending up as /(null) in PDF output; now it uses the 
+"undefined" character from the relevant font.
+
 
 Version 5.30 23-February-2025
 -----------------------------

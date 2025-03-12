@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: February 2025 */
+/* This file last modified: March 2025 */
 
 #include "pmw.h"
 
@@ -971,12 +971,12 @@ for (;;)
       }
     }
 
-  /* If this is not a standardly encoded font, and not the Music
-  font, we need to ensure that there is an encoding vector for use in PDF
-  output. One may have been created by reading a .utr file above - if so, just
-  fill in any missing characters we find. */
+  /* If this is not a standardly encoded font, we need to ensure that there is
+  an encoding vector for use in PDF output. One may have been created by
+  reading a .utr file above - if so, just fill in any missing characters we
+  find. */
 
-  else if (PDF && Ustrcmp(fs->name, "PMW-Music") != 0)
+  else if (PDF)
     {
     if (fs->encoding == NULL)
       {

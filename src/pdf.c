@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2024 */
-/* This file last modified: February 2025 */
+/* This file last modified: March 2025 */
 
 #include "pmw.h"
 
@@ -315,101 +315,6 @@ static const char *upper_names[] = {
   "currency", "currency", "currency", "currency",
   "currency", "currency", "currency", "currency",
   "currency", "currency", "currency", "currency" };
-
-
-/*************************************************
-*        Encoding names for the music font       *
-*************************************************/
-
-static const char *music_names[] = {
-// 00 - 0F
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-// 10 - 1F
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-// 20 - 2F
-"PMWspace", "PMWtrebleclef", "PMWbassclef", "PMWaltoclef",
-"PMWstar", "PMWsharp", "PMWdoublesharp", "PMWflat",
-"PMWnatural", "PMWtfermata", "PMWbrest", "PMWsbrest",
-"PMWmrest", "PMWcrest", "PMWqrest", "PMWbfermata",
-// 30 - 3F
-"PMWlongrest", "PMWbreve", "PMWsemibreve", "PMWuminim",
-"PMWdminim", "PMWucrotchet", "PMWdcrotchet", "PMWuquaver",
-"PMWdquaver", "PMWusquaver", "PMWdsquaver", "PMWusqtail",
-"PMWdsqtail", "PMWledger", "PMWvdot", "PMWhdot",
-// 40 - 4F
-"PMWbarsingle", "PMWbardouble", "PMWbarthick", "PMWstave1",
-"PMWpstave1", "PMWuqtail", "PMWstave10", "PMWpstave10",
-"PMWdqtail", "PMWrepeatdots", "PMWustem", "PMWdstem",
-"PMWcnh", "PMWmnh", "PMWcomma", "PMWmordent",
-// 50 - 5F
-"PMWdmordent", "PMWimordent", "PMWdimordent", "PMWturn",
-"PMWhbar", "PMWaccent1", "PMWcaesura", "PMWaccent2",
-"PMWaccent3", "PMWaccent4", "PMWaccent5", "PMWbardotted",
-"PMWcaesura1", "PMWlittle8", "PMWC", "PMWcut",
-// 60 - 6F
-"PMWtilde", "PMWthumba", "PMWthumbb", "PMWds1",
-"PMWds2", "PMWdowna", "PMWdownb", "PMWupa",
-"PMWupb", "PMWiturn", "PMWseven", "PMWfour",
-"PMWhcnh", "PMWhmnh", "PMWxnh", "PMWxustem",
-// 70 - 7F
-"PMWxdstem", "PMWfustem", "PMWfdstem", "PMWsix",
-"PMWgdot", "PMWgring", "PMWd1", "PMWd4",
-"PMWu4", "PMWl1", "PMWr1", "PMWbs",
-"PMWds", "PMWfs", "PMWus", "PMWstar",
-// 80 - 8F
-"PMWtick", "PMWuacc", "PMWdacc", "PMWgrid",
-"PMWbarshort", "PMWbreath", "PMWvring", "PMWcross",
-"PMWtrill", "PMWscaesura", "PMWlcaesura", "PMWsbra",
-"PMWsket", "PMWrbra", "PMWrket", "PMWrep",
-// 90 - 9F
-"PMWrepdots", "PMWvtilde", "PMWtrem", "PMWcirc",
-"PMWcutcirc", "PMWslur1", "PMWslur2", "PMWup",
-"PMWdown", "PMWiC", "PMWicut", "PMWunibreve",
-"PMWaccent6", "PMWsrbra", "PMWsrket", "PMWangle1",
-// A0 - AF
-"PMWangle2", "PMWangle3", "PMWangle4", "PMWped",
-"PMWuvtilde", "PMWdvtilde", "PMWnail", "PMWangle5",
-"PMWangle6", "PMWstave21", "PMWstave31", "PMWstave41",
-"PMWstave61", "PMWhclef", "PMWoldbassclef", "PMWoldaltoclef",
-// B0 - BF
-"PMWbratop", "PMWbrabot", "PMWdirect", "PMWfive",
-"PMWmajor", "PMWdimsh", "PMWhdimsh", "PMWgcross",
-"PMWledger2", "PMWsrm1", "PMWsrm2", "PMWu12",
-"PMWd12", "PMWhalfsharp1", "PMWhalfsharp2", "PMWhalfflat1",
-// C0- CF
-"PMWhalfflat2", "PMWicomma", "PMWaccent7", "PMWaccent8",
-"PMWrturn", "PMWirturn", "PMWthcirc", "PMWbhcirc",
-"PMWrcnh", "PMWrmnh",
-
-/* These must always be last in the real characters for silly historical
-reasons. See the comment on the adjust_wide_stave_table() function. */
-
-"PMWstave210", "PMWstave310", "PMWstave410", "PMWstave610",
-
-/* Fill out to the full 256 just in case. */
-
-"PMWstar", "PMWstar",
-// D0-DF
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-// E0-EF
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-// F0-FF
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar",
-"PMWstar", "PMWstar", "PMWstar", "PMWstar" };
 
 
 
@@ -729,12 +634,13 @@ return FALSE;
   used        bit map of used characters
   names       character name list
   alt         alternate override encoding
+  unknown     code point for chars with no encoding
 Returns:      number of object or zero for no characters used
 */
 
 static int32_t
 make_encoding(int first, int last, uschar *used, const char **names,
-  uschar **alt)
+  uschar **alt, int unknown)
 {
 int count, next;
 pdfobject *obj;
@@ -763,11 +669,14 @@ for (int c = first; c <= last; c++)
   {
   if ((used[c/8] & (1 << c%8)) != 0)
     {
+    uschar *s;
     int cc = c;
     if (cc > 255) cc -= 256;
     if (cc != next) EO(obj, "%s%d", (count%4 == 0)? "" : " ", cc);
-    EO(obj, "/%s", (alt == NULL || alt[c] == NULL)?
-      (uschar *)names[cc] : alt[c]);
+    s = (alt == NULL || alt[c] == NULL)? (uschar *)names[cc] : alt[c];
+    if (s == NULL) s = (uschar *)names[unknown & 255];
+    if (s == NULL) s = (uschar *)".notdef";
+    EO(obj, "/%s", s);
     count++;
     if (count%4 == 0) EO(obj, "\n");
     next = cc + 1;
@@ -1004,7 +913,9 @@ static void
 adjust_wide_stave_table(void)
 {
 int lastwide, lastchar, offset;
-int32_t *widths = (&(font_list[font_table[font_mf]]))->widths;
+fontstr *fs = &(font_list[font_table[font_mf]]);
+int32_t *widths = fs->widths;
+uschar **encoding = fs->encoding;
 
 for (lastwide = 255; lastwide > 0; lastwide--)
   {
@@ -1018,8 +929,14 @@ for (lastchar = lastwide - 4; lastchar > 0; lastchar--)
 
 offset = lastwide - lastchar - 4;
 
+/* If the music font has been set to something strange, it might not have an
+encoding. Allow for this oddity. */
+
 for (int i = lastchar + 1; i <= lastchar + 4; i++)
+  {
   widths[i] = widths[i + offset];
+  if (encoding != NULL) encoding[i] = encoding[i + offset];
+  }
 
 for (int i = 0; i < 7; i++)
   if (pout_stavechar10[i] > lastchar) pout_stavechar10[i] -= offset;
@@ -2970,9 +2887,9 @@ for (int i = 0; i < font_tablen; i++)
 if (shared_standard_encoding)
   {
   lowerencoding_number = make_encoding(0, 255, standard_encoding_used,
-    lower_names, NULL);
+    lower_names, NULL, UNKNOWN_CHAR_S);
   upperencoding_number = make_encoding(256, 511, standard_encoding_used,
-    upper_names, NULL);
+    upper_names, NULL, UNKNOWN_CHAR_S);
   }
 
 /* Set up the font objects that are needed. */
@@ -3004,12 +2921,14 @@ for (int i = 0; i < font_tablen; i++)
     if ((fs->flags & ff_usedlower) != 0)
       make_font(resources, fs, "", ID, fs->firstcharL, fs->lastcharL,
         (fs->encoding == NULL)? lowerencoding_number :
-        make_encoding(0, 255, fs->used, lower_names, fs->encoding), 0, ffnum);
+        make_encoding(0, 255, fs->used, lower_names, fs->encoding,
+          fs->invalid), 0, ffnum);
 
     if ((fs->flags & ff_usedupper) != 0)
       make_font(resources, fs, "X", ID, fs->firstcharU, fs->lastcharU,
         (fs->encoding == NULL)? upperencoding_number :
-        make_encoding(256, 511, fs->used, upper_names, fs->encoding), 0, ffnum);
+        make_encoding(256, 511, fs->used, upper_names, fs->encoding,
+          fs->invalid), 0, ffnum);
     }
 
   /* The music font uses only low-valued codes. */
@@ -3018,9 +2937,9 @@ for (int i = 0; i < font_tablen; i++)
            (fs->flags & ff_usedlower) != 0)
     {
     make_font(resources, fs, "", ID, fs->firstcharL, fs->lastcharL,
-      make_encoding(0, sizeof(music_names)/sizeof(char *), fs->used,
-        music_names, NULL), musicdescriptor_number,
-        (musicbinary_number << 8) | '3');
+        make_encoding(0, 255, fs->used, (const char **)fs->encoding, NULL,
+          fs->invalid), musicdescriptor_number,
+          (musicbinary_number << 8) | '3');
     }
 
   /* Neither music nor standardly encoded. Characters in the upper half may be
@@ -3036,7 +2955,7 @@ for (int i = 0; i < font_tablen; i++)
     if ((fs->flags & ff_usedlower) != 0)
       make_font(resources, fs, "", ID, fs->firstcharL, fs->lastcharL,
         (fs->encoding == NULL)? 0 : make_encoding(0, 255, fs->used,
-          (const char **)fs->encoding, NULL),
+          (const char **)fs->encoding, NULL, fs->invalid),
         0, ffnum);
 
     if ((fs->flags & ff_usedupper) != 0)
@@ -3057,7 +2976,7 @@ for (int i = 0; i < font_tablen; i++)
 
       make_font(resources, fs, "X", ID, fs->firstcharU, fs->lastcharU,
         (fs->encoding == NULL)? 0 : make_encoding(256, 511, fs->used,
-          (const char **)(fs->encoding + 256), NULL),
+          (const char **)(fs->encoding + 256), NULL, fs->invalid),
         0, ffnum);
       }
     }

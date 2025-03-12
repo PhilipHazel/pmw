@@ -213,7 +213,7 @@ while (scalar @dirs > 0)
 
     if ($view)
       {
-      system("$pmw -norc $options $fontsearch -o test-full.ps $tests/$file" .
+      system("$pmw -norc -ps $options $fontsearch -o test-full.ps $tests/$file" .
                 " -H  ../PSheader" .
                 " -MF ../psfonts" .
                 " -MP ../MIDIperc" .
