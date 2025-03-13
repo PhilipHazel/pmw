@@ -725,9 +725,9 @@ return objectcount;
 *               Make a file object               *
 *************************************************/
 
-/* This is used for fonts that are not any of the 14 standard PDF fonts,
-whether standardly encoded or not. We seek a font file in various formats; only
-OpenType fonts are currently supported.
+/* This is used for fonts that are not PMW-Music nor any of the 14 standard PDF
+fonts, whether standardly encoded or not. We seek a font file in various
+formats; only OpenType fonts are currently supported.
 
 Argument:  pointer to the font structure
 Returns:   a value for a placeholder font item (obj << 8 | type)
@@ -2942,11 +2942,11 @@ for (int i = 0; i < font_tablen; i++)
           (musicbinary_number << 8) | '3');
     }
 
-  /* Neither music nor standardly encoded. Characters in the upper half may be
-  specified by .utr translation. There may be no existing widths or encodings,
-  so duplicate the lower half for unset values because this mimics what
-  the PostScript output code does. Again, if this it not one of the 14 standard
-  fonts, a font item will be needed. */
+  /* Neither PMW-Music nor standardly encoded. Characters in the upper half may
+  be specified by .utr translation. There may be no existing widths or
+  encodings, so duplicate the lower half for unset values because this mimics
+  what the PostScript output code does. Again, if this it not one of the 14
+  standard fonts, a font item will be needed. */
 
   else
     {
@@ -3023,11 +3023,16 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
   /* If the object starts with "*FontOTF" it is a placeholder for inserting an
   OTF font, whose open file is indexed by the number that follows. */
 
-  else if (p->data_used >= 8 && Ustrncmp(p->data, "*FontOTF", 8) == 0 &&
-             (main_testing & mtest_omitfont) == 0)
+  else if (p->data_used >= 8 && Ustrncmp(p->data, "*FontOTF", 8) == 0)
     {
     FILE *f = font_files[atoi((char *)(p->data + 8))];
-    filecount += write_font_stream(f, "OpenType", p->next, objectcount);
+    if ((main_testing & mtest_omitfont) == 0)
+      filecount += write_font_stream(f, "OpenType", p->next, objectcount);
+    else
+      {
+      filecount += fwrite(p->data, 1, p->data_used, out_file);
+      fclose(f);
+      }
     }
 
   /* For other objects, the data is in memory. In the case of an object that
