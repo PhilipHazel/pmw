@@ -89,9 +89,9 @@ while (defined $ARGV[0])
     }
   elsif ($ARGV[0] =~ /^nopdf$/i)
     {
-    $dopdf = 0; 
-    shift; 
-    }     
+    $dopdf = 0;
+    shift;
+    }
   else
     {
     last;
@@ -177,9 +177,11 @@ while (scalar @dirs > 0)
     # for any given test, and any that end in .inc because they are included
     # files, and any ending in .F because they specify fontmetrics directories
     # for some tests. A file ending in .nopdf is a way of skipping some tests
-    # that are very PostScript-specific. 
+    # that are very PostScript-specific. A file ending in .pdfinc is a way of
+    # suppressing the omission of font programs in PDF testing (for the testing
+    # of font inclusion).
 
-    next if $file =~ /^\.\.?$|\.opt$|\.inc|\.F$|\.nopdf$/;
+    next if $file =~ /^\.\.?$|\.opt$|\.inc$|\.F$|\.nopdf$|\.pdfinc$/;
 
     # Also skip any directories.
 
@@ -236,41 +238,53 @@ while (scalar @dirs > 0)
         last if /^c$/i;
         }
       }
-      
-    # Each test is run twice, for PostScript and PDF output, by default. 
+
+    # Each test is run twice, for PostScript and PDF output, by default.
     # There's an option not to do the PDF test.
-    
-    $pdf = "-ps"; 
-    $which = "PS"; 
-    $header = "-H ../PSheader"; 
-    $outext = ""; 
-     
+
+    $pdf = "-ps";
+    $which = "PS";
+    $header = "-H ../PSheader";
+    $outext = "";
+
     for (;;)
-      { 
+      {
+      my($testing) = 7;
+
       # On the PDF pass, check for PostScript-specific tests that are not
       # relevant to PDF.
-      
+
       if ($pdf eq "-pdf" && -e "$tests/$file.nopdf")
         {
         printf("Test $file skipped PDF\n");
         last;
-        }    
+        }
 
       # Running pmw with -testing generates output that can be compared easily.
       # In the case of PostScript output, any non-zero value of "testing" cuts
       # out version and date information, and also avoids including the header
-      # each time. In the case of PDF output, there are individual control bits 
-      # in the "testing" value. 
-      
-      my ($rc) = system("$valgrind $pmw -norc $pdf $header -testing 7 $options $fontsearch -o test.out $tests/$file" .
+      # each time. In the case of PDF output, there are individual control bits
+      # in the "testing" value:
+      #
+      #    0x01  Suppress version and date info
+      #    0x02  Insert bar and page idents
+      #    0x04  Omit actual programs
+      #    0x08  Make output red
+      #
+      # Most PDF tests need a value of 7, but there is at least one test of
+      # actual insertion of fonts.
+
+      $testing = 3 if ($pdf eq "-pdf" && -e "$tests/$file.pdfinc");
+
+      my($rc) = system("$valgrind $pmw -norc $pdf $header -testing $testing $options $fontsearch -o test.out $tests/$file" .
                         " -MF ../psfonts" .
                         " -MP ../MIDIperc" .
                         " -MV ../MIDIvoices" .
                         " -SM ../macros" .
                         " 2> test.txt");
-      
+
       # Compare stderr output
-      
+
       if (! -z "test.txt")
         {
         if (! -e "$outs/$file.txt")
@@ -279,19 +293,19 @@ while (scalar @dirs > 0)
           system("$less test.txt");
           exit 1;
           }
-      
+
         $rc = system("$cf $outs/$file.txt test.txt >test.cf");
-      
+
         if ($rc != 0)
           {
           # printf("text cf RC=$rc\n");
           system("$less test.cf");
-      
+
           $testOK = 0;
           for (;;)
             {
             print "Continue, Update & retry, Quit? [Q] ";
-      
+
             if ($force_quit)
               {
               $_ = 'q';
@@ -308,10 +322,10 @@ while (scalar @dirs > 0)
               $_ = <T>;
               close(T);
               }
-      
+
             exit 1 if /^q?$/i;
             last if /^c$/i;
-      
+
             if (/^u$/)
               {
               exit 1 if system("cp test.txt $outs/$file.txt") != 0;
@@ -320,28 +334,28 @@ while (scalar @dirs > 0)
               last;
               }
             }
-      
+
           redo if /^u$/;   # Repeat the test
           }
         }
-      
+
       # For some tests (notably error testing) there is no PostScript or PDF.
-      
+
       if (-e "test.out" || -e "$outs/$file$outext" || -e "$outs/$file$outext.gz")
         {
         system ("gunzip $outs/$file$outext.gz") if (-e "$outs/$file$outext.gz");
-      
+
         $rc = system("$cf $outs/$file$outext test.out >test.cf");
         if ($rc != 0)
           {
           # printf("cf RC=$rc\n");
           system("$less test.cf");
-      
+
           $testOK = 0;
           for (;;)
             {
             print "View, Continue, Update & retry, Quit? [Q] ";
-      
+
             if ($force_quit)
               {
               $_ = 'q';
@@ -358,12 +372,12 @@ while (scalar @dirs > 0)
               $_ = <T>;
               close(T);
               }
-      
+
             exit 1 if /^\s*q?$/i;
             last if /^\s*c$/i;
-      
+
             # To view the new output we have to reprocess without -testing.
-      
+
             if (/^\s*v$/)
               {
               system("$pmw -norc $pdf $header $options $fontsearch -o test-full.out $tests/$file" .
@@ -372,14 +386,14 @@ while (scalar @dirs > 0)
                         " -MV ../MIDIvoices" .
                         " -SM ../macros" .
                         " 2> /dev/null");
-      
+
               # Need to get the absolute font path to pass to gv.
-      
+
               getcwd() =~ /^(.*)\/testing$/;
               system ("GS_FONTPATH=$1/psfonts:$1/fontextra:\$GS_FONTPATH gv -scale=1 -geometry 1080x980+0+0 test-full.out");
               # Stay in loop to reprompt
               }
-      
+
             elsif (/^\s*u$/)
               {
               exit 1 if system("cp test.out $outs/$file$outext") != 0;
@@ -390,9 +404,9 @@ while (scalar @dirs > 0)
             }
           }
         }
-      
+
       # If there's a MIDI file, compare it in text format
-      
+
       if (-e "$outs/$file.mid" || -e "test.mid")
         {
         if (! -e "$outs/$file.mid")
@@ -400,26 +414,26 @@ while (scalar @dirs > 0)
           printf("There is MIDI output, but $outs/$file.mid does not exist.\n");
           exit 1;
           }
-      
+
         if (! -e "test.mid")
           {
           printf("There is no MIDI output, but $outs/$file.mid exists.\n");
           exit 1;
           }
-      
+
         system("midicsv $outs/$file.mid test-old.csv");
         system("midicsv test.mid test.csv");
-      
+
         $rc = system("$cf test-old.csv test.csv >test.cf");
         if ($rc != 0)
           {
           $testOK = 0;
           system("$less test.cf");
-      
+
           for (;;)
             {
             print "Continue, Update & retry, Quit? [Q] ";
-      
+
             if ($force_quit)
               {
               $_ = 'q';
@@ -436,10 +450,10 @@ while (scalar @dirs > 0)
               $_ = <T>;
               close(T);
               }
-      
+
             exit 1 if /^\s*q?$/i;
             last if /^\s*c$/i;
-      
+
             if (/^\s*u$/)
               {
               exit 1 if system("cp test.mid $outs/$file.mid") != 0;
@@ -450,28 +464,28 @@ while (scalar @dirs > 0)
             }
           }
         }
-      
+
       if ($testOK)
         {
         printf ("Test $file OK $which\n");
         # system("gzip $outs/$file") if (-e "$outs/$file");
         }
-        
+
       # If just done PostScript, repeat for PDF.
-        
+
       if ($pdf eq "-ps" && $dopdf)
         {
         $pdf = "-pdf";
-        $header = ""; 
+        $header = "";
         $which = "PDF";
-        $outext = ".pdf"; 
+        $outext = ".pdf";
         }
-      else { last; }       
-      }   # Loop for PS and PDF testing   
+      else { last; }
+      }   # Loop for PS and PDF testing
 
     last if defined $endtest && $file =~ /^\Q$endtest\E/;
     }     # Loop for tests within a directory
-    
+
   if ($show_progress)
     {
     printf PROGRESS "\n";

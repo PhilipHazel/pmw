@@ -106,7 +106,7 @@ testing mode. Only for PDF are there separate actions. */
 
 #define mtest_version     0x01u   /* Suppress version and date info */
 #define mtest_barids      0x02u   /* Insert bar and page idents (PDF) */
-#define mtest_omitfont    0x04u   /* Omit music font (PDF) */
+#define mtest_omitfont    0x04u   /* Omit font programs (PDF) */
 #define mtest_forcered    0x08u   /* For red output (PDF) */
 
 /* Characters whose code point is less than LOWCHARLIMIT can be used directly
