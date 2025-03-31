@@ -624,6 +624,7 @@ fontstr *fs = &(font_list[fontid]);
 tree_node *treebase = NULL;
 uschar *pp;
 uschar filename[256];
+uschar utrfilename[256];
 uschar line[256];
 
 /* Find and open the AFM file */
@@ -710,7 +711,7 @@ else
 unsupported character, and/or font encodings. */
 
 fu = font_finddata(fs->name, ".utr", font_data_extra, font_data_default,
-  filename, FALSE);
+  utrfilename, FALSE);
 
 if (fu != NULL)
   {
@@ -751,17 +752,17 @@ if (fu != NULL)
       c = (uint32_t)Ustrtoul(pp, &epp, 0);
       if (epp == pp)
         {
-        error(ERR60, "font", lineno, filename, line);
+        error(ERR60, "font", lineno, utrfilename, line);
         continue;
         }
       if (c >= FONTWIDTHS_SIZE)
         {
-        error(ERR61, FONTWIDTHS_SIZE, lineno, filename, line);
+        error(ERR61, FONTWIDTHS_SIZE, lineno, utrfilename, line);
         continue;
         }
       if (fs->encoding[c] != NULL)
         {
-        error(ERR176, c, lineno, filename, line);
+        error(ERR176, c, lineno, utrfilename, line);
         continue;
         }
 
@@ -775,7 +776,7 @@ if (fu != NULL)
       tn->name = fs->encoding[c] = mem_copystring(nb);
       tn->value = c;
       if (!tree_insert(&treebase, tn))
-        error(ERR175, tn->name, lineno, filename, line);
+        error(ERR175, tn->name, lineno, utrfilename, line);
       continue;
       }
 
@@ -786,12 +787,12 @@ if (fu != NULL)
       uint32_t c = (uint32_t)Ustrtoul(++pp, &epp, 0);
       if (epp == pp)
         {
-        error(ERR60, "font", lineno, filename, line);
+        error(ERR60, "font", lineno, utrfilename, line);
         continue;
         }
       if (c >= FONTWIDTHS_SIZE)
         {
-        error(ERR61, FONTWIDTHS_SIZE, lineno, filename, line);
+        error(ERR61, FONTWIDTHS_SIZE, lineno, utrfilename, line);
         continue;
         }
 
@@ -813,7 +814,7 @@ if (fu != NULL)
 
     if (ucount >= MAX_UTRANSLATE)
       {
-      error(ERR59, filename, MAX_UTRANSLATE);
+      error(ERR59, utrfilename, MAX_UTRANSLATE);
       break;
       }
 
@@ -821,19 +822,19 @@ if (fu != NULL)
     utable[ucount].unicode = (unsigned int)Ustrtoul(pp, &epp, 16);
     if (epp == pp)
       {
-      error(ERR60, "Unicode", lineno, filename, line);
+      error(ERR60, "Unicode", lineno, utrfilename, line);
       continue;
       }
     pp = epp;
     utable[ucount].pscode = (unsigned int)Ustrtoul(pp, &epp, 0);
     if (epp == pp)
       {
-      error(ERR60, "font", lineno, filename, line);
+      error(ERR60, "font", lineno, utrfilename, line);
       continue;
       }
     if (utable[ucount].pscode >= FONTWIDTHS_SIZE)
       {
-      error(ERR61, FONTWIDTHS_SIZE, lineno, filename, line);
+      error(ERR61, FONTWIDTHS_SIZE, lineno, utrfilename, line);
       continue;
       }
 
@@ -863,7 +864,7 @@ if (fu != NULL)
       {
       if (utable[i].unicode == utable[i-1].unicode)
         {
-        error(ERR62, utable[i].unicode, filename);
+        error(ERR62, utable[i].unicode, utrfilename);
         while(i < ucount - 1 && utable[i].unicode == utable[i+1].unicode) i++;
         }
       }

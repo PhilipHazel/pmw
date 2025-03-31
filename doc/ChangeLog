@@ -30,6 +30,9 @@ that, when formatting right-to-left, if a string ended with such a character,
 it was horizontally misplaced, because it's the last character's adjustment 
 that matters. This showed up especially in centred heading strings.
 
+7. An error message for something wrong in an AFM file was incorrectly giving 
+the name of the related UTR file.
+
 
 Version 5.30 23-February-2025
 -----------------------------
