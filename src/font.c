@@ -920,19 +920,26 @@ for (;;)
 
    The bounding box is introduced by "B", but just looking for "B " (as was
    originally coded) is not enough because a character name may end with "B "
-   (as was eventually realized). Rather than just look for " B ", which is
-   usually the case, it's a bit safer to check for a non-alphanumeric preceding
-   the B. */
+   (as was eventually realized), and indeed the character's name might just be
+   "B". */
 
   ppb = pp;
-  while (*ppb != 0 && (Ustrncmp(ppb, "B ", 2) != 0 || isalnum((int)ppb[-1])))
-    ppb++;
+
+  for (;;)
+    {
+    while (*ppb != 0 && Ustrncmp(ppb, "B ", 2) != 0) ppb++;
+    if (*ppb == 0) break;
+    ppb += 2;
+    while (*ppb != 0 && *ppb == ' ') ppb++;
+    if (*ppb == 0 || isdigit((int)(*ppb)) || *ppb == '-') break;
+    }
+
   if (*ppb != 0)
     {
     int x0, x1;
-    ppb = read_number(&x0, ppb+2);   /* x-left */
-    ppb = read_number(&x1, ppb);     /* y-bottom */
-    ppb = read_number(&x1, ppb);     /* x-right */
+    ppb = read_number(&x0, ppb);   /* x-left */
+    ppb = read_number(&x1, ppb);   /* y-bottom */
+    ppb = read_number(&x1, ppb);   /* x-right */
     r2ladjust = x1 + x0;
     }
 
