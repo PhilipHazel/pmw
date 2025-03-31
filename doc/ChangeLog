@@ -33,6 +33,9 @@ that matters. This showed up especially in centred heading strings.
 7. An error message for something wrong in an AFM file was incorrectly giving 
 the name of the related UTR file.
 
+8. Some AFM files contain very long lines when there are many ligatures for a 
+character. Increase the size of the buffer used for reading AFM files.
+
 
 Version 5.30 23-February-2025
 -----------------------------

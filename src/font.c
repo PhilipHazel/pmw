@@ -625,7 +625,7 @@ tree_node *treebase = NULL;
 uschar *pp;
 uschar filename[256];
 uschar utrfilename[256];
-uschar line[256];
+uschar line[1024];       /* Some AFM files have very long lines */
 
 /* Find and open the AFM file */
 
@@ -890,6 +890,7 @@ for (;;)
 
   if (Ufgets(line, sizeof(line), fa) == NULL)
     error(ERR58, filename, "unexpected end of metric data", "");  /* Hard */
+
   if (memcmp(line, "EndCharMetrics", 14) == 0) break;
 
   if (memcmp(line, "C ", 2) != 0)
