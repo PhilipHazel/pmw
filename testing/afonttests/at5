@@ -1,0 +1,195 @@
+righttoleft 
+
+key Gm 
+time a 
+
+textfont extra 1 "AdobeArabic-Regular" 
+textfont extra 2 "AdobeArabic-Bold" 
+
+B2PFfont extra 1 output_backcodes "Arabic" 
+B2PFfont extra 2 output_backcodes "Arabic" 
+
+heading 30 "|\xx2\صموئيل النبيّ|"
+heading 24 "|\xx2\أوپرا من فصل واحد|" 
+@heading "||" 20 
+
+*define leftwingtop "\mf\\176\"/b0/l2 
+*define leftwingbot "\mf\\177\"/b0/l2 
+*define rightwingtop "\mf\\177\"/a0/rot180/l17 
+*define rightwingbot "\mf\\176\"/a0/rot180/l17 
+
+barnumbers boxed line italic 
+barnumberlevel +4 
+notespacing *0.75 
+stavespacing 60 
+systemgap 50 
+@justify top right left 
+clefwidths 16 
+miditempo 80 
+@stavespacing 
+systemseparator 20 2 20 -20 16 
+breakbarlines 1-8 
+bracket 9-11 
+
+[staff 0] 
+["A"] "\bf\\*c\ 80 ="/a/l16/d12 Q+ | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | Q! | Q! | Q! | Q! | 
+Q! | 
+[endstaff] 
+
+[stave 1 trebledescant 1 text underlay] 
+*if score 
+   [name "\xx2\ناي" "\xx2\ناي"] 
+*else 
+   [name “\xx2\ناي" ""] 
+*fi 
+R! | R! | R! | R!  [suspend]| R! | 
+R! | R! | R! | "\bi\mf" R [slur] d'-.e'=; d'=c'=b=a= | g [es] r R | 
+R [slur] d'-.e'=; d'=c'=b=a= | g [es] r R | R [slur] c'-.e'=; d'=c'=b=a= | a [es] r R [suspend] | R! | 
+R! | R! | R! | 
+[endstave] 
+
+[stave 2 treble 1 text underlay] 
+*if score 
+   [name "\xx2\ماريمبا" "\xx2\ماريمبا"] 
+*else 
+   [name “\xx2\ماريمبا" ""] 
+*fi 
+R! | R! | R! | R!  [suspend]| R! | 
+R! | R! | R! | "\bi\mf" R #f'= d'= f'= g'=; f'= e'= d'= c'= | b\///\ r R | 
+R #f'= d'= f'= g'=; f'= e'= d'= c'= | b\///\ r R | R e'=c'=e'=a'=; b'=a'=d'=e'= | c'\///\ r R [suspend] | R! | 
+R! | R! | R! | 
+[endstave] 
+
+[stave 3 trebletenor 1 text underlay] 
+*if score 
+   [name "\xx2\عود" "\xx2\عود"] 
+*else 
+   [name “\xx2\عود" ""] 
+*fi 
+"\bi\mf" [slur] g. #f-; g-a-b-e'- | d'. e'- D' [es] | [slur]g. #f-; g-a-b-d'- | c'. d'- C' [es] | [slur] a. b-; a-b-c'-d'- | 
+e'. d'- f'. e'- | d'-.c'= b[es] [slur] e'. a- | b-. d'= c'[es] [slur/b] a-.b=; {b-a-g-} | A+ [es] | "\bi\mp" b-d'-b-g-; b-e'-b-g- | 
+b-d'-b-f-; a-d'-a-#f- | b-d'-b-g-; b-e'-b-g- | c'-e'-c'-g-; c'-e'-c'-a- | c'-e'-c'-a-; d'-#f'-d'-a- | b-e'-b-g-; b-d'-b-f- | 
+b-d'-b-g-; c'-e'-c'-a- | b-e'-c'-g'-; e'-c'-a-e- | d-#f-e-d-; f-a-g-f- | 
+[endstave] 
+
+[stave 4 treble 1 text underlay] 
+*if score 
+   [name "\xx2\حنّة" "\xx2\حنّة"] 
+*else 
+   [name “\xx2\حنّة" ""] 
+*fi 
+R! | R! | R! | R!  [suspend]| R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | 
+[endstave] 
+
+[stave 5 bass -1 text underlay] 
+*if score 
+   [name "\xx2\عالي الكاهن" "\xx2\عالي"] 
+*else 
+   [name “\xx2\عالي الكاهن" ""] 
+*fi 
+R! | R! | R! | R!  [suspend]| R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | 
+[endstave] 
+
+[stave 6 bass -1 text underlay] 
+*if score 
+   [name "\xx2\رجل الله" "\xx2\رجل الله"] 
+*else 
+   [name “\xx2\رجل الله" ""] 
+*fi 
+R! | R! | R! | R!  [suspend]| R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | 
+[endstave] 
+
+[stave 7 treble 1 text underlay] 
+*if score 
+   [name "\xx2\صموئيل" "\xx2\صموئيل"] 
+*else 
+   [name “\xx2\صموئيل" ""] 
+*fi 
+R! | R! | R! | R!  [suspend]| R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | 
+[endstave] 
+
+[stave 8 treble 1 text underlay] 
+*if score 
+   [name "\xx2\الملائكة" "\xx2\الملائكة"] 
+*else 
+   [name “\xx2\الملائكة" ""] 
+*fi 
+R! | R! | R! | R!  [suspend]| R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | R! | R! | 
+R! | R! | R! | 
+[endstave] 
+
+[stave 9 treble 1 text underlay] 
+*if score 
+   [name "\xx2\كمان أول" "\xx2\كمان ١"] 
+*else 
+   [name “\xx2\كمان أول" ""] 
+*fi 
+"\bi\p" D'_E' | B_ A | D'_E' | E'+ | [slur] E' d'. c'-[es] | 
+B+ | [slur] b-. c'= d' C' [es] | E'+ | #F'+ | "\bi\mf" [octave 2] [slur] g. #f-; g-a-b-e'- | 
+d'. e'- D' [es] | [slur] g. #f-; g-a-b-d'- | c'. d'- C' [es] | [slur] a. b-; a-b-c'-d'- [es] | [slur] e'. d'- f'. e'- | 
+d'-.c'= b [es] [slur] e'. a- | b-. d'= c' [es] [slur] a-.b=; {b-a-g-} | A+ [es] | 
+[endstave] 
+
+[stave 10 treble 1 text underlay] 
+*if score 
+   [name "\xx2\كمان ثان" "\xx2\كمان ٢"] 
+*else 
+   [name “\xx2\كمان ثان" ""] 
+*fi 
+"\bi\p" [slur/b] g-a-b-a- G [es] | F_ #F | [slur/b] g-a-b-a- G [es] | G_A | [slur/b] c'-b-a-g- #F [es] | 
+G_D | G_A | [slur/b] g. a=b= C' [es] | D'+ | "\bi\mp" D_ E | 
+B`_ A` | D_E | E+ | [slur/b] E d. c- [es] | B`+ | 
+[slur/b] b`-.c= d C [es] | E+ | #F+ | 
+[endstave] 
+
+[stave 11 bass 0 text underlay] 
+*if score 
+   [name "\xx2\تشيللو" "\xx2\تشيللو"] 
+*else 
+   [name “\xx2\تشيللو" ""] 
+*fi 
+"\bi\mf" [slur/b] g`. #f`-; g`-a`-b`-e- | d. e- D [es] | [slur/b] g`. #f`-; g`-a`-b`-d- | c. d- C [es] | [slur/b] a`. b`-; a`-b`- c-d- | 
+e. d- f. e- | d-.c= b` [es] [slur/b] e. a`- | b`-. d= c [es] [slur/b] a`-. b`=; {b`- a`- g`-} | A`+ [es] | [slur/b] g`-a`-b`-a`- G` [es] | 
+F`_#F` | [slur/b] g`-a`-b`-a`- G` [es] | G`_A` | [slur/b] c-b`-a`-g`- #F` [es] | G`_D` | 
+G`_A` | [slur/b] g`. a`=b`= C [es] | D+ | 
+[endstave] 
+
