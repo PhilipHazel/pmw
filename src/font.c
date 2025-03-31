@@ -914,10 +914,17 @@ for (;;)
    ^
    New print point is x0 + x1 to the left of the old. If it were just x1,
    the edge of the character would abut the original point; instead we add
-   an additional same sized bearing on the other side. */
+   an additional same sized bearing on the other side.
+
+   The bounding box is introduced by "B", but just looking for "B " (as was
+   originally coded) is not enough because a character name may end with "B "
+   (as was eventually realized). Rather than just look for " B ", which is
+   usually the case, it's a bit safer to check for a non-alphanumeric preceding
+   the B. */
 
   ppb = pp;
-  while (*ppb != 0 && Ustrncmp(ppb, "B ", 2) != 0) ppb++;
+  while (*ppb != 0 && (Ustrncmp(ppb, "B ", 2) != 0 || isalnum((int)ppb[-1])))
+    ppb++;
   if (*ppb != 0)
     {
     int x0, x1;

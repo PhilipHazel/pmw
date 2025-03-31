@@ -22,6 +22,14 @@ from the PMW-Music AFM file rather than a separate special table.
 5. An unset encoding was ending up as /(null) in PDF output; now it uses the 
 "undefined" character from the relevant font.
 
+6. If a character name in an AFM file ended with a capital "B" followed by a 
+space, PMW misinterpreted this as the start of the bounding box data. A 
+semicolon usually follows, so no numbers could be read and as a result, the 
+"right-to-left" adjustment value for the character was set to zero. This meant 
+that, when formatting right-to-left, if a string ended with such a character, 
+it was horizontally misplaced, because it's the last character's adjustment 
+that matters. This showed up especially in centred heading strings.
+
 
 Version 5.30 23-February-2025
 -----------------------------
