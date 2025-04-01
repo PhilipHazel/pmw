@@ -2,9 +2,9 @@
 *  PMW native stave directive reading functions  *
 *************************************************/
 
-/* Copyright Philip Hazel 2023 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: February 2021 */
-/* This file last modified: December 2023 */
+/* This file last modified: April 2025 */
 
 #include "pmw.h"
 
@@ -972,6 +972,10 @@ while(read_c == '\"' ||
 
   read_sigc();
   }
+  
+/* Give an error if no strings or drawings were specified. */
+
+if (p == NULL) error_skip(ERR8, ']', "string or \"draw\""); 
 }
 
 

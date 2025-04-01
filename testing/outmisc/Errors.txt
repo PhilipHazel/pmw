@@ -263,28 +263,33 @@ g\.\ x3\x\ a |
 [slur/=0] [slur/=x] {/q abc } / </q |
 ------------------------------------->
 
+** Error: string or "draw" expected
+   Detected near line 75 of misctests/Errors
+[name “Bad quotes" "abc"]
+------>
+
 ** Error: [backup] must follow a note
-   Detected near line 77 of misctests/Errors
+   Detected near line 78 of misctests/Errors
 [nocheck] ab [treble backup] cd |
 --------------------------->
 
 ** Error: [backup] may not follow an item that relates to the following note
-   Detected near line 78 of misctests/Errors
+   Detected near line 79 of misctests/Errors
 [nocheck] G {[backup]ggg} |
 -------------------->
 
 ** Error: [reset] may not appear inside an irregular note group
-   Detected near line 79 of misctests/Errors
+   Detected near line 80 of misctests/Errors
 [nocheck] G {g[reset]gg} |
 -------------------->
 
 ** Error: [backup] may not occur before the first note of a bar
-   Detected near line 80 of misctests/Errors
+   Detected near line 81 of misctests/Errors
 [nocheck backup]R! |
 --------------->
 
 ** Error: [reset] may not occur before the first note of a bar
-   Detected near line 81 of misctests/Errors
+   Detected near line 82 of misctests/Errors
 [reset]R! |
 ------>
 

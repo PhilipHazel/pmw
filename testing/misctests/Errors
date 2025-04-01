@@ -72,6 +72,7 @@ g\.\ x3\x\ a |
 @ Miscellaneous errors
 "a"/ty b_/x b (ap) z
 [slur/=0] [slur/=x] {/q abc } / </q |
+[name “Bad quotes" "abc"]
 
 @ Backup and reset errors
 [nocheck] ab [treble backup] cd |
