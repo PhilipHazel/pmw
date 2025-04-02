@@ -5,38 +5,38 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 Version 5.31 09-March-2025
 --------------------------
 
-1. The PMW-Alpha font has (at last) been converted to a Type 1 font, which has 
-itself been converted to OpenType. The two versions (.pfa and .otf) are now 
-distributed instead of the Type 3 font (which itself was converted from an 
+1. The PMW-Alpha font has (at last) been converted to a Type 1 font, which has
+itself been converted to OpenType. The two versions (.pfa and .otf) are now
+distributed instead of the Type 3 font (which itself was converted from an
 Acorn font).
 
-2. Updated the character names in the PMW-Music AFM file. This was overlooked 
+2. Updated the character names in the PMW-Music AFM file. This was overlooked
 in change 1 for 5.30.
 
-3. An encoding was not being included in PDF output for the Symbol font (it's 
+3. An encoding was not being included in PDF output for the Symbol font (it's
 not strictly necessary) but eliminating this anomaly makes things tidier.
 
-4. Now that 2 above has happened, the encoding for PDF output can now be taken 
+4. Now that 2 above has happened, the encoding for PDF output can now be taken
 from the PMW-Music AFM file rather than a separate special table.
 
-5. An unset encoding was ending up as /(null) in PDF output; now it uses the 
+5. An unset encoding was ending up as /(null) in PDF output; now it uses the
 "undefined" character from the relevant font.
 
-6. If a character name in an AFM file ended with a capital "B" followed by a 
-space, PMW misinterpreted this as the start of the bounding box data. A 
-semicolon usually follows, so no numbers could be read and as a result, the 
-"right-to-left" adjustment value for the character was set to zero. This meant 
-that, when formatting right-to-left, if a string ended with such a character, 
-it was horizontally misplaced, because it's the last character's adjustment 
+6. If a character name in an AFM file ended with a capital "B" followed by a
+space, PMW misinterpreted this as the start of the bounding box data. A
+semicolon usually follows, so no numbers could be read and as a result, the
+"right-to-left" adjustment value for the character was set to zero. This meant
+that, when formatting right-to-left, if a string ended with such a character,
+it was horizontally misplaced, because it's the last character's adjustment
 that matters. This showed up especially in centred heading strings.
 
-7. An error message for something wrong in an AFM file was incorrectly giving 
+7. An error message for something wrong in an AFM file was incorrectly giving
 the name of the related UTR file.
 
-8. Some AFM files contain very long lines when there are many ligatures for a 
+8. Some AFM files contain very long lines when there are many ligatures for a
 character. Increase the size of the buffer used for reading AFM files.
 
-9. An oversight when converting from semitones to quartertones (release 5.00) 
+9. An oversight when converting from semitones to quartertones (release 5.00)
 meant that MIDI output for the transposing clefs was incorrect.
 
 

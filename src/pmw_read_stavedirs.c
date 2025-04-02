@@ -972,10 +972,10 @@ while(read_c == '\"' ||
 
   read_sigc();
   }
-  
+
 /* Give an error if no strings or drawings were specified. */
 
-if (p == NULL) error_skip(ERR8, ']', "string or \"draw\""); 
+if (p == NULL) error_skip(ERR8, ']', "string or \"draw\"");
 }
 
 
