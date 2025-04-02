@@ -36,6 +36,9 @@ the name of the related UTR file.
 8. Some AFM files contain very long lines when there are many ligatures for a 
 character. Increase the size of the buffer used for reading AFM files.
 
+9. An oversight when converting from semitones to quartertones (release 5.00) 
+meant that MIDI output for the transposing clefs was incorrect.
+
 
 Version 5.30 23-February-2025
 -----------------------------

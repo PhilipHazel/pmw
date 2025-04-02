@@ -51,18 +51,18 @@ static int clef_octave[] = {
     0,   /* baritone */
     0,   /* bass */
     0,   /* cbaritone */
-  -12,   /* contrabass */
+  -24,   /* contrabass */
     0,   /* deepbass */
     0,   /* hclef */
     0,   /* mezzo */
     0,   /* none */
-   12,   /* soprabass */
+   24,   /* soprabass */
     0,   /* soprano */
     0,   /* tenor */
     0,   /* treble */
-   12,   /* trebledescant */
-  -12,   /* trebletenor */
-  -12    /* trebletenorB */
+   24,   /* trebledescant */
+  -24,   /* trebletenor */
+  -24    /* trebletenorB */
 };
 
 
