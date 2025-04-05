@@ -4,7 +4,8 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: February 2025 */
+/* This file last modified: April 2025 */
+
 
 /*************************************************
 *               Tables in tables.c               *
@@ -113,6 +114,7 @@ extern usint        error_maximum;
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
 extern b2pf_context **font_b2pf_contexts;
 extern uint32_t    *font_b2pf_options;
+extern BOOL         font_call_b2pf;
 #endif
 extern int32_t      font_cosr;                   /* Cosine for rotations */
 extern uint32_t     font_count;                  /* Number of typefaces */

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: February 2025 */
+/* This file last modified: April 2025 */
 
 #include "pmw.h"
 
@@ -65,6 +65,7 @@ const char  *error_inoption = NULL;
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
 b2pf_context **font_b2pf_contexts = NULL;
 uint32_t    *font_b2pf_options = NULL;
+BOOL         font_call_b2pf = FALSE;
 #endif
 
 int32_t      font_cosr = 1000;

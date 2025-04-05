@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: February 2025 */
+/* This file last modified: April 2025 */
 
 #include "pmw.h"
 
@@ -947,7 +947,7 @@ return yield;
 /* The main purpose of this function is to check a string for unknown or
 invalid characters, replacing them with a legal character and saving the
 failures in a list for later reporting. At the same time, we handle any special
-Unicode translations for non-standardly encoded fonts.
+Unicode translations.
 
 When B2PF is supported, before doing the check, we must process the string with
 B2PF if any of its fonts is set up for it. This may involve getting a new
@@ -977,19 +977,19 @@ string_check(uint32_t *str, const char *bseps, BOOL keepnl)
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
 BOOL call_b2pf = FALSE;
 
-/* To save calling B2PF unnecessarily, do a quick scan to see if any fonts are
-set up for B2Pf. */
-
-for (uint32_t *s = str; *s != 0; s++)
+if (font_call_b2pf)  /* At least one font is set up for B2PF */
   {
-  if (font_b2pf_contexts[PFONT(*s) & ~font_small] != NULL)
+  for (uint32_t *s = str; *s != 0; s++)
     {
-    call_b2pf = TRUE;
-    break;
+    if (font_b2pf_contexts[PFONT(*s) & ~font_small] != NULL)
+      {
+      call_b2pf = TRUE;
+      break;
+      }
     }
-  }
+  }   
 
-if (call_b2pf)
+if (call_b2pf)  /* The string contains a font that is set up for B2PF */
   {
   uint32_t *s = str;
   uint32_t outbuff[B2PF_OUTSTACKSIZE];

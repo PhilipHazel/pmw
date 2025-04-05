@@ -8,6 +8,9 @@ Version 5.32 xx-xxx-2025
 1. Removed a no longer used flag that a font has the fi ligature; for some time 
 PMW has assumed that all standardly encoded fonts have this ligature.
 
+2. When B2PF is supported, check a string for B2PF fonts only if at least one 
+is so configured (very minor performance improvement).
+
 
 Version 5.31 09-March-2025
 --------------------------

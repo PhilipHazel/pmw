@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: February 2025 */
+/* This file last modified: April 2025 */
 
 #include "pmw.h"
 
@@ -542,6 +542,8 @@ if (rc != B2PF_SUCCESS)
   buffer[buffused] = 0;
   error(ERR79, buffer);  /* Hard */
   }
+  
+font_call_b2pf = TRUE;  /* Tell string_check to use B2PF */ 
 
 #endif  /* SUPPORT_B2PF */
 }
