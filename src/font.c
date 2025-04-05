@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: March 2025 */
+/* This file last modified: April 2025 */
 
 #include "pmw.h"
 
@@ -960,10 +960,6 @@ for (;;)
     code = an2u(cname, &poffset);
     if (code >= 0)
       {
-      /* Remember that this font has certain characters */
-
-      if (code == CHAR_FI) fs->flags |= ff_hasfi;
-
       /* If the Unicode code point is not less than LOWCHARLIMIT, remember it
       and its special offset in a tree so that it can be translated when
       encountered in a string. Then set the translated value for saving the

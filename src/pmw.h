@@ -6,12 +6,12 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: March 2025 */
+/* This file last modified: April 2025 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
-#define PMW_VERSION "5.31"
-#define PMW_DATE    "09-March-2025"
+#define PMW_VERSION "5.32-DEV"
+#define PMW_DATE    "05-April-2025"
 #define COPYRIGHT   "Copyright (c) Philip Hazel 2025"
 
 /* Standard C headers */
@@ -189,11 +189,10 @@ vector as text sizes specified by the user and the fixed sizes. */
 
 #define ff_stdencoding  0x00000001u    /* std encoding */
 #define ff_fixedpitch   0x00000002u    /* fixed pitch */
-#define ff_hasfi        0x00000004u    /* has "fi" */
-#define ff_include      0x00000008u    /* to be included in output */
-#define ff_used         0x00000010u    /* font is used (for PDF output) */
-#define ff_usedlower    0x00000020u    /* lower half used (for std enc) */
-#define ff_usedupper    0x00000040u    /* upper half used (for std enc) */
+#define ff_include      0x00000004u    /* to be included in output */
+#define ff_used         0x00000008u    /* font is used (for PDF output) */
+#define ff_usedlower    0x00000010u    /* lower half used (for std enc) */
+#define ff_usedupper    0x00000020u    /* upper half used (for std enc) */
 
 /* Identifiers for each type of font. Any changes in this list must be kept in
 step with the list of font ids which is kept in Font_IdStrings. The

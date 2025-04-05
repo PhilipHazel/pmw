@@ -2,6 +2,13 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
+Version 5.32 xx-xxx-2025
+------------------------
+
+1. Removed a no longer used flag that a font has the fi ligature; for some time 
+PMW has assumed that all standardly encoded fonts have this ligature.
+
+
 Version 5.31 09-March-2025
 --------------------------
 
