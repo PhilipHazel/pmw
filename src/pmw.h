@@ -97,6 +97,12 @@
 #define UUSIZE                       100  /* For list of unsupported/invalid Unicode codes */
 #define WORDBUFFER_SIZE               64
 
+/* Characters whose code point is less than LOWCHARLIMIT can be used directly
+in the "doubled-up" font encoding for standardly-encoded fonts. Some other
+Unicode values are translated when a string is read into code points just above
+this limit, which is no longer Unicode encoding. FONTWIDTHS_SIZE must be large
+enough to accommodate these extra characters. */
+
 /* Major program states */
 
 enum { STATE_INIT, STATE_READ, STATE_PAGINATE, STATE_WRITE, STATE_ENDING };
@@ -108,12 +114,6 @@ testing mode. Only for PDF are there separate actions. */
 #define mtest_barids      0x02u   /* Insert bar and page idents (PDF) */
 #define mtest_omitfont    0x04u   /* Omit font programs (PDF) */
 #define mtest_forcered    0x08u   /* For red output (PDF) */
-
-/* Characters whose code point is less than LOWCHARLIMIT can be used directly
-in the "doubled-up" font encoding for standardly-encoded fonts. Some other
-Unicode values are translated when a string is read into code points just above
-this limit, which is no longer Unicode encoding. FONTWIDTHS_SIZE must be large
-enough to accommodate these extra characters. */
 
 /* A maximum is set for transposition - 5 octaves should be ample - and a
 conventional value for "no transposition". */

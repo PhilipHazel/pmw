@@ -605,16 +605,15 @@ return (t == NULL)? c : (uint32_t)(LOWCHARLIMIT + t->value);
 *  Load width, kern, encoding, & Unicode tables for a font *
 ***********************************************************/
 
-/* This is an externally-callable function. It looks for a mandatory AFM file,
-containing character widths and kerning information, and also checks for an
-optional UTR file if the font is not standardly-encoded.
+/* This function looks for a mandatory AFM file, containing character widths
+and kerning information, and also checks for an optional UTR file.
 
 Argument:   the font id (offset in font_list)
 Returns:    nothing
 */
 
-void
-font_loadtables(uint32_t fontid)
+static void
+font_initialize(uint32_t fontid)
 {
 FILE *fa, *fu;
 int kerncount = 0;
@@ -644,7 +643,12 @@ fs->used = mem_get_independent(FONTWIDTHS_SIZE/8);
 memset(fs->used, 0, FONTWIDTHS_SIZE/8);
 
 fs->heights = NULL;
+fs->kerns = NULL;
 fs->kerncount = 0;
+fs->utr = NULL;
+fs->utrcount = 0;
+fs->encoding = NULL;
+fs->high_tree = NULL;
 
 /* These are used only by PDF output */
 
@@ -1207,18 +1211,9 @@ if (font_count >= font_list_size)
 
 fs = &(font_list[font_count]);
 fs->name = mem_copystring(name);
-fs->widths = NULL;
-fs->high_tree = NULL;
-fs->utr = NULL;
-fs->encoding = NULL;
-fs->utrcount = 0;
-fs->heights = NULL;
-fs->kerns = NULL;
-fs->kerncount = -1;
 fs->flags = flags;
-
 font_table[fontid] = font_count;
-font_loadtables(font_count++);
+font_initialize(font_count++);
 }
 
 

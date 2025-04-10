@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: February 2025 */
+/* This file last modified: April 2025 */
 
 /* -------- General functions -------- */
 
@@ -21,7 +21,6 @@ extern int32_t      font_charwidth(uint32_t, uint32_t, uint32_t, int32_t,
                       int32_t *);
 extern FILE        *font_finddata(uschar *, const char *, uschar *, uschar *,
                       uschar *, BOOL);
-extern void         font_loadtables(uint32_t);
 extern uint32_t     font_readtype(BOOL);
 extern fontinststr *font_rotate(fontinststr *, int32_t);
 extern uint32_t     font_search(uschar *);
