@@ -1,0 +1,16 @@
+@ This is testing the case when a ligature exists in one font (AdobeArabic) but
+@ not in another (OmArabicRsimms).
+
+righttoleft
+
+*define text(1) "Ligature?|\xx&&1\لى|\rm\Test &&2"
+
+@ Just to make sure it works, put one B2PFfont directive before Textfont.
+
+B2PFfont extra 2 output_backcodes "Arabic"
+textfont extra 1 "AdobeArabic-Regular"
+textfont extra 2 "OmArabicRsimms"
+B2PFfont extra 1 output_backcodes "Arabic"
+
+heading 20 &text(1,Adobe)
+heading 20 &text(2,OmArabic)

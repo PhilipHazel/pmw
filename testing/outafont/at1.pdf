@@ -29,7 +29,7 @@ endobj
 /Resources 4 0 R>>
 endobj
 6 0 obj
-<</Length 13001>>
+<</Length 13008>>
 stream
 % ------ Page 1 ------
 q
@@ -496,13 +496,13 @@ BT
 (@)Tj
 
 %16/1
--1.647 -18.5 Td
+-0.69 -18.5 Td
 /rm 10 Tf
 (-)Tj
--9.537 0 Td
+-12.409 0 Td
 /xx1 10 Tf
-(#)Tj
--1.88 20.5 Td
+(\334\277)Tj
+0.035 20.5 Td
 /mf 10 Tf
 (5)Tj
 -14.663 -20.5 Td
@@ -1239,17 +1239,17 @@ endobj
 endobj
 25 0 obj
 <</Type/Encoding/BaseEncoding/WinAnsiEncoding/Differences[
-32/space 35/questionmarkarabic/keshideh 64/fatha
-/kasra/damma/sukun 74/dammashadda
-97/alifmaddaiso 99/alifhamzaiso/alifhamzafin 103/alifsubhamzaiso
-109/alifiso/aliffin 113/behmed/behfin
-118/tehini 128/jeemmed 136/khahmed 138/daliso
-/dalfin 147/seenini/seenmed 163/tahini
-170/ainiso 172/ainmed 180/fehmed 183/qafini
-188/kafmed/kaffin/lamiso/lamini
-193/lamfin 203/meemini 206/nooniso/noonini
-212/hehmed 214/hehfin/wawiso/wawfin
-218/yehini/yehmed 222/yehfin]>>
+32/space 36/keshideh 64/fatha/kasra
+/damma/sukun 74/dammashadda 97/alifmaddaiso
+99/alifhamzaiso/alifhamzafin 103/alifsubhamzaiso 109/alifiso
+/aliffin 113/behmed/behfin 118/tehini
+128/jeemmed 136/khahmed 138/daliso/dalfin
+147/seenini/seenmed 163/tahini 170/ainiso
+172/ainmed 180/fehmed 183/qafini 188/kafmed
+/kaffin/lamiso/lamini 193/lamfin
+203/meemini 206/nooniso/noonini 212/hehmed
+214/hehfin/wawiso/wawfin 218/yehini
+/yehmed/alifmaksurafin 222/yehfin]>>
 endobj
 26 0 obj
 <</Type/FontDescriptor
@@ -1266,7 +1266,7 @@ endobj
 /Encoding 25 0 R/FirstChar 32/LastChar 222/Widths 28 0 R>>
 endobj
 28 0 obj
-[259 0 0 444 7 0 0 0
+[259 0 0 0 7 0 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
@@ -1289,7 +1289,7 @@ endobj
 0 479 0 0 0 0 0 0
 0 0 0 444 0 0 539 300
 0 0 0 0 428 0 347 430
-425 0 300 300 0 0 592]
+425 0 300 300 592 0 592]
 endobj
 29 0 obj
 *FontOTF 1
@@ -1354,37 +1354,37 @@ xref
 0000000147 00000 n
 0000000265 00000 n
 0000000364 00000 n
-0000013415 00000 n
-0000013446 00000 n
-0000013461 00000 n
-0000013648 00000 n
-0000013812 00000 n
-0000013981 00000 n
-0000014137 00000 n
-0000014289 00000 n
-0000014461 00000 n
-0000014618 00000 n
-0000014662 00000 n
-0000014831 00000 n
-0000014986 00000 n
-0000015076 00000 n
-0000015383 00000 n
-0000015537 00000 n
-0000015916 00000 n
-0000015943 00000 n
-0000015959 00000 n
-0000016492 00000 n
-0000016656 00000 n
-0000016817 00000 n
-0000017291 00000 n
-0000017318 00000 n
-0000017334 00000 n
-0000017650 00000 n
-0000017819 00000 n
-0000017985 00000 n
+0000013422 00000 n
+0000013453 00000 n
+0000013468 00000 n
+0000013655 00000 n
+0000013819 00000 n
+0000013988 00000 n
+0000014144 00000 n
+0000014296 00000 n
+0000014468 00000 n
+0000014625 00000 n
+0000014669 00000 n
+0000014838 00000 n
+0000014993 00000 n
+0000015083 00000 n
+0000015390 00000 n
+0000015544 00000 n
+0000015923 00000 n
+0000015950 00000 n
+0000015966 00000 n
+0000016497 00000 n
+0000016661 00000 n
+0000016822 00000 n
+0000017296 00000 n
+0000017323 00000 n
+0000017339 00000 n
+0000017655 00000 n
+0000017824 00000 n
+0000017990 00000 n
 trailer
 <</Size 35/Root 1 0 R/Info 2 0 R
-/ID[<67b497eee84f74880852b492ab0ec3c5><67b497eee84f74880852b492ab0ec3c5>]>>
+/ID[<ba493b0e36974e119dad3c4b1ce6e9fc><ba493b0e36974e119dad3c4b1ce6e9fc>]>>
 startxref
-18431
+18436
 %%EOF

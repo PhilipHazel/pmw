@@ -1,0 +1,93 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music AdobeArabic-Regular OmArabicRsimms 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginProlog
+%%Custom encodings for AdobeArabic-Regular
+/AdobeArabic-RegularEncL 256 array def
+0 1 31 {AdobeArabic-RegularEncL exch /.notdef put} for
+AdobeArabic-RegularEncL 32 [
+/space/uni060C/uni061B/uni061F/uni0640/uni066A/.notdef/.notdef
+/.notdef/.notdef/uniFDF2/.notdef/.notdef/.notdef/.notdef/.notdef
+/uni0660/uni0661/uni0662/uni0663/uni0664/uni0665/uni0666/uni0667
+/uni0668/uni0669/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/uni0649/uni0627/uni0628/uni0629/uni062A/uni062B/uni062C/uni062D
+/uni062E/uni062F/uni0630/uni0631/uni0632/uni0633/uni0634/uni0635
+/uni0636/uni0637/uni0638/uni0639/uni063A/uni0641/uni0642/uni0643
+/uni0644/uni0645/uni0646/uni0647/uni0648/uni064A/uni06A4/uni0679
+/uni067A/uni067B/uni067E/uni067F/uni0680/uni0683/uni0684/uni0686
+/uni0687/uni0688/uni068C/uni068D/uni068E/uni0691/uni0698/uni06A6
+/uni06A9/uni06AF/uni06B1/uni06B3/uni06BB/.notdef/.notdef/.notdef
+/.notdef/.notdef/uni06A1/uni06BA/.notdef/.notdef/.notdef/.notdef
+/uniFEF0/uniFE8E/uniFE91/uniFE92/uniFE90/uniFE94/uniFE97/uniFE98
+/uniFE96/uniFE9B/uniFE9C/uniFE9A/uniFE9F/uniFEA0/uniFE9E/uniFEA3
+/uniFEA4/uniFEA2/uniFEA7/uniFEA8/uniFEA6/uniFEAA/uniFEAC/uniFEAE
+/uniFEB0/uniFEB3/uniFEB4/uniFEB2/uniFEB7/uniFEB8/uniFEB6/uniFEBB
+/uniFEBC/uniFEBA/uniFEBF/uniFEC0/uniFEBE/uniFEC3/uniFEC4/uniFEC2
+/uniFEC7/uniFEC8/uniFEC6/uniFECB/uniFECC/uniFECA/uniFECF/uniFED0
+/uniFECE/uniFED3/uniFED4/uniFED2/uniFED7/uniFED8/uniFED6/uniFEDB
+/uniFEDC/uniFEDA/uniFEDF/uniFEE0/uniFEDE/uniFEE3/uniFEE4/uniFEE2
+/uniFEE7/uniFEE8/uniFEE6/uniFEEB/uniFEEC/uniFEEA/uniFEEE/uniFEF3
+/uniFEF4/uniFEF2/uniFB6C/uniFB6D/uniFB6B/uniFB68/uniFB69/uniFB67
+/uniFB60/uniFB61/uniFB5F/uniFB54/uniFB55/uniFB53/uniFB9F/uniFB58
+/uniFB59/uniFB57/uniFB64/uniFB65/uniFB63/uniFB5C/uniFB5D/uniFB5B
+/uniFB78/uniFB79/uniFB77/uniFB74/uniFB75/uniFB73/uniFB7C/uniFB7D
+/uniFB7B/uniFB80/uniFB81/uniFB7F/uniFB89/uniFB85/uniFB83/uniFB87
+/uniFB8D/uniFB8B/uniFB70/uniFB71/uniFB6F/uniFB90/uniFB91/uniFB8F
+/uniFB94/uniFB95/uniFB93/uniFB9C/uniFB9D/uniFB9B/uniFB98/uniFB99] putinterval
+/AdobeArabic-RegularEncU 256 array def
+AdobeArabic-RegularEncU 0 [
+/uniFB97/uniFBA2/uniFBA3/uniFBA1] putinterval
+4 1 43 {AdobeArabic-RegularEncU exch /.notdef put} for
+AdobeArabic-RegularEncU 44 [
+/uni064B/uni064C/uni064D/uni064E/uni064F/uni0650/uni0651/uni0652
+/uni0653/uni0654/uni0655/uni0670/uni0621/.notdef/uni0657/uni065D
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/uniFC5E/uniFC5F
+/uniFC60/uniFC61/uniFC62/uniFC63/uni0622/uniFE82/uni0623/uniFE84
+/uni0625/uniFE88/uni0624/uniFE86/uni067C/uniFE89/uniFE8B/uniFE8C
+/uniFE8A/uniFEFB/uniFEFC/uniFC43/uniFC86/uniFEF5/uniFEF6/uniFEF7
+/uniFEF8/uniFEF9/uniFEFA/.notdef/uniFCCC/.notdef/.notdef/uni0681] putinterval
+108 1 255 {AdobeArabic-RegularEncU exch /.notdef put} for
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font AdobeArabic-Regular
+/xx1 /xx1X /AdobeArabic-Regular inf
+%%IncludeResource: font OmArabicRsimms
+/xx2 /xx2X /OmArabicRsimms inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+595 0 T -1 1 scale
+%%EndPageSetup
+rm 20 ssr(Lig)141.3 760 s(ature?)0.1 0 rs xx1X 20 ssr(_)308.88 760 s
+rm 20 ssr(T)544.1 760 s(est )1.4 0 rs(Adobe)1.1 0 rs(Lig)141.3 740 s
+(ature?)0.1 0 rs xx2 20 ssr(\334\277)312.07 740 s rm 20 ssr(T)
+543.86 740 s(est OmArabic)1.4 0 rs
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

@@ -11,6 +11,9 @@ PMW has assumed that all standardly encoded fonts have this ligature.
 2. When B2PF is supported, check a string for B2PF fonts only if at least one 
 is so configured (very minor performance improvement).
 
+3. Add support for the new B2PF callback functionality to check whether a
+proposed ligature actually exists in the relevant font before using it.
+
 
 Version 5.31 09-March-2025
 --------------------------

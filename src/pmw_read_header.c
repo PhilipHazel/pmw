@@ -456,6 +456,33 @@ else x[ac_no] = x[ac_sh] - 200;
 
 
 /*************************************************
+*           B2PF callback function               *
+*************************************************/
+
+/* Check a proposed ligature for availability in the relevant font.
+
+Arguments:
+  codepoint   a Unicode code point
+  data        opaque data is the font number
+
+Returns:      0 this ligature is not acceptable
+              1 this ligature is acceptable
+*/
+
+#if defined SUPPORT_B2PF && SUPPORT_B2PF != 0 && defined B2PF_CALLBACK_LIGATURE
+static int
+callback(uint32_t codepoint, void *data)
+{
+fontstr *fs = &(font_list[font_table[(intptr_t)data]]);
+uint32_t c = font_utranslate(codepoint, fs);
+if (c == 0xffffffffu) c = codepoint;   /* No Unicode translation */
+return (c < 512)? 1 : 0;
+}
+#endif
+
+
+
+/*************************************************
 *       Set up font for B2PF processing          *
 *************************************************/
 
@@ -519,6 +546,14 @@ rc = b2pf_context_create((const char *)read_stringbuffer,
   (const char *)font_data_extra, 0, font_b2pf_contexts + fontid,
   NULL, NULL, NULL, &ln);
 
+/* Set up the ligature-checking callback, if we are on a suitable release. */
+
+#ifdef B2PF_CALLBACK_LIGATURE
+if (rc == B2PF_SUCCESS)
+  rc = b2pf_context_set_callback(font_b2pf_contexts[fontid],
+    B2PF_CALLBACK_LIGATURE, callback, (void *)((intptr_t)fontid));
+#endif
+
 /* If there are more strings in quotes, add them as extra context rules. */
 
 if (rc == B2PF_SUCCESS)
@@ -542,8 +577,8 @@ if (rc != B2PF_SUCCESS)
   buffer[buffused] = 0;
   error(ERR79, buffer);  /* Hard */
   }
-  
-font_call_b2pf = TRUE;  /* Tell string_check to use B2PF */ 
+
+font_call_b2pf = TRUE;  /* Tell string_check to use B2PF */
 
 #endif  /* SUPPORT_B2PF */
 }
