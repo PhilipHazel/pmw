@@ -147,3 +147,11 @@ justify top left
 [octave 2]
 [slur/b] gggg [es] | [slur/a] gggg [es] |
 [endstave]
+
+[newmovement]
+nocheck
+unfinished
+
+[stave 1 treble 1]
+r- r= r=- r== Q+
+[endstave]

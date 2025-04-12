@@ -14,6 +14,9 @@ is so configured (very minor performance improvement).
 3. Add support for the new B2PF callback functionality to check whether a
 proposed ligature actually exists in the relevant font before using it.
 
+4. In right-to-left output mode, rests shorter than a quaver were not correctly 
+displayed.
+
 
 Version 5.31 09-March-2025
 --------------------------

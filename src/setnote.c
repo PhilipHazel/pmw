@@ -25,9 +25,13 @@ static uschar common_notes[] = {
   49, 50, 52, 54, 56, 58,       /* stems down */
   49, 50, 51, 53, 55, 57};      /* stems up */
 
-static uschar *reststrings[] = {
+static uschar *reststrings[] = {                    /* Conventional */
   US"*", US"+", US",", US"-", US".", US"z.w{{y.",
   US"zzx.w{{y.w{{y.", US"zzzx.w{{y.w{{y.w{{y." };
+
+static uschar *rtl_reststrings[] = {                /* Right-to-left */
+  US"*", US"+", US",", US"-", US".", US"z.w{yy.",
+  US"zzx.w{y.w{y.", US"zzzx.w{y.w{y.w{y." };
 
 static uschar *multireststrings[] = {  /* Start for 2, last is for 8 */
   US"*", US"*z+", US"*{{w*", US"*{{w*xz+", US"*{{w*xz*",
@@ -831,7 +835,8 @@ for conventional repeat signs. */
 if (notetype >= 0)
   {
   uschar *s;
-  if ((n_flags & nf_restrep) == 0) s = reststrings[notetype];
+  if ((n_flags & nf_restrep) == 0) 
+    s = main_righttoleft? rtl_reststrings[notetype] : reststrings[notetype];
   else if (notetype == crotchet) s = US"\217";
   else
     {
