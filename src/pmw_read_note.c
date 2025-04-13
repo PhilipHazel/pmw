@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: March 2021 */
-/* This file last modified: October 2023 */
+/* This file last modified: April 2025 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -2180,7 +2180,7 @@ for (;;)
         }
 
       if ((acflags & (af_staccato|af_staccatiss)) ==
-        (af_staccato|af_staccatiss)) error(ERR119);
+        (af_staccato|af_staccatiss)) error_skip(ERR91, '\\');
       read_sigc();
       }                                /* end options loop */
 

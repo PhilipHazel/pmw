@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: February 2025 */
+/* This file last modified: April 2025 */
 
 #include "pmw.h"
 
@@ -188,7 +188,7 @@ static error_struct error_data[] = {
 { ec_major,   "%s must be on the first note of a chord" },
 { ec_major,   "missing backslash after note options - skipping to end of bar or newline" },
 { ec_minor,   "tie or glissando precedes %s (will carry over to next note)" },
-{ ec_major,   "can't have both staccato and staccatissimo" },
+{ ec_major,   "SPARE ERROR" },
 /* 120-124 */
 { ec_major,   "conflicting stem direction requests %s" },
 { ec_major,   "the \\sw\\ option is only available for beamed notes when the\n"

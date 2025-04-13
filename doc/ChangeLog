@@ -17,6 +17,9 @@ proposed ligature actually exists in the relevant font before using it.
 4. In right-to-left output mode, rests shorter than a quaver were not correctly 
 displayed.
 
+5. Tidy error handling when staccato and staccatissimo are both given on a 
+note (error would be repeated if there were further note options).
+
 
 Version 5.31 09-March-2025
 --------------------------
