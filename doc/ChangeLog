@@ -20,6 +20,11 @@ displayed.
 5. Tidy error handling when staccato and staccatissimo are both given on a 
 note (error would be repeated if there were further note options).
 
+6. PMW did not support more than one accent on a note that was part of a tie or 
+short slur. The tie/slur was positioned to close to the notehead. Now it works 
+if a bar accent (tenuto) is combined with one other in-stave accent such as 
+staccato.
+
 
 Version 5.31 09-March-2025
 --------------------------

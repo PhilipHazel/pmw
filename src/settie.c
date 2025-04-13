@@ -42,6 +42,7 @@ BOOL startline = FALSE;
 BOOL above = n_prevtie->abovecount > 0;
 BOOL leftup = out_laststemup[curstave];
 uint32_t slurflags;
+uint32_t accinside;
 int32_t adjustL = 0;
 int32_t adjustR = 0;
 int32_t dstart = 0;
@@ -117,6 +118,8 @@ if (x0 == 0)
 
 else
   {
+  uint32_t acflags = left->acflags;
+
   if (leftup != n_upflag) tietype += 4;
   if (!leftup) tietype += 2;
 
@@ -133,18 +136,28 @@ else
     if ((left->flags & nf_dot2) != 0) adjustL += (35*out_stavemagn)/10;
     }
 
-  /* Check for staccato etc. on the left-hand note */
+  /* Check for staccato etc. on the left-hand note. Allow for one other accent
+  with a tenuto (does sometimes happen). */
 
+  accinside = acflags & af_accinside;
   if ((tietype == 1 || tietype == 2 || tietype == 5 || tietype == 6) &&
-    (left->acflags & af_accinside) != 0 && (left->acflags & af_opposite) == 0)
+    accinside != 0 && (acflags & af_opposite) == 0)
       {
       int z = 3*P_T - (p0 & P_M);
-      int zz = ((left->acflags & af_ring) == 0)? P_T : 3*P_T/2;
+      int zz = ((acflags & af_ring) == 0)? P_T : 3*P_T/2;
+      int extra = ((accinside & af_bar) != 0 && (accinside - af_bar) != 0)?
+        P_T : 0;
 
       if (leftup)
-        p0 -= (p0 == P_2L)? 2*P_T : (p0 <= P_1S)? zz : z;
+        {
+        if (p0 <= P_2L) extra = 2*extra;
+        p0 -= extra + ((p0 == P_2L)? 2*P_T : (p0 <= P_1S)? zz : z);
+        }
       else
-        p0 += (p0 == P_6L)? 2*P_T : (p0 >= P_6S)? zz : z;
+        {
+        if (p0 >= P_4L) extra = 2*extra;
+        p0 += extra + ((p0 == P_6L)? 2*P_T : (p0 >= P_6S)? zz : z);
+        }
       }
   }
 
@@ -158,16 +171,25 @@ if (n_notetype >= minim && (tietype == 3 || tietype == 5) &&
 /* Check for staccato etc. at the right-hand end (of a slur, not a tie, of
 course). */
 
+accinside = n_acflags & af_accinside;
 if ((tietype == 1 || tietype == 2 || tietype == 4 || tietype == 7) &&
-  (n_acflags & af_accinside) != 0 && (n_acflags & af_opposite) == 0)
+  accinside != 0 && (n_acflags & af_opposite) == 0)
     {
     int z = 3*P_T - (p1 & P_M);
     int zz = ((n_acflags & af_ring) == 0)? P_T : 3*P_T/2;
+    int extra = ((accinside & af_bar) != 0 && (accinside - af_bar) != 0)?
+      P_T : 0;
 
     if (n_upflag)
-      p1 -= (p1 == P_2L)? 2*P_T : (p1 <= P_1S)? zz : z;
+      {
+      if (p1 <= P_2L) extra = 2*extra;
+      p1 -= extra + ((p1 == P_2L)? 2*P_T : (p1 <= P_1S)? zz : z);
+      }
     else
-      p1 += (p1 == P_6L)? 2*P_T : (p1 >= P_6S)? zz : z;
+      {
+      if (p1 >= P_4L) extra = 2*extra;
+      p1 += extra + ((p1 == P_6L)? 2*P_T : (p1 >= P_6S)? zz : z);
+      }
     }
 
 /* Check for enough space if the final note has an accidental. Then ensure that
