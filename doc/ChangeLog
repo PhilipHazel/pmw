@@ -25,6 +25,9 @@ short slur. The tie/slur was positioned to close to the notehead. Now it works
 if a bar accent (tenuto) is combined with one other in-stave accent such as 
 staccato.
 
+7. Updated RunTests to automatically skip the MIDI tests if the "midicsv" 
+command is absent.
+
 
 Version 5.31 09-March-2025
 --------------------------

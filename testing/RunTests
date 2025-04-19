@@ -10,6 +10,7 @@ use Cwd;
 #   forceupdate force update after test failure instead of interacting
 #   view        display before running each test
 #   nob2pf      skip B2PF tests (auto skipped if not supported)
+#   nomidi      skip MIDI tests (auto skipped if midiscv not present)
 #   nopdf       do only PostScript tests
 #
 # Further arguments match a test directory optionally followed by a test name.
@@ -49,6 +50,11 @@ if (system("$pmw -C musicxml >/dev/null") == 0)
   push @skipdirs, "xml";
   }
 
+if (system("midicsv /dev/null /dev/null >/dev/null 2>&1") < 0)
+  {
+  push @skipdirs, "midi";
+  }
+
 # Handle arguments. If valgrind is selected with output not to terminal,
 # arrange to output progress information to the terminal, because this can
 # take a long time.
@@ -85,6 +91,11 @@ while (defined $ARGV[0])
   elsif ($ARGV[0] =~ /^nob2pf$/i)
     {
     push @skipdirs, "B2PF";
+    shift;
+    }
+  elsif ($ARGV[0] =~ /^nomidi$/i)
+    {
+    push @skipdirs, "midi";
     shift;
     }
   elsif ($ARGV[0] =~ /^nopdf$/i)
