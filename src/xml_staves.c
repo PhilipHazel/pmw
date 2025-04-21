@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last modified: July 2023 */
+/* This file last modified: April 2025 */
 
 
 /* This module contains functions for generating stave data */
@@ -2783,7 +2783,7 @@ for (xml_item *mi = measure->next;
       note/chord. If there isn't one, do nothing; otherwise set up an
       appropriate beam break. */
 
-      if (note_duration < (uint)divisions)
+      if (note_duration < (uint32_t)divisions)
         {
         int bbs = beam_breakpending[staff];
 
