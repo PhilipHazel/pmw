@@ -86,9 +86,6 @@ extern void         out_writetime(int32_t, int32_t, usint);
 
 extern void         paginate(void);
 
-extern void         pdf_go(void);
-extern void         pdf_free_data(void);
-
 extern void         pout_beam(int32_t *, int32_t *, int32_t *, int32_t *,
                       int32_t *, int, int);
 extern void         pout_getcolour(int32_t *);
@@ -183,7 +180,7 @@ extern void         xml_read(void);
 #endif
 
 
-/* -------- Actual PostScript output functions -------- */
+/* -------- PostScript output functions -------- */
 
 extern void         ps_abspath(int32_t *, int32_t *, int *, int32_t);
 extern void         ps_barline(int32_t, int32_t, int32_t, int, int32_t);
@@ -214,13 +211,14 @@ extern void         ps_string(uint32_t *, fontinststr *, int32_t *, int32_t *,
 extern void         ps_translate(int32_t, int32_t);
 
 
-/* -------- Actual PDF output functions -------- */
+/* -------- PDF output functions -------- */
 
 extern void         pdf_abspath(int32_t *, int32_t *, int *, int32_t);
 extern void         pdf_barline(int32_t, int32_t, int32_t, int, int32_t);
 extern void         pdf_beam(int32_t, int32_t, int, int);
 extern void         pdf_brace(int32_t, int32_t, int32_t, int32_t);
 extern void         pdf_bracket(int32_t, int32_t, int32_t, int32_t);
+extern void         pdf_free_data(void);
 extern void         pdf_getcolour(int32_t *);
 extern void         pdf_go(void);
 extern void         pdf_grestore(void);
