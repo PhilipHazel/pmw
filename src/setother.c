@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: December 2024 */
+/* This file last modified: May 2025 */
 
 #include "pmw.h"
 
@@ -458,13 +458,14 @@ switch (p->type)
       ss = string_pmw(s, curmovt->fonttype_triplet);
       width = string_width(ss, &fdata, NULL)/2;
 
-      /* If beamed and no line, compute text position according to the beam;
-      otherwise compute it as central in the line */
+      /* If beamed and no line, compute text position according to the beam.
+      Left-to-right needs a fudge for up-beams, right-to-left on down beams.
+      Otherwise compute it as central in the line. */
 
       if (beam_seq == 1 && above == beam_upflag && omitline)
         {
         sx = (out_plet_x + n_x)/2 + out_plet->x;
-        if (beam_upflag) sx += (51*out_stavemagn)/10;
+        if (beam_upflag != main_righttoleft) sx += (51*out_stavemagn)/10;
         }
       else sx = mid + (omitline? out_plet->x : 0);
 
