@@ -12,7 +12,7 @@
 . the <bookinfo> element must also be updated for each new edition.
 . /////////////////////////////////////////////////////////////////////////////
 
-.set version "5.31"
+.set version "5.32"
 . Zero-width space
 .set B "&#x200B;"
 . Right-pointing hand
@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>09 March 2025</date>
+<date>16 May 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
-  <revnumber>5.31</revnumber>
-  <date>09 March 2025</date>
+  <revnumber>5.32</revnumber>
+  <date>16 May 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -7960,7 +7960,8 @@ strange results if some of the more complicated features of PMW are used.
 Nevertheless, &%righttoleft%& makes it possible to typeset music in a manner
 that is sometimes used in countries whose language is written from right to
 left. Although the music runs from right to left, the shapes of the notes,
-accidentals, and clefs are not altered.
+accidentals, clefs, and other markings are not altered, except for the 
+horizontal wedge accent &`\>\`&, which is flipped to point the other way. 
 
 Right-to-left output is implemented by transforming the coordinate system so
 that the x-axis runs to the left and the origin is at the righthand side of the
@@ -14855,6 +14856,7 @@ For example, when a 10-point treble clef is output, its width is 15 points.
 .row ""     199 ""        0.0    &{{&#199;}}&        "bottom half circle"
 .row ""     200 ""        0.84   &{{&#200;}}&        "circular crotchet notehead"
 .row ""     201 ""        0.84   &{{&#201;}}&        "circular minim notehead"
+.row ""     202 ""        0.0    &{{&#202;}}&        "reversed accent"
 .row ""     247 ""        10.0   ""                  "long 2-line stave"
 .row ""     248 ""        10.0   ""                  "long 3-line stave"
 .row ""     249 ""        10.0   ""                  "long 4-line stave"

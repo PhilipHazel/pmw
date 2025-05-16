@@ -66,7 +66,7 @@ lhs top Mt (FFFFF) show lhs top Mt
 /top top sep sub def
 lhs top Mt (FFFFF) show lhs top Mt
 (\260  \261  \262  \263  \264  \265  \266 \267 \270  \275 \276 \277 \300 ) show
-(\301 \302 \303  \304  \305  \306  \307  \310  \311) show
+(\301 \302 \303  \304  \305  \306  \307  \310  \311  \312) show
 
 % Long stave lines
 

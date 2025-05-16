@@ -30,7 +30,7 @@ if [ "$1" = "PMW-Alpha" ] ; then
 fi   
 
 cat $f3 $1.pfa $2 >zztest.ps
-#gv zztest.ps
+gv zztest.ps
 #/bin/rm -f zztest.ps
 
 # End

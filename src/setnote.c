@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: January 2025 */
+/* This file last modified: May 2025 */
 
 #include "pmw.h"
 
@@ -1252,10 +1252,6 @@ if ((n_acflags & af_accoutside) != 0)
 
     if ((n_acflags & (0x80000000u >> accentnumber)) == 0) continue;
 
-    /* The > accent gets a bit of x adjustment. */
-
-    xadjust = (accentnumber == accent_gt)? out_stavemagn : 0;
-
     /* For bowing marks (which come last), above or below is controlled by an
     independent setting. Paradoxically, a TRUE upflag implies accents below. If
     this is different to other accents, reset any y adjustment that might have
@@ -1297,6 +1293,16 @@ if ((n_acflags & af_accoutside) != 0)
       y = ayyabove + accaboveadjusts[i] + yextra;
       s = accentabovestrings[i];
       }
+
+    /* The > accent gets a bit of x adjustment, and in right-to-left mode its 
+    character needs to be flipped. */
+    
+    if (accentnumber == accent_gt)
+      {
+      xadjust = out_stavemagn;
+      if (main_righttoleft) s = US"\312";
+      }  
+    else xadjust = 0;   
 
     /* Now output the accent */
 

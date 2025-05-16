@@ -1,6 +1,6 @@
-%!FontType1-1.0: PMW-Music 060.002
-%%CreationDate: January 2024
-% Copyright (c) 2024 Philip Hazel
+%!FontType1-1.0: PMW-Music 061.000
+%%CreationDate: May 2025
+% Copyright (c) 2025 Philip Hazel
 
 %%BeginExitServer: 000000
 %%serverdict begin 000000 exitserver
@@ -12,8 +12,8 @@
 11 dict begin
 /FontInfo
 9 dict dup begin
-/version (60.02) readonly def
-/Notice (Copyright (c) January 2024 Philip Hazel) readonly def
+/version (61.00) readonly def
+/Notice (Copyright (c) May 2025 Philip Hazel) readonly def
 /FullName (PMW-Music) readonly def
 /FamilyName (PMW-Music) readonly def
 /Weight (Medium) readonly def
@@ -199,6 +199,7 @@ dup 198 /PMWthcirc put
 dup 199 /PMWbhcirc put
 dup 200 /PMWrcnh put
 dup 201 /PMWrmnh put
+dup 202 /PMWaccent9 put
 % GAP
 dup 247 /PMWstave210 put
 dup 248 /PMWstave310 put
@@ -922,6 +923,18 @@ ND
   -35 -41 24 47 hvcurveto
   0 50 38 213 18 97 rrcurveto
   7 18 22 0 9 -18 rrcurveto
+  closepath
+  endchar
+  }ND
+
+/PMWaccent9 {
+  0 0 hsbw
+  670 445 rmoveto
+  -670 155 rlineto
+  670 155 rlineto
+  -30 vlineto
+  -535 -125 rlineto
+  535 -125 rlineto
   closepath
   endchar
   }ND

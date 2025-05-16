@@ -31,6 +31,8 @@ command is absent.
 8. In right-to-left mode, triplet (etc) markings over or under beamed groups 
 were badly positioned horizontally.
 
+9. In right-to-left mode, flip the > accent sign to become <.
+
 
 Version 5.31 09-March-2025
 --------------------------
