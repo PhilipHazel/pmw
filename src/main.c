@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: February 2025 */
+/* This file last modified: June 2025 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -45,6 +45,7 @@ static const char *arg_pattern =
   "H/k,"
   "-help=help/s,"
   "incPMWfont=includePMWfont=incpmwfont=includepmwfont=ipf/s,"
+  "MacOSapp/k,"
   "MF/k,"
   "MP/k,"
   "MV/k,"
@@ -95,6 +96,7 @@ enum {
   arg_H,
   arg_help,
   arg_incPMWfont,
+  arg_MacOSapp,
   arg_MF,
   arg_MP,
   arg_MV,
@@ -613,6 +615,31 @@ if (results[arg_help].number != 0)
   exit(EXIT_SUCCESS);
   }
 
+/* When PMW is being run as part of a MacOS app, the default locations for its
+resources are held within the app instead of being in (e.g.) /usr/local/share.
+The path to the relevant directory is passed via the -MacOSapp option. We
+adjust all the defaults here. If the app sets any overrides, they will be
+honoured. */
+
+if (results[arg_MacOSapp].text != NULL)
+  {
+  uschar *resources = US results[arg_MacOSapp].text;
+  size_t rlen = Ustrlen(resources);
+
+  font_data_default = resources;
+  font_music_default = resources;
+  stdmacs_dir = resources;
+
+  midi_perc = mem_get(rlen + 9);
+  sprintf(CS midi_perc, "%s/MIDIperc", resources);
+
+  midi_voices = mem_get(rlen + 11);
+  sprintf(CS midi_voices, "%s/MIDIvoices", resources);
+
+  ps_header = mem_get(rlen + 9);
+  sprintf(CS ps_header, "%s/PSheader", resources);
+  }
+
 /* Deal with verifying and debugging */
 
 if (results[arg_v].number != 0)
@@ -670,7 +697,6 @@ if (results[arg_aa_input].text != NULL)
 
 if (results[arg_o].text != NULL)
   out_filename = US results[arg_o].text;
-
 
 /* Deal with overriding music fonts, fontmetrics, and psheader, MIDIperc,
 MIDIvoices, and StdMacs files */

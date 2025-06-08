@@ -33,6 +33,9 @@ were badly positioned horizontally.
 
 9. In right-to-left mode, flip the > accent sign to become <.
 
+10. Added the -MacOSapp option, for use when PMW is being wrapped inside a 
+MacOS GUI app.
+
 
 Version 5.31 09-March-2025
 --------------------------
