@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: August 2021 */
-/* This file last modified: July 2023 */
+/* This file last modified: June 2025 */
 
 #include "pmw.h"
 
@@ -396,10 +396,11 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
               if (pp->type == b_nbar)
                 {
                 second = i;
-                break;
+                goto FOUNDSECOND;
                 }
               }
             }
+          FOUNDSECOND:   
 
           if (second > 0)
             {

@@ -1,0 +1,6 @@
+time 3/4
+
+[stave 1 treble 1]
+(: ggg | [1st] aaa :) | [2nd] bbb | [all] c'c'c' |
+(: ccc | [1st] ddd :) | [2nd] eee |
+[endstave]

@@ -36,6 +36,10 @@ were badly positioned horizontally.
 10. Added the -MacOSapp option, for use when PMW is being wrapped inside a 
 MacOS GUI app.
 
+11. Incorrect MIDI output was generated for movements containing more than one
+first/second time bar sequence. After repeating the first section, it jumped 
+to the final second time bar of the movement.
+
 
 Version 5.31 09-March-2025
 --------------------------

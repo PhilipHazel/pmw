@@ -1,0 +1,67 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginProlog
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+mf 10 ss(!)64 760 s bf 11.8 ss(3)77 768 s(4)77 760.15 s
+%1/1
+mf 10 ss(B)90.9 760 s(@)94.4 760 s(I)96 764 s(5)103.4 762 s(5)
+121.437 762 s(5)139.363 762 s(@)157.289 760 s
+%2/1
+(5)164.011 764 s(5)181.937 764 s(5)199.863 764 s(B)225.355 760 s
+(@)223.455 760 s(I)220.955 764 s
+%3/1
+rm 10 ss(1)162.789 782 s 223.855 781 223.855 791 158.789 791
+3 158.789 781 0.4 ll mf 10 ss(5)232.077 766 s(5)250.003 766 s(5)
+267.929 766 s(@)285.855 760 s
+%4/1
+rm 10 ss(2)230.855 784 s 285.855 793 226.855 793 2 226.855 783 0.4 ll
+mf 10 ss(6)292.577 768 s(6)310.503 768 s(6)328.429 768 s(@)346.355 760 s
+%5/1
+(B)346.355 760 s(@)349.855 760 s(I)351.455 764 s(=)359.577 754 s(5)
+359.577 754 s(=)377.56 754 s(5)377.56 754 s(=)395.486 754 s(5)
+395.486 754 s(@)413.412 760 s
+%6/1
+(5)420.134 756 s(5)438.06 756 s(5)455.986 756 s(B)481.478 760 s
+(@)479.578 760 s(I)477.078 764 s
+%7/1
+rm 10 ss(1)418.912 780 s 479.978 779 479.978 789 414.912 789
+3 414.912 779 0.4 ll mf 10 ss(5)488.2 758 s(5)506.126 758 s(5)
+524.052 758 s rm 10 ss(2)486.978 780 s 543.995 779 543.995 789
+482.978 789 3 482.978 779 0.4 ll mf 10 ss(B)542.495 760 s
+(@)540.495 760 s
+(FFFFCCCCCCC)64 760 s (C)533.995 760 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1
