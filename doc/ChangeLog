@@ -40,6 +40,9 @@ MacOS GUI app.
 first/second time bar sequence. After repeating the first section, it jumped 
 to the final second time bar of the movement.
 
+12. If the -midimovement option specified a non-existent movement, the error 
+message was garbled.
+
 
 Version 5.31 09-March-2025
 --------------------------

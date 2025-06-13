@@ -753,6 +753,12 @@ int32_t mpc;
 
 TRACE("midi_write() movement %d\n", midi_movement);
 
+if (midi_movement < 1 || (usint)midi_movement > movement_count)
+  {
+  error(ERR189, midi_movement);
+  return;
+  }   
+
 midi_movt = movements[midi_movement - 1];
 if (midi_movt->barcount < 1)
   {

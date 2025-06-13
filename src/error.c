@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: April 2025 */
+/* This file last modified: June 2025 */
 
 #include "pmw.h"
 
@@ -288,7 +288,8 @@ aborts the run after outputting additional information. */
 { ec_failed,  "File %s is not a recognized font file" },
 { ec_failed,  "Type 3 font (%s) is not supported in PDF mode" },
 { ec_failed,  "the \"%s\" directive is incompatible with a previous %s\n"
-              "   setting (either a directive or a command line option)" }
+              "   setting (either a directive or a command line option)" },
+{ ec_major,   "movement %d does not exist: no MIDI data written" }               
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))
