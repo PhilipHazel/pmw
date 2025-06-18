@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>16 May 2025</date>
+<date>18 June 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.32</revnumber>
-  <date>16 May 2025</date>
+  <date>18 June 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -925,6 +925,12 @@ This option sets the maximum number of errors that may occur before PMW gives
 up. The default is 40. This facility is provided mainly so that a test of
 errors can generate a large number of them. &%-em%& is an abbreviation for
 &%-errormaximum%&.
+
+.vitem "&%-MacOSapp%& <&'directory'&>"
+
+This option is used when PMW is called from within a MacOS app. It specifies 
+the directory in which all `resources' (such as font information) is to be 
+found.
 
 .vitem "&%-MF%& <&'directory list'&>"
 

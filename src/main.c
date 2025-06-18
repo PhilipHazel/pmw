@@ -524,6 +524,7 @@ PF("-dbd <m>,<s>,<b>      write debugging bar data (movement, stave, bar) \n");
 PF("-dtp <bar>            write debugging position data (-1 for all bars)\n");
 PF("-em <n>               synonym for -errormaximum\n");
 PF("-errormaximum <n>     set maximum number of errors (for testing)\n");
+PF("-MacOSapp <directory> resource directory when run from a MacOS app\n");
 PF("-MF <directory-list>  specify music font directories\n");
 PF("-noid                 don't show version number for error output\n");
 PF("-SM <directory>       specify standard macros directory\n");

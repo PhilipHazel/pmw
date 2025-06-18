@@ -1,8 +1,11 @@
 This short README file tries to give a quick overview how to install, compile
-and run PMW music notation software under OS X on Macintosh.
+and run PMW music notation software from the command line under OS X on
+Macintosh.
 
 IMPORTANT: This README is distributed in the hope that it will be useful, but
 WITHOUT ANY WARRANTY!
+
+[Note by PH June 2025] These notes are quite old now.
 
 Requirements:
 
@@ -40,6 +43,15 @@ directory with the matching file permissions
 - go to App Store and download the matching XCode package for your OS version
 and install it as admin, accessible for all users. Without the XCode package,
 the gcc C compiler is missing and you cannot compile the PMW sources
+
+[Note by PH June 2025] I recently played with MacOS Sequoia and did not need to
+install the XCode package. Instead, when first trying to run gcc there was a
+prompt for installing the command line developer tools. This is all that is
+needed if you are installing from a PMW tarball. If you have cloned the GitHub
+repository, you will need to run "autoconf" before you can run "configure".
+
+  - Install MacPorts by download the .pkg and then double click
+  - sudo port install autoconf
 
 - follow the PMW instructions to expand the tar and zip compressed suite of
 files and go through the make routine as described in the PMW documentation
