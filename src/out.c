@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: May 2021 */
-/* This file last modified: January 2025 */
+/* This file last modified: June 2025 */
 
 #include "pmw.h"
 
@@ -977,6 +977,7 @@ warnbar(void)
 {
 BOOL done = FALSE;
 int32_t x = out_barx;
+int32_t prevbarlinex = out_lastbarlinex;
 
 /* Loop for each column of signatures. Each time round the loop we scan the bar
 stave by stave for key and time signatures that precede the first note. In the
@@ -1101,6 +1102,20 @@ for (int count = 0; !done; count++)
 
 out_lastbarlinex = (out_sysblock->flags & sysblock_stretch)?
   curmovt->linelength : x + 2000;
+
+/* If any of the staves have "omitempty" set, they will not get stavelines as
+part of the end-of-system processing, so we have to do them here. Warning bars
+are rare: it doesn't seem worth optimizing by remember if there are any during
+the above processing. */
+
+for (int stave = 1; stave <= out_laststave; stave++)
+  {
+  int32_t ystave = out_yposition;
+  stavestr *ss = curmovt->stavetable[stave];
+  if (ss->omitempty && ss->stavelines > 0)
+    ofi_stave(prevbarlinex, ystave, out_lastbarlinex, ss->stavelines);
+  ystave += out_sysblock->stavespacing[stave];
+  }
 }
 
 
