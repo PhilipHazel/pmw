@@ -310,14 +310,14 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
   BOOL noteson;   /* See above comment */
   int32_t moff;
   int midi_stave_status, midi_stave_pitch, midi_stave_velocity;
-  int miditranspose, adjustlength, tremolo;
+  int miditranspose, adjustlength, scrubtremolo;
 
   if (mac_notbit(midi_staves, stave)) continue;
 
   moff = 0;
   miditranspose = midi_transpose[stave];
   adjustlength = 0;
-  tremolo = -1;
+  scrubtremolo = -1;
   noteson = TRUE;
 
   /* Set up midi parameters */
@@ -475,8 +475,9 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
         {
         b_ornamentstr *orn = (b_ornamentstr *)p;
         if (orn->ornament == or_trem1 ||
-            orn->ornament == or_trem2)
-          tremolo = orn->ornament;
+            orn->ornament == or_trem2 ||
+            orn->ornament == or_trem3)
+          scrubtremolo = orn->ornament;
         }
       break;
 
@@ -581,9 +582,10 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
 
           /* Handle some common scrubbing */
 
-          if (tremolo > 0 && !thisnotetied)
+          if (scrubtremolo > 0 && !thisnotetied)
             {
-            int ttype = (tremolo == or_trem1)? 1 : 2;
+            int ttype = (scrubtremolo == or_trem1)? 1 : 
+                        (scrubtremolo == or_trem2)? 2 : 4;
             switch (length)
               {
               case len_crotchet:       scrub = 2*ttype; break;
@@ -592,8 +594,8 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
               case (len_minim*3)/2:    scrub = 6*ttype; break;
               }
             }
-
-          /* The value of "scrub" is 1 for ordinary, non-tremolo notes. */
+            
+          /* The value of "scrub" is 1 for ordinary, non-scrubtremolo notes. */
 
           for (int scrubcount = 0; scrubcount < scrub; scrubcount++)
             {
@@ -614,7 +616,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
                 pitchlist[pc]/2 + 12 + miditranspose;
               int start = moff - midi_bar_moff + pitchstart[pc] +
                 scrubcount * (pitchlen[pc]/scrub);
-
+                
               if (pitch < 0 || pitch > 127)
                 {
                 char buff[24];
@@ -652,7 +654,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
         moff += length;
         }
 
-      tremolo = -1;
+      scrubtremolo = -1;
       break;
       }  /* End switch on bar item */
     }    /* End of bar scan */
