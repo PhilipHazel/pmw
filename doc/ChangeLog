@@ -34,7 +34,7 @@ were badly positioned horizontally.
 9. In right-to-left mode, flip the > accent sign to become <.
 
 10. Added the -MacOSapp option, for use when PMW is being wrapped inside a
-MacOS GUI app.
+MacOS GUI app (experimental, probably never for general release).
 
 11. Incorrect MIDI output was generated for movements containing more than one
 first/second time bar sequence. After repeating the first section, it jumped
@@ -44,7 +44,10 @@ to the final second time bar of the movement.
 message was garbled.
 
 13. If a change of key or time signature on an [omitempty] stave caused a
-warning signature to be output, there were no stave lines.
+warning signature to be output, there were no stave lines for it.
+
+14. When breakbarlinesx was set, the double bar before a cautionary key 
+signature was incorrectly being broken.
 
 
 Version 5.31 09-March-2025

@@ -1057,14 +1057,16 @@ for (int count = 0; !done; count++)
             BOOL extend = FALSE;
             int32_t ybarend = ystave;
 
-            if (mac_notbit(curmovt->breakbarlines, stave) &&
-                out_sysblock->stavespacing[stave] > 0)
+            if (out_sysblock->stavespacing[stave] > 0 &&
+                 (mac_notbit(curmovt->breakbarlines, stave) ||
+                  MFLAG(mf_fullbarend)))
               {
               for (int i = stave + 1; i <= out_laststave; i++)
                 {
                 if (mac_notbit(out_sysblock->notsuspend, i))
                   {
-                  if (mac_isbit(curmovt->breakbarlines, i)) break;
+                  if (mac_isbit(curmovt->breakbarlines, i) &&
+                      !MFLAG(mf_fullbarend)) break;
                   }
                 else
                   {
@@ -1076,7 +1078,7 @@ for (int count = 0; !done; count++)
                   }
                 }
               }
-
+              
             if (extend) ybarend += out_sysblock->stavespacing[stave];
             ofi_barline(out_lastbarlinex, ystave, ybarend, bar_double,
               curmovt->stavesizes[stave]);

@@ -80,3 +80,20 @@ time 3/4
 [3] ggg |  | [3] ggg |
 [key E$] [3] ggg | | [3] ggg |
 [endstave]
+
+[newmovement]
+
+breakbarlinesx
+time 2/4
+
+[stave 1 treble 1]
+[3] gg |
+[newline]
+[key E] [3] gg |
+[endstave]
+
+[stave 2 bass 0]
+[3] gg |
+[key E] [3] gg |
+[endstave]
+
