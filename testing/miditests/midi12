@@ -1,0 +1,53 @@
+[stave 1 treble 1]
+g r g\/\ r | g\//\ r g\///\ r | G\///\ R | G+\//\ |
+
+[newline]
+
+G\M+\ [tremolo] B\M+\
+|
+g\sd M\ [tremolo] c'\M\ 
+g-\m\ [tremolo] b-\m\
+r
+|
+G\M+\ [tremolo/x1] B\M+\
+|
+g\sd M\ [tremolo/x1/j1] c'\M\ 
+g-\m\ [tremolo/x1] b-\m\
+r
+|
+
+G\M+\ [tremolo/x3] B\M+\
+|
+g\sd M\ [tremolo/x3/j1] c'\M\ 
+g-\m\ [tremolo/x3/j1] b-\m\
+r
+|
+
+@ Dotted values
+
+[time 6/4]
+
+G.\M+.\ [tremolo] B.\M+.\
+|
+g.\sd M.\ [tremolo] c'.\M.\ 
+g-.\m.\ [tremolo] b-.\m.\
+r.
+|
+G.\M+.\ [tremolo/x1] B.\M+.\
+|
+g.\sd M.\ [tremolo/x1/j1] c'.\M.\ 
+g-.\m.\ [tremolo/x1] b-.\m.\
+r.
+|
+
+G.\M+.\ [tremolo/x3] B.\M+.\
+|
+g.\sd M.\ [tremolo/x3/j1] c'.\M.\ 
+g-.\m.\ [tremolo/x3/j1] b-.\m.\
+r.
+|
+
+[endstave]
+
+
+

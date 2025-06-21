@@ -400,7 +400,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
                 }
               }
             }
-          FOUNDSECOND:   
+          FOUNDSECOND:
 
           if (second > 0)
             {
@@ -513,6 +513,10 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
         if ((noteson || main_midifornotesoff) && moff >= midi_bar_moff &&
             note->spitch != 0 && (note->flags & nf_noplay) == 0)
           {
+          int alternate;
+          int tremolo_multiplier = 0;
+          BOOL do_alternate;
+
           /* Get a list of pitches in a chord, and leave the general
           pointer p at the final note. */
 
@@ -530,6 +534,40 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
 
           nstart += length;
 
+          /* Skip over a beam break; this is necessary for the [tremolo] check
+          below - and [tremolo] always inserts a beam break. */
+
+          if (note->type == b_beambreak) note = (b_notestr *)note->next;
+
+          /* If a single note without a tremolo ornament is followed by
+          [tremolo], that in turn must be followed by another single note of
+          the same length. If the length is supported, we can then set up the
+          tremolo data, fudging it like a scrub. Start by checking for a
+          supported length. */
+
+          switch(length)
+            {
+            case len_minim:           tremolo_multiplier = 8; break;
+            case (len_minim*3)/2:     tremolo_multiplier = 10; break;
+            case len_crotchet:        tremolo_multiplier = 4; break;
+            case (len_crotchet*3)/2:  tremolo_multiplier = 6; break;
+            case len_quaver:          tremolo_multiplier = 2; break;
+            case (len_quaver*3)/2:    tremolo_multiplier = 3; break;
+            }
+
+          if (note->type == b_tremolo && tremolo_multiplier != 0 &&
+              note->next != NULL && note->next->type == b_note &&
+              (int)((b_notestr *)note->next)->length == length &&
+              note->next->next != NULL && note->next->next->type != b_chord &&
+              scrubtremolo < 0 && pitchcount == 1)
+            {
+            scrub = ((b_tremolostr *)note)->count * tremolo_multiplier;
+            note = (b_notestr *)note->next;
+            note->flags |= nf_noplay;
+            pitchlen[pitchcount-1] += note->length;  /* Length of both notes */
+            pitchlist[pitchcount] = note->abspitch;  /* Alternate pitch */
+            }
+
           /* If the note is followed by a tie, find the next note or chord on
           the stave. If any of its notes have the same pitch as any of those in
           the list, extend their playing times. If there are any new notes, add
@@ -538,7 +576,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
           of this bar. Set the noplay flag in the next notes, to stop them
           playing again later. Continue for multiple ties. */
 
-          while (note->type == b_tie)
+          else while (note->type == b_tie)
             {
             int nlength;
             note = misc_nextnote(note);
@@ -584,18 +622,23 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
 
           if (scrubtremolo > 0 && !thisnotetied)
             {
-            int ttype = (scrubtremolo == or_trem1)? 1 : 
+            int ttype = (scrubtremolo == or_trem1)? 1 :
                         (scrubtremolo == or_trem2)? 2 : 4;
             switch (length)
               {
-              case len_crotchet:       scrub = 2*ttype; break;
-              case (len_crotchet*3)/2: scrub = 3*ttype; break;
-              case len_minim:          scrub = 4*ttype; break;
-              case (len_minim*3)/2:    scrub = 6*ttype; break;
+              case len_crotchet:        scrub = 2*ttype; break;
+              case (len_crotchet*3)/2:  scrub = 3*ttype; break;
+              case len_minim:           scrub = 4*ttype; break;
+              case (len_minim*3)/2:     scrub = 6*ttype; break;
+              case len_semibreve:       scrub = 8*ttype; break;
+              case (len_semibreve*3)/2: scrub = 10*ttype; break;
               }
             }
-            
-          /* The value of "scrub" is 1 for ordinary, non-scrubtremolo notes. */
+
+          /* The value of "scrub" is 1 for ordinary notes. */
+
+          alternate = 0;
+          do_alternate = (scrub > 1 && scrubtremolo < 0);
 
           for (int scrubcount = 0; scrubcount < scrub; scrubcount++)
             {
@@ -613,10 +656,10 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
             while (--pc >= 0)
               {
               int pitch = (midi_stave_pitch != 0)? midi_stave_pitch :
-                pitchlist[pc]/2 + 12 + miditranspose;
+                pitchlist[pc + alternate]/2 + 12 + miditranspose;
               int start = moff - midi_bar_moff + pitchstart[pc] +
                 scrubcount * (pitchlen[pc]/scrub);
-                
+
               if (pitch < 0 || pitch > 127)
                 {
                 char buff[24];
@@ -647,6 +690,9 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
                 next_event++;
                 }
               }
+
+            if (do_alternate) alternate ^= 1;
+
             }
           }
 
@@ -759,7 +805,7 @@ if (midi_movement < 1 || (usint)midi_movement > movement_count)
   {
   error(ERR189, midi_movement);
   return;
-  }   
+  }
 
 midi_movt = movements[midi_movement - 1];
 if (midi_movt->barcount < 1)
