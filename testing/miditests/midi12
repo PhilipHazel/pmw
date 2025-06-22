@@ -47,7 +47,19 @@ g-.\m.\ [tremolo/x3/j1] b-.\m.\
 r.
 |
 
+@ Chords
+
+[time 4/4]
+
+(d'\M\e'g') [tremolo] c'\M\ 
+(d'\M\$e'g') [tremolo] c'\M\ |
+
+c'\M\ [tremolo] (d'\M\e'g') 
+c'\M\ [tremolo] (d'\M\$e'g') |
+
+(d'\M\e'g') [tremolo] (d'\M\$e'g') R |
 [endstave]
+
 
 
 
