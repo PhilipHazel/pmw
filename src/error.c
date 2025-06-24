@@ -289,7 +289,9 @@ aborts the run after outputting additional information. */
 { ec_failed,  "Type 3 font (%s) is not supported in PDF mode" },
 { ec_failed,  "the \"%s\" directive is incompatible with a previous %s\n"
               "   setting (either a directive or a command line option)" },
-{ ec_major,   "movement %d does not exist: no MIDI data written" }               
+{ ec_major,   "movement %d does not exist: no MIDI data written" },
+/* 190-194 */
+{ ec_major,   "misplaced [tremolo]: %s" }               
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

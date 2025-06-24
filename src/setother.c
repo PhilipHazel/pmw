@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: May 2025 */
+/* This file last modified: June 2025 */
 
 #include "pmw.h"
 
@@ -384,13 +384,20 @@ switch (p->type)
   /* Deal with inter-note tremolo; remember data for use after next note. */
 
   case b_tremolo:
-  if (n_pitch != 0)
+  {
+  b_notestr *pp = misc_nextnote(p);
+  if (pp == NULL || pp->spitch == 0)
+    error(ERR190, "no following note");
+  else if (n_pitch == 0)
+    error(ERR190, "no preceding note");
+  else
     {
     out_tremolo = (b_tremolostr *)p;
     out_tremupflag = n_upflag;
     out_tremx = n_x;
     out_tremy = misc_ybound(n_notetype < minim || !n_upflag, NULL, FALSE, FALSE);
     }
+  }
   break;
 
   /* Deal with plets */

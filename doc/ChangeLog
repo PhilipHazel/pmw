@@ -57,6 +57,9 @@ example g\///\, and added support for "scrub" lines on semibreves.
 17. Fix misleading error message for malformed -dbd debugging option, and give 
 an error if there are extraneous characters in the argument.
 
+18. Give an error if [tremolo] is not preceded or followed by a note within the 
+bar.
+
 
 Version 5.31 09-March-2025
 --------------------------
