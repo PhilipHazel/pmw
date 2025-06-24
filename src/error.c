@@ -255,7 +255,7 @@ aborts the run after outputting additional information. */
 /* 160-164 */
 { ec_major,   "there are no bars in movement %d: no MIDI data written" },
 { ec_major,   "incomplete irregular note group at end of bar" },
-{ ec_failed,  "malformed -dbd option data" },
+{ ec_failed,  "malformed -dbd option data (needs 1-3 comma-separated numbers)" },
 { ec_failed,  "-dbd error: %s %d does not exist" },
 { ec_warning, "there is underlay or overlay text left over at the end of stave %d" },
 /* 165-169 */

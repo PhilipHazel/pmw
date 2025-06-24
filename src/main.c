@@ -661,10 +661,11 @@ if (results[arg_d].text != NULL)
 
 if (results[arg_dbd].text != NULL)
   {
+  char trail[8];
   if (strspn(results[arg_dbd].text, "0123456789,") !=
-      strlen(results[arg_dbd].text)) error(ERR77);   /* Hard */
-  switch (sscanf(results[arg_dbd].text, "%d,%d,%d", &dbd_movement,
-          &dbd_stave, &dbd_bar))
+      strlen(results[arg_dbd].text)) error(ERR162);   /* Hard */
+  switch (sscanf(results[arg_dbd].text, "%d,%d,%d%1s", &dbd_movement,
+          &dbd_stave, &dbd_bar, trail))
     {
     case 1:                           /* One value is a bar number */
     dbd_bar = dbd_movement;

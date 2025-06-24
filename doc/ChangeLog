@@ -54,6 +54,9 @@ example g\///\, and added support for "scrub" lines on semibreves.
 
 16. Add MIDI support for simple cases of [tremolo].
 
+17. Fix misleading error message for malformed -dbd debugging option, and give 
+an error if there are extraneous characters in the argument.
+
 
 Version 5.31 09-March-2025
 --------------------------
