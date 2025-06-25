@@ -835,7 +835,7 @@ for conventional repeat signs. */
 if (notetype >= 0)
   {
   uschar *s;
-  if ((n_flags & nf_restrep) == 0) 
+  if ((n_flags & nf_restrep) == 0)
     s = main_righttoleft? rtl_reststrings[notetype] : reststrings[notetype];
   else if (notetype == crotchet) s = US"\217";
   else
@@ -1294,15 +1294,15 @@ if ((n_acflags & af_accoutside) != 0)
       s = accentabovestrings[i];
       }
 
-    /* The > accent gets a bit of x adjustment, and in right-to-left mode its 
+    /* The > accent gets a bit of x adjustment, and in right-to-left mode its
     character needs to be flipped. */
-    
+
     if (accentnumber == accent_gt)
       {
       xadjust = out_stavemagn;
       if (main_righttoleft) s = US"\312";
-      }  
-    else xadjust = 0;   
+      }
+    else xadjust = 0;
 
     /* Now output the accent */
 

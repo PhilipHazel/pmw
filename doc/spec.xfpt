@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>18 June 2025</date>
+<date>25 June 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.32</revnumber>
-  <date>18 June 2025</date>
+  <date>25 June 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -668,7 +668,7 @@ first movement in the file.
 If this option is used, it must be the very first option that follows the
 &(pmw)& command name. It causes PMW not to read the user's &_.pmwrc_& file (&R;
 &<<SECTsetdefop>>&). Note that PMW can be built without support for &_.pmwrc_&
-files; if this is the case this option is ignored.
+files; when this is the case this option is ignored.
 
 .vitem &%-norepeats%&
 
@@ -928,9 +928,9 @@ errors can generate a large number of them. &%-em%& is an abbreviation for
 
 .vitem "&%-MacOSapp%& <&'directory'&>"
 
-This option is used when PMW is called from within a MacOS app. It specifies 
-the directory in which all `resources' (such as font information) is to be 
-found.
+This option is provided for use when PMW is called from within a MacOS
+`wrapper' app. It specifies the directory in which all `resources' (such as
+font information) are to be found. This is currently an experimental feature.
 
 .vitem "&%-MF%& <&'directory list'&>"
 
@@ -977,7 +977,7 @@ data, the data item must also be given in the &_.pmwrc_& file, otherwise
 an error occurs. For example, if you always want to create MIDI output and
 write it to a fixed file name, the file might contain:
 .code
--midi /usr/tmp/pmw.midi
+-midi /usr/tmp/pmw.mid
 .endd
 Note that PMW does not allow options to be repeated, so if an option is present
 in the &_.pmwrc_& file, it cannot also be given on the command line. There is
@@ -3528,17 +3528,23 @@ Details of this are given in chapter &<<CHAPrunningpmw>>&.
 
 .section "MIDI output" SECTmidi
 .index "MIDI" "output"
-When MIDI output is requested by the &%-midi%& command line option, a number of
-directives whose names all start with `midi' are available for controlling the
-allocation of MIDI voices and channels to staves. The &%midichannel%& (&R;
-&<<SUBSECTmidichannel>>&) header directive is used to specify the allocation
-of a MIDI voice and/or particular PMW staves to a MIDI channel, and the
-&%[midichannel]%& (&R; &<<SUBSECTmidichannelST>>&), &%[midivoice]%& (&R;
-&<<SUBSECTmidivoice>>&), and &%[midipitch]%& (&R; &<<SUBSECTmidipitch>>&)
-directives are used to change the setup in the middle of a piece. For
-percussion staves, where the playing pitch selects different instruments, the
-&%[printpitch]%& (&R; &<<SUBSECTprintpitch>>&) directive can be used to force
-the visible notes to a single pitch.
+MIDI output is intended for `proof-hearing' a piece, to check that the input is
+correct. It does not try to reproduce all the nuances of a performance. In
+particular, accents and ornaments on notes have no effect, with two exceptions:
+individual notes or chords marked with tremolo lines (for example, &`g\//\`&)
+are played as a suitable number of shorter notes/chords, and similarly there is
+an attempt to honour &%[tremolo]%& between two notes or chords.
+
+A number of directives whose names all start with `midi' are available for
+controlling the allocation of MIDI voices and channels to staves. The
+&%midichannel%& (&R; &<<SUBSECTmidichannel>>&) header directive is used to
+specify the allocation of a MIDI voice and/or particular PMW staves to a MIDI
+channel, and the &%[midichannel]%& (&R; &<<SUBSECTmidichannelST>>&),
+&%[midivoice]%& (&R; &<<SUBSECTmidivoice>>&), and &%[midipitch]%& (&R;
+&<<SUBSECTmidipitch>>&) directives are used to change the setup in the middle
+of a piece. For percussion staves, where the playing pitch selects different
+instruments, the &%[printpitch]%& (&R; &<<SUBSECTprintpitch>>&) directive can
+be used to force the visible notes to a single pitch.
 
 If the input file contains no MIDI-specific directives, all notes are played
 through MIDI channel 1. The voice allocation on the channel is not changed, so
@@ -7966,8 +7972,8 @@ strange results if some of the more complicated features of PMW are used.
 Nevertheless, &%righttoleft%& makes it possible to typeset music in a manner
 that is sometimes used in countries whose language is written from right to
 left. Although the music runs from right to left, the shapes of the notes,
-accidentals, clefs, and other markings are not altered, except for the 
-horizontal wedge accent &`\>\`&, which is flipped to point the other way. 
+accidentals, clefs, and other markings are not altered, except for the
+horizontal wedge accent &`\>\`&, which is flipped to point the other way.
 
 Right-to-left output is implemented by transforming the coordinate system so
 that the x-axis runs to the left and the origin is at the righthand side of the
@@ -13970,11 +13976,11 @@ the little `8' is enclosed in parentheses.
 .index "tremolo" "between notes"
 .index "notes" "tremolo between"
 Tremolo marks that appear as beams between notes that are not normally beamed,
-or as disconnected beams between notes are notated by &%[tremolo]%& between the
-two notes. There are two optional qualifiers: &`/x`& followed by a number
-specifies the number of beams to draw, and &`/j`& followed by a number
-specifies the number of beams that are to be joined to the note stems. The
-default is to draw two beams, neither of which is joined to the stems.
+or as disconnected beams between notes, are notated by &%[tremolo]%& between
+the two notes (or chords). There are two optional qualifiers: &`/x`& followed
+by a number specifies the number of beams to draw, and &`/j`& followed by a
+number specifies the number of beams that are to be joined to the note stems.
+The default is to draw two beams, neither of which is joined to the stems.
 .code
 g [tremolo] b
 .endd
@@ -13997,12 +14003,12 @@ d\M\ [tremolo] g\M\
 
 .music "music62" 30 6,-16
 
-The &%[tremolo]%& directive must appear between two notes in a bar. It is
-ignored if it appears at the beginning or end of a bar, or if it is preceded or
+The &%[tremolo]%& directive must appear between two notes in a bar. An error
+occurs if it appears at the beginning or end of a bar, or if it is preceded or
 followed by a rest. It assumes that the notes are of the same kind, and have
 their stems in the same direction. Notes with flags should not be used, though
 tremolos can be added underneath the normal beams of a beamed group if
-necessary.
+necessary. From release 5.32 &%[tremolo]%& has an effect on MIDI output.
 
 
 
@@ -14232,11 +14238,11 @@ A completely empty stave now starts with a clef unless there was a previous
 .next
 A masquerade setting for a chord must appear on the chord's first note.
 .next
-The test output files in the &_testing/outfiles_& directory are no longer
+The test output files in the &_testdist/outfiles_& directory are no longer
 complete PostScript files that include the music font. However, they can be
 viewed by a command such as:
 .code
-cat PSheader testing/outfiles/Test01.ps | gv -
+cat PSheader testdist/outfiles/Test01.ps | gv -
 .endd
 though this method does not show a list of page numbers.
 .next

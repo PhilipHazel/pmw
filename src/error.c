@@ -291,7 +291,7 @@ aborts the run after outputting additional information. */
               "   setting (either a directive or a command line option)" },
 { ec_major,   "movement %d does not exist: no MIDI data written" },
 /* 190-194 */
-{ ec_major,   "misplaced [tremolo]: %s" }               
+{ ec_major,   "misplaced [tremolo]: %s" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

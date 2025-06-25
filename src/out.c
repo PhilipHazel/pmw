@@ -1078,7 +1078,7 @@ for (int count = 0; !done; count++)
                   }
                 }
               }
-              
+
             if (extend) ybarend += out_sysblock->stavespacing[stave];
             ofi_barline(out_lastbarlinex, ystave, ybarend, bar_double,
               curmovt->stavesizes[stave]);

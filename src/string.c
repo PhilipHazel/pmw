@@ -987,7 +987,7 @@ if (font_call_b2pf)  /* At least one font is set up for B2PF */
       break;
       }
     }
-  }   
+  }
 
 if (call_b2pf)  /* The string contains a font that is set up for B2PF */
   {

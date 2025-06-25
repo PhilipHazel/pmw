@@ -2,8 +2,8 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
-Version 5.32 xx-xxx-2025
-------------------------
+Version 5.32 25-June-2025
+-------------------------
 
 1. Removed a no longer used flag that a font has the fi ligature; for some time
 PMW has assumed that all standardly encoded fonts have this ligature.
@@ -46,18 +46,18 @@ message was garbled.
 13. If a change of key or time signature on an [omitempty] stave caused a
 warning signature to be output, there were no stave lines for it.
 
-14. When breakbarlinesx was set, the double bar before a cautionary key 
+14. When breakbarlinesx was set, the double bar before a cautionary key
 signature was incorrectly being broken.
 
-15. Add MIDI support for three "scrub" lines on minims and crotchets, for 
+15. Add MIDI support for three "scrub" lines on minims and crotchets, for
 example g\///\, and added support for "scrub" lines on semibreves.
 
 16. Add MIDI support for simple cases of [tremolo].
 
-17. Fix misleading error message for malformed -dbd debugging option, and give 
+17. Fix misleading error message for malformed -dbd debugging option, and give
 an error if there are extraneous characters in the argument.
 
-18. Give an error if [tremolo] is not preceded or followed by a note within the 
+18. Give an error if [tremolo] is not preceded or followed by a note within the
 bar.
 
 
