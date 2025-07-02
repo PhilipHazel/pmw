@@ -66,7 +66,7 @@ expected behaviour of PMW, not to mention backwards compatibility with existing
 input files. I therefore modified the code of PMW so that it no longer outputs
 movement-only characters in the music font, but instead emulates their action
 by splitting the string and outputting it in multiple parts at appropriate
-postitions. The vertical tilde and tremolo characters are also handled
+positions. The vertical tilde and tremolo characters are also handled
 specially. This means that PMW can now work with either the PostScript (.pfa)
 font or the OpenType (.otf) font.
 
@@ -86,7 +86,7 @@ running the commend
   t1asm --pfa PMW-Music.raw PMW-Music.pfa
 
 When adding characters to the font, remember to update the AFM file that is in
-/source/pmw2/fontmetrics/PMW-Music.afm.
+fontmetrics/PMW-Music.afm.
 
 
 What I did to make an OpenType Font
@@ -179,4 +179,4 @@ outputs details of font loading, so you can check that it is loading the
 .otf rather than the .pfa file.
 
 Philip Hazel
-06 March 2025
+06 March 2025 (minor correction, July 2025)

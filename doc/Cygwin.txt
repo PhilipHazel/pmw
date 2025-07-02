@@ -2,6 +2,10 @@
                           Neil Killeen, April 2008
                          ------------------------------
 
+[Note by PH, June 2025: PMW can nowadays output a PDF itself. To make that the 
+default output form, add "--enable-pdf-default" to the "./configure" command.]
+
+
 1. Unix environment 
 
    1.1 Install the Cygwin (http://www.cygwin.com) Linux environment

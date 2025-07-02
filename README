@@ -17,19 +17,31 @@ UNIX AND UNIX-LIKE SYSTEMS
 --------------------------
 
 I hope that this version of the program will run without problems on all Unix
-and Unix-like systems. To install PMW should just be a matter of typing:
+and Unix-like systems. If you have downloaded and unpacked a release tarball,
+installing PMW should just be a matter of typing:
 
   ./configure
   make
   make install
+
+There are options for "./configure" that can be seen by running
+
+  ./configure --help
+
+In particular, note that you can add "--enable-pdf-default" to "./configure" in
+order to make PDF the default output format. Otherwise the default output
+format is PostScript.
+
+If you have cloned the GitHub repository, you will need to run "autoconf"
+first, in order to create the "configure" script.
 
 You will probably need root privileges in order to run the install command,
 unless your system gives you write access to the relevant directories.
 
 There is a man page that lists the PMW command arguments. However, the main
 documentation is provided only as a PDF file in the doc directory. The reason
-for this is that there are music illustrations and characters from the music
-font appear in the text.
+for this is that music illustrations and characters from the music font appear
+in the text.
 
 
 OTHER SYSTEMS
@@ -39,19 +51,33 @@ PMW consists almost entirely of Standard C code, and so it should be possible
 to compile it on any system with a Standard C compiler and library. There is
 just one small code section that is Unix-dependent; this is the code that looks
 for default options in the user's .pmwrc file. This code can be disabled by
-defining -DNO_PMWRC when compiling the init.c module. If you are in an
+defining -DNO_PMWRC when compiling the main.c module. If you are in an
 environment where ./configure can be used, running it as
 
   ./configure --disable-pmwrc
 
-will have the desired effect. Neil Killeen has kindly provided instructions for
-building PMW under Windows, using the Cygwin environment. His notes are in the
-file Cygwin.txt in the doc directory of the PMW distribution. Another PMW user
-has provided notes for building in Apple Macintosh environments, available in
-the file MacOS.txt in the doc directory.
+will have the desired effect. To compile PMW entirely "by hand", first copy the
+file src/config.h.in to src/config.h and then edit it to be your desired
+configuration, according to the comments therein. Then compile all the .c files
+in the src directory, omitting those that start "xml" unless you really are
+interested in MusicXML input, and link the results to form the pmw binary.
+
+Neil Killeen has kindly provided instructions for building PMW under Windows,
+using the Cygwin environment. His notes are in the file Cygwin.txt in the doc
+directory of the PMW distribution. Another PMW user has provided notes for
+building in Apple Macintosh environments, available in the file MacOS.txt in
+the doc directory.
+
+
+HACKING
+-------
+
+Anyone interested in modifying the code should first read the file called 
+doc/HACKNOTES.
+
 
 Philip Hazel <Philip.Hazel [AT] gmail.com>
-February 2025
+June 2025
 
 
 LICENCE

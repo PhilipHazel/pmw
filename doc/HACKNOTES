@@ -1,0 +1,400 @@
+PMW HACKING NOTES
+=================
+
+This document contains a few notes about the internals of PMW for the benefit
+of anyone wanting to make changes. See also the file src/README.
+
+This codebase started life as a BCPL program in 1987, and has been heavily
+modified over several decades. At various times it ran on a number of different
+operating systems, though now it is just a C program that reads and writes
+files, so it should run wherever it can be compiled. The only system-specific
+code is for finding the user's ~/.pmwrc file in a Unix-style environment, but
+this can be cut out at compile time.
+
+Files for the common "./configure; make; make install" paradigm are supplied
+with each release tarball (see below). The GitHub repository contains files
+called "configure.ac" and "Makefile.in", but not "configure" or "Makefile". The
+latter are created when you run the "autoconf" command. The top-level Makefile
+calls src/Makefile to build the pmw binary within the src directory.
+
+
+PROCESSING OVERVIEW
+===================
+
+The program entry point is in the main.c source file. A PMW run proceeds in
+several distinct phases. As long as there are no show-stopping errors, it
+happens like this:
+
+1. Initialization: A function called init_command() has the opportunity to
+modify the command argument list. Unless the code is omitted by the setting of
+NO_PMWRC, the contents of the user's .pmwrc file are inserted at the start of
+the argument list. A general-purpose command line parser (coded in rdargs.h and
+rdargs.c) is then called from the decode_command() function, and the results
+are saved in various global variables.
+
+2. Input: The input file is read and converted into a number of inter-connected
+data structures in memory (more details below). The code for reading an input
+file in PMW's own format is mainly in the source files whose names begin
+"pmw_read_", plus the file called preprocess.c. The files whose names begin
+"xml" contain code for reading input in MusicXML format, an optional feature
+that is experimental (and incomplete).
+
+3. Pagination: The next phase processes the in-memory data, assigning bars to
+systems, and headings, footings, and systems to pages, that is, it does the
+pagination (paginate.c). This results in more data structures that specify what
+is to go on each output page.
+
+4. Output: The fourth phase generates either PostScript or PDF output from the
+page information. The main output control functions are in out.c; these call
+functions in files whose names start with "set". These in turn call either the
+functions in ps.c or those in pdf.c. Some sub-functions used in both formats
+are in the file pout.c.
+
+5. MIDI: If MIDI output has been requested, there is a final phase in which the
+code in the midi.c file scans the music data (not the pagination data) to
+generate a MIDI file.
+
+The names of source modules not mentioned above should give a clue to their
+contents. For example, "font.c" is all about font handling, and "transpose"
+contains functions for note and key signature transposition.
+
+
+MEMORY HANDLING
+===============
+
+Most memory block acquisition is in the mem.c module, which handles two types
+of memory block. "Independent" blocks are used for large items such as font
+tables. Smaller blocks are doled out from larger chunks as required. Some types
+of small block that are used and re-used are put on free chains in between. In
+today's era of gigabyte memories this is probably overkill.
+
+The large chunks and some independent blocks are hung on a single chain for
+freeing at exit time. Certain other types of block are handled independently; a
+number of these may be expanded using realloc() as processing proceeds. You can
+see all of these listed in the tidy_up() function in main.c, which is called
+when the program exits.
+
+Some data is held in binary balanced trees, for speed of searching. The code
+for tree handling is in tree.c. Processors are so fast these days that this
+probably doesn't matter, but it is an elegant algorithm.
+
+
+DIMENSION FORMAT
+================
+
+All dimensions in PMW are held in millipoints, that is 1/1000 of a point. Most
+calculations are done using fixed-point arithmetic, but occasionally floating
+point is needed.
+
+
+STRUCTURES USED FOR STAVE DATA
+==============================
+
+The diagram below shows the overall structure that results from reading an
+input file. The global vector called "movements" is the root. Within each
+movement's structure is a vector of pointers to each stave's data, and there is
+also a vector that holds the printable value for each bar's number, because
+bars can be uncounted. PMW works with "absolute" bar numbers (starting at 0),
+using the barvector when it needs to identify a bar to the user. The format of
+the values in barvector is (integer part) << 16 + (fractional part).
+
+  (vector)       (struct)
+  movements       movtstr
+  ---------    --------------
+  |    ---|--->|    ...     |
+  ---------    -------------                             ---------     ------
+  |       |    | stavetable.|.....vector of 64 pointers: | 0 | 1 | ... | 63 |
+  ---------    -------------                             ---------     ------
+  |       |    |    ...     |        (vector)              |
+  ---------    -------------     -----------------         |
+               | barvector -|--->| print bar no. |         |
+               -------------     -----------------         |
+               |    ...     |    |               |         |
+               --------------    -----------------         |
+                                 |               |         |
+                                 -----------------         |
+                                                           |
+                                                           V
+                                                        (struct)
+      stave item           anchor                       stavestr
+       (struct)           (struct)                   -------------
+        barstr             barstr        (vector)    |    ...    |
+     -------------      -------------    --------    -------------
+  ---|-- next    |<-----|-- next    |<---|--    |<---|- barindex |
+  |  -------------      -------------    --------    -------------
+  |  |   prev  --|-->   |   NULL    |    |      |    |    ...    |
+  |  -------------      -------------    --------    -------------
+  |  |   type    |      |  b_start  |    | .... |
+  |  -------------      -------------    --------
+  |  |    ...    |      |  rep num  |
+  |  -------------      -------------
+  |
+  |  -------------                -------------
+  -->|   next  --|--->  etc   --->|   NULL    |
+     -------------                -------------
+  <--|-- prev    |            <---|-- prev    |
+     -------------                -------------
+     |   type    |                | b_barline |
+     -------------                -------------
+     |    ...    |                |  bartype  |
+     -------------                -------------
+                                  |  barstyle |
+                                  -------------
+
+Each stave is anchored in a stavestr, within which barindex points to a vector
+with pointers to the start of each bar. A bar's data is a two-way chain of
+blocks, all of which start with the chain pointers and a type value. The rest
+of each block depends on the type, which is an enum value whose name starts
+with "b_". Most of the individual bar structures have names of the form
+"b_somethingstr".
+
+For unrepeated bars, the anchoring block has zero in the repeat number field.
+When a bar is repeated using the [<number>] syntax, its repeat number is set to
+one. Then additional entries in the barindex vector are set up. Each of these
+has its own barstr whose "next" field point to the original bar's data, and
+whose repeat number is set appropriately. The repeat number is used to
+implement the \r\ escape sequence in strings, used for numbering repeated bars.
+
+
+STRUCTURES USED FOR PAGE INFORMATION
+====================================
+
+The following diagram shows the structures that are set up by the pagination
+process. Each page is represented as a chain of blocks that are either
+heading/footing blocks, or system blocks.
+
+                        (struct)
+                         pagestr
+                    ---------------
+main_pageanchor --->|    next   --|---> chain of pagestr blocks
+                    ---------------
+        ------------|  sysblocks  |
+        |           ---------------
+        |           |  footing  --|---> chain of footing blocks, which are
+        |           ---------------     headstr structs as shown below
+        |           |    ...      |
+        |           ---------------
+        |           | page number |
+        |           ---------------
+        |
+        V
+  --------------
+  |   next   --|---> chain of sysblocks/headblocks
+  --------------
+  |   movt   --|---> relevant movement struct
+  --------------
+  |  sys/head? | TRUE for sysblock
+  -------------- FALSE for headblock
+       then
+  FOR HEADBLOCK
+  --------------                              (struct)
+  |    ...     |                               headstr
+  --------------                          ---------------
+  | headings --|------------------------->|    next   --|--->
+  --------------                          ---------------
+        or                                | space after |
+   FOR SYSBLOCK                           ---------------
+  --------------                          | string[3] --|---> left/mid/right
+  |    ...     |                          ---------------
+  --------------                          | font data   |
+  | notsuspend |                          ---------------
+  --------------                          | space above |
+  |    ...     |                          ---------------
+  --------------                          |  drawing  --|---> drawing tree
+  |  barstart  |  starting bar number     ---------------
+  --------------                          |  drawargs --|---> drawitem chain
+  |   barend   |  ending bar number       ---------------
+  --------------
+  |    ...     |
+  --------------
+
+The function out_page() outputs a single page; it is called either from within
+ps.c or pdf.c. In a sysblock, "notsuspend" is a 64-bit unsigned int that
+indicates which staves are included in this system. Stave selection via the
+command line or the "selectstaves" directive suspends a stave for an entire
+movement. Otherwise, suspension is controlled by the "suspend" directives.
+
+
+FONT HANDLING
+=============
+
+For each required typeface there is a fontstr block that contains the font's
+data such as its name, character widths, etc. These are held as a vector of
+structs called font_list. Pointers to entries in font_list are held in a vector
+called font_table, which is indexed by an identifier such as font_rm, font_it,
+etc.
+
+     font_table                               font_list
+  ----------------                          -------------
+  |            --|---> Roman font --e.g.--->|  data for |  i.e. a fontstr
+  ----------------                          |   a font  |
+  |            --|---> Italic font          ------------
+  ----------------                              ...
+  |            --|---> Bold font                ...
+  ----------------                          -------------
+  |            --|---> Bold italic --e.g.-->|   name    |
+  ----------------                          -------------
+  |            --|---> Symbol font          |  widths --|---> table of widths
+  ----------------                          -------------
+  |            --|---> Music font           |   kerns --|---> table of kerns
+  ----------------                          -------------
+  |            --|---> First "extra" font   | more data |
+  ----------------                          -------------
+        ...                                     ...
+  ----------------                              ...
+  |            --|---> Last "extra" font
+  ----------------
+
+A block called fontinststr contains the date for a specific instance of a font.
+It contains a pointer to a transformation matrix (or NULL), a point size for
+the font, and extra width to add to spaces, a field that is used when
+justifying headings, footings, and footnotes. The "font data" field in headstr
+blocks (see above) is in fact a fontinststr block.
+
+Each movement structure has field called fontsizes, which points to a struct
+called fontsizestr. This contains fontinstr structures for various musical
+constructs that require different font sizes, for example, normal notes, cue
+notes, grace notes, bar numbers. It also contains size information for text
+fonts (such as underlay) and the fixed and variable user-specified sizes.
+
+      movtstr
+  ---------------          struct of
+  |     ...     |           structs
+  ---------------       ---------------
+  | fontsizes --|------>| fontsizestr |   called fontsize_music
+  ---------------       |    for      |
+  |     ...     |       |   music     |
+  ---------------       ---------------
+                        | fontsizestr |   called fontsize_grace
+                        |    for      |
+                        | grace notes |
+                        ---------------
+                             ...
+                        ---------------   fontsize_text[] is a vector
+                        | fontsizestr |     of the text font sizes
+                        |    for      |
+                        |  last text  |
+                        |    size     |
+                        ---------------
+
+There is a struct with default sizes called init_fontsizes in the tables.c code
+module. Movement structures are initialized to point to this. The first time a
+header directive changes a font size, a copy is made.
+
+When making use of a font the font id (font_rm, etc) is used via font_table get
+the font's metric information, and a fontsizestr is obtained either from the
+fontsizes field in the current movement, or from data included in a headstr.
+
+
+STRING HANDLING
+===============
+
+The string.c module contains many string-handling functions. When a text string
+is read, it is interpreted as UTF-8 and turned into a vector of 32-bit values,
+zero-terminated. Escape character sequences are handled at reading time, and
+the string is checked for unknown or invalid characters. If special-purpose
+B2PF processing is enabled, it happens here as well.
+
+The most significant 8-bits of each 32-bit value are a font identifier, with
+the remaining 24-bits being a code point. Defined values like font_rm are the
+font ids, which are small numbers. The 0x80 bit can be set in a font id in a
+string character to indicate a smaller than usual font size. This is used for
+the \mu\ music escape, and for the \sc\ small caps escape.
+
+The highest valid Unicode code point is 0x0010ffff; values above this (but
+still within 24 bits) are used for special purposes, and are given the
+following names:
+
+  ss_page           insert current page number (\p\)
+  ss_pageodd        ditto, but only if an odd number (\po\)
+  ss_pageeven       ditto, but only if an even number (\pe\)
+  ss_skipodd        if page number is odd, skip to next ss_skipodd (\so\)
+  ss_skipeven       if page number is even, skip to next ss_skipeven (\se\)
+  ss_repeatnumber   insert bar repeat number (\r\)
+  ss_repeatnumber2  insert bar repeat number only if >= 2 (\r2\)
+  ss_verticalbar    unescaped vertical bar (recognized in headings/footings)
+  ss_asciiquote     escaped ASCII quote character (do not make closing quote)
+  ss_asciigrave     escaped ASCII grave accent (do not make opening quote)
+  ss_escapedhyphen  escaped hyphen )
+  ss_escapedequals  escaped equals ) in underlay; do not interpret
+  ss_escapedsharp   escaped sharp  )
+
+
+VARIABLE TYPES
+==============
+
+When PMW was first implemented, C90 was the standard. A serious "gotcha" in C90
+is that the char type may be signed or unsigned, depending on the environment.
+I had been caught by this, so for PMW I typedef'd uschar as unsigned char and
+used it for the majority of character vectors. (I see that in C11, the wording
+has changed somewhat.) To save typing I also typedef'd usint for unsigned int.
+
+There was no stdbool.h back then, so there are also typedefs for BOOL (as an
+unsigned int) and CBOOL (as an unsigned char, later changed to uint8_t).
+
+Most of the stuctures used in PMW are defined as their own types (structs.h).
+
+Over the years, as both C and PMW have been revised, newer C integer types such
+as int32_t have been introduced.
+
+
+MACROS IN THE CODE
+==================
+
+Macros without arguments are widely used to give names to various constants and
+to provide short abbreviations for some long function names. There are also a
+number of macros that do have arguments. Thay are mainly defined in the pmw.h
+file. Many have names that begin with "mac_".
+
+The standard string-handling functions such as strlen(), require char *
+arguments. Because PMW works mostly with unsigned chars, I defined a set of
+shorthand casts, such as CS for (char *), and then a set of string-handling
+macros such as Ustrlen() for use with unsigned char strings.
+
+
+RUNNING DATA
+============
+
+A set of variables that are used while reading one bar are defined in a
+structure called breadstr so that they can easily be initialized in a block at
+the start of reading each bar. The global variable brs is the working breadstr.
+Similarly, for reading a stave there is sreadstr and srs.
+
+
+ERROR HANDLING
+==============
+
+Errors are handled in the module error.c. Error numbers are given names such as
+ERR42 so that their use can easily be found by grepping. There are two error
+functions: error() just takes an error number and arguments to fill in the
+message; error_skip() has in addition a 32-bit argument that contains one or
+two 8-bit characters. Input is skipped until either of these, or newline, is
+reached.
+
+
+USER DOCUMENTATION
+==================
+
+It's all in the doc directory. There is a Makefile for building the user
+manual, with comments describing its use at the start. There is also a file
+called Makefile.ALL that in addition builds some non-distributed documentation.
+This consists of a document about the music font and an issues and ideas list,
+which is now very out-of-date.
+
+
+MAKING A RELEASE TARBALL
+========================
+
+A shell script called MakeRelease, whose argument is just a release number,
+copies the files needed for a release into Releases/pmw-xx.xx and then makes a
+tarball.
+
+
+FONT MAINTENANCE
+================
+
+Maintenance of the PMW-Music and PMW-Alpha fonts happens in the fontmaint
+directory. There's a README file with details.
+
+Philip Hazel
+July 2025

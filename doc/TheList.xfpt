@@ -1,0 +1,501 @@
+.include stdflags
+.include stdmacs
+
+.literal xml
+<?sdop
+  numbertitles="no,no,no"
+  table_warn_overflow="overprint"
+  toc_sections = "no" 
+?>
+.literal off
+
+
+.chapter "The PMW List &-- 28 January 2009"
+
+Updated from the old Risc OS list, but only lightly checked to see if what is 
+listed makes sense and is reasonable in the new implementation.
+
+
+.section "Infelicities"
+.ilist
+If one stave has a key or time signature and others do not, if space is 
+needed for an accidental on non-signature stave, refrain from inserting any.
+.next
+[newline] sometimes changes the number of bars in a system if it's a close 
+thing.
+.next
+Adjust left margin if new movement mid page.
+.next
+Clef+key at start of mid-line bar; note the double bar and respace.
+.next
+If no music, don't require PMW-Music.
+.next
+Position of up/down arpeggios &-- see sample.
+.next
+Musical offsets &-- see if error can be given in better terms for aux values.
+.next
+Triplets on a group with an accent on the first note and no bracket print
+the number too high up.
+.next
+Improve grace note position handling w.r.t. accidentals on other staves, etc.
+.next
+[space] before the first note of the bar moves the time signature too.
+.next
+Short sloping intermittent lines &-- dash pattern bad; see example.
+.next
+Reduced stave: horizontal semiquaver beams print on stave and look black.
+Also demis not good.
+.next
+Intermittent lines: short ones have wider gaps. Should anything be done?
+.next
+Non-centred tremolo beams for &`(g'$b') [tremolo] %d'`&
+.endlist
+
+
+.section "Big enhancements"
+.ilist
+Auto printing of part range at start, and don't affect underlay &--
+Note range directive, to print between key and time signature.
+.next
+Several parts in one run (how?)
+.next
+Repeat bars by % sign and also repeats of part bars with / sign.
+.next
+Hard barline &-- never split here. Visible and invisible.
+.next
+Tremolos to follow maxbeamslope.
+.next
+Tremolos with beamed notes. 
+.next
+Use of colour
+.next
+Grey things
+.next
+Option for old-fashioned key signature changes - naturalizing key, then
+double bar, then new key. Or a mixture, e.g. from E to D, print two naturals 
+and two sharps.
+.next
+Import EPS files for logos or other images etc. easily (check psheading etc to 
+see if that's OK).
+.next
+Time signatures in brackets - could perhaps do with printtime.
+.endlist
+
+
+.section "Medium enhancements"
+.ilist
+Winged repeats - single staves only?
+.next
+Rastral sizes. Drawings? Text? How to specify font sizes?
+.next
+Clefs with 15.
+.next
+Auto-increment rehearsal letters. Could use draw.
+.next
+Leave blank page &-- relevant if 2-up printing.
+.next
+Make couple work for all clefs &-- require &*coupleclefcheck*& directive to
+enable the large amount of work necessary?
+.next
+A version of sghere that acts &'above'& the current system.
+.next
+Ornaments on non-first note of chord? Also accents.
+.next
+Change couple point.
+.next
+Move bracket and brace.
+.next
+Startlinespacing for individual systems.
+.next
+Antique time signature of three quarter circle with dot in middle.
+.next
+[long cue] or [cue n] for n cue bars
+.next
+Directive to leave space at the top of this page.
+.next
+Add pageheading/footing in new movement without destroying old ones.
+.next
+System separators.
+.next
+Make [space] work after an auxiliary item, e.g. [treble][space] G
+.next
+Non-standard clefs, e.g. higher or lower than usual.
+.next
+Double clefs, e.g. [treble bass] every time.
+.next
+Double time signatures
+.next
+Make [move] apply to whole bar rests. (Note, it applies to the number over
+multi-bar rests at present.)
+.next
+Allow [space] in the first bar of a long rest, so as to control the
+length of that bar.
+.next
+Dotted bar lines between staves, but not over the staves, at certain points,
+a la : &-- e.g. :: (need options break/nobreak).
+.next
+[top/bottom margin] for rest of piece
+.next
+Centre time signatures on 2nd and 3rd lines rather than attach to centre line?
+.next
+||| for thick + thin barline
+.next
+[breakbarlines]?  That is, change the settings from within a stave.
+.next
+[beamendrests]
+.next
+Make g-\g/\ work in beams.
+.next
+Lines with arrowheads.
+.next
+Redo routine that calculates note bounding boxes; need separate above/below 
+sets of flags to cope with chords and their accidentals and above/below bowing.
+.next
+Multi-bar rest coded symbols.
+.next
+Warn if two-up printing likely to go over paper edge.
+.next
+A `pad' command to assume bar filled without actually spacing notes.
+.endlist
+
+
+.section "Small enhancements"
+.ilist
+Warn for |:)
+.next
+If linegap width less than 1, treat as percentage? What about split lines?
+.endlist
+
+
+
+.section "Unlikely enhancements"
+.ilist
+Guitar notation
+.next
+[Transpose] in stave 0 to apply to all parts for just those bars
+.next
+Remember pagination for subsequent re-processing.
+.next
+An option to cause slurs to default on the opposite side from stems.
+Majority of stems? First stem? Only if all stems same way?
+.next
+Conditional bar squashing, e.g. if shortest note in a bar is crotchet, then
+spread *3/4 and so on. Squashing must happen to all note positions after
+initial creation but before inserting clefs, etc.
+.next
+Hint mechanism for line/page breaks.
+.next
+Things on stave 0 to apply to all staves: key/time/doublenotes...
+.next
+Bars of different length in renaissance styles.
+.next
+Beam over crotchet rests.
+.next
+Lastfootnote directive for text at end.
+.endlist
+
+
+
+.section "Hairpins"
+.ilist
+If a hairpin splits over two lines and you specify /ru you get an angled 
+half hairpin. Need a way of raising or lowering each half independently, while
+remaining horizontal. Need to do for hairpins what was done for split slurs.
+.next
+Auto-scale hairpinwidths from a given range that is user settable. Short 
+ones must be narrower. Maybe what we need is an aspect ratio... Note there may 
+be problems with < followed by > when you want the two to be the same size, 
+even if different lengths.
+.endlist
+
+
+
+.section "Accents and ornaments"
+.ilist
+Ellipse-shaped accent (like top half of fat exclamation)
+.next
+Bowing above rests.
+.next
+Arpeggio across two staves.
+.next
+\n\ for nail ornament.
+.next
+Modified \aru\ and \ard\ for Peter Bond's loops &-- when got the 
+characters!
+.next
+Ditto for hooked mordants.
+.next
+Accents on stem side of notes. Move some of them &-- e.g. staccato to be 
+nearer the stem. Also, when on a chord with notes on both sides, it may look 
+better to print such accents centred on the stem.
+.next
+Different accents on different sides of a note. Would require keeping two sets
+of flags for above/below on chords so that slur computations work right.
+.next
+Small accidentals above more ornaments &-- e.g. mordant, turn.
+.next
+Turn halfway between notes.
+.next
+Fermata over trill overprints.
+.next
+Fermata over bar line.
+.next
+Easier notation for staccato and overbar.
+.next
+Trills below notes + mordents + turns + auto option.
+.next
+Option to print > accents inside staves (with closed point mid-way between
+lines).
+.next
+Bracket expression marks.
+.next
+Option to force expression marks above/below.
+.next
+Bracketed accents
+.endlist
+
+
+.section "Oddities"
+.ilist
+Improve [95]Q! when [nocheck] and bars of different lengths in other stave.
+.endlist
+
+
+
+.section "Draw"
+.ilist
+Draw in printtime and key.
+.next
+Add end cap styles: triangle, circle, arrowhead.
+.next
+Line styles
+.next
+Drawing relative to a text item, e.g. "text"/draw=thing. 
+.next
+Trig functions.
+.next
+Grey text
+.next
+A version of headright that takes dots into account.
+.endlist
+
+
+
+.section "Errors"
+.ilist
+Give stave number and bar number for more errors.
+.next
+When complaining about bars of unequal length, give the lengths in the same
+units (i.e. both in crotchets, or quavers, or whatever).
+.endlist
+
+
+
+.section "Text"
+.ilist
+/ts doesn't work in stave 0.
+.next
+White-out box option /w &-- needs save till end of line.
+.next
+/ts aligns with the middle of a bar if there is no time signature and the 
+bar is R! or Q! or S!.
+.next
+Align verse numbers? How?
+.next
+[Beammove] doesn't affect ulevel &-- or text level.
+.next
+Warn if underlay syllable crosses a rest.
+.next
+Conditional /e that applies only in the last bar of a line.
+.next
+Raising text on stave-above strings &-- need a general default.
+.next
+Tab facility in stave headings.
+.next
+Hymn verses, possibly including drawings.
+.next
+/f for first note of bar position. Do we still need this, given /ts?
+.next
+/ul<n> (and /ol) to set level for individual strings
+.next
+Force underlay extension for non-chordal doubled parts &-- go 1/2 way to next 
+note. Choose some new character.
+.next
+Equivalent of ^ for left-hanging.
+.next
+An option to add a given adjustment to subsequent automatically computed
+underlay levels. (Effectively, to adjust the default level.)
+.next
+If [reset] don't distribute underlay for rest of bar. Implications?
+.next
+Make /bar work for "#"/ul ?
+.endlist
+
+
+
+
+.section "Chords"
+.ilist
+When more than 2 ties in a chord, make the outer ones shorter, to be more
+like the inner ones.
+.next
+Make glissando work on the outermost notes of a chord.
+.next
+Improve automatic accidental positioning as per example.
+.next
+Tie sign within chord brackets to tie just that note.
+.next
+Breve chords &-- option to open the bars for all noteheads. Also option to join 
+bars vertically even if notes far apart.
+.endlist
+
+
+
+.section "Triplets"
+.ilist
+{g-\sd\d'-f'-} with no bracket - '3' too low.
+.next
+Triplets with slur instead of brackets.
+.next
+Query {b-a-b- f-e-d-}
+.endlist
+
+
+
+.section "Notes"
+.ilist
+Amadeus-style input c8d8 etc. Omit either component for repeat. Once started,
+how to turn off? C+- or something? Perhaps don't turn off. Maybe nowadays ABC 
+would be a better "standard" notation?
+.next
+Rectangular shaped breves.
+.next
+Up to 4 augmentation dots!
+.next
+Unison breve &-- masquerade?
+.next
+General notation for unisons?
+.next
+Support for longs &-- masquerade only?
+.next
+The Bach `slide' ornament &-- can this be done with sloping text?
+.next
+A way to set a default for expression marks to be above or below the note.
+.next
+Diamond noteheads with stems coming from the top of the diamond.
+.next
+Natural-sharp and natural-flat accidentals.
+.next
+Tidy handling of n_flags. Relates to chords. Need to keep two separate values
+for above/below flags.
+.endlist
+
+
+
+.section "Slurs and lines"
+.ilist
+Make half a split slur wiggly independently &-- /slw and /srw.
+.next
+Independent editorial flags for parts of split slurs.
+.next
+Independent /i and /ip flags too.
+.next
+Control of dash parameters of [line].
+.next
+Moving the tick in editorial slurs &-- can do with slurgap, but maybe useful to 
+allow t setting /e0.25 etc.
+.next
+Control of slur fatness. Should scale with stave size, if it doesn't
+already.
+.next
+Thin off slurs more?
+.next
+Option to cause slur to start at edge of notehead. See also ties.
+.endlist
+
+
+
+.section "Ties"
+.ilist
+Improve ties for (gab)_(gab) and (gab)_(g\sd\ab), i.e. when opposite side
+notes exist.
+.next
+Ties to the middle of noteheads, as specified by Martin M&uuml;llbauer.
+.next
+Centres of ties &'not'& to hit stave lines.
+.next
+A way of controlling the thickness of ties.
+.next
+Think about ties with accents &-- ties should always be horizontal, and
+inside accents, but a tie is a tie only if the two notes have the same absolute
+pitch. There must be a manual override for slurs between two notes with the
+same pitch, where accents go inside the tie. Common in string music.
+.endlist
+
+
+
+.section "Beams"
+.ilist
+Beam slopes: e'-g'-c'- and c'-g'-e'- do not come out symmetric owing to its
+looking only at the first note extension.
+.next
+Shorten beamlets if notes close together?
+.endlist
+
+
+.section "Grace notes"
+.ilist
+Do better if different numbers of grace notes on different
+staves.
+.next
+Text not to align with grace note if no grace note on this
+stave.
+.endlist
+
+
+.section "Bar numbers"
+.ilist
+Bar numbers on listed staves, a la stave zero.
+.next
+Bar numbers at, for example, 5,9,13,...
+.next
+Resetting bar numbers (for use in repeats or other strange cases). Hard. How
+then are bars identified?
+.next
+A way of aligning bar numbers at the ends of bars.
+.next
+Align boxes, not text, with bar lines, when boxing is happening.
+.endlist
+
+
+.section "Play"
+.ilist
+Tremolo notes.
+.next
+Nested repeats, e.g. the Bielawa sample.
+.next
+[playtempo nn] or playtempo n.m +/- t or [playtempo *a.b]
+.next
+[playtempo -> n] gradual change of n notes?
+.next
+[playbar <notes>] so bar is played differently to printed (e.g. for trills)
+.next
+Alternatively, make trills work.
+.endlist
+
+
+
+.section "Music font"
+.ilist
+Wind symbols
+.next
+Other noteheads
+.next
+Conductor symbols
+.next
+Rectangular breve
+.next
+Elliptic accent
+.endlist
+
+
