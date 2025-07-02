@@ -10,7 +10,7 @@
 
 /* This file is included by all the other sources except rdargs.c. */
 
-#define PMW_VERSION "5.32-DEV"
+#define PMW_VERSION "5.33-DEV"
 #define PMW_DATE    "05-April-2025"
 #define COPYRIGHT   "Copyright (c) Philip Hazel 2025"
 
@@ -195,11 +195,10 @@ vector as text sizes specified by the user and the fixed sizes. */
 #define ff_usedupper    0x00000020u    /* upper half used (for std enc) */
 
 /* Identifiers for each type of font. Any changes in this list must be kept in
-step with the list of font ids which is kept in Font_IdStrings. The
-running PostScript copy in ps_IdStrings must also be kept at the same size.
-Font ids must be less than 0x80 because they are put into the top byte of
-32-bit characters, with 0x80 reserved to indicate a smaller than normal size,
-either small caps or the \mu\ music font at 0.9 size. */
+step with the list of font ids which is kept in Font_IdStrings. Font ids must
+be less than 0x80 because they are put into the top byte of 32-bit characters,
+with 0x80 reserved to indicate a smaller than normal size, either small caps or
+the \mu\ music font at 0.9 size. */
 
 enum { font_rm, font_it, font_bf, font_bi, font_sy, font_mf, font_xx,
        font_tablen = font_xx + MaxExtraFont };
@@ -259,7 +258,7 @@ typedef uint8_t CBOOL;
 #define CUS  (const unsigned char *)
 
 #define Uatoi(s)             atoi(CS(s))
-#define Ufgets(b,n,f)     US fgets(CS(b),n,f)
+#define Ufgets(b,n,f)        US fgets(CS(b),n,f)
 #define Ufopen(s,t)          fopen(CCS(s),CCS(t))
 #define Ufputs(b,f)          fputs(CS(b),f)
 #define Ustrcat(s,t)         strcat(CS(s),CS(t))
