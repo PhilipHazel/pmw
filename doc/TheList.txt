@@ -1,0 +1,442 @@
+                       ======================
+                       | THE PMW IDEAS LIST |
+                       ======================
+
+This list was updated from the old Risc OS list in January 2009, but only
+lightly checked to see if what was listed made sense and was reasonable in the
+new implementation.
+
+July 2025: Removed some things that have been implemented in the meantime and
+added some comments. The items are in a random order.
+
+INFELICITIES
+============
+
+* If one stave has a key or time signature and others do not, if space is
+needed for an accidental on non-signature stave, refrain from inserting any.
+
+* [newline] sometimes changes the number of bars in a system if it's a close
+thing. This needs verifying to see it it's still true.
+
+* Adjust left margin if there's a new movement mid page. What exactly did this
+mean?
+
+* Clef+key at start of mid-line bar; note the double bar and respace.
+
+* If no music, don't require PMW-Music. This applies only to PostScript output.
+
+* Position of up/down arpeggios; I think this was because they don't always
+come out symmetric.
+
+* Musical offsets - see if error can be given in better terms for aux values.
+
+* Triplets on a group with an accent on the first note and no bracket print
+the number too high up.
+
+* {g-\sd\d'-f'-} with no bracket - '3' too low.
+
+* Improve grace note position handling w.r.t. accidentals on other staves, etc.
+
+* Short sloping intermittent lines - dash pattern bad.
+
+* Reduced stave: horizontal semiquaver beams print on stave and look black.
+Also demis not good.
+
+* Intermittent lines: short ones have wider gaps. Should anything be done?
+
+* Non-centred tremolo beams for (g'$b') [tremolo] %d'
+
+
+BIG ENHANCEMENTS
+================
+
+* Auto printing of part range at start, and don't affect underlay - Note range
+directive, to print between key and time signature.
+
+* Several parts in one run (how?)
+
+* Repeat bars by % sign and also repeats of part bars with / sign. Currently
+fudgeable but could be better.
+
+* Hard barline - never split here. Visible and invisible.
+
+* Tremolos to follow maxbeamslope.
+
+* Tremolos with beamed notes.
+
+* Use of colour other than in drawings. Would need major work because stave
+lines are drawn last.
+
+* Option for old-fashioned key signature changes - naturalizing key, then
+double bar, then new key. Or a mixture, e.g. from E to D, print two naturals
+and two sharps.
+
+* Import EPS files for logos or other images etc. easily (check psheading etc to
+see if that's OK). That's for PostScript. Is it possible to import anything for
+PDF output? SVG? Any kind of image?
+
+* Time signatures in brackets - could perhaps do with printtime. For things
+like 4/4 (12/8).
+
+
+MEDIUM ENHANCEMENTS
+===================
+
+* Rastral sizes. Drawings? Text? How to specify font sizes?
+
+* Clefs with 15.
+
+* 4-up on A3.
+
+* Spread a single deep system to fill the page. Less inside braced/bracketed
+pairs and not for zero spacing. Maybe a control for which?
+
+* Auto-increment rehearsal letters. Could use draw.
+
+* Leave blank page - relevant if 2-up printing.
+
+* Make couple work for all clefs - require "coupleclefcheck" directive to
+enable the large amount of work necessary?
+
+* Ornaments on non-first note of chord? Also accents.
+
+* Change couple point.
+
+* Move bracket and brace.
+
+* Startlinespacing for individual systems.
+
+* Antique time signature of three quarter circle with dot in middle.
+
+* [long cue] or [cue n] for n cue bars
+
+* Directive to leave space at the top of this page.
+
+* Add pageheading/footing in new movement without destroying old ones.
+
+* Make [space] work after an auxiliary item, e.g. [treble][space] G
+
+* Non-standard clefs, e.g. higher or lower than usual.
+
+* Double clefs, e.g. [treble bass] every time.
+
+* Make [move] apply to whole bar rests. (Note, it applies to the number over
+multi-bar rests at present.)
+
+* Dotted bar lines between staves, but not over the staves, at certain points,
+a la : - e.g. :: (need options break/nobreak).
+
+* [top/bottom margin] for rest of piece
+
+* Centre time signatures on 2nd and 3rd lines rather than attach to centre line?
+
+* [breakbarlines]?  That is, change the settings from within a stave.
+
+* [beamendrests]?  Ditto.
+
+* Make g-\g/\ work in beams.
+
+* Lines with arrowheads.
+
+* Redo routine that calculates note bounding boxes; need separate above/below
+sets of flags to cope with chords and their accidentals and above/below bowing.
+What is this used for?
+
+* Warn if two-up printing likely to go over paper edge.
+
+* A `pad' command to assume bar filled without actually spacing notes.
+
+
+SMALL ENHANCEMENTS
+==================
+
+If linegap width less than 1, treat as fraction? Or implement a percentage
+notation? What about split lines?
+
+
+UNLIKELY ENHANCEMENTS
+=====================
+
+* Guitar notation
+
+* [Transpose] in stave 0 to apply to all parts for just those bars
+
+* Remember pagination for subsequent re-processing.
+
+* An option to cause slurs to default on the opposite side from stems.
+Majority of stems? First stem? Only if all stems same way?
+
+* Conditional bar squashing, e.g. if shortest note in a bar is crotchet, then
+spread *3/4 and so on. Squashing must happen to all note positions after
+initial creation but before inserting clefs, etc.
+
+* Hint mechanism for line/page breaks.
+
+* Things on stave 0 to apply to all staves: key/time/doublenotes...
+
+* Bars of different length in renaissance styles.
+
+* Beam over crotchet rests.
+
+* Lastfootnote directive for text at end.
+
+
+HAIRPINS
+========
+
+* Auto-scale hairpinwidths from a given range that is user settable. Short
+ones must be narrower. Maybe what we need is an aspect ratio... Note there may
+be problems with < followed by > when you want the two to be the same size,
+even if different lengths.
+
+
+ACCENTS AND ORNAMENTS
+=====================
+
+* Bowing above rests.
+
+* Arpeggio across two staves.
+
+* \n\ for nail ornament.
+
+* Accents on stem side of notes. Move some of them - e.g. staccato to be
+nearer the stem. Also, when on a chord with notes on both sides, it may look
+better to print such accents centred on the stem.
+
+* Different accents on different sides of a note. Would require keeping two
+sets of flags for above/below on chords so that slur computations work right.
+
+* Small accidentals above more ornaments - e.g. mordant, turn.
+
+* Turn halfway between notes.
+
+* Fermata over trill overprints.
+
+* Fermata over bar line.
+
+* Easier notation for staccato and overbar.
+
+* Trills below notes + mordents + turns + auto option.
+
+* Option to print > accents inside staves (with closed point mid-way between
+lines).
+
+Option to force expression marks above/below.
+
+
+ODDITIES
+========
+
+* Improve [95]Q! when [nocheck] and bars of different lengths in other stave.
+
+
+DRAWING
+=======
+
+* Draw in printtime and key.
+
+* Add end cap styles: triangle, circle, arrowhead.
+
+* Line styles
+
+* Drawing relative to a text item, e.g. "text"/draw=thing.
+
+* A version of headright that takes dots into account.
+
+* A variable to say if dots are present on a note.
+
+
+ERRORS
+======
+
+* When complaining about bars of unequal length, give the lengths in the same
+units (i.e. both in crotchets, or quavers, or whatever).
+
+
+TEXT
+====
+
+* White-out box option /w - needs save till end of line.
+
+* /ts aligns with the middle of a bar if there is no time signature and the
+bar is R! or Q! or S!.
+
+* Align verse numbers? How?
+
+* [Beammove] doesn't affect ulevel - or text level.
+
+* Warn if underlay syllable crosses a rest.
+
+* Conditional /e that applies only in the last bar of a line.
+
+* Raising text on stave-above strings - need a general default.
+
+* Tab facility in stave headings.
+
+* Hymn verses, possibly including drawings.
+
+* /f for first note of bar position. Do we still need this, given /ts?
+
+* /ul<n> (and /ol) to set level for individual strings
+
+* Force underlay extension for non-chordal doubled parts - go 1/2 way to next
+note. Choose some new character.
+
+* Equivalent of ^ for left-hanging.
+
+* An option to add a given adjustment to subsequent automatically computed
+underlay levels. (Effectively, to adjust the default level.)
+
+* Make /bar work for "#"/ul ?
+
+
+CHORDS
+======
+
+* When more than 2 ties in a chord, make the outer ones shorter, to be more
+like the inner ones.
+
+* Make glissando work on the outermost notes of a chord.
+
+* Improve automatic accidental positioning?
+
+* Tie sign within chord brackets to tie just that note.
+
+* Breve chords - option to open the bars for all noteheads. Also option to join
+bars vertically even if notes far apart.
+
+
+TRIPLETS
+========
+
+* Triplets with slur instead of brackets.
+
+* Query {b-a-b- f-e-d-}
+
+
+NOTES
+=====
+
+* Amadeus-style input c8d8 etc. Omit either component for repeat. Once started,
+how to turn off? C+- or something? Perhaps don't turn off. Maybe nowadays ABC
+would be a better "standard" notation?
+
+* Rectangular shaped breves.
+
+* Up to 4 augmentation dots!
+
+* Unison breve - masquerade?
+
+* General notation for unisons?
+
+* Support for longs - masquerade only?
+
+* The Bach `slide' ornament - can this be done with sloping text?
+
+* A way to set a default for expression marks to be above or below the note.
+
+* Diamond noteheads with stems coming from the top of the diamond.
+
+* Natural-sharp and natural-flat accidentals.
+
+* Tidy handling of n_flags. Relates to chords. Need to keep two separate values
+for above/below flags.
+
+
+SLURS AND LINES
+===============
+
+* Make half a split slur wiggly independently - /slw and /srw.
+
+* Independent editorial flags for parts of split slurs.
+
+* Independent /i and /ip flags too.
+
+* Control of dash parameters of [line].
+
+* Moving the tick in editorial slurs - can do with slurgap, but maybe useful to
+allow t setting /e0.25 etc.
+
+* Control of slur fatness. Should scale with stave size, if it doesn't
+already.
+
+* Thin off slurs more?
+
+* Option to cause slur to start at edge of notehead. See also ties.
+
+
+TIES
+====
+
+* Improve ties for (gab)_(gab) and (gab)_(g\sd\ab), i.e. when opposite side
+notes exist.
+
+* Ties to the middle of noteheads, as specified by Martin Muellbauer.
+
+* Centres of ties NOT to hit stave lines.
+
+* A way of controlling the thickness of ties.
+
+
+BEAMS
+=====
+
+* Beam slopes: e'-g'-c'- and c'-g'-e'- do not come out symmetric owing to its
+looking only at the first note extension.
+
+* Shorten beamlets if notes close together?
+
+
+GRACE NOTES
+===========
+
+* Do better if different numbers of grace notes on different staves.
+
+* Text not to align with grace note if no grace note on this stave.
+
+
+BAR NUMBERS
+===========
+
+* Bar numbers on listed staves, a la stave zero.
+
+* Bar numbers at, for example, 5,9,13,...
+
+* Resetting bar numbers (for use in repeats or other strange cases). Hard. How
+then are bars identified?
+
+* A way of aligning bar numbers at the ends of bars.
+
+* Align boxes, not text, with bar lines, when boxing is happening.
+
+
+MIDI
+====
+
+* Nested repeats, e.g. the Bielawa sample.
+
+* [miditempo nn] or miditempo n.m +/- t or [miditempo *a.b]
+
+* [miditempo -> n] gradual change of n notes?
+
+* [midibar <notes>] so bar is played differently to printed (e.g. for trills)
+
+* Alternatively, make trills work.
+
+
+MUSIC FONT
+==========
+
+.section "Music font"
+
+* Wind symbols
+
+* Other noteheads
+
+* Conductor symbols
+
+* Rectangular breve
+
+* Elliptic accent
+
+END
