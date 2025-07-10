@@ -1,0 +1,429 @@
+. /////////////////////////////////////////////////////////////////////////////
+. This is the primary source of the PMW fonts document. It is an xfpt document
+. that is converted into DocBook XML for subsequent conversion into a PDF. The
+. markup used herein is "standard" xfpt markup.
+. /////////////////////////////////////////////////////////////////////////////
+
+
+.include stdflags
+.include stdmacs
+
+. /////////////////////////////////////////////////////////////////////////////
+. This outputs the standard DocBook boilerplate.
+. /////////////////////////////////////////////////////////////////////////////
+
+.docbook
+
+. /////////////////////////////////////////////////////////////////////////////
+. These literal XML lines are processing instructions for SDoP. They
+. allow table cells to overflow without
+. warning if there is no overprinting.
+. /////////////////////////////////////////////////////////////////////////////
+
+.literal xml
+<?sdop
+  numbertitles="no,no,no"
+  table_warn_overflow="overprint"
+  toc_sections = "no"
+?>
+.literal off
+
+. /////////////////////////////////////////////////////////////////////////////
+. These definitions set some parameters and save some typing. Remember that
+. the <bookinfo> element must also be updated for each new edition.
+. /////////////////////////////////////////////////////////////////////////////
+
+.set version "61"
+.set B "&#x200B;"
+
+.flag &{  }&  "<emphasis role=""PMW-Music/10/14"">"    "</emphasis>"
+.flag &{{ }}& "<emphasis role=""PMW-Music/10"">"       "</emphasis>"
+.flag &!  !&  "<emphasis role=""Times-Roman/11/14"">"  "</emphasis>"
+.flag &|  |&  "<subscript>"   "</subscript>"
+.flag &^  ^&  "<superscript>" "</superscript>"
+
+
+. /////////////////////////////////////////////////////////////////////////////
+. This generate the outermost <article> element that wraps the entire document.
+. /////////////////////////////////////////////////////////////////////////////
+
+.book
+
+. ////////////////////////////////////////////////////////////////////////////
+. The <bookinfo> element is provided as raw XML.
+. ////////////////////////////////////////////////////////////////////////////
+
+.literal xml
+<bookinfo>
+<date>07 July 2025</date>
+<author><firstname>Philip</firstname><surname>Hazel</surname></author>
+<authorinitials>PH</authorinitials>
+<address>Cambridge, England</address>
+<revhistory><revision>
+  <revnumber>61</revnumber>
+  <date>07 July 2025</date>
+  <authorinitials>PH</authorinitials>
+</revision></revhistory>
+<copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
+</bookinfo>
+.literal off
+
+
+.chapter "The PMW-Music Font"
+
+.itable none 0 0 2 50* left 50* right
+.row "&'Author:'& Philip Hazel" "07 July 2025"
+.endtable
+
+.section "Introduction"
+This document describes the font that contains the musical characters used by
+the music typesetting system known as &'Philip's Music Writer'& (PMW). It is a
+freestanding font whose use is not confined to PMW. It is available in two
+formats, as a PostScript Type 1 font and also as an OpenType font. A separate
+document describes how it was created and how it is maintained. The definitions
+of the characters in the font are copyright material.
+
+
+.section "Use within PMW"
+PMW itself uses the font for the music images that it generates. A PMW user can
+also gain access to any character in the font by means of a text string.
+Certain common characters are available via escape sequences, and any character
+can be accessed by reference to its character number. It is also possible to
+switch directly to the music font inside a string, so that ordinary ASCII
+characters can be used to represent music characters.
+
+For example, the musical sharp sign is character number 37 in the font. It can
+be included in a string in a PMW source file in any of the following ways:
+
+.itable none 0 0 2  60 left  200 left
+.row "&`""\*#\""`&"   "using a provided escape sequence"
+.row "&`""\*37\""`&"  "using the character number"
+.row "&`""\mu\%""`&"  "using the ASCII character in the music font"
+.endtable
+
+Details of the syntax of PMW text strings are given in the PMW manual.
+
+.section "Organization of the font"
+The baseline of the font, in the typographic sense, coincides with the bottom
+line of a musical stave. Most of the characters in the font print `on the
+baseline'. This means that the major portion of the character is above the
+line, though there may be a small `descender' below it, just as for a
+conventional text font. The exceptions to this rule are those characters which
+can be used in combination to form musical notes. For example, the quaver tail
+character appears well above the baseline, in just the right position to join
+on to the stem of a quaver printed at the baseline.
+
+Each character has a width, which is the amount by which the current output
+position is moved to the right after that character. In fact, PMW does not
+itself make use of many of these widths, so they have been set to values which
+are reasonable when the font is used in a textual manner. For example, the
+widths of notes are such that they can immediately be followed by a horizontal
+dot. From within PMW, constructions such as
+.code
+"\*c\ = 45"
+"\*m.\ = 20"
+.endd
+can be used to specify specific metronome markings, and these appear with
+reasonable spacing.
+
+A number of characters are defined with no content; they just move the current
+output position. This makes it possible to output characters at different
+positions from within a single string. In the PostScript Type 1 font, which was
+the original format, there are empty characters that move up, down, left, and
+right. Also in the Type 1 font, four of the printing characters move the
+current point vertically. They are the three forms of `vertical tilde', and the
+tremolo slash.
+
+Unfortunately, this flexibility is not available in OpenType fonts, where only
+one direction of movement is supported. When OpenType support was added, PMW
+was changed to emulate any up, down, or leftwards movements instead of relying
+on the font mechanism. This means that use of the music font from within PMW is
+unchanged, whichever version of the font is used. However, if the OpenType font
+is used by any other program, only rightwards movement is supported.
+
+Many characters in the font correspond to printing characters in ASCII and so
+can be encoded as single characters in a string. No attempt has been made to
+make the musical characters correspond in any way to the ASCII graphics.
+
+A number of musical characters are available in parts as well as in a complete
+form. For example, the crotchet and minim note heads, upward and downward note
+stems, quaver and semi-quaver tails can be output independently. This makes it
+possible to output chords, to extend the semiquaver characters with as many
+extra tails as necessary, and to adjust the stem lengths of notes for beaming
+or if they are off the stave. Complete `assembled' characters are available for
+notes with standard note heads as a convenience. For other shapes of note head,
+only the parts are provided.
+
+.section "Dimensions"
+The dimensions that are listed in what follows are given as a multiple of the 
+font's point size. For example, if a 10-point font is used, a character whose 
+width is listed as 1.5 will be 15 points wide.
+
+.section "Non-printing characters"
+The fourteen non-printing characters are shown below. Note that leftwards and
+vertical movements apply only to the Type 1 version of the font.
+
+.itable none 0 0 5  34 centre  34 centre  48 centre  34 centre  200 left
+.row &*&'ascii'&*&  &*&'octal'&*&  &*&'decimal'&*&  &*&'hex'&*&  &*&'&~&~&~&~&~action'&*&
+.row &'space'&  "040"  "032"  "20"  "moves right by 0.75"
+.row "v"        "166"  "118"  "76"  "moves down by 0.1"
+.row "w"        "167"  "119"  "77"  "moves down by 0.4"
+.row "x"        "170"  "120"  "78"  "moves up by 0.4"
+.row "y"        "171"  "121"  "79"  "moves left by 0.1"
+.row "z"        "172"  "122"  "7A"  "moves right by 0.1"
+.row "{"        "173"  "123"  "7B"  "moves left by 0.33"
+.row "|"        "174"  "124"  "7C"  "moves down by 0.2"
+.row "}"        "175"  "125"  "7D"  "moves right by 0.55"
+.row "~"        "176"  "126"  "7E"  "moves up by 0.2"
+.row ""         "271"  "185"  "89"  "moves left by 0.42 and up by 0.4"
+.row ""         "272"  "186"  "8A"  "moves left by 0.76 and down by 0.4"
+.row ""         "273"  "187"  "8B"  "moves up by 1.2"
+.row ""         "274"  "188"  "8C"  "moves down by 1.2"
+.endtable
+
+Examples of the ways in which these characters can be used are given in the
+section &'Using the font'& below.
+
+.section "Printing characters"
+The printing characters are displayed below, together with their character
+codes. A few of them have been moved vertically so that they line up in this
+table. There is a later illustration that shows all the characters in their
+natural positions on a stave. Only two stave characters are shown here, because
+the others are too wide to fit in the table. In the actual fonts, the character
+names are prefixed with `PMW' so as to avoid confusion with standard names (for 
+example, `PMWcomma').
+
+.itable none 0 0 8  20 left  32 left  28 left  28 left 40 left  50 left  90 left  162 left
+
+.row &*&'asc'&*&  &*&'oct'&*& &*&'dec'&*& &*&'hex'&*& &*&'width'&*& &*&'char'&*& &*&'name'&*& &*&'comment'&*&
+.row "&!!!&"      "&!041!&" "&!33!&"  "&!21!&"  "&!1.5!&"   "&{&#33;}&"      "&!trebleclef!&"
+.row "&!""!&"     "&!042!&" "&!34!&"  "&!22!&"  "&!1.5!&"   "&{w&#34;}&"     "&!bassclef!&"
+.row "&!#!&"      "&!043!&" "&!35!&"  "&!23!&"  "&!1.5!&"   "&{&#35;}&"      "&!altoclef!&"
+.row "&!$!&"      "&!044!&" "&!36!&"  "&!24!&"  "&!1.0!&"   "&{&#36;}&"      "&!star!&"       "&!piano end pedal sign!&"
+.row "&!%!&"      "&!045!&" "&!37!&"  "&!25!&"  "&!0.6!&"   "&{&#37;}&"      "&!sharp!&"
+.row "&!&amp;!&"  "&!046!&" "&!38!&"  "&!26!&"  "&!0.6!&"   "&{&#38;}&"      "&!doublesharp!&"
+.row "&!&#x27;!&" "&!047!&" "&!39!&"  "&!27!&"  "&!0.5!&"   "&{&#39;}&"      "&!flat!&"
+.row "&!(!&"      "&!050!&" "&!40!&"  "&!28!&"  "&!0.45!&"  "&{&#40;}&"      "&!natural!&"
+.row "&!)!&"      "&!051!&" "&!41!&"  "&!29!&"  "&!0.0!&"   "&{&#41;}&"      "&!tfermata!&"   "&!top fermata!&"
+.row "&!*!&"      "&!052!&" "&!42!&"  "&!2A!&"  "&!0.66!&"  "&{&#42;}&"      "&!brest!&"      "&!breve rest!&"
+.row "&!+!&"      "&!053!&" "&!43!&"  "&!2B!&"  "&!0.66!&"  "&{&#43;}&"      "&!sbrest!&"     "&!semibreve rest!&"
+.row "&!,!&"      "&!054!&" "&!44!&"  "&!2C!&"  "&!0.66!&"  "&{&#44;}&"      "&!mrest!&"      "&!minim rest!&"
+.row "&!-!&"      "&!055!&" "&!45!&"  "&!2D!&"  "&!0.66!&"  "&{&#45;}&"      "&!crest!&"      "&!crotchet rest!&"
+.row "&!.!&"      "&!056!&" "&!46!&"  "&!2E!&"  "&!0.59!&"  "&{&#46;}&"      "&!qrest!&"      "&!quaver rest!&"
+.row "&!/!&"      "&!057!&" "&!47!&"  "&!2F!&"  "&!0.0!&"   "&{&#47;}&"      "&!bfermata!&"   "&!bottom fermata!&"
+.row "&!0!&"      "&!060!&" "&!48!&"  "&!30!&"  "&!3.5!&"   "&{&#48;}&"      "&!longrest!&"   "&!many bars rest!&"
+.row "&!1!&"      "&!061!&" "&!49!&"  "&!31!&"  "&!1.34!&"  "&{&#49;}&"      "&!breve!&"
+.row "&!2!&"      "&!062!&" "&!50!&"  "&!32!&"  "&!0.84!&"  "&{&#50;}&"      "&!semibreve!&"
+.row "&!3!&"      "&!063!&" "&!51!&"  "&!33!&"  "&!0.84!&"  "&{&#51;}&"      "&!uminim!&"
+.row "&!4!&"      "&!064!&" "&!52!&"  "&!34!&"  "&!0.84!&"  "&{&#52;}&"      "&!dminim!&"
+.row "&!5!&"      "&!065!&" "&!53!&"  "&!35!&"  "&!0.84!&"  "&{&#53;}&"      "&!ucrotchet!&"
+.row "&!6!&"      "&!066!&" "&!54!&"  "&!36!&"  "&!0.84!&"  "&{&#54;}&"      "&!dcrotchet!&"
+.row "&!7!&"      "&!067!&" "&!55!&"  "&!37!&"  "&!1.2!&"   "&{&#55;}&"      "&!uquaver!&"
+.row "&!8!&"      "&!070!&" "&!56!&"  "&!38!&"  "&!0.84!&"  "&{&#56;}&"      "&!dquaver!&"
+.row "&!9!&"      "&!071!&" "&!57!&"  "&!39!&"  "&!1.2!&"   "&{&#57;}&"      "&!usquaver!&"
+.row "&!:!&"      "&!072!&" "&!58!&"  "&!3A!&"  "&!0.84!&"  "&{&#58;}&"      "&!dsquaver!&"
+.row "&!;!&"      "&!073!&" "&!59!&"  "&!3B!&"  "&!0.0!&"   "&|&{&#59;}&|&"  "&!usqtail!&"    "&!repeatable tail!&"
+.row "&!&lt;!&"   "&!074!&" "&!60!&"  "&!3C!&"  "&!0.0!&"   "&^&{&#60;}&^&"  "&!dsqtail!&"    "&!repeatable tail!&"
+.row "&!=!&"      "&!075!&" "&!61!&"  "&!3D!&"  "&!0.0!&"   "&{&#61;}&"      "&!ledger!&"
+.row "&!&gt;!&"   "&!076!&" "&!62!&"  "&!3E!&"  "&!0.0!&"   "&{&#62;}&"      "&!vdot!&"       "&!vertical dot (above note)!&"
+.row "&!?!&"      "&!077!&" "&!63!&"  "&!3F!&"  "&!0.4!&"   "&{&#63;}&"      "&!hdot!&"       "&!horizontal dot!&"
+.row "&!@!&"      "&!100!&" "&!64!&"  "&!40!&"  "&!0.6!&"   "&{&#64;}&"      "&!barsingle!&"
+.row "&!A!&"      "&!101!&" "&!65!&"  "&!41!&"  "&!0.76!&"  "&{&#65;}&"      "&!bardouble!&"
+.row "&!B!&"      "&!102!&" "&!66!&"  "&!42!&"  "&!0.76!&"  "&{&#66;}&"      "&!barthick!&"
+.row "&!C!&"      "&!103!&" "&!67!&"  "&!43!&"  "&!1.0!&"   "&{&#67;}&"      "&!stave1!&"
+.row "&!D!&"      "&!104!&" "&!68!&"  "&!44!&"  "&!1.0!&"   "&{&#68;}&"      "&!pstave1!&"    "&!percussion stave!&"
+.row "&!E!&"      "&!105!&" "&!69!&"  "&!45!&"  "&!0.0!&"   "&|&{&#69;}&|&"  "&!uqtail!&"     "&!up quaver tail!&"
+.row "&!F!&"      "&!106!&" "&!70!&"  "&!46!&"  "&!10.0!&"  ""               "&!stave10!&"    "&!long stave!&"
+.row "&!G!&"      "&!107!&" "&!71!&"  "&!47!&"  "&!10.0!&"  ""               "&!pstave10!&"   "&!long percussion stave!&"
+.row "&!H!&"      "&!110!&" "&!72!&"  "&!49!&"  "&!0.0!&"   "&^&{&#72;}&^&"  "&!dqtail!&"     "&!down quaver tail!&"
+.row "&!I!&"      "&!111!&" "&!73!&"  "&!49!&"  "&!0.6!&"   "&{&#73;}&"      "&!repeatdots!&"
+.row "&!J!&"      "&!112!&" "&!74!&"  "&!4A!&"  "&!0.0!&"   "&{&#74;}&"      "&!ustem!&"      "&!upward note stem!&"
+.row "&!K!&"      "&!113!&" "&!75!&"  "&!4B!&"  "&!0.0!&"   "&{&#75;}&"      "&!dstem!&"      "&!downward note stem!&"
+.row "&!L!&"      "&!114!&" "&!76!&"  "&!4C!&"  "&!0.84!&"  "&{&#76;}&"      "&!cnh!&"        "&!crotchet etc. note head!&"
+.row "&!M!&"      "&!115!&" "&!77!&"  "&!4D!&"  "&!0.84!&"  "&{&#77;}&"      "&!mnh!&"        "&!minim note head!&"
+.row "&!N!&"      "&!116!&" "&!78!&"  "&!4E!&"  "&!0.6!&"   "&{&#78;}&"      "&!comma!&"      "&!musical comma!&"
+.row "&!O!&"      "&!117!&" "&!79!&"  "&!4F!&"  "&!0.0!&"   "&{&#79;}&"      "&!mordent!&"
+.row "&!P!&"      "&!120!&" "&!80!&"  "&!50!&"  "&!0.0!&"   "&{&#80;}&"      "&!dmordent!&"   "&!double mordent!&"
+.row "&!Q!&"      "&!121!&" "&!81!&"  "&!51!&"  "&!0.0!&"   "&{&#81;}&"      "&!imordent!&"   "&!inverted mordent!&"
+.row "&!R!&"      "&!122!&" "&!82!&"  "&!52!&"  "&!0.0!&"   "&{&#82;}&"      "&!dimordent!&"  "&!double inverted mordent!&"
+.row "&!S!&"      "&!123!&" "&!83!&"  "&!53!&"  "&!0.0!&"   "&{&#83;}&"      "&!turn!&"
+.row "&!T!&"      "&!124!&" "&!84!&"  "&!54!&"  "&!0.0!&"   "&{&#84;}&"      "&!hbar!&"       "&!horizontal bar accent!&"
+.row "&!U!&"      "&!125!&" "&!85!&"  "&!55!&"  "&!0.0!&"   "&{&#85;}&"      "&!accent1!&"
+.row "&!V!&"      "&!126!&" "&!86!&"  "&!56!&"  "&!1.0!&"   "&{&#86;}&"      "&!caesura!&"
+.row "&!W!&"      "&!127!&" "&!87!&"  "&!57!&"  "&!0.0!&"   "&{&#87;}&"      "&!accent2!&"
+.row "&!X!&"      "&!130!&" "&!88!&"  "&!58!&"  "&!0.0!&"   "&{&#88;}&"      "&!accent3!&"
+.row "&!Y!&"      "&!131!&" "&!89!&"  "&!59!&"  "&!0.0!&"   "&{&#89;}&"      "&!accent4!&"
+.row "&!Z!&"      "&!132!&" "&!90!&"  "&!5A!&"  "&!0.0!&"   "&{&#90;}&"      "&!accent5!&"
+.row "&![!&"      "&!133!&" "&!91!&"  "&!5B!&"  "&!0.6!&"   "&{&#91;}&"      "&!bardotted!&"  "&!dotted bar line!&"
+.row "&!\!&"      "&!134!&" "&!92!&"  "&!5C!&"  "&!1.0!&"   "&{&#92;}&"      "&!caesura1!&"   "&!single-line caesura!&"
+.row "&!]!&"      "&!135!&" "&!93!&"  "&!5D!&"  "&!0.0!&"   "&{&#93;}&"      "&!little8!&"    "&!for use with clefs!&"
+.row "&!^!&"      "&!136!&" "&!94!&"  "&!5E!&"  "&!1.0!&"   "&{&#94;}&"      "&!C!&"          "&!`common' time!&"
+.row "&!_!&"      "&!137!&" "&!95!&"  "&!5F!&"  "&!1.0!&"   "&{&#95;}&"      "&!cut!&"        "&!`cut' time!&"
+.row "&!&#x60;!&" "&!140!&" "&!96!&"  "&!60!&"  "&!0.4!&"   "&{&#96;}&"      "&!tilde!&"      "&!suitable for following &{&#136;}&!&"
+.row "&!a!&"      "&!141!&" "&!97!&"  "&!61!&"  "&!0.0!&"   "&{&#97;}&"      "&!thumba!&"
+.row "&!b!&"      "&!142!&" "&!98!&"  "&!62!&"  "&!0.0!&"   "&{&#98;}&"      "&!thumbb!&"
+.row "&!c!&"      "&!143!&" "&!99!&"  "&!63!&"  "&!1.5!&"   "&{&#99;}&"      "&!ds1!&"
+.row "&!d!&"      "&!144!&" "&!100!&" "&!64!&"  "&!1.5!&"   "&{&#100;}&"     "&!ds2!&"
+.row "&!e!&"      "&!145!&" "&!101!&" "&!65!&"  "&!0.0!&"   "&{&#101;}&"     "&!downa!&"      "&!down bow, above note!&"
+.row "&!f!&"      "&!146!&" "&!102!&" "&!66!&"  "&!0.0!&"   "&{&#102;}&"     "&!downb!&"      "&!down bow, below note!&"
+.row "&!g!&"      "&!147!&" "&!103!&" "&!67!&"  "&!0.0!&"   "&{&#103;}&"     "&!upa!&"        "&!up bow, above note!&"
+.row "&!h!&"      "&!150!&" "&!104!&" "&!67!&"  "&!0.0!&"   "&{&#104;}&"     "&!upb!&"        "&!up bow, below note!&"
+.row "&!i!&"      "&!151!&" "&!105!&" "&!69!&"  "&!0.0!&"   "&{&#105;}&"     "&!iturn!&"      "&!inverted turn!&"
+.row "&!j!&"      "&!152!&" "&!106!&" "&!6A!&"  "&!0.55!&"  "&{&#106;}&"     "&!seven!&"
+.row "&!k!&"      "&!153!&" "&!107!&" "&!6B!&"  "&!0.76!&"  "&{&#107;}&"     "&!four!&"
+.row "&!l!&"      "&!154!&" "&!108!&" "&!6C!&"  "&!0.84!&"  "&{&#108;}&"     "&!hcnh!&"       "&!harmonic crotchet note head!&"
+.row "&!m!&"      "&!155!&" "&!109!&" "&!6D!&"  "&!0.84!&"  "&{&#109;}&"     "&!hmnh!&"       "&!harmonic minim note head!&"
+.row "&!n!&"      "&!156!&" "&!110!&" "&!6E!&"  "&!0.84!&"  "&{&#110;}&"     "&!xnh!&"        "&!cross-shaped note head!&"
+.row "&!o!&"      "&!157!&" "&!111!&" "&!6F!&"  "&!0.0!&"   "&{&#111;}&"     "&!xustem!&"     "&!up stem for cross!&"
+.row "&!p!&"      "&!160!&" "&!112!&" "&!70!&"  "&!0.0!&"   "&{&#112;}&"     "&!xdstem!&"     "&!down stem for cross!&"
+.row "&!q!&"      "&!161!&" "&!113!&" "&!71!&"  "&!0.0!&"   "&{&#113;}&"     "&!fustem!&"     "&!up stem fragment, 0.2 to 0.4!&"
+.row "&!r!&"      "&!162!&" "&!114!&" "&!72!&"  "&!0.0!&"   "&{&#114;}&"     "&!fdstem!&"     "&!down stem fragment, 0 to -0.2!&"
+.row "&!s!&"      "&!163!&" "&!115!&" "&!73!&"  "&!0.5!&"   "&{&#115;}&"     "&!six!&"
+.row "&!t!&"      "&!164!&" "&!116!&" "&!74!&"  "&!0.55!&"  "&{&#116;}&"     "&!gdot!&"       "&!dot for guitar grid!&"
+.row "&!u!&"      "&!165!&" "&!117!&" "&!75!&"  "&!0.55!&"  "&{&#117;}&"     "&!gring!&"      "&!circle for guitar grid!&"
+.row "&!166&--176&~&~(118&--126)&~&~(76&--7E)&~are&~`characters'&~that&~effect&~movement&~only!&"
+.row " "          "&!177!&" "&!127!&" "&!7F!&"  "&!&~-&~!&" "&!!&"           "&!unassigned!&"
+.row " "          "&!200!&" "&!128!&" "&!80!&"  "&!0.6!&"   "&{&#128;}&"     "&!tick!&"
+.row " "          "&!201!&" "&!129!&" "&!81!&"  "&!0.0!&"   "&|&{&#129;}&|&" "&!uacc!&"       "&!accaciatura bar!&"
+.row " "          "&!202!&" "&!130!&" "&!82!&"  "&!0.0!&"   "&^&{&#130;}&^&" "&!dacc!&"
+.row " "          "&!203!&" "&!131!&" "&!83!&"  "&!0.0!&"   "&|&{&#131;}&|&" "&!grid!&"       "&!for guitar chords!&"
+.row " "          "&!204!&" "&!132!&" "&!84!&"  "&!0.6!&"   "&{&#132;}&"     "&!barshort!&"
+.row " "          "&!205!&" "&!133!&" "&!85!&"  "&!0.0!&"   "&{&#133;}&"     "&!breath!&"     "&!after Frans Bruggen!&"
+.row " "          "&!206!&" "&!134!&" "&!76!&"  "&!0.0!&"   "&{&#134;}&"     "&!vring!&"
+.row " "          "&!207!&" "&!135!&" "&!87!&"  "&!0.0!&"   "&{&#135;}&"     "&!cross!&"
+.row " "          "&!210!&" "&!136!&" "&!88!&"  "&!0.8!&"   "&{&#136;}&"     "&!trill!&"
+.row " "          "&!211!&" "&!137!&" "&!89!&"  "&!0.6!&"   "&{&#137;}&"     "&!scaesura!&"
+.row " "          "&!212!&" "&!138!&" "&!8A!&"  "&!0.6!&"   "&{&#138;}&"     "&!lcaesura!&"
+.row " "          "&!213!&" "&!139!&" "&!8B!&"  "&!0.35!&"  "&{&#139;}&"     "&!sbra !&"      "&!for accidentals!&"
+.row " "          "&!214!&" "&!140!&" "&!8C!&"  "&!0.35!&"  "&{&#140;}&"     "&!sket!&"
+.row " "          "&!215!&" "&!141!&" "&!8D!&"  "&!0.35!&"  "&{&#141;}&"     "&!rbra!&"
+.row " "          "&!216!&" "&!142!&" "&!8E!&"  "&!0.35!&"  "&{&#142;}&"     "&!rket!&"
+.row " "          "&!217!&" "&!143!&" "&!8F!&"  "&!0.5!&"   "&{&#143;}&"     "&!rep !&"       "&!for repetition!&"
+.row " "          "&!220!&" "&!144!&" "&!90!&"  "&!0.0!&"   "&{&#144;}&"     "&!repdots!&"    "&!for use with rep!&"
+.row " "          "&!221!&" "&!145!&" "&!91!&"  "&!0.0!&"   "&{&#145;}&"     "&!vtilde !&"    "&!moves up 0.4 (Type 1)!&"
+.row " "          "&!222!&" "&!146!&" "&!92!&"  "&!0.0!&"   "&{&#146;}&"     "&!trem !&"      "&!tremolo bar, moves up 0.4 (Type 1)!&"
+.row " "          "&!223!&" "&!147!&" "&!93!&"  "&!1.0!&"   "&{&#147;}&"     "&!circ!&"
+.row " "          "&!224!&" "&!148!&" "&!94!&"  "&!1.0!&"   "&{&#148;}&"     "&!cutcirc!&"
+.row " "          "&!225!&" "&!149!&" "&!95!&"  "&!0.0!&"   "&^&{&#149;}&^&" "&!slur1!&"
+.row " "          "&!226!&" "&!150!&" "&!96!&"  "&!0.0!&"   "&^&{&#150;}&^&" "&!slur2!&"
+.row " "          "&!227!&" "&!151!&" "&!97!&"  "&!0.0!&"   "&{&#151;}&"     "&!up!&"
+.row " "          "&!230!&" "&!152!&" "&!98!&"  "&!0.0!&"   "&{&#152;}&"     "&!down!&"
+.row " "          "&!231!&" "&!153!&" "&!99!&"  "&!1.0!&"   "&{&#153;}&"     "&!iC !&"        "&!inverted `common' time!&"
+.row " "          "&!232!&" "&!154!&" "&!9A!&"  "&!1.0!&"   "&{&#154;}&"     "&!icut !&"      "&!inverted `cut' time!&"
+.row " "          "&!233!&" "&!155!&" "&!9B!&"  "&!1.58!&"  "&{&#155;}&"     "&!unibreve!&"   "&!unison breve!&"
+.row " "          "&!234!&" "&!156!&" "&!9C!&"  "&!0.0!&"   "&{&#156;}&"     "&!accent6!&"
+.row " "          "&!235!&" "&!157!&" "&!9D!&"  "&!0.35!&"  "&{&#157;}&"     "&!srbra !&"     "&!for use with &{&#93;}&!&"
+.row " "          "&!236!&" "&!158!&" "&!9E!&"  "&!0.35!&"  "&{&#158;}&"     "&!srket !&"     "&!ditto!&"
+.row " "          "&!237!&" "&!159!&" "&!9F!&"  "&!0.33!&"  "&{&#159;}&"     "&!angle1!&"
+.row " "          "&!240!&" "&!160!&" "&!A0!&"  "&!0.33!&"  "&{&#160;}&"     "&!angle2!&"
+.row " "          "&!241!&" "&!161!&" "&!A1!&"  "&!0.33!&"  "&{&#161;}&"     "&!angle3!&"
+.row " "          "&!242!&" "&!162!&" "&!A2!&"  "&!0.33!&"  "&{&#162;}&"     "&!angle4!&"
+.row " "          "&!243!&" "&!163!&" "&!A3!&"  "&!1.4!&"   "&{&#163;}&"     "&!ped!&"
+.row " "          "&!244!&" "&!164!&" "&!A4!&"  "&!0.0!&"   "&{&#164;}&"     "&!uvtilde !&"   "&!moves up 0.4 (Type 1)!&"
+.row " "          "&!245!&" "&!165!&" "&!A5!&"  "&!0.0!&"   "&{&#165;}&"     "&!dvtilde !&"   "&!moves up 0.4 (Type 1)!&"
+.row " "          "&!246!&" "&!166!&" "&!A6!&"  "&!0.0!&"   "&{&#166;}&"     "&!nail!&"
+.row " "          "&!247!&" "&!167!&" "&!A7!&"  "&!0.333!&" "&{&#167;}&"     "&!angle5!&"
+.row " "          "&!250!&" "&!168!&" "&!A8!&"  "&!0.333!&" "&{&#168;}&"     "&!angle6!&"
+.row " "          "&!251!&" "&!169!&" "&!A9!&"  "&!1.0!&"   "&{&#169;}&"     "&!stave21!&"
+.row " "          "&!252!&" "&!170!&" "&!AA!&"  "&!1.0!&"   "&{&#170;}&"     "&!stave31!&"
+.row " "          "&!253!&" "&!171!&" "&!AB!&"  "&!1.0!&"   "&{&#171;}&"     "&!stave41!&"
+.row " "          "&!254!&" "&!172!&" "&!AC!&"  "&!1.0!&"   "&|&{&#172;}&|&" "&!stave61!&"
+.row " "          "&!255!&" "&!173!&" "&!AD!&"  "&!1.5!&"   "&|&{&#173;}&|&" "&!hclef !&"     "&!percussion clef!&"
+.row " "          "&!256!&" "&!174!&" "&!AE!&"  "&!1.5!&"   "&{w&#174;}&"    "&!oldbassclef!&"
+.row " "          "&!257!&" "&!175!&" "&!AF!&"  "&!1.5!&"   "&{&#175;}&"     "&!oldaltoclef!&"
+.row " "          "&!260!&" "&!176!&" "&!B0!&"  "&!0.0!&"   "&{&#176;}&"     "&!bratop!&"     "&!top of system bracket!&"
+.row " "          "&!261!&" "&!177!&" "&!B1!&"  "&!0.0!&"   "&{&#177;}&"     "&!brabot!&"     "&!bottom of system bracket!&"
+.row " "          "&!262!&" "&!178!&" "&!B1!&"  "&!1.0!&"   "&{&#178;}&"     "&!direct!&"     "&!indicates pitch without duration!&"
+.row " "          "&!263!&" "&!179!&" "&!B3!&"  "&!0.55!&"  "&{&#179;}&"
+.row " "          "&!264!&" "&!180!&" "&!B4!&"  "&!0.75!&"  "&{&#180;}&"     "&!major!&"      "&!major chord sign (jazz notation)!&"
+.row " "          "&!265!&" "&!181!&" "&!B5!&"  "&!0.675!&" "&{&#181;}&"     "&!dimsh!&"      "&!diminished chord sign!&"
+.row " "          "&!266!&" "&!182!&" "&!B6!&"  "&!0.675!&" "&{&#182;}&"     "&!hdimsh!&"     "&!`half diminished' chord sign!&"
+.row " "          "&!267!&" "&!183!&" "&!B7!&"  "&!0.055!&" "&{&#183;}&"     "&!gcross!&"     "&!for guitar grid!&"
+.row " "          "&!270!&" "&!184!&" "&!B8!&"  "&!0.0!&"   "&{&#184;}&"     "&!ledger2!&"    "&!thicker ledger line!&"
+.row "&!271&--274&~(185&--188)&~are&~`characters'&~that&~effect&~movement&~only!&"
+.row " "          "&!275!&" "&!189!&" "&!BD!&"  "&!0.424!&" "&{&#189;}&"     "&!halfsharp1!&" "&!half sharp, Egyptian style!&"
+.row " "          "&!276!&" "&!190!&" "&!BE!&"  "&!0.6!&"   "&{&#190;}&"     "&!halfsharp2!&" "&!half sharp, Turkish style!&"
+.row " "          "&!277!&" "&!191!&" "&!BF!&"  "&!0.5!&"   "&{&#191;}&"     "&!halfflat1!&"  "&!half flat, Egyptian style!&"
+.row " "          "&!300!&" "&!192!&" "&!C0!&"  "&!0.5!&"   "&{&#192;}&"     "&!halfflat2!&"  "&!half flat, Turkish style!&"
+.row " "          "&!301!&" "&!193!&" "&!C1!&"  "&!0.6!&"   "&{&#193;}&"     "&!icomma!&"     "&!inverted musical comma!&"
+.row " "          "&!302!&" "&!194!&" "&!C2!&"  "&!0.0!&"   "&{&#194;}&"     "&!accent7!&"
+.row " "          "&!303!&" "&!195!&" "&!C3!&"  "&!0.0!&"   "&{&#195;}&"     "&!accent8!&"
+.row " "          "&!304!&" "&!196!&" "&!C4!&"  "&!0.0!&"   "&{&#196;}&"     "&!rturn!&"
+.row " "          "&!305!&" "&!197!&" "&!C5!&"  "&!0.0!&"   "&{&#197;}&"     "&!irturn!&"
+.row " "          "&!306!&" "&!198!&" "&!C6!&"  "&!0.0!&"   "&{&#198;}&"     "&!thcirc!&"     "&!top half circle!&"
+.row " "          "&!307!&" "&!199!&" "&!C7!&"  "&!0.0!&"   "&{&#199;}&"     "&!bhcirc!&"     "&!bottom half circle!&"
+.row " "          "&!310!&" "&!200!&" "&!C8!&"  "&!0.84!&"  "&{&#200;}&"     "&!rcnh!&"       "&!round filled notehead!&"
+.row " "          "&!311!&" "&!201!&" "&!C9!&"  "&!0.84!&"  "&{&#201;}&"     "&!rmnh!&"       "&!round open notehead!&"
+.row " "          "&!312!&" "&!202!&" "&!CA!&"  "&!0.0!&"   "&{&#202;}&"     "&!accent9!&"    "&!flipped for right-to-left!&"
+.row "&!Long&~versions&~of&~the&~special&~staves&~&--&~up&~here&~for&~historical&~reasons!&"
+.row " "          "&!367!&" "&!247!&" "&!F7!&"  "&!10.0!&"  "&!!&"           "&!stave210!&"
+.row " "          "&!370!&" "&!248!&" "&!F8!&"  "&!10.0!&"  "&!!&"           "&!stave310!&"
+.row " "          "&!371!&" "&!249!&" "&!F9!&"  "&!10.0!&"  "&!!&"           "&!stave410!&"
+.row " "          "&!372!&" "&!250!&" "&!FA!&"  "&!10.0!&"  "&!!&"           "&!stave610!&"
+.endtable
+
+
+.section "Using the font"
+This section contains some notes on the characters in the music font, and how
+they might be used within text strings in PMW, for example in footnotes or
+other commentary that requires musical notation.
+
+.subsection "Clefs"
+The clefs all have the same width and are all slightly indented, as is
+conventional. The `little8' character (number 93) is designed to be used with
+the clef signs.
+
+.subsection "Stem extenders and extra tails"
+The stem characters (74 and 75) can be used to extend note stems by
+appropriate raising or lowering, and extra tails can be added to
+quavers with extended stems. All these characters have a printing
+width of zero, and should therefore appear before the main character.
+The correct distance to move up or down is 0.4.
+For example,
+.display
+&`"\mu\~~J;||9"`&  outputs   &{{~~J;||9}}&
+.endd
+Using non-standard notehead shapes requires the notes to be assembled
+from the appropriate parts. When using the cross-shaped note head (character
+110), the special shortened stem characters (111 and 112) should be used. When
+using diamond-shaped note heads (characters 109 and 110) the ordinary stems
+should be used. However, they do not extend quite far enough down to the note
+heads; this can be remedied by adding the appropriate stem fragment character
+(161 or 162). Thus, for example,
+.display
+&`"\mu\onpnJqmKrm"`&  outputs   &{{onpnJqmKrm}}&
+.endd
+
+.subsection "Chords"
+Simple overprinting of notes can be used for chords where the minimum
+interval is greater than a second.
+The separate note head characters (76 and 77) can be used for outputting
+chords of adjacent crotchets or minims. One `font backspace' is
+the distance to move left:
+.display
+&`"\mu\3{~M"`&  outputs   &{{3{~M}}&
+.endd
+
+.subsection "Slurs"
+The two slur characters (149 and 150) are not used by PMW. They are provided
+for use when tied notes are required in a text string. The first is the correct
+length for tying two successive note characters; the second is longer, being
+the correct length when the first note is followed by a dot. Neither has any
+typographic width, and so should be output before the notes to which they
+refer.
+
+.section "Font characters on a stave"
+
+.literal layout
+&<mediaobject>&&<imageobject role="0,-20">&
+&<imagedata fileref="postscript/font" format="eps" scale="90" &&&
+  depth="240" align="left">&
+&</imagedata>&&</imageobject>&&</mediaobject>&
+.literal off
+
+The characters are shown here without any vertical adjustment to their
+positions, but horizontal white space has been inserted between them.
+
+.itable none 0 0 1 100* centre
+.row "&{-  -  -}&"
+.endtable

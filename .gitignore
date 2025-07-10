@@ -12,6 +12,8 @@ config.status
 configure
 doc/spec.ps
 doc/spec.xml
+doc/fontspec.ps
+doc/fontspec.xml
 doc/postscript
 src/config.h
 src/pmw

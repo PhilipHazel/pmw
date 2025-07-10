@@ -1,0 +1,16 @@
+# Makefile for all PMW documentation that needs building.
+
+all:                fontspec.pdf spec.pdf
+
+fontspec.pdf:       fontspec.ps       
+		    ps2pdf fontspec.ps fontspec.pdf
+                                        
+fontspec.ps:        fontspec.xml        
+		    sdop -S . fontspec.xml   
+                                        
+fontspec.xml:       fontspec.xfpt postscript/font       
+		    xfpt fontspec.xfpt	
+
+include             ./Makefile
+
+# End
