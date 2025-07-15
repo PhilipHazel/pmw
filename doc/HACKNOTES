@@ -377,9 +377,7 @@ USER DOCUMENTATION
 
 It's all in the doc directory. There is a Makefile for building the user
 manual, with comments describing its use at the start. There is also a file
-called Makefile.ALL that in addition builds some non-distributed documentation.
-This consists of a document about the music font and an issues and ideas list,
-which is now very out-of-date.
+called Makefile.ALL that in addition builds a document about the music font.
 
 
 MAKING A RELEASE TARBALL
