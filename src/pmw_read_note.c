@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: March 2021 */
-/* This file last modified: April 2025 */
+/* This file last modified: July 2025 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -1413,7 +1413,7 @@ for (;;)
   uint32_t flags = srs.noteflags | pn_inchord;
   uint32_t explicit_couple = 0;
 
-  int16_t pitch, abspitch;
+  int16_t pitch, abspitch, pitch_orig;
 
   uint8_t *acc_above = NULL;
   uint8_t acc;
@@ -1573,14 +1573,14 @@ for (;;)
       }
     }
 
-  /* Deal with non-rests, i.e. notes. Get an absolute pitch, independent of any
-  clef. The units are quartertones and the origin is such that middle C has the
-  value 96 (defined as MIDDLE_C), which should cope with all requirements. This
-  pitch doesn't yet contain the accidental (if any). */
+  /* Deal with non-rests, i.e. notes. Get a pitch independent of any clef. The
+  units are quartertones and the origin is such that middle C has the value 96
+  (defined as MIDDLE_C), which should cope with all requirements. This pitch
+  doesn't yet contain the accidental (if any). */
 
   if ('a' <= read_c && read_c <= 'g')
     {
-    pitch = srs.octave + 3*OCTAVE + read_basicpitch[read_c - 'a'];
+    pitch_orig = pitch = srs.octave + 3*OCTAVE + read_basicpitch[read_c - 'a'];
     yextra = srs.stemlength;     /* Default stem length */
     if (!duplicating) pn_onlytieddup = FALSE;
     }
@@ -1591,7 +1591,7 @@ for (;;)
 
   else
     {
-    pitch = 0;
+    pitch_orig = pitch = 0;
     acflags &= ~af_accents;         /* Ignore any default dynamics */
     yextra = srs.rlevel;
     if (read_c == 'q') flags |= nf_hidden;
@@ -2114,6 +2114,7 @@ for (;;)
             p->x = 0;            /* Default no horizontal movement */
             p->y = 0;            /* Default no vertical movement */
             p->bflags = 0;       /* Default no bracketing */
+            p->troffset = 0;     /* Offset used only for trill */
 
             /* Tremolos have no horizontal movement or bracketing; arpeggios
             and spread have no bracketing, but can have arbitrary movement.
@@ -2142,6 +2143,41 @@ for (;;)
               case or_arpd:
               case or_spread:
               pf = NULL;
+              break;
+
+              /* For trills we have to figure out the trill offset. */
+
+              case or_tr:
+              case or_trsh:
+              case or_trfl:
+              case or_trnat:
+                {
+                int offset = (char_orig == 'b' || char_orig == 'e')? 2 : 4;
+                int nextacc;
+
+                switch(accororn)
+                  {
+                  case or_tr:
+                  nextacc = read_baraccs[pitch_orig + offset];
+                  break;
+
+                  case or_trsh:
+                  nextacc = 2;
+                  break;
+
+                  case or_trfl:
+                  nextacc = -2;
+                  break;
+
+                  default:      /* Avoids compiler warning */
+                  case or_nat:
+                  nextacc = 0;
+                  break;
+                  }
+
+                offset += nextacc - read_baraccs[pitch_orig];
+                p->troffset = offset;
+                }
               break;
 
               default:

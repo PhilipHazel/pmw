@@ -419,10 +419,6 @@ MIDI
 
 * [miditempo -> n] gradual change of n notes?
 
-* [midibar <notes>] so bar is played differently to printed (e.g. for trills)
-
-* Alternatively, make trills work.
-
 
 MUSIC FONT
 ==========

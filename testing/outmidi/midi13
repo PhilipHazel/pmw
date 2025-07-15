@@ -1,0 +1,73 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginProlog
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
+%1/1
+mf 10 ss(3)90.9 762 s(\210)90.9 781 s(,)116.771 768 s(5)140.643 762 s(\210)
+140.643 781 s(,)159.731 768 s(5)183.603 762 s(\210)183.603 781 s mf 6 ss(')
+185.603 789 s mf 10 ss(,)202.691 768 s(@)226.563 760 s
+%2/1
+(A)226.563 760 s(')231.642 766 s(')236.142 772 s(')240.642 764 s(5)
+249.924 762 s(\210)249.924 781 s(,)269.012 768 s(5)292.884 762 s(\210)
+292.884 781 s mf 6 ss(\()294.884 791 s mf 10 ss(,)311.972 768 s
+(@)335.844 760 s
+%3/1
+(6)342.626 770 s(\210)342.626 779 s(,)361.714 768 s(6)385.585 770 s(\210)
+385.585 779 s mf 6 ss(\()387.585 789 s mf 10 ss(,)404.673 768 s
+(@)428.545 760 s
+%4/1
+(5)435.327 758 s(\210)435.327 779 s(,)454.415 768 s(5)478.286 758 s(\210)
+478.286 779 s mf 6 ss(')480.286 787 s mf 10 ss(,)497.374 768 s
+(@)521.246 760 s(A)521.246 760 s(\()527.246 766 s(\()531.496 772 s(\()
+535.746 764 s
+(FFFFCCCCCCCC)64 760 s
+(!)64 716 s
+%5/1
+(5)85 714 s(\210)85 735 s(,)116.058 724 s(5)156.389 714 s(\210)
+156.389 735 s mf 6 ss(%)158.389 745 s mf 10 ss(,)187.447 724 s
+(@)227.778 716 s
+%6/1
+(5)239.049 716 s(\210)239.049 735 s(,)270.107 724 s(5)310.438 716 s(\210)
+310.438 735 s mf 6 ss(%)312.438 745 s mf 10 ss(,)341.496 724 s
+(@)381.827 716 s
+%7/1
+(A)381.827 716 s(%)387.355 730 s(5)401.218 714 s(\210)401.218 735 s(,)
+432.277 724 s(5)472.608 714 s(\210)472.608 735 s mf 6 ss(\()
+474.608 745 s mf 10 ss(,)503.666 724 s(@)543.997 716 s
+(FFFFCCCCCCC)64 716 s (C)533.997 716 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

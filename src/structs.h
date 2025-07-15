@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: January 2025 */
+/* This file last modified: July 2025 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -76,7 +76,7 @@ can be chained together in a generic form. */
 
 /* This is the "generic" structure. Note that this ends with an 8-byte field
 after the two pointers. To optimize the sizes of those that follow, up to 3
-8-bit fields, or an 8.bit and a 16-bit field, (if required) are placed first,
+8-bit fields, or an 8-bit and a 16-bit field, (if required) are placed first,
 before any subsequent pointers and longer fields.  */
 
 typedef struct bstr {
@@ -234,6 +234,7 @@ typedef struct {
   BSTRHEAD;
   uint8_t ornament;
   uint8_t bflags;
+  uint8_t troffset;
   int32_t x;
   int32_t y;
 } b_ornamentstr;

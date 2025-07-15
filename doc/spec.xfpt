@@ -12,7 +12,7 @@
 . the <bookinfo> element must also be updated for each new edition.
 . /////////////////////////////////////////////////////////////////////////////
 
-.set version "5.32"
+.set version "5.33"
 . Zero-width space
 .set B "&#x200B;"
 . Right-pointing hand
@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>25 June 2025</date>
+<date>15 July 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
-  <revnumber>5.32</revnumber>
-  <date>25 June 2025</date>
+  <revnumber>5.33</revnumber>
+  <date>15 July 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -3530,10 +3530,11 @@ Details of this are given in chapter &<<CHAPrunningpmw>>&.
 .index "MIDI" "output"
 MIDI output is intended for `proof-hearing' a piece, to check that the input is
 correct. It does not try to reproduce all the nuances of a performance. In
-particular, accents and ornaments on notes have no effect, with two exceptions:
-individual notes or chords marked with tremolo lines (for example, &`g\//\`&)
-are played as a suitable number of shorter notes/chords, and similarly there is
-an attempt to honour &%[tremolo]%& between two notes or chords.
+particular, most accents and ornaments on notes have no effect, with just a few
+exceptions that work in common cases. These are: trills on single notes (for
+example, &`e\tr\`&), notes or chords marked with tremolo lines (for example,
+&`g\//\`&), and &%[tremolo]%& between two notes or chords, all of which are
+`played' as a number of shorter notes/chords.
 
 A number of directives whose names all start with `midi' are available for
 controlling the allocation of MIDI voices and channels to staves. The

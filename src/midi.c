@@ -310,7 +310,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
   BOOL noteson;   /* See above comment */
   int32_t moff;
   int midi_stave_status, midi_stave_pitch, midi_stave_velocity;
-  int miditranspose, adjustlength, scrubtremolo;
+  int miditranspose, adjustlength, scrubtremolo, scrubtrill;
 
   if (mac_notbit(midi_staves, stave)) continue;
 
@@ -318,6 +318,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
   miditranspose = midi_transpose[stave];
   adjustlength = 0;
   scrubtremolo = -1;
+  scrubtrill = -1;
   noteson = TRUE;
 
   /* Set up midi parameters */
@@ -474,10 +475,21 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
       case b_ornament:
         {
         b_ornamentstr *orn = (b_ornamentstr *)p;
-        if (orn->ornament == or_trem1 ||
-            orn->ornament == or_trem2 ||
-            orn->ornament == or_trem3)
+        switch(orn->ornament)
+          {
+          case or_trem1:
+          case or_trem2:
+          case or_trem3:
           scrubtremolo = orn->ornament;
+          break;
+
+          case or_tr:
+          case or_trsh:
+          case or_trfl:
+          case or_trnat:
+          scrubtrill = orn->troffset;
+          break;
+          }
         }
       break;
 
@@ -579,10 +591,22 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
             while (note->type == b_chord);
             }
 
-          /* If the note is followed by a tie, find the next note or chord on
-          the stave. If any of its notes have the same pitch as any of those in
-          the list, extend their playing times. If there are any new notes, add
-          them to the list, with a later starting time. We have to do this
+          /* Else if a single note has a trill ornament, we can set it up in a
+          similar way to tremolo above. */
+
+          else if (pitchcount == 1 && scrubtrill > 0)
+            {
+            scrub = 3 * tremolo_multiplier;
+            pitchlist[1] = pitchlist[0] + scrubtrill;
+            pitchlen[1] = length;
+            pitchstart[1] = nstart - length;
+            alternate_pitchcount++;
+            }
+
+          /* Else if the note is followed by a tie, find the next note or chord
+          on the stave. If any of its notes have the same pitch as any of those
+          in the list, extend their playing times. If there are any new notes,
+          add them to the list, with a later starting time. We have to do this
           because all the notes we are accumulating will be output at the end
           of this bar. Set the noplay flag in the next notes, to stop them
           playing again later. Continue for multiple ties. */
@@ -721,6 +745,7 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
         }
 
       scrubtremolo = -1;
+      scrubtrill = -1;
       break;
       }  /* End switch on bar item */
     }    /* End of bar scan */
