@@ -386,7 +386,7 @@ while (p < sorttop - 1)
   stem is down. This ensures that the note at the end of the stem is on the
   normal side of the stem. */
 
-  if (upflag)
+  if (upflag != 0)
     {
     increment = 2;
     lowp = p;
@@ -413,7 +413,7 @@ while (p < sorttop - 1)
 
     if (wwH != NULL)
       {
-      if (upflag) wwH->flags |= nf_invert;
+      if (upflag != 0) wwH->flags |= nf_invert;
       if ((wwH->flags & nf_highdot) == 0)
         {
         wwH->flags &= ~nf_lowdot;
@@ -425,7 +425,7 @@ while (p < sorttop - 1)
     accidental, so as to cause accidental positioning to happen if there is
     at least one actual accidental on the chord. */
 
-    if (wwL != NULL && !upflag)
+    if (wwL != NULL && upflag == 0)
       {
       wwL->flags |= nf_invert;
       acc_count++;
@@ -446,9 +446,10 @@ while (p < sorttop - 1)
   }
 
 /* If the stem is up and there are any seconds in the chord, flag all the notes
-to print with any dots moved right. */
+to print with any dots moved right, but when operating right-to-left, it must
+happen for stem-down notes. */
 
-if (SecondsExist && upflag)
+if (SecondsExist && ((upflag != 0) != main_righttoleft))
   for (p = 0; p < sorttop; p++) sortvec[p]->flags |= nf_dotright;
 
 /* Scan the chord to arrange the positioning of the accidentals. This is done
@@ -480,7 +481,7 @@ if (!acc_explicit && acc_count > 1)
     if ((flags & nf_couple) != 0)
       row->pitch += ((flags & nf_coupleU) != 0)? 32 : -32;
 
-    row->inverted = !upflag && ((flags & nf_invert) != 0);
+    row->inverted = upflag == 0 && ((flags & nf_invert) != 0);
     row->acc = ww->acc;
 
     row->accleft = row->orig_accleft = ww->accleft;
@@ -747,7 +748,7 @@ if (!acc_explicit && acc_count > 1)
 descending for stem up and ascending for stem down. If we are dealing with the
 last-read chord, also adjust the order of the read_tiedata vector. */
 
-if (upflag)
+if (upflag != 0)
   {
   p = sorttop - 1;
   pp = 0;

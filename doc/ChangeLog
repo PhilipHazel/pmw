@@ -7,6 +7,9 @@ Version 5.33 xx-xxx-2025
 
 1. Added MIDI support for tr-type trills.
 
+2. Moved noteheads in chords that contained intervals of a second were not 
+correctly placed in right-to-left mode.
+
 
 Version 5.32 25-June-2025
 -------------------------

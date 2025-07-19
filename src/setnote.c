@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: May 2025 */
+/* This file last modified: July 2025 */
 
 #include "pmw.h"
 
@@ -25,13 +25,9 @@ static uschar common_notes[] = {
   49, 50, 52, 54, 56, 58,       /* stems down */
   49, 50, 51, 53, 55, 57};      /* stems up */
 
-static uschar *reststrings[] = {                    /* Conventional */
+static uschar *reststrings[] = {
   US"*", US"+", US",", US"-", US".", US"z.w{{y.",
   US"zzx.w{{y.w{{y.", US"zzzx.w{{y.w{{y.w{{y." };
-
-static uschar *rtl_reststrings[] = {                /* Right-to-left */
-  US"*", US"+", US",", US"-", US".", US"z.w{yy.",
-  US"zzx.w{y.w{y.", US"zzzx.w{y.w{y.w{y." };
 
 static uschar *multireststrings[] = {  /* Start for 2, last is for 8 */
   US"*", US"*z+", US"*{{w*", US"*{{w*xz+", US"*{{w*xz*",
@@ -310,6 +306,7 @@ show_note(int x)
 uschar buff[100];
 uschar *p;
 
+int32_t x_inverted_rtl_adjust = 0;
 int32_t fontsize = (n_fontsize*out_stavemagn)/1000;
 int32_t y = out_ystave - (n_pitch - P_1S)*out_pitchmagn - n_pcorrection;
 
@@ -662,18 +659,14 @@ if (n_noteheadstyle != nh_none)
       {
       if (n_notetype == breve)
         p += sprintf(CS p, "}}}}{{{{z");
-      else *p++ = 125;
+      else *p++ = '}';
       }
     else
       {
       if (n_notetype == breve)
         p += sprintf(CS p, "{yyyyyyyyyyyy}");
       else
-        {
-        *p++ = 123;
-        *p++ = 121;
-        *p++ = 121;
-        }
+        p += sprintf(CS p, "{yy");
       }
     }
 
@@ -684,19 +677,25 @@ if (n_noteheadstyle != nh_none)
     {
     *p++ = headchars[n_notetype + NOTETYPE_COUNT*n_noteheadstyle];
 
-    /* When printing right-to-left, we put some redundant spacing *after*
-    inverted noteheads. This is just a fudge to fool the x-coordinate adjusting
-    code into doing (approximately) the right thing. */
+    /* When printing an inverted notehead right-to-left, some adjustment is
+    needed, because the string is output, left-to-right, to END at the x
+    position. For a down-stemmed note, just add some space to the right. For an
+    up-stemmed note we can't just add a left movement any more (that used to
+    work with the .pfa font) because they won't be part of the substring that
+    is output. We have to adjust the value of x. */
 
     if (main_righttoleft && inverted)
-      p += sprintf(CS p, n_upflag? "{{{" : "zzzz");
+      {
+      if (!n_upflag) p += sprintf(CS p, "zzzz");
+        else x_inverted_rtl_adjust = -(fontsize * 11)/20; /* 0.55 x fontsize */
+      }
     }
   }
 
 /* Output the music font string. */
 
 *p = 0;
-ofi_musstring(buff, fontsize, x, y);
+ofi_musstring(buff, fontsize, x + x_inverted_rtl_adjust, y);
 
 /* In the special cases of a small note head, the note head output was skipped
 above. The printing position should be in the correct place for a full size
@@ -835,8 +834,7 @@ for conventional repeat signs. */
 if (notetype >= 0)
   {
   uschar *s;
-  if ((n_flags & nf_restrep) == 0)
-    s = main_righttoleft? rtl_reststrings[notetype] : reststrings[notetype];
+  if ((n_flags & nf_restrep) == 0) s = reststrings[notetype];
   else if (notetype == crotchet) s = US"\217";
   else
     {

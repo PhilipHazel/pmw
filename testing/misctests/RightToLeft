@@ -155,3 +155,12 @@ unfinished
 [stave 1 treble 1]
 r- r= r=- r== Q+
 [endstave]
+
+[newmovement]
+unfinished nocheck
+
+[stave 1 treble 1]
+(E'.\f\ G'. A'. #C'.) r\f\ | (D.fgb) |
+[bass -1]
+(E'.\f\ G'. A'. #C'.) r\f\ |
+[endstave]

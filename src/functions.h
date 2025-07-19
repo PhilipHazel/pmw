@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: April 2025 */
+/* This file last modified: July 2025 */
 
 /* -------- General functions -------- */
 
@@ -93,7 +93,7 @@ extern int32_t      pout_getswidth(uint32_t *, usint, fontstr *, int32_t *,
                       int32_t *);
 extern void         pout_muschar(int32_t, int32_t, uint32_t, int32_t,
                       void(*)(uint32_t *, usint, fontinststr *, int32_t,
-                      int32_t));
+                      int32_t, BOOL));
 extern BOOL         pout_get_pages(pagestr **, pagestr **);
 extern void         pout_set_ymax_etc(int32_t *, int32_t *);
 extern void         pout_setcolour(int32_t *);
@@ -101,7 +101,7 @@ extern void         pout_setgray(int32_t);
 extern void         pout_setup_pagelist(BOOL);
 extern void         pout_string(uint32_t *, fontinststr *, int32_t *,
                       int32_t *, BOOL, void(*)(uint32_t *, usint, fontinststr *,
-                      int32_t, int32_t));
+                      int32_t, int32_t, BOOL));
 extern void         pmw_read(void);
 extern void         pmw_read_header(void);
 extern void         pmw_read_stave(void);

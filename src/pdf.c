@@ -1033,12 +1033,14 @@ Arguments:
   fdata        points to font instance size etc data
   x            the x coordinate
   y            the y coordinate
+  startadjust  TRUE in RTL mode if start needs adjusting
 
 Returns:       nothing
 */
 
 static void
-pdf_basic_string(uint32_t *s, usint f, fontinststr *fdata, int32_t x, int32_t y)
+pdf_basic_string(uint32_t *s, usint f, fontinststr *fdata, int32_t x, int32_t y,
+  BOOL startadjust)
 {
 fontstr *fs = &(font_list[font_table[f & ~font_small]]);
 kerntablestr *ktable = fs->kerns;
@@ -1065,12 +1067,14 @@ if (f >= font_small)
 fs->flags |= ff_used;
 if (f == font_mf) music_font_used = TRUE;
 
-/* When outputting right-to-left, we need to find the length of the string so
-that we can output it from the other end, because the fonts still work
-left-to-right. By this stage there are no special escape characters left in the
-string and we know that it's all in the same font. */
+/* When outputting right-to-left, we sometimes need to find the length of the
+string so that we can output it from the other end, because the fonts still
+work left-to-right. By this stage there are no special escape characters left
+in the string and we know that it's all in the same font. This is not needed
+when called from pout_string(), which does its own adjusting to account for
+leftwards and up/down moving characters. */
 
-if (main_righttoleft)
+if (startadjust)
   {
   int32_t last_width, last_r2ladjust;
   int32_t swidth = pout_getswidth(s, f, fs, &last_width, &last_r2ladjust);
@@ -1398,12 +1402,12 @@ if (!bar_use_draw &&
   while (ytop <= ybot)
     {
     lastytop = ytop;
-    pdf_basic_string(buff, font_mf, &pout_mfdata, x, ytop);
+    pdf_basic_string(buff, font_mf, &pout_mfdata, x, ytop, main_righttoleft);
     ytop += 16*magn;
     }
 
   if (lastytop < ybot)
-    pdf_basic_string(buff, font_mf, &pout_mfdata, x, ybot);
+    pdf_basic_string(buff, font_mf, &pout_mfdata, x, ybot, main_righttoleft);
   }
 
 /* Long dashed lines have to be drawn, as do other lines if they are shorter
@@ -1518,7 +1522,7 @@ buff[0] = 0260;     /* Top character */
 buff[1] = 0;
 
 ytop = ytop - 16*magn + stride;  /* Position for top character */
-pdf_basic_string(buff, font_mf, &pout_mfdata, x, ytop);
+pdf_basic_string(buff, font_mf, &pout_mfdata, x, ytop, main_righttoleft);
 
 stride -= 1000;   /* Ensure no gap by reducing stride */
 ytop += stride;
@@ -1526,13 +1530,13 @@ ytop += stride;
 buff[0] = 'B';      /* Middle character */
 while (ytop < ybot)
   {
-  pdf_basic_string(buff, font_mf, &pout_mfdata, x, ytop);
+  pdf_basic_string(buff, font_mf, &pout_mfdata, x, ytop, main_righttoleft);
   ytop += stride;
   }
 
 buff[0] = 0261;     /* Bottom character */
 
-pdf_basic_string(buff, font_mf, &pout_mfdata, x, ybot);
+pdf_basic_string(buff, font_mf, &pout_mfdata, x, ybot, main_righttoleft);
 
 if (save_righttoleft)
   {
@@ -1652,13 +1656,14 @@ else
     ch = pout_stavechar1[stavelines];
     }
 
-  pdf_basic_string(string_pmw(buff, font_mf), font_mf, &pout_mfdata, leftx, y);
+  pdf_basic_string(string_pmw(buff, font_mf), font_mf, &pout_mfdata, leftx, y,
+    main_righttoleft);
 
   /* If there's a fraction of 10 points left, deal with it. */
 
   if (x < rightx)
     pdf_basic_string(string_pmw(sbuff, font_mf), font_mf, &pout_mfdata,
-      rightx - chwidth, y);
+      rightx - chwidth, y, main_righttoleft);
   }
 
 pout_setcolour(save_colour);

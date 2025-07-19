@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2024 */
-/* This file last modified: January 2025 */
+/* This file last modified: July 2025 */
 
 #include "pmw.h"
 
@@ -463,7 +463,8 @@ return swidth;
 *************************************************/
 
 /* The x and y coordinates are updated if requested - note that y goes
-downwards.
+downwards. The string is processed in substrings in which all the characters
+have the same font.
 
 Special action is needed for the music font. The PostScript Type 1 font
 contains a few characters that output nothing but whose horizontal spacial
@@ -474,11 +475,19 @@ negative horizontal advance values, nor both horizontal and vertical movement
 in the same font, and a Truetype or OpenType font is now desirable because Type
 1 fonts are becoming obsolete.
 
-We get round this restriction by separating out substrings that start with an
-unsupported moving character and consist only of position moving characters.
-The already-existing code that suppresses the output of a substring that just
-moves the position then kicks in. Also, we terminate a substring after any
-printing character that has vertical movement.
+We get round this restriction by separating out substrings (within the
+substring of music font characters) that start with an unsupported moving
+character and consist only of position moving characters. The already-existing
+code that suppresses the output of a substring that just moves the position
+then kicks in. Also, we terminate a substring after any printing character that
+has vertical movement.
+
+This is further complicated when right-to-left processing is enabled. The
+overall coordinate system has x running to the left, but fonts are transformed
+so that strings look the same as in left-to-right. This means that the emulated
+"move-only" characters must *decrease* x by their horizontal width. However, at
+the end, the original x must be increased by the length of the entire music
+font substring.
 
 Arguments:
   s             the PMW string
@@ -494,91 +503,128 @@ Returns:        nothing
 void
 pout_string(uint32_t *s, fontinststr *fdata, int32_t *xu, int32_t *yu,
   BOOL update, void (*basic_string)(uint32_t *, usint, fontinststr *,
-  int32_t, int32_t))
+  int32_t, int32_t, BOOL))
 {
 int32_t x = *xu;
 int32_t y = *yu;
 
-/* Process the string in substrings in which all the characters have the same
-font, handling the music font specially, as noted above. */
+/* Loop for processing substrings whose characters are all in the same font. */
 
 while (*s != 0)
   {
-  int32_t stringheight;
+  int32_t stringwidth, stringheight;
   uint32_t save1;
-  uint32_t *p = s;
+  uint32_t *p = s;     /* Remember start of substring */
   usint f = PFONT(*s);
 
-  /* Handle strings in the music font */
+  /* Find the end of the substring. */
+
+  while (*s != 0 && PFONT(*s) == f) s++;
+  save1 = *s;
+  *s = 0;          /* Temporary terminator */
+  stringwidth = string_width(p, fdata, &stringheight);
+
+  /* Handle strings in the music font. Use temporary coordinate variables that
+  can be incremented differently for right-to-left. */
 
   if ((f & ~font_small) == font_mf)
     {
-    BOOL skip = TRUE;
+    uint32_t save2;
+    int32_t xx = x;
+    int32_t yy = y;
+    int rtlfudge = main_righttoleft? -1 : 1;
+  
+if (main_righttoleft)
+  {
+  int32_t last_width, last_r2ladjust;
+  fontstr *fs = &(font_list[font_table[f & ~font_small]]);
+  int32_t swidth = pout_getswidth(p, f, fs, &last_width, &last_r2ladjust);
+   
+  /* Adjust the printing position for the string by the length of the string,
+  adjusted for the actual bounding box of the final character, and scaled to
+  the font size. */
 
-    /* Starts with an unsupported mover, leave skip TRUE so no output will
-    happen, but the current point will be adjusted. */
+  xx += mac_muldiv(swidth - last_width + last_r2ladjust, fdata->size, 1000);
+  }  
 
-    if (Ustrchr(umovechars, PCHAR(*s)) != NULL)
+    /* Break the music font substring into further substrings as controlled by
+    unsupported moving characters. */
+
+    s = p;
+    while (*s != 0)
       {
-      while (*s != 0 && PFONT(*s) == f &&
-             Ustrchr(amovechars, PCHAR(*s)) != NULL) s++;
-      }
+      int32_t stringheight2;
+      uint32_t *pp = s;
+      BOOL skip = TRUE;
 
-    /* Does not start with an unsupported mover; end when one is encountered.
-    Also end (but include the character) if a vertical movement is needed. */
+      /* Starts with an unsupported mover, leave skip TRUE so no output will
+      happen, but the current point will be adjusted. Include any further
+      movement-only characters. */
 
-    else
-      {
-      while (*s != 0 && PFONT(*s) == f)
+      if (Ustrchr(umovechars, PCHAR(*s)) != NULL)
         {
-        uint32_t c = PCHAR(*s);
-        if (Ustrchr(umovechars, c) != NULL) break;
-        if (Ustrchr(amovechars, c) == NULL) skip = FALSE;
-        s++;
-        if (Ustrchr(vshowchars, c) != NULL) break;
+        while (*s != 0 && Ustrchr(amovechars, PCHAR(*s)) != NULL) s++;
         }
-      }
 
-    /* End substring */
+      /* Does not start with an unsupported mover; end when one is encountered.
+      Also end (but include the character) if a vertical movement is needed. */
 
-    save1 = *s;
-    *s = 0;          /* Temporary terminator */
+      else
+        {
+        while (*s != 0)
+          {
+          uint32_t c = PCHAR(*s);
+          if (Ustrchr(umovechars, c) != NULL) break;
+          if (Ustrchr(amovechars, c) == NULL) skip = FALSE;
+          s++;
+          if (Ustrchr(vshowchars, c) != NULL) break;
+          }
+        }
 
-    /* If this substring consists entirely of printing-point-moving characters
-    (skip == TRUE) we do not need actually to output it. Otherwise, we can
-    temporarily remove any trailing moving characters while outputting as they
-    don't achieve anything useful. Of course they need to be restored
-    afterwards so that the position update below works correctly. */
+      /* End substring */
 
-    if (!skip)
-      {
-      uint32_t save2;
-      uint32_t *t = s - 1;
-      while (t > p && Ustrchr(amovechars, PCHAR(*t)) != NULL) t--;
-      save2 = *(++t);
-      *t = 0;
-      basic_string(p, f, fdata, x, y);
-      *t = save2;
-      }
-    }
+      save2 = *s;
+      *s = 0;          /* Temporary terminator */
+
+      /* If this substring consists entirely of printing-point-moving
+      characters (skip == TRUE) we do not need actually to output it.
+      Otherwise, we can temporarily remove any trailing moving characters while
+      outputting because they don't achieve anything useful. Of course they
+      need to be restored afterwards so that the position update below works
+      correctly. */
+
+      if (!skip)
+        {
+        uint32_t save3;
+        uint32_t *t = s - 1;
+        while (t > pp && Ustrchr(amovechars, PCHAR(*t)) != NULL) t--;
+        save3 = *(++t);
+        *t = 0;
+//        basic_string(pp, f, fdata, xx, yy, main_righttoleft);
+        basic_string(pp, f, fdata, xx, yy, FALSE);
+        *t = save3;
+        }
+
+      /* Update position after this sub-substring. In right-to-left mode x
+      decreases for rightwards movement. */
+
+      xx += string_width(pp, fdata, &stringheight2) * rtlfudge;
+      yy -= stringheight2;
+      *s = save2;   /* Restore */
+      }  /* Loop for sub-substrings within the music font */
+    }    /* End handling music-font substring */
 
   /* The font is not the music font */
 
-  else
-    {
-    while (*s != 0 && PFONT(*s) == f) s++;
-    save1 = *s;
-    *s = 0;          /* Temporary terminator */
-    basic_string(p, f, fdata, x, y);
-    }
+  else basic_string(p, f, fdata, x, y, main_righttoleft);
 
   /* Update the position. Note that we must use the original size (in fdata)
   because string_width() does its own adjustment for small caps and the small
   music font. */
 
-  x += string_width(p, fdata, &stringheight);
+  x += stringwidth;
   y -= stringheight;
-  *s = save1;   /* Restore */
+  *s = save1;   /* Restore for next outer-level substring. */
   }
 
 /* Pass back the end position if required. */
@@ -612,7 +658,8 @@ Returns:     nothing
 
 void
 pout_muschar(int32_t x, int32_t y, uint32_t ch, int32_t pointsize,
-  void (*basic_string)(uint32_t *, usint, fontinststr *, int32_t, int32_t))
+  void (*basic_string)(uint32_t *, usint, fontinststr *, int32_t, int32_t,
+    BOOL))
 {
 int32_t xfudge = 0;
 
@@ -653,7 +700,7 @@ for (mfstr *p = out_mftable[ch]; p != NULL; p = p->next)
 
   basic_string(s, font_mf, &pout_mfdata,
     x + mac_muldiv(p->x, pointsize, 10000) + xfudge,
-    y - mac_muldiv(p->y, pointsize, 10000));
+    y - mac_muldiv(p->y, pointsize, 10000), main_righttoleft);
 
   xfudge += nxfudge;
   }

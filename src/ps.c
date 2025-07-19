@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: May 2021 */
-/* This file last modified: March 2025 */
+/* This file last modified: July 2025 */
 
 #include "pmw.h"
 
@@ -222,12 +222,14 @@ Arguments:
   fdata        points to font instance size etc data
   x            the x coordinate
   y            the y coordinate
+  startadjust  TRUE in RTL mode if start needs adjusting 
 
 Returns:       nothing
 */
 
 static void
-ps_basic_string(uint32_t *s, usint f, fontinststr *fdata, int32_t x, int32_t y)
+ps_basic_string(uint32_t *s, usint f, fontinststr *fdata, int32_t x, int32_t y,
+  BOOL startadjust)
 {
 fontstr *fs = &(font_list[font_table[f & ~font_small]]);
 kerntablestr *ktable = fs->kerns;
@@ -267,7 +269,7 @@ left-to-right. We also need the length for EPS output, in order to set the
 bounding box. By this stage there are no special escape characters left in the
 string and we know that it's all in the same font. */
 
-if (main_righttoleft || ps_EPS)
+if (startadjust || ps_EPS)
   {
   int32_t last_width, last_r2ladjust;
   int32_t swidth = pout_getswidth(s, f, fs, &last_width, &last_r2ladjust);
@@ -277,7 +279,7 @@ if (main_righttoleft || ps_EPS)
   character, and scaled to the font size. For EPS output, adjust the bounding
   box. Both may, of course, happen. */
 
-  if (main_righttoleft)
+  if (startadjust)
     x += mac_muldiv(swidth - last_width + last_r2ladjust, tfd.size, 1000);
 
   if (ps_EPS)
