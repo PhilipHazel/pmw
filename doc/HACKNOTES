@@ -2,13 +2,15 @@ PMW HACKING NOTES
 =================
 
 This document contains a few notes about the internals of PMW for the benefit
-of anyone wanting to make changes. See also the file src/README.
+of anyone wanting to make changes. See also the file src/README and comments
+within the code modules, and the files doc/fontspec.pdf and fontmaint/README
+for information about the PMW-Music and PMW-Alpha fonts.
 
 This codebase started life as a BCPL program in 1987, and has been heavily
 modified over several decades. At various times it ran on a number of different
 operating systems, though now it is just a C program that reads and writes
 files, so it should run wherever it can be compiled. The only system-specific
-code is for finding the user's ~/.pmwrc file in a Unix-style environment, but
+code is for finding the user's ~/.pmwrc file in a Unix-like environment, but
 this can be cut out at compile time.
 
 Files for the common "./configure; make; make install" paradigm are supplied
@@ -79,24 +81,36 @@ for tree handling is in tree.c. Processors are so fast these days that this
 probably doesn't matter, but it is an elegant algorithm.
 
 
-DIMENSION FORMAT
-================
+DIMENSIONS
+==========
 
-All dimensions in PMW are held in millipoints, that is 1/1000 of a point. Most
-calculations are done using fixed-point arithmetic, but occasionally floating
-point is needed.
+All printing dimensions in PMW are held in millipoints, that is 1/1000 of a
+point. Musical dimensions, that is, the notional time lengths of notes, are in
+units where a breve is defined as (128*4*5*7*9*11*13). This should cope with
+all but the most esoteric subdivisions. Most calculations are done using
+fixed-point arithmetic, but occasionally floating point is needed.
 
 
 STRUCTURES USED FOR STAVE DATA
 ==============================
 
-The diagram below shows the overall structure that results from reading an
-input file. The global vector called "movements" is the root. Within each
-movement's structure is a vector of pointers to each stave's data, and there is
-also a vector that holds the printable value for each bar's number, because
-bars can be uncounted. PMW works with "absolute" bar numbers (starting at 0),
-using the barvector when it needs to identify a bar to the user. The format of
-the values in barvector is (integer part) << 16 + (fractional part).
+The diagram below shows some of the stave data structures that PMW uses. Most
+of this is set up as the input file is read, but the data that hangs off the
+posvector pointer is created during pagination.
+
+The global vector called "movements" is the root. Within each movement's
+structure is a vector of pointers to each stave's data, and there is also a
+vector that holds the printable value for each bar's number, because bars can
+be uncounted. PMW works with "absolute" bar numbers (starting at 0), using the
+barvector when it needs to identify a bar to the user. The format of the values
+in barvector is (integer part) << 16 + (fractional part).
+
+Also indexed by absolute bar number is a vector of barposstr structures that
+hold information about each bar (independent of any stave). This includes a
+pointer to a vector of horizontal positions within the bar, each of which
+contains a "musical offset" and a corresponding horizontal offset. The number
+of entries is in the barposstr.
+
 
   (vector)       (struct)
   movements       movtstr
@@ -111,10 +125,21 @@ the values in barvector is (integer part) << 16 + (fractional part).
                -------------     -----------------         |
                |    ...     |    |               |         |
                --------------    -----------------         |
-                                 |               |         |
-                                 -----------------         |
-                                                           |
-                                                           V
+               | posvector -|--  |     ...       |         |
+               -------------- |  -----------------         |
+               |    ...     | |                            |
+               -------------- |      (vector)              |
+                              |     barposstr              |
+                              |  -----------------         |
+                  (vector)    -->|  bar 0 data,  |         |
+               --------------    |   including   |         |
+               | mus-offset |<---|--- pointer    |         |
+               |   x-offset |    -----------------         |
+               --------------    |  bar 1 data,  |         |
+               |    ...     |    |     etc.      |         |
+               --------------    -----------------         |
+                                 |     ...       |         |
+                                 -----------------         V
                                                         (struct)
       stave item           anchor                       stavestr
        (struct)           (struct)                   -------------
@@ -142,26 +167,28 @@ the values in barvector is (integer part) << 16 + (fractional part).
                                   -------------
 
 Each stave is anchored in a stavestr, within which barindex points to a vector
-with pointers to the start of each bar. A bar's data is a two-way chain of
-blocks, all of which start with the chain pointers and a type value. The rest
-of each block depends on the type, which is an enum value whose name starts
-with "b_". Most of the individual bar structures have names of the form
-"b_somethingstr".
+with pointers to the start of each bar on that stave. A bar's data is a two-way
+chain of blocks, all of which start with the chain pointers and a type value.
+The rest of each block depends on the type, which is an enum value whose name
+starts with "b_". The final item always has the type b_barline. Most of the
+individual bar structures have names of the form "b_somethingstr".
 
-For unrepeated bars, the anchoring block has zero in the repeat number field.
-When a bar is repeated using the [<number>] syntax, its repeat number is set to
-one. Then additional entries in the barindex vector are set up. Each of these
-has its own barstr whose "next" field point to the original bar's data, and
-whose repeat number is set appropriately. The repeat number is used to
+For unrepeated bars, the anchoring barstr block has zero in the repeat number
+field. When a bar is repeated using the [<number>] syntax, its repeat number is
+set to one. Then additional entries in the barindex vector are set up. Each of
+these has its own barstr whose "next" field point to the original bar's data,
+and whose repeat number is set appropriately. The repeat number is used to
 implement the \r\ escape sequence in strings, used for numbering repeated bars.
 
 
 STRUCTURES USED FOR PAGE INFORMATION
 ====================================
 
-The following diagram shows the structures that are set up by the pagination
-process. Each page is represented as a chain of blocks that are either
-heading/footing blocks, or system blocks.
+The following diagram shows the page structures that are set up by the
+pagination process, which also sets up the posvector structures as shown above.
+Each page is represented as a chain of blocks that are either heading blocks
+or system blocks, the latter containing information about musical systems.
+There is a separate chain of footing blocks.
 
                         (struct)
                          pagestr
@@ -213,6 +240,47 @@ ps.c or pdf.c. In a sysblock, "notsuspend" is a 64-bit unsigned int that
 indicates which staves are included in this system. Stave selection via the
 command line or the "selectstaves" directive suspends a stave for an entire
 movement. Otherwise, suspension is controlled by the "suspend" directives.
+
+
+PAGINATION
+==========
+
+The function paginate() in the paginate.c module controls the pagination
+process. After some initialization, it runs a big loop until page_done becomes
+TRUE. The loop is a single switch on the page_state variable, which selects
+from the following different action states:
+
+(1) Start of movement: process any heading lines, set up a footing, create a
+    barvector, various initialization, change to state 2.
+
+(2) Start of system: initialization, change to state 3.
+
+(3) In mid-system: measure the printing width of the next bar. If the "layout"
+    directive was not used, see if the bar will fit on the line, and if the bar
+    is too wide, change to state 4. However, always accept the first bar of a
+    system. If "layout" was used, accept the bar if it is within the required
+    number for the system. In both cases of acceptance, change to state 4 if it
+    was the last bar of the movement; otherwise, remain in state 3.
+
+(4) End of system: apply any required horizontal stretching to the system, and
+    then see if the system (and any footnotes) fits on the current page. If
+    not, start a new page. If there are no more bars, change to state 5,
+    otherwise change to state 2.
+
+(5) End of movement: end the loop if it was the last movement. Otherwise,
+    prepare for another movement and change to state 1.
+
+State 3 is probably the most complicated. A function called makepostable()
+creates a table that contains the positions of the various items in a bar, and
+so determines the horizontal width. This is the data that is accessed via the
+posvector field in the movement structure and is used when generating the
+output.
+
+A complication arises in state 3 when the bar that follows an accepted system
+starts with a key or time signature and a cautionary version is required at the
+end of the system. PMW checks to see whether this can fit alongside the
+accepted bars. If not, it has to back up by removing the final bar that it
+accepted, and re-stretch the system if horizontal justfication is enabled.
 
 
 FONT HANDLING
@@ -320,22 +388,121 @@ following names:
   ss_escapedsharp   escaped sharp  )
 
 
+STRING OUTPUT
+=============
+
+PMW strings (see above) can contain characters in different fonts. When a
+string is to be output, it has to be split into substrings, each of whose
+characters are all in the same font. This has become more complicated than it
+was originally, because of a change in font technology.
+
+When PMW was originally implemented, the only available technology for a
+user-created font was an Adobe Type 3 font, and this is what I used for the
+music font (PMW-Music). Later, Adobe published the format of its previously
+secret Type 1 format and PMW-Music was converted. In both these formats, each
+character can be associated with a movement of the current point in any
+direction after a character has been output. I made use of this ability by
+creating a number of characters that output nothing, but move various distances
+up, down, left, or right. Other characters display fragments of musical symbols
+(e.g. tails for quavers, etc). This was all designed so that a single string
+consisting of a mixture of characters could assemble musical symbols out of a
+number of parts. There are also some non-blank characters that have a vertical
+rather than a horizontal movement (for vertical squiggles).
+
+Adobe's initial secrecy about its Type 1 format (and its royalty charges) led
+to the development of other font technologies, in particular, TrueType,
+developed by Apple and also used by Microsoft. Eventually the players got
+together and developed OpenType, which is a combined technology that can
+contain either Adobe-style or TrueType-style font outlines. This is being
+pushed as the future of fonts. However, from PMW's point of view it has a
+serious drawback: after outputting a character from an OpenType font, the
+current point can be set to move only in one direction. As PMW is a
+left-to-right font, it is not possible to have characters that cause up, down,
+or leftwards movement. This restriction is inherited from TrueType.
+
+The PMW code relies on being able to output strings in the PMW-Music font that
+use the special moving characters. For example, the string "z.w{{y." is used
+to create a semiquaver rest from two suitably placed quaver rests. Its action
+as as follows:
+
+  z    moves right by 0.1 times the font's size
+  .    outputs a quaver rest
+  w    moves down by 0.4 times the font's size
+  {{y  moves left by 0.76 times the font's size (2*0.33 + 0.1)
+  .    outputs another quaver rest
+
+To support an OpenType version of PMW-Music, the string outputting code in PMW
+was changed. A string of characters in PMW-Music is no longer always output as
+a whole, but is split into two kinds of substring: those that consist of moving
+characters unsupported by OpenType, and the rest. The latter kind may be
+terminated by a character that needs vertical movement, which is implemented in
+PMW after outputting the substring and adjusting for its horizontal length. The
+movement-only substrings are never output, but just cause x and y adjustments
+within PMW. This change makes for larger output files, but storage is a lot
+more plentiful that it was back in 1987.
+
+
+RIGHT-TO_LEFT PROCESSING
+========================
+
+Missionaries in Egypt wrote music from right to left so that the Arabic words
+and the music of hymns were both read in the same direction. There are other
+examples in countries that use right-to-left scripts. Although the music's
+direction is changed, the shapes of the notes, clefs, etc. remain the same.
+Some years ago I was asked whether PMW could be coerced into setting music this
+way.
+
+In principle it is easy: transform the coordinate system so that the x axis
+runs from right to left and the origin is at the bottom righthand corner of the
+page. Then, within this coordinate system, re-transform each font so that its
+characters do not appear as mirror images. It turns out not to be quite as
+simple as that. Various additional adjusments need to be made, but it is the
+fonts that cause the most trouble because, having been re-transformed, their
+output goes left-to-right. Whenever a string is to be output at point x, say,
+if the horizontal width of the string is w, the actual output must take place
+at x + w (with an adjustment related to the final character's bounding box).
+There is further complication for strings in the music font because of the
+issues discussed in the previous section.
+
+There is a global variable called main_righttoleft that is set TRUE for
+right-to-left output. Searching for that name should find all the places where
+special action is needed for right-to-left output.
+
+
+DRAWING FEATURES
+================
+
+PMW supports "drawings", defined in a PostScript-like manner, for creating
+custom marks on the output page. All the drawing code is in the draw.c module.
+Each drawing has a name which is used to arrange them in a binary balanced tree
+for fast access. (Overkill, since in most PMW input files that use drawings
+there are probably only one or two. But the tree code is available for other
+uses, so why not?)
+
+The tree's "data" field points to a vector of drawitem structures, each of
+which has a type (dr_something) and a value. The type indicates whether the
+value is an operator or operand. One type is dr_jump, which is used to chain
+more memory if the initial allocation is filled.
+
+Execution of a drawing consists of interpreting the vector of draw items after
+first pushing any arguments on the execution stack.
+
+
 VARIABLE TYPES
 ==============
 
-When PMW was first implemented, C90 was the standard. A serious "gotcha" in C90
-is that the char type may be signed or unsigned, depending on the environment.
-I had been caught by this, so for PMW I typedef'd uschar as unsigned char and
-used it for the majority of character vectors. (I see that in C11, the wording
-has changed somewhat.) To save typing I also typedef'd usint for unsigned int.
+When PMW was first implemented in C, C90 was the language standard. A serious
+"gotcha" in C90 is that the char type may be signed or unsigned, depending on
+the environment. I had been caught by this, so for PMW I typedef'd uschar as
+unsigned char and used it for the majority of character vectors. (I see that in
+C11, the wording has changed somewhat.) To save typing I also typedef'd usint
+for unsigned int. Over the years, as both C and PMW have been revised, newer C
+integer types such as int32_t have been introduced.
 
-There was no stdbool.h back then, so there are also typedefs for BOOL (as an
+There was no stdbool.h back then, so there are typedefs for BOOL (as an
 unsigned int) and CBOOL (as an unsigned char, later changed to uint8_t).
 
-Most of the stuctures used in PMW are defined as their own types (structs.h).
-
-Over the years, as both C and PMW have been revised, newer C integer types such
-as int32_t have been introduced.
+Most of the stuctures used in PMW are defined as their own types in structs.h.
 
 
 MACROS IN THE CODE
@@ -360,6 +527,10 @@ structure called breadstr so that they can easily be initialized in a block at
 the start of reading each bar. The global variable brs is the working breadstr.
 Similarly, for reading a stave there is sreadstr and srs.
 
+A structure call pagedatastr is used for remembering things while creating a
+system. There are several versions so that backtracking can occur. See the
+comments near the start of paginate.c.
+
 
 ERROR HANDLING
 ==============
@@ -378,14 +549,17 @@ USER DOCUMENTATION
 It's all in the doc directory. There is a Makefile for building the user
 manual, with comments describing its use at the start. There is also a file
 called Makefile.ALL that in addition builds a document about the music font.
+These two PDF documents are created using my text typesetting software (aspic,
+xfpt, and sdop) as well as PMW itself for the music examples.
 
 
-MAKING A RELEASE TARBALL
-========================
+MAKING A RELEASE
+================
 
 A shell script called MakeRelease, whose argument is just a release number,
 copies the files needed for a release into Releases/pmw-xx.xx and then makes a
-tarball.
+tarball. Now that there is a GitHub repository, I tag each release in GitHub
+and add the tarball as one of its assets.
 
 
 FONT MAINTENANCE
