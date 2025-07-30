@@ -1490,7 +1490,7 @@ for (; n_ornament->type == b_ornament;
       y += (n_ornament->ornament == or_trem1)? 4 : 2;
       y = y*1000 + n_ornament->y;
       if (out_beaming && n_stemlength >= yy) y += (n_stemlength - yy)/2;
-      if (main_righttoleft) x -= 5000;
+      if (main_righttoleft && n_length < len_semibreve) x -= 5000;
       }
     else
       {
@@ -1503,7 +1503,7 @@ for (; n_ornament->type == b_ornament;
         }
       y = y*1000 + n_ornament->y;
       if (out_beaming && n_stemlength >= yy) y -= (n_stemlength - yy)/2;
-      if (main_righttoleft) x += 5000;
+      if (main_righttoleft && n_length < len_semibreve) x += 5000;
       }
     break;
 

@@ -52,7 +52,7 @@ gg [slur/a] e-.g= bA [es] [comma] |
 [stave 4 bass 0]
 f.f-EF [comma] |
 f.e-DD [comma] |
-ddC_dd | 
+ddC_dd |
 ddD_C [comma] |
 
 R! |
@@ -112,12 +112,12 @@ g\f\ g\.\ g\>\ g\/\ |
 "4" b\su\_b\sd\
 "6" b\sd\_b\su\
 [ties below]
-"1" b\su\_b 
+"1" b\su\_b
 "3" b\sd\_b
 "5" b\su\_b\sd\
 "7" b\sd\_b\su\
 | [nocheck]
-(ceg)_p 
+(ceg)_p
 (ceg)_/ap
 (c\sd\eg)_/ap\su\
 (c\sd\eg)_/bp\su\
@@ -135,7 +135,7 @@ unfinished
 heading "Yorkshire" 30
 
 [stave 1 treble 1]
-"\bf\\*c\ 104 ="/a/ts 
+"\bf\\*c\ 104 ="/a/ts
 #)g $)g #]g $]g %)g %]g
 #-)g #-]g $-)g $-]g "D.C. al Fine"/e |
 [endstave]
@@ -164,3 +164,17 @@ unfinished nocheck
 [bass -1]
 (E'.\f\ G'. A'. #C'.) r\f\ |
 [endstave]
+
+[newmovement]
+unfinished nocheck
+
+[stave 1 treble 1]
+D+\///\ | D+\//\ | D+\/\ |
+D'+\///\ | D'+\//\ | D'+\/\ |
+
+D++\///\ | D'++\///\ |
+D\///\ | D'\///\ |
+d\///\ | d'\///\ |
+d-\///\ | d'-\///\ |
+[endstave]
+
