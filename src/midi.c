@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: August 2021 */
-/* This file last modified: June 2025 */
+/* This file last modified: August 2025 */
 
 #include "pmw.h"
 
@@ -42,6 +42,7 @@ static BOOL      midi_onebar_only = FALSE;
 static uint64_t  midi_staves = ~0uL;
 static uint32_t  midi_tempo;
 static int8_t    midi_transpose[MAX_STAVE+1];  /* NB signed */
+static uint8_t   midi_tremolo[MAX_STAVE+1];
 static int       midi_volume = 127;
 static int16_t   next_event_seq;
 static uint32_t  repeat_bar;
@@ -457,6 +458,8 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
         if (change->note < 128)
           midi_stave_pitch = midi_note[stave] = change->note;
 
+        if (change->tremolo < 128) midi_tremolo[stave] = change->tremolo;
+
         /* A voice change must be scheduled to occur in the correct
         sequence with the notes. */
 
@@ -480,7 +483,8 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
           case or_trem1:
           case or_trem2:
           case or_trem3:
-          scrubtremolo = orn->ornament;
+          if ((midi_tremolo[stave] & mtf_repeat) != 0)
+            scrubtremolo = orn->ornament;
           break;
 
           case or_tr:
@@ -568,7 +572,9 @@ for (stave = 1; stave <= midi_movt->laststave; stave++)
             case (len_quaver*3)/2:    tremolo_multiplier = 3; break;
             }
 
-          if (note->type == b_tremolo && tremolo_multiplier != 0 &&
+          if (note->type == b_tremolo &&
+              (midi_tremolo[stave] & mtf_trill) != 0 &&
+              tremolo_multiplier != 0 &&
               note->next != NULL && note->next->type == b_note &&
               (int)((b_notestr *)note->next)->length == length &&
               scrubtremolo < 0)
@@ -910,10 +916,13 @@ of changing this. */
 
 midi_staves = midi_movt->select_staves;
 
-/* Initialize the tie information */
+/* Initialize the tie and tremolo information */
 
 for (int stave = 1; stave <= midi_movt->laststave; stave++)
+  {
   stavetie[stave] = FALSE;
+  midi_tremolo[stave] = midi_movt->miditremolo;
+  }
 
 /* Miscellaneous stuff */
 
@@ -1008,6 +1017,7 @@ for (midi_bar = 0; midi_bar < midi_startbar; midi_bar++)
       b_midichangestr *change;
 
       if (p->type != b_midichange) continue;
+
       change = (b_midichangestr *)p;
       midi_transpose[stave] += change->transpose;
 
@@ -1028,6 +1038,7 @@ for (midi_bar = 0; midi_bar < midi_startbar; midi_bar++)
         }
 
       if (change->note < 128) midi_note[stave] = change->note;
+      if (change->tremolo < 128) midi_tremolo[stave] = change->tremolo;
 
       if (change->voice < 128)
         {
@@ -1035,9 +1046,9 @@ for (midi_bar = 0; midi_bar < midi_startbar; midi_bar++)
         writebyte(0xC0 + midi_channel[stave] - 1);
         writebyte(change->voice);
         }
-      }
-    }
-  }
+      }   /* Loop through bar items on one stave */
+    }     /* Loop through staves */
+  }       /* Loop through bars */
 
 /* Now write the bars */
 

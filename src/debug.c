@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: December 2020 */
-/* This file last modified: December 2023 */
+/* This file last modified: August 2025 */
 
 #include "pmw.h"
 
@@ -1194,8 +1194,10 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
 
     case b_midichange:
     mcs = (b_midichangestr *)b;
-    eprintf("  midichange channel=%d voice=%d volume=%d note=%d transpose=%d\n",
-      mcs->channel, mcs->voice, mcs->volume, mcs->note, mcs->transpose);
+    eprintf("  midichange channel=%d voice=%d volume=%d note=%d transpose=%d"
+            " tremolo=%d\n",
+      mcs->channel, mcs->voice, mcs->volume, mcs->note, mcs->transpose,
+      mcs->tremolo);
     break;
 
     case b_move:

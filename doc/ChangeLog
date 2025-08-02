@@ -13,6 +13,8 @@ correctly placed in right-to-left mode.
 3. Tremolo bars on breves and semibreves were incorrectly placed in 
 rithg-to-left mode.
 
+4. Implemented the Miditremolo directives.
+
 
 Version 5.32 25-June-2025
 -------------------------

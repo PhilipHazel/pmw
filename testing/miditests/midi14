@@ -1,0 +1,18 @@
+unfinished nocheck
+
+miditempo 80
+miditremolo none
+
+[stave 1 treble 1]
+G\///\ R g\M\ [tremolo] b\M\ |
+[miditremolo repeat] A\///\ R g\M\ [tremolo] b\M\ |
+[miditremolo trill] A\///\ R g\M\ [tremolo] b\M\ |
+[miditremolo both] A\///\ R g\M\ [tremolo] b\M\ |
+[miditremolo none] A\///\ R g\M\ [tremolo] b\M\ |
+[endstave]
+
+[newmovement]
+miditremolo both
+[stave 1 treble 1]
+G\///\ R g\M\ [tremolo] b\M\ |
+[endstave]

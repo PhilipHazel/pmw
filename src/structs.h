@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: July 2025 */
+/* This file last modified: August 2025 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -244,6 +244,7 @@ typedef b_intvaluestr  b_pagetopsstr;
 
 typedef struct b_midichangestr {
   BSTRHEAD;
+  uint8_t tremolo; 
   int16_t transpose;
   uint8_t channel;
   uint8_t note;
@@ -862,6 +863,7 @@ typedef struct movtstr {
    int32_t      maxbeamslope[2];
   uint32_t      midichanset;
   uint32_t      miditempo;
+  uint32_t      miditremolo; 
    int32_t      midkeyspacing;
    int32_t      midtimespacing;
   uint32_t      noteden;

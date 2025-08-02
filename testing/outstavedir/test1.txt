@@ -103,11 +103,11 @@ BAR 4 (5)
   [xslur/x]
   [endslur]
   [endline]
-  midichange channel=3 voice=0 volume=12 note=128 transpose=0
-  midichange channel=128 voice=19 volume=128 note=128 transpose=0
-  midichange channel=128 voice=128 volume=128 note=60 transpose=0
-  midichange channel=128 voice=128 volume=128 note=128 transpose=-3
-  midichange channel=128 voice=128 volume=8 note=128 transpose=0
+  midichange channel=3 voice=0 volume=12 note=128 transpose=0 tremolo=128
+  midichange channel=128 voice=19 volume=128 note=128 transpose=0 tremolo=128
+  midichange channel=128 voice=128 volume=128 note=60 transpose=0 tremolo=128
+  midichange channel=128 voice=128 volume=128 note=128 transpose=-3 tremolo=128
+  midichange channel=128 voice=128 volume=8 note=128 transpose=0 tremolo=128
   [move 1,2]
   [rmove 3,-4]
   barline type=0 style=3

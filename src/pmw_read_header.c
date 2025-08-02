@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: April 2025 */
+/* This file last modified: August 2025 */
 
 #include "pmw.h"
 
@@ -1538,6 +1538,30 @@ while (isdigit(read_c))
 
 
 /*************************************************
+*                Miditremolo                     *
+*************************************************/
+
+static void
+miditremolo(void)
+{
+int yield = -1;
+
+if (isalpha(read_c))
+  {
+  read_nextword();
+  if (Ustrcmp(read_wordbuffer, "repeat") == 0)     yield = mtf_repeat;
+  else if (Ustrcmp(read_wordbuffer, "trill") == 0) yield = mtf_trill;
+  else if (Ustrcmp(read_wordbuffer, "both") == 0)  yield = mtf_both;
+  else if (Ustrcmp(read_wordbuffer, "none") == 0)  yield = 0;
+  }
+
+if (yield >= 0) curmovt->miditremolo = yield;
+  else error(ERR8, "\"repeat\", \"trill\", \"both\", or \"none\"");
+}
+
+
+
+/*************************************************
 *               Midivolume                       *
 *************************************************/
 
@@ -2508,6 +2532,7 @@ static dirstr headlist[] = {
   { "midistart",        midistart,      0, 0 },
   { "miditempo",        miditempo,      oo(movtstr,miditempo), int_u },
   { "miditranspose",    miditranspose,  0, 0 },
+  { "miditremolo",      miditremolo,    0, 0 },
   { "midivolume",       midivolume,     0, 0 },
   { "midkeyspacing",    movt_int,       oo(movtstr,midkeyspacing), int_f },
   { "midtimespacing",   movt_int,       oo(movtstr,midtimespacing), int_f },

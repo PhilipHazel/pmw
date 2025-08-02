@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: February 2021 */
-/* This file last modified: April 2025 */
+/* This file last modified: August 2025 */
 
 #include "pmw.h"
 
@@ -758,7 +758,8 @@ Returns:      nothing
 */
 
 static void
-makechange(int channel, int voice, int note, int volume, int transpose)
+makechange(int channel, int voice, int note, int volume, int transpose,
+  int tremolo)
 {
 b_midichangestr *p = mem_get_item(sizeof(b_midichangestr), b_midichange);
 p->channel = channel;
@@ -766,6 +767,7 @@ p->voice = voice;
 p->note = note;
 p->volume = volume;
 p->transpose = transpose;
+p->tremolo = tremolo;
 }
 
 /*** Midichannel & Midivoice ***/
@@ -813,7 +815,9 @@ if (string_read_plain())
   }
 else if (!dir->arg1) error(ERR8, "string");  /* Mandatory for Midivoice */
 
-makechange((int)channel, voicenumber - 1, 128, volume, 0);  /* 128 => no change */
+/* 128 => no change of note or tremolo */
+
+makechange((int)channel, voicenumber - 1, 128, volume, 0, 128);
 }
 
 
@@ -829,7 +833,7 @@ if (string_read_plain())
   else if (read_stringbuffer[0] != 0)
     note = read_getmidinumber(midi_percnames, read_stringbuffer,
       US"percussion instrument");
-  makechange(128, 128, note, 128, 0);  /* 128 => no change */
+  makechange(128, 128, note, 128, 0, 128);  /* 128 => no change */
   }
 else error(ERR8, "string");
 }
@@ -842,7 +846,27 @@ p_miditranspose(void)
 {
 int32_t transpose;
 if (!read_expect_integer(&transpose, FALSE, TRUE)) return;
-makechange(128, 128, 128, 128, transpose);
+makechange(128, 128, 128, 128, transpose, 128);  /* 128 => no change */
+}
+
+
+/*** Miditremolo ***/
+
+static void
+p_miditremolo(void)
+{
+int yield = -1;
+if (isalpha(read_c))
+  {
+  read_nextword();
+  if (Ustrcmp(read_wordbuffer, "repeat") == 0)     yield = mtf_repeat;
+  else if (Ustrcmp(read_wordbuffer, "trill") == 0) yield = mtf_trill;
+  else if (Ustrcmp(read_wordbuffer, "both") == 0)  yield = mtf_both;
+  else if (Ustrcmp(read_wordbuffer, "none") == 0)  yield = 0;
+  }
+if (yield >= 0)
+  makechange(128, 128, 128, 128, 0, yield);  /* 128 => no change */
+else error(ERR8, "\"repeat\", \"trill\", \"both\", or \"none\"");
 }
 
 
@@ -858,7 +882,7 @@ if (volume > 15)
   error(ERR8, "Number between 0 and 15");
   return;
   }
-makechange(128, 128, 128, volume, 0);
+makechange(128, 128, 128, volume, 0, 128);  /* 128 => no change */
 }
 
 
@@ -2231,6 +2255,7 @@ static dirstr read_stavedirlist[] = {
   { "midichannel",    p_midichanvoice, TRUE, TRUE },
   { "midipitch",      p_midipitch,     0, TRUE },
   { "miditranspose",  p_miditranspose, 0, TRUE },
+  { "miditremolo",    p_miditremolo,   0, FALSE },
   { "midivoice",      p_midichanvoice, FALSE, TRUE },
   { "midivolume",     p_midivolume,    0, TRUE },
   { "move",           p_move,          FALSE, FALSE },

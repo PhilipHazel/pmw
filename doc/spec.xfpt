@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>15 July 2025</date>
+<date>02 August 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>15 July 2025</date>
+  <date>02 August 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -3533,11 +3533,13 @@ correct. It does not try to reproduce all the nuances of a performance. In
 particular, most accents and ornaments on notes have no effect, with just a few
 exceptions that work in common cases. These are: trills on single notes (for
 example, &`e\tr\`&), notes or chords marked with tremolo lines (for example,
-&`g\//\`&), and &%[tremolo]%& between two notes or chords, all of which are
-`played' as a number of shorter notes/chords.
+&`g\//\`&), and &%[tremolo]%& between two notes or chords, all of which, by
+default, are `played' as a number of shorter notes/chords. However, this is not
+always satisfactory for tremolos, so there are directives to disable it (&R;
+&<<SUBSECTmiditremolo>>&).
 
-A number of directives whose names all start with `midi' are available for
-controlling the allocation of MIDI voices and channels to staves. The
+A number of other directives whose names all start with `midi' are available
+for controlling the allocation of MIDI voices and channels to staves. The
 &%midichannel%& (&R; &<<SUBSECTmidichannel>>&) header directive is used to
 specify the allocation of a MIDI voice and/or particular PMW staves to a MIDI
 channel, and the &%[midichannel]%& (&R; &<<SUBSECTmidichannelST>>&),
@@ -7433,6 +7435,39 @@ This example specifies that stave 1 is to be played a minor third lower than
 written. There is also a &%[miditranspose]%& stave directive that can be used
 to change the transposition part-way through a stave.
 
+
+
+.subsection "Miditremolo" SUBSECTmiditremolo
+.index "&%miditremolo%&"
+.index "MIDI" "tremolo"
+.index "tremolo" "in MIDI output"
+When generating MIDI output, PMW recognises two kinds of tremolo: &'Repeat'&
+tremolos cause a single note to be repeated many times, and are notated in PMW
+using a note option, for example &`G\///\`&. &'Trill'& tremolos cause a
+repeated alternation between two notes, and are notated using the &%[tremolo]%&
+directive, for example &`G[tremolo]B`&.
+
+Whereas repeat tremolos can sound quite reasonable on a MIDI keyboard
+instrument, they may sound weird on strings. The &%miditremolo%& directive can
+be used to set default tremolo handling on all staves. There is also a
+&%[miditremolo]%& stave directive for individual stave control. Each must be
+followed by one of the following words:
+.itable none 0 0 2  80 left  200 left
+.row &`both`&   "both kinds of tremolo are played"
+.row &`none`&   "no tremolos are played"
+.row &`repeat`& "only repeat tremolos are played"
+.row &`trill`&  "only trill tremolos are played"
+.endtable
+If your MIDI player supports the &'tremolo strings'& instrument, you could use
+a macro to change to it for just one note:
+.display
+&`*define ST() [miditremolo none midivoice "tremolo strings"] &&&&&&`&
+  &`&&&&1 [miditremolo trill midivoice "strings 1"]`&
+.endd
+Note the use of three ampersands to continue the logical line onto the second
+input line. The macro could then be used like this: &`&&ST(A\///\)`&. However,
+remember that changing a voice affects all staves that are using the same MIDI
+channel.
 
 
 .subsection "Midivolume" SUBSECTmidivolume
@@ -12280,6 +12315,15 @@ pitch. Changes made by &%[miditranspose]%& do not persist beyond the end of the
 movement.
 
 
+.subsection "[Miditremolo]"
+.index "&%[miditremolo]%&"
+.index "MIDI" "changing tremolo"
+This directive changes the MIDI tremolo setting for the current stave. Its
+argument is one of the words `repeat', `trill', `both', or `none'. For more
+details see the &%miditremolo%& header directive (&R;
+&<<SUBSECTmiditremolo>>&), which sets the default for all staves.
+
+
 .subsection "[Midivoice]" SUBSECTmidivoice
 .index "&%[midivoice]%&"
 .index "MIDI" "changing voice"
@@ -15331,6 +15375,7 @@ dagger affect only the movement in which they appear.
 &` Midistart `&<&'n'&>&` `&<&'n'&>&` `&<&'n'&> ...
 &` Miditempo `&<&'n'&>&` `&<&'n'&>/<&'m'&> ...
 &` Miditranspose `&<&'n'&>/<&'m'&> ...
+&` Miditremolo `&<&'type'&>
 &` Midivolume `&<&'n'&>&` `&<&'n'&>/<&'m'&> ...
 &` Midkeyspacing `&<&'n'&>
 &` Midtimespacing `&<&'n'&>
@@ -15827,6 +15872,7 @@ rests:
 .row "&`[midichannel `&<&'n'&>&`]`&"         "change MIDI channel"
 .row "&`[midipitch ""`&&'name'&&`""]`&"      "change MIDI percussion pitch"
 .row "&`[miditranspose `&<&'n'&>&`]`&"       "change MIDI transposition"
+.row "&`[miditremolo `&<&'type'&>&`]`&"      "change MIDI tremolo handling"
 .row "&`[midivoice ""`&&'name'&&`""]`&"      "change MIDI voice"
 .row "&`[midivolume `&<&'n'&>&`]`&"          "set relative MIDI volume"
 .row "&`[move `&<&'n'&>&`]`&"                "move next item horizontally"

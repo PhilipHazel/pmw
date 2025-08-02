@@ -6,7 +6,7 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: June 2025 */
+/* This file last modified: August 2025 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
@@ -820,6 +820,12 @@ flags from the [newmovement] directive. */
 /* These flags are set at the start of a new movement. */
 
 #define mf_resetflags (mf_showtime)
+
+/* Flags for enabling/disabling MIDI tremolo action. */
+
+#define mtf_repeat    0x00000001u
+#define mtf_trill     0x00000002u
+#define mtf_both      (mtf_repeat|mtf_trill)
 
 /* Backward offsets for non-note items in a bar. */
 

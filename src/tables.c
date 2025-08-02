@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2022 */
 /* This file created: January 2021 */
-/* This file last modified: May 2022 */
+/* This file last modified: August 2025 */
 
 #include "pmw.h"
 
@@ -621,6 +621,7 @@ movtstr default_movtstr = {
   { 310, 330 },       /* maxbeamslope */
   0,                  /* midichanset - reset at movement start */
   120,                /* miditempo */
+  mtf_both,           /* miditremolo */ 
   0,                  /* midkeyspacing */
   0,                  /* midtimespacing */
   1,                  /* noteden - reset at movement start */
