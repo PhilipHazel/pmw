@@ -854,14 +854,14 @@ TRACE("midi_write() movement %d\n", midi_movement);
 
 if (midi_movement < 1 || (usint)midi_movement > movement_count)
   {
-  error(ERR189, midi_movement);
+  error(ERR189, midi_movement, "MIDI");
   return;
   }
 
 midi_movt = movements[midi_movement - 1];
 if (midi_movt->barcount < 1)
   {
-  error(ERR160, midi_movt->number);
+  error(ERR160, midi_movt->number, "MIDI");
   return;
   }
 midi_tempo = midi_movt->miditempo;   /* Default tempo */

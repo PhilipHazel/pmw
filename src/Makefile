@@ -16,11 +16,12 @@ HDRS = config.h functions.h globals.h pmw.h rdargs.h structs.h
 DEPS = $(HDRS) Makefile ../Makefile
 XMLDEPS = xml.h xml_functions.h xml_globals.h xml_structs.h
 
-OBJ = debug.o draw.o error.o font.o globals.o main.o mem.o midi.o misc.o out.o \
-      paginate.o pdf.o pmw_read.o pmw_read_header.o pmw_read_note.o \
-      pmw_read_stave.o pmw_read_stavedirs.o pout.o preprocess.o ps.o rdargs.o \
-      read.o setbar.o setbeam.o setnote.o setother.o setslur.o settie.o \
-      string.o tables.o transpose.o tree.o
+OBJ = debug.o draw.o error.o font.o globals.o main.o mem.o midi.o misc.o \
+      out.o paginate.o pdf.o pmw_read.o pmw_read_header.o \
+      pmw_read_note.o pmw_read_stave.o pmw_read_stavedirs.o pout.o \
+      preprocess.o ps.o rdargs.o read.o setbar.o setbeam.o setnote.o \
+      setother.o setslur.o settie.o string.o tables.o transpose.o tree.o \
+      xmlout.o
 
 ifeq ($(SUPPORT_XML),1)
   XMLOBJ = xml.o xml_analyze.o xml_debug.o xml_error.o xml_globals.o \
@@ -86,6 +87,7 @@ string.o:              $(DEPS) string.c
 tables.o:              $(DEPS) tables.c
 transpose.o:           $(DEPS) transpose.c
 tree.o:                $(DEPS) tree.c
+xmlout.o:              $(DEPS) xmlout.c
 xml.o:                 $(DEPS) $(XMLDEPS) xml.c
 xml_analyze.o:         $(DEPS) $(XMLDEPS) xml_analyze.c
 xml_debug.o:           $(DEPS) $(XMLDEPS) xml_debug.c

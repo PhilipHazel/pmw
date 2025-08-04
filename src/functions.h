@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: July 2025 */
+/* This file last modified: August 2025 */
 
 /* -------- General functions -------- */
 
@@ -83,6 +83,8 @@ extern void         out_writeclef(int32_t, int32_t, int, int32_t, BOOL);
 extern void         out_writekey(int32_t, int32_t, uint32_t, uint32_t);
 extern void         out_writerepeat(int32_t, int, int32_t);
 extern void         out_writetime(int32_t, int32_t, usint);
+
+extern void         outxml_write(void);
 
 extern void         paginate(void);
 
