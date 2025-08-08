@@ -396,7 +396,7 @@ enum error_number {
 enum filetype { FT_AUTO, FT_PMW, FT_ABC, FT_MXML };
 
 /* Clef identifiers. Keep in step with the clef_names list in tables, and
-various data tables in out.c. */
+various data tables in out.c and xmlout.c. */
 
 enum {
   clef_alto,
