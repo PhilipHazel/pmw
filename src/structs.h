@@ -619,19 +619,22 @@ typedef struct sreadstr {
    int32_t   clef_octave;
    int32_t   hairpinsru;
    int32_t   hairpiny;
-  uint32_t   matchden;   /* For matching to an incompatible time signature */
-  uint32_t   matchnum;   /* For matching to an incompatible time signature */
-  uint32_t   noteden;    /* For doubling or halving note lengths */
+  uint32_t   longest_note; /* Or rest... */
+  uint32_t   matchden;     /* For matching to an incompatible time signature */
+  uint32_t   matchnum;     /* For matching to an incompatible time signature */
+  uint32_t   noteden;      /* For doubling or halving note lengths */
   uint32_t   noteflags;
-  uint32_t   notenum;    /* For doubling or halving note lengths */
+  uint32_t   notenum;      /* For doubling or halving note lengths */
    int32_t   octave;
   uint32_t   pitchcount;
   uint32_t   pitchtotal;
    int32_t   plety;
    int32_t   rlevel;
+  uint32_t   shortest_note;  
    int32_t   stemlength;
    int32_t   textabsolute;
   uint32_t   textflags;
+  uint32_t   tuplet_bits; 
 
   /* 16-bit fields */
   uint16_t   beamcount;
@@ -784,6 +787,9 @@ typedef struct stavestr {
   int32_t   barcount;
   uint32_t  totalpitch;
   uint32_t  notecount;
+  uint32_t  longest_note;
+  uint32_t  shortest_note;  
+  uint32_t  tuplet_bits; 
   uint16_t  toppitch;
   uint16_t  botpitch;
   uint8_t   stavelines;

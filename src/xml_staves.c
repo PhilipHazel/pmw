@@ -2,8 +2,8 @@
 *             MusicXML input for PMW             *
 *************************************************/
 
-/* Copyright (c) Philip Hazel, 2022 */
-/* This file last modified: April 2025 */
+/* Copyright (c) Philip Hazel, 2025 */
+/* This file last modified: August 2025 */
 
 
 /* This module contains functions for generating stave data */
@@ -1181,7 +1181,7 @@ for (xml_item *mi = measure->next;
 
   else if (Ustrcmp(mi->name, "barline") == 0)
     {
-    uschar *location = xml_get_attr_string(mi, US"location", US"right", TRUE);
+    uschar *location = xml_get_attr_string(mi, US"location", US"right", FALSE);
     xml_item *ending = xml_find_item(mi, US"ending");
     xml_item *repeat = xml_find_item(mi, US"repeat");
     b_textstr *tx = NULL;

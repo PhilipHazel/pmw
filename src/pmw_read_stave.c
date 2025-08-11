@@ -2,9 +2,9 @@
 *        PMW native stave reading functions      *
 *************************************************/
 
-/* Copyright Philip Hazel 2024 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: December 2024 */
+/* This file last modified: August 2025 */
 
 #include "pmw.h"
 
@@ -477,7 +477,7 @@ while (!done)
 
       brs.pletnum = 0;   /* Indicates not explicitly set */
       brs.pletden = 1;   /* Normal case */
-      brs.pletlen = 3;      /* Default to triplet */
+      brs.pletlen = 3;   /* Default to triplet */
 
       /* Read an explicit specification */
 
@@ -503,6 +503,11 @@ while (!done)
 
       if (brs.pletnum == 0) brs.pletnum =
         ((brs.pletlen & (-brs.pletlen)) == brs.pletlen)? 3 : 2;
+        
+      /* Set a bit to remember which plets exist in this stave. This is for the 
+      benefit of MusicXML output's code that sets its "divisions" value. */
+      
+      srs.tuplet_bits |= 1 << (brs.pletlen - 1);  
 
       /* If the number of irregular notes is more than twice the number of
       regular notes, we double the numerator, because the irregulars must be
@@ -1053,6 +1058,10 @@ while (!endstave)
   }
 
 /* Reached the end of the stave */
+
+st->longest_note = srs.longest_note;
+st->shortest_note = srs.shortest_note;
+st->tuplet_bits = srs.tuplet_bits;
 
 st->barcount = nextbaroffset;
 if (st->barcount > curmovt->barcount) curmovt->barcount = st->barcount;

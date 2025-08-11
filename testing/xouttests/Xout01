@@ -1,0 +1,10 @@
+@ Basic XML output test
+
+key E$
+
+[stave 1 treble 1]
+cdef | gabc' ||
+#b` c #c $d |
+G+ |1 G+ |4 G+ |? G+ |
+(ceg) (Dfgb) r |
+[endstave]

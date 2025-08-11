@@ -408,6 +408,7 @@ sreadstr init_sreadstr = {
   0,                  /* clef_octave */
   0,                  /* hairpinsru */
   0,                  /* hairpiny */
+  0,                  /* longest_note*/ 
   0,                  /* matchden */
   0,                  /* matchnum (0 => unset) */
   1,                  /* noteden */
@@ -418,9 +419,11 @@ sreadstr init_sreadstr = {
   0,                  /* pitchtotal */
   0,                  /* plety */
   0,                  /* rlevel */
+  0xffffffffu,        /* shortest_note */
   0,                  /* stemlength */
   0,                  /* textabsolute */
   0,                  /* textflags */
+  0,                  /* tuplet_bits */ 
 
   /* 16-bit fields */
   0,                  /* beamcount */
@@ -518,6 +521,9 @@ stavestr init_stavestr = {
   0,                  /* barcount */
   0,                  /* totalpitch; */
   0,                  /* notecount */
+  0,                  /* longest_note */
+  0xffffffffu,        /* shortest_note */
+  0,                  /* tuplet_bits */   
   0,                  /* toppitch */
   9999,               /* botpitch */
   5,                  /* stavelines */

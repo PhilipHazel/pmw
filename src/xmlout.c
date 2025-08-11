@@ -23,6 +23,62 @@
 
 
 /*************************************************
+*                Data tables                     *
+*************************************************/
+
+static const char *MXL_type_names[] = {
+  "breve", "whole", "half", "quarter", "eighth", "16th", "32nd", "64th" };
+
+static const char *MXL_accidental_names[] = {
+  "unused", "natural", "quarter-sharp", "sharp", "double-sharp",
+  "slash-flat", "flat", "flat-flat" };
+
+/* PMW absolute pitches work in quarter tones. MusicXML needs a letter name,
+an octave, and an "alteration" value, which is the difference from the basic
+letter pitch. This value is in semitones, with fractions allowed for
+microtones. To avoid using floating point here, the values are multiplied by
+10. The table gives the non-zero alternation values for each quarter tone in
+the octave, depending on which letter name was used to get the absolute pitch.
+
+For example, an absolute pitch of C natural could be generated from B-sharp or
+D-double-flat, with alternation values 1 and -2 respectively. */
+
+static int16_t alter_table[][4] = {
+  { 'B', 10, 'D', -20 },   /* C natural */
+  { 'C',  5, 'D', -15 },   /* C half-sharp */
+  { 'C', 10, 'D', -10 },   /* C sharp / D flat */
+  { 'C', 15, 'D',  -5 },   /* D half-flat */
+
+  { 'C', 20, 'E', -20 },   /* D natural */
+  { 'D',  5, 'E', -15 },   /* D half-sharp */
+  { 'D', 10, 'E', -10 },   /* D sharp / E flat */
+  { 'D', 15, 'E'   -5 },   /* E half-flat */
+
+  { 'D', 20, 'F', -10 },   /* E natural */
+  { 'E',  5, 'F',  -5 },   /* E half-sharp / F half-flat */
+
+  { 'E', 10, 'G', -20 },   /* F natural */
+  { 'F',  5, 'G', -15 },   /* F half-sharp */
+  { 'F', 10, 'G', -10 },   /* F sharp / G flat */
+  { 'F', 15, 'G',  -5 },   /* G half-flat */
+
+  { 'F', 20, 'A', -20 },   /* G natural */
+  { 'G',  5, 'A', -15 },   /* G half-sharp */
+  { 'G', 10, 'A', -10 },   /* G sharp / A flat */
+  { 'G', 15, 'A',  -5 },   /* A half-flat */
+
+  { 'G', 20, 'B', -20 },   /* A natural */
+  { 'A',  5, 'B', -15 },   /* A half-sharp */
+  { 'A', 10, 'B', -10 },   /* A sharp / B flat */
+  { 'A', 15, 'B',  -5 },   /* B half flat */
+
+  { 'A', 20, 'C', -10 },   /* B natural */
+  { 'B',  5, 'C'   -5 }    /* B half-sharp / C half flat */
+};
+
+
+
+/*************************************************
 *             Local variables                    *
 *************************************************/
 
@@ -146,15 +202,9 @@ static clef_info clef_data[] = {
 };
 
 static void
-write_clef(unsigned int clef, BOOL *openattr)
+write_clef(unsigned int clef)
 {
 const char *nonestring = (clef != clef_none)? "" : " print-object=\"no\"";
-
-if (openattr != NULL && !*openattr)
-  {
-  PA("<attributes>");
-  *openattr = TRUE;
-  }
 
 PA("<clef%s>", nonestring);
 PN("<sign>%s</sign>", clef_data[clef].sign);
@@ -210,26 +260,18 @@ static int16_t key_fifths[] = {
 };
 
 static void
-write_key(uint32_t key, BOOL *openattr)
+write_key(uint32_t key)
 {
 if (key == key_N)
   {
   comment("key N treated as C");
   key = key_C;
   }
-
 else if (key >= key_X)
   {
   comment("custom key not supported: treated as C");
   key = key_C;
   }
-
-if (openattr != NULL && !*openattr)
-  {
-  PA("<attributes>");
-  *openattr = TRUE;
-  }
-
 PA("<key>");
 PN("<fifths>%d</fifths>", key_fifths[key]);
 PB("</key>");
@@ -245,7 +287,7 @@ PB("</key>");
 // TODO: use <time-symbol> for common and cut and other specials
 
 static void
-write_time(uint32_t time, BOOL *openattr)
+write_time(uint32_t time)
 {
 if (time == time_common)
   {
@@ -265,16 +307,197 @@ else if ((time & 0x00ff0000u) != 0x00010000u)
 
 time &= 0x0000ffffu;
 
-if (openattr != NULL && !*openattr)
-  {
-  PA("<attributes>");
-  *openattr = TRUE;
-  }
-
 PA("<time>");
 PN("<beats>%d</beats>", time >> 8);
 PN("<beat-type>%d</beat-type>", time & 0xffu);
 PB("</time>");
+}
+
+
+
+/*************************************************
+*               Write a note or rest             *
+*************************************************/
+
+/* PMW and MusicXML have different conventions for chords. In PMW, the first
+note of a chord has type b_note, with the nf_chord flag set. Subsequent notes
+are of type b_chord, also with the flag set. The end of the chord happens when
+a b_chord item is followed either by NULL (end of bar) or an item with type
+other than b_chord. In MusicXML, the first note is unaffected, but subsequent
+notes have a <cord/> element.
+
+We handle an entire chord here, returning the pointer to the final note.
+*/
+
+static barstr *
+write_note(barstr *b, int divisions)
+{
+BOOL inchord = FALSE;
+
+for (;;)
+  {
+  b_notestr *note = (b_notestr *)b;
+
+  PA("<note>");
+  if (inchord) PN("<chord/>");
+
+  // TODO Handle rest level
+
+  if (note->spitch == 0)
+    {
+    PN("<rest/>");
+    }
+
+  // TODO Think about <unpitched>?
+  else
+    {
+    int letter = toupper(note->char_orig);
+    int16_t *p = alter_table[note->abspitch % OCTAVE];
+    int alter = (letter == p[0])? p[1] : (letter == p[2])? p[3] : 0;
+
+    PA("<pitch>");
+    PN("<step>%c</step>", letter);
+
+    /* See comments above where alter_table is defined. The alternation value
+    is a number of semitones, but we generate it as an integer * 10 to allow
+    for quarter tones. */
+
+    if (alter != 0) PN("<alter>%g</alter>", ((float)alter)/10);
+
+    /* The octave value is the octave of the note letter, hence we need to
+    adjust the absolute pitch before computing it. */
+
+    PN("<octave>%d</octave>", (note->abspitch - (alter*2)/10)/OCTAVE);
+    PB("</pitch>");
+    }
+
+  PN("<type>%s</type>", MXL_type_names[note->notetype]);
+  if ((note->flags & (nf_dot|nf_dot2)) != 0) PN("<dot/>");
+  if ((note->flags & nf_dot2) != 0) PN("<dot/>");
+  if (note->acc != ac_no) PN("<accidental>%s</accidental>",
+    MXL_accidental_names[note->acc]);
+
+//TODO allow for different half-accidental styles
+
+  if ((note->flags & nf_stem) == 0) PN("<stem>none</stem>");
+    else PN("<stem>%s</stem>", ((note->flags & nf_stemup) != 0)? "up":"down");
+
+  const char *nhstyle = NULL;
+  switch(note->noteheadstyle)
+    {
+    case nh_normal:
+    break;
+
+    case nh_cross:
+    nhstyle = "x";
+    break;
+
+    case nh_harmonic:
+    nhstyle = "diamond";
+    break;
+
+    case nh_none:
+    nhstyle = "none";
+    break;
+
+    case nh_direct:
+    case nh_circular:
+    comment("notehead style 'direct' or 'circular' not supported");
+    break;
+    }
+
+  if (nhstyle != NULL) PN("<notehead>%s</notehead>", nhstyle);
+
+  /* We have to convert the note length into "divisions". The value in the
+  divisions variable is the number in a crotchet. Therefore, the value we need
+  is (notelength/len_crotchet)*divisions, but calculating like that loses
+  fractions of a crotchet, and (notelength*divisions)/len_crotchet runs the
+  risk of 32-bit overflow if divisions is greater than 8 - which seems quite
+  likely. (The length of a breve is 0x015fea00.) Therefore, resort to using
+  64-bit arithmetic. */
+
+  PN("<duration>%d</duration>",
+    (uint32_t)(((uint64_t)note->length * divisions) / (uint64_t)len_crotchet));
+
+//tie  type = start/stop
+
+  PB("</note>");
+
+  if (b->next == NULL || b->next->type != b_chord) break;
+  b = (barstr *)(b->next);
+  inchord = TRUE;
+  }
+
+return b;
+}
+
+
+
+/*************************************************
+*              Write bar line (or not)           *
+*************************************************/
+
+/* We have to convert PMW's two values of barline type and barline style into
+the single parameter for MusicXML's <bar-style> element. There isn't a
+one-to-one match. We don't need a <barline> element for a normal barline. */
+
+static void
+write_barline(barstr *b, BOOL finalbar)
+{
+const char *style = NULL;
+b_barlinestr *bl = (b_barlinestr *)b;
+
+if (bl->bartype == barline_normal)
+  {
+  switch(bl->barstyle)
+    {
+    case 0:   /* Normal */
+    break;
+
+    case 1:   /* Dashed */
+    style = "dashed";
+    break;
+
+    case 4:   /* Short, middle of stave */
+    style = "short";
+    break;
+
+    case 2:   /* Solid, between staves only */
+    case 3:   /* Dashed, between staves only */
+    case 5:   /* Stub outside stave */
+    comment("bar line style %d not supported", bl->barstyle);
+    break;
+
+    default:
+    comment("unrecognized bar line style %d", bl->barstyle);
+    break;
+    }
+  }
+
+/* For non-normal types, only the normal style is supported. */
+
+else
+  {
+  if (bl->barstyle != 0)
+    comment("non-normal style ignored for non-normal barline type");
+  switch(bl->bartype)
+    {
+    case barline_double: style = "light-light"; break;
+    case barline_ending: style = "light-heavy"; break;
+    case barline_invisible: style = "none"; break;
+    default: comment("unrecognized barline type %d\n", bl->bartype);
+    }
+  }
+
+if (finalbar && style == NULL && (xml_movt->flags & mf_unfinished) == 0)
+  style = "light-heavy";
+
+if (style != NULL)
+  {
+  PA("<barline>");
+  PN("<bar-style>%s</bar-style>", style);
+  PB("</barline>");
+  }
 }
 
 
@@ -319,12 +542,11 @@ else
 /* Take special action for the first bar of a stave. Search this bar to see if
 any of clef, key, or time are specified before the first note. If not, default
 the clef to treble, and use the movement's default key and time. If any of them
-are found, remove that item from the chain. Process these three items, Then
-handle the rest of the stave. By doing it this way, all three settings will be
-within a single <attributes> element. */
+are found, remove that item from the chain. Process these three items, along
+with the divisions setting. */
 
 static void
-first_measure(barstr *b)
+first_measure(barstr *b, int divisions)
 {
 uint32_t clef = clef_treble;
 uint32_t key = xml_movt->key;
@@ -366,15 +588,15 @@ for (; b != NULL; b = (barstr *)b->next)
   if (stop) break;
   }
 
-/* Output any of clef, key, and time that are needed, in a single
-<attributes> element. */
+/* Output divisions and any of clef, key, and time that are needed. */
 
-BOOL openattr = FALSE;
-write_clef(clef, &openattr);
-write_key(key, &openattr);
+PA("<attributes>");
+PN("<divisions>%d</divisions>", divisions);
+write_clef(clef);
+write_key(key);
 if ((xml_movt->flags & (mf_showtime | mf_startnotime)) != 0)
-  write_time(time, &openattr);
-if (openattr) PB("</attributes>");
+  write_time(time);
+PB("</attributes>");
 }
 
 
@@ -384,7 +606,7 @@ if (openattr) PB("</attributes>");
 *************************************************/
 
 static void
-complete_measure(barstr *b)
+complete_measure(barstr *b, int divisions, BOOL finalbar)
 {
 for (; b != NULL; b = (barstr *)b->next)
   {
@@ -393,12 +615,16 @@ for (; b != NULL; b = (barstr *)b->next)
     case b_start:
     break;
 
+    case b_accentmove:
+    comment("ignored accentmove");
+    break;
+
     case b_all:
     comment("ignored [all]");
     break;
 
     case b_barline:
-    comment("ignored barline");
+    write_barline(b, finalbar);
     break;
 
     case b_barnum:
@@ -425,21 +651,25 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [beamslope]");
     break;
 
-    case b_breakbarline:
-    comment("ignored [breakbarline]");
-    break;
-
     case b_bowing:
     comment("ignored [bowing]");
+    break;
+
+    case b_breakbarline:
+    comment("ignored [breakbarline]");
     break;
 
     case b_caesura:
     comment("ignored // (caesura)");
     break;
 
+    case b_chord:
+    comment("b_chord encountered at top level: ERROR!");
+    break;
+
     case b_clef:
     PA("<attributes>");
-    write_clef(((b_clefstr *)b)->clef, NULL);
+    write_clef(((b_clefstr *)b)->clef);
     PB("</attributes>");
     break;
 
@@ -457,10 +687,6 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_draw:
     comment("ignored [draw]");
-    break;
-
-    case b_accentmove:
-    comment("ignored accent movement");
     break;
 
     case b_endline:
@@ -497,7 +723,7 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_key:
     PA("<attributes>");
-    write_key(((b_keystr *)b)->key, NULL);
+    write_key(((b_keystr *)b)->key);
     PB("</attributes>");
     break;
 
@@ -530,7 +756,7 @@ for (; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_note:
-    comment("ignored note/rest");
+    b = write_note(b, divisions);
     break;
 
     case b_notes:
@@ -649,7 +875,7 @@ for (; b != NULL; b = (barstr *)b->next)
     if ((xml_movt->flags & mf_showtime) != 0)
       {
       PA("<attributes>");
-      write_time(((b_timestr *)b)->time, NULL);
+      write_time(((b_timestr *)b)->time);
       PB("</attributes>");
       }
     break;
@@ -745,8 +971,18 @@ PA("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 
 PA("<identification>");
 PA("<encoding>");
-PN("<software>PMW %s</software>", PMW_VERSION);
-PN("<encoding-date>%s</encoding-date>", datebuff);
+
+if (main_testing == 0)
+  {
+  PN("<software>PMW %s</software>", PMW_VERSION);
+  PN("<encoding-date>%s</encoding-date>", datebuff);
+  }
+else
+  {
+  PN("<software>PMW</software>");
+  PN("<encoding-date>0000-00-00</encoding-date>");
+  }
+
 PB("</encoding>");
 PB("</identification>");
 
@@ -802,7 +1038,8 @@ PB("</page-layout>");
 PB("</defaults>");
 
 // TODO Headings
-comment("headings and footings not yet supported");
+if (main_testing == 0)
+  comment("headings and footings not yet supported");
 
 /* Output a list of parts, mapping each PMW stave to a part. */
 
@@ -833,15 +1070,33 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   barstr **barvector = stavebase->barindex;
   comment_stave = stave;
 
+  /* Choose a value for "divisions", which is the length of a crotchet. We must
+  allow for tuplets. The tuplet_bits field has a bit set for every tuplet
+  counting from 1 for the least significant. Thus 0x02 for triplets, e.g. */
+
+  uint32_t tuplets = stavebase->tuplet_bits;
+  int divisions = 1;
+
+  if (stavebase->shortest_note < len_crotchet)
+    divisions = len_crotchet/stavebase->shortest_note;
+
+  for (int i = 2; i < 32 && tuplets != 0; i++, tuplets >>= 1)
+    {
+    if ((tuplets & 1) != 0 && divisions % i != 0) divisions *= i;
+    }
+  if (divisions < 4) divisions = 4;  /* Impose a minimum */
+
+  /* Start the part */
+
   PA("<part id=\"P%d\">", stave);
 
   /* The first bar has special handling because of the need to deal with
-  default clef, key, and time. */
+  default clef, key, and time, and to set <divisions>. */
 
   start_measure(0);
   comment_bar = 0;
-  first_measure(barvector[0]);
-  complete_measure(barvector[0]);
+  first_measure(barvector[0], divisions);
+  complete_measure(barvector[0], divisions, stavebase->barcount < 2);
 
   /* Now process the remaining bars of the stave. */
 
@@ -849,7 +1104,7 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
     {
     start_measure(bar);
     comment_bar = bar;
-    complete_measure(barvector[bar]);
+    complete_measure(barvector[bar], divisions, bar == stavebase->barcount - 1);
     }
 
   PB("</part>");

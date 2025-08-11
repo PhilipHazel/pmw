@@ -2,9 +2,9 @@
 *        PMW native input reading functions     *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: March 2021 */
-/* This file last modified: July 2025 */
+/* This file last modified: August 2025 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -1856,6 +1856,12 @@ for (;;)
 
   if (srs.matchnum > 0 && (flags & nf_centre) == 0)
     pn_notelength = mac_muldiv(pn_notelength, srs.matchnum, srs.matchden);
+    
+  /* Keep track of the longest and shortest notes/rests. */
+  
+  if (pn_notelength > srs.longest_note) srs.longest_note = pn_notelength;
+    else if (pn_notelength < srs.shortest_note) 
+      srs.shortest_note = pn_notelength;   
 
   /* If a whole bar rest, flag it for centring unless we are in an unchecked
   bar. (If the rest was specified using the ! notation it will already be
