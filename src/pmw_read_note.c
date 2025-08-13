@@ -1767,7 +1767,7 @@ for (;;)
   /* Deal with non-standard lengths. */
 
   if (brs.pletlen != 0)
-    pn_notelength = (pn_notelength*brs.pletnum)/(brs.pletlen*brs.pletden);
+    pn_notelength = (pn_notelength*brs.pletnum)/brs.pletlen;
 
   /* Deal with dotted notes. For the first note of a chord, a movement of the
   dot is permitted. */

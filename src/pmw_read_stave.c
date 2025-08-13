@@ -473,10 +473,9 @@ while (!done)
       int32_t  adjustyright = adjustyleft;
 
       /* The length of each note in the plet will be multiplied by
-      brs.pletnum, and divided by brs.pletlen times brs.pletden. */
+      brs.pletnum, and divided by brs.pletlen. */
 
       brs.pletnum = 0;   /* Indicates not explicitly set */
-      brs.pletden = 1;   /* Normal case */
       brs.pletlen = 3;   /* Default to triplet */
 
       /* Read an explicit specification */
