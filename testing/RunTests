@@ -219,7 +219,6 @@ while (scalar @dirs > 0)
 
     $options = `cat $tests/$file.opt` if -e "$tests/$file.opt";
     chomp $options;
-    $options = "$options $specialopt";
 
     unlink "test.out";
     unlink "test.txt";
@@ -293,7 +292,7 @@ while (scalar @dirs > 0)
 
       $testing = 3 if ($pdf eq "-pdf" && -e "$tests/$file.pdfinc");
 
-      my($rc) = system("$valgrind $pmw -norc $pdf $header -testing $testing $options $fontsearch -o test.out $tests/$file" .
+      my($rc) = system("$valgrind $pmw -norc $pdf $header -testing $testing $options $specialopt $fontsearch -o test.out $tests/$file" .
                         " -MF ../psfonts" .
                         " -MP ../MIDIperc" .
                         " -MV ../MIDIvoices" .
