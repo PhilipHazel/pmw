@@ -687,7 +687,6 @@ typedef struct breadstr {
   uint32_t   maxbarlength;
   uint32_t   pletlen;
   uint32_t   pletnum;
-  uint32_t   pletden;
    int32_t   skip;
    int32_t   smove;
 

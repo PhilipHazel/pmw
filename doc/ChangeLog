@@ -15,6 +15,10 @@ rithg-to-left mode.
 
 4. Implemented the Miditremolo directives.
 
+5. Removed an obsolete tuplet-related variable in the bar-reading structure 
+that is no longer used. Called pletden, I think in the distant past (before 
+5.00) it was part of some now-obsolete tuplet feature.
+
 
 Version 5.32 25-June-2025
 -------------------------

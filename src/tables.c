@@ -474,7 +474,6 @@ breadstr init_breadstr = {
   0,                  /* maxbarlength */
   0,                  /* pletlen */
   0,                  /* pletnum */
-  0,                  /* pletden */
   0,                  /* skip */
   0,                  /* smove */
 
