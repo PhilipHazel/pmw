@@ -502,11 +502,11 @@ while (!done)
 
       if (brs.pletnum == 0) brs.pletnum =
         ((brs.pletlen & (-brs.pletlen)) == brs.pletlen)? 3 : 2;
-        
-      /* Set a bit to remember which plets exist in this stave. This is for the 
+
+      /* Set a bit to remember which plets exist in this stave. This is for the
       benefit of MusicXML output's code that sets its "divisions" value. */
-      
-      srs.tuplet_bits |= 1 << (brs.pletlen - 1);  
+
+      srs.tuplet_bits |= 1 << (brs.pletlen - 1);
 
       /* If the number of irregular notes is more than twice the number of
       regular notes, we double the numerator, because the irregulars must be
@@ -614,6 +614,7 @@ while (!done)
       /* Now generate the data block */
 
       p = mem_get_item(sizeof(b_pletstr), b_plet);
+      p->pletnum = brs.pletnum;
       p->pletlen = brs.pletlen;
       p->flags = flags;
       p->x = adjustx;

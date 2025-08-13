@@ -82,12 +82,23 @@ static int16_t alter_table[][4] = {
 *             Local variables                    *
 *************************************************/
 
-static int       indent = 0;
-static int       comment_bar = 0;
-static int       comment_stave = 0;
-static FILE     *xml_file;
-static movtstr  *xml_movt;
-static uint64_t  xml_staves = ~0uL;
+static int        indent = 0;
+static int        comment_bar = 0;
+static int        comment_stave = 0;
+
+static BOOL       beam_active = FALSE;
+
+/* NOTE: PMW doesn't yet support nested tuplets - nobody has ever remarked on 
+this - but if it ever does, the code in this module should cope. */
+
+static int        plet_level = 0;
+static b_pletstr *plet_pending = NULL;
+static uint8_t    plet_actual[8] = {0};  /* Initialize level 0 => no plet */
+static uint8_t    plet_normal[8] = {0};
+
+static FILE      *xml_file;
+static movtstr   *xml_movt;
+static uint64_t   xml_staves = ~0uL;
 
 
 
@@ -370,6 +381,19 @@ for (;;)
     PN("<octave>%d</octave>", (note->abspitch - (alter*2)/10)/OCTAVE);
     PB("</pitch>");
     }
+    
+  /* We have to convert the note length into "divisions". The value in the
+  divisions variable is the number in a crotchet. Therefore, the value we need
+  is (notelength/len_crotchet)*divisions, but calculating like that loses
+  fractions of a crotchet, and (notelength*divisions)/len_crotchet runs the
+  risk of 32-bit overflow if divisions is greater than 8 - which seems quite
+  likely. (The length of a breve is 0x015fea00.) Therefore, resort to using
+  64-bit arithmetic. */
+
+  PN("<duration>%d</duration>",
+    (uint32_t)(((uint64_t)note->length * divisions) / (uint64_t)len_crotchet));
+
+//tie  type = start/stop
 
   PN("<type>%s</type>", MXL_type_names[note->notetype]);
   if ((note->flags & (nf_dot|nf_dot2)) != 0) PN("<dot/>");
@@ -379,8 +403,33 @@ for (;;)
 
 //TODO allow for different half-accidental styles
 
+  /* If this is the start of a tuplet, we have to set up <time-modification> 
+  here, and save the data for the remaining notes in the tuplet. A stack is 
+  used so as to deal with nested tuplets. Leave plet_pending set, because it is
+  used later on for other tuplet options. */
+
+  if (plet_pending != NULL)
+    {
+    plet_actual[++plet_level] = plet_pending->pletlen;
+    plet_normal[plet_level] = plet_pending->pletnum; 
+    }  
+  
+  /* This note is in a tuplet. */
+  
+  if (plet_actual[plet_level] != 0)
+    {
+    PA("<time-modification>");
+    PN("<actual-notes>%d</actual-notes>", plet_actual[plet_level]); 
+    PN("<normal-notes>%d</normal-notes>", plet_normal[plet_level]); 
+    PB("</time-modification>"); 
+    }  
+
+  /* Stem */
+
   if ((note->flags & nf_stem) == 0) PN("<stem>none</stem>");
     else PN("<stem>%s</stem>", ((note->flags & nf_stemup) != 0)? "up":"down");
+
+  /* Notehead style */
 
   const char *nhstyle = NULL;
   switch(note->noteheadstyle)
@@ -407,23 +456,55 @@ for (;;)
     }
 
   if (nhstyle != NULL) PN("<notehead>%s</notehead>", nhstyle);
+  
+// beam
 
-  /* We have to convert the note length into "divisions". The value in the
-  divisions variable is the number in a crotchet. Therefore, the value we need
-  is (notelength/len_crotchet)*divisions, but calculating like that loses
-  fractions of a crotchet, and (notelength*divisions)/len_crotchet runs the
-  risk of 32-bit overflow if divisions is greater than 8 - which seems quite
-  likely. (The length of a breve is 0x015fea00.) Therefore, resort to using
-  64-bit arithmetic. */
+  /* Handle tuplets. The start is indicated by a pending b_pletstr; for the end 
+  we have to peek ahead. Note that plet_level has already been incremented 
+  above. */ 
+  
+  if (plet_pending != NULL)
+    {
+    const char *bracket = beam_active? "no" : "yes";
+    const char *placement, *show;
+      
+    if ((plet_pending->flags & plet_bn) != 0) bracket = "no"; 
+    if ((plet_pending->flags & plet_by) != 0) bracket = "yes"; 
+    
+    if ((plet_pending->flags & plet_a) != 0) placement = "above";
+    else if ((plet_pending->flags & plet_b) != 0) placement = "below";
+    else placement = ((note->flags & nf_stemup) == 0)? "above" : "below"; 
+    
+    if ((plet_pending->flags & plet_x) != 0)
+      {
+      bracket = "no";
+      show = "none";
+      }
+    else show = "actual";        
+ 
+    PA("<notations>"); 
+    PA("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
+      "placement=\"%s\" show-number=\"%s\">",  
+      plet_level, bracket, placement, show);
+    
+    // tuplet-actual? tuplet-normal?
 
-  PN("<duration>%d</duration>",
-    (uint32_t)(((uint64_t)note->length * divisions) / (uint64_t)len_crotchet));
-
-//tie  type = start/stop
+    PB("</tuplet>"); 
+    PB("</notations>");
+      
+    plet_pending = NULL; 
+    }  
+    
+  else if (b->next->type == b_endplet)
+    {
+    PA("<notations>"); 
+    PN("<tuplet number=\"%d\" type=\"stop\"/>", plet_level--); 
+    PB("</notations>"); 
+    }  
 
   PB("</note>");
 
-  if (b->next == NULL || b->next->type != b_chord) break;
+  if (b->next->type != b_chord) break;
   b = (barstr *)(b->next);
   inchord = TRUE;
   }
@@ -697,8 +778,7 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [endslur]");
     break;
 
-    case b_endplet:
-    comment("ignored } (end plet)");
+    case b_endplet:  /* Handled from within write_note */
     break;
 
     case b_ens:
@@ -800,7 +880,7 @@ for (; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_plet:
-    comment("ignored plet (triplet, etc)");
+    plet_pending = (b_pletstr *)b;
     break;
 
     case b_reset:

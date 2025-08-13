@@ -29,9 +29,9 @@
   </part-list>
   <!--===============================================================-->
   <part id="P1">
-    <measure number="0" width="169">
+    <measure number="0" width="170">
       <attributes>
-        <divisions>4</divisions>
+        <divisions>24</divisions>
         <clef>
           <sign>G</sign>
           <line>2</line>
@@ -49,18 +49,18 @@
           <step>C</step>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
           <step>D</step>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
@@ -68,30 +68,30 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
           <step>F</step>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="176">
+    <measure number="1" width="177">
       <note>
         <pitch>
           <step>G</step>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
@@ -99,9 +99,9 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
@@ -109,44 +109,44 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
           <step>C</step>
           <octave>5</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>down</stem>
-        <duration>4</duration>
       </note>
       <barline>
         <bar-style>light-light</bar-style>
       </barline>
     </measure>
     <!--============================-->
-    <measure number="2" width="176">
+    <measure number="2" width="177">
       <note>
         <pitch>
           <step>B</step>
           <alter>1</alter>
           <octave>3</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <accidental>sharp</accidental>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
           <step>C</step>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
@@ -154,10 +154,10 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <accidental>sharp</accidental>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
@@ -165,10 +165,10 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <accidental>flat</accidental>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
     </measure>
     <!--============================-->
@@ -178,9 +178,9 @@
           <step>G</step>
           <octave>4</octave>
         </pitch>
+        <duration>96</duration>
         <type>whole</type>
         <stem>none</stem>
-        <duration>16</duration>
       </note>
       <barline>
         <bar-style>dashed</bar-style>
@@ -193,9 +193,9 @@
           <step>G</step>
           <octave>4</octave>
         </pitch>
+        <duration>96</duration>
         <type>whole</type>
         <stem>none</stem>
-        <duration>16</duration>
       </note>
       <barline>
         <bar-style>short</bar-style>
@@ -208,9 +208,9 @@
           <step>G</step>
           <octave>4</octave>
         </pitch>
+        <duration>96</duration>
         <type>whole</type>
         <stem>none</stem>
-        <duration>16</duration>
       </note>
       <barline>
         <bar-style>none</bar-style>
@@ -223,21 +223,21 @@
           <step>G</step>
           <octave>4</octave>
         </pitch>
+        <duration>96</duration>
         <type>whole</type>
         <stem>none</stem>
-        <duration>16</duration>
       </note>
     </measure>
     <!--============================-->
-    <measure number="7" width="148">
+    <measure number="7" width="143">
       <note>
         <pitch>
           <step>G</step>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <chord/>
@@ -246,9 +246,9 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <chord/>
@@ -256,9 +256,9 @@
           <step>C</step>
           <octave>4</octave>
         </pitch>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <duration>4</duration>
       </note>
       <note>
         <pitch>
@@ -266,9 +266,9 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
+        <duration>48</duration>
         <type>half</type>
         <stem>up</stem>
-        <duration>8</duration>
       </note>
       <note>
         <chord/>
@@ -276,9 +276,9 @@
           <step>G</step>
           <octave>4</octave>
         </pitch>
+        <duration>48</duration>
         <type>half</type>
         <stem>up</stem>
-        <duration>8</duration>
       </note>
       <note>
         <chord/>
@@ -286,9 +286,9 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
+        <duration>48</duration>
         <type>half</type>
         <stem>up</stem>
-        <duration>8</duration>
       </note>
       <note>
         <chord/>
@@ -296,15 +296,402 @@
           <step>D</step>
           <octave>4</octave>
         </pitch>
+        <duration>48</duration>
         <type>half</type>
         <stem>up</stem>
-        <duration>8</duration>
       </note>
       <note>
         <rest/>
+        <duration>24</duration>
         <type>quarter</type>
         <stem>none</stem>
-        <duration>4</duration>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="8" width="158">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>16</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>3</actual-notes>
+          <normal-notes>2</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="start" bracket="yes" placement="below" show-number="actual">
+          </tuplet>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>16</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>3</actual-notes>
+          <normal-notes>2</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>16</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>3</actual-notes>
+          <normal-notes>2</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="9" width="158">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>16</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>3</actual-notes>
+          <normal-notes>2</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="start" bracket="yes" placement="above" show-number="actual">
+          </tuplet>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>16</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>3</actual-notes>
+          <normal-notes>2</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>16</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>3</actual-notes>
+          <normal-notes>2</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="10" width="184">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="start" bracket="yes" placement="below" show-number="actual">
+          </tuplet>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="stop"/>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="11" width="184">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="start" bracket="no" placement="below" show-number="actual">
+          </tuplet>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="stop"/>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="12" width="184">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="start" bracket="no" placement="below" show-number="none">
+          </tuplet>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>19</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>5</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="stop"/>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="13" width="165">
+      <note>
+        <rest/>
+        <duration>12</duration>
+        <type>eighth</type>
+        <stem>none</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>18</duration>
+        <type>eighth</type>
+        <time-modification>
+          <actual-notes>2</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="start" bracket="yes" placement="below" show-number="actual">
+          </tuplet>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>18</duration>
+        <type>eighth</type>
+        <time-modification>
+          <actual-notes>2</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+        <stem>up</stem>
+        <notations>
+          <tuplet number="1" type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>half</type>
+        <stem>none</stem>
       </note>
       <barline>
         <bar-style>light-heavy</bar-style>

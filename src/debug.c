@@ -1314,8 +1314,8 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
 
     case b_plet:
     pl = (b_pletstr *)b;
-    eprintf("  {%d x=%d yl=%d yr=%d flags=0x%0x\n", pl->pletlen, pl->x,
-      pl->yleft, pl->yright, pl->flags);
+    eprintf("  {%d/%d x=%d yl=%d yr=%d flags=0x%0x\n", pl->pletnum,
+      pl->pletlen, pl->x, pl->yleft, pl->yright, pl->flags);
     break;
 
     case b_reset:

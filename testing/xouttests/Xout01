@@ -6,5 +6,18 @@ key E$
 cdef | gabc' ||
 #b` c #c $d |
 G+ |1 G+ |4 G+ |? G+ |
+
+@Chords
+
 (ceg) (Dfgb) r |
+
+@Tuplets
+
+{gab} R |
+{/a gab} R |
+{5ggggg} |
+{5/n ggggg} |
+{5/x ggggg} |
+r- {2 g-g-} R | 
+
 [endstave]

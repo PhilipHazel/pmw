@@ -244,7 +244,7 @@ typedef b_intvaluestr  b_pagetopsstr;
 
 typedef struct b_midichangestr {
   BSTRHEAD;
-  uint8_t tremolo; 
+  uint8_t tremolo;
   int16_t transpose;
   uint8_t channel;
   uint8_t note;
@@ -265,6 +265,7 @@ typedef struct {
 
 typedef struct {
   BSTRHEAD;
+  uint8_t pletnum;
   uint8_t pletlen;
   uint8_t flags;
   int32_t x;
@@ -630,11 +631,11 @@ typedef struct sreadstr {
   uint32_t   pitchtotal;
    int32_t   plety;
    int32_t   rlevel;
-  uint32_t   shortest_note;  
+  uint32_t   shortest_note;
    int32_t   stemlength;
    int32_t   textabsolute;
   uint32_t   textflags;
-  uint32_t   tuplet_bits; 
+  uint32_t   tuplet_bits;
 
   /* 16-bit fields */
   uint16_t   beamcount;
@@ -787,8 +788,8 @@ typedef struct stavestr {
   uint32_t  totalpitch;
   uint32_t  notecount;
   uint32_t  longest_note;
-  uint32_t  shortest_note;  
-  uint32_t  tuplet_bits; 
+  uint32_t  shortest_note;
+  uint32_t  tuplet_bits;
   uint16_t  toppitch;
   uint16_t  botpitch;
   uint8_t   stavelines;
@@ -868,7 +869,7 @@ typedef struct movtstr {
    int32_t      maxbeamslope[2];
   uint32_t      midichanset;
   uint32_t      miditempo;
-  uint32_t      miditremolo; 
+  uint32_t      miditremolo;
    int32_t      midkeyspacing;
    int32_t      midtimespacing;
   uint32_t      noteden;
