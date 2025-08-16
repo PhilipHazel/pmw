@@ -9,7 +9,18 @@
 #include "pmw.h"
 
 
-/* This file contains code for writing a MusicXML file. */
+/* This file contains code for writing a MusicXML file. The way music is
+encoded in MusicXML is very different[*], necessitating some contortions in the
+translation. I wanted to minimise any disturbance in the rest of PMW when
+adding this code, so there are areas that might have been different had I had
+MusicXML in mind from the start - which of course I couldn't have in 1987.
+
+Note that it is necessary to run this code after PostScript or PDF output has
+been generated because some of the analysis on which it depends - for example,
+remembering which notes of a chord were tied - happens in the output phase.
+Other parameters get set during pagination, so there is no possibility (as
+things stand) of running this code immediately after reading the input. */
+
 
 #define PART_SEPARATOR \
   "<!--===============================================================-->"
@@ -88,13 +99,15 @@ static int        comment_stave = 0;
 
 static BOOL       beam_active = FALSE;
 
-/* NOTE: PMW doesn't yet support nested tuplets - nobody has ever remarked on 
+/* NOTE: PMW doesn't yet support nested tuplets - nobody has ever remarked on
 this - but if it ever does, the code in this module should cope. */
 
 static int        plet_level = 0;
 static b_pletstr *plet_pending = NULL;
 static uint8_t    plet_actual[8] = {0};  /* Initialize level 0 => no plet */
 static uint8_t    plet_normal[8] = {0};
+
+static b_tiestr  *tie_active = NULL;
 
 static FILE      *xml_file;
 static movtstr   *xml_movt;
@@ -327,7 +340,7 @@ PB("</time>");
 
 
 /*************************************************
-*               Write a note or rest             *
+*           Write a note, chord, or rest         *
 *************************************************/
 
 /* PMW and MusicXML have different conventions for chords. In PMW, the first
@@ -335,19 +348,54 @@ note of a chord has type b_note, with the nf_chord flag set. Subsequent notes
 are of type b_chord, also with the flag set. The end of the chord happens when
 a b_chord item is followed either by NULL (end of bar) or an item with type
 other than b_chord. In MusicXML, the first note is unaffected, but subsequent
-notes have a <cord/> element.
-
-We handle an entire chord here, returning the pointer to the final note.
-*/
+notes have a <chord/> element. We handle an entire chord here, returning the
+pointer to the final note. */
 
 static barstr *
 write_note(barstr *b, int divisions)
 {
+int abovecount = 0;
 BOOL inchord = FALSE;
+BOOL stoptie = FALSE;
+
+/* Handle a note/chord at the end of a tie. */
+
+if (tie_active != NULL)
+  {
+  stoptie = TRUE;
+  tie_active = NULL;
+  }
+
+/* See if this note/chord is followed by a tie item. */
+
+for (barstr *bb = b; bb->next != NULL; bb = (barstr *)(bb->next))
+  {
+  if (bb->next->type == b_chord) continue;
+  if (bb->next->type == b_tie) tie_active = (b_tiestr *)(bb->next);
+  break;
+  }
+
+/* If there is a following tie item, check that a single note was actually tied
+in the PS/PDF output. If not, the tie item is really a short slur. */
+
+if (tie_active != NULL)
+  {
+  b_notestr *note = (b_notestr *)b;
+  if ((note->flags & (nf_chord|nf_wastied)) == 0)
+    {
+    /* This is a short slur; TODO */
+    comment("short slur not yet implemented");
+    tie_active = NULL;
+    }
+  else abovecount = tie_active->abovecount;
+  }
+
+/* Now process the note/chord */
 
 for (;;)
   {
   b_notestr *note = (b_notestr *)b;
+  BOOL wastied = (note->flags & nf_wastied) != 0;
 
   PA("<note>");
   if (inchord) PN("<chord/>");
@@ -381,7 +429,7 @@ for (;;)
     PN("<octave>%d</octave>", (note->abspitch - (alter*2)/10)/OCTAVE);
     PB("</pitch>");
     }
-    
+
   /* We have to convert the note length into "divisions". The value in the
   divisions variable is the number in a crotchet. Therefore, the value we need
   is (notelength/len_crotchet)*divisions, but calculating like that loses
@@ -393,7 +441,16 @@ for (;;)
   PN("<duration>%d</duration>",
     (uint32_t)(((uint64_t)note->length * divisions) / (uint64_t)len_crotchet));
 
-//tie  type = start/stop
+  /* The <tie> element is concerned with sound, and comes here. Do nothing if
+  this note wasn't actually tied. */
+
+  if (wastied)
+    {
+    if (stoptie) PN("<tie type=\"stop\"/>");
+    if (tie_active != NULL) PN("<tie type=\"start\"/>");
+    }
+
+  /* Note details */
 
   PN("<type>%s</type>", MXL_type_names[note->notetype]);
   if ((note->flags & (nf_dot|nf_dot2)) != 0) PN("<dot/>");
@@ -403,26 +460,26 @@ for (;;)
 
 //TODO allow for different half-accidental styles
 
-  /* If this is the start of a tuplet, we have to set up <time-modification> 
-  here, and save the data for the remaining notes in the tuplet. A stack is 
+  /* If this is the start of a tuplet, we have to set up <time-modification>
+  here, and save the data for the remaining notes in the tuplet. A stack is
   used so as to deal with nested tuplets. Leave plet_pending set, because it is
   used later on for other tuplet options. */
 
   if (plet_pending != NULL)
     {
     plet_actual[++plet_level] = plet_pending->pletlen;
-    plet_normal[plet_level] = plet_pending->pletnum; 
-    }  
-  
+    plet_normal[plet_level] = plet_pending->pletnum;
+    }
+
   /* This note is in a tuplet. */
-  
+
   if (plet_actual[plet_level] != 0)
     {
     PA("<time-modification>");
-    PN("<actual-notes>%d</actual-notes>", plet_actual[plet_level]); 
-    PN("<normal-notes>%d</normal-notes>", plet_normal[plet_level]); 
-    PB("</time-modification>"); 
-    }  
+    PN("<actual-notes>%d</actual-notes>", plet_actual[plet_level]);
+    PN("<normal-notes>%d</normal-notes>", plet_normal[plet_level]);
+    PB("</time-modification>");
+    }
 
   /* Stem */
 
@@ -456,51 +513,83 @@ for (;;)
     }
 
   if (nhstyle != NULL) PN("<notehead>%s</notehead>", nhstyle);
-  
+
 // beam
 
-  /* Handle tuplets. The start is indicated by a pending b_pletstr; for the end 
-  we have to peek ahead. Note that plet_level has already been incremented 
-  above. */ 
-  
+  /* Handle tuplets. The start is indicated by a pending b_pletstr; for the end
+  we have to peek ahead. Note that plet_level has already been incremented
+  above. */
+
   if (plet_pending != NULL)
     {
     const char *bracket = beam_active? "no" : "yes";
     const char *placement, *show;
-      
-    if ((plet_pending->flags & plet_bn) != 0) bracket = "no"; 
-    if ((plet_pending->flags & plet_by) != 0) bracket = "yes"; 
-    
+
+    if ((plet_pending->flags & plet_bn) != 0) bracket = "no";
+    if ((plet_pending->flags & plet_by) != 0) bracket = "yes";
+
     if ((plet_pending->flags & plet_a) != 0) placement = "above";
     else if ((plet_pending->flags & plet_b) != 0) placement = "below";
-    else placement = ((note->flags & nf_stemup) == 0)? "above" : "below"; 
-    
+    else placement = ((note->flags & nf_stemup) == 0)? "above" : "below";
+
     if ((plet_pending->flags & plet_x) != 0)
       {
       bracket = "no";
       show = "none";
       }
-    else show = "actual";        
- 
-    PA("<notations>"); 
+    else show = "actual";
+
+    PA("<notations>");
     PA("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
-      "placement=\"%s\" show-number=\"%s\">",  
+      "placement=\"%s\" show-number=\"%s\">",
       plet_level, bracket, placement, show);
-    
+
     // tuplet-actual? tuplet-normal?
 
-    PB("</tuplet>"); 
+    PB("</tuplet>");
     PB("</notations>");
-      
-    plet_pending = NULL; 
-    }  
-    
+
+    plet_pending = NULL;
+    }
+
   else if (b->next->type == b_endplet)
     {
-    PA("<notations>"); 
-    PN("<tuplet number=\"%d\" type=\"stop\"/>", plet_level--); 
-    PB("</notations>"); 
-    }  
+    PA("<notations>");
+    PN("<tuplet number=\"%d\" type=\"stop\"/>", plet_level--);
+    PB("</notations>");
+    }
+
+  /* Handle the end of a tie (the notation part - see also <tie> above). */
+
+  if (stoptie && wastied)
+    {
+    PA("<notations>");
+    PN("<tied type=\"stop\"/>");
+    PB("</notations>");
+    }
+
+  /* Handle the start of a tie (the notation part - see also <tie> above). Skip
+  if this note wasn't actually tied - can happen within a chord, but still
+  reduce the abovecount. */
+
+  if (tie_active != NULL && wastied)
+    {
+    const char *placement = (abovecount-- > 0)? "above" : "below";
+    const char *line_type =
+      ((tie_active->flags & tief_dashed) != 0)? " line-type=\"dashed\"" :
+      ((tie_active->flags & tief_dotted) != 0)? " line-type=\"dotted\"" : "";
+
+    if ((tie_active->flags & tief_editorial) != 0)
+      comment("ignored editoral mark on tie");
+
+    if ((tie_active->flags & tief_gliss) != 0)
+      comment("gliss treated as tie pro tem");
+
+    PA("<notations>");
+    PN("<tied type=\"start\" placement=\"%s\"%s/>", placement, line_type);
+    PB("</notations>");
+    }
+  else abovecount--;
 
   PB("</note>");
 
@@ -947,8 +1036,9 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [tick]");
     break;
 
+    /* Tie items are handled within note handling and can be skipped here. */
+
     case b_tie:
-    comment("ignored tie");
     break;
 
     case b_time:

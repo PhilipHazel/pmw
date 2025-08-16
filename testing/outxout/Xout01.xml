@@ -308,7 +308,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="8" width="158">
+    <measure number="8" width="159">
       <note>
         <pitch>
           <step>G</step>
@@ -365,7 +365,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="9" width="158">
+    <measure number="9" width="159">
       <note>
         <pitch>
           <step>G</step>
@@ -422,7 +422,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="10" width="184">
+    <measure number="10" width="185">
       <note>
         <pitch>
           <step>G</step>
@@ -497,7 +497,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="11" width="184">
+    <measure number="11" width="185">
       <note>
         <pitch>
           <step>G</step>
@@ -572,7 +572,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="12" width="184">
+    <measure number="12" width="185">
       <note>
         <pitch>
           <step>G</step>
@@ -647,7 +647,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="13" width="165">
+    <measure number="13" width="161">
       <note>
         <rest/>
         <duration>12</duration>
@@ -691,6 +691,182 @@
         <rest/>
         <duration>48</duration>
         <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="14" width="349">
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="start"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="start" placement="below"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="stop"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="start"/>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <tied type="start" placement="above" line-type="dashed"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="stop"/>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="15" width="347">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="start"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="start" placement="below" line-type="dotted"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="stop"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>24</duration>
+        <type>quarter</type>
+        <stem>none</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="start"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="start" placement="below"/>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="16" width="352">
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="stop"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>24</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="start"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="start" placement="below"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>24</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>24</duration>
+        <tie type="stop"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>24</duration>
+        <type>quarter</type>
         <stem>none</stem>
       </note>
       <barline>

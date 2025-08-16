@@ -655,6 +655,7 @@ space in 32-bits. */
 #define nf_stemup      0x04000000u  /* Stem direction */
 #define nf_tripletize  0x08000000u  /* Check note for tripletizing */
 #define nf_stemcent    0x10000000u  /* Place stem central to note */
+#define nf_wastied     0x20000000u  /* Tie was output (for XML output) */
 
 #define nf_couple      (nf_coupleU+nf_coupleD)
 #define nf_dotted      (nf_dot+nf_dot2+nf_plus)
