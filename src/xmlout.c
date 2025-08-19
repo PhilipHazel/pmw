@@ -32,6 +32,16 @@ things stand) of running this code immediately after reading the input. */
 
 #define T(x) (x/400)
 
+/* These are a mask and shifts for the beam data that is packed into a 64-bit
+variable to save initializing multiple variables for every note. */
+
+#define BSHIFT_MASK  0xffu
+#define BSHIFT_FHOOK     0
+#define BSHIFT_BHOOK     8
+#define BSHIFT_BEGIN    16
+#define BSHIFT_CONTINUE 24
+#define BSHIFT_END      32
+
 
 /*************************************************
 *                Data tables                     *
@@ -87,6 +97,11 @@ static int16_t alter_table[][4] = {
   { 'B',  5, 'C'   -5 }    /* B half-sharp / C half flat */
 };
 
+/* Strings for beam settings. */
+
+static const char *beam_names[] = {
+  "forward hook", "backward hook", "begin", "continue", "end" };
+
 
 
 /*************************************************
@@ -96,8 +111,7 @@ static int16_t alter_table[][4] = {
 static int        indent = 0;
 static int        comment_bar = 0;
 static int        comment_stave = 0;
-
-static BOOL       beam_active = FALSE;
+static int        beam_state = -1;
 
 /* NOTE: PMW doesn't yet support nested tuplets - nobody has ever remarked on
 this - but if it ever does, the code in this module should cope. */
@@ -355,8 +369,10 @@ static barstr *
 write_note(barstr *b, int divisions)
 {
 int abovecount = 0;
+uint64_t beam_data = 0;
 BOOL inchord = FALSE;
 BOOL stoptie = FALSE;
+barstr *bb;
 
 /* Handle a note/chord at the end of a tie. */
 
@@ -366,22 +382,21 @@ if (tie_active != NULL)
   tie_active = NULL;
   }
 
-/* See if this note/chord is followed by a tie item. */
+/* Find the last note if this is the start of a chord. */
 
-for (barstr *bb = b; bb->next != NULL; bb = (barstr *)(bb->next))
+for (bb = b; bb->next != NULL; bb = (barstr *)(bb->next))
+  if (bb->next->type != b_chord) break;
+
+/* See if this note/chord is followed by a tie item. If it is, check that a
+single note was actually tied in the PS/PDF output. If not, the tie item is
+really a short slur. */
+
+if (bb->next->type == b_tie)
   {
-  if (bb->next->type == b_chord) continue;
-  if (bb->next->type == b_tie) tie_active = (b_tiestr *)(bb->next);
-  break;
-  }
+  tie_active = (b_tiestr *)(bb->next);
+  bb = (barstr *)tie_active;   /* "Last" is now the tie item */
 
-/* If there is a following tie item, check that a single note was actually tied
-in the PS/PDF output. If not, the tie item is really a short slur. */
-
-if (tie_active != NULL)
-  {
-  b_notestr *note = (b_notestr *)b;
-  if ((note->flags & (nf_chord|nf_wastied)) == 0)
+  if ((((b_notestr *)b)->flags & (nf_chord|nf_wastied)) == 0)
     {
     /* This is a short slur; TODO */
     comment("short slur not yet implemented");
@@ -389,6 +404,148 @@ if (tie_active != NULL)
     }
   else abovecount = tie_active->abovecount;
   }
+
+/* If this is a non-rest that is shorter than a crotchet, do some beam
+processing. First of all, take a look at what follows - beambreak and/or a
+following note. If there is a beambreak, it will be the immediately next item,
+pointed to by bb. */
+
+if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
+  {
+  int thatcount = 0;
+  int thiscount = ((b_notestr *)b)->notetype - crotchet;
+  b_notestr *nextnote = NULL;
+  int beambreak = (bb->next->type == b_beambreak)?
+    ((b_beambreakstr *)(bb->next))->value : -1;
+
+  /* Seek the next note if there isn't an explicit break for all beams. No
+  following note in the bar, or a note longer than a quaver is a full
+  beambreak. Skip over any rests shorter than a crotchet - if a suitable next
+  note is found, they will appear under the beam. */
+
+  if (beambreak != BEAMBREAK_ALL)
+    {
+    for (bb = (barstr *)bb->next; bb != NULL; bb = (barstr *)bb->next)
+      {
+      nextnote = (b_notestr *)bb;
+      if (nextnote->type == b_note)
+        {
+        if (nextnote->spitch == 0 && nextnote->notetype > crotchet) continue;
+        thatcount = nextnote->notetype - crotchet;
+        break;
+        }
+      }
+
+    /* No next note, or at least a crotchet (which includes a non-skipped rest)
+    breaks all beams. */
+
+    if (nextnote == NULL || nextnote->notetype <= crotchet)
+      beambreak = BEAMBREAK_ALL;
+    }
+
+  /* At this point, nextnote is either NULL (no note follows in the bar) or
+  points to the next actual note, and beambreak is either negative (unset),
+  BEAMBREAK_ALL (explicitly or implicitly set), or an explicit number NOT to
+  break. We can deal with the latter case by adjusting the value of thatcount
+  if necessary. */
+
+  if (beambreak >= 0 && beambreak != BEAMBREAK_ALL && beambreak < thatcount)
+    thatcount = beambreak;
+
+  /* Now we can set up beaming data that is to be output below in the correct
+  place in the <note> element. For each beam setting (begin, end, etc) two
+  4-bit values are packed into a byte: the start and end number. For example,
+  if we are starting a semiquaver beam, we set (1,2) because two
+  <beam>start</beam> elements are needed. When dealing with changes of the
+  number of beams the start can be otner than 1. */
+
+  /* If not currently in a beam, set up to start one unless BEAMBREAK_ALL is
+  set. */
+
+  if (beam_state < 0)
+    {
+    if (beambreak != BEAMBREAK_ALL)
+      {
+      if (thiscount > thatcount)  /* This note is shorter, need hook */
+        {
+        beam_data |= (16 | thatcount) << BSHIFT_BEGIN;  /* 16 == 1 << 4 */
+        beam_state = thatcount;
+        beam_data |= (((thatcount + 1) << 4) | thiscount) << BSHIFT_FHOOK;
+        }
+      else  /* This note is equal or longer; start all beams from 1 to this */
+        {
+        beam_data |= (16 | thiscount) << BSHIFT_BEGIN;
+        beam_state = thiscount;
+        }
+      }
+    }
+
+  /* There are currently beam_state beams open. Handle termination - end all
+  beams, then add backwards hooks if this note needs more than were open. */
+
+  else if (beambreak == BEAMBREAK_ALL)
+      {
+    beam_data |= (16 | (uint64_t)beam_state) << BSHIFT_END;
+    if (thiscount > beam_state)
+      beam_data |= (((beam_state + 1) << 4) | thiscount) << BSHIFT_BHOOK;
+    beam_state = -1;
+    }
+
+  /* Beam continuation. It is easier to enumerate the separate cases than
+  try to amalgamate them. We have to consider which beams to continue, which
+  to terminate, and which new ones to start. */
+
+  else if (thiscount == beam_state)
+    {
+    /* This note needs exactly the same number of beams as are in force. If
+    the next note needs no fewer, just continue all of them. If not, continue
+    those that the next note does need, and terminate the others. */
+
+    if (thatcount >= thiscount)
+      beam_data |= (16 | thiscount) << BSHIFT_CONTINUE;
+    else
+      {
+      beam_data |= (16 | thatcount) << BSHIFT_CONTINUE;
+      beam_data |=
+        (uint64_t)(((thatcount + 1) << 4) | thiscount) << BSHIFT_END;
+      beam_state = thatcount;
+      }
+    }
+
+  /* This note needs more beams than are currently in force. */
+
+  else if (thiscount > beam_state)
+    {
+    /* This note is shorter than the next note; need hook. */
+
+    if (thiscount > thatcount)
+      {
+      beam_data |= (16 | thatcount) << BSHIFT_CONTINUE;
+      beam_state = thatcount;
+      beam_data |= (((thatcount + 1) << 4) | thiscount) << BSHIFT_FHOOK;
+      }
+
+    /* This note is equal or longer than the next note; continue all beams
+    up to beam_state, then start new beams from beam_state plus 1 to this.
+    */
+
+    else
+      {
+      beam_data |= (16 | beam_state) << BSHIFT_CONTINUE;
+      beam_data |= (((beam_state + 1) << 4) | thiscount) << BSHIFT_BEGIN;
+      beam_state = thiscount;
+      }
+    }
+
+  /* This note needs fewer beams that are currently in force. This state
+  should never be possible because the previous note should never send out
+  more beams than the next note needs. */
+
+  else
+    {
+    error(ERR191, "too many beams in force");
+    }
+  }  /* Done beam setup processing */
 
 /* Now process the note/chord */
 
@@ -514,7 +671,23 @@ for (;;)
 
   if (nhstyle != NULL) PN("<notehead>%s</notehead>", nhstyle);
 
-// beam
+  /* Handle beam settings. The analsys above packed all the data into a single
+  variable, which contains a byte for each type of beam setting. The byte
+  contains two nibbles, the starting and ending numbers. */
+
+  if (beam_data != 0)
+    {
+    for (usint i = 0; i < sizeof(beam_names)/sizeof(char *); i++)
+      {
+      int x = beam_data & BSHIFT_MASK;
+      if (x != 0)
+        {
+        for (int y = x >> 4; y <= (x & 0x0f); y++)
+          PN("<beam number=\"%d\">%s</beam>", y, beam_names[i]);
+        }
+      beam_data >>= 8;
+      }
+    }
 
   /* Handle tuplets. The start is indicated by a pending b_pletstr; for the end
   we have to peek ahead. Note that plet_level has already been incremented
@@ -522,7 +695,7 @@ for (;;)
 
   if (plet_pending != NULL)
     {
-    const char *bracket = beam_active? "no" : "yes";
+    const char *bracket = (beam_state >= 0)? "no" : "yes";
     const char *placement, *show;
 
     if ((plet_pending->flags & plet_bn) != 0) bracket = "no";
@@ -805,8 +978,7 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [beamacc]");
     break;
 
-    case b_beambreak:
-    comment("ignored beam break");
+    case b_beambreak:  /* Handled from within write_note */
     break;
 
     case b_beammove:
@@ -1152,6 +1324,10 @@ else
   PN("<software>PMW</software>");
   PN("<encoding-date>0000-00-00</encoding-date>");
   }
+
+PN("<supports element=\"accidental\" type=\"yes\"/>");
+PN("<supports element=\"beam\" type=\"yes\"/>");
+PN("<supports element=\"stem\" type=\"yes\"/>");
 
 PB("</encoding>");
 PB("</identification>");

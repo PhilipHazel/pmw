@@ -1,0 +1,14 @@
+@ Some XML output tests for PMW oddities that have not been shown to work in
+@ any XML processor.
+
+[stave 1 treble 1]
+
+@ Beam breaks that are not standard
+
+g= , g= ; g= ,0 g= R. |
+
+@ A rest under a chord beam doesn't work in MuseScore (it does in PMW!)
+
+(g-b-) r- x; r- R |
+
+[endstave]
