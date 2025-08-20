@@ -42,6 +42,10 @@ variable to save initializing multiple variables for every note. */
 #define BSHIFT_CONTINUE 24
 #define BSHIFT_END      32
 
+/* Size of vectors for slur handling. */
+
+#define SLURS_MAX        8
+
 
 /*************************************************
 *                Data tables                     *
@@ -122,6 +126,14 @@ static uint8_t    plet_actual[8] = {0};  /* Initialize level 0 => no plet */
 static uint8_t    plet_normal[8] = {0};
 
 static b_tiestr  *tie_active = NULL;
+
+static b_slurstr *slurs_active[SLURS_MAX];
+static b_slurstr *slurs_pending[SLURS_MAX];
+static int        slurs_active_count = 0;
+static int        slurs_pending_count = 0;
+
+static uint16_t   slurs_trans[SLURS_MAX];
+static int        slurs_trans_count = 0;
 
 static FILE      *xml_file;
 static movtstr   *xml_movt;
@@ -425,9 +437,10 @@ if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
 
   if (beambreak != BEAMBREAK_ALL)
     {
-    for (bb = (barstr *)bb->next; bb != NULL; bb = (barstr *)bb->next)
+    for (barstr *bbn = (barstr *)bb->next; bbn != NULL;
+         bbn = (barstr *)bbn->next)
       {
-      nextnote = (b_notestr *)bb;
+      nextnote = (b_notestr *)bbn;
       if (nextnote->type == b_note)
         {
         if (nextnote->spitch == 0 && nextnote->notetype > crotchet) continue;
@@ -689,6 +702,12 @@ for (;;)
       }
     }
 
+  /* A number of things have to appear inside a <notations> element. Multiple
+  appearances are permitted, but it's tidier to put them all inside just one
+  occurrence. */
+
+  BOOL notations_open = FALSE;
+
   /* Handle tuplets. The start is indicated by a pending b_pletstr; for the end
   we have to peek ahead. Note that plet_level has already been incremented
   above. */
@@ -712,7 +731,12 @@ for (;;)
       }
     else show = "actual";
 
-    PA("<notations>");
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
+
     PA("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
       "placement=\"%s\" show-number=\"%s\">",
       plet_level, bracket, placement, show);
@@ -720,25 +744,29 @@ for (;;)
     // tuplet-actual? tuplet-normal?
 
     PB("</tuplet>");
-    PB("</notations>");
-
     plet_pending = NULL;
     }
 
   else if (b->next->type == b_endplet)
     {
-    PA("<notations>");
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
     PN("<tuplet number=\"%d\" type=\"stop\"/>", plet_level--);
-    PB("</notations>");
     }
 
   /* Handle the end of a tie (the notation part - see also <tie> above). */
 
   if (stoptie && wastied)
     {
-    PA("<notations>");
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
     PN("<tied type=\"stop\"/>");
-    PB("</notations>");
     }
 
   /* Handle the start of a tie (the notation part - see also <tie> above). Skip
@@ -758,12 +786,139 @@ for (;;)
     if ((tie_active->flags & tief_gliss) != 0)
       comment("gliss treated as tie pro tem");
 
-    PA("<notations>");
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
     PN("<tied type=\"start\" placement=\"%s\"%s/>", placement, line_type);
-    PB("</notations>");
     }
   else abovecount--;
 
+  /* Deal with slurs. Any [slur] items before this note were put on a pending
+  list. We can start them here, moving them to an active list. Then search for
+  any [endslur] items before the next note or end of bar, and act on them. */
+
+  if (slurs_pending_count > 0)
+    {
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
+
+    /* PMW slurs can have a single-letter ID (default NUL), whereas MusicXML
+    slurs can have numbers (1-16). We resolve this by giving each slur the
+    number of where it is in the active list (first one is 1), and keeping a
+    translation. The number replaces the id in the [slur] item in order to make
+    [xlur] handling straightforward. */
+
+    for (int i = 0; i < slurs_pending_count; i++)
+      {
+      b_slurstr *s = slurs_pending[i];
+      const char *line_type =
+        ((s->flags & sflag_idot) != 0)? " line-type=\"dotted\"" :
+        ((s->flags & sflag_i) != 0)? " line-type=\"dashed\"" : "";
+      const char *placement = ((s->flags & sflag_b) != 0)? "below" : "above";
+
+      if (s->id != 0)
+        slurs_trans[slurs_trans_count++] =
+          (s->id << 8) | (slurs_active_count + 1);
+      s->id = slurs_active_count + 1;
+
+      PN("<slur type=\"start\" number=\"%d\"%s placement=\"%s\"/>",
+        s->id, line_type, placement);
+
+      /* If this was [xslur] and there is another slur active, put this one
+      before it on the active list. Otherwise, just add to the list. */
+
+      if ((s->flags & sflag_x) != 0 && slurs_active_count > 0)
+        {
+        slurs_active[slurs_active_count] = slurs_active[slurs_active_count-1];
+        slurs_active[slurs_active_count-1] = s;
+        }
+      else slurs_active[slurs_active_count] = s;
+      slurs_active_count++;
+      }
+
+    slurs_pending_count = 0;
+    }
+
+  /* Only look for [endslur]s when doing the first note of a chord. */
+
+  if (!inchord && slurs_active_count > 0)
+    {
+    for (bb = (barstr *)bb->next; bb != NULL; bb = (barstr *)bb->next)
+      {
+      if (bb->type == b_note) break;
+      if (bb->type == b_endslur)
+        {
+        b_endslurstr *e = (b_endslurstr *)bb;
+        if (!notations_open)
+          {
+          PA("<notations>");
+          notations_open = TRUE;
+          }
+
+        /* If there's no id, terminate the most recent slur. Note that we must
+        use the remembered MusicXML number that was put into the starting slur
+        structure, not the id in [endslur]. */
+
+        if (e->value == 0)   /* No id */
+          {
+          b_slurstr *s = slurs_active[--slurs_active_count];
+          PN("<slur type=\"stop\" number=\"%d\"/>", s->id);
+          }
+
+        /* Translate the PMW id into a slur number, then seek that slur in the
+        list. */
+
+        else
+          {
+          int i, n;
+
+          for (i = 0; i < slurs_trans_count; i++)
+            {
+            if ((slurs_trans[i] >> 8) == e->value) break;
+            }
+
+          if (i >= slurs_trans_count)
+            error (ERR192, "could not translate PMW slur id"); /* Hard */
+
+          n = slurs_trans[i] & 0xff;
+
+          for (i = 0; i < slurs_active_count; i++)
+            {
+            if (slurs_active[i]->id == n) break;
+            }
+
+          if (i >= slurs_active_count)
+            {
+            char buff[64];
+            sprintf(buff, "could not find open slur with id=%d", n);
+            error(ERR192, buff);   /* Hard */
+            }
+
+          PN("<slur type=\"stop\" number=\"%d\"/>", n);
+
+          /* Remove the slur from the list, if not last. */
+
+          if (i != --slurs_active_count)
+            memmove(slurs_active + i, slurs_active + i + 1,
+              (slurs_active_count - i) * sizeof(b_slurstr *));
+          }
+
+        /* When all slurs are closed, we can reset the translations. */
+
+        if (slurs_active_count == 0) slurs_trans_count = 0;
+        }
+      }   /* End [endslur] loop */
+    }     /* End [endslur] processing */
+
+  /* Close <notations> if it's open, end the note, then end the loop unless
+  this is a chord and there is another note following. */
+
+  if (notations_open) PB("</notations>");
   PB("</note>");
 
   if (b->next->type != b_chord) break;
@@ -1035,11 +1190,10 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [endline]");
     break;
 
-    case b_endslur:
-    comment("ignored [endslur]");
+    case b_endslur:  /* Handled from within write_note() */
     break;
 
-    case b_endplet:  /* Handled from within write_note */
+    case b_endplet:  /* Handled from within write_note() */
     break;
 
     case b_ens:
@@ -1169,7 +1323,9 @@ for (; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_slur:
-    comment("ignored [slur]");
+    if (slurs_pending_count >= SLURS_MAX)
+      error(ERR191, "too many nested slurs");
+    else slurs_pending[slurs_pending_count++] = (b_slurstr *)b;
     break;
 
     case b_slurgap:
@@ -1208,9 +1364,7 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [tick]");
     break;
 
-    /* Tie items are handled within note handling and can be skipped here. */
-
-    case b_tie:
+    case b_tie:    /* Handled from within write_note() */
     break;
 
     case b_time:

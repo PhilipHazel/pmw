@@ -292,7 +292,8 @@ aborts the run after outputting additional information. */
 { ec_major,   "movement %d does not exist: no %s data written" },
 /* 190-194 */
 { ec_major,   "misplaced [tremolo]: %s" },
-{ ec_major,   "XML output internal error: %s" }
+{ ec_major,   "XML output internal error: %s" },
+{ ec_failed,  "XML output internal error: %s" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

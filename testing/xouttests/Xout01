@@ -37,4 +37,15 @@ g-.g=g-g- ; g-g=g-.g- |
 c'-c'-; c'=c'= , c'=c'=; c'-.c'=; c'=c'-. |
 (g-b) x ; R. |
 
+@ Slurs
+
+[slur] gabg [es] |
+[slur/b] gabg [es] |
+[slur/b/i] gabg [es] |
+[slur/b/ip] gabg [es] |
+[slur] ga [xslur] [endslur] bg [es] |
+[slur] c' [slur/b] gg [es] c' [es] |
+[slur/=A] bagb [es/=A] |
+[slur/=A] b [slur/b/=B] agb [es/=A] [es/=B]|
+
 [endstave]
