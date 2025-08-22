@@ -2201,7 +2201,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="34" width="160">
+    <measure number="34" width="176">
       <note>
         <pitch>
           <step>B</step>
@@ -2249,7 +2249,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="35" width="165">
+    <measure number="35" width="176">
       <note>
         <pitch>
           <step>B</step>
@@ -2298,6 +2298,316 @@
           <slur type="stop" number="1"/>
           <slur type="stop" number="2"/>
         </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="36" width="176">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <technical>
+            <down-bow placement="above"/>
+          </technical>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <technical>
+            <up-bow placement="above"/>
+          </technical>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <technical>
+            <harmonic placement="above"/>
+          </technical>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <articulations>
+            <detached-legato placement="above"/>
+          </articulations>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="37" width="176">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <staccato placement="below"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <spiccato placement="below"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <tenuto placement="below"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <accent placement="below"/>
+          </articulations>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="38" width="148">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <strong-accent placement="below"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <staccatissimo placement="below"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>96</duration>
+        <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="39" width="176">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <technical>
+            <down-bow placement="below"/>
+          </technical>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <technical>
+            <up-bow placement="below"/>
+          </technical>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <technical>
+            <harmonic placement="below"/>
+          </technical>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <articulations>
+            <detached-legato placement="below"/>
+          </articulations>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="40" width="160">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <staccato placement="above"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <spiccato placement="above"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <tenuto placement="above"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <accent placement="above"/>
+          </articulations>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="41" width="140">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <strong-accent placement="above"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <staccatissimo placement="above"/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>96</duration>
+        <type>half</type>
+        <stem>none</stem>
       </note>
       <barline>
         <bar-style>light-heavy</bar-style>

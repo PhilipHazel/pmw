@@ -19,8 +19,19 @@ Note that it is necessary to run this code after PostScript or PDF output has
 been generated because some of the analysis on which it depends - for example,
 remembering which notes of a chord were tied - happens in the output phase.
 Other parameters get set during pagination, so there is no possibility (as
-things stand) of running this code immediately after reading the input. */
+things stand) of running this code immediately after reading the input.
 
+There is an attempt to give feedback on PMW items in the current file that have
+not been translated. */
+
+/* Enum values for known ignored items, used in conjuction with the X macro,
+and the X_ variables. Current implementation allows up to 63. */
+
+enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_COUNT };
+
+#define X(N) X_ignored |= 1 << N
+
+/* Some comment strings */
 
 #define PART_SEPARATOR \
   "<!--===============================================================-->"
@@ -50,6 +61,13 @@ variable to save initializing multiple variables for every note. */
 /*************************************************
 *                Data tables                     *
 *************************************************/
+
+static const char *X_ignored_message[] = {
+  "Drawing functions",
+  "Some slur options",
+  "Slur split options",
+  "Vertical line accent (\\'\\)"
+};
 
 static const char *MXL_type_names[] = {
   "breve", "whole", "half", "quarter", "eighth", "16th", "32nd", "64th" };
@@ -135,6 +153,8 @@ static int        slurs_pending_count = 0;
 static uint16_t   slurs_trans[SLURS_MAX];
 static int        slurs_trans_count = 0;
 
+static uint64_t   X_ignored = 0;
+
 static FILE      *xml_file;
 static movtstr   *xml_movt;
 static uint64_t   xml_staves = ~0uL;
@@ -170,52 +190,73 @@ va_end(ap);
 *            Write text with indent              *
 *************************************************/
 
-/* Write text to the XML output file, followed by a newline, optionally
-adjusting the indent before or after. The basic function is called from three
-wrappers for common cases.
+/* Each of these little functions writes to the output file, with variations on
+how they use and/or modify the current indent, and whether or not the add a
+newline at the end. It was easier just to write them individually rather than
+make a common function with lots of arguments. */
 
-Arguments:
-  pre       indent adjustment before
-  post      indent adjustment after
-  format    format string
-  ...       arguments
-
-Returns:    nothing
-*/
-
-static void
-xprintf(int pre, int post, const char *format, va_list ap)
-{
-indent += pre;
-for (int i = 0; i < indent; i++) fputc(' ', xml_file);
-(void)vfprintf(xml_file, format, ap);
-va_end(ap);
-(void)fprintf(xml_file, "\n");
-indent += post;
-}
+/* Output at current indent, add newline, increase indent. */
 
 static void
 PA(const char *format, ...)
 {
 va_list ap;
 va_start(ap, format);
-xprintf(0, 2, format, ap);
+for (int i = 0; i < indent; i++) fputc(' ', xml_file);
+(void)vfprintf(xml_file, format, ap);
+va_end(ap);
+(void)fprintf(xml_file, "\n");
+indent += 2;
 }
+
+/* Decrease indent, output, add newline. */
 
 static void
 PB(const char *format, ...)
 {
 va_list ap;
 va_start(ap, format);
-xprintf(-2, 0, format, ap);
+indent -= 2;
+for (int i = 0; i < indent; i++) fputc(' ', xml_file);
+(void)vfprintf(xml_file, format, ap);
+va_end(ap);
+(void)fprintf(xml_file, "\n");
 }
+
+/* Output at current indent with newline, no change to indent. */
 
 static void
 PN(const char *format, ...)
 {
 va_list ap;
 va_start(ap, format);
-xprintf(0, 0, format, ap);
+for (int i = 0; i < indent; i++) fputc(' ', xml_file);
+(void)vfprintf(xml_file, format, ap);
+va_end(ap);
+(void)fprintf(xml_file, "\n");
+}
+
+/* Output at current indent, no newline (leave open) */
+
+static void
+PO(const char *format, ...)
+{
+va_list ap;
+va_start(ap, format);
+for (int i = 0; i < indent; i++) fputc(' ', xml_file);
+(void)vfprintf(xml_file, format, ap);
+va_end(ap);
+}
+
+/* Output no indent (continue), do not add newline */
+
+static void
+PC(const char *format, ...)
+{
+va_list ap;
+va_start(ap, format);
+(void)vfprintf(xml_file, format, ap);
+va_end(ap);
 }
 
 
@@ -566,6 +607,10 @@ for (;;)
   {
   b_notestr *note = (b_notestr *)b;
   BOOL wastied = (note->flags & nf_wastied) != 0;
+  uint32_t acflags = note->acflags;
+  const char *ac_placement =
+    (((note->flags & nf_stemup) == 0) ==
+     ((acflags & af_opposite) == 0))? "above" : "below";
 
   PA("<note>");
   if (inchord) PN("<chord/>");
@@ -708,6 +753,58 @@ for (;;)
 
   BOOL notations_open = FALSE;
 
+  /* Handle PMW accents. First record one that is not supported. */
+
+  if ((acflags & af_vline) != 0)
+    {
+    X(X_VLINE_ACCENT);
+    acflags &= ~af_vline;
+    }
+
+  /* These three must be in a <technical> element */
+
+  if ((acflags & (af_down|af_up|af_ring)) != 0)
+    {
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
+    PA("<technical>");
+
+    if ((acflags & af_down) != 0) PO("<down-bow");
+    else if ((acflags & af_up) != 0) PO("<up-bow");
+    else if ((acflags & af_ring) != 0) PO("<harmonic");
+
+    PC(" placement=\"%s\"/>\n", ac_placement);
+    PB("</technical>");
+    acflags &= ~(af_down|af_up|af_ring);
+    }
+
+  /* The rest go inside <articulations> */
+
+  if ((acflags & af_accents) != 0)
+    {
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
+    PA("<articulations>");
+
+    if ((acflags & (af_staccato|af_bar)) == (af_staccato|af_bar))
+      PO("<detached-legato");
+    else if ((acflags & af_staccato) != 0) PO("<staccato");
+    else if ((acflags & af_bar) != 0) PO("<tenuto");
+    else if ((acflags & af_gt) != 0) PO("<accent");
+    else if ((acflags & af_wedge) != 0) PO("<staccatissimo");
+    else if ((acflags & af_tp) != 0) PO("<strong-accent");
+    else if ((acflags & af_staccatiss) != 0) PO("<spiccato");
+
+    PC(" placement=\"%s\"/>\n", ac_placement);
+    PB("</articulations>");
+    }
+
   /* Handle tuplets. The start is indicated by a pending b_pletstr; for the end
   we have to peek ahead. Note that plet_level has already been incremented
   above. */
@@ -816,6 +913,7 @@ for (;;)
     for (int i = 0; i < slurs_pending_count; i++)
       {
       b_slurstr *s = slurs_pending[i];
+      b_slurmodstr *mod = NULL;
       const char *line_type =
         ((s->flags & sflag_idot) != 0)? " line-type=\"dotted\"" :
         ((s->flags & sflag_i) != 0)? " line-type=\"dashed\"" : "";
@@ -826,8 +924,34 @@ for (;;)
           (s->id << 8) | (slurs_active_count + 1);
       s->id = slurs_active_count + 1;
 
-      PN("<slur type=\"start\" number=\"%d\"%s placement=\"%s\"/>",
+      /* Start slur element, but leave open */
+
+      PO("<slur type=\"start\" number=\"%d\"%s placement=\"%s\"",
         s->id, line_type, placement);
+
+      /* See if there are any modifications that apply to the whole slur. There
+      is no support (yet?) for modifying split slurs. */
+
+      for (b_slurmodstr *mod2 = s->mods; mod2 != NULL; mod2 = mod2->next)
+        {
+        if (mod2->sequence != 0) X(X_SLURSPLITOPT);
+          else mod = mod2;
+        }
+
+
+// TODO Neither MuseScore nor OSMD demo seem to pay any attention to values
+// that modify a slur.
+
+      if (mod != NULL)
+        {
+        if (mod->lx != 0) PC(" relative-x=\"%d\"", T(mod->lx));
+
+
+        }
+
+      /* Terminate the <slur> element. */
+
+      PC("/>\n");
 
       /* If this was [xslur] and there is another slur active, put this one
       before it on the active list. Otherwise, just add to the list. */
@@ -1183,7 +1307,7 @@ for (; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_draw:
-    comment("ignored [draw]");
+    X(X_DRAW);
     break;
 
     case b_endline:
@@ -1325,7 +1449,13 @@ for (; b != NULL; b = (barstr *)b->next)
     case b_slur:
     if (slurs_pending_count >= SLURS_MAX)
       error(ERR191, "too many nested slurs");
-    else slurs_pending[slurs_pending_count++] = (b_slurstr *)b;
+    else
+      {
+      b_slurstr *s = (b_slurstr *)b;
+      slurs_pending[slurs_pending_count++] = s;
+      if ((s->flags & (sflag_w|sflag_h|sflag_e|sflag_lay)) != 0)
+        X(X_SLUROPT);
+      }
     break;
 
     case b_slurgap:
@@ -1615,6 +1745,22 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
 
 PB("</score-partwise>");
 fclose(xml_file);
+
+/* Output comments about things that were ignored. */
+
+if (X_ignored != 0)
+  {
+  fprintf(stderr,
+    "\nNot all PMW items can be translated to MusicXML. Items in this file that\n"
+    "were ignored are listed below, though this is not guaranteed to be a\n"
+    "complete list:\n");
+
+  for (int i = 0; i < X_COUNT; i++)
+    {
+    if ((X_ignored & 1 << i) != 0)
+      fprintf(stderr, "  %s\n", X_ignored_message[i]);
+    }
+  }
 }
 
 /* End of xmlout.c */
