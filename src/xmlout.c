@@ -27,7 +27,8 @@ not been translated. */
 /* Enum values for known ignored items, used in conjuction with the X macro,
 and the X_ variables. Current implementation allows up to 63. */
 
-enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_COUNT };
+enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT,
+  X_SQUARE_ACC, X_SPREAD, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -53,9 +54,10 @@ variable to save initializing multiple variables for every note. */
 #define BSHIFT_CONTINUE 24
 #define BSHIFT_END      32
 
-/* Size of vectors for slur handling. */
+/* Size of vectors for slur and ornament handling. */
 
 #define SLURS_MAX        8
+#define ORNAMENT_MAX     8
 
 
 /*************************************************
@@ -66,14 +68,16 @@ static const char *X_ignored_message[] = {
   "Drawing functions",
   "Some slur options",
   "Slur split options",
-  "Vertical line accent (\\'\\)"
+  "Vertical line accent (\\'\\)",
+  "Round brackets enclosing accidental (square brackets substituted)",
+  "Spread chord sign"
 };
 
 static const char *MXL_type_names[] = {
   "breve", "whole", "half", "quarter", "eighth", "16th", "32nd", "64th" };
 
 static const char *MXL_accidental_names[] = {
-  "unused", "natural", "quarter-sharp", "sharp", "double-sharp",
+  "natural", "quarter-sharp", "sharp", "double-sharp",
   "slash-flat", "flat", "flat-flat" };
 
 /* PMW absolute pitches work in quarter tones. MusicXML needs a letter name,
@@ -134,6 +138,9 @@ static int        indent = 0;
 static int        comment_bar = 0;
 static int        comment_stave = 0;
 static int        beam_state = -1;
+
+static b_ornamentstr *ornament_pending[ORNAMENT_MAX];
+static int        ornament_pending_count = 0;
 
 /* NOTE: PMW doesn't yet support nested tuplets - nobody has ever remarked on
 this - but if it ever does, the code in this module should cope. */
@@ -421,8 +428,11 @@ pointer to the final note. */
 static barstr *
 write_note(barstr *b, int divisions)
 {
+int add_caesura = -1;
 int abovecount = 0;
 uint64_t beam_data = 0;
+BOOL add_comma = FALSE;
+BOOL add_tick = FALSE;
 BOOL inchord = FALSE;
 BOOL stoptie = FALSE;
 barstr *bb;
@@ -456,6 +466,32 @@ if (bb->next->type == b_tie)
     tie_active = NULL;
     }
   else abovecount = tie_active->abovecount;
+  }
+
+/* See if [comma], [tick], or a caesura follows, before the next note or end of
+bar. These have to come in <articulations> for this note. */
+
+for (barstr *bbn = (barstr *)bb->next; bbn != NULL; bbn = (barstr *)bbn->next)
+  {
+  if (bbn->type == b_note) break;
+
+  switch(bbn->type)
+    {
+    case b_caesura:
+    add_caesura = xml_movt->caesurastyle;
+    break;
+
+    case b_comma:
+    add_comma = TRUE;
+    break;
+
+    case b_tick:
+    add_tick = TRUE;
+    break;
+
+    default:
+    break;
+    }
   }
 
 /* If this is a non-rest that is shorter than a crotchet, do some beam
@@ -606,11 +642,11 @@ if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
 for (;;)
   {
   b_notestr *note = (b_notestr *)b;
-  BOOL wastied = (note->flags & nf_wastied) != 0;
   uint32_t acflags = note->acflags;
+  BOOL opposite = (acflags & af_opposite) != 0;
+  BOOL wastied = (note->flags & nf_wastied) != 0;
   const char *ac_placement =
-    (((note->flags & nf_stemup) == 0) ==
-     ((acflags & af_opposite) == 0))? "above" : "below";
+    (((note->flags & nf_stemup) != 0) == opposite)? "above" : "below";
 
   PA("<note>");
   if (inchord) PN("<chord/>");
@@ -670,8 +706,17 @@ for (;;)
   PN("<type>%s</type>", MXL_type_names[note->notetype]);
   if ((note->flags & (nf_dot|nf_dot2)) != 0) PN("<dot/>");
   if ((note->flags & nf_dot2) != 0) PN("<dot/>");
-  if (note->acc != ac_no) PN("<accidental>%s</accidental>",
-    MXL_accidental_names[note->acc]);
+  if (note->acc != ac_no && (note->flags & nf_accinvis) == 0)
+    {
+    const char *bra = "";
+    if ((note->flags & (nf_accrbra|nf_accsbra)) != 0)
+      {
+      if ((note->flags & nf_accrbra) != 0) X(X_SQUARE_ACC);
+      bra = " bracket=\"yes\"";
+      }
+    PN("<accidental%s>%s</accidental>", bra,
+      MXL_accidental_names[note->acc - 1]);
+    }
 
 //TODO allow for different half-accidental styles
 
@@ -749,9 +794,10 @@ for (;;)
 
   /* A number of things have to appear inside a <notations> element. Multiple
   appearances are permitted, but it's tidier to put them all inside just one
-  occurrence. */
+  occurrence. Similarly for <ornaments>. */
 
   BOOL notations_open = FALSE;
+  BOOL ornaments_open = FALSE;
 
   /* Handle PMW accents. First record one that is not supported. */
 
@@ -781,9 +827,10 @@ for (;;)
     acflags &= ~(af_down|af_up|af_ring);
     }
 
-  /* The rest go inside <articulations> */
+  /* The remaining accents go inside <articulations>, as do [comma] and
+  caesura. */
 
-  if ((acflags & af_accents) != 0)
+  if ((acflags & af_accents) != 0 || add_caesura >= 0 || add_comma || add_tick)
     {
     if (!notations_open)
       {
@@ -792,18 +839,202 @@ for (;;)
       }
     PA("<articulations>");
 
-    if ((acflags & (af_staccato|af_bar)) == (af_staccato|af_bar))
-      PO("<detached-legato");
-    else if ((acflags & af_staccato) != 0) PO("<staccato");
-    else if ((acflags & af_bar) != 0) PO("<tenuto");
-    else if ((acflags & af_gt) != 0) PO("<accent");
-    else if ((acflags & af_wedge) != 0) PO("<staccatissimo");
-    else if ((acflags & af_tp) != 0) PO("<strong-accent");
-    else if ((acflags & af_staccatiss) != 0) PO("<spiccato");
+    /* The accents have no value */
 
-    PC(" placement=\"%s\"/>\n", ac_placement);
+    if ((acflags & af_accents) != 0)
+      {
+      if ((acflags & (af_staccato|af_bar)) == (af_staccato|af_bar))
+        PO("<detached-legato");
+      else if ((acflags & af_staccato) != 0) PO("<staccato");
+      else if ((acflags & af_bar) != 0) PO("<tenuto");
+      else if ((acflags & af_gt) != 0) PO("<accent");
+      else if ((acflags & af_wedge) != 0) PO("<staccatissimo");
+      else if ((acflags & af_tp) != 0) PO("<strong-accent");
+      else if ((acflags & af_staccatiss) != 0) PO("<spiccato");
+      PC(" placement=\"%s\"/>\n", ac_placement);
+      }
+
+    /* The various pauses do have values. */
+
+    if (add_caesura >= 0)
+      {
+      PN("<caesura>%s</caesura>", (add_caesura == 0)? "normal":"single");
+      add_caesura = -1;    /* Only on first note in chord */
+      }
+
+    if (add_comma)
+      {
+      PN("<breath-mark>comma</breath-mark>");
+      add_comma = FALSE;   /* Only on first note in chord */
+      }
+
+    if (add_tick)
+      {
+      PN("<breath-mark>tick</breath-mark>");
+      add_tick = FALSE;   /* Only on first note in chord */
+      }
+
     PB("</articulations>");
     }
+
+  /* Handle ornaments. Things that PMW calls ornaments are represented in
+  different ways in MusicXML. Some are directly under <notations> but others
+  are inside <ornament> under <notations>. We therefore do a first pass for
+  those that don't appear inside <ornament>. The ornament numbers are arranged
+  so that these are all greater than or equal to or_ferm. There's typically
+  only one ornament, though the code does allow for more than one, so there is
+  no point in trying to optimise by doing things like removing those already
+  handled. */
+
+  for (int i = 0; i < ornament_pending_count; i++)
+    {
+    b_ornamentstr *orn = ornament_pending[i];
+    if (orn->ornament < or_ferm) continue;
+
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
+
+    /* The requirements for each ornament are subtly different. Rather than
+    creating some kind of overall data table, I've gone for the option of
+    writing them out in individual groups. */
+
+    switch(orn->ornament)
+      {
+      case or_ferm:
+      PO("<fermata");
+      if (opposite)
+        {
+        PC(" type=\"inverted\" default-y=\"%d\"", T(-20000));
+        }
+
+      /* No render that I've tried pays any attention to this, nor to and
+      default-{xy} settings. */
+
+      if (orn->x != 0) PC(" relative-x=\"%d\"", T(orn->x));
+      if (orn->y != 0) PC(" relative-y=\"%d\"", T(orn->y));
+
+      PC("/>\n");
+      break;
+
+      case or_arp:
+      PN("<arpeggiate/>");
+      break;
+
+      case or_arpu:
+      PN("<arpeggiate direction=\"up\"/>");
+      break;
+
+      case or_arpd:
+      PN("<arpeggiate direction=\"down\"/>");
+      break;
+
+      /* These are all the variations of accidentals above or below a note.
+      They are defined in triples: without adornment, in round brackets, in
+      square brackets. The latter two are treated the same here. */
+
+// TODO: No renderer I've yet tried displays these correctly.
+
+      default:
+      int offset = orn->ornament - or_nat;   /* Offset into table */
+      if (offset % 3 == 1) X(X_SQUARE_ACC);
+      PO("<accidental-mark");
+      if (offset % 3 != 0) PC(" bracket=\"yes\"");
+      if (orn->ornament >= or_accbelow)
+        {
+        PC(" placement=\"below\"");
+        offset -= (or_accbelow - or_nat);
+        }
+      else PC(" placement=\"above\"");
+      PC(">%s</accidental-mark>\n", MXL_accidental_names[offset/3]);
+      break;
+      }
+    }
+
+  /* Now a second pass for any <ornament> based ornaments. Once again, we just
+  deal with them individually. */
+
+  for (int i = 0; i < ornament_pending_count; i++)
+    {
+    b_ornamentstr *orn = ornament_pending[i];
+    if (orn->ornament >= or_ferm) continue;
+
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
+
+    if (!ornaments_open)
+      {
+      PA("<ornaments>");
+      ornaments_open = TRUE;
+      }
+
+    switch(orn->ornament)
+      {
+      case or_tr:
+      PN("<trill-mark/>");
+      break;
+
+      case or_trsh:
+      PN("<trill-mark/>");
+      PN("<accidental-mark placement=\"above\">sharp</accidental-mark>");
+      break;
+
+      case or_trfl:
+      PN("<trill-mark/>");
+      PN("<accidental-mark placement=\"above\">flat</accidental-mark>");
+      break;
+
+      case or_trnat:
+      PN("<trill-mark/>");
+      PN("<accidental-mark placement=\"above\">natural</accidental-mark>");
+      break;
+
+      case or_trem1:
+      case or_trem2:
+      case or_trem3:
+      PN("<tremolo>%d</tremolo>", orn->ornament - or_trem1 + 1);
+      break;
+
+      case or_mord:
+      PN("<mordent/>");
+      break;
+
+      case or_dmord:
+      PN("<mordent long=\"yes\"/>");
+      break;
+
+      case or_imord:
+      PN("<inverted-mordent/>");
+      break;
+
+      case or_dimord:
+      PN("<inverted-mordent long=\"yes\"/>");
+      break;
+
+      case or_turn:
+      PN("<turn/>");
+      break;
+
+      case or_iturn:
+      PN("<inverted-turn/>");
+      break;
+
+      case or_spread:
+      X(X_SPREAD);
+      break;
+      }
+    }
+
+  if (ornaments_open) PB("</ornaments>");
+
+  /* Done ornaments; clear in case we are in a chord. */
+
+  ornament_pending_count = 0;
 
   /* Handle tuplets. The start is indicated by a pending b_pletstr; for the end
   we have to peek ahead. Note that plet_level has already been incremented
@@ -1214,10 +1445,10 @@ for (; b != NULL; b = (barstr *)b->next)
 
 PA("<attributes>");
 PN("<divisions>%d</divisions>", divisions);
-write_clef(clef);
 write_key(key);
 if ((xml_movt->flags & (mf_showtime | mf_startnotime)) != 0)
   write_time(time);
+write_clef(clef);
 PB("</attributes>");
 }
 
@@ -1237,6 +1468,81 @@ for (; b != NULL; b = (barstr *)b->next)
     case b_start:
     break;
 
+    /* These are entirely handled from within write_note(). */
+
+    case b_beambreak:
+    case b_caesura:
+    case b_comma:
+    case b_endslur:
+    case b_endplet:
+    case b_tick:
+    case b_tie:
+    break;
+
+    /* These are partially or wholly handled here. */
+
+    case b_barline:
+    write_barline(b, finalbar);
+    break;
+
+    case b_chord:
+    comment("b_chord encountered at top level: ERROR!");
+    break;
+
+    case b_clef:
+    PA("<attributes>");
+    write_clef(((b_clefstr *)b)->clef);
+    PB("</attributes>");
+    break;
+
+    case b_draw:
+    X(X_DRAW);
+    break;
+
+    case b_key:
+    PA("<attributes>");
+    write_key(((b_keystr *)b)->key);
+    PB("</attributes>");
+    break;
+
+    case b_note:
+    b = write_note(b, divisions);
+    break;
+
+    case b_ornament:
+    if (ornament_pending_count >= ORNAMENT_MAX)
+      error(ERR191, "too many ornaments on one note");
+    else
+      ornament_pending[ornament_pending_count++] = (b_ornamentstr *)b;
+    break;
+
+    case b_plet:
+    plet_pending = (b_pletstr *)b;
+    break;
+
+    case b_slur:
+    if (slurs_pending_count >= SLURS_MAX)
+      error(ERR191, "too many nested slurs");
+    else
+      {
+      b_slurstr *s = (b_slurstr *)b;
+      slurs_pending[slurs_pending_count++] = s;
+      if ((s->flags & (sflag_w|sflag_h|sflag_e|sflag_lay)) != 0)
+        X(X_SLUROPT);
+      }
+    break;
+
+    case b_time:
+    if ((xml_movt->flags & mf_showtime) != 0)
+      {
+      PA("<attributes>");
+      write_time(((b_timestr *)b)->time);
+      PB("</attributes>");
+      }
+    break;
+
+    /* These are currently not supported */
+
     case b_accentmove:
     comment("ignored accentmove");
     break;
@@ -1245,19 +1551,12 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [all]");
     break;
 
-    case b_barline:
-    write_barline(b, finalbar);
-    break;
-
     case b_barnum:
     comment("ignored [barnumber]");
     break;
 
     case b_beamacc:
     comment("ignored [beamacc]");
-    break;
-
-    case b_beambreak:  /* Handled from within write_note */
     break;
 
     case b_beammove:
@@ -1280,24 +1579,6 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [breakbarline]");
     break;
 
-    case b_caesura:
-    comment("ignored // (caesura)");
-    break;
-
-    case b_chord:
-    comment("b_chord encountered at top level: ERROR!");
-    break;
-
-    case b_clef:
-    PA("<attributes>");
-    write_clef(((b_clefstr *)b)->clef);
-    PB("</attributes>");
-    break;
-
-    case b_comma:
-    comment("ignored [comma]");
-    break;
-
     case b_dotbar:
     comment("ignored : (dotted barline)");
     break;
@@ -1306,18 +1587,8 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored dotright movement");
     break;
 
-    case b_draw:
-    X(X_DRAW);
-    break;
-
     case b_endline:
     comment("ignored [endline]");
-    break;
-
-    case b_endslur:  /* Handled from within write_note() */
-    break;
-
-    case b_endplet:  /* Handled from within write_note() */
     break;
 
     case b_ens:
@@ -1338,12 +1609,6 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_justify:
     comment("ignored [justify]");
-    break;
-
-    case b_key:
-    PA("<attributes>");
-    write_key(((b_keystr *)b)->key);
-    PB("</attributes>");
     break;
 
     case b_lrepeat:
@@ -1374,10 +1639,6 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [newpage]");
     break;
 
-    case b_note:
-    b = write_note(b, divisions);
-    break;
-
     case b_notes:
     comment("ignored [notes]");
     break;
@@ -1398,10 +1659,6 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [olhere]");
     break;
 
-    case b_ornament:
-    comment("ignored ornament on next note");
-    break;
-
     case b_overbeam:
     comment("ignored beam over barline");
     break;
@@ -1416,10 +1673,6 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_pagetopmargin:
     comment("ignored [topmargin]");
-    break;
-
-    case b_plet:
-    plet_pending = (b_pletstr *)b;
     break;
 
     case b_reset:
@@ -1444,18 +1697,6 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_sgnext:
     comment("ignored [sgnext]");
-    break;
-
-    case b_slur:
-    if (slurs_pending_count >= SLURS_MAX)
-      error(ERR191, "too many nested slurs");
-    else
-      {
-      b_slurstr *s = (b_slurstr *)b;
-      slurs_pending[slurs_pending_count++] = s;
-      if ((s->flags & (sflag_w|sflag_h|sflag_e|sflag_lay)) != 0)
-        X(X_SLUROPT);
-      }
     break;
 
     case b_slurgap:
@@ -1488,22 +1729,6 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_text:
     comment("ignored text string");
-    break;
-
-    case b_tick:
-    comment("ignored [tick]");
-    break;
-
-    case b_tie:    /* Handled from within write_note() */
-    break;
-
-    case b_time:
-    if ((xml_movt->flags & mf_showtime) != 0)
-      {
-      PA("<attributes>");
-      write_time(((b_timestr *)b)->time);
-      PB("</attributes>");
-      }
     break;
 
     case b_tremolo:
@@ -1679,9 +1904,41 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   {
   if (mac_notbit(xml_staves, stave)) continue;
 
-  PA("<score-part id=\"P%d\">", stave);
+  uschar *name = US"";
+  uschar buffer[256];
 
-// TODO score-instrument - get stave name
+  stavestr *stavebase = xml_movt->stavetable[stave];
+  snamestr *sn = stavebase->stave_name;
+
+  /* Support only a basic stave name (at least one XML processor insists on the
+  presence of <part-name>, though it can be empty. We have to convert a PMW
+  string to UTF-8. Take note of any magic characters that are ignored. */
+
+  if (sn!= NULL && sn->text != NULL)
+    {
+    uschar *pp = buffer;
+    for (uint32_t *p = sn->text; *p != 0; p++)
+      {
+      uint32_t c = PCHAR(*p);
+
+// TODO: handle other specials?
+
+      if (c > MAX_UNICODE)
+        {
+        if (c == ss_verticalbar) c = '\n';
+          else continue;
+        }
+
+      pp += misc_ord2utf8(c, pp);
+      }
+    *pp = 0;
+    name = buffer;
+    }
+
+  PA("<score-part id=\"P%d\">", stave);
+  PN("<part-name>%s</part-name>", name);
+
+
 // TODO midi-instrument - if anything set
 
   PB("</score-part>");
@@ -1753,13 +2010,14 @@ if (X_ignored != 0)
   fprintf(stderr,
     "\nNot all PMW items can be translated to MusicXML. Items in this file that\n"
     "were ignored are listed below, though this is not guaranteed to be a\n"
-    "complete list:\n");
+    "complete list:\n\n");
 
   for (int i = 0; i < X_COUNT; i++)
     {
     if ((X_ignored & 1 << i) != 0)
       fprintf(stderr, "  %s\n", X_ignored_message[i]);
     }
+  fprintf(stderr, "\n");
   }
 }
 

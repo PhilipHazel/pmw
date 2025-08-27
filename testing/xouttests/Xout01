@@ -58,4 +58,23 @@ c'\d!\ c'\u!\ c'\o!\ c'\.-!\ |
 g\.!\ g\..!\ g\-!\ g\>!\ |
 g\V!\ g\v!\ R | 
 
+@ Caesura, comma, tick
+
+g // g [comma] g [tick] g |
+
+@ Ornaments
+
+g\f\ g\f!\ R |
+(c\ar\eg) (c\aru\eg) (c\ard\eg) r |
+
+g\tr\ g\tr#\ g\tr$\ g\tr%\ |
+
+g\/\ g\//\ g\///\ r |
+c'\/\ c'\//\ c'\///\ r |
+
+g\~\ g\~|\ g\~~\ g\~~|\ |
+
+c'\t\ c'\t|\ R |
+
+
 [endstave]

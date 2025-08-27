@@ -33,7 +33,7 @@
   </part-list>
   <!--===============================================================-->
   <part id="P1">
-    <measure number="0" width="172">
+    <measure number="0" width="160">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -50,114 +50,93 @@
       </attributes>
       <note>
         <pitch>
-          <step>G</step>
+          <step>A</step>
+          <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
-        <type>16th</type>
+        <duration>4</duration>
+        <type>quarter</type>
         <stem>up</stem>
-        <beam number="2">forward hook</beam>
-        <beam number="1">begin</beam>
+        <notations>
+          <accidental-mark placement="above">sharp</accidental-mark>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>4</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <accidental-mark placement="below">flat</accidental-mark>
+        </notations>
       </note>
       <note>
         <pitch>
           <step>G</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
-        <type>16th</type>
+        <duration>4</duration>
+        <type>quarter</type>
         <stem>up</stem>
-        <beam number="2">backward hook</beam>
-        <beam number="1">end</beam>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <type>16th</type>
-        <stem>up</stem>
-        <beam number="1">forward hook</beam>
-        <beam number="2">forward hook</beam>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <type>16th</type>
-        <stem>up</stem>
-        <beam number="1">backward hook</beam>
-        <beam number="2">backward hook</beam>
+        <notations>
+          <accidental-mark placement="below">natural</accidental-mark>
+        </notations>
       </note>
       <note>
         <rest/>
-        <duration>12</duration>
-        <type>half</type>
-        <dot/>
+        <duration>4</duration>
+        <type>quarter</type>
         <stem>none</stem>
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="180">
+    <measure number="1" width="165">
       <note>
         <pitch>
-          <step>B</step>
+          <step>A</step>
+          <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>2</duration>
-        <type>eighth</type>
+        <duration>4</duration>
+        <type>quarter</type>
         <stem>up</stem>
-        <beam number="1">begin</beam>
-      </note>
-      <note>
-        <chord/>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>2</duration>
-        <type>eighth</type>
-        <stem>up</stem>
-      </note>
-      <note>
-        <rest/>
-        <duration>2</duration>
-        <type>eighth</type>
-        <stem>none</stem>
+        <notations>
+          <accidental-mark bracket="yes" placement="above">sharp</accidental-mark>
+        </notations>
       </note>
       <note>
         <pitch>
           <step>B</step>
+          <alter>-1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>2</duration>
-        <type>eighth</type>
+        <duration>4</duration>
+        <type>quarter</type>
         <stem>up</stem>
-        <beam number="1">end</beam>
+        <notations>
+          <accidental-mark bracket="yes" placement="below">flat</accidental-mark>
+        </notations>
       </note>
       <note>
-        <chord/>
         <pitch>
           <step>G</step>
           <octave>4</octave>
         </pitch>
-        <duration>2</duration>
-        <type>eighth</type>
+        <duration>4</duration>
+        <type>quarter</type>
         <stem>up</stem>
+        <notations>
+          <accidental-mark bracket="yes" placement="below">natural</accidental-mark>
+        </notations>
       </note>
       <note>
         <rest/>
-        <duration>2</duration>
-        <type>eighth</type>
-        <stem>none</stem>
-      </note>
-      <note>
-        <rest/>
-        <duration>8</duration>
-        <type>half</type>
+        <duration>4</duration>
+        <type>quarter</type>
         <stem>none</stem>
       </note>
       <barline>

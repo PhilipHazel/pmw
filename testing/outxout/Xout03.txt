@@ -1,0 +1,7 @@
+
+Not all PMW items can be translated to MusicXML. Items in this file that
+were ignored are listed below, though this is not guaranteed to be a
+complete list:
+
+  Round brackets enclosing accidental (square brackets substituted)
+

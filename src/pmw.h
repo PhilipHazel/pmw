@@ -725,11 +725,17 @@ enum { accent_none, accent_staccato, accent_bar, accent_gt, accent_wedge,
 /* Ornament types. These are for rarer things. Accidentals above/below notes
 are handled as ornaments. These values must all be less than 256, and if ever
 there are more than 32 real ornaments, recoding in read_note() will be
-necessary (flag bits are used to handle duplication). */
+necessary (flag bits are used to handle duplication). 
+
+NOTE: Any extension or re-arrangement of this list must be matched by 
+corresponding adjustments to the tables in setnote.c whose names begin with 
+"ornament_". */
 
 enum {
   or_unset,       /* No ornament */
-  or_ferm,        /* Fermata */
+
+  /* In XML output, these come under <ornament> under <notations>. */
+
   or_tr,          /* Trill */
   or_trsh,        /* Trill + sharp */
   or_trfl,        /* Trill + flat */
@@ -743,10 +749,15 @@ enum {
   or_dimord,      /* Double inverted mordent */
   or_turn,        /* Turn */
   or_iturn,       /* Inverted Turn */
+  or_spread,      /* Spread */
+
+  /* These come directly under <notations> in XML output. Fermata must be
+  first. */
+
+  or_ferm,        /* Fermata */
   or_arp,         /* Arpeggio */
   or_arpu,        /* Arpeggio + up arrow */
   or_arpd,        /* Arpeggio + down arrow */
-  or_spread,      /* Spread */
 
   /* These triples must be in the standard accidental ordering, and must be
   last in this enumeration. Each triple defines an above/below accidental as an

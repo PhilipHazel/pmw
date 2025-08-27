@@ -28,6 +28,7 @@
   </defaults>
   <part-list>
     <score-part id="P1">
+      <part-name></part-name>
     </score-part>
   </part-list>
   <!--===============================================================-->
@@ -35,10 +36,6 @@
     <measure number="0" width="170">
       <attributes>
         <divisions>48</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
         <key>
           <fifths>-3</fifths>
         </key>
@@ -46,6 +43,10 @@
           <beats>4</beats>
           <beat-type>4</beat-type>
         </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
       </attributes>
       <note>
         <pitch>
@@ -2515,7 +2516,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="40" width="160">
+    <measure number="40" width="177">
       <note>
         <pitch>
           <step>G</step>
@@ -2574,7 +2575,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="41" width="140">
+    <measure number="41" width="149">
       <note>
         <pitch>
           <step>G</step>
@@ -2601,6 +2602,461 @@
           <articulations>
             <staccatissimo placement="above"/>
           </articulations>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>96</duration>
+        <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="42" width="193">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <caesura>normal</caesura>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <breath-mark>comma</breath-mark>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <articulations>
+            <breath-mark>tick</breath-mark>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="43" width="149">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <fermata/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <fermata type="inverted" default-y="-50"/>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>96</duration>
+        <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="44" width="184">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <arpeggiate/>
+        </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <arpeggiate direction="up"/>
+        </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <arpeggiate direction="down"/>
+        </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>E</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="45" width="177">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <trill-mark/>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <trill-mark/>
+            <accidental-mark placement="above">sharp</accidental-mark>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <trill-mark/>
+            <accidental-mark placement="above">flat</accidental-mark>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <trill-mark/>
+            <accidental-mark placement="above">natural</accidental-mark>
+          </ornaments>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="46" width="268">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <tremolo>1</tremolo>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <tremolo>2</tremolo>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <tremolo>3</tremolo>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="47" width="268">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <ornaments>
+            <tremolo>1</tremolo>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <ornaments>
+            <tremolo>2</tremolo>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <ornaments>
+            <tremolo>3</tremolo>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="48" width="268">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <inverted-mordent/>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <mordent/>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <inverted-mordent long="yes"/>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <ornaments>
+            <mordent long="yes"/>
+          </ornaments>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="49" width="231">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <ornaments>
+            <turn/>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <ornaments>
+            <inverted-turn/>
+          </ornaments>
         </notations>
       </note>
       <note>
