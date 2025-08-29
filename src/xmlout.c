@@ -138,6 +138,8 @@ static int        indent = 0;
 static int        comment_bar = 0;
 static int        comment_stave = 0;
 static int        beam_state = -1;
+static int        ending_active = 0;
+static uschar     string_buffer[256];
 
 static b_ornamentstr *ornament_pending[ORNAMENT_MAX];
 static int        ornament_pending_count = 0;
@@ -169,7 +171,7 @@ static uint64_t   xml_staves = ~0uL;
 
 
 /*************************************************
-*            Write commentary item               *
+*        Write commentary item to stderr         *
 *************************************************/
 
 static void
@@ -194,7 +196,7 @@ va_end(ap);
 
 
 /*************************************************
-*            Write text with indent              *
+*         Write text to output with indent       *
 *************************************************/
 
 /* Each of these little functions writes to the output file, with variations on
@@ -264,6 +266,52 @@ va_list ap;
 va_start(ap, format);
 (void)vfprintf(xml_file, format, ap);
 va_end(ap);
+}
+
+
+
+#ifdef NEVER  /* Not yet in use */
+/*************************************************
+*            Find next note in bar               *
+*************************************************/
+
+static b_notestr *
+find_next_note(barstr *b)
+{
+for (b = (barstr *)b->next; b != NULL; b = (barstr *)b->next)
+  if (b->type == b_note) break;
+return (b_notestr *)b;
+}
+#endif
+
+
+/*************************************************
+*            Convert PMW string                  *
+*************************************************/
+
+/* TODO: Currently very simple; just converts the characters, ignoring the font
+information, into a single buffer. */
+
+static uschar *
+convert_PMW_string(uint32_t *s)
+{
+uschar *pp = string_buffer;
+for (uint32_t *p = s; *p != 0; p++)
+  {
+  uint32_t c = PCHAR(*p);
+
+// TODO: handle other specials?
+
+  if (c > MAX_UNICODE)
+    {
+    if (c == ss_verticalbar) c = '\n';
+      else continue;
+    }
+
+  pp += misc_ord2utf8(c, pp);
+  }
+*pp = 0;
+return string_buffer;
 }
 
 
@@ -1295,7 +1343,7 @@ the single parameter for MusicXML's <bar-style> element. There isn't a
 one-to-one match. We don't need a <barline> element for a normal barline. */
 
 static void
-write_barline(barstr *b, BOOL finalbar)
+write_barline(barstr *b, BOOL finalbar, int end_ending, const char *eetype)
 {
 const char *style = NULL;
 b_barlinestr *bl = (b_barlinestr *)b;
@@ -1318,7 +1366,7 @@ if (bl->bartype == barline_normal)
     case 2:   /* Solid, between staves only */
     case 3:   /* Dashed, between staves only */
     case 5:   /* Stub outside stave */
-    comment("bar line style %d not supported", bl->barstyle);
+    comment("bar line style %d is not supported", bl->barstyle);
     break;
 
     default:
@@ -1345,10 +1393,16 @@ else
 if (finalbar && style == NULL && (xml_movt->flags & mf_unfinished) == 0)
   style = "light-heavy";
 
-if (style != NULL)
+/* We only need to include a <barline> element if there is something
+non-default because a normal barline is assumed at the end of a measure by
+default. */
+
+if (style != NULL || end_ending != 0)
   {
   PA("<barline>");
-  PN("<bar-style>%s</bar-style>", style);
+  if (end_ending != 0) 
+    PN("<ending type=\"%s\" number=\"%d\"/>", eetype, end_ending);
+  if (style != NULL) PN("<bar-style>%s</bar-style>", style);
   PB("</barline>");
   }
 }
@@ -1459,7 +1513,7 @@ PB("</attributes>");
 *************************************************/
 
 static void
-complete_measure(barstr *b, int divisions, BOOL finalbar)
+complete_measure(barstr *b, barstr *bnext, int divisions, BOOL finalbar)
 {
 for (; b != NULL; b = (barstr *)b->next)
   {
@@ -1468,6 +1522,8 @@ for (; b != NULL; b = (barstr *)b->next)
     case b_start:
     break;
 
+
+    /* -----------------------------------------------------*/
     /* These are entirely handled from within write_note(). */
 
     case b_beambreak:
@@ -1479,10 +1535,40 @@ for (; b != NULL; b = (barstr *)b->next)
     case b_tie:
     break;
 
+
+    /* -----------------------------------------------------*/
     /* These are partially or wholly handled here. */
 
+    case b_all:  /* Actually handled in lookahead in b_barline below. */
+    break;
+
     case b_barline:
-    write_barline(b, finalbar);
+    int end_ending = 0;
+    const char *end_ending_type = NULL; 
+    if (ending_active != 0)
+      {
+      if (bnext == NULL) end_ending = ending_active; else
+        {
+        for (barstr *bx = bnext; bx != NULL; bx = (barstr *)bx->next)
+          {
+          if (bx->type == b_note) break;
+          if (bx->type == b_all) 
+            {
+            end_ending_type = "discontinue";
+            end_ending = ending_active;
+            break;
+            } 
+          if (bx->type == b_nbar)
+            {
+            end_ending_type = "stop"; 
+            end_ending = ending_active;
+            break;
+            }
+          }
+        }
+      if (end_ending != 0) ending_active = 0;   
+      }
+    write_barline(b, finalbar, end_ending, end_ending_type);
     break;
 
     case b_chord:
@@ -1499,10 +1585,55 @@ for (; b != NULL; b = (barstr *)b->next)
     X(X_DRAW);
     break;
 
+    case b_hairpin:
+    b_hairpinstr *h = (b_hairpinstr *)b;
+    PA("<direction placement=\"%s\">", ((h->flags & hp_below) == 0)?
+      "above":"below");
+    PA("<direction-type>");
+
+    if ((h->flags & hp_end) == 0)
+      {
+      PO("<wedge type=");
+      if ((h->flags & hp_cresc) != 0)
+        PC("\"crescendo\"");
+      else
+        PC("\"diminuendo\" spread=\"%d\"", T(h->width));
+      }
+    else
+      {
+      PO("<wedge type=\"stop\"");
+      if ((h->flags & hp_cresc) != 0)
+      PC(" spread=\"%d\"", T(h->width));
+      }
+
+    PC("/>\n");
+    PB("</direction-type>");
+    PB("</direction>");
+    break;
+
     case b_key:
     PA("<attributes>");
     write_key(((b_keystr *)b)->key);
     PB("</attributes>");
+    break;
+
+    case b_lrepeat:
+    PA("<barline location=\"left\">");
+    PN("<repeat direction=\"forward\"/>");
+    PB("</barline>");
+    break;
+
+    case b_nbar:
+    b_nbarstr *nb = (b_nbarstr *)b;
+    PA("<barline location=\"left\">");
+    PO("<ending type=\"start\" number=\"%d\">", nb->n);
+    if (nb->s != NULL)
+      PC("%s", convert_PMW_string(nb->s));
+    else
+      PC("%d", nb->n);
+    PC("</ending>\n");  
+    PB("</barline>");
+    ending_active = nb->n;
     break;
 
     case b_note:
@@ -1518,6 +1649,12 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_plet:
     plet_pending = (b_pletstr *)b;
+    break;
+
+    case b_rrepeat:
+    PA("<barline>");
+    PN("<repeat direction=\"backward\"/>");
+    PB("</barline>");
     break;
 
     case b_slur:
@@ -1541,14 +1678,12 @@ for (; b != NULL; b = (barstr *)b->next)
       }
     break;
 
+
+    /* -----------------------------------------------------*/
     /* These are currently not supported */
 
     case b_accentmove:
     comment("ignored accentmove");
-    break;
-
-    case b_all:
-    comment("ignored [all]");
     break;
 
     case b_barnum:
@@ -1603,16 +1738,8 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [footnote]");
     break;
 
-    case b_hairpin:
-    comment("ignored hairpin");
-    break;
-
     case b_justify:
     comment("ignored [justify]");
-    break;
-
-    case b_lrepeat:
-    comment("ignored (: (left repeat)");
     break;
 
     case b_midichange:
@@ -1625,10 +1752,6 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_name:
     comment("ignored [name]");
-    break;
-
-    case b_nbar:
-    comment("ignored nth time marking");
     break;
 
     case b_newline:
@@ -1681,10 +1804,6 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_resume:
     comment("ignored [resume]");
-    break;
-
-    case b_rrepeat:
-    comment("ignored :) (right repeat)");
     break;
 
     case b_sgabove:
@@ -1905,7 +2024,6 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   if (mac_notbit(xml_staves, stave)) continue;
 
   uschar *name = US"";
-  uschar buffer[256];
 
   stavestr *stavebase = xml_movt->stavetable[stave];
   snamestr *sn = stavebase->stave_name;
@@ -1915,25 +2033,7 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   string to UTF-8. Take note of any magic characters that are ignored. */
 
   if (sn!= NULL && sn->text != NULL)
-    {
-    uschar *pp = buffer;
-    for (uint32_t *p = sn->text; *p != 0; p++)
-      {
-      uint32_t c = PCHAR(*p);
-
-// TODO: handle other specials?
-
-      if (c > MAX_UNICODE)
-        {
-        if (c == ss_verticalbar) c = '\n';
-          else continue;
-        }
-
-      pp += misc_ord2utf8(c, pp);
-      }
-    *pp = 0;
-    name = buffer;
-    }
+    name = convert_PMW_string(sn->text);
 
   PA("<score-part id=\"P%d\">", stave);
   PN("<part-name>%s</part-name>", name);
@@ -1983,7 +2083,8 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   start_measure(0);
   comment_bar = 0;
   first_measure(barvector[0], divisions);
-  complete_measure(barvector[0], divisions, stavebase->barcount < 2);
+  complete_measure(barvector[0], (stavebase->barcount > 1)? barvector[1] : NULL,
+    divisions, stavebase->barcount < 2);
 
   /* Now process the remaining bars of the stave. */
 
@@ -1991,7 +2092,9 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
     {
     start_measure(bar);
     comment_bar = bar;
-    complete_measure(barvector[bar], divisions, bar == stavebase->barcount - 1);
+    complete_measure(barvector[bar],
+      (stavebase->barcount > bar + 1)? barvector[bar + 1] : NULL,
+      divisions, bar == stavebase->barcount - 1);
     }
 
   PB("</part>");

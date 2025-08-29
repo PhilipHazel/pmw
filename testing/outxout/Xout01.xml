@@ -2869,7 +2869,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="46" width="268">
+    <measure number="46" width="176">
       <note>
         <pitch>
           <step>G</step>
@@ -2920,7 +2920,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="47" width="268">
+    <measure number="47" width="176">
       <note>
         <pitch>
           <step>C</step>
@@ -2971,7 +2971,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="48" width="268">
+    <measure number="48" width="176">
       <note>
         <pitch>
           <step>G</step>
@@ -3030,7 +3030,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="49" width="231">
+    <measure number="49" width="148">
       <note>
         <pitch>
           <step>C</step>
@@ -3063,6 +3063,435 @@
         <rest/>
         <duration>96</duration>
         <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="50" width="176">
+      <direction placement="below">
+        <direction-type>
+          <wedge type="crescendo"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction placement="below">
+        <direction-type>
+          <wedge type="stop" spread="17"/>
+        </direction-type>
+      </direction>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="51" width="176">
+      <direction placement="below">
+        <direction-type>
+          <wedge type="diminuendo" spread="17"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction placement="below">
+        <direction-type>
+          <wedge type="stop"/>
+        </direction-type>
+      </direction>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="52" width="175">
+      <direction placement="below">
+        <direction-type>
+          <wedge type="crescendo"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction placement="below">
+        <direction-type>
+          <wedge type="stop" spread="17"/>
+        </direction-type>
+      </direction>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="53" width="175">
+      <direction placement="below">
+        <direction-type>
+          <wedge type="diminuendo" spread="10"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction placement="below">
+        <direction-type>
+          <wedge type="stop"/>
+        </direction-type>
+      </direction>
+      <note>
+        <rest/>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="54" width="210">
+      <barline location="left">
+        <repeat direction="forward"/>
+      </barline>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <barline>
+        <repeat direction="backward"/>
+      </barline>
+    </measure>
+    <!--============================-->
+    <measure number="55" width="192">
+      <barline location="left">
+        <repeat direction="forward"/>
+      </barline>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="56" width="194">
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <barline>
+        <repeat direction="backward"/>
+      </barline>
+    </measure>
+    <!--============================-->
+    <measure number="57" width="82">
+      <note>
+        <rest/>
+        <duration>192</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="58" width="128">
+      <barline location="left">
+        <ending type="start" number="1">1</ending>
+      </barline>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>96</duration>
+        <type>half</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>96</duration>
+        <type>half</type>
+        <stem>up</stem>
+      </note>
+      <barline>
+        <repeat direction="backward"/>
+      </barline>
+      <barline>
+        <ending type="stop" number="1"/>
+      </barline>
+    </measure>
+    <!--============================-->
+    <measure number="59" width="110">
+      <barline location="left">
+        <ending type="start" number="2">2</ending>
+      </barline>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>96</duration>
+        <type>half</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>96</duration>
+        <type>half</type>
+        <stem>up</stem>
+      </note>
+      <barline>
+        <ending type="discontinue" number="2"/>
+      </barline>
+    </measure>
+    <!--============================-->
+    <measure number="60" width="135">
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>96</duration>
+        <type>half</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="61" width="80">
+      <note>
+        <rest/>
+        <duration>192</duration>
+        <type>whole</type>
         <stem>none</stem>
       </note>
       <barline>
