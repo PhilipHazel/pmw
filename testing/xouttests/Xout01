@@ -1,6 +1,12 @@
 @ Basic XML output test
 
+@ Not all renderers handle these
+
+heading "Left|Centre|Right"
+heading "Second heading"
+
 key E$
+textsizes 10 25 20 8
 
 [stave 1 treble 1]
 cdef | gabc' ||
@@ -20,7 +26,7 @@ G+ |1 G+ |4 G+ |? G+ |
 {5ggggg} |
 {5/n ggggg} |
 {5/x ggggg} |
-r- {2 g-g-} R | 
+r- {2 g-g-} R |
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Ties
@@ -58,11 +64,11 @@ c'-c'-; c'=c'= , c'=c'=; c'-.c'=; c'=c'-. |
 
 c'\d\ c'\u\ c'\o\ c'\.-\ |
 g\.\ g\..\ g\-\ g\>\ |
-g\V\ g\v\ R | 
+g\V\ g\v\ R |
 
 c'\d!\ c'\u!\ c'\o!\ c'\.-!\ |
 g\.!\ g\..!\ g\-!\ g\>!\ |
-g\V!\ g\v!\ R | 
+g\V!\ g\v!\ R |
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Caesura, comma, tick
@@ -87,13 +93,24 @@ c'\t\ c'\t|\ R |
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Hairpins
 
-< ggg < r | > ggg > r | 
-</w10 ggg < r | >/w4 ggg > r | 
+< ggg < r | > ggg > r |
+</w10 ggg < r | >/w4 ggg > r |
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Repeats and nth-time bars
 
 (: abcd :) | (: abcd |  abcd :) | R! |
 [1st] GG :)| [2nd] AA | [all] Bbb | R! |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Text other than rehearsal and lyrics
+
+"abc" g "xyz"/a g "pqr"/box g "123"/ring/a g |
+"abcd"/rot30 g "abcd"/rot-30 g "centred"/c g "right"/a/e g |
+
+"italic \rm\roman \bi\bold italic" g
+"2"/a/s2 g
+"3"/a/s3 g
+"4"/a/s4 g
 
 [endstave]

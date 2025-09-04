@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.1 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="3.1">
+  <movement-title>Centre</movement-title>
   <identification>
     <encoding>
       <software>PMW</software>
@@ -26,6 +27,12 @@
       </page-margins>
     </page-layout>
   </defaults>
+  <credit page="1">
+    <credit-words halign="left">Left</credit-words>
+    <credit-words halign="center">Centre</credit-words>
+    <credit-words halign="right">Right</credit-words>
+    <credit-words halign="left">Second heading</credit-words>
+  </credit>
   <part-list>
     <score-part id="P1">
       <part-name></part-name>
@@ -3395,7 +3402,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="58" width="128">
+    <measure number="58" width="138">
       <barline location="left">
         <ending type="start" number="1">1</ending>
       </barline>
@@ -3425,7 +3432,7 @@
       </barline>
     </measure>
     <!--============================-->
-    <measure number="59" width="110">
+    <measure number="59" width="119">
       <barline location="left">
         <ending type="start" number="2">2</ending>
       </barline>
@@ -3454,7 +3461,7 @@
       </barline>
     </measure>
     <!--============================-->
-    <measure number="60" width="135">
+    <measure number="60" width="147">
       <note>
         <pitch>
           <step>B</step>
@@ -3487,12 +3494,191 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="61" width="80">
+    <measure number="61" width="81">
       <note>
         <rest/>
         <duration>192</duration>
         <type>whole</type>
         <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="62" width="174">
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="-44" font-style="italic" justify="left">abc</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="4" font-style="italic" justify="left">xyz</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="-44" font-style="italic" enclosure="rectangle" justify="left">pqr</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="4" font-style="italic" enclosure="circle" justify="left">123</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="63" width="174">
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="-44" font-style="italic" justify="left" rotation="-30">abcd</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="-44" font-style="italic" justify="left" rotation="30">abcd</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="-44" font-style="italic" justify="center">centred</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="4" font-style="italic" justify="right">right</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="64" width="179">
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="-44" font-style="italic" justify="left">italic </words>
+          <words font-size="10" justify="left">roman </words>
+          <words font-size="10" font-weight="bold" font-style="italic" justify="left">bold italic</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="25" default-y="4" font-style="italic" justify="left">2</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="20" default-y="4" font-style="italic" justify="left">3</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="8" default-y="4" font-style="italic" justify="left">4</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>48</duration>
+        <type>quarter</type>
+        <stem>up</stem>
       </note>
       <barline>
         <bar-style>light-heavy</bar-style>

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: August 2025 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 #include "pmw.h"
 
@@ -28,7 +28,7 @@ not been translated. */
 and the X_ variables. Current implementation allows up to 63. */
 
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT,
-  X_SQUARE_ACC, X_SPREAD, X_COUNT };
+  X_SQUARE_ACC, X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -65,13 +65,18 @@ variable to save initializing multiple variables for every note. */
 *************************************************/
 
 static const char *X_ignored_message[] = {
-  "Drawing functions",
+  "PMW drawing features",
   "Some slur options",
   "Slur split options",
   "Vertical line accent (\\'\\)",
   "Round brackets enclosing accidental (square brackets substituted)",
-  "Spread chord sign"
+  "Spread chord sign",
+  "Support for headings and footings is only partial",
+  "Not all text options are supported",
+  "Only roman, italic, bold, and bold italic fonts are supported"
 };
+
+static const char *leftcenterright[] = { "left", "center", "right" };
 
 static const char *MXL_type_names[] = {
   "breve", "whole", "half", "quarter", "eighth", "16th", "32nd", "64th" };
@@ -167,6 +172,12 @@ static uint64_t   X_ignored = 0;
 static FILE      *xml_file;
 static movtstr   *xml_movt;
 static uint64_t   xml_staves = ~0uL;
+
+static barposstr *xml_barpos;
+static posstr    *xml_pos;
+static posstr    *xml_poslast;
+static int        xml_moff;
+static uint32_t   xml_xoff;
 
 
 
@@ -313,6 +324,88 @@ for (uint32_t *p = s; *p != 0; p++)
 *pp = 0;
 return string_buffer;
 }
+
+
+
+/*************************************************
+*              Write PMW string                  *
+*************************************************/
+
+/* A PMW string may contain changes of font. Each substring in a particular
+font has to be output as a separate element. The second and subsequent ones
+should all follow on.
+
+Arguments:
+  s        PMW string
+  size     font size
+  elname   element name to use (e.g. "words" or "rehearsal")
+  x        horizontal positioning
+  y        vertical positioning
+  enc      enclosure value or NULL
+  jus      justify falue or NULL
+  rot      rotation - MusicXML goes the opposite way to PMW (+ve = clockwise)
+
+Returns:   nothing
+*/
+
+static void
+write_PMW_string(uint32_t *s, int32_t size, const char *elname, int32_t x,
+  int32_t y, const char *enc, const char *jus, int32_t rot)
+{
+BOOL first = TRUE;
+
+(void)x;  /* PRO TEM */
+
+while (*s != 0)
+  {
+  uint32_t save;
+  uint32_t *sb = s;
+  uint32_t f = PFONT(*s);
+
+  while (*s != 0 && PFONT(*s) == f) s++;
+  save = *s;
+  *s = 0;        /* Temporary terminator */
+
+  PO("<%s font-size=\"%s\"", elname, sff(size));
+
+  if (first)
+    {
+    PC(" default-y=\"%d\"", y);
+    first = FALSE;
+    }
+
+  switch(f)
+    {
+    case font_rm:
+    break;
+
+    case font_bf:
+    PC(" font-weight=\"bold\"");
+    break;
+
+    case font_bi:
+    PC(" font-weight=\"bold\" font-style=\"italic\"");
+    break;
+
+    case font_it:
+    PC(" font-style=\"italic\"");
+    break;
+
+    default:
+    X(X_FONT);
+    break;
+    }
+
+  if (enc != NULL) PC(" enclosure=\"%s\"", enc);
+  if (jus != NULL) PC(" justify=\"%s\"", jus);
+  if (rot != 0) PC(" rotation=\"%s\"", sff(-rot));
+
+  PC(">%s</%s>\n", convert_PMW_string(sb), elname);
+
+  *s = save;
+  }
+}
+
 
 
 
@@ -1318,13 +1411,27 @@ for (;;)
       }   /* End [endslur] loop */
     }     /* End [endslur] processing */
 
-  /* Close <notations> if it's open, end the note, then end the loop unless
-  this is a chord and there is another note following. */
+  /* Close <notations> if it's open, end the note. */
 
   if (notations_open) PB("</notations>");
   PB("</note>");
 
-  if (b->next->type != b_chord) break;
+  /* If this was a single note or the last note of chord, we update the musical
+  and horizontal positions, then break the loop. */
+
+  if (b->next->type != b_chord)
+    {
+    xml_moff += note->length;
+    while (xml_moff > xml_pos->moff && xml_pos < xml_poslast) xml_pos++;
+    while (xml_moff < xml_pos->moff && xml_pos > xml_barpos->vector) xml_pos--;
+    if (xml_pos->moff != xml_moff)
+      error(ERR192, "position data failure");   /* Hard */
+    xml_xoff = xml_pos->xoff;
+    break;
+    }
+
+  /* More notes of a chord follow; update for next cycle. */
+
   b = (barstr *)(b->next);
   inchord = TRUE;
   }
@@ -1400,11 +1507,66 @@ default. */
 if (style != NULL || end_ending != 0)
   {
   PA("<barline>");
-  if (end_ending != 0) 
+  if (end_ending != 0)
     PN("<ending type=\"%s\" number=\"%d\"/>", eetype, end_ending);
   if (style != NULL) PN("<bar-style>%s</bar-style>", style);
   PB("</barline>");
   }
+}
+
+
+
+/*************************************************
+*               Handle text item                 *
+*************************************************/
+
+/* Underlay and overlay have to be saved up so they can be output using <lyric>
+in the next note. Other text can be output here. */
+
+static void
+handle_text(barstr *b)
+{
+b_textstr *t = (b_textstr *)b;
+uint32_t flags = t->flags;
+BOOL rehearse = ((flags & text_rehearse) != 0);
+fontinststr *fdata = rehearse? &xml_movt->fontsizes->fontsize_rehearse :
+                               &xml_movt->fontsizes->fontsize_text[t->size];
+int32_t size = fdata->size;
+
+if ((flags & (text_absolute|text_atulevel|text_baralign|text_barcentre|
+  text_followon|text_middle|text_timealign)) != 0) X(X_TEXT);
+
+if ((flags & text_ul) != 0)
+  {
+comment("Underlay not yet handled");
+  return;
+  }
+
+/* Figured bass has its own element. */
+
+if ((flags & text_fb) != 0)
+  {
+comment("Figured bass not yet handled");
+  return;
+  }
+
+/* All other types of text come within <direction> */
+
+const char *elname = rehearse? "rehearsal":"words";
+int y = T(t->y) + ((flags & text_above) == 0)? -44 : 4;
+
+PA("<direction>");
+PA("<direction-type>");
+
+write_PMW_string(t->string, size, elname, 0, y,
+  ((flags & (text_boxed|text_boxrounded)) != 0)? "rectangle" :
+  ((flags & text_ringed) != 0)? "circle" : NULL,
+  ((flags & text_centre) != 0)? "center" :
+  ((flags & text_endalign) != 0)? "right" : "left",
+  t->rotate);
+
+PB("</direction-type>");
+PB("</direction>");
 }
 
 
@@ -1416,8 +1578,11 @@ if (style != NULL || end_ending != 0)
 static void
 start_measure(int bar)
 {
-barposstr *bp = xml_movt->posvector + bar;
-int32_t width = bp->vector[bp->count - 1].xoff;
+xml_barpos = xml_movt->posvector + bar;
+xml_pos = xml_barpos->vector;
+xml_poslast = xml_pos + xml_barpos->count - 1;
+xml_moff = 0;
+xml_xoff = 0;
 
 /* A PMW uncounted bar will have a non-zero fractional part or a zero
 integer part. */
@@ -1427,7 +1592,8 @@ uint32_t pnofr = pno & 0xffff;
 pno >>= 16;
 const char *implicit = (pnofr != 0 || pno == 0)? " implicit=\"yes\"" : "";
 
-PA("<measure number=\"%d\" width=\"%d\"%s>", bar, T(width), implicit);
+PA("<measure number=\"%d\" width=\"%d\"%s>", bar,
+  T(xml_pos[xml_barpos->count - 1].xoff), implicit);
 
 /* Sort out text for bar numbering. Not sure if this is needed (the element
 is optional).*/
@@ -1523,7 +1689,19 @@ for (; b != NULL; b = (barstr *)b->next)
     break;
 
 
-    /* -----------------------------------------------------*/
+    /* --------------------------------------------------------*/
+    /* These larger items are farmed out to separate functions */
+
+    case b_note:
+    b = write_note(b, divisions);  /* Changes b if it's a chord */
+    break;
+
+    case b_text:
+    handle_text(b);
+    break;
+
+
+    /* --------------------------------------------------------*/
     /* These are entirely handled from within write_note(). */
 
     case b_beambreak:
@@ -1536,7 +1714,7 @@ for (; b != NULL; b = (barstr *)b->next)
     break;
 
 
-    /* -----------------------------------------------------*/
+    /* --------------------------------------------------------*/
     /* These are partially or wholly handled here. */
 
     case b_all:  /* Actually handled in lookahead in b_barline below. */
@@ -1544,7 +1722,7 @@ for (; b != NULL; b = (barstr *)b->next)
 
     case b_barline:
     int end_ending = 0;
-    const char *end_ending_type = NULL; 
+    const char *end_ending_type = NULL;
     if (ending_active != 0)
       {
       if (bnext == NULL) end_ending = ending_active; else
@@ -1552,21 +1730,21 @@ for (; b != NULL; b = (barstr *)b->next)
         for (barstr *bx = bnext; bx != NULL; bx = (barstr *)bx->next)
           {
           if (bx->type == b_note) break;
-          if (bx->type == b_all) 
+          if (bx->type == b_all)
             {
             end_ending_type = "discontinue";
             end_ending = ending_active;
             break;
-            } 
+            }
           if (bx->type == b_nbar)
             {
-            end_ending_type = "stop"; 
+            end_ending_type = "stop";
             end_ending = ending_active;
             break;
             }
           }
         }
-      if (end_ending != 0) ending_active = 0;   
+      if (end_ending != 0) ending_active = 0;
       }
     write_barline(b, finalbar, end_ending, end_ending_type);
     break;
@@ -1631,13 +1809,9 @@ for (; b != NULL; b = (barstr *)b->next)
       PC("%s", convert_PMW_string(nb->s));
     else
       PC("%d", nb->n);
-    PC("</ending>\n");  
+    PC("</ending>\n");
     PB("</barline>");
     ending_active = nb->n;
-    break;
-
-    case b_note:
-    b = write_note(b, divisions);
     break;
 
     case b_ornament:
@@ -1679,7 +1853,7 @@ for (; b != NULL; b = (barstr *)b->next)
     break;
 
 
-    /* -----------------------------------------------------*/
+    /* --------------------------------------------------------*/
     /* These are currently not supported */
 
     case b_accentmove:
@@ -1846,10 +2020,6 @@ for (; b != NULL; b = (barstr *)b->next)
     comment("ignored [suspend]");
     break;
 
-    case b_text:
-    comment("ignored text string");
-    break;
-
     case b_tremolo:
     comment("ignored [tremolo]");
     break;
@@ -1939,6 +2109,17 @@ PA("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
   " \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
   "<score-partwise version=\"3.1\">");
 
+/* If the first page has a first heading that has a centered part, use that as
+the movement title. */
+
+if (main_pageanchor != NULL && main_pageanchor->sysblocks != NULL &&
+    !main_pageanchor->sysblocks->is_sysblock)
+  {
+  headstr *h = ((headblock *)(main_pageanchor->sysblocks))->headings;
+  if (h->string[1] != NULL && h->string[1][0] != 0)
+    PN("<movement-title>%s</movement-title>", convert_PMW_string(h->string[1]));
+  }
+
 PA("<identification>");
 PA("<encoding>");
 
@@ -2011,9 +2192,45 @@ PB("</page-layout>");
 
 PB("</defaults>");
 
-// TODO Headings
-if (main_testing == 0)
-  comment("headings and footings not yet supported");
+// TODO Headings - can more be done?
+
+/* Try to do something with page headings. */
+
+for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
+  {
+  sysblock *sb = page->sysblocks;
+  if (sb != NULL && !sb->is_sysblock)         /* Starts with headblock */
+    {
+    BOOL credit_open = FALSE;
+//    uint32_t y = 0;
+
+    for (headstr *h = ((headblock *)sb)->headings; h != NULL; h = h->next)
+      {
+      if (h->drawing != NULL) X(X_DRAW);
+      if (!credit_open)
+        {
+        PA("<credit page=\"%d\">", page->number);
+        credit_open = TRUE;
+        }
+      for (int i = 0; i < 3; i++)
+        {
+        if (h->string[i] != NULL && h->string[i][0] != 0)
+          {
+          PN("<credit-words halign=\"%s\">%s</credit-words>",
+            leftcenterright[i], convert_PMW_string(h->string[i]));
+          }
+        }
+// TODO h->space is space to follow
+// TODO h->spaceabove is space above
+// TODO h->fdata gives font data (size etc)
+
+      }
+    if (credit_open) PB("</credit>");
+    X(X_HEADING);
+    }
+  }
+
+
 
 /* Output a list of parts, mapping each PMW stave to a part. */
 
@@ -2111,8 +2328,8 @@ fclose(xml_file);
 if (X_ignored != 0)
   {
   fprintf(stderr,
-    "\nNot all PMW items can be translated to MusicXML. Items in this file that\n"
-    "were ignored are listed below, though this is not guaranteed to be a\n"
+    "\nNot all PMW items can be translated to MusicXML. Some items in this file that\n"
+    "were wholly or partially ignored are listed below. This is probably not a\n"
     "complete list:\n\n");
 
   for (int i = 0; i < X_COUNT; i++)
