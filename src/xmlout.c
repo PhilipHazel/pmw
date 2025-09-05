@@ -338,9 +338,10 @@ should all follow on.
 Arguments:
   s        PMW string
   size     font size
-  elname   element name to use (e.g. "words" or "rehearsal")
+  elname   element name to use (e.g. "words")
+  halign   halign value or NULL
   x        horizontal positioning
-  y        vertical positioning
+  y        vertical positioning - ignore if INT32_MAX
   enc      enclosure value or NULL
   jus      justify falue or NULL
   rot      rotation - MusicXML goes the opposite way to PMW (+ve = clockwise)
@@ -349,8 +350,9 @@ Returns:   nothing
 */
 
 static void
-write_PMW_string(uint32_t *s, int32_t size, const char *elname, int32_t x,
-  int32_t y, const char *enc, const char *jus, int32_t rot)
+write_PMW_string(uint32_t *s, int32_t size, const char *elname,
+  const char *halign, int32_t x, int32_t y, const char *enc, const char *jus,
+  int32_t rot)
 {
 BOOL first = TRUE;
 
@@ -367,10 +369,11 @@ while (*s != 0)
   *s = 0;        /* Temporary terminator */
 
   PO("<%s font-size=\"%s\"", elname, sff(size));
+  if (halign != NULL) PC(" halign=\"%s\"", halign);
 
   if (first)
     {
-    PC(" default-y=\"%d\"", y);
+    if (y != INT32_MAX) PC(" default-y=\"%d\"", y);
     first = FALSE;
     }
 
@@ -917,19 +920,24 @@ for (;;)
 
   /* Handle beam settings. The analsys above packed all the data into a single
   variable, which contains a byte for each type of beam setting. The byte
-  contains two nibbles, the starting and ending numbers. */
+  contains two nibbles, the starting and ending numbers. Experiment has shown
+  that some MusicXML interpreters are picky, and insist on the <beam> elements
+  being in number order, which makes this processing a bit more complicated
+  than it would be in beam_names order (which I originally used). */
 
   if (beam_data != 0)
     {
-    for (usint i = 0; i < sizeof(beam_names)/sizeof(char *); i++)
+    for (usint n = 1; n <= 4; n++)   /* Loop for beam number */
       {
-      int x = beam_data & BSHIFT_MASK;
-      if (x != 0)
+      uint64_t bd = beam_data;       /* Rescan beam data for all 4 */
+      for (usint i = 0; i < sizeof(beam_names)/sizeof(char *); i++)
         {
-        for (int y = x >> 4; y <= (x & 0x0f); y++)
-          PN("<beam number=\"%d\">%s</beam>", y, beam_names[i]);
+        usint x = (usint)(bd & BSHIFT_MASK);
+        if (n <= (x & 0x0f) && n >= (x >> 4))
+          PN("<beam number=\"%d\">%s</beam>", n, beam_names[i]);
+        bd >>= 8;
+        if (bd == 0) break; 
         }
-      beam_data >>= 8;
       }
     }
 
@@ -1558,7 +1566,7 @@ int y = T(t->y) + ((flags & text_above) == 0)? -44 : 4;
 PA("<direction>");
 PA("<direction-type>");
 
-write_PMW_string(t->string, size, elname, 0, y,
+write_PMW_string(t->string, size, elname, NULL, 0, y,
   ((flags & (text_boxed|text_boxrounded)) != 0)? "rectangle" :
   ((flags & text_ringed) != 0)? "circle" : NULL,
   ((flags & text_centre) != 0)? "center" :
@@ -2110,7 +2118,7 @@ PA("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
   "<score-partwise version=\"3.1\">");
 
 /* If the first page has a first heading that has a centered part, use that as
-the movement title. */
+the movement title. All font information in the string is ignored. */
 
 if (main_pageanchor != NULL && main_pageanchor->sysblocks != NULL &&
     !main_pageanchor->sysblocks->is_sysblock)
@@ -2123,6 +2131,9 @@ if (main_pageanchor != NULL && main_pageanchor->sysblocks != NULL &&
 PA("<identification>");
 PA("<encoding>");
 
+/* For testing we put in a fixed date so that comparisons work. It has to be
+a real date because otherwise some software complains. */
+
 if (main_testing == 0)
   {
   PN("<software>PMW %s</software>", PMW_VERSION);
@@ -2131,7 +2142,7 @@ if (main_testing == 0)
 else
   {
   PN("<software>PMW</software>");
-  PN("<encoding-date>0000-00-00</encoding-date>");
+  PN("<encoding-date>2025-01-01</encoding-date>");
   }
 
 PN("<supports element=\"accidental\" type=\"yes\"/>");
@@ -2216,8 +2227,8 @@ for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
         {
         if (h->string[i] != NULL && h->string[i][0] != 0)
           {
-          PN("<credit-words halign=\"%s\">%s</credit-words>",
-            leftcenterright[i], convert_PMW_string(h->string[i]));
+          write_PMW_string(h->string[i], h->fdata.size, "credit-words",
+            leftcenterright[i], 0, INT32_MAX, NULL, NULL, 0);
           }
         }
 // TODO h->space is space to follow
@@ -2275,10 +2286,12 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   comment_stave = stave;
 
   /* Choose a value for "divisions", which is the length of a crotchet. We must
-  allow for tuplets. The tuplet_bits field has a bit set for every tuplet
-  counting from 1 for the least significant. Thus 0x02 for triplets, e.g. */
+  allow for tuplets. The stavebase->tuplet_bits field has a bit set for every
+  tuplet counting from 1 for the least significant. Thus 0x04 for triplets,
+  for example. The least significant bit is never set (no such thing as a
+  uniplet :-). */
 
-  uint32_t tuplets = stavebase->tuplet_bits;
+  uint32_t tuplets = stavebase->tuplet_bits >> 1;
   int divisions = 1;
 
   if (stavebase->shortest_note < len_crotchet)
