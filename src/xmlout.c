@@ -174,6 +174,8 @@ static int        slurs_pending_count = 0;
 static uint16_t   slurs_trans[SLURS_MAX];
 static int        slurs_trans_count = 0;
 
+static b_slurstr  short_slur = { NULL, NULL, b_slur, 0, 0, NULL, 0 };
+
 static uint32_t   unihigh[50] = { 0 };
 
 static uint64_t   X_ignored = 0;
@@ -292,29 +294,13 @@ va_end(ap);
 
 
 
-#ifdef NEVER  /* Not currently in use */
-/*************************************************
-*            Find next note in bar               *
-*************************************************/
-
-static b_notestr *
-find_next_note(barstr *b)
-{
-for (b = (barstr *)b->next; b != NULL; b = (barstr *)b->next)
-  if (b->type == b_note) break;
-return (b_notestr *)b;
-}
-#endif
-
-
-
 /*************************************************
 *            Find the next stave item            *
 *************************************************/
 
 /* This is called to scan a stave when inserting missing "=" underlay
-syllables. Within a bar it just delivers the next item. At the end of a bar it
-moves to the next bar. */
+syllables and endslurs for short slurs. Within a bar it just delivers the next
+item. At the end of a bar it moves to the next bar. */
 
 static barstr *
 nextinstave(barstr *b, stavestr *stavebase, int *abarno)
@@ -360,6 +346,23 @@ for (;;)
   if (t->laylen == 1 && PCHAR(t->string[0]) == '=') break;
   }
 return t;
+}
+
+
+
+/*************************************************
+*            Find next note in stave               *
+*************************************************/
+
+static b_notestr *
+find_next_note(barstr *b, stavestr *stavebase, int *abarno)
+{
+for (;;)
+  {
+  b = nextinstave(b, stavebase, abarno);
+  if (b == NULL || b->type == b_note) break;
+  }
+return (b_notestr *)b;
 }
 
 
@@ -648,14 +651,14 @@ time &= 0x0000ffffu;
 
 if (time == time_common)
   {
-  time = 0x00000404u; 
-  symbol = " symbol=\"common\""; 
-  } 
+  time = 0x00000404u;
+  symbol = " symbol=\"common\"";
+  }
 else if (time == time_cut)
   {
-  time = 0x00000404u; 
+  time = 0x00000404u;
   symbol = " symbol=\"cut\"";
-  } 
+  }
 
 PA("<time%s>", symbol);
 PN("<beats>%d</beats>", time >> 8);
@@ -720,12 +723,34 @@ if (bb->next->type == b_tie)
   tie_active = (b_tiestr *)(bb->next);
   bb = (barstr *)tie_active;   /* "Last" is now the tie item */
 
+ /* If this is really a short slur we have to set up a fake pending slur, and
+ also insert an endslur after the next note. */
+
   if ((((b_notestr *)b)->flags & (nf_chord|nf_wastied)) == 0)
     {
-    /* This is a short slur; TODO */
-    comment("short slur not yet implemented");
-    tie_active = NULL;
+    if (slurs_pending_count >= SLURS_MAX)
+      error(ERR191, "too many nested slurs");
+    else
+      {
+      slurs_pending[slurs_pending_count++] = &short_slur;
+      short_slur.flags = (tie_active->abovecount <= 0)? sflag_b : 0;
+
+      /* Find next note */
+
+      int barno = bar;
+      b_notestr *nb = find_next_note(bb, stavebase, &barno);
+      if (nb == NULL) error (ERR192, "missing note after short slur"); /* Hard */
+
+      b_endslurstr *es =
+        mem_get_insert_item(sizeof(b_endslurstr), b_endslur, nb->next);
+      es->value = 0;
+      }
+
+    tie_active = NULL;  /* It's not actually a tie. */
     }
+
+  /* Not a short slur; this is a real tie. */
+
   else abovecount = tie_active->abovecount;
   }
 
