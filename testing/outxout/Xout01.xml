@@ -4093,7 +4093,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="72" width="152">
+    <measure number="72" width="118">
       <note>
         <pitch>
           <step>G</step>
@@ -4122,7 +4122,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="73" width="152">
+    <measure number="73" width="118">
       <note>
         <pitch>
           <step>G</step>
@@ -4151,7 +4151,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="74" width="152">
+    <measure number="74" width="118">
       <note>
         <pitch>
           <step>G</step>
@@ -4180,7 +4180,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="75" width="103">
+    <measure number="75" width="80">
       <note>
         <pitch>
           <step>G</step>
@@ -4196,7 +4196,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="76" width="221">
+    <measure number="76" width="171">
       <note>
         <pitch>
           <step>G</step>
@@ -4251,7 +4251,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="77" width="226">
+    <measure number="77" width="176">
       <note>
         <pitch>
           <step>G</step>
@@ -4299,6 +4299,42 @@
         <duration>240</duration>
         <type>quarter</type>
         <stem>up</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="78" width="106">
+      <attributes>
+        <time symbol="common">
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="79" width="111">
+      <attributes>
+        <time symbol="cut">
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
       </note>
       <barline>
         <bar-style>light-heavy</bar-style>

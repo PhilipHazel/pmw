@@ -634,30 +634,30 @@ PB("</key>");
 *                   Write time                   *
 *************************************************/
 
-// TODO: use <time-symbol> for common and cut and other specials
-
 static void
 write_time(uint32_t time)
 {
-if (time == time_common)
-  {
-  comment("common time rendered as 4/4");
-  time = time_default;
-  }
-else if (time == time_cut)
-  {
-  comment("cut time rendered as 2/2");
-  time = 0x00010202u;
-  }
+const char *symbol = "";
 
-else if ((time & 0x00ff0000u) != 0x00010000u)
+if ((time & 0x00ff0000u) != 0x00010000u)
   {
   comment("time signature multiple ignored");
   }
 
 time &= 0x0000ffffu;
 
-PA("<time>");
+if (time == time_common)
+  {
+  time = 0x00000404u; 
+  symbol = " symbol=\"common\""; 
+  } 
+else if (time == time_cut)
+  {
+  time = 0x00000404u; 
+  symbol = " symbol=\"cut\"";
+  } 
+
+PA("<time%s>", symbol);
 PN("<beats>%d</beats>", time >> 8);
 PN("<beat-type>%d</beat-type>", time & 0xffu);
 PB("</time>");
