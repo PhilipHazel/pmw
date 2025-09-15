@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: March 2021 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -201,11 +201,16 @@ while (p != NULL)
   p->halfway = 0;
   p->offset = 0;
 
-  /* If we are at an equals sign, just output the one equals character;
-  otherwise search for the end of the syllable. */
+  /* If we are at an equals sign, just output the one equals character and 
+  remember we've had this case (for XML output); otherwise search for the end
+  of the syllable. */
 
-  if (PCHAR(*s) == '=') s++;
-    else while(Ustrchr("- =", PCHAR(*s)) == NULL) s++;
+  if (PCHAR(*s) == '=') 
+    {
+    s++;
+    st->hadlayequals = TRUE; 
+    } 
+  else while(Ustrchr("- =", PCHAR(*s)) == NULL) s++;
 
   /* Set string count - don't include a minus sign, but skip over it */
 

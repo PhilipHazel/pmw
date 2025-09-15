@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 
 /*************************************************
@@ -12,6 +12,8 @@
 *************************************************/
 
 extern accent        accent_chars[];
+extern an2uencod     an2ulist[];
+extern size_t        an2ucount;
 
 extern const char   *clef_names[];
 

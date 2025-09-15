@@ -33,7 +33,7 @@
   </part-list>
   <!--===============================================================-->
   <part id="P1">
-    <measure number="0" width="177">
+    <measure number="0" width="75">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -49,54 +49,26 @@
         </clef>
       </attributes>
       <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <type>16th</type>
-        <stem>up</stem>
-        <beam number="1">begin</beam>
-        <beam number="2">forward hook</beam>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <type>16th</type>
-        <stem>up</stem>
-        <beam number="1">end</beam>
-        <beam number="2">backward hook</beam>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <type>16th</type>
-        <stem>up</stem>
-        <beam number="1">forward hook</beam>
-        <beam number="2">forward hook</beam>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <type>16th</type>
-        <stem>up</stem>
-        <beam number="1">backward hook</beam>
-        <beam number="2">backward hook</beam>
-      </note>
-      <note>
         <rest/>
-        <duration>12</duration>
-        <type>half</type>
-        <dot/>
+        <duration>16</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="1" width="80">
+      <direction>
+        <direction-type>
+          <rehearsal font-size="15" default-y="4" font-style="italic" enclosure="circle" justify="left">A</rehearsal>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>16</duration>
+        <type>whole</type>
         <stem>none</stem>
       </note>
       <barline>

@@ -114,5 +114,27 @@ c'\t\ c'\t|\ R |
 "2"/a/s2 g
 "3"/a/s3 g
 "4"/a/s4 g
+|
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Basic rehearsal marks (another movt for opts)
+
+["A"] G+ |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Underlay aka lyrics
+
+[text underlay]
+
+"First verse mul-ti-syl-la-ble. Many===notes."
+"Verse two"
+
+gggg | aaar | g=x3 G r |
+"glo-"  g=a=b=g= "= ria" g G |
+"A-===B" g-g-ggg |
+"A#B" G "^XY" G |
+"`A' \`A\' A\-B A\=B A\#B" GG | GG | G+ |
+"o-ver-lay text"/ol gggg |
+"centre # ^left" gggg |
 
 [endstave]

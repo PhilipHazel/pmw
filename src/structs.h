@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -795,6 +795,7 @@ typedef struct stavestr {
   uint8_t   stavelines;
   CBOOL     omitempty;
   CBOOL     halfaccs;
+  CBOOL     hadlayequals; 
 } stavestr;
 
 /* Data pertaining to a movement. Keep in step with initializing values in
@@ -1163,5 +1164,12 @@ typedef struct mfstr {
  uint32_t ch;                 /* Holds up to 4 8-bit code points */
 } mfstr;
 
+/* Entries in the character name to Unicode code point table. */
+
+typedef struct an2uencod {
+  uschar *name;                /* Adobe character name */
+  int code;                    /* Unicode code point */
+  int poffset;                 /* Offset for printing certain chars */
+} an2uencod;
 
 /* End of structs.h */

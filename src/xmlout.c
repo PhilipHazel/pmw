@@ -27,8 +27,8 @@ not been translated. */
 /* Enum values for known ignored items, used in conjuction with the X macro,
 and the X_ variables. Current implementation allows up to 63. */
 
-enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT,
-  X_SQUARE_ACC, X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_COUNT };
+enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
+  X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -58,6 +58,7 @@ variable to save initializing multiple variables for every note. */
 
 #define SLURS_MAX        8
 #define ORNAMENT_MAX     8
+#define UNDERLAY_MAX     8
 
 
 /*************************************************
@@ -73,7 +74,9 @@ static const char *X_ignored_message[] = {
   "Spread chord sign",
   "Support for headings and footings is only partial",
   "Not all text options are supported",
-  "Only roman, italic, bold, and bold italic fonts are supported"
+  "Only roman, italic, bold, and bold italic fonts are supported",
+  "Circumflex in underlay or overlay",
+  "Page or bar number insert into string"
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -149,6 +152,10 @@ static uschar     string_buffer[256];
 static b_ornamentstr *ornament_pending[ORNAMENT_MAX];
 static int        ornament_pending_count = 0;
 
+static b_textstr *underlay_pending[UNDERLAY_MAX];
+static int        underlay_pending_count = 0;
+static uint8_t    underlay_state[UNDERLAY_MAX];
+
 /* NOTE: PMW doesn't yet support nested tuplets - nobody has ever remarked on
 this - but if it ever does, the code in this module should cope. */
 
@@ -167,6 +174,8 @@ static int        slurs_pending_count = 0;
 static uint16_t   slurs_trans[SLURS_MAX];
 static int        slurs_trans_count = 0;
 
+static uint32_t   unihigh[50] = { 0 };
+
 static uint64_t   X_ignored = 0;
 
 static FILE      *xml_file;
@@ -184,6 +193,8 @@ static uint32_t   xml_xoff;
 /*************************************************
 *        Write commentary item to stderr         *
 *************************************************/
+
+/* Used while in development to note unsupported things. */
 
 static void
 comment(const char *format, ...)
@@ -268,7 +279,7 @@ for (int i = 0; i < indent; i++) fputc(' ', xml_file);
 va_end(ap);
 }
 
-/* Output no indent (continue), do not add newline */
+/* Output without indent (continue), do not add newline */
 
 static void
 PC(const char *format, ...)
@@ -281,7 +292,7 @@ va_end(ap);
 
 
 
-#ifdef NEVER  /* Not yet in use */
+#ifdef NEVER  /* Not currently in use */
 /*************************************************
 *            Find next note in bar               *
 *************************************************/
@@ -296,12 +307,69 @@ return (b_notestr *)b;
 #endif
 
 
+
+/*************************************************
+*            Find the next stave item            *
+*************************************************/
+
+/* This is called to scan a stave when inserting missing "=" underlay
+syllables. Within a bar it just delivers the next item. At the end of a bar it
+moves to the next bar. */
+
+static barstr *
+nextinstave(barstr *b, stavestr *stavebase, int *abarno)
+{
+if (b->next != NULL) return (barstr *)b->next;
+*abarno += 1;
+return (*abarno >= stavebase->barcount)? NULL : stavebase->barindex[*abarno];
+}
+
+
+
+/*************************************************
+*           Find the next underlay item          *
+*************************************************/
+
+static b_textstr *
+nextulinstave(barstr *b, stavestr *stavebase, int *abarno)
+{
+b_textstr *t;
+for (;;)
+  {
+  t = (b_textstr *)(b = nextinstave(b, stavebase, abarno));
+  if (t == NULL) break;
+  if (t->type == b_text && (t->flags & text_ul) != 0) break;
+  }
+return t;
+}
+
+
+
+/*************************************************
+*          Find the next "=" underlay item       *
+*************************************************/
+
+static b_textstr *
+nexteqinstave(barstr *b, stavestr *stavebase, int *abarno)
+{
+b_textstr *t;
+for (;;)
+  {
+  t = (b_textstr *)(b = (barstr *)nextulinstave(b, stavebase, abarno));
+  if (t == NULL) break;
+  if (t->laylen == 1 && PCHAR(t->string[0]) == '=') break;
+  }
+return t;
+}
+
+
+
 /*************************************************
 *            Convert PMW string                  *
 *************************************************/
 
-/* TODO: Currently very simple; just converts the characters, ignoring the font
-information, into a single buffer. */
+/* This just converts the characters into a single buffer, ignoring the font
+information except to check for standard encoding. */
 
 static uschar *
 convert_PMW_string(uint32_t *s)
@@ -311,13 +379,51 @@ for (uint32_t *p = s; *p != 0; p++)
   {
   uint32_t c = PCHAR(*p);
 
-// TODO: handle other specials?
+  /* Handle special characters above the Unicode limit. */
 
   if (c > MAX_UNICODE)
     {
-    if (c == ss_verticalbar) c = '\n';
-      else continue;
+    switch(c)
+      {
+      case ss_verticalbar:   c = '\n'; break;
+      case ss_asciiquote:    c = '\''; break;
+      case ss_asciigrave:    c = '`'; break;
+      case ss_escapedhyphen: c = '-'; break;
+      case ss_escapedequals: c = '='; break;
+      case ss_escapedsharp:  c = '#'; break;
+
+      default:
+      if (c >= ss_top)
+        error(ERR191, "Unknown special character in string");
+      else X(X_STRING_INSERT);
+      continue;
+      }
     }
+
+  /* If the character is above LOWCHARLIMIT and the font is standardly encoded,
+  convert the value back to the original Unicode code point. The first time we
+  need to do this we construct the relevant lookup table from the table that
+  goes the other way. */
+
+  else if (c >= LOWCHARLIMIT)
+    {
+    int f = PFONT(c) & ~font_small;
+    fontstr *fs = &(font_list[font_table[f]]);
+    if ((fs->flags & ff_stdencoding) != 0)
+      {
+      if (unihigh[0] == 0)
+        {
+        for (usint i = 0; i < an2ucount; i++)
+          {
+          an2uencod *an = an2ulist + i;
+          if (an->poffset >= 0) unihigh[an->poffset] = an->code;
+          }
+        }
+      c = unihigh[c - LOWCHARLIMIT];
+      }
+    }
+
+  /* Add to the new UTF-8 string. */
 
   pp += misc_ord2utf8(c, pp);
   }
@@ -337,34 +443,36 @@ should all follow on.
 
 Arguments:
   s        PMW string
+  length   maximum length to output (used for underlay)
   size     font size
   elname   element name to use (e.g. "words")
   halign   halign value or NULL
   x        horizontal positioning
   y        vertical positioning - ignore if INT32_MAX
   enc      enclosure value or NULL
-  jus      justify falue or NULL
+  jus      justify value or NULL
   rot      rotation - MusicXML goes the opposite way to PMW (+ve = clockwise)
 
 Returns:   nothing
 */
 
 static void
-write_PMW_string(uint32_t *s, int32_t size, const char *elname,
+write_PMW_string(uint32_t *s, uint32_t length, int32_t size, const char *elname,
   const char *halign, int32_t x, int32_t y, const char *enc, const char *jus,
   int32_t rot)
 {
 BOOL first = TRUE;
+usint count = 0;
 
 (void)x;  /* PRO TEM */
 
-while (*s != 0)
+while (*s != 0 && count < length)
   {
   uint32_t save;
   uint32_t *sb = s;
   uint32_t f = PFONT(*s);
 
-  while (*s != 0 && PFONT(*s) == f) s++;
+  while (*s != 0 && count++ < length && PFONT(*s) == f) s++;
   save = *s;
   *s = 0;        /* Temporary terminator */
 
@@ -567,10 +675,19 @@ are of type b_chord, also with the flag set. The end of the chord happens when
 a b_chord item is followed either by NULL (end of bar) or an item with type
 other than b_chord. In MusicXML, the first note is unaffected, but subsequent
 notes have a <chord/> element. We handle an entire chord here, returning the
-pointer to the final note. */
+pointer to the final note.
+
+Arguments:
+  b          bar structure item for the first note
+  stavebase  stavestr for the current stave ) needed to find next underlay
+  bar        current bar number             )   when handling "="
+  divisions  divisions setting
+
+Returns:     pointer to the final note processed
+*/
 
 static barstr *
-write_note(barstr *b, int divisions)
+write_note(barstr *b, stavestr *stavebase, int bar, int divisions)
 {
 int add_caesura = -1;
 int abovecount = 0;
@@ -936,7 +1053,7 @@ for (;;)
         if (n <= (x & 0x0f) && n >= (x >> 4))
           PN("<beam number=\"%d\">%s</beam>", n, beam_names[i]);
         bd >>= 8;
-        if (bd == 0) break; 
+        if (bd == 0) break;
         }
       }
     }
@@ -1318,14 +1435,12 @@ for (;;)
           else mod = mod2;
         }
 
-
 // TODO Neither MuseScore nor OSMD demo seem to pay any attention to values
 // that modify a slur.
 
       if (mod != NULL)
         {
         if (mod->lx != 0) PC(" relative-x=\"%d\"", T(mod->lx));
-
 
         }
 
@@ -1419,9 +1534,154 @@ for (;;)
       }   /* End [endslur] loop */
     }     /* End [endslur] processing */
 
-  /* Close <notations> if it's open, end the note. */
+  /* Close <notations> if it's open. */
 
   if (notations_open) PB("</notations>");
+
+  /* The last thing for a note is underlay or overlay, where each verse goes in
+  its own <lyric> element. We have to handle continued syllables, which are
+  represented by the string "=". */
+
+  if (underlay_pending_count > 0)
+    {
+    for (int i = 0; i < underlay_pending_count; i++)
+      {
+      b_textstr *t = underlay_pending[i];
+      fontinststr *fdata = &xml_movt->fontsizes->fontsize_text[t->size];
+      int y = T(t->y) + (((t->flags & text_above) == 0)? -44 : 4);
+
+      /* If this string is just the single character '=' it is a continuation
+      of the previous syllable. In order to decide whether to use "middle" or
+      "stop" on an extender, we have to look forward to the next underlay
+      syllable at this level. All very tedious. */
+
+      if (t->laylen == 1 && PCHAR(t->string[0]) == '=')
+        {
+        if (underlay_state[i] == '-')
+          {
+          /* It seems there's nothing to do here. */
+          }
+        else if (underlay_state[i] == '=')
+          {
+          int barno = bar;
+          const char *extend;
+          b_textstr *tnext = t;
+
+          /* Hopefully this will work with multiple verses. */
+
+          for (int j = 0; j <= i && tnext != NULL; j++)
+            tnext = nextulinstave((barstr *)tnext, stavebase, &barno);
+
+          if (tnext == NULL || tnext->laylen != 1 ||
+              PCHAR(tnext->string[0]) != '=')
+            {
+            extend = "stop";
+            underlay_state[i] = 0;
+            }
+          else extend = "continue";
+
+          PA("<lyric>");
+          PN("<extend type=\"%s\"/>", extend);
+          PB("</lyric>");
+          }
+        }
+
+      /* Not an "=" string, this is a real word or syllable. */
+
+      else
+        {
+        int endchar = PCHAR(t->string[t->laylen]);
+        const char *extend = NULL;
+        const char *placement = ((t->flags & text_above) == 0)? "" :
+          " placement=\"above\"";
+        const char *justify = "";
+
+        /* We need to handle the special characters # and ^ in underlsy
+        strings. # can just be turned into a space. ^ at the start signifies
+        left-justification; other instances are ignored (with a notification).
+        Easiest way to do this is to make a copy of the string. */
+
+        uint32_t ss[64];   /* Should be long enough */
+        uint32_t len = 0;
+        uint32_t j = 0;
+
+        if (PCHAR(t->string[0]) == '^')
+          {
+          justify = " justify=\"left\"";
+          j++;
+          }
+
+        for (; j < t->laylen; j++)
+          {
+          uint32_t c = t->string[j];
+          if (PCHAR(c) == '^')
+            {
+            X(X_CIRCUMFLEX);
+            continue;
+            }
+          if (PCHAR(c) == '#') c = PFTOP(c) | ' ';
+          ss[len++] = c;
+          }
+
+        // TODO What about x?
+
+        PA("<lyric default-y=\"%d\"%s%s>", y, placement, justify);
+        PO("<syllabic>");
+
+        /* Underlay state is '-': this is the next syllable of a word. */
+
+        if (underlay_state[i] == '-')
+          {
+          if (endchar == '-')
+            PC("middle");       /* Word continues */
+          else
+            {
+            PC("end");
+            if (endchar == '=')
+              {
+              extend = "start";
+              underlay_state[i] = '=';
+              }
+            else underlay_state[i] = 0;
+            }
+          }
+
+        /* We are starting a new word. */
+
+        else
+          {
+          if (underlay_state[i] == '=')  // SHOULD NOT OCCUR
+            error(ERR191, "bad underlay state \"=\" at start of word");
+
+          if (endchar == '-')
+            {
+            PC("begin");
+            underlay_state[i] = '-';
+            }
+          else
+            {
+            PC("single");
+            if (endchar == '=')
+              {
+              extend = "start";
+              underlay_state[i] = '=';
+              }
+            }
+          }
+
+        PC("</syllabic>\n");
+        write_PMW_string(ss, len, fdata->size, "text", NULL, 0, INT32_MAX,
+          NULL, NULL, 0);
+        if (extend != NULL) PN("<extend type=\"%s\"/>", extend);
+        PB("</lyric>");
+        }
+      }
+
+    underlay_pending_count = 0;
+    }
+
+  /* That's the end of the note. */
+
   PB("</note>");
 
   /* If this was a single note or the last note of chord, we update the musical
@@ -1455,7 +1715,16 @@ return b;
 
 /* We have to convert PMW's two values of barline type and barline style into
 the single parameter for MusicXML's <bar-style> element. There isn't a
-one-to-one match. We don't need a <barline> element for a normal barline. */
+one-to-one match. We don't need a <barline> element for a normal barline.
+
+Arguments:
+  b           barline item
+  finalbar    TRUE if this is the last bar
+  end_ending  0 or the number of 1st/2nd time ending etc
+  eetype      type of end_ending ("stop", "discontinue")
+
+Returns:      nothing
+*/
 
 static void
 write_barline(barstr *b, BOOL finalbar, int end_ending, const char *eetype)
@@ -1529,7 +1798,7 @@ if (style != NULL || end_ending != 0)
 *************************************************/
 
 /* Underlay and overlay have to be saved up so they can be output using <lyric>
-in the next note. Other text can be output here. */
+in the next <note>. Other text can be output here. */
 
 static void
 handle_text(barstr *b)
@@ -1546,7 +1815,9 @@ if ((flags & (text_absolute|text_atulevel|text_baralign|text_barcentre|
 
 if ((flags & text_ul) != 0)
   {
-comment("Underlay not yet handled");
+  if (underlay_pending_count >= UNDERLAY_MAX)
+    error(ERR191, "too many underlay strings on one note");
+  else underlay_pending[underlay_pending_count++] = t;
   return;
   }
 
@@ -1561,12 +1832,12 @@ comment("Figured bass not yet handled");
 /* All other types of text come within <direction> */
 
 const char *elname = rehearse? "rehearsal":"words";
-int y = T(t->y) + ((flags & text_above) == 0)? -44 : 4;
+int y = T(t->y) + (((flags & text_above) == 0)? -44 : 4);
 
 PA("<direction>");
 PA("<direction-type>");
 
-write_PMW_string(t->string, size, elname, NULL, 0, y,
+write_PMW_string(t->string, UINT_MAX, size, elname, NULL, 0, y,
   ((flags & (text_boxed|text_boxrounded)) != 0)? "rectangle" :
   ((flags & text_ringed) != 0)? "circle" : NULL,
   ((flags & text_centre) != 0)? "center" :
@@ -1582,6 +1853,12 @@ PB("</direction>");
 /*************************************************
 *             Handle start of a measure          *
 *************************************************/
+
+/* This is used at the start of the second and subsequent bars of a stave.
+
+Argument: the bar number
+Returns:  nothing
+*/
 
 static void
 start_measure(int bar)
@@ -1686,10 +1963,23 @@ PB("</attributes>");
 *        Handle the items in a bar (measure)     *
 *************************************************/
 
+/* This is called for all bars after either first_measure() or start_measure().
+
+Arguments:
+  stavebase   the stavestr for the stave
+  bar         the bar number
+  divisions   divisions value
+
+Returns:      nothing
+*/
+
 static void
-complete_measure(barstr *b, barstr *bnext, int divisions, BOOL finalbar)
+complete_measure(stavestr *stavebase, int bar, int divisions)
 {
-for (; b != NULL; b = (barstr *)b->next)
+barstr *bnext = (stavebase->barcount > bar + 1)?
+  stavebase->barindex[bar + 1] : NULL;
+
+for (barstr *b = stavebase->barindex[bar]; b != NULL; b = (barstr *)b->next)
   {
   switch(b->type)
     {
@@ -1700,8 +1990,8 @@ for (; b != NULL; b = (barstr *)b->next)
     /* --------------------------------------------------------*/
     /* These larger items are farmed out to separate functions */
 
-    case b_note:
-    b = write_note(b, divisions);  /* Changes b if it's a chord */
+    case b_note:   /* Changes b if it's a chord */
+    b = write_note(b, stavebase, bar, divisions);
     break;
 
     case b_text:
@@ -1754,7 +2044,7 @@ for (; b != NULL; b = (barstr *)b->next)
         }
       if (end_ending != 0) ending_active = 0;
       }
-    write_barline(b, finalbar, end_ending, end_ending_type);
+    write_barline(b, bar == stavebase->barcount-1, end_ending, end_ending_type);
     break;
 
     case b_chord:
@@ -2152,7 +2442,7 @@ PN("<supports element=\"stem\" type=\"yes\"/>");
 PB("</encoding>");
 PB("</identification>");
 
-/* Next comes various defaults */
+/* Next come various defaults */
 
 PA("<defaults>");
 
@@ -2227,8 +2517,8 @@ for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
         {
         if (h->string[i] != NULL && h->string[i][0] != 0)
           {
-          write_PMW_string(h->string[i], h->fdata.size, "credit-words",
-            leftcenterright[i], 0, INT32_MAX, NULL, NULL, 0);
+          write_PMW_string(h->string[i], UINT_MAX, h->fdata.size,
+            "credit-words", leftcenterright[i], 0, INT32_MAX, NULL, NULL, 0);
           }
         }
 // TODO h->space is space to follow
@@ -2240,8 +2530,6 @@ for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
     X(X_HEADING);
     }
   }
-
-
 
 /* Output a list of parts, mapping each PMW stave to a part. */
 
@@ -2266,7 +2554,6 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   PA("<score-part id=\"P%d\">", stave);
   PN("<part-name>%s</part-name>", name);
 
-
 // TODO midi-instrument - if anything set
 
   PB("</score-part>");
@@ -2284,6 +2571,86 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   stavestr *stavebase = xml_movt->stavetable[stave];
   barstr **barvector = stavebase->barindex;
   comment_stave = stave;
+
+  /* If this stave has underlay and used the "=" continuation feature, we need
+  to scan it and insert any missing "=" syllables because MusicXML needs
+  extender continuations on the intermediate notes. (PS and PDF output don't
+  require this.) The logic is:
+
+    (1) Scan stave for an underlay syllable that is just "=".
+    (2) See if the next underlay syllable is also "=".
+    (3) If there are any notes in between, give them an "=" syllable.
+    (4) Advance to second "=" then go to (2).
+
+  The nextulinstave() function yields the next underlay item in the stave,
+  jumping to the next bar where necessary. The nexteqinstave() function yields
+  the next "=" item in the stave. */
+
+  if (stavebase->hadlayequals)  /* There will be at least one "=" */
+    {
+    int barno = 0;
+    b_textstr *t1 = nexteqinstave(barvector[0], stavebase, &barno);
+    b_textstr *t2;
+    int barno_t1 = barno;
+
+    while ((t2 = nextulinstave((barstr *)t1, stavebase, &barno)) != NULL)
+      {
+      /* Look at the next underlay string. If it's not "=", move on to restart
+      from there, seeking the next "=". */
+
+      if (t2->laylen != 1 || PCHAR(t2->string[0]) != '=')
+        {
+        t1 = nexteqinstave((barstr *)t2, stavebase, &barno);
+        if (t1 == NULL) break;
+        continue;
+        }
+
+      /* We now have two "=" strings. The first note after the first one is
+      associated with it. Any other notes before the second "=" now need to
+      have "=" inserted. */
+
+      BOOL first = TRUE;
+      int barno_t2 = barno;
+      barno = barno_t1;
+
+      for (barstr *b = nextinstave((barstr *)t1, stavebase, &barno);
+           b != (barstr *)t2;
+           b = nextinstave(b, stavebase, &barno))
+        {
+        if (b->type != b_note) continue;
+        if (((b_notestr *)b)->spitch == 0) break;  /* A rest kills it */
+        if (first)
+          {
+          first = FALSE;
+          continue;
+          }
+
+        /* Insert a copy of the first "=" item. */
+
+        b_textstr *t = mem_get_insert_item(sizeof(b_textstr), b_text, (bstr *)b);
+        size_t offset = offsetof(b_textstr, flags);
+        memcpy((char *)t + offset, (char *)t1 + offset,
+          sizeof(b_textstr) - offset);
+        }
+
+      /* Restart from the second "=". */
+
+      t1 = t2;
+      barno_t1 = barno_t2;
+      }
+
+    /* Debugging; if this bar's original contents were shown; reshow. */
+
+    if (dbd_bar >= 0)
+      {
+      eprintf("\n---- After inserting \"=\" underlay items for XML ----\n");
+      debug_bar();
+      }
+    }
+
+  /* Reset underlay states */
+
+  memset(underlay_state, 0, UNDERLAY_MAX);
 
   /* Choose a value for "divisions", which is the length of a crotchet. We must
   allow for tuplets. The stavebase->tuplet_bits field has a bit set for every
@@ -2313,8 +2680,7 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   start_measure(0);
   comment_bar = 0;
   first_measure(barvector[0], divisions);
-  complete_measure(barvector[0], (stavebase->barcount > 1)? barvector[1] : NULL,
-    divisions, stavebase->barcount < 2);
+  complete_measure(stavebase, 0, divisions);
 
   /* Now process the remaining bars of the stave. */
 
@@ -2322,9 +2688,7 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
     {
     start_measure(bar);
     comment_bar = bar;
-    complete_measure(barvector[bar],
-      (stavebase->barcount > bar + 1)? barvector[bar + 1] : NULL,
-      divisions, bar == stavebase->barcount - 1);
+    complete_measure(stavebase, bar, divisions);
     }
 
   PB("</part>");
