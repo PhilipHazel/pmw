@@ -4,4 +4,5 @@ were wholly or partially ignored are listed below. This is probably not a
 complete list:
 
   Support for headings and footings is only partial
+  (8) with brackets for trebletenorB
 

@@ -4314,7 +4314,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="79" width="328">
+    <measure number="79" width="167">
       <note>
         <pitch>
           <step>G</step>
@@ -4369,7 +4369,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="80" width="328">
+    <measure number="80" width="171">
       <note>
         <pitch>
           <step>G</step>
@@ -4420,7 +4420,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="81" width="179">
+    <measure number="81" width="103">
       <attributes>
         <time symbol="common">
           <beats>4</beats>
@@ -4438,7 +4438,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="82" width="184">
+    <measure number="82" width="103">
       <attributes>
         <time symbol="cut">
           <beats>4</beats>
@@ -4450,6 +4450,253 @@
           <step>G</step>
           <octave>4</octave>
         </pitch>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="83" width="114">
+      <attributes>
+        <clef>
+          <sign>C</sign>
+          <line>3</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="84" width="114">
+      <attributes>
+        <clef>
+          <sign>F</sign>
+          <line>3</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="85" width="114">
+      <attributes>
+        <clef>
+          <sign>F</sign>
+          <line>4</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="86" width="114">
+      <attributes>
+        <clef>
+          <sign>C</sign>
+          <line>5</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="87" width="77">
+      <attributes>
+        <clef>
+          <sign>F</sign>
+          <line>4</line>
+          <clef-octave-change>-1</clef-octave-change>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="88" width="113">
+      <attributes>
+        <clef>
+          <sign>F</sign>
+          <line>5</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="89" width="113">
+      <attributes>
+        <clef>
+          <sign>percussion</sign>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="90" width="113">
+      <attributes>
+        <clef>
+          <sign>C</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="91" width="113">
+      <attributes>
+        <clef print-object="no">
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="92" width="113">
+      <attributes>
+        <clef>
+          <sign>F</sign>
+          <line>4</line>
+          <clef-octave-change>1</clef-octave-change>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="93" width="113">
+      <attributes>
+        <clef>
+          <sign>C</sign>
+          <line>1</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="94" width="113">
+      <attributes>
+        <clef>
+          <sign>C</sign>
+          <line>4</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="95" width="113">
+      <attributes>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+          <clef-octave-change>1</clef-octave-change>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="96" width="75">
+      <attributes>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+          <clef-octave-change>-1</clef-octave-change>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="97" width="110">
+      <attributes>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+          <clef-octave-change>-1</clef-octave-change>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="98" width="115">
+      <attributes>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>

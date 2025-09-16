@@ -149,5 +149,25 @@ gggg | aaar | g=x3 G r |
 
 [time C] G+ | [time A] G+ |
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Clefs
+
+[alto] R! |
+[baritone] R! |
+[bass] R! |
+[cbaritone] R! |
+[contrabass] R! |
+[deepbass] R! |
+[hclef] R! |
+[mezzo] R! |
+[noclef 1] G+ |
+[soprabass] R! |
+[soprano] R! |
+[tenor] R! |
+[trebledescant] R! |
+[trebletenor] R! |
+[trebletenorB] R! |
+
+[treble 1] R! |
 
 [endstave]

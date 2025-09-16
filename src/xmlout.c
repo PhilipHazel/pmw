@@ -30,7 +30,8 @@ not been translated. */
 and the X_ignored variable. Current implementation allows up to 63. */
 
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
-  X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT, X_COUNT };
+  X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT, 
+  X_TREBLETENORB, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -78,7 +79,8 @@ static const char *X_ignored_message[] = {
   "Not all text options are supported",
   "Only roman, italic, bold, and bold italic fonts are supported",
   "Circumflex in underlay or overlay",
-  "Page or bar number insert into string"
+  "Page or bar number insert into string",
+  "(8) with brackets for trebletenorB" 
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -545,55 +547,33 @@ static clef_info clef_data[] = {
   {"percussion", 0, 0}, /* hclef */
   {"C", 2, 0},          /* mezzo */
   {"G", 2, 0},          /* none */
-//  {"none", 0, 0},       /* none, using deprecated value */
   {"F", 4, 1},          /* soprabass */
   {"C", 1, 0},          /* soprano */
   {"C", 4, 0},          /* tenor */
   {"G", 2, 0},          /* treble */
-  {"G", 2, 0},          /* trebledescant */
-  {"G", 2, 0},          /* trebletenor*/
-  {"G", 2, 0}           /* trebletenorB*/
+  {"G", 2, 1},          /* trebledescant */
+  {"G", 2, -1},         /* trebletenor*/
+  {"G", 2, -1}          /* trebletenorB*/
 };
+
+/* The recommendation for no clef is not to use the deprecated "none" sign, but 
+instead use treble with printing disabled. */
 
 static void
 write_clef(usint clef)
 {
 const char *nonestring = (clef != clef_none)? "" : " print-object=\"no\"";
-
 PA("<clef%s>", nonestring);
 PN("<sign>%s</sign>", clef_data[clef].sign);
 if (clef_data[clef].line != 0)
   PN("<line>%d</line>", clef_data[clef].line);
 if (clef_data[clef].octave != 0)
   PN("<clef-octave-change>%d</clef-octave-change>", clef_data[clef].octave);
-
-switch(clef)
-  {
-  case clef_contrabass:
-  comment("contrbass clef lacks '8'");
-  break;
-
-  case clef_soprabass:
-  comment("soprabass clef lacks '8'");
-  break;
-
-  case clef_trebledescant:
-  comment("trebledescant clef lacks '8'");
-  break;
-
-  case clef_trebletenor:
-  comment("trebletenor clef lacks '8'");
-  break;
-
-  case clef_trebletenorB:
-  comment("trebletenorB clef lacks '8'");
-  break;
-
-  default:
-  break;
-  }
-
 PB("</clef>");
+
+/* Unavailable feature. */
+
+if (clef == clef_trebletenorB) X(X_TREBLETENORB);
 }
 
 
