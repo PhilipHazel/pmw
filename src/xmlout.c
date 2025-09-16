@@ -9,23 +9,25 @@
 #include "pmw.h"
 
 
-/* This file contains code for writing a MusicXML file. The way music is
-encoded in MusicXML is very different[*], necessitating some contortions in the
-translation. I wanted to minimise any disturbance in the rest of PMW when
-adding this code, so there are areas that might have been different had I had
-MusicXML in mind from the start - which of course I couldn't have in 1987.
+/* This module contains code for writing a MusicXML file. The way music is
+encoded in MusicXML is very different to the way PMW does it, necessitating
+some contortions in the translation. I wanted to minimise any disturbance in
+the rest of PMW when adding this code, so there are areas that might have been
+different had I had MusicXML in mind from the start - which of course I
+couldn't have in 1987.
 
 Note that it is necessary to run this code after PostScript or PDF output has
 been generated because some of the analysis on which it depends - for example,
-remembering which notes of a chord were tied - happens in the output phase.
-Other parameters get set during pagination, so there is no possibility (as
-things stand) of running this code immediately after reading the input.
+remembering which notes of a chord were tied - happens in the PostScript or PDF
+output phase. Other parameters get set during pagination, so there is no
+possibility (as things stand) of running this code immediately after reading
+the input.
 
 There is an attempt to give feedback on PMW items in the current file that have
 not been translated. */
 
 /* Enum values for known ignored items, used in conjuction with the X macro,
-and the X_ variables. Current implementation allows up to 63. */
+and the X_ignored variable. Current implementation allows up to 63. */
 
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT, X_COUNT };
@@ -81,10 +83,10 @@ static const char *X_ignored_message[] = {
 
 static const char *leftcenterright[] = { "left", "center", "right" };
 
-static const char *MXL_type_names[] = {
+static const char *XML_note_names[] = {
   "breve", "whole", "half", "quarter", "eighth", "16th", "32nd", "64th" };
 
-static const char *MXL_accidental_names[] = {
+static const char *XML_accidental_names[] = {
   "natural", "quarter-sharp", "sharp", "double-sharp",
   "slash-flat", "flat", "flat-flat" };
 
@@ -303,11 +305,11 @@ syllables and endslurs for short slurs. Within a bar it just delivers the next
 item. At the end of a bar it moves to the next bar. */
 
 static barstr *
-nextinstave(barstr *b, stavestr *stavebase, int *abarno)
+nextinstave(barstr *b, int *abarno)
 {
 if (b->next != NULL) return (barstr *)b->next;
 *abarno += 1;
-return (*abarno >= stavebase->barcount)? NULL : stavebase->barindex[*abarno];
+return (*abarno >= st->barcount)? NULL : st->barindex[*abarno];
 }
 
 
@@ -317,12 +319,12 @@ return (*abarno >= stavebase->barcount)? NULL : stavebase->barindex[*abarno];
 *************************************************/
 
 static b_textstr *
-nextulinstave(barstr *b, stavestr *stavebase, int *abarno)
+nextulinstave(barstr *b, int *abarno)
 {
 b_textstr *t;
 for (;;)
   {
-  t = (b_textstr *)(b = nextinstave(b, stavebase, abarno));
+  t = (b_textstr *)(b = nextinstave(b, abarno));
   if (t == NULL) break;
   if (t->type == b_text && (t->flags & text_ul) != 0) break;
   }
@@ -336,12 +338,12 @@ return t;
 *************************************************/
 
 static b_textstr *
-nexteqinstave(barstr *b, stavestr *stavebase, int *abarno)
+nexteqinstave(barstr *b, int *abarno)
 {
 b_textstr *t;
 for (;;)
   {
-  t = (b_textstr *)(b = (barstr *)nextulinstave(b, stavebase, abarno));
+  t = (b_textstr *)(b = (barstr *)nextulinstave(b, abarno));
   if (t == NULL) break;
   if (t->laylen == 1 && PCHAR(t->string[0]) == '=') break;
   }
@@ -351,15 +353,15 @@ return t;
 
 
 /*************************************************
-*            Find next note in stave               *
+*            Find next note in stave             *
 *************************************************/
 
 static b_notestr *
-find_next_note(barstr *b, stavestr *stavebase, int *abarno)
+find_next_note(barstr *b, int *abarno)
 {
 for (;;)
   {
-  b = nextinstave(b, stavebase, abarno);
+  b = nextinstave(b, abarno);
   if (b == NULL || b->type == b_note) break;
   }
 return (b_notestr *)b;
@@ -522,7 +524,6 @@ while (*s != 0 && count < length)
 
 
 
-
 /*************************************************
 *                  Write clef                    *
 *************************************************/
@@ -555,7 +556,7 @@ static clef_info clef_data[] = {
 };
 
 static void
-write_clef(unsigned int clef)
+write_clef(usint clef)
 {
 const char *nonestring = (clef != clef_none)? "" : " print-object=\"no\"";
 
@@ -616,10 +617,7 @@ static void
 write_key(uint32_t key)
 {
 if (key == key_N)
-  {
-  comment("key N treated as C");
   key = key_C;
-  }
 else if (key >= key_X)
   {
   comment("custom key not supported: treated as C");
@@ -643,11 +641,9 @@ write_time(uint32_t time)
 const char *symbol = "";
 
 if ((time & 0x00ff0000u) != 0x00010000u)
-  {
   comment("time signature multiple ignored");
-  }
 
-time &= 0x0000ffffu;
+time &= 0x0000ffffu;  /* Remove multiplier */
 
 if (time == time_common)
   {
@@ -682,15 +678,14 @@ pointer to the final note.
 
 Arguments:
   b          bar structure item for the first note
-  stavebase  stavestr for the current stave ) needed to find next underlay
-  bar        current bar number             )   when handling "="
+  bar        current bar number
   divisions  divisions setting
 
 Returns:     pointer to the final note processed
 */
 
 static barstr *
-write_note(barstr *b, stavestr *stavebase, int bar, int divisions)
+write_note(barstr *b, int bar, int divisions)
 {
 int add_caesura = -1;
 int abovecount = 0;
@@ -723,8 +718,8 @@ if (bb->next->type == b_tie)
   tie_active = (b_tiestr *)(bb->next);
   bb = (barstr *)tie_active;   /* "Last" is now the tie item */
 
- /* If this is really a short slur we have to set up a fake pending slur, and
- also insert an endslur after the next note. */
+  /* If this is really a short slur we have to set up a fake pending slur and
+  insert an endslur after the next note. */
 
   if ((((b_notestr *)b)->flags & (nf_chord|nf_wastied)) == 0)
     {
@@ -738,7 +733,7 @@ if (bb->next->type == b_tie)
       /* Find next note */
 
       int barno = bar;
-      b_notestr *nb = find_next_note(bb, stavebase, &barno);
+      b_notestr *nb = find_next_note(bb, &barno);
       if (nb == NULL) error (ERR192, "missing note after short slur"); /* Hard */
 
       b_endslurstr *es =
@@ -832,7 +827,7 @@ if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
   place in the <note> element. For each beam setting (begin, end, etc) two
   4-bit values are packed into a byte: the start and end number. For example,
   if we are starting a semiquaver beam, we set (1,2) because two
-  <beam>start</beam> elements are needed. When dealing with changes of the
+  <beam>start</beam> elements are needed. When dealing with changes in the
   number of beams the start can be otner than 1. */
 
   /* If not currently in a beam, set up to start one unless BEAMBREAK_ALL is
@@ -901,9 +896,8 @@ if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
       beam_data |= (((thatcount + 1) << 4) | thiscount) << BSHIFT_FHOOK;
       }
 
-    /* This note is equal or longer than the next note; continue all beams
-    up to beam_state, then start new beams from beam_state plus 1 to this.
-    */
+    /* This note is equal or longer than the next note; continue all beams up
+    to beam_state, then start new beams from beam_state plus 1 to this. */
 
     else
       {
@@ -923,7 +917,7 @@ if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
     }
   }  /* Done beam setup processing */
 
-/* Now process the note/chord */
+/* Now we can process the note/chord */
 
 for (;;)
   {
@@ -972,7 +966,7 @@ for (;;)
   is (notelength/len_crotchet)*divisions, but calculating like that loses
   fractions of a crotchet, and (notelength*divisions)/len_crotchet runs the
   risk of 32-bit overflow if divisions is greater than 8 - which seems quite
-  likely. (The length of a breve is 0x015fea00.) Therefore, resort to using
+  likely as the length of a breve is 0x015fea00. Therefore, resort to using
   64-bit arithmetic. */
 
   PN("<duration>%d</duration>",
@@ -989,7 +983,7 @@ for (;;)
 
   /* Note details */
 
-  PN("<type>%s</type>", MXL_type_names[note->notetype]);
+  PN("<type>%s</type>", XML_note_names[note->notetype]);
   if ((note->flags & (nf_dot|nf_dot2)) != 0) PN("<dot/>");
   if ((note->flags & nf_dot2) != 0) PN("<dot/>");
   if (note->acc != ac_no && (note->flags & nf_accinvis) == 0)
@@ -1001,7 +995,7 @@ for (;;)
       bra = " bracket=\"yes\"";
       }
     PN("<accidental%s>%s</accidental>", bra,
-      MXL_accidental_names[note->acc - 1]);
+      XML_accidental_names[note->acc - 1]);
     }
 
 //TODO allow for different half-accidental styles
@@ -1062,10 +1056,11 @@ for (;;)
 
   /* Handle beam settings. The analsys above packed all the data into a single
   variable, which contains a byte for each type of beam setting. The byte
-  contains two nibbles, the starting and ending numbers. Experiment has shown
-  that some MusicXML interpreters are picky, and insist on the <beam> elements
-  being in number order, which makes this processing a bit more complicated
-  than it would be in beam_names order (which I originally used). */
+  contains two nibbles, the starting and ending beam numbers. Experiment has
+  shown that some MusicXML interpreters are picky, and insist on the <beam>
+  elements being in number order, which makes this processing a bit more
+  complicated than it would be in beam_names order (which I originally used).
+  */
 
   if (beam_data != 0)
     {
@@ -1239,7 +1234,7 @@ for (;;)
         offset -= (or_accbelow - or_nat);
         }
       else PC(" placement=\"above\"");
-      PC(">%s</accidental-mark>\n", MXL_accidental_names[offset/3]);
+      PC(">%s</accidental-mark>\n", XML_accidental_names[offset/3]);
       break;
       }
     }
@@ -1466,7 +1461,6 @@ for (;;)
       if (mod != NULL)
         {
         if (mod->lx != 0) PC(" relative-x=\"%d\"", T(mod->lx));
-
         }
 
       /* Terminate the <slur> element. */
@@ -1595,7 +1589,7 @@ for (;;)
           /* Hopefully this will work with multiple verses. */
 
           for (int j = 0; j <= i && tnext != NULL; j++)
-            tnext = nextulinstave((barstr *)tnext, stavebase, &barno);
+            tnext = nextulinstave((barstr *)tnext, &barno);
 
           if (tnext == NULL || tnext->laylen != 1 ||
               PCHAR(tnext->string[0]) != '=')
@@ -1991,7 +1985,6 @@ PB("</attributes>");
 /* This is called for all bars after either first_measure() or start_measure().
 
 Arguments:
-  stavebase   the stavestr for the stave
   bar         the bar number
   divisions   divisions value
 
@@ -1999,12 +1992,12 @@ Returns:      nothing
 */
 
 static void
-complete_measure(stavestr *stavebase, int bar, int divisions)
+complete_measure(int bar, int divisions)
 {
-barstr *bnext = (stavebase->barcount > bar + 1)?
-  stavebase->barindex[bar + 1] : NULL;
+barstr *bnext = (st->barcount > bar + 1)?
+  st->barindex[bar + 1] : NULL;
 
-for (barstr *b = stavebase->barindex[bar]; b != NULL; b = (barstr *)b->next)
+for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
   {
   switch(b->type)
     {
@@ -2016,7 +2009,7 @@ for (barstr *b = stavebase->barindex[bar]; b != NULL; b = (barstr *)b->next)
     /* These larger items are farmed out to separate functions */
 
     case b_note:   /* Changes b if it's a chord */
-    b = write_note(b, stavebase, bar, divisions);
+    b = write_note(b, bar, divisions);
     break;
 
     case b_text:
@@ -2069,7 +2062,7 @@ for (barstr *b = stavebase->barindex[bar]; b != NULL; b = (barstr *)b->next)
         }
       if (end_ending != 0) ending_active = 0;
       }
-    write_barline(b, bar == stavebase->barcount-1, end_ending, end_ending_type);
+    write_barline(b, bar == st->barcount-1, end_ending, end_ending_type);
     break;
 
     case b_chord:
@@ -2566,8 +2559,8 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
 
   uschar *name = US"";
 
-  stavestr *stavebase = xml_movt->stavetable[stave];
-  snamestr *sn = stavebase->stave_name;
+  st = xml_movt->stavetable[stave];
+  snamestr *sn = st->stave_name;
 
   /* Support only a basic stave name (at least one XML processor insists on the
   presence of <part-name>, though it can be empty. We have to convert a PMW
@@ -2593,8 +2586,8 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   {
   if (mac_notbit(xml_staves, stave)) continue;
 
-  stavestr *stavebase = xml_movt->stavetable[stave];
-  barstr **barvector = stavebase->barindex;
+  st = xml_movt->stavetable[stave];
+  barstr **barvector = st->barindex;
   comment_stave = stave;
 
   /* If this stave has underlay and used the "=" continuation feature, we need
@@ -2611,21 +2604,21 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   jumping to the next bar where necessary. The nexteqinstave() function yields
   the next "=" item in the stave. */
 
-  if (stavebase->hadlayequals)  /* There will be at least one "=" */
+  if (st->hadlayequals)  /* There will be at least one "=" */
     {
     int barno = 0;
-    b_textstr *t1 = nexteqinstave(barvector[0], stavebase, &barno);
+    b_textstr *t1 = nexteqinstave(barvector[0], &barno);
     b_textstr *t2;
     int barno_t1 = barno;
 
-    while ((t2 = nextulinstave((barstr *)t1, stavebase, &barno)) != NULL)
+    while ((t2 = nextulinstave((barstr *)t1, &barno)) != NULL)
       {
       /* Look at the next underlay string. If it's not "=", move on to restart
       from there, seeking the next "=". */
 
       if (t2->laylen != 1 || PCHAR(t2->string[0]) != '=')
         {
-        t1 = nexteqinstave((barstr *)t2, stavebase, &barno);
+        t1 = nexteqinstave((barstr *)t2, &barno);
         if (t1 == NULL) break;
         continue;
         }
@@ -2638,9 +2631,9 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
       int barno_t2 = barno;
       barno = barno_t1;
 
-      for (barstr *b = nextinstave((barstr *)t1, stavebase, &barno);
+      for (barstr *b = nextinstave((barstr *)t1, &barno);
            b != (barstr *)t2;
-           b = nextinstave(b, stavebase, &barno))
+           b = nextinstave(b, &barno))
         {
         if (b->type != b_note) continue;
         if (((b_notestr *)b)->spitch == 0) break;  /* A rest kills it */
@@ -2678,16 +2671,16 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   memset(underlay_state, 0, UNDERLAY_MAX);
 
   /* Choose a value for "divisions", which is the length of a crotchet. We must
-  allow for tuplets. The stavebase->tuplet_bits field has a bit set for every
-  tuplet counting from 1 for the least significant. Thus 0x04 for triplets,
-  for example. The least significant bit is never set (no such thing as a
+  allow for tuplets. The st->tuplet_bits field has a bit set for every tuplet
+  counting from 1 for the least significant. Thus 0x04 for triplets, for
+  example. The least significant bit is never set (there is no such thing as a
   uniplet :-). */
 
-  uint32_t tuplets = stavebase->tuplet_bits >> 1;
+  uint32_t tuplets = st->tuplet_bits >> 1;
   int divisions = 1;
 
-  if (stavebase->shortest_note < len_crotchet)
-    divisions = len_crotchet/stavebase->shortest_note;
+  if (st->shortest_note < len_crotchet)
+    divisions = len_crotchet/st->shortest_note;
 
   for (int i = 2; i < 32 && tuplets != 0; i++, tuplets >>= 1)
     {
@@ -2705,15 +2698,15 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   start_measure(0);
   comment_bar = 0;
   first_measure(barvector[0], divisions);
-  complete_measure(stavebase, 0, divisions);
+  complete_measure(0, divisions);
 
   /* Now process the remaining bars of the stave. */
 
-  for (int bar = 1; bar < stavebase->barcount; bar++)
+  for (int bar = 1; bar < st->barcount; bar++)
     {
     start_measure(bar);
     comment_bar = bar;
-    complete_measure(stavebase, bar, divisions);
+    complete_measure(bar, divisions);
     }
 
   PB("</part>");

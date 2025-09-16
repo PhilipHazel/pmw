@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -494,6 +494,7 @@ PF("-midibars <range>     limit MIDI output to given bar range\n");
 PF("-midimovement <n>     specifies movement for MIDI output\n");
 PF("-mm <n>               synonym for -midimovement\n");
 PF("-musicxml <file>      specify MusicXML output file\n");
+PF("-musicxmlmovement <n> select movement for MusicXML output\n");
 #if !defined NO_PMWRC || NO_PMWRC == 0
 PF("-norc or -nopmwrc     don't read .pmwrc (must be first option)\n");
 #endif
@@ -513,7 +514,9 @@ PF("-s <list>             select staves\n");
 PF("-t <number>           set transposition\n");
 PF("-V                    output PMW version number, then exit\n");
 PF("-v                    output verification information\n");
-PF("-xml                  synonm for -musicxml\n");
+PF("-xm <n>               synonym for -musicxmlmovement\n");
+PF("-xml <file>           synonym for -musicxml\n");
+PF("-xmlmovement <n>      synonym for -musicxmlmovement\n");
 
 PF("\nPOSTSCRIPT-SPECIFIC OPTIONS\n\n");
 PF("-a4sideways           assume A4 paper fed sideways\n");
