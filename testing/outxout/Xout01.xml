@@ -4722,7 +4722,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="98" width="106">
+    <measure number="98" width="103">
       <attributes>
         <clef>
           <sign>G</sign>
@@ -4738,7 +4738,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="99" width="142">
+    <measure number="99" width="138">
       <attributes>
         <clef>
           <sign>G</sign>
@@ -4754,7 +4754,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="100" width="142">
+    <measure number="100" width="138">
       <attributes>
         <clef>
           <sign>G</sign>
@@ -4769,7 +4769,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="101" width="227">
+    <measure number="101" width="219">
       <note>
         <pitch>
           <step>C</step>
@@ -4838,7 +4838,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="102" width="227">
+    <measure number="102" width="219">
       <note>
         <pitch>
           <step>C</step>
@@ -4889,13 +4889,13 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="103" width="161">
+    <measure number="103" width="190">
       <note>
         <pitch>
           <step>G</step>
           <octave>4</octave>
         </pitch>
-        <duration>480</duration>
+        <duration>240</duration>
         <type>half</type>
         <stem>down</stem>
         <notations>
@@ -4910,7 +4910,7 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>480</duration>
+        <duration>240</duration>
         <type>half</type>
         <stem>down</stem>
         <notations>
@@ -4918,6 +4918,12 @@
             <tremolo type="stop">2</tremolo>
           </ornaments>
         </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>480</duration>
+        <type>half</type>
+        <stem>none</stem>
       </note>
       <barline>
         <bar-style>light-heavy</bar-style>

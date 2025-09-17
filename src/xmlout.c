@@ -974,7 +974,9 @@ for (;;)
 
   /* Note details */
 
-  PN("<type>%s</type>", XML_note_names[note->notetype]);
+  PN("<type>%s</type>",
+    XML_note_names[(note->masq == MASQ_UNSET)? note->notetype : note->masq]);
+
   if ((note->flags & (nf_dot|nf_dot2)) != 0) PN("<dot/>");
   if ((note->flags & nf_dot2) != 0) PN("<dot/>");
   if (note->acc != ac_no && (note->flags & nf_accinvis) == 0)
@@ -1260,7 +1262,7 @@ for (;;)
       PN("<tremolo type=\"start\">%d</tremolo>", t->count);
       if (t->join != 0) X(X_TREMJOIN);
       add_tremolo = NULL;  /* In case we are in a chord */
-      stop_tremolo_pending = t->count; 
+      stop_tremolo_pending = t->count;
       }
 
     else
