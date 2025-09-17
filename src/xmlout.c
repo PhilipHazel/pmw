@@ -31,7 +31,7 @@ and the X_ignored variable. Current implementation allows up to 63. */
 
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT, 
-  X_TREBLETENORB, X_COUNT };
+  X_TREBLETENORB, X_FIGBASS, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -80,7 +80,8 @@ static const char *X_ignored_message[] = {
   "Only roman, italic, bold, and bold italic fonts are supported",
   "Circumflex in underlay or overlay",
   "Page or bar number insert into string",
-  "(8) with brackets for trebletenorB" 
+  "(8) with brackets for trebletenorB",
+  "Figured bass notations" 
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -152,6 +153,8 @@ static int        comment_stave = 0;
 static int        beam_state = -1;
 static int        ending_active = 0;
 static uschar     string_buffer[256];
+
+static BOOL       bowingabove = TRUE;
 
 static b_ornamentstr *ornament_pending[ORNAMENT_MAX];
 static int        ornament_pending_count = 0;
@@ -1083,12 +1086,19 @@ for (;;)
       notations_open = TRUE;
       }
     PA("<technical>");
+    
+    /* In PMW "bowing below" is really organ heel/toe. The accidental placement
+    value is not relevant. */ 
 
-    if ((acflags & af_down) != 0) PO("<down-bow");
-    else if ((acflags & af_up) != 0) PO("<up-bow");
-    else if ((acflags & af_ring) != 0) PO("<harmonic");
-
-    PC(" placement=\"%s\"/>\n", ac_placement);
+    if ((acflags & af_down) != 0) PN(bowingabove? "<down-bow/>" : "<heel/>");
+    else if ((acflags & af_up) != 0) PN(bowingabove? "<up-bow/>" : "<toe/>");
+     
+    else 
+      {
+      if ((acflags & af_ring) != 0) PO("<harmonic");
+      PC(" placement=\"%s\"/>\n", ac_placement);
+      }
+ 
     PB("</technical>");
     acflags &= ~(af_down|af_up|af_ring);
     }
@@ -1820,11 +1830,13 @@ if ((flags & text_ul) != 0)
   return;
   }
 
-/* Figured bass has its own element. */
+/* Figured bass has its own element in MusicXML, which requires knowledge of
+the figures and other marks (e.g. accidentals). In PMW figured base is just a 
+special kind of text, so handling this is a major TODO. */
 
 if ((flags & text_fb) != 0)
   {
-comment("Figured bass not yet handled");
+  X(X_FIGBASS);
   return;
   }
 
@@ -2045,6 +2057,10 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     write_barline(b, bar == st->barcount-1, end_ending, end_ending_type);
     break;
 
+    case b_bowing:
+    bowingabove = ((b_bowingstr *)b)->value;
+    break;
+
     case b_chord:
     comment("b_chord encountered at top level: ERROR!");
     break;
@@ -2174,10 +2190,6 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_beamslope:
     comment("ignored [beamslope]");
-    break;
-
-    case b_bowing:
-    comment("ignored [bowing]");
     break;
 
     case b_breakbarline:
