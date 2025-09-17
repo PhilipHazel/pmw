@@ -31,7 +31,7 @@ and the X_ignored variable. Current implementation allows up to 63. */
 
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT,
-  X_TREBLETENORB, X_FIGBASS, X_COUNT };
+  X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -81,7 +81,8 @@ static const char *X_ignored_message[] = {
   "Circumflex in underlay or overlay",
   "Page or bar number insert into string",
   "(8) with brackets for trebletenorB",
-  "Figured bass notations"
+  "Figured bass notations",
+  "Non-zero join in [tremolo]"
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -181,6 +182,7 @@ static int        slurs_pending_count = 0;
 static uint16_t   slurs_trans[SLURS_MAX];
 static int        slurs_trans_count = 0;
 
+static int        stop_tremolo_pending = 0;
 static b_slurstr  short_slur = { NULL, NULL, b_slur, 0, 0, NULL, 0 };
 
 static uint32_t   unihigh[50] = { 0 };
@@ -677,6 +679,7 @@ BOOL add_comma = FALSE;
 BOOL add_tick = FALSE;
 BOOL inchord = FALSE;
 BOOL stoptie = FALSE;
+b_tremolostr *add_tremolo = NULL;
 barstr *bb;
 
 /* Handle a note/chord at the end of a tie. */
@@ -732,8 +735,9 @@ if (bb->next->type == b_tie)
   else abovecount = tie_active->abovecount;
   }
 
-/* See if [comma], [tick], or a caesura follows, before the next note or end of
-bar. These have to come in <articulations> for this note. */
+/* See if [comma], [tick], [tremolo], or a caesura follows, before the next
+note or end of bar. [Tremolo] must start in <notations> for the note; the
+others have to come in <articulations>. */
 
 for (barstr *bbn = (barstr *)bb->next; bbn != NULL; bbn = (barstr *)bbn->next)
   {
@@ -751,6 +755,10 @@ for (barstr *bbn = (barstr *)bb->next; bbn != NULL; bbn = (barstr *)bbn->next)
 
     case b_tick:
     add_tick = TRUE;
+    break;
+
+    case b_tremolo:
+    add_tremolo = (b_tremolostr *)bbn;
     break;
 
     default:
@@ -1226,6 +1234,39 @@ for (;;)
       else PC(" placement=\"above\"");
       PC(">%s</accidental-mark>\n", XML_accidental_names[offset/3]);
       break;
+      }
+    }
+
+  /* The PMW directive [tremolo] is for tremolos between two notes. In MusicXML
+  it is notated as a start/stop on the relevant notes, as a ornament. */
+
+  if (add_tremolo != NULL || (stop_tremolo_pending != 0 && !inchord))
+    {
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
+
+    if (!ornaments_open)
+      {
+      PA("<ornaments>");
+      ornaments_open = TRUE;
+      }
+
+    if (add_tremolo != NULL)
+      {
+      b_tremolostr *t = (b_tremolostr *)add_tremolo;
+      PN("<tremolo type=\"start\">%d</tremolo>", t->count);
+      if (t->join != 0) X(X_TREMJOIN);
+      add_tremolo = NULL;  /* In case we are in a chord */
+      stop_tremolo_pending = t->count; 
+      }
+
+    else
+      {
+      PN("<tremolo type=\"stop\">%d</tremolo>", stop_tremolo_pending);
+      stop_tremolo_pending = 0;
       }
     }
 
@@ -2019,6 +2060,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     case b_endplet:
     case b_tick:
     case b_tie:
+    case b_tremolo:
     break;
 
 
@@ -2330,10 +2372,6 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_suspend:
     comment("ignored [suspend]");
-    break;
-
-    case b_tremolo:
-    comment("ignored [tremolo]");
     break;
 
     case b_tripsw:

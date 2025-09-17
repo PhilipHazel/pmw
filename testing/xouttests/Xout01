@@ -175,7 +175,12 @@ gggg | aaar | g=x3 G r |
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Reset and backup
 
-[stems up] c' x2 [reset stems down] g x3 |  
-[stems up] c' x2 [backup stems down] g x |  
+[stems up] c' x2 [reset stems down] g x3 |
+[stems up] c' x2 [backup stems down] g x |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Tremolo between notes
+
+G [tremolo] B |
 
 [endstave]
