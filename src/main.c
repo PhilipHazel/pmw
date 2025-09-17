@@ -607,7 +607,8 @@ if (results[arg_C].text != NULL)
     exit(SUPPORT_B2PF);
     }
 
-  if (strcmp(results[arg_C].text, "musicxml") == 0)
+  if (strcmp(results[arg_C].text, "musicxml") == 0 ||
+      strcmp(results[arg_C].text, "xml") == 0)
     {
     printf("%d\n", SUPPORT_XML);
     exit(SUPPORT_XML);
@@ -733,10 +734,23 @@ if (results[arg_SM].text != NULL)
 /* Deal with XML output */
 
 if (results[arg_musicxml].text != NULL)
+  {
+#if SUPPORT_XML   
   outxml_filename = US results[arg_musicxml].text;
+#else
+  error(ERR3, "MusicXML output");
+#endif   
+  } 
 
 if (results[arg_musicxmlmovement].presence != arg_present_not)
-  outxml_movement = results[arg_musicxmlmovement].number;
+  {
+#if SUPPORT_XML   
+  if (outxml_filename == NULL) error(ERR193, "-xmlmovement"); 
+    else outxml_movement = results[arg_musicxmlmovement].number;
+#else
+  error(ERR3, "MusicXML output");
+#endif   
+  } 
 
 /* Deal with MIDI output */
 
@@ -1308,11 +1322,13 @@ if (midi_filename != NULL)
 
 /* Write MusicXML output if required */
 
+#if SUPPORT_XML
 if (outxml_filename != NULL)
   {
   if (main_verify) eprintf("Writing MusicXML file \"%s\"\n", outxml_filename);
   outxml_write();
   }
+#endif   
 
 if (main_verify) eprintf( "PMW done\n"); else TRACE("Done\n");
 

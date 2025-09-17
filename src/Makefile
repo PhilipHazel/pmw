@@ -20,12 +20,11 @@ OBJ = debug.o draw.o error.o font.o globals.o main.o mem.o midi.o misc.o \
       out.o paginate.o pdf.o pmw_read.o pmw_read_header.o \
       pmw_read_note.o pmw_read_stave.o pmw_read_stavedirs.o pout.o \
       preprocess.o ps.o rdargs.o read.o setbar.o setbeam.o setnote.o \
-      setother.o setslur.o settie.o string.o tables.o transpose.o tree.o \
-      xmlout.o
+      setother.o setslur.o settie.o string.o tables.o transpose.o tree.o
 
 ifeq ($(SUPPORT_XML),1)
   XMLOBJ = xml.o xml_analyze.o xml_debug.o xml_error.o xml_globals.o \
-           xml_heading.o xml_read.o xml_staves.o xml_tables.o
+           xml_heading.o xml_read.o xml_staves.o xml_tables.o xmlout.o
 else
   XMLOBJ=
 endif

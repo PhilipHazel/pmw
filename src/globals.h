@@ -313,8 +313,10 @@ extern int32_t      out_ybarenddeep;
 extern int32_t      out_yposition;
 extern int32_t      out_ystave;
 
+#if SUPPORT_XML
 extern uschar      *outxml_filename;
 extern int          outxml_movement;
+#endif
 
 extern uint32_t     page_firstnumber;
 extern uint32_t     page_increment;

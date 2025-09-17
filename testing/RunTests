@@ -48,6 +48,7 @@ elsif (! -r "../fontextra/AdobeArabic-Regular.afm" ||
 if (system("$pmw -C musicxml >/dev/null") == 0)
   {
   push @skipdirs, "xml";
+  push @skipdirs, "xout";
   }
 
 if (system("midicsv /dev/null /dev/null >/dev/null 2>&1") == 0x7f00)

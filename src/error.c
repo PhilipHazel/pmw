@@ -293,7 +293,8 @@ aborts the run after outputting additional information. */
 /* 190-194 */
 { ec_major,   "misplaced [tremolo]: %s" },
 { ec_major,   "XML output internal error: %s" },
-{ ec_failed,  "XML output internal error: %s" }
+{ ec_failed,  "XML output internal error: %s" },
+{ ec_warning, "%s ignored: no MusicXML selection" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

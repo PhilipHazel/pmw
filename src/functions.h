@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 /* -------- General functions -------- */
 
@@ -83,8 +83,6 @@ extern void         out_writeclef(int32_t, int32_t, int, int32_t, BOOL);
 extern void         out_writekey(int32_t, int32_t, uint32_t, uint32_t);
 extern void         out_writerepeat(int32_t, int, int32_t);
 extern void         out_writetime(int32_t, int32_t, usint);
-
-extern void         outxml_write(void);
 
 extern void         paginate(void);
 
@@ -178,6 +176,7 @@ extern BOOL         tree_insert(tree_node **, tree_node *);
 extern tree_node   *tree_search(tree_node *, uschar *);
 
 #if SUPPORT_XML
+extern void         outxml_write(void);
 extern void         xml_read(void);
 #endif
 
