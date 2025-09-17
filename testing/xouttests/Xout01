@@ -172,4 +172,10 @@ gggg | aaar | g=x3 G r |
 
 [treble 1] R! |
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Reset and backup
+
+[stems up] c' x2 [reset stems down] g x3 |  
+[stems up] c' x2 [backup stems down] g x |  
+
 [endstave]
