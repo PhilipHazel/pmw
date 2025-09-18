@@ -333,8 +333,7 @@
         </time-modification>
         <stem>up</stem>
         <notations>
-          <tuplet number="1" type="start" bracket="yes" placement="below" show-number="actual">
-          </tuplet>
+          <tuplet number="1" type="start" bracket="yes" placement="below" show-number="actual"/>
         </notations>
       </note>
       <note>
@@ -390,8 +389,7 @@
         </time-modification>
         <stem>up</stem>
         <notations>
-          <tuplet number="1" type="start" bracket="yes" placement="above" show-number="actual">
-          </tuplet>
+          <tuplet number="1" type="start" bracket="yes" placement="above" show-number="actual"/>
         </notations>
       </note>
       <note>
@@ -447,8 +445,7 @@
         </time-modification>
         <stem>up</stem>
         <notations>
-          <tuplet number="1" type="start" bracket="yes" placement="below" show-number="actual">
-          </tuplet>
+          <tuplet number="1" type="start" bracket="yes" placement="below" show-number="actual"/>
         </notations>
       </note>
       <note>
@@ -522,8 +519,7 @@
         </time-modification>
         <stem>up</stem>
         <notations>
-          <tuplet number="1" type="start" bracket="no" placement="below" show-number="actual">
-          </tuplet>
+          <tuplet number="1" type="start" bracket="no" placement="below" show-number="actual"/>
         </notations>
       </note>
       <note>
@@ -597,8 +593,7 @@
         </time-modification>
         <stem>up</stem>
         <notations>
-          <tuplet number="1" type="start" bracket="no" placement="below" show-number="none">
-          </tuplet>
+          <tuplet number="1" type="start" bracket="no" placement="below" show-number="none"/>
         </notations>
       </note>
       <note>
@@ -679,8 +674,7 @@
         <stem>up</stem>
         <beam number="1">begin</beam>
         <notations>
-          <tuplet number="1" type="start" bracket="no" placement="below" show-number="actual">
-          </tuplet>
+          <tuplet number="1" type="start" bracket="no" placement="below" show-number="actual"/>
         </notations>
       </note>
       <note>

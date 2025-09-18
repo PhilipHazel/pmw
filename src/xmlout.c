@@ -167,6 +167,7 @@ static uint8_t    underlay_state[UNDERLAY_MAX];
 /* NOTE: PMW doesn't yet support nested tuplets - nobody has ever remarked on
 this - but if it ever does, the code in this module should cope. */
 
+static BOOL       plet_enable = TRUE;
 static int        plet_level = 0;
 static b_pletstr *plet_pending = NULL;
 static uint8_t    plet_actual[8] = {0};  /* Initialize level 0 => no plet */
@@ -694,7 +695,7 @@ if (tie_active != NULL)
 
 for (bb = b; bb->next != NULL; bb = (barstr *)(bb->next))
   if (bb->next->type != b_chord) break;
-
+  
 /* See if this note/chord is followed by a tie item. If it is, check that a
 single note was actually tied in the PS/PDF output. If not, the tie item is
 really a short slur. */
@@ -1371,7 +1372,7 @@ for (;;)
     else if ((plet_pending->flags & plet_b) != 0) placement = "below";
     else placement = ((note->flags & nf_stemup) == 0)? "above" : "below";
 
-    if ((plet_pending->flags & plet_x) != 0)
+    if ((plet_pending->flags & plet_x) != 0 || !plet_enable)
       {
       bracket = "no";
       show = "none";
@@ -1384,24 +1385,32 @@ for (;;)
       notations_open = TRUE;
       }
 
-    PA("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
-      "placement=\"%s\" show-number=\"%s\">",
+    PN("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
+      "placement=\"%s\" show-number=\"%s\"/>",
       plet_level, bracket, placement, show);
 
-    // tuplet-actual? tuplet-normal?
-
-    PB("</tuplet>");
     plet_pending = NULL;
     }
 
-  else if (b->next->type == b_endplet)
+  /* Look for a plet ending before the next note. */
+
+  else
     {
-    if (!notations_open)
+    for (barstr *bbn = (barstr *)bb->next; bbn != NULL;
+         bbn = (barstr *)bbn->next)
       {
-      PA("<notations>");
-      notations_open = TRUE;
+      if (bbn->type == b_note) break;
+      if (bbn->type == b_endplet)
+        {
+        if (!notations_open)
+          {
+          PA("<notations>");
+          notations_open = TRUE;
+          }
+        PN("<tuplet number=\"%d\" type=\"stop\"/>", plet_level--);
+        break;
+        }
       }
-    PN("<tuplet number=\"%d\" type=\"stop\"/>", plet_level--);
     }
 
   /* Handle the end of a tie (the notation part - see also <tie> above). */
@@ -2216,6 +2225,10 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
       }
     break;
 
+    case b_tripsw:
+    plet_enable = ((b_tripswstr *)b)->value;
+    break;
+
 
     /* --------------------------------------------------------*/
     /* These are currently not supported */
@@ -2374,10 +2387,6 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_suspend:
     comment("ignored [suspend]");
-    break;
-
-    case b_tripsw:
-    comment("ignored [triplets]");
     break;
 
     case b_ulevel:
