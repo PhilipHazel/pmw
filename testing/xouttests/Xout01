@@ -28,6 +28,11 @@ G+ |1 G+ |4 G+ |? G+ |
 {5/x ggggg} |
 r- {2 g-g-} R |
 
+[triplets above] {g-g-g-};
+[triplets below] {g-g-g-};
+[triplets auto] {g-g-g-};
+[triplets off] {g-g-g-}; [triplets on] |
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Ties
 
