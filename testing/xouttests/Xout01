@@ -73,6 +73,16 @@ g_a R | c'_d' R |
 [slur] g_a bc' [es] |
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Lines
+
+[line/b] abba [el] | [line/i] abba [el] |
+[line/ip] abba [el] | [line/ol] abba [el] |
+[line/or] abba [el] | [line/ol/or] abba [el] |
+[line/a] a [line/b] bb [el] a [el] |
+[line/a/=A] a [line/b] bb [el/=A] a [el] |
+[line/b/d10] abba [el] |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Accents etc
 
 A\d\ A\u\ | [bowing below] A\d\ A\u\ [bowing above] |

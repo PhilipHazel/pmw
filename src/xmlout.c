@@ -183,6 +183,12 @@ static int        slurs_pending_count = 0;
 static uint16_t   slurs_trans[SLURS_MAX];
 static int        slurs_trans_count = 0;
 
+static b_slurstr *lines_active[SLURS_MAX];
+static int        lines_active_count = 0;
+
+static uint16_t   lines_trans[SLURS_MAX];
+static int        lines_trans_count = 0;
+
 static int        stop_tremolo_pending = 0;
 static b_slurstr  short_slur = { NULL, NULL, b_slur, 0, 0, NULL, 0 };
 
@@ -651,6 +657,128 @@ PB("</time>");
 
 
 /*************************************************
+*         Handle start of a line                 *
+*************************************************/
+
+/* A lot of this is the same as for a slur, but it's easier just to keep them
+separate because they are handled so differently in MusicXML. */
+
+static void
+line_start(b_slurstr *s)
+{
+BOOL above = (s->flags & sflag_b) == 0;
+
+const char *line_type =
+  ((s->flags & sflag_idot) != 0)? " line-type=\"dotted\"" :
+  ((s->flags & sflag_i) != 0)? " line-type=\"dashed\"" : "";
+
+if ((s->flags & sflag_e) != 0)
+  comment("ignored editoral mark on line");
+
+if (s->id != 0)
+  lines_trans[lines_trans_count++] =
+    (s->id << 8) | (lines_active_count + 1);
+
+s->id = lines_active_count + 1;
+
+/* If this is [xline] and there is another line active, put this one
+before it on the active list. Otherwise, just add to the list. */
+
+if ((s->flags & sflag_x) != 0 && lines_active_count > 0)
+  {
+  lines_active[lines_active_count] = lines_active[lines_active_count-1];
+  lines_active[lines_active_count-1] = s;
+  }
+else lines_active[lines_active_count] = s;
+lines_active_count++;
+
+PA("<direction placement=\"%s\">", above? "above" : "below");
+PA("<direction-type>");
+PO("<bracket type=\"start\"%s number=\"%d\" line-end=\"%s\"", line_type, s->id,
+  ((s->flags & sflag_ol) != 0)? "none" : above? "down" : "up");
+if (s->ally != 0) PC(" default-y=\"%d\"", T(s->ally));
+PC("/>\n");
+
+PB("</direction-type>");
+PB("</direction>");
+}
+
+
+
+/*************************************************
+*         Handle the end of a line               *
+*************************************************/
+
+/* If there's no id, terminate the most recent line. Note that we must use the
+remembered MusicXML number that was put into the starting line structure, not
+the id in [endline]. */
+
+static void
+line_end(b_bytevaluestr *e)
+{
+b_slurstr *s;
+
+PA("<direction>");
+PA("<direction-type>");
+
+if (e->value == 0)   /* No id */
+  {
+  s = lines_active[--lines_active_count];
+  }
+
+/* Translate the PMW id into a line number, then seek that line in the
+list. */
+
+else
+  {
+  int i, n;
+
+  for (i = 0; i < lines_trans_count; i++)
+    {
+    if ((lines_trans[i] >> 8) == e->value) break;
+    }
+
+  if (i >= lines_trans_count)
+    error (ERR192, "could not translate PMW line id"); /* Hard */
+
+  n = lines_trans[i] & 0xff;
+
+  for (i = 0; i < lines_active_count; i++)
+    {
+    if (lines_active[i]->id == n) break;
+    }
+
+  if (i >= lines_active_count)
+    {
+    char buff[64];
+    sprintf(buff, "could not find open line with id=%d", n);
+    error(ERR192, buff);   /* Hard */
+    }
+
+  s = lines_active[i];
+
+  /* Remove the line from the list, if not last. */
+
+  if (i != --lines_active_count)
+    memmove(lines_active + i, lines_active + i + 1,
+      (lines_active_count - i) * sizeof(b_slurstr *));
+  }
+
+PN("<bracket type=\"stop\" number=\"%d\" line-end=\"%s\"/>", s->id,
+  ((s->flags & sflag_or) != 0)? "none" :
+  ((s->flags & sflag_b) == 0)? "down" : "up");
+
+/* When all lines are closed, we can reset the translations. */
+
+if (lines_active_count == 0) lines_trans_count = 0;
+
+PB("</direction-type>");
+PB("</direction>");
+}
+
+
+
+/*************************************************
 *           Write a note, chord, or rest         *
 *************************************************/
 
@@ -695,7 +823,7 @@ if (tie_active != NULL)
 
 for (bb = b; bb->next != NULL; bb = (barstr *)(bb->next))
   if (bb->next->type != b_chord) break;
-  
+
 /* See if this note/chord is followed by a tie item. If it is, check that a
 single note was actually tied in the PS/PDF output. If not, the tie item is
 really a short slur. */
@@ -2128,6 +2256,10 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     X(X_DRAW);
     break;
 
+    case b_endline:
+    line_end((b_bytevaluestr *)b);
+    break;
+
     case b_hairpin:
     b_hairpinstr *h = (b_hairpinstr *)b;
     PA("<direction placement=\"%s\">", ((h->flags & hp_below) == 0)?
@@ -2204,8 +2336,17 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     PB("</barline>");
     break;
 
+    /* In MusicXML, slur control is within <note>, but lines are outside notes,
+    at top level. This means they each have to be handled separately. */
+
     case b_slur:
-    if (slurs_pending_count >= SLURS_MAX)
+    if ((((b_slurstr *)b)->flags & sflag_l) != 0)
+      {
+      if (lines_active_count >= SLURS_MAX)
+        error(ERR191, "too many nested lines");
+      else line_start((b_slurstr *)b);
+      }
+    else if (slurs_pending_count >= SLURS_MAX)
       error(ERR191, "too many nested slurs");
     else
       {
@@ -2267,10 +2408,6 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_dotright:
     comment("ignored dotright movement");
-    break;
-
-    case b_endline:
-    comment("ignored [endline]");
     break;
 
     case b_ens:
