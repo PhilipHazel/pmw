@@ -31,7 +31,7 @@ and the X_ignored variable. Current implementation allows up to 63. */
 
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT,
-  X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_COUNT };
+  X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_RLEVEL, X_MOVE, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -82,7 +82,9 @@ static const char *X_ignored_message[] = {
   "Page or bar number insert into string",
   "(8) with brackets for trebletenorB",
   "Figured bass notations",
-  "Non-zero join in [tremolo]"
+  "Non-zero join in [tremolo]",
+  "Rest level adjustment",
+  "[move]"  
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -1051,11 +1053,16 @@ for (;;)
   PA("<note>");
   if (inchord) PN("<chord/>");
 
-  // TODO Handle rest level
+  // TODO Handle rest level, which can only be done by setting display-step and
+  // display-octave, relative to the current clef. PMW just has a relative
+  // movement, so we would also need to consider which type of rest it is.
 
   if (note->spitch == 0)
     {
-    PN("<rest/>");
+    PO("<rest");
+    if ((note->flags & nf_centre) != 0) PC(" measure=\"yes\""); 
+    if (note->yextra != 0) X(X_RLEVEL);
+    PC("/>\n"); 
     }
 
   // TODO Think about <unpitched>?
@@ -2431,7 +2438,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_move:
-    comment("ignored [move]");
+    X(X_MOVE);
     break;
 
     case b_name:
