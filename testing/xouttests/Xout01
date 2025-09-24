@@ -167,8 +167,9 @@ gggg | aaar | g=x3 G r |
 [time C] G+ | [time A] G+ |
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@ Clefs
+@ Clefs and [newpage]
 
+[newpage]
 [alto] R! |
 [baritone] R! |
 [bass] R! |

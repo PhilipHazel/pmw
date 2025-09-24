@@ -2324,6 +2324,10 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     PN("<print new-system=\"yes\"/>");
     break;
 
+    case b_newpage:
+    PN("<print new-page=\"yes\"/>");
+    break;
+
     case b_ornament:
     if (ornament_pending_count >= ORNAMENT_MAX)
       error(ERR191, "too many ornaments on one note");
@@ -2449,10 +2453,6 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_name:
     comment("ignored [name]");
-    break;
-
-    case b_newpage:
-    comment("ignored [newpage]");
     break;
 
     case b_notes:
