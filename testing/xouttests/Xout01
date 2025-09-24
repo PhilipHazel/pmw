@@ -198,4 +198,10 @@ gggg | aaar | g=x3 G r |
 
 g\M\ [tremolo] b\M\ R |
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Assume clef, key, time; also [newline]
+
+R! | [assume bass 0] D+ | [assume time 3/4][assume key c] G. |
+[newline] G. | [assume treble 1 time A] G+ |
+
 [endstave]

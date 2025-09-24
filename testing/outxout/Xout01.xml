@@ -4332,7 +4332,7 @@
     <!--============================-->
     <measure number="73" width="75">
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -4433,7 +4433,7 @@
     <!--============================-->
     <measure number="77" width="79">
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5216,7 +5216,7 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5231,7 +5231,7 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5246,7 +5246,7 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5261,7 +5261,7 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5277,7 +5277,7 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5292,7 +5292,7 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5306,7 +5306,7 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5321,7 +5321,7 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5355,7 +5355,7 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
@@ -5370,14 +5370,14 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
       </note>
     </measure>
     <!--============================-->
-    <measure number="106" width="76">
+    <measure number="106" width="77">
       <attributes>
         <clef>
           <sign>C</sign>
@@ -5385,14 +5385,14 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
       </note>
     </measure>
     <!--============================-->
-    <measure number="107" width="112">
+    <measure number="107" width="113">
       <attributes>
         <clef>
           <sign>G</sign>
@@ -5401,14 +5401,14 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
       </note>
     </measure>
     <!--============================-->
-    <measure number="108" width="112">
+    <measure number="108" width="113">
       <attributes>
         <clef>
           <sign>G</sign>
@@ -5417,14 +5417,14 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
       </note>
     </measure>
     <!--============================-->
-    <measure number="109" width="112">
+    <measure number="109" width="113">
       <attributes>
         <clef>
           <sign>G</sign>
@@ -5433,14 +5433,14 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
       </note>
     </measure>
     <!--============================-->
-    <measure number="110" width="112">
+    <measure number="110" width="113">
       <attributes>
         <clef>
           <sign>G</sign>
@@ -5448,14 +5448,14 @@
         </clef>
       </attributes>
       <note>
-        <rest/>
+        <rest measure="yes"/>
         <duration>960</duration>
         <type>whole</type>
         <stem>none</stem>
       </note>
     </measure>
     <!--============================-->
-    <measure number="111" width="164">
+    <measure number="111" width="165">
       <note>
         <pitch>
           <step>C</step>
@@ -5524,7 +5524,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="112" width="164">
+    <measure number="112" width="165">
       <note>
         <pitch>
           <step>C</step>
@@ -5575,7 +5575,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="113" width="143">
+    <measure number="113" width="139">
       <note>
         <pitch>
           <step>G</step>
@@ -5609,6 +5609,95 @@
         <rest/>
         <duration>480</duration>
         <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="114" width="75">
+      <note>
+        <rest measure="yes"/>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="115" width="75">
+      <attributes>
+        <clef print-object="no">
+          <sign>F</sign>
+          <line>4</line>
+        </clef>
+      </attributes>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>960</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="116" width="66">
+      <attributes>
+        <time print-object="no">
+          <beats>3</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
+      <attributes>
+        <key print-object="no">
+          <fifths>0</fifths>
+        </key>
+      </attributes>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>720</duration>
+        <type>half</type>
+        <dot/>
+        <stem>down</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="117" width="66">
+      <print new-system="yes"/>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>720</duration>
+        <type>half</type>
+        <dot/>
+        <stem>down</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="118" width="103">
+      <attributes>
+        <clef print-object="no">
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <attributes>
+        <time symbol="cut">
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>960</duration>
+        <type>whole</type>
         <stem>none</stem>
       </note>
       <barline>

@@ -574,9 +574,11 @@ static clef_info clef_data[] = {
 instead use treble with printing disabled. */
 
 static void
-write_clef(usint clef)
+write_clef(usint clef, BOOL assume)
 {
-const char *nonestring = (clef != clef_none)? "" : " print-object=\"no\"";
+const char *nonestring = (clef != clef_none && !assume)? "" : 
+  " print-object=\"no\"";
+   
 PA("<clef%s>", nonestring);
 PN("<sign>%s</sign>", clef_data[clef].sign);
 if (clef_data[clef].line != 0)
@@ -608,7 +610,7 @@ static int16_t key_fifths[] = {
 };
 
 static void
-write_key(uint32_t key)
+write_key(uint32_t key, BOOL assume)
 {
 if (key == key_N)
   key = key_C;
@@ -617,7 +619,7 @@ else if (key >= key_X)
   comment("custom key not supported: treated as C");
   key = key_C;
   }
-PA("<key>");
+PA("<key%s>", assume? " print-object=\"no\"" : "");
 PN("<fifths>%d</fifths>", key_fifths[key]);
 PB("</key>");
 }
@@ -630,7 +632,7 @@ PB("</key>");
 *************************************************/
 
 static void
-write_time(uint32_t time)
+write_time(uint32_t time, BOOL assume)
 {
 const char *symbol = "";
 
@@ -650,7 +652,7 @@ else if (time == time_cut)
   symbol = " symbol=\"cut\"";
   }
 
-PA("<time%s>", symbol);
+PA("<time%s%s>", symbol, assume? " print-object=\"no\"" : "");
 PN("<beats>%d</beats>", time >> 8);
 PN("<beat-type>%d</beat-type>", time & 0xffu);
 PB("</time>");
@@ -2148,10 +2150,10 @@ for (; b != NULL; b = (barstr *)b->next)
 
 PA("<attributes>");
 PN("<divisions>%d</divisions>", divisions);
-write_key(key);
+write_key(key, FALSE);
 if ((xml_movt->flags & (mf_showtime | mf_startnotime)) != 0)
-  write_time(time);
-write_clef(clef);
+  write_time(time, FALSE);
+write_clef(clef, FALSE);
 PB("</attributes>");
 }
 
@@ -2255,7 +2257,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_clef:
     PA("<attributes>");
-    write_clef(((b_clefstr *)b)->clef);
+    write_clef(((b_clefstr *)b)->clef, ((b_clefstr *)b)->assume);
     PB("</attributes>");
     break;
 
@@ -2295,7 +2297,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_key:
     PA("<attributes>");
-    write_key(((b_keystr *)b)->key);
+    write_key(((b_keystr *)b)->key, ((b_keystr *)b)->assume);
     PB("</attributes>");
     break;
 
@@ -2316,6 +2318,10 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     PC("</ending>\n");
     PB("</barline>");
     ending_active = nb->n;
+    break;
+
+    case b_newline:
+    PN("<print new-system=\"yes\"/>");
     break;
 
     case b_ornament:
@@ -2368,7 +2374,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     if ((xml_movt->flags & mf_showtime) != 0)
       {
       PA("<attributes>");
-      write_time(((b_timestr *)b)->time);
+      write_time(((b_timestr *)b)->time, ((b_timestr *)b)->assume);
       PB("</attributes>");
       }
     break;
@@ -2443,10 +2449,6 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_name:
     comment("ignored [name]");
-    break;
-
-    case b_newline:
-    comment("ignored [newline]");
     break;
 
     case b_newpage:
