@@ -84,7 +84,7 @@ static const char *X_ignored_message[] = {
   "Figured bass notations",
   "Non-zero join in [tremolo]",
   "Rest level adjustment",
-  "[move]"  
+  "[move]"
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -226,7 +226,7 @@ uint32_t pno = xml_movt->barvector[comment_bar];
 uint32_t pnofr = pno & 0xffff;
 pno >>= 16;
 
-fprintf(stderr, "XML (%d/", comment_stave);
+fprintf(stderr, "XML output (%d/", comment_stave);
 if (pnofr == 0) fprintf(stderr, "%d) ", pno);
   else fprintf(stderr, "%d.%d) ", pno, pnofr);
 
@@ -576,9 +576,9 @@ instead use treble with printing disabled. */
 static void
 write_clef(usint clef, BOOL assume)
 {
-const char *nonestring = (clef != clef_none && !assume)? "" : 
+const char *nonestring = (clef != clef_none && !assume)? "" :
   " print-object=\"no\"";
-   
+
 PA("<clef%s>", nonestring);
 PN("<sign>%s</sign>", clef_data[clef].sign);
 if (clef_data[clef].line != 0)
@@ -1062,9 +1062,9 @@ for (;;)
   if (note->spitch == 0)
     {
     PO("<rest");
-    if ((note->flags & nf_centre) != 0) PC(" measure=\"yes\""); 
+    if ((note->flags & nf_centre) != 0) PC(" measure=\"yes\"");
     if (note->yextra != 0) X(X_RLEVEL);
-    PC("/>\n"); 
+    PC("/>\n");
     }
 
   // TODO Think about <unpitched>?
@@ -2694,9 +2694,9 @@ PN("<bottom-margin>%d</bottom-margin>", vmargin);
 PB("</page-margins>");
 PB("</page-layout>");
 
-/* PMW measures system gap from bottom of last stave to bottom of top stave; 
-MusicXML measures from bottom to top. PMW supports only lefthand system 
-separators; MusicXML doesn't seem to allow for defining separator 
+/* PMW measures system gap from bottom of last stave to bottom of top stave;
+MusicXML measures from bottom to top. PMW supports only lefthand system
+separators; MusicXML doesn't seem to allow for defining separator
 characteristics. */
 
 PA("<system-layout>");
@@ -2705,21 +2705,21 @@ PN("<system-distance>%d</system-distance>", T(xml_movt->systemgap) - 40);
 if (xml_movt->systemseplength != 0)
   {
   PA("<system-dividers>");
-    PN("<left-divider print-object=\"yes\"/>"); 
-    PN("<right-divider print-object=\"no\"/>"); 
+    PN("<left-divider print-object=\"yes\"/>");
+    PN("<right-divider print-object=\"no\"/>");
   PB("</system-dividers>");
-  } 
+  }
 PB("</system-layout>");
 
-/* PMW stave spacing gives the distance *below* a stave, with stave ensure a 
-minimum for above. MusicXML staff-distance is a measure from above, bottom to 
-top. The value for the top staff is ignored. Hard to know exactly what to do 
+/* PMW stave spacing gives the distance *below* a stave, with stave ensure a
+minimum for above. MusicXML staff-distance is a measure from above, bottom to
+top. The value for the top staff is ignored. Hard to know exactly what to do
 here; for the moment, just set values for stave 2 onwards. */
 
 for (int stave = 2; stave <= xml_movt->laststave; stave++)
   {
   PA("<staff-layout number=\"%d\">", stave);
-  PN("<staff-distance>%d</staff-distance>", 
+  PN("<staff-distance>%d</staff-distance>",
     T(xml_movt->stave_spacing[stave - 1]) - 40);
   PB("</staff-layout>");
   }
@@ -2741,7 +2741,6 @@ for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
   if (sb != NULL && !sb->is_sysblock)         /* Starts with headblock */
     {
     BOOL credit_open = FALSE;
-//    uint32_t y = 0;
 
     for (headstr *h = ((headblock *)sb)->headings; h != NULL; h = h->next)
       {
@@ -2761,7 +2760,6 @@ for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
         }
 // TODO h->space is space to follow
 // TODO h->spaceabove is space above
-// TODO h->fdata gives font data (size etc)
 
       }
     if (credit_open) PB("</credit>");
