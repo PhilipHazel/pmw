@@ -493,8 +493,10 @@ PF("-midi <file>          specify MIDI output file\n");
 PF("-midibars <range>     limit MIDI output to given bar range\n");
 PF("-midimovement <n>     specifies movement for MIDI output\n");
 PF("-mm <n>               synonym for -midimovement\n");
+#if SUPPORT_XML
 PF("-musicxml <file>      specify MusicXML output file\n");
 PF("-musicxmlmovement <n> select movement for MusicXML output\n");
+#endif
 #if !defined NO_PMWRC || NO_PMWRC == 0
 PF("-norc or -nopmwrc     don't read .pmwrc (must be first option)\n");
 #endif
@@ -514,9 +516,11 @@ PF("-s <list>             select staves\n");
 PF("-t <number>           set transposition\n");
 PF("-V                    output PMW version number, then exit\n");
 PF("-v                    output verification information\n");
+#if SUPPORT_XML
 PF("-xm <n>               synonym for -musicxmlmovement\n");
 PF("-xml <file>           synonym for -musicxml\n");
 PF("-xmlmovement <n>      synonym for -musicxmlmovement\n");
+#endif
 
 PF("\nPOSTSCRIPT-SPECIFIC OPTIONS\n\n");
 PF("-a4sideways           assume A4 paper fed sideways\n");
@@ -735,22 +739,22 @@ if (results[arg_SM].text != NULL)
 
 if (results[arg_musicxml].text != NULL)
   {
-#if SUPPORT_XML   
+#if SUPPORT_XML
   outxml_filename = US results[arg_musicxml].text;
 #else
   error(ERR3, "MusicXML output");
-#endif   
-  } 
+#endif
+  }
 
 if (results[arg_musicxmlmovement].presence != arg_present_not)
   {
-#if SUPPORT_XML   
-  if (outxml_filename == NULL) error(ERR193, "-xmlmovement"); 
+#if SUPPORT_XML
+  if (outxml_filename == NULL) error(ERR193, "-xmlmovement");
     else outxml_movement = results[arg_musicxmlmovement].number;
 #else
   error(ERR3, "MusicXML output");
-#endif   
-  } 
+#endif
+  }
 
 /* Deal with MIDI output */
 
@@ -1328,7 +1332,7 @@ if (outxml_filename != NULL)
   if (main_verify) eprintf("Writing MusicXML file \"%s\"\n", outxml_filename);
   outxml_write();
   }
-#endif   
+#endif
 
 if (main_verify) eprintf( "PMW done\n"); else TRACE("Done\n");
 
