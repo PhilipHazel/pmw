@@ -2694,7 +2694,36 @@ PN("<bottom-margin>%d</bottom-margin>", vmargin);
 PB("</page-margins>");
 PB("</page-layout>");
 
-// TODO Any need for system-layout?
+/* PMW measures system gap from bottom of last stave to bottom of top stave; 
+MusicXML measures from bottom to top. PMW supports only lefthand system 
+separators; MusicXML doesn't seem to allow for defining separator 
+characteristics. */
+
+PA("<system-layout>");
+PN("<system-distance>%d</system-distance>", T(xml_movt->systemgap) - 40);
+
+if (xml_movt->systemseplength != 0)
+  {
+  PA("<system-dividers>");
+    PN("<left-divider print-object=\"yes\"/>"); 
+    PN("<right-divider print-object=\"no\"/>"); 
+  PB("</system-dividers>");
+  } 
+PB("</system-layout>");
+
+/* PMW stave spacing gives the distance *below* a stave, with stave ensure a 
+minimum for above. MusicXML staff-distance is a measure from above, bottom to 
+top. The value for the top staff is ignored. Hard to know exactly what to do 
+here; for the moment, just set values for stave 2 onwards. */
+
+for (int stave = 2; stave <= xml_movt->laststave; stave++)
+  {
+  PA("<staff-layout number=\"%d\">", stave);
+  PN("<staff-distance>%d</staff-distance>", 
+    T(xml_movt->stave_spacing[stave - 1]) - 40);
+  PB("</staff-layout>");
+  }
+
 // TODO Any need for appearance?
 // TODO Any need for music-font?
 
