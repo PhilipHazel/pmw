@@ -2767,7 +2767,81 @@ for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
     }
   }
 
-/* Output a list of parts, mapping each PMW stave to a part. */
+/* Before we can output a list of parts, we have to analyse PMW's bracket,
+brace, and breakbarlines data because MusicXML has this data in the part list.
+There doesn't seem to be any equivalent of PMW's join and joindotted, and we
+amalgamate bracket with thinbracket.
+
+Build a vector of bits for each stave indicating start/stop of these various
+characteristics. */
+
+#define jb_brace_start   0x01u
+#define jb_brace_stop    0x02u
+#define jb_bracket_start 0x04u
+#define jb_bracket_stop  0x08u
+#define jb_barline_start 0x10u
+#define jb_barline_stop  0x20u
+#define jb_break_start   0x40u
+#define jb_break_stop    0x80u
+
+uint8_t joinbits[MAX_STAVE + 1];
+
+for (int stave = 0; stave <= xml_movt->laststave; stave++) joinbits[stave] = 0;
+
+/* If there is only one stave, we don't need to do anything. */
+
+if (xml_movt->laststave > 1)
+  {
+  uint64_t breaks = xml_movt->breakbarlines;
+
+  /* Find runs of staves that either have or have not barlines. */
+
+  for (int stave = 1; stave <= xml_movt->laststave;)
+    {
+    int ss;
+    uint64_t first = (breaks >> stave) & 1;
+
+    for (ss = stave + 1; ss <= xml_movt->laststave; ss++)
+      if (((breaks >> ss) & 1) != first) break;
+
+    if (first != 0)
+      {
+      joinbits[stave] |= jb_break_start;
+      joinbits[ss] |= jb_break_stop;
+      }
+    else
+      {
+      joinbits[stave] |= jb_barline_start;
+      joinbits[ss] |= jb_barline_stop;
+      }
+
+    stave = ss;
+    }
+
+  /* Set up braces and brackets */
+
+  for (stavelist *s = xml_movt->bracelist; s != NULL; s = s->next)
+    {
+    joinbits[s->first] |= jb_brace_start;
+    joinbits[s->last] |= jb_brace_stop;
+    }
+
+  for (stavelist *s = xml_movt->bracketlist; s != NULL; s = s->next)
+    {
+    joinbits[s->first] |= jb_bracket_start;
+    joinbits[s->last] |= jb_bracket_stop;
+    }
+
+  for (stavelist *s = xml_movt->thinbracketlist; s != NULL; s = s->next)
+    {
+    joinbits[s->first] |= jb_bracket_start;
+    joinbits[s->last] |= jb_bracket_stop;
+    }
+  }
+
+/* Now we can output a list of parts, mapping each PMW stave to a part and
+creating groups for joining information. Brackets are always group 1, braces
+group 2. */
 
 PA("<part-list>");
 
@@ -2787,12 +2861,64 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   if (sn!= NULL && sn->text != NULL)
     name = convert_PMW_string(sn->text);
 
+  if ((joinbits[stave] & jb_bracket_start) != 0)
+    {
+    PA("<part-group number=\"1\" type=\"start\">");
+    PN("<group-symbol>bracket</group-symbol>");
+    PB("</part-group>");
+    }
+
+  if ((joinbits[stave] & jb_brace_start) != 0)
+    {
+    PA("<part-group number=\"2\" type=\"start\">");
+    PN("<group-symbol>brace</group-symbol>");
+    PB("</part-group>");
+    }
+
+  if ((joinbits[stave] & jb_barline_start) != 0)
+    {
+    PA("<part-group number=\"3\" type=\"start\">");
+    PN("<group-barline>yes</group-barline>");
+    PB("</part-group>");
+    }
+
+  if ((joinbits[stave] & jb_break_start) != 0)
+    {
+    PA("<part-group number=\"4\" type=\"start\">");
+    PN("<group-barline>no</group-barline>");
+    PB("</part-group>");
+    }
+
   PA("<score-part id=\"P%d\">", stave);
   PN("<part-name>%s</part-name>", name);
 
 // TODO midi-instrument - if anything set
 
   PB("</score-part>");
+
+  if ((joinbits[stave] & jb_bracket_stop) != 0)
+    {
+    PA("<part-group number=\"1\" type=\"stop\">");
+    PB("</part-group>");
+    }
+
+  if ((joinbits[stave] & jb_brace_stop) != 0)
+    {
+    PA("<part-group number=\"2\" type=\"stop\">");
+    PB("</part-group>");
+    }
+
+  if ((joinbits[stave] & jb_barline_stop) != 0)
+    {
+    PA("<part-group number=\"3\" type=\"stop\">");
+    PB("</part-group>");
+    }
+
+  if ((joinbits[stave] & jb_break_stop) != 0)
+    {
+    PA("<part-group number=\"4\" type=\"stop\">");
+    PB("</part-group>");
+    }
   }
 
 PB("</part-list>");

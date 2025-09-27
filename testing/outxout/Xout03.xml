@@ -25,6 +25,9 @@
         <bottom-margin>152</bottom-margin>
       </page-margins>
     </page-layout>
+    <system-layout>
+      <system-distance>70</system-distance>
+    </system-layout>
   </defaults>
   <part-list>
     <score-part id="P1">

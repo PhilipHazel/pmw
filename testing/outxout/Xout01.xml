@@ -26,6 +26,9 @@
         <bottom-margin>152</bottom-margin>
       </page-margins>
     </page-layout>
+    <system-layout>
+      <system-distance>70</system-distance>
+    </system-layout>
   </defaults>
   <credit page="1">
     <credit-words font-size="17" halign="left">Left</credit-words>

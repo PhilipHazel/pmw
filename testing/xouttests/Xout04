@@ -1,0 +1,29 @@
+@ Tests for stave joining things.
+
+bracket 3-4 
+brace 1-2
+breakbarlines 2
+
+[stave 1 treble 1] 
+G+ | G+ |
+[endstave]
+
+[stave 2 bass 0] 
+G+ | G+ |
+[endstave]
+
+[stave 3 treble 1] 
+G+ | G+ |
+[endstave]
+
+[stave 4 bass 0] 
+G+ | G+ |
+[endstave]
+
+[stave 5 treble 1] 
+G+ | G+ |
+[endstave]
+
+[stave 6 bass 0] 
+G+ | G+ |
+[endstave]
