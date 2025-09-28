@@ -171,9 +171,10 @@ this - but if it ever does, the code in this module should cope. */
 
 static BOOL       plet_enable = TRUE;
 static int        plet_level = 0;
-static b_pletstr *plet_pending = NULL;
-static uint8_t    plet_actual[8] = {0};  /* Initialize level 0 => no plet */
-static uint8_t    plet_normal[8] = {0};
+static int        plet_pending_count = 0;
+static b_pletstr *plet_pending[MAX_PLETNEST];
+static uint8_t    plet_actual[MAX_PLETNEST];
+static uint8_t    plet_normal[MAX_PLETNEST];
 
 static b_tiestr  *tie_active = NULL;
 
@@ -1133,22 +1134,33 @@ for (;;)
 
   /* If this is the start of a tuplet, we have to set up <time-modification>
   here, and save the data for the remaining notes in the tuplet. A stack is
-  used so as to deal with nested tuplets. Leave plet_pending set, because it is
-  used later on for other tuplet options. */
+  used so as to deal with nested tuplets. Leave plet_pending_count unchanged,
+  because it is used later on for other tuplet options. */
 
-  if (plet_pending != NULL)
+  if (plet_pending_count > 0)
     {
-    plet_actual[++plet_level] = plet_pending->pletlen;
-    plet_normal[plet_level] = plet_pending->pletnum;
+    for (int i = 0; i < plet_pending_count; i++)
+      { 
+      plet_actual[++plet_level] = plet_pending[i]->pletlen;
+      plet_normal[plet_level] = plet_pending[i]->pletnum;
+      } 
     }
 
-  /* This note is in a tuplet. */
+  /* This note is in a tuplet. If it is nested, we have to divide the 
+  parameters by the previous set. */
 
   if (plet_actual[plet_level] != 0)
     {
+    int actual = plet_actual[plet_level];
+    int normal = plet_normal[plet_level];
+    if (plet_level > 1)
+      {
+      actual /= plet_actual[plet_level - 1];
+      normal /= plet_normal[plet_level - 1];  
+      }    
     PA("<time-modification>");
-    PN("<actual-notes>%d</actual-notes>", plet_actual[plet_level]);
-    PN("<normal-notes>%d</normal-notes>", plet_normal[plet_level]);
+    PN("<actual-notes>%d</actual-notes>", actual);
+    PN("<normal-notes>%d</normal-notes>", normal);
     PB("</time-modification>");
     }
 
@@ -1493,43 +1505,47 @@ for (;;)
 
   ornament_pending_count = 0;
 
-  /* Handle tuplets. The start is indicated by a pending b_pletstr; for the end
-  we have to peek ahead. Note that plet_level has already been incremented
-  above. */
+  /* Handle tuplets. The start is indicated by one or more pending b_pletstr;
+  for the end we have to peek ahead. Note that plet_level has already been
+  incremented above. */
 
-  if (plet_pending != NULL)
+  if (plet_pending_count > 0)
     {
-    const char *bracket = (beam_state >= 0)? "no" : "yes";
-    const char *placement, *show;
+    for (int i = 0; i < plet_pending_count; i++)
+      {  
+      uint32_t flags = plet_pending[i]->flags; 
+      const char *bracket = (beam_state >= 0)? "no" : "yes";
+      const char *placement, *show;
+      
+      if ((flags & plet_bn) != 0) bracket = "no";
+      if ((flags & plet_by) != 0) bracket = "yes";
+      
+      if ((flags & plet_a) != 0) placement = "above";
+      else if ((flags & plet_b) != 0) placement = "below";
+      else placement = ((note->flags & nf_stemup) == 0)? "above" : "below";
+      
+      if ((flags & plet_x) != 0 || !plet_enable)
+        {
+        bracket = "no";
+        show = "none";
+        }
+      else show = "actual";
+      
+      if (!notations_open)
+        {
+        PA("<notations>");
+        notations_open = TRUE;
+        }
+      
+      PN("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
+        "placement=\"%s\" show-number=\"%s\"/>",
+        plet_level - plet_pending_count + i + 1, bracket, placement, show);
+      }   
 
-    if ((plet_pending->flags & plet_bn) != 0) bracket = "no";
-    if ((plet_pending->flags & plet_by) != 0) bracket = "yes";
-
-    if ((plet_pending->flags & plet_a) != 0) placement = "above";
-    else if ((plet_pending->flags & plet_b) != 0) placement = "below";
-    else placement = ((note->flags & nf_stemup) == 0)? "above" : "below";
-
-    if ((plet_pending->flags & plet_x) != 0 || !plet_enable)
-      {
-      bracket = "no";
-      show = "none";
-      }
-    else show = "actual";
-
-    if (!notations_open)
-      {
-      PA("<notations>");
-      notations_open = TRUE;
-      }
-
-    PN("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
-      "placement=\"%s\" show-number=\"%s\"/>",
-      plet_level, bracket, placement, show);
-
-    plet_pending = NULL;
+    plet_pending_count = 0;
     }
 
-  /* Look for a plet ending before the next note. */
+  /* Look for plets ending before the next note. */
 
   else
     {
@@ -1545,7 +1561,6 @@ for (;;)
           notations_open = TRUE;
           }
         PN("<tuplet number=\"%d\" type=\"stop\"/>", plet_level--);
-        break;
         }
       }
     }
@@ -2336,7 +2351,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_plet:
-    plet_pending = (b_pletstr *)b;
+    plet_pending[plet_pending_count++] = (b_pletstr *)b;
     break;
 
     case b_reset:

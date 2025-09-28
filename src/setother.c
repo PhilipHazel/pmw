@@ -2,9 +2,9 @@
 *        PMW code for setting non-note things    *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: June 2025 */
+/* This file last modified: September 2025 */
 
 #include "pmw.h"
 
@@ -15,6 +15,17 @@ static uint8_t rrepeat_adjust[] = { 66, 50, 50, 50, 66,  65, 85, 85, 85, 65 };
 /* Caesura strings */
 
 static uschar *caesurastrings[] = { US"V", US"\\" };
+
+
+/*************************************************
+*                Static variables                *
+*************************************************/
+
+static b_pletstr *pletnest[MAX_PLETNEST - 1];
+static int pletnestcount = 0;
+static uint32_t pletdata[7*MAX_PLETNEST - 7];
+static int pletdatacount = 0;
+
 
 
 /*************************************************
@@ -400,9 +411,24 @@ switch (p->type)
   }
   break;
 
-  /* Deal with plets */
+  /* Deal with plets, which can be nested. The nesting code is ugly because it
+  was added later and I was avoiding too much refactoring. */
 
   case b_plet:
+  if (out_plet != NULL)
+    {
+    pletnest[pletnestcount++] = out_plet;
+    pletdata[pletdatacount++] = beam_seq;
+    pletdata[pletdatacount++] = out_plet_x;
+    pletdata[pletdatacount++] = out_plet_highest;
+    pletdata[pletdatacount++] = out_plet_lowest;
+    pletdata[pletdatacount++] = out_plet_highest_head;
+    pletdata[pletdatacount++] = out_pletden;
+    pletdata[pletdatacount++] = out_pletnum;
+    }
+
+  /* Set up the new plet */
+
   out_plet = (b_pletstr *)p;
   beam_seq = -1;                  /* Maintain beaming state */
   out_plet_x = -1;                /* Indicates plet starting */
@@ -410,7 +436,7 @@ switch (p->type)
   out_plet_lowest  = INT32_MAX;
   out_plet_highest_head = 0;
   out_pletden = out_plet->pletlen;
-  if (out_pletden > 4) out_pletnum = 2;
+  out_pletnum = (out_pletden > 4)? 2 : 1;
   break;
 
   case b_endplet:
@@ -461,7 +487,12 @@ switch (p->type)
 
       fdata.size = mac_muldiv(fdata.size*out_stavemagn, n_fontsize, 10000000);
 
-      sprintf(CS s, "%d", out_plet->pletlen);
+      /* If this is a nested plet, the number to print is the current 
+      denominator divided by the previous one. */
+
+      sprintf(CS s, "%d", out_plet->pletlen /
+        ((pletnestcount == 0)? 1 : pletnest[pletnestcount - 1]->pletlen));
+       
       ss = string_pmw(s, curmovt->fonttype_triplet);
       width = string_width(ss, &fdata, NULL)/2;
 
@@ -513,9 +544,42 @@ switch (p->type)
       }
     }
 
-  out_plet = NULL;
-  out_pletnum = 1;
-  out_pletden = 2;
+  /* Unstack if in a nested plet. If two plets started without an intervening
+  note, the restored out_plet_x from an outer one may still be unset. In this
+  case, set it to the value for the just-completed inner plet. Also, take note 
+  of the inner highest/lowest values. */
+
+  if (pletnestcount > 0)
+    {
+    int32_t this_plet_x = out_plet_x;
+    int32_t this_plet_highest = out_plet_highest;
+    int32_t this_plet_highest_head = out_plet_highest_head;
+    int32_t this_plet_lowest = out_plet_lowest;  
+
+    out_pletnum = pletdata[--pletdatacount];
+    out_pletden = pletdata[--pletdatacount];
+    out_plet_highest_head = pletdata[--pletdatacount];
+    out_plet_lowest = pletdata[--pletdatacount];
+    out_plet_highest = pletdata[--pletdatacount];
+    out_plet_x = pletdata[--pletdatacount];
+    beam_seq = pletdata[--pletdatacount];
+    out_plet = pletnest[--pletnestcount];
+
+    if (out_plet_x < 0) out_plet_x = this_plet_x;
+    if (out_plet_highest < this_plet_highest) 
+      out_plet_highest = this_plet_highest;
+    if (out_plet_highest_head < this_plet_highest_head) 
+      out_plet_highest_head = this_plet_highest_head;
+    if (out_plet_lowest > this_plet_lowest)
+      out_plet_lowest = this_plet_lowest;    
+    }
+
+  else
+    {
+    out_plet = NULL;
+    out_pletnum = 1;
+    out_pletden = 2;
+    }
   break;
 
   /* Clefs, keys, and times */

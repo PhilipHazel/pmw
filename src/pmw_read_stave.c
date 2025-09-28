@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 #include "pmw.h"
 
@@ -456,21 +456,25 @@ while (!done)
     else read_note();
     break;
 
-    /* Curly braces are used for plets. */
+    /* Curly braces are used for plets, which may be nested. */
 
     case '{':
-    if (brs.pletlen != 0)
-      {
-      error(ERR90);
-      read_nextc();
-      }
-    else
       {
       b_pletstr *p;
       usint  flags = 0;
       int32_t  adjustx = 0;
       int32_t  adjustyleft = srs.plety;
       int32_t  adjustyright = adjustyleft;
+
+      /* If this is a nested plet, push the existing parameters onto a stack. */
+
+      if (brs.pletlen != 0)
+        {
+        if (pletstackcount >= 2*MAX_PLETNEST - 2)
+          error(ERR194, MAX_PLETNEST);            /* Hard error */
+        pletstack[pletstackcount++] = brs.pletnum;
+        pletstack[pletstackcount++] = brs.pletlen;
+        }
 
       /* The length of each note in the plet will be multiplied by
       brs.pletnum, and divided by brs.pletlen. */
@@ -497,16 +501,11 @@ while (!done)
           }
         }
 
-      /* If a numerator was not provided and we are dividing into a power of
+      /* If a numerator was not provided and we are dividing by a power of
       two, assume we are dividing 3 into this number; otherwise assume 2. */
 
       if (brs.pletnum == 0) brs.pletnum =
         ((brs.pletlen & (-brs.pletlen)) == brs.pletlen)? 3 : 2;
-
-      /* Set a bit to remember which plets exist in this stave. This is for the
-      benefit of MusicXML output's code that sets its "divisions" value. */
-
-      srs.tuplet_bits |= 1 << (brs.pletlen - 1);
 
       /* If the number of irregular notes is more than twice the number of
       regular notes, we double the numerator, because the irregulars must be
@@ -515,6 +514,19 @@ while (!done)
 
       if (brs.pletlen >= 4 * brs.pletnum) brs.pletnum *= 4;
         else if (brs.pletlen >= 2 * brs.pletnum) brs.pletnum *= 2;
+
+      /* If this is a nested plet, multiply by the previous fraction. */
+
+      if (pletstackcount > 0)
+        {
+        brs.pletnum *= pletstack[pletstackcount - 2];
+        brs.pletlen *= pletstack[pletstackcount - 1];
+        }
+
+      /* Set a bit to remember which plets exist in this stave. This is for the
+      benefit of MusicXML output's code that sets its "divisions" value. */
+
+      srs.tuplet_bits |= 1 << (brs.pletlen - 1);
 
       /* Now deal with the options */
 
@@ -633,7 +645,12 @@ while (!done)
     case '}':
     if (brs.pletlen == 0) error(ERR90); else
       {
-      brs.pletlen = 0;
+      if (pletstackcount > 0)
+        {
+        brs.pletlen = pletstack[--pletstackcount];
+        brs.pletnum = pletstack[--pletstackcount];
+        }
+      else brs.pletlen = 0;
       (void)mem_get_item(sizeof(bstr), b_endplet);
       }
     read_nextc();
@@ -939,6 +956,8 @@ BOOL endstave = FALSE;
 int32_t stave;
 uint32_t lastnextbaroffset = 0;
 uint32_t nextbaroffset = 0;
+
+pletstackcount = 0;
 
 read_nextc();
 if (!read_expect_integer(&stave, FALSE, FALSE))

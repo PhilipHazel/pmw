@@ -201,15 +201,15 @@ while (p != NULL)
   p->halfway = 0;
   p->offset = 0;
 
-  /* If we are at an equals sign, just output the one equals character and 
+  /* If we are at an equals sign, just output the one equals character and
   remember we've had this case (for XML output); otherwise search for the end
   of the syllable. */
 
-  if (PCHAR(*s) == '=') 
+  if (PCHAR(*s) == '=')
     {
     s++;
-    st->hadlayequals = TRUE; 
-    } 
+    st->hadlayequals = TRUE;
+    }
   else while(Ustrchr("- =", PCHAR(*s)) == NULL) s++;
 
   /* Set string count - don't include a minus sign, but skip over it */
@@ -1210,7 +1210,12 @@ if (pletending)
   {
   if (brs.pletlen == 0) error(ERR126); else
     {
-    brs.pletlen = 0;
+    if (pletstackcount > 0)
+      {
+      brs.pletlen = pletstack[--pletstackcount];
+      brs.pletnum = pletstack[--pletstackcount];
+      }
+    else brs.pletlen = 0;
     (void)mem_get_item(sizeof(bstr), b_endplet);
     }
   }
@@ -1861,12 +1866,12 @@ for (;;)
 
   if (srs.matchnum > 0 && (flags & nf_centre) == 0)
     pn_notelength = mac_muldiv(pn_notelength, srs.matchnum, srs.matchden);
-    
+
   /* Keep track of the longest and shortest notes/rests. */
-  
+
   if (pn_notelength > srs.longest_note) srs.longest_note = pn_notelength;
-    else if (pn_notelength < srs.shortest_note) 
-      srs.shortest_note = pn_notelength;   
+    else if (pn_notelength < srs.shortest_note)
+      srs.shortest_note = pn_notelength;
 
   /* If a whole bar rest, flag it for centring unless we are in an unchecked
   bar. (If the rest was specified using the ! notation it will already be

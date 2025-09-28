@@ -33,6 +33,10 @@ r- {2 g-g-} R |
 [triplets auto] {g-g-g-};
 [triplets off] {g-g-g-}; [triplets on] |
 
+r {/a b'c' {g-g-g-} } r |
+r {/a g' {g-b'-g-} c'} r |
+r {/a {g-g-g-} g'c'} r |
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Ties
 

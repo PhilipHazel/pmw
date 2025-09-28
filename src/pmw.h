@@ -68,6 +68,7 @@
 #define MAX_MACRODEFAULT             256  /* Max length of macro default argument */
 #define MAX_MACRODEPTH                10  /* Depth of macro expansion nesting */
 #define MAX_POSTABLESIZE             400  /* Max number of entries */
+#define MAX_PLETNEST                   4  /* Max depth of plet nesting */
 #define MAX_REPEATSTYLE                4  /* Max repeat style */
 #define MAX_REPCOUNT                1000  /* Just to catch crazies */
 #define MAX_STAVE                     63  /* Highest stave number */
@@ -388,7 +389,7 @@ enum error_number {
   ERR160,ERR161,ERR162,ERR163,ERR164,ERR165,ERR166,ERR167,ERR168,ERR169,
   ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176,ERR177,ERR178,ERR179,
   ERR180,ERR181,ERR182,ERR183,ERR184,ERR185,ERR186,ERR187,ERR188,ERR189,
-  ERR190,ERR191,ERR192,ERR193
+  ERR190,ERR191,ERR192,ERR193,ERR194
 };
 
 /* Types of input file */

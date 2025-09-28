@@ -19,6 +19,11 @@ rithg-to-left mode.
 that is no longer used. Called pletden, I think in the distant past (before 
 5.00) it was part of some now-obsolete tuplet feature.
 
+6. Added basic support for MusicXML output, compiled conditionally with 
+MusicXML input. Still very experimental.
+
+7. Added support for nested tuplets.
+
 
 Version 5.32 25-June-2025
 -------------------------

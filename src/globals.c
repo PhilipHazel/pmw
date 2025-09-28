@@ -277,6 +277,9 @@ BOOL         PDFforced = FALSE;
 BOOL         PSforced = FALSE;
 BOOL         EPSforced = FALSE;
 
+uint32_t     pletstack[MAX_PLETNEST - 1];
+uint32_t     pletstackcount;
+
 BOOL         pout_changecolour = FALSE;
 int32_t      pout_curcolour[3] = {0, 0, 0};
 stavelist   *pout_curlist;

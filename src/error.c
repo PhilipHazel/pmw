@@ -294,7 +294,8 @@ aborts the run after outputting additional information. */
 { ec_major,   "misplaced [tremolo]: %s" },
 { ec_major,   "XML output internal error: %s" },
 { ec_failed,  "XML output internal error: %s" },
-{ ec_warning, "%s ignored: no MusicXML selection" }
+{ ec_warning, "%s ignored: no MusicXML selection" },
+{ ec_failed,  "tuplets nested too deep (max %d)" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))
