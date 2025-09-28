@@ -1,0 +1,16 @@
+@ This test contains stuff that seems to be ignored by all MusicXML renderers.
+@ If any of these are made to work on at least one renderer, they should be 
+@ moved into a different test.
+
+[stave 1 treble 1]
+
+@ Accidentals above/below notes
+
+#oa $ub %ug r |
+#o)a $u]b %u)g r |
+
+@ Beam breaks that are not standard
+
+g= , g= ; g= ,0 g= R. |
+
+[endstave]

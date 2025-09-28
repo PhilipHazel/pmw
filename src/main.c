@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: June 2025 */
+/* This file last modified: September 2025 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -53,6 +53,8 @@ static const char *arg_pattern =
   "midi/k,"
   "mb=midibars/k,"
   "mm=midimovement/k/n,"
+  "musicxml=xml/k,"
+  "musicxmlmovement=xmlmovement=xm/k/n,"
   "norc=nopmwrc/s,"
   "nr=norepeats=norepeat/s,"
   "nw=nowidechars/s,"
@@ -104,6 +106,8 @@ enum {
   arg_midi,
   arg_midibars,
   arg_midimovement,
+  arg_musicxml,
+  arg_musicxmlmovement,
   arg_norc,
   arg_norepeats,
   arg_nowidechars,
@@ -489,6 +493,10 @@ PF("-midi <file>          specify MIDI output file\n");
 PF("-midibars <range>     limit MIDI output to given bar range\n");
 PF("-midimovement <n>     specifies movement for MIDI output\n");
 PF("-mm <n>               synonym for -midimovement\n");
+#if SUPPORT_XML
+PF("-musicxml <file>      specify MusicXML output file\n");
+PF("-musicxmlmovement <n> select movement for MusicXML output\n");
+#endif
 #if !defined NO_PMWRC || NO_PMWRC == 0
 PF("-norc or -nopmwrc     don't read .pmwrc (must be first option)\n");
 #endif
@@ -508,6 +516,11 @@ PF("-s <list>             select staves\n");
 PF("-t <number>           set transposition\n");
 PF("-V                    output PMW version number, then exit\n");
 PF("-v                    output verification information\n");
+#if SUPPORT_XML
+PF("-xm <n>               synonym for -musicxmlmovement\n");
+PF("-xml <file>           synonym for -musicxml\n");
+PF("-xmlmovement <n>      synonym for -musicxmlmovement\n");
+#endif
 
 PF("\nPOSTSCRIPT-SPECIFIC OPTIONS\n\n");
 PF("-a4sideways           assume A4 paper fed sideways\n");
@@ -598,7 +611,8 @@ if (results[arg_C].text != NULL)
     exit(SUPPORT_B2PF);
     }
 
-  if (strcmp(results[arg_C].text, "musicxml") == 0)
+  if (strcmp(results[arg_C].text, "musicxml") == 0 ||
+      strcmp(results[arg_C].text, "xml") == 0)
     {
     printf("%d\n", SUPPORT_XML);
     exit(SUPPORT_XML);
@@ -720,6 +734,27 @@ if (results[arg_MV].text != NULL)
 
 if (results[arg_SM].text != NULL)
   stdmacs_dir = US results[arg_SM].text;
+
+/* Deal with XML output */
+
+if (results[arg_musicxml].text != NULL)
+  {
+#if SUPPORT_XML
+  outxml_filename = US results[arg_musicxml].text;
+#else
+  error(ERR3, "MusicXML output");
+#endif
+  }
+
+if (results[arg_musicxmlmovement].presence != arg_present_not)
+  {
+#if SUPPORT_XML
+  if (outxml_filename == NULL) error(ERR193, "-xmlmovement");
+    else outxml_movement = results[arg_musicxmlmovement].number;
+#else
+  error(ERR3, "MusicXML output");
+#endif
+  }
 
 /* Deal with MIDI output */
 
@@ -1244,7 +1279,8 @@ if (out_filename != NULL && Ustrcmp(out_filename, "-") != 0)
 else
   {
   out_file = stdout;
-  if (main_verify) eprintf( "\nWriting Postscript to stdout...\n");
+  if (main_verify)
+    eprintf( "\nWriting %s to stdout\n", PDF? "PDF" : "PostScript");
   }
 
 /* Set up for printing, and go for it */
@@ -1284,9 +1320,19 @@ if (main_error_136) error(ERR136);
 
 if (midi_filename != NULL)
   {
-  if (main_verify) eprintf("Writing MIDI file \"%s\"...\n", midi_filename);
+  if (main_verify) eprintf("Writing MIDI file \"%s\"\n", midi_filename);
   midi_write();
   }
+
+/* Write MusicXML output if required */
+
+#if SUPPORT_XML
+if (outxml_filename != NULL)
+  {
+  if (main_verify) eprintf("Writing MusicXML file \"%s\"\n", outxml_filename);
+  outxml_write();
+  }
+#endif
 
 if (main_verify) eprintf( "PMW done\n"); else TRACE("Done\n");
 

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 
 /*************************************************
@@ -12,6 +12,8 @@
 *************************************************/
 
 extern accent        accent_chars[];
+extern an2uencod     an2ulist[];
+extern size_t        an2ucount;
 
 extern const char   *clef_names[];
 
@@ -310,6 +312,11 @@ extern int32_t      out_ybarend;
 extern int32_t      out_ybarenddeep;
 extern int32_t      out_yposition;
 extern int32_t      out_ystave;
+
+#if SUPPORT_XML
+extern uschar      *outxml_filename;
+extern int          outxml_movement;
+#endif
 
 extern uint32_t     page_firstnumber;
 extern uint32_t     page_increment;

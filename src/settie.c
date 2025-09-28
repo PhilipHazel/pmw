@@ -2,9 +2,9 @@
 *    PMW code for setting tie/gliss/short slur   *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: July 2021 */
-/* This file last modified: December 2024 */
+/* This file last modified: August 2025 */
 
 
 #include "pmw.h"
@@ -230,11 +230,14 @@ if (abs(p0 - p1) > 5*P_T) co += 2000;
 
 /* If this is really a tie (the two notes have the same pitch) then it should
 be horizontal. One end may have been moved to avoid accents, etc. If this is
-the case, we adjust the other end to keep the tie horizontal. */
+the case, we adjust the other end to keep the tie horizontal. Also, for the
+benefit of XML output, set a flag on both notes. */
 
 if (n_pitch == left->spitch)
   {
   if ((above && p0 > p1) || (!above && p0 < p1)) p1 = p0; else p0 = p1;
+  left->flags |= nf_wastied;
+  n_lastnote->flags |= nf_wastied;
   }
 
 /* If this is really a slur, make sure that we haven't negated its sense by
@@ -413,7 +416,11 @@ for (int count = 0;
     }
   if (i >= leftcount) continue;   /* No matching note found */
 
-  /* Notes match; output a tie. */
+  /* Notes match; for the benefit of XML output, set a flag on both notes, the
+  output a tie. */
+
+  left->flags |= nf_wastied;
+  right->flags |= nf_wastied;
 
   below = (tiecount > 0 && !n_upflag) || (tiecount <= 0 && n_upflag);
   p0 = right->spitch;

@@ -1,0 +1,208 @@
+@ Basic XML output test
+
+@ Not all renderers handle these
+
+heading "Left|Centre|Right"
+heading "Second heading"
+
+key E$
+textsizes 10 25 20 8
+
+[stave 1 treble 1]
+cdef | gabc' ||
+#b` c #c $d |
+G+ |1 G+ |4 G+ |? G+ |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Chords
+
+(ceg) (Dfgb) r |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@Tuplets
+
+{gab} R |
+{/a gab} R |
+{5ggggg} |
+{5/n ggggg} |
+{5/x ggggg} |
+r- {2 g-g-} R |
+
+[triplets above] {g-g-g-};
+[triplets below] {g-g-g-};
+[triplets auto] {g-g-g-};
+[triplets off] {g-g-g-}; [triplets on] |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Ties
+
+a_a c'_/i c' | g_/ip g r a_ | a (gb)_(gc') r |
+c'_c' (c'e')_x | (cegc')_x x_/1a x |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Beams
+
+g-g- ; g=g-. ; g-.g= r |
+g-g-g-r- r g=g=g=g= |
+g=g=g- ; g-g=g= ; g-g=g- r= r- |
+g=g= , g=g= R. |
+g-g-.g= ; g- r- g- r |
+g==g==; g==g= r== r=r= R.|
+g-.g=g-g- ; g-g=g-.g- |
+c'-c'-; c'=c'= , c'=c'=; c'-.c'=; c'=c'-. |
+(g-b) x ; R. |
+(g-b-) r- x; r- R |
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Slurs
+
+[slur] gabg [es] |
+[slur/b] gabg [es] |
+[slur/b/i] gabg [es] |
+[slur/b/ip] gabg [es] |
+[slur] ga [xslur] [endslur] bg [es] |
+[slur] c' [slur/b] gg [es] c' [es] |
+[slur/=A] bagb [es/=A] |
+[slur/=A] b [slur/b/=B] agb [es/=A] [es/=B]|
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Short slurs, notated like ties
+
+g_a R | c'_d' R |
+[slur] g_a bc' [es] |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Lines
+
+[line/b] abba [el] | [line/i] abba [el] |
+[line/ip] abba [el] | [line/ol] abba [el] |
+[line/or] abba [el] | [line/ol/or] abba [el] |
+[line/a] a [line/b] bb [el] a [el] |
+[line/a/=A] a [line/b] bb [el/=A] a [el] |
+[line/b/d10] abba [el] |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Accents etc
+
+A\d\ A\u\ | [bowing below] A\d\ A\u\ [bowing above] |
+
+c'\d\ c'\u\ c'\o\ c'\.-\ |
+g\.\ g\..\ g\-\ g\>\ |
+g\V\ g\v\ R |
+
+c'\d!\ c'\u!\ c'\o!\ c'\.-!\ |
+g\.!\ g\..!\ g\-!\ g\>!\ |
+g\V!\ g\v!\ R |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Caesura, comma, tick
+
+g // g [comma] g [tick] g |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Ornaments
+
+g\f\ g\f!\ R |
+(c\ar\eg) (c\aru\eg) (c\ard\eg) r |
+
+g\tr\ g\tr#\ g\tr$\ g\tr%\ |
+
+g\/\ g\//\ g\///\ r |
+c'\/\ c'\//\ c'\///\ r |
+
+g\~\ g\~|\ g\~~\ g\~~|\ |
+
+c'\t\ c'\t|\ R |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Hairpins
+
+< ggg < r | > ggg > r |
+</w10 ggg < r | >/w4 ggg > r |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Repeats and nth-time bars
+
+(: abcd :) | (: abcd |  abcd :) | R! |
+[1st] GG :)| [2nd] AA | [all] Bbb | R! |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Text other than rehearsal and lyrics
+
+"abc" g "xyz"/a g "pqr"/box g "123"/ring/a g |
+"abcd"/rot30 g "abcd"/rot-30 g "centred"/c g "right"/a/e g |
+
+"italic \rm\roman \bi\bold italic" g
+"2"/a/s2 g
+"3"/a/s3 g
+"4"/a/s4 g
+|
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Basic rehearsal marks (another movt for opts)
+
+["A"] G+ |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Underlay aka lyrics
+
+[text underlay]
+
+"First verse mul-ti-syl-la-ble. Many===notes."
+"Verse two"
+
+gggg | aaar | g=x3 G r |
+"glo-"  g=a=b=g= "= ria" g G |
+"A-===B" g-g-ggg |
+"A#B" G "^XY" G |
+"`A' \`A\' A\-B A\=B A\#B" GG | GG | G+ |
+"o-ver-lay text"/ol gggg |
+"centre # ^left" gggg |
+[text below]
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Common and cut time
+
+[time C] G+ | [time A] G+ |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Clefs and [newpage]
+
+[newpage]
+[alto] R! |
+[baritone] R! |
+[bass] R! |
+[cbaritone] R! |
+[contrabass] R! |
+[deepbass] R! |
+[hclef] R! |
+[mezzo] R! |
+[noclef 1] G+ |
+[soprabass] R! |
+[soprano] R! |
+[tenor] R! |
+[trebledescant] R! |
+[trebletenor] R! |
+[trebletenorB] R! |
+
+[treble 1] R! |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Reset and backup
+
+[stems up] c' x2 [reset stems down] g x3 |
+[stems up] c' x2 [backup stems down] g x |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Tremolo between notes and masquerade
+
+g\M\ [tremolo] b\M\ R |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Assume clef, key, time; also [newline]
+
+R! | [assume bass 0] D+ | [assume time 3/4][assume key c] G. |
+[newline] G. | [assume treble 1 time A] G+ |
+
+[endstave]

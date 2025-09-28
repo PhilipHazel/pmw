@@ -1,0 +1,11 @@
+@ A second set of tests for things that need a new movement.
+
+rehearsalmarks ringed 15 italic
+
+[stave 1 treble 1]
+
+@ Rehearsal marks
+
+R! | ["A"] G+ |
+
+[endstave]

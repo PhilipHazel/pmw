@@ -2,9 +2,9 @@
 *        PMW native input reading functions     *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: March 2021 */
-/* This file last modified: July 2025 */
+/* This file last modified: September 2025 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -201,11 +201,16 @@ while (p != NULL)
   p->halfway = 0;
   p->offset = 0;
 
-  /* If we are at an equals sign, just output the one equals character;
-  otherwise search for the end of the syllable. */
+  /* If we are at an equals sign, just output the one equals character and 
+  remember we've had this case (for XML output); otherwise search for the end
+  of the syllable. */
 
-  if (PCHAR(*s) == '=') s++;
-    else while(Ustrchr("- =", PCHAR(*s)) == NULL) s++;
+  if (PCHAR(*s) == '=') 
+    {
+    s++;
+    st->hadlayequals = TRUE; 
+    } 
+  else while(Ustrchr("- =", PCHAR(*s)) == NULL) s++;
 
   /* Set string count - don't include a minus sign, but skip over it */
 
@@ -1856,6 +1861,12 @@ for (;;)
 
   if (srs.matchnum > 0 && (flags & nf_centre) == 0)
     pn_notelength = mac_muldiv(pn_notelength, srs.matchnum, srs.matchden);
+    
+  /* Keep track of the longest and shortest notes/rests. */
+  
+  if (pn_notelength > srs.longest_note) srs.longest_note = pn_notelength;
+    else if (pn_notelength < srs.shortest_note) 
+      srs.shortest_note = pn_notelength;   
 
   /* If a whole bar rest, flag it for centring unless we are in an unchecked
   bar. (If the rest was specified using the ! notation it will already be

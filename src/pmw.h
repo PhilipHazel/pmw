@@ -6,7 +6,7 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
@@ -388,7 +388,7 @@ enum error_number {
   ERR160,ERR161,ERR162,ERR163,ERR164,ERR165,ERR166,ERR167,ERR168,ERR169,
   ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176,ERR177,ERR178,ERR179,
   ERR180,ERR181,ERR182,ERR183,ERR184,ERR185,ERR186,ERR187,ERR188,ERR189,
-  ERR190
+  ERR190,ERR191,ERR192,ERR193
 };
 
 /* Types of input file */
@@ -396,7 +396,7 @@ enum error_number {
 enum filetype { FT_AUTO, FT_PMW, FT_ABC, FT_MXML };
 
 /* Clef identifiers. Keep in step with the clef_names list in tables, and
-various data tables in out.c. */
+various data tables in out.c and xmlout.c. */
 
 enum {
   clef_alto,
@@ -655,6 +655,7 @@ space in 32-bits. */
 #define nf_stemup      0x04000000u  /* Stem direction */
 #define nf_tripletize  0x08000000u  /* Check note for tripletizing */
 #define nf_stemcent    0x10000000u  /* Place stem central to note */
+#define nf_wastied     0x20000000u  /* Tie was output (for XML output) */
 
 #define nf_couple      (nf_coupleU+nf_coupleD)
 #define nf_dotted      (nf_dot+nf_dot2+nf_plus)
@@ -724,11 +725,17 @@ enum { accent_none, accent_staccato, accent_bar, accent_gt, accent_wedge,
 /* Ornament types. These are for rarer things. Accidentals above/below notes
 are handled as ornaments. These values must all be less than 256, and if ever
 there are more than 32 real ornaments, recoding in read_note() will be
-necessary (flag bits are used to handle duplication). */
+necessary (flag bits are used to handle duplication). 
+
+NOTE: Any extension or re-arrangement of this list must be matched by 
+corresponding adjustments to the tables in setnote.c whose names begin with 
+"ornament_". */
 
 enum {
   or_unset,       /* No ornament */
-  or_ferm,        /* Fermata */
+
+  /* In XML output, these come under <ornament> under <notations>. */
+
   or_tr,          /* Trill */
   or_trsh,        /* Trill + sharp */
   or_trfl,        /* Trill + flat */
@@ -742,10 +749,15 @@ enum {
   or_dimord,      /* Double inverted mordent */
   or_turn,        /* Turn */
   or_iturn,       /* Inverted Turn */
+  or_spread,      /* Spread */
+
+  /* These come directly under <notations> in XML output. Fermata must be
+  first. */
+
+  or_ferm,        /* Fermata */
   or_arp,         /* Arpeggio */
   or_arpu,        /* Arpeggio + up arrow */
   or_arpd,        /* Arpeggio + down arrow */
-  or_spread,      /* Spread */
 
   /* These triples must be in the standard accidental ordering, and must be
   last in this enumeration. Each triple defines an above/below accidental as an

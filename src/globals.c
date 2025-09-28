@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: April 2025 */
+/* This file last modified: September 2025 */
 
 #include "pmw.h"
 
@@ -263,6 +263,11 @@ int32_t      out_ybarend;
 int32_t      out_ybarenddeep;
 int32_t      out_yposition;
 int32_t      out_ystave;
+
+#if SUPPORT_XML
+uschar      *outxml_filename = NULL;
+int          outxml_movement = 1;
+#endif
 
 uint32_t     page_firstnumber = 1;
 uint32_t     page_increment = 1;

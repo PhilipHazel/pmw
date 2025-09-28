@@ -43,7 +43,7 @@ fi
 dnl Handle --enable-musicxml
 SUPPORT_XML=0
 AC_ARG_ENABLE(musicxml,
-  AS_HELP_STRING([--enable-musicxml], [enable support for MusicXML input]),
+  AS_HELP_STRING([--enable-musicxml], [enable support for MusicXML]),
   , enable_musicxml=unset)
 
 if test "x$enable_musicxml" = "xunset"; then enable_musicxml=no; fi
@@ -89,7 +89,7 @@ PMW configuration summary:
     Default output format ............: ${pdf_default}
     Support .pmwrc file ..............: ${enable_pmwrc}
     Support B2PF text processing .....: ${enable_b2pf}
-    Support for MusicXML input .......: ${enable_musicxml}
+    Support for MusicXML .............: ${enable_musicxml}
 
 EOF
 

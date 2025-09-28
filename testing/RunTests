@@ -48,6 +48,7 @@ elsif (! -r "../fontextra/AdobeArabic-Regular.afm" ||
 if (system("$pmw -C musicxml >/dev/null") == 0)
   {
   push @skipdirs, "xml";
+  push @skipdirs, "xout";
   }
 
 if (system("midicsv /dev/null /dev/null >/dev/null 2>&1") == 0x7f00)
@@ -164,6 +165,10 @@ while (scalar @dirs > 0)
   my($tests) = shift @dirs;
   my($outs) = shift @dirs;
   my($filecount) = 0;
+  my($specialopt) = "";
+
+  $specialopt = "-midi test.mid" if $tests =~ /^miditests$/;
+  $specialopt = "-xml test.xml" if $tests =~ /^xouttests$/;
 
   if ($show_progress)
     {
@@ -219,6 +224,7 @@ while (scalar @dirs > 0)
     unlink "test.out";
     unlink "test.txt";
     unlink "test.mid";
+    unlink "test.xml";
 
     # If "view" has been requested, run pmw without -testing and display any
     # PostScript output that it produces, before going on to do the actual
@@ -287,7 +293,7 @@ while (scalar @dirs > 0)
 
       $testing = 3 if ($pdf eq "-pdf" && -e "$tests/$file.pdfinc");
 
-      my($rc) = system("$valgrind $pmw -norc $pdf $header -testing $testing $options $fontsearch -o test.out $tests/$file" .
+      my($rc) = system("$valgrind $pmw -norc $pdf $header -testing $testing $options $specialopt $fontsearch -o test.out $tests/$file" .
                         " -MF ../psfonts" .
                         " -MP ../MIDIperc" .
                         " -MV ../MIDIvoices" .
@@ -474,6 +480,69 @@ while (scalar @dirs > 0)
               }
             }
           }
+        else { printf "Test $file OK MIDI\n"; }
+        }
+
+      # If there's an XML output file, compare it.
+
+      if (-e "$outs/$file.xml" || -e "test.xml")
+        {
+        if (! -e "$outs/$file.xml")
+          {
+          printf("There is XML output, but $outs/$file.xml does not exist.\n");
+          exit 1;
+          }
+
+        if (! -e "test.xml")
+          {
+          printf("There is no XML output, but $outs/$file.xml exists.\n");
+          exit 1;
+          }
+
+        $rc = system("$cf $outs/$file.xml test.xml >test.cf");
+
+        if ($rc != 0)
+          {
+          # printf("XML cf RC=$rc\n");
+          system("$less test.cf");
+
+          $testOK = 0;
+          for (;;)
+            {
+            print "Continue, Update & retry, Quit? [Q] ";
+
+            if ($force_quit)
+              {
+              $_ = 'q';
+              print "... quit forced\n";
+              }
+            elsif ($force_update)
+              {
+              $_ = "u";
+              print "... update forced\n";
+              }
+            else
+              {
+              open(T, "/dev/tty") || die "Failed to open /dev/tty: $!\n";
+              $_ = <T>;
+              close(T);
+              }
+
+            exit 1 if /^q?$/i;
+            last if /^c$/i;
+
+            if (/^u$/)
+              {
+              exit 1 if system("cp test.xml $outs/$file.xml") != 0;
+              unshift @files, $file;
+              print (("#" x 79) . "\n");
+              last;
+              }
+            }
+
+          redo if /^u$/;   # Repeat the test
+          }
+        else { printf "Test $file OK XML\n"; }
         }
 
       if ($testOK)
@@ -482,9 +551,10 @@ while (scalar @dirs > 0)
         # system("gzip $outs/$file") if (-e "$outs/$file");
         }
 
-      # If just done PostScript, repeat for PDF.
+      # If just done PostScript, repeat for PDF unless running MIDI or XML
+      # output tests.
 
-      if ($pdf eq "-ps" && $dopdf)
+      if ($pdf eq "-ps" && $dopdf && $specialopt =~ /^$/)
         {
         $pdf = "-pdf";
         $header = "";

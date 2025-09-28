@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: June 2025 */
+/* This file last modified: August 2025 */
 
 #include "pmw.h"
 
@@ -253,7 +253,7 @@ aborts the run after outputting additional information. */
 { ec_failed,  "malformed MIDI bar selection on command line" },
 { ec_major,   "MIDI %s bar %s not found in movement %d: no MIDI data written" },
 /* 160-164 */
-{ ec_major,   "there are no bars in movement %d: no MIDI data written" },
+{ ec_major,   "there are no bars in movement %d: no %s data written" },
 { ec_major,   "incomplete irregular note group at end of bar" },
 { ec_failed,  "malformed -dbd option data (needs 1-3 comma-separated numbers)" },
 { ec_failed,  "-dbd error: %s %d does not exist" },
@@ -289,9 +289,12 @@ aborts the run after outputting additional information. */
 { ec_failed,  "Type 3 font (%s) is not supported in PDF mode" },
 { ec_failed,  "the \"%s\" directive is incompatible with a previous %s\n"
               "   setting (either a directive or a command line option)" },
-{ ec_major,   "movement %d does not exist: no MIDI data written" },
+{ ec_major,   "movement %d does not exist: no %s data written" },
 /* 190-194 */
-{ ec_major,   "misplaced [tremolo]: %s" }
+{ ec_major,   "misplaced [tremolo]: %s" },
+{ ec_major,   "XML output internal error: %s" },
+{ ec_failed,  "XML output internal error: %s" },
+{ ec_warning, "%s ignored: no MusicXML selection" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

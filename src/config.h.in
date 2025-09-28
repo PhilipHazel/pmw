@@ -7,7 +7,7 @@ used as a basis for config.h. */
 /* Define SUPPORT_B2PF non-zero to include support for B2PF text processing. */
 #define SUPPORT_B2PF @SUPPORT_B2PF@
 
-/* Define SUPPORT_XML non-zero to include support for MusicXML input files. */
+/* Define SUPPORT_XML non-zero to include support for MusicXML files. */
 #define SUPPORT_XML @SUPPORT_XML@
 
 /* Define PDF_DEFAULT non-zero to make the default output format PDF. */

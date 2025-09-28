@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: July 2025 */
+/* This file last modified: August 2025 */
 
 #include "pmw.h"
 
@@ -107,10 +107,10 @@ given in style 0 - there is a fudge when used to add one to the character
 values. */
 
 static const char *ornament_strings[] = {
-/* none  ferm  tr  trsh trfl trnat trem1 trem2 trem3 */
-    "",   "",  "",  "",  "",  "",   "",   "",   "",
-/* mord  dmord  imord dimord turn iturn arp arpu arpd spread */
-   "O",   "P",   "Q",  "R",   "S", "i", "",   "", "",   "",
+/* none tr  trsh trfl trnat trem1 trem2 trem3 */
+    "", "",  "",  "",  "",   "",   "",   "",
+/* mord  dmord  imord dimord turn iturn spread ferm arp arpu arpd */
+   "O",   "P",   "Q",  "R",   "S", "i",   "",   "", "", "",   "",
 /* nat         natrb              natsb */
    "(",        "\215(\216",       "\213(\214",
 /* hsharp      hsharprb           hsharpsb    (style 0) */
@@ -141,13 +141,18 @@ static int ornament_xadjusts[] = {
 
 static int ornament_yaadjusts[] = {
   0,
-  0,         /* Fermata */
   -1000,     /* Trill */
-  -4000,
-  -4000,
-  -4000,
-  0, 0, 0,
-  0, 0, -2000, -2000, -1000, -1000, 0, 0, 0, 0,
+  -4000,     /* Trill + sharp */
+  -4000,     /* Trill + flat */
+  -4000,     /* Trill + natural */
+  0, 0, 0,   /* Tremolos */
+  0, 0,      /* Mordent, double mordent */
+  -2000,     /* Inverted mordent */
+  -2000,     /* Double inverted mordent */
+  -1000,     /* Turn */
+  -1000,     /* Inverted turn */
+  0, 0,      /* Spread, fermata */
+  0, 0, 0,   /* Arpeggios */
   3000, 3000, 3000,  /* naturals */
   3000, 3000, 3000,  /* hsharps */
   3000, 3000, 3000,  /* sharps */
@@ -159,13 +164,12 @@ static int ornament_yaadjusts[] = {
 
 static int ornament_ybadjusts[] = {
   0,
-  0,         /* Fermata */
   -1000,     /* Trill */
-  2000,
-  2000,
-  2000,
-  0, 0, 0,
-  0, 0, 2000, 2000, 1000, 1000, 0, 0, 0, 0,
+  2000,      /* + sharp */
+  2000,      /* + flat */
+  2000,      /* + natural */
+  0, 0, 0,   /* Tremolos */
+  0, 0, 2000, 2000, 1000, 1000, 0, 0, 0, 0, 0,
   -2000, -2000, -2000,  /* naturals */
   -2000, -2000, -2000,  /* hsharps */
   -2000, -2000, -2000,  /* sharps */
@@ -175,13 +179,12 @@ static int ornament_ybadjusts[] = {
   -3000, -4000, -4000   /* dflats */
 };
 
-/* These tables need only go up to or_iturn, as accidentals are handled
-specially and already have a bracketting facility, and arpeggios and spread
-chords can't be bracketed. */
+/* These tables need only go up to or_ferm, as accidentals are handled
+specially and already have a bracketting facility, and arpeggios can't be
+bracketed. */
 
 static int ornament_xbrackadjustsL[] = {
   0,
-  4000,    /* Fermata */
   3000,    /* Trill */
   3000,    /* Trill with sharp */
   3000,    /* Trill with flat */
@@ -192,12 +195,13 @@ static int ornament_xbrackadjustsL[] = {
   2500,    /* Inverted mordent */
   2500,    /* Double inverted mordent */
   2500,    /* Turn */
-  2500     /* Inverted turn */
+  2500,    /* Inverted turn */
+  0,       /* Spread  - never bracketed */
+  4000     /* Fermata */
 };
 
 static int ornament_xbrackadjustsR[] = {
   0,
-  4000,    /* Fermata */
   3000,    /* Trill */
   3000,    /* Trill with sharp */
   3000,    /* Trill with flat */
@@ -208,7 +212,9 @@ static int ornament_xbrackadjustsR[] = {
   2600,    /* Inverted mordent */
   5500,    /* Double inverted mordent */
   3500,    /* Turn */
-  3500     /* Inverted turn */
+  3500,    /* Inverted turn */
+  0,       /* Spread - never bracketed */
+  4000,    /* Fermata */
 };
 
 
