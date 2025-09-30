@@ -8,7 +8,7 @@
 
 /* -------- General functions -------- */
 
-extern void         debug_bar(void);
+extern void         debug_bar(const char *);
 extern void         debug_header(void);
 extern void         debug_memory_usage(void);
 extern void         debug_string(uint32_t *);

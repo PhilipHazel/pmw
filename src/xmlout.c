@@ -1140,13 +1140,13 @@ for (;;)
   if (plet_pending_count > 0)
     {
     for (int i = 0; i < plet_pending_count; i++)
-      { 
+      {
       plet_actual[++plet_level] = plet_pending[i]->pletlen;
       plet_normal[plet_level] = plet_pending[i]->pletnum;
-      } 
+      }
     }
 
-  /* This note is in a tuplet. If it is nested, we have to divide the 
+  /* This note is in a tuplet. If it is nested, we have to divide the
   parameters by the previous set. */
 
   if (plet_actual[plet_level] != 0)
@@ -1156,8 +1156,8 @@ for (;;)
     if (plet_level > 1)
       {
       actual /= plet_actual[plet_level - 1];
-      normal /= plet_normal[plet_level - 1];  
-      }    
+      normal /= plet_normal[plet_level - 1];
+      }
     PA("<time-modification>");
     PN("<actual-notes>%d</actual-notes>", actual);
     PN("<normal-notes>%d</normal-notes>", normal);
@@ -1512,35 +1512,35 @@ for (;;)
   if (plet_pending_count > 0)
     {
     for (int i = 0; i < plet_pending_count; i++)
-      {  
-      uint32_t flags = plet_pending[i]->flags; 
+      {
+      uint32_t flags = plet_pending[i]->flags;
       const char *bracket = (beam_state >= 0)? "no" : "yes";
       const char *placement, *show;
-      
+
       if ((flags & plet_bn) != 0) bracket = "no";
       if ((flags & plet_by) != 0) bracket = "yes";
-      
+
       if ((flags & plet_a) != 0) placement = "above";
       else if ((flags & plet_b) != 0) placement = "below";
       else placement = ((note->flags & nf_stemup) == 0)? "above" : "below";
-      
+
       if ((flags & plet_x) != 0 || !plet_enable)
         {
         bracket = "no";
         show = "none";
         }
       else show = "actual";
-      
+
       if (!notations_open)
         {
         PA("<notations>");
         notations_open = TRUE;
         }
-      
+
       PN("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
         "placement=\"%s\" show-number=\"%s\"/>",
         plet_level - plet_pending_count + i + 1, bracket, placement, show);
-      }   
+      }
 
     plet_pending_count = 0;
     }
@@ -3016,14 +3016,10 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
       barno_t1 = barno_t2;
       }
 
-    /* Debugging; if this bar's original contents were shown; reshow. */
-
-    if (dbd_bar >= 0)
-      {
-      eprintf("\n---- After inserting \"=\" underlay items for XML ----\n");
-      debug_bar();
-      }
+    DEBUG(D_barX) debug_bar("After inserting \"=\" underlay items for XML");
     }
+    
+  else DEBUG(D_barX) eprintf("\n---- No changes made for XML output ----\n"); 
 
   /* Reset underlay states */
 

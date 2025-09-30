@@ -20,6 +20,28 @@ latter are created when you run the "autoconf" command. The top-level Makefile
 calls src/Makefile to build the pmw binary within the src directory.
 
 
+DEBUGGING AIDS
+==============
+
+The command line -d option can be used to request debugging output. It must be 
+followed, without any space, by one or more debug selectors, separated by plus 
+or minus signs, which add or remove the selector, respectively. For example:
+
+  pmw -d+headers some.file
+  
+The -help option lists all the selectors. The "trace" selector tracks the path 
+through the various code functions. The various "bar" selectors output the 
+internal bar data at different parts of the processing; "bar" and "barR" are 
+synonymous, and show the data immediately after the input has been read; "barP" 
+shows it after pagination; "barO" after the main output is written. If MusicXML 
+output is requested, "barX" shows the bar data if it gets modified for underlay 
+continuation handling. Without other options, the "bar" selectors show all 
+bars; the -dbd option can be used to restrict the output to a single bar, and 
+it implies -d+bar.
+
+See also some comments in the main documentation.   
+
+
 PROCESSING OVERVIEW
 ===================
 
@@ -568,5 +590,6 @@ FONT MAINTENANCE
 Maintenance of the PMW-Music and PMW-Alpha fonts happens in the fontmaint
 directory. There's a README file with details.
 
+
 Philip Hazel
-July 2025
+September 2025

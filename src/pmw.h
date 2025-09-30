@@ -345,22 +345,26 @@ debug decoding. */
 
 #define D_all          0xffffffffu
 #define D_any          0x00000001u
-#define D_bar          0x00000002u
-#define D_font         0x00000004u
-#define D_header_all   0x00000008u
-#define D_header_glob  0x00000010u
-#define D_macro        0x00000020u
-#define D_memory       0x00000040u
-#define D_memorydetail 0x00000080u
-#define D_movtflags    0x00000100u
-#define D_preprocess   0x00000200u
-#define D_sortchord    0x00000400u
-#define D_stringwidth  0x00000800u
-#define D_trace        0x00001000u
-#define D_xmlanalyze   0x00002000u
-#define D_xmlgroups    0x00004000u
-#define D_xmlread      0x00008000u
-#define D_xmlstaves    0x00010000u
+#define D_bar          0x00000002u  /* ) Synonymous */
+#define D_barR         0x00000002u  /* )            */
+#define D_barP         0x00000004u
+#define D_barO         0x00000008u
+#define D_barX         0x00000010u
+#define D_font         0x00000020u
+#define D_header_all   0x00000040u
+#define D_header_glob  0x00000080u
+#define D_macro        0x00000100u
+#define D_memory       0x00000200u
+#define D_memorydetail 0x00000400u
+#define D_movtflags    0x00000800u
+#define D_preprocess   0x00001000u
+#define D_sortchord    0x00002000u
+#define D_stringwidth  0x00004000u
+#define D_trace        0x00008000u
+#define D_xmlanalyze   0x00010000u
+#define D_xmlgroups    0x00020000u
+#define D_xmlread      0x00040000u
+#define D_xmlstaves    0x00080000u
 
 #define DEBUG(x)       if ((debug_selector & (x)) != 0)
 #define TRACE(...)     if ((debug_selector & D_trace) != 0) \

@@ -2,9 +2,9 @@
 *            PMW debugging functions             *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: September 2025 */
 
 #include "pmw.h"
 
@@ -1468,8 +1468,10 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
 *************************************************/
 
 void
-debug_bar(void)
+debug_bar(const char *when)
 {
+eprintf("\n---- %s ----\n", when);
+
 if (dbd_bar >= 0)
   {
   movtstr *m;

@@ -2,9 +2,9 @@
 *             PMW pagination functions           *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: April 2021 */
-/* This file last modified: July 2023 */
+/* This file last modified: September 2025 */
 
 #include "pmw.h"
 
@@ -4818,6 +4818,7 @@ while (!page_done) switch(page_state)
   }
 
 TRACE("paginate() end\n\n");
+DEBUG(D_barP) debug_bar("After pagination");
 }
 
 /* End of paginate.c */

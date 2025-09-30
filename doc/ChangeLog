@@ -24,6 +24,8 @@ MusicXML input. Still very experimental.
 
 7. Added support for nested tuplets.
 
+8. Regularised debugging support for looking at internal bar data.
+
 
 Version 5.32 25-June-2025
 -------------------------

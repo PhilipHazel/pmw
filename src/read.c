@@ -2,9 +2,9 @@
 *         PMW general reading functions          *
 *************************************************/
 
-/* Copyright Philip Hazel 2024 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: December 2024 */
+/* This file last modified: September 2025 */
 
 #include "pmw.h"
 
@@ -501,7 +501,7 @@ DEBUG(D_movtflags)
   }
 
 DEBUG(D_header_all|D_header_glob) debug_header();
-DEBUG(D_bar) debug_bar();
+DEBUG(D_bar) debug_bar("After reading input");
 }
 
 /* End of read.c */

@@ -149,6 +149,10 @@ static debug_bit_table debug_options[] = {
   { US"all",             D_all },
   { US"any",             D_any },
   { US"bar",             D_bar },
+  { US"barO",            D_barO },
+  { US"barP",            D_barP },
+  { US"barR",            D_barR },
+  { US"barX",            D_barX },
   { US"font",            D_font },
   { US"header",          D_header_all },
   { US"headerglob",      D_header_glob },
@@ -544,9 +548,12 @@ PF("-SM <directory>       specify standard macros directory\n");
 PF("-testing [<n>]        run in testing mode\n");
 
 PF("\nDebug selectors (+ to add, - to subtract):");
-for (long unsigned int i = 0; i < DEBUG_OPTIONS_COUNT; i++)
+for (usint i = 0, j = 0; i < DEBUG_OPTIONS_COUNT; i++)
   {
-  if ((i & 7) == 0) PF("\n ");
+  if (Ustrcmp(debug_options[i].name, US "any") == 0 ||
+      Ustrcmp(debug_options[i].name, US "macros") == 0)
+    continue;
+  if ((j++ & 7) == 0) PF("\n ");
   (void)printf(" %s", debug_options[i].name);
   }
 PF("\n");
@@ -1311,6 +1318,8 @@ main_state = STATE_WRITE;
 if (PDF) pdf_go(); else ps_go();
 if (out_file != stdout) fclose(out_file);
 main_state = STATE_ENDING;
+
+DEBUG(D_barO) debug_bar("After writing main output");
 
 /* Output warning if coupled staves were not spaced by a multiple of 4 */
 
