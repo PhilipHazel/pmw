@@ -28,6 +28,8 @@ width of "\rm\abc" = 13.88 at size 10
 
 End PMW read
 
+---- After reading input ----
+
 MOVEMENT 1
 
 STAVE 0

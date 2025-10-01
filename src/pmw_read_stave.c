@@ -416,7 +416,9 @@ while (!done)
 
     case '/':
     read_nextc();
-    if (read_c != '/') error(ERR8, "'/' (to make // for caesura)"); else
+    if (read_c != '/') 
+      error_skip(ERR8, ' ', "'/' (to make // for caesura)"); 
+    else
       {
       (void)mem_get_item(sizeof(bstr), b_caesura);
       read_nextc();

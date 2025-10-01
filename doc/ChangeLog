@@ -26,6 +26,9 @@ MusicXML input. Still very experimental.
 
 8. Regularised debugging support for looking at internal bar data.
 
+9. A stray '/' in stave input now skips to the next space after giving an 
+error, instead of trying to interpret what follows.
+
 
 Version 5.32 25-June-2025
 -------------------------

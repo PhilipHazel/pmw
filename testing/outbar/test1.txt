@@ -1,4 +1,6 @@
 
+---- After reading input ----
+
 MOVEMENT 1
 
 STAVE 0
