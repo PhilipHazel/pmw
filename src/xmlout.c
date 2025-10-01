@@ -494,7 +494,7 @@ while (*s != 0 && count < length)
   uint32_t *sb = s;
   uint32_t f = PFONT(*s);
 
-  while (*s != 0 && count++ < length && PFONT(*s) == f) s++;
+  while (count++ < length && *s != 0 && PFONT(*s) == f) s++;
   save = *s;
   *s = 0;        /* Temporary terminator */
 
@@ -3026,8 +3026,8 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
 
     DEBUG(D_barX) debug_bar("After inserting \"=\" underlay items for XML");
     }
-    
-  else DEBUG(D_barX) eprintf("\n---- No changes made for XML output ----\n"); 
+
+  else DEBUG(D_barX) eprintf("\n---- No changes made for XML output ----\n");
 
   /* Reset underlay states */
 
