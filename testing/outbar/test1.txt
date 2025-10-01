@@ -29,13 +29,13 @@ BAR 1 (2)
   barline type=0 style=0
 
 BAR 2 (3)
-  ornament 19 flags=0x00 x=0 y=0
+  ornament 21 flags=0x00 x=0 y=0
   %f flags=0x06000001 length=2882880 P_1S 1F
-  ornament 40 flags=0x00 x=0 y=0
+  ornament 42 flags=0x00 x=0 y=0
   %f flags=0x06000001 length=2882880 P_1S 1F
-  ornament 25 flags=0x00 x=0 y=0
+  ornament 27 flags=0x00 x=0 y=0
   #g flags=0x06000001 length=2882880 P_2L 1G#
-  ornament 46 flags=0x00 x=0 y=0
+  ornament 48 flags=0x00 x=0 y=0
   #g flags=0x06000001 length=2882880 P_2L 1G#
   barline type=0 style=0
 
@@ -128,9 +128,9 @@ BAR 14 (15)
   g flags=0x06008000 length=2882880 P_2L 1G
   g acflags=0x20000000 flags=0x06000000 length=2882880 P_2L 1G
   g acflags=0x02000000 flags=0x06000000 length=2882880 P_2L 1G
-  ornament 15 flags=0x00 x=0 y=0
+  ornament 17 flags=0x00 x=0 y=0
   g flags=0x06000000 length=2882880 P_2L 1G
-  ornament 15 flags=0x00 x=0 y=0
+  ornament 17 flags=0x00 x=0 y=0
   g acflags=0x80000000 flags=0x06000000 length=2882880 P_2L 1G
   barline type=0 style=0
 
@@ -163,7 +163,7 @@ BAR 17 (18)
   g flags=0x06000000 length=2882880 P_2L 1G
   g flags=0x06000003 length=2882880 P_2L 1G
   g flags=0x06000003 length=2882880 P_2L 1G
-  ornament 15 flags=0x00 x=0 y=0
+  ornament 17 flags=0x00 x=0 y=0
   G flags=0x06000003 length=5765760 P_2L 1G
   g flags=0x02000000 length=2882880 P_2L 1G
   c flags=0x06000000 length=2882880 P_3S 2C
@@ -195,25 +195,25 @@ BAR 19 (20)
   barline type=0 style=0
 
 BAR 20 (21)
-  ornament 16 flags=0x00 x=0 y=0
-  (
-  g flags=0x06000040 length=2882880 P_2L 1G
-  e flags=0x06000040 length=2882880 P_1L 1E
-  c flags=0x06000040 length=2882880 P_0L 1C
-  )
-  ornament 17 flags=0x00 x=0 y=0
-  (
-  c flags=0x02000040 length=2882880 P_3S 2C
-  e flags=0x02000040 length=2882880 P_4S 2E
-  g flags=0x02000040 length=2882880 P_5S 2G
-  )
   ornament 18 flags=0x00 x=0 y=0
   (
   g flags=0x06000040 length=2882880 P_2L 1G
   e flags=0x06000040 length=2882880 P_1L 1E
   c flags=0x06000040 length=2882880 P_0L 1C
   )
-  ornament 14 flags=0x00 x=0 y=0
+  ornament 19 flags=0x00 x=0 y=0
+  (
+  c flags=0x02000040 length=2882880 P_3S 2C
+  e flags=0x02000040 length=2882880 P_4S 2E
+  g flags=0x02000040 length=2882880 P_5S 2G
+  )
+  ornament 20 flags=0x00 x=0 y=0
+  (
+  g flags=0x06000040 length=2882880 P_2L 1G
+  e flags=0x06000040 length=2882880 P_1L 1E
+  c flags=0x06000040 length=2882880 P_0L 1C
+  )
+  ornament 16 flags=0x00 x=0 y=0
   (
   c flags=0x02000040 length=2882880 P_3S 2C
   e flags=0x02000040 length=2882880 P_4S 2E

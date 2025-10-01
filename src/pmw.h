@@ -6,7 +6,7 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
@@ -753,7 +753,9 @@ enum {
   or_imord,       /* Inverted mordent */
   or_dimord,      /* Double inverted mordent */
   or_turn,        /* Turn */
-  or_iturn,       /* Inverted Turn */
+  or_iturn,       /* Inverted turn (vertical line) */
+  or_rturn,       /* Reversed turn (flipped about vertical axix) */
+  or_irturn,      /* Inverted reversed turn */  
   or_spread,      /* Spread */
 
   /* These come directly under <notations> in XML output. Fermata must be

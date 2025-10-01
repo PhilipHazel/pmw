@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: August 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -109,8 +109,10 @@ values. */
 static const char *ornament_strings[] = {
 /* none tr  trsh trfl trnat trem1 trem2 trem3 */
     "", "",  "",  "",  "",   "",   "",   "",
-/* mord  dmord  imord dimord turn iturn spread ferm arp arpu arpd */
-   "O",   "P",   "Q",  "R",   "S", "i",   "",   "", "", "",   "",
+/* mord  dmord  imord dimord turn iturn rturn   irturn */
+   "O",   "P",   "Q",  "R",   "S", "i", "\304", "\305",
+/* spread ferm arp arpu arpd */
+   "",    "",  "", "",  "",
 /* nat         natrb              natsb */
    "(",        "\215(\216",       "\213(\214",
 /* hsharp      hsharprb           hsharpsb    (style 0) */
@@ -127,7 +129,7 @@ static const char *ornament_strings[] = {
    "\'\'",     "~\215|\'\'~\216", "~\213|\'\'~\214" };
 
 static int ornament_xadjusts[] = {
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   2, -1, -1,  /* naturals */
   1, -1, -1,  /* hsharps */
   1, -1, -1,  /* sharps */
@@ -151,6 +153,8 @@ static int ornament_yaadjusts[] = {
   -2000,     /* Double inverted mordent */
   -1000,     /* Turn */
   -1000,     /* Inverted turn */
+  -1000,     /* Reversed turn */
+  -1000,     /* Inverted reversed turn */
   0, 0,      /* Spread, fermata */
   0, 0, 0,   /* Arpeggios */
   3000, 3000, 3000,  /* naturals */
@@ -164,12 +168,17 @@ static int ornament_yaadjusts[] = {
 
 static int ornament_ybadjusts[] = {
   0,
-  -1000,     /* Trill */
-  2000,      /* + sharp */
-  2000,      /* + flat */
-  2000,      /* + natural */
-  0, 0, 0,   /* Tremolos */
-  0, 0, 2000, 2000, 1000, 1000, 0, 0, 0, 0, 0,
+  -1000,       /* Trill */
+  2000,        /* + sharp */
+  2000,        /* + flat */
+  2000,        /* + natural */
+  0, 0, 0,     /* Tremolos */
+  0, 0,        /* Mordents */
+  2000, 2000,  /* Inverted mordents */
+  1000, 1000,  /* Turns */
+  1000, 1000,  /* Reversed turns */
+  0, 0,        /* Spread, fermata */
+  0, 0, 0,     /* Arpeggios */
   -2000, -2000, -2000,  /* naturals */
   -2000, -2000, -2000,  /* hsharps */
   -2000, -2000, -2000,  /* sharps */
@@ -196,6 +205,8 @@ static int ornament_xbrackadjustsL[] = {
   2500,    /* Double inverted mordent */
   2500,    /* Turn */
   2500,    /* Inverted turn */
+  2500,    /* Reversed turn */
+  2500,    /* Inverted reversed turn */
   0,       /* Spread  - never bracketed */
   4000     /* Fermata */
 };
@@ -213,6 +224,8 @@ static int ornament_xbrackadjustsR[] = {
   5500,    /* Double inverted mordent */
   3500,    /* Turn */
   3500,    /* Inverted turn */
+  3500,    /* Reversed turn */
+  3500,    /* Inverted reversed turn */
   0,       /* Spread - never bracketed */
   4000,    /* Fermata */
 };

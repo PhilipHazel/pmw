@@ -5,7 +5,8 @@ g\tr\ g\tr/u10\ g\tr/l5\ g |
 g\tr#\ g\tr$/u10\ g\tr%/l5\ g |
 g\~\ g\~/u10\ g\~/l5\ g |
 g\f\ g\f/u10\ g\f/l5\ g |
-g\t\ g\t/u10\ g\t/l5\ g |
+g\t\ g\t/u10\ g\t|/l5\ g |
+g\rt\ g\rt/u10\ g\rt|/l5\ g |
 
 (f\ar\c') (f\ar/u10\c') (f\ar/l4\c') f | 
 (f\sp\c') (f\sp/u10\c') (f\sp/l4\c') f | 

@@ -29,6 +29,8 @@ MusicXML input. Still very experimental.
 9. A stray '/' in stave input now skips to the next space after giving an 
 error, instead of trying to interpret what follows.
 
+10. Add support for reversed turn symbols.
+
 
 Version 5.32 25-June-2025
 -------------------------

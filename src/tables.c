@@ -2,9 +2,9 @@
 *                PMW fixed tables                *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -347,6 +347,8 @@ accent accent_chars[] = {
   { US"tr",  or_tr, 2 },
   { US"t|",  or_iturn, 2 },
   { US"t",   or_turn, 1 },
+  { US"rt|", or_irturn, 3},
+  { US"rt",  or_rturn, 2},
   { US"f",   or_ferm, 1 },
   { NULL,    0, 0 }
 };
