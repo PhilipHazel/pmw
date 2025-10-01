@@ -3929,7 +3929,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="63" width="189">
+    <measure number="63" width="185">
       <note>
         <pitch>
           <step>G</step>
@@ -4037,7 +4037,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="64" width="174">
+    <measure number="64" width="169">
       <note>
         <pitch>
           <step>G</step>
@@ -4099,7 +4099,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="65" width="174">
+    <measure number="65" width="169">
       <note>
         <pitch>
           <step>G</step>
@@ -4150,7 +4150,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="66" width="174">
+    <measure number="66" width="169">
       <note>
         <pitch>
           <step>C</step>
@@ -4201,7 +4201,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="67" width="174">
+    <measure number="67" width="169">
       <note>
         <pitch>
           <step>G</step>
@@ -4260,7 +4260,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="68" width="146">
+    <measure number="68" width="169">
       <note>
         <pitch>
           <step>C</step>
@@ -4285,15 +4285,37 @@
         <stem>down</stem>
         <notations>
           <ornaments>
+            <turn slash="yes"/>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <ornaments>
             <inverted-turn/>
           </ornaments>
         </notations>
       </note>
       <note>
-        <rest/>
-        <duration>4320</duration>
-        <type>half</type>
-        <stem>none</stem>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <ornaments>
+            <inverted-turn slash="yes"/>
+          </ornaments>
+        </notations>
       </note>
     </measure>
     <!--============================-->

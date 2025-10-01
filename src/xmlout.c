@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: August 2025 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -1490,7 +1490,15 @@ for (;;)
       break;
 
       case or_iturn:
+      PN("<turn slash=\"yes\"/>");
+      break;
+
+      case or_rturn:
       PN("<inverted-turn/>");
+      break;
+
+      case or_irturn:
+      PN("<inverted-turn slash=\"yes\"/>");
       break;
 
       case or_spread:
