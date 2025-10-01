@@ -825,9 +825,12 @@ switch (p->type)
   break;
 
   case b_all:
-  if (!out_startlinebar && bar_cont->nbar != NULL)
-    out_drawnbar(FALSE, out_lastbarlinex);
-  misc_freenbar();
+  if (bar_cont->nbar != NULL)
+    {
+    if (!out_startlinebar) out_drawnbar(FALSE, out_lastbarlinex);
+    misc_freenbar();
+    }
+  else error(ERR126, "[all] - no preceding [1st] or [2nd] - ignored");    
   break;
 
   /* Set offset adjustment for next beam */

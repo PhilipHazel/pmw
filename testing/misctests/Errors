@@ -69,18 +69,18 @@ g\.\ x3\x\ a |
 "a" "b"/F/rc0.5 a "a" "b"/F/ps a "a"/ps "b"/F a |
 "a" "b"/F/ring a "a"/box "b"/F a a |
 
-@ Miscellaneous errors
-"a"/ty b_/x b (ap) z
-[slur/=0] [slur/=x] {/q abc } / </q |
-[name “Bad quotes" "abc"]
-"abc"/r5 /u3 aaaa
-
 @ Backup and reset errors
 [nocheck] ab [treble backup] cd |
 [nocheck] G {[backup]ggg} |
 [nocheck] G {g[reset]gg} |
 [nocheck backup]R! |
 [reset]R! |
+
+@ Miscellaneous errors
+"a"/ty b_/x b (ap) z
+[slur/=0] [slur/=x] {/q abc } / </q |
+[name “Bad quotes" "abc"]
+"abc"/r5 /u3 aaaa |
 
 [endstave]
 @ End

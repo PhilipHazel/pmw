@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: March 2021 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -1208,7 +1208,7 @@ if (!pletending && read_c == '}')
 
 if (pletending)
   {
-  if (brs.pletlen == 0) error(ERR126); else
+  if (brs.pletlen == 0) error(ERR126, "closing curly bracket"); else
     {
     if (pletstackcount > 0)
       {

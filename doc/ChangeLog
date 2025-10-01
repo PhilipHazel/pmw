@@ -31,6 +31,8 @@ error, instead of trying to interpret what follows.
 
 10. Add support for reversed turn symbols.
 
+11. Fix crash wnen [all] has no preceding [1st] or [2nd].
+
 
 Version 5.32 25-June-2025
 -------------------------

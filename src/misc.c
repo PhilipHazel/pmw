@@ -2,9 +2,9 @@
 *       PMW miscellaneous utility functions      *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: September 2021 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -538,7 +538,7 @@ misc_freenbar(void)
 nbarstr *nb;
 for (nb = bar_cont->nbar; nb->next != NULL; nb = nb->next);
 nb->next = main_freenbarblocks;
-main_freenbarblocks = nb;
+main_freenbarblocks = bar_cont->nbar;
 bar_cont->nbar = NULL;
 }
 

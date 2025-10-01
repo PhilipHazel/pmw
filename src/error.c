@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -198,7 +198,7 @@ static error_struct error_data[] = {
 { ec_major,   "the notes of a chord must all be the same length" },
 /* 125-129 */
 { ec_major,   "editorial marks on intermittent slurs or lines are not supported" },
-{ ec_major,   "mis-placed curly bracket" },
+{ ec_major,   "misplaced %s" },
 { ec_major,   "too many noteheads at the same or adjacent levels in a chord" },
 { ec_failed,  "internal error - unexpected item %d in bar data" },
 { ec_warning, "unexpected bar length of %s\n"

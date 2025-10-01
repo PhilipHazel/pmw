@@ -223,79 +223,84 @@ g\.\ x3\x\ a |
 "a" "b"/F/ring a "a"/box "b"/F a a |
 ----------------------------->
 
-** Error: /ts expected
-   Detected near line 73 of misctests/Errors
-"a"/ty b_/x b (ap) z
------>
-
-** Error: /a /b /e /g /i /p or /s expected
-   Detected near line 73 of misctests/Errors
-"a"/ty b_/x b (ap) z
----------->
-
-** Error: 'p' cannot be used as part of a chord
-   Detected near line 73 of misctests/Errors
-"a"/ty b_/x b (ap) z
----------------->
-
-** Error: unexpected character 'z'
-   Detected near line 73 of misctests/Errors
-"a"/ty b_/x b (ap) z
-------------------->
-
-** Error: a, b, n, x, u, d, l or r expected
-   Detected near line 74 of misctests/Errors
-[slur/=0] [slur/=x] {/q abc } / </q |
----------------------->
-
-** Error: '/' (to make // for caesura) expected
-   Detected near line 74 of misctests/Errors
-[slur/=0] [slur/=x] {/q abc } / </q |
-------------------------------->
-
-** Error: /u, /d, /l, /r, /a, /b, /m, /w, /slu, /sru or /h expected
-   Detected near line 74 of misctests/Errors
-[slur/=0] [slur/=x] {/q abc } / </q |
----------------------------------->
-
-** Error: incorrect bar length: too long by 3 crotchets
-   Detected near line 74 of misctests/Errors
-[slur/=0] [slur/=x] {/q abc } / </q |
-------------------------------------->
-
-** Error: string or "draw" expected
-   Detected near line 75 of misctests/Errors
-[name “Bad quotes" "abc"]
------->
-
-** Error: '/' (to make // for caesura) expected
-   Detected near line 76 of misctests/Errors
-"abc"/r5 /u3 aaaa
----------->
-
 ** Error: [backup] must follow a note
-   Detected near line 79 of misctests/Errors
+   Detected near line 73 of misctests/Errors
 [nocheck] ab [treble backup] cd |
 --------------------------->
 
 ** Error: [backup] may not follow an item that relates to the following note
-   Detected near line 80 of misctests/Errors
+   Detected near line 74 of misctests/Errors
 [nocheck] G {[backup]ggg} |
 -------------------->
 
 ** Error: [reset] may not appear inside an irregular note group
-   Detected near line 81 of misctests/Errors
+   Detected near line 75 of misctests/Errors
 [nocheck] G {g[reset]gg} |
 -------------------->
 
 ** Error: [backup] may not occur before the first note of a bar
-   Detected near line 82 of misctests/Errors
+   Detected near line 76 of misctests/Errors
 [nocheck backup]R! |
 --------------->
 
 ** Error: [reset] may not occur before the first note of a bar
-   Detected near line 83 of misctests/Errors
+   Detected near line 77 of misctests/Errors
 [reset]R! |
 ------>
+
+** Error: /ts expected
+   Detected near line 80 of misctests/Errors
+"a"/ty b_/x b (ap) z
+----->
+
+** Error: /a /b /e /g /i /p or /s expected
+   Detected near line 80 of misctests/Errors
+"a"/ty b_/x b (ap) z
+---------->
+
+** Error: 'p' cannot be used as part of a chord
+   Detected near line 80 of misctests/Errors
+"a"/ty b_/x b (ap) z
+---------------->
+
+** Error: unexpected character 'z'
+   Detected near line 80 of misctests/Errors
+"a"/ty b_/x b (ap) z
+------------------->
+
+** Error: a, b, n, x, u, d, l or r expected
+   Detected near line 81 of misctests/Errors
+[slur/=0] [slur/=x] {/q abc } / </q |
+---------------------->
+
+** Error: '/' (to make // for caesura) expected
+   Detected near line 81 of misctests/Errors
+[slur/=0] [slur/=x] {/q abc } / </q |
+------------------------------->
+
+** Error: /u, /d, /l, /r, /a, /b, /m, /w, /slu, /sru or /h expected
+   Detected near line 81 of misctests/Errors
+[slur/=0] [slur/=x] {/q abc } / </q |
+---------------------------------->
+
+** Error: incorrect bar length: too long by 3 crotchets
+   Detected near line 81 of misctests/Errors
+[slur/=0] [slur/=x] {/q abc } / </q |
+------------------------------------->
+
+** Error: string or "draw" expected
+   Detected near line 82 of misctests/Errors
+[name “Bad quotes" "abc"]
+------>
+
+** Error: '/' (to make // for caesura) expected
+   Detected near line 83 of misctests/Errors
+"abc"/r5 /u3 aaaa |
+---------->
+
+** Error: incorrect bar length: too long by 1 crotchet
+   Detected near line 83 of misctests/Errors
+"abc"/r5 /u3 aaaa |
+------------------->
 
 ** No output generated
