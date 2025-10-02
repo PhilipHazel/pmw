@@ -33,6 +33,9 @@ error, instead of trying to interpret what follows.
 
 11. Fix crash wnen [all] has no preceding [1st] or [2nd].
 
+12. If a note with a forced stem down was duplicated using "x", the forced stem 
+down was lost.
+
 
 Version 5.32 25-June-2025
 -------------------------

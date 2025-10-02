@@ -410,6 +410,7 @@ sreadstr init_sreadstr = {
   0,                  /* clef_octave */
   0,                  /* hairpinsru */
   0,                  /* hairpiny */
+  0,                  /* laststemforce */
   0,                  /* longest_note*/
   0,                  /* matchden */
   0,                  /* matchnum (0 => unset) */

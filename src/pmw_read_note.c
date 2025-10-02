@@ -1324,6 +1324,7 @@ if (read_c == 'x')
 
   pn_notelength = srs.lastnoteptr->length;
   pn_notetype = srs.lastnoteptr->notetype;
+  pn_stemforce = srs.laststemforce;
 
   /* Replicate a note or chord as many times as required. We have to reset the
   relevant pointers each time because they are advanced through a chord. */
@@ -2341,7 +2342,11 @@ for (;;)
     {
     noteptr->type = b_note;
     srs.firstnoteptr = noteptr;
-    if (pitch != 0) srs.lastnoteptr = noteptr;
+    if (pitch != 0)
+      {
+      srs.lastnoteptr = noteptr;
+      srs.laststemforce = pn_stemforce;
+      }
     }
 
   /* Insert the data for this note, and count it (within a chord). */

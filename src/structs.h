@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -620,6 +620,7 @@ typedef struct sreadstr {
    int32_t   clef_octave;
    int32_t   hairpinsru;
    int32_t   hairpiny;
+   int32_t   laststemforce; 
   uint32_t   longest_note; /* Or rest... */
   uint32_t   matchden;     /* For matching to an incompatible time signature */
   uint32_t   matchnum;     /* For matching to an incompatible time signature */
