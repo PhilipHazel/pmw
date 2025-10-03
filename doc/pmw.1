@@ -13,6 +13,10 @@ PMW is either a PostScript file or a PDF of page images of typeset music. The
 default output format is set when PMW is built, but there are options to select
 either form. A secondary output in the form of a MIDI file can be requested.
 
+Support for importing and exporting MusicXML files can optionally be included
+when PMW is built, but this is currently experimental and not yet of production
+quality.
+
 A full description of PMW and its markup language is given in the reference
 manual. This man page just summarizes the command line options.
 .in 0
@@ -30,7 +34,7 @@ Show a build-time option; exit with its value (0 or 1). Possible arguments
 are:
 .sp
   b2pf      suport for B2PF processing
-  musicxml  support for MusicXML input
+  musicxml  support for MusicXML input and output
 .TP
 \fB-drawbarlines\fR
 Instead of using characters from the music font for bar lines, generate drawing
@@ -49,9 +53,9 @@ given with this option specifies the thickness in tenths of a point. \fB-dsl\fR
 is an abbreviation for \fB-drawstavelines\fR.
 .TP
 \fB-eps\fR
-Write the output as encapsulated PostScript (useful if this is an illustration
-that is going to be included in some other document). This option is mutually
-exclusive with \fB-pdf\fR.
+Write the main output as encapsulated PostScript (useful if this is an
+illustration that is going to be included in some other document). This option
+is mutually exclusive with \fB-pdf\fR.
 .TP
 \fB-F\fR \fI<directory-list>\fR
 Search the given colon-separated list of directories for fontmetrics files,
@@ -93,6 +97,16 @@ For a multi-movement input file, this specifies the movement that is to be
 output as MIDI when \fB-midi\fR is given. The default is the first movement.
 \fB-mm\fR is an abbreviation for \fB-midimovement\fR.
 .TP
+\fB-musicxml\fR \fI<file>\fR
+If PMW has been built with optional MusicXML support, this requests that, in
+addition to the normal PostScript or PDF output, a MusicXML file be written.
+\fB-xml\fR is an abbreviation for \fB-musicxml\fR.
+.TP
+\fB-musicxmlmovement\fR \fI<number>\fR
+In conjunction with \fB-musicxml\fR, this selects which movement in a file is
+to be written as MusicXML. The default is the first movement.
+\fB-xmlmovement\fR and \fB-xm\fR are abbreviations for \fB-musicxmlmovement\fR.
+.TP
 \fB-norc\fR or \fB-nopmwrc\fP
 Do not read the caller's \fI.pmwrc\fR file. This must be the first option
 given.
@@ -110,10 +124,11 @@ characters. \fB-nw\fR is an abbreviation for \fB-nowidechars\fR. The
 \fB-drawstavelines\fP option overrides this option.
 .TP
 \fB-o\fR \fI<file>\fR
-Send the output to the given file, or, if "-" is given, to stdout. The default
-file name is the input file with the extension ".ps" or ".pdf" replacing any
-existing extension, or being added if there is no extension. If there is no
-input file (input from stdin) the default output is to stdout.
+Send the PostScript or PDF output to the given file, or, if "-" is given, to
+stdout. The default file name is the input file with the extension ".ps" or
+".pdf" replacing any existing extension, or being added if there is no
+extension. If there is no input file (input from stdin) the default output is
+to stdout.
 .TP
 \fB-p\fR \fI<list>\fR
 Output only the specified pages. These can be individual page numbers, or pairs
@@ -125,8 +140,8 @@ Output pages in pamphlet order. This is usually used in conjunction with
 \fB-a5ona4\fR or \fB-a4ona3\fR.
 .TP
 \fB-pdf\fR
-Set PDF as the output format. This is mutually exclusive with \fB-ps\fR and
-\fB-eps\fR.
+Select PDF as the main output format. This is mutually exclusive with \fB-ps\fR
+and \fB-eps\fR.
 .TP
 \fB-printadjust\fR \fI<x>\fR \fI<y>\fR
 Move the image on the page by (\fIx,y\fR) points.
@@ -145,7 +160,7 @@ Scale the output image by \fI<n>\fR.
 Output only odd or only even pages; \fI<n>\fR must either be 1 or 2.
 .TP
 \fB-ps\fR
-Select PostScript as the output format. This is mutually exclusive with
+Select PostScript as the main output format. This is mutually exclusive with
 \fB-pdf\fR.
 .TP
 \fB-reverse\fR
@@ -212,8 +227,8 @@ These options are of use only to the program maintainer.
 \fB-d<\fIselectors\fR>\fR
 Write general debugging information to stderr.
 .TP
-\fB-dbd\fR [[\fI<movement>\fR,]\fI<stave>\fR,]\fI<bar>\fR
-Write debugging data for the bar to stderr.
+\fB-dbd\fR [[\fI<movement>\fR,][\fI<stave>\fR,]\fI<bar>\fR]
+Write debugging data for all bars or the given the bar to stderr.
 .TP
 \fB-dtp\fR \fI<bar>\fR
 Write debugging positioning data for the bar to stderr. If there is more than
@@ -235,7 +250,7 @@ Do not show version number for error output. This is useful to a maintainer
 when comparing output from different versions.
 .TP
 \fB-SM\fR \fI<directory>\fR
-Search the given directory for "standard macro" files instead of searching the
+Search the given directory for standard macro files instead of searching the
 default directory that was set up when PMW was built.
 .TP
 \fB-testing\fR
@@ -265,6 +280,6 @@ warnings, and EXIT_FAILURE (usually 1) otherwise.
   Email domain: \fIgmail.com\fR
 .sp
 .in 0
-Last updated: 14 February 2025
+Last updated: 03 October 2025
 .br
 Copyright (c) 2025 Philip Hazel

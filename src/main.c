@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -455,7 +455,7 @@ fclose(f);
 static void
 givehelp(void)
 {
-const char *b2pf, *pmwrc;
+const char *b2pf, *pmwrc, *musicxml;
 
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
 b2pf = "yes";
@@ -469,10 +469,17 @@ pmwrc = "yes";
 pmwrc = "no";
 #endif
 
+#if defined SUPPORT_XML && SUPPORT_XML != 0
+musicxml = "yes";
+#else
+musicxml = "no";
+#endif
+
 (void)printf("PMW version %s\n%s\n\n", PMW_VERSION, COPYRIGHT);
 (void)printf("Default output is:    %s\n", PDF? "PDF" : "PostScript");
 (void)printf("B2PF support:         %s\n", b2pf);
 (void)printf("~/.pmwrc support:     %s\n", pmwrc);
+(void)printf("MusicXML support:     %s\n", musicxml);
 
 PF("\nDefault output is <input>.ps or <input>.pdf when an input file name is given.\n");
 PF("Default output is stdout if no input file name is given.\n");
@@ -482,7 +489,7 @@ PF("-a4ona3               print A4 images 2-up on A3\n");
 PF("-a5ona4               print A5 images 2-up on A4\n");
 PF("-C <arg>              show a compile-time option; exit with its value (0 or 1).\n");
 PF("    b2pf              support for B2PF processing\n");
-PF("    musicxml          support for MusicXML input\n");
+PF("    musicxml          support for MusicXML input and output\n");
 PF("-drawbarlines or -dbl don't use characters for bar lines\n");
 PF("-drawstavelines [<n>] don't use characters for stave lines\n");
 PF("-dsl [<n>]            synonym for -drawstavelines\n");
