@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -2609,6 +2609,8 @@ static dirstr headlist[] = {
   { "trillstring",      trillstring,    0, 0 },
   { "tripletfont",      movt_font,      oo(movtstr,fonttype_triplet),oo(fontsizestr,fontsize_triplet) },
   { "tripletlinewidth", movt_int,       oo(movtstr,tripletlinewidth), int_uf },
+  { "tupletfont",       movt_font,      oo(movtstr,fonttype_triplet),oo(fontsizestr,fontsize_triplet) },
+  { "tupletlinewidth",  movt_int,       oo(movtstr,tripletlinewidth), int_uf },
   { "underlaydepth",    movt_int,       oo(movtstr,underlaydepth), int_f },
   { "underlayextenders",movt_flag,      mf_underlayextenders, TRUE },
   { "underlaysize",     movt_fontsize,  oo(fontsizestr,fontsize_text)+ff_offset_ulay*sizeof(fontinststr), TRUE },

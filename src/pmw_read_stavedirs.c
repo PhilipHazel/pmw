@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: February 2021 */
-/* This file last modified: August 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -2322,6 +2322,7 @@ static dirstr read_stavedirlist[] = {
   { "tremolo",        p_tremolo,       0, TRUE },
   { "tripletize",     p_tripletize,    0, TRUE },
   { "triplets",       p_triplets,      0, TRUE },
+  { "tuplets",        p_triplets,      0, TRUE },
   { "ulevel",         p_uolevel,       b_ulevel, TRUE },
   { "ulhere",         p_svalue,        b_ulhere, TRUE },
   { "ultextsize",     p_fontsize,      2, TRUE },

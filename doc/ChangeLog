@@ -36,6 +36,8 @@ error, instead of trying to interpret what follows.
 12. If a note with a forced stem down was duplicated using "x", the forced stem 
 down was lost.
 
+13. Make "tuplet" a synonym of "triplet", except for "tripletize".
+
 
 Version 5.32 25-June-2025
 -------------------------
