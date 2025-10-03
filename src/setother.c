@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -285,8 +285,10 @@ switch (p->type)
     }
   break;
 
-  /* Draw a long slur or line. Note: there is no separate b_endline item. If
-  there is no id, draw the most recent slur. Otherwise search for the correct
+  /* Draw a long slur or a line. Note that a line is just a special kind of
+  slur. There are no separate line structures, just a flag in the starting
+  b_slurstr and the use of b_endline vs b_endslur in a b_endslurstr. If there
+  is no id, draw the most recent slur/line. Otherwise search for the correct
   identity, complaining if not found, though that should have been picked up
   earlier during the setting up of the cont structure. Note that slur_endslur()
   puts the structure back on its free chain, knowing that its data will be used
@@ -487,12 +489,12 @@ switch (p->type)
 
       fdata.size = mac_muldiv(fdata.size*out_stavemagn, n_fontsize, 10000000);
 
-      /* If this is a nested plet, the number to print is the current 
+      /* If this is a nested plet, the number to print is the current
       denominator divided by the previous one. */
 
       sprintf(CS s, "%d", out_plet->pletlen /
         ((pletnestcount == 0)? 1 : pletnest[pletnestcount - 1]->pletlen));
-       
+
       ss = string_pmw(s, curmovt->fonttype_triplet);
       width = string_width(ss, &fdata, NULL)/2;
 
@@ -546,7 +548,7 @@ switch (p->type)
 
   /* Unstack if in a nested plet. If two plets started without an intervening
   note, the restored out_plet_x from an outer one may still be unset. In this
-  case, set it to the value for the just-completed inner plet. Also, take note 
+  case, set it to the value for the just-completed inner plet. Also, take note
   of the inner highest/lowest values. */
 
   if (pletnestcount > 0)
@@ -554,7 +556,7 @@ switch (p->type)
     int32_t this_plet_x = out_plet_x;
     int32_t this_plet_highest = out_plet_highest;
     int32_t this_plet_highest_head = out_plet_highest_head;
-    int32_t this_plet_lowest = out_plet_lowest;  
+    int32_t this_plet_lowest = out_plet_lowest;
 
     out_pletnum = pletdata[--pletdatacount];
     out_pletden = pletdata[--pletdatacount];
@@ -566,12 +568,12 @@ switch (p->type)
     out_plet = pletnest[--pletnestcount];
 
     if (out_plet_x < 0) out_plet_x = this_plet_x;
-    if (out_plet_highest < this_plet_highest) 
+    if (out_plet_highest < this_plet_highest)
       out_plet_highest = this_plet_highest;
-    if (out_plet_highest_head < this_plet_highest_head) 
+    if (out_plet_highest_head < this_plet_highest_head)
       out_plet_highest_head = this_plet_highest_head;
     if (out_plet_lowest > this_plet_lowest)
-      out_plet_lowest = this_plet_lowest;    
+      out_plet_lowest = this_plet_lowest;
     }
 
   else
@@ -830,7 +832,7 @@ switch (p->type)
     if (!out_startlinebar) out_drawnbar(FALSE, out_lastbarlinex);
     misc_freenbar();
     }
-  else error(ERR126, "[all] - no preceding [1st] or [2nd] - ignored");    
+  else error(ERR126, "[all] - no preceding [1st] or [2nd] - ignored");
   break;
 
   /* Set offset adjustment for next beam */
