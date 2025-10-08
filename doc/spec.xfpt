@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>02 August 2025</date>
+<date>03 October 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>02 August 2025</date>
+  <date>03 October 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -180,6 +180,7 @@
 .index-see "flags"                          "tails"
 .index-see "hairpins"                       "wedges"
 .index-see "irregular note groups"          "triplets"
+.index-see "irregular note groups"          "tuplets"
 .index-see "irregular note groups"          "unequal rhythmic groups"
 .index-see "many bars rest"                 "multiple rest bars"
 .index-see "movement"                       "new movement"
@@ -202,30 +203,35 @@
 
 .chapter "Introduction"
 &'Philip's Music Writer'& (PMW) is a computer program for typesetting music. It
-is not a music processor or a sequencer. Its sole objective is the production
-of high quality sheet music. PMW is not a screen-based program; it is run from
-the command line. It reads an input file containing an encoded description of
-some music &-- such a file can be constructed using any text editor or
+is not a music processor or a sequencer. Its aim is the production of high
+quality sheet music. PMW is not a screen-based program; it is run from the
+command line. It reads an input file containing an encoded description of some
+music &-- such a file can be constructed using any text editor or
 wordprocessor. Although a textual input method may not be considered as
 user-friendly as pointing and dragging on the screen, it can be a much faster
 way of inputting music once the format of the input file has been learned. In
 addition, the usual facilities of a text editor, such as cutting and pasting,
 can be used to speed up entry, and PMW is also able to provide text-based
 features such as macros, included files, and shorthands for repetitive input.
-This encoding is unique to PMW. If you want to get a flavour of PMW input
-before deciding whether or not to install PMW, take a look at chapter
+The textual encoding is unique to PMW. If you want to get a flavour of PMW
+input before deciding whether or not to install PMW, take a look at chapter
 &<<CHAPfirstintro>>& below.
 
-From release 5.10 PMW can also read and typeset some music encoded as MusicXML.
-However, this is still very much an experimental feature that is not yet of
-production quality. Moreover, only a subset of MusicXML features are supported.
-It is very much `work in progress' and therefore relegated to an appendix of
-this document.
+From release 5.10 PMW can also read and typeset some music encoded as MusicXML,
+which is a format used for interchanging encoded music between different
+processing programs. However, this is still very much an experimental feature
+that is not yet of production quality. Moreover, only a subset of MusicXML
+features are supported. It is very much `work in progress' and therefore
+relegated to an appendix of this document.
 
-The output of PMW is either a PostScript or a PDF (Portable Document Format)
-file. The former format can be `encapsulated PostScript', which can be useful
-if the music is an illustration that will subsequently be included in another
-document. For a discussion of PostScript versus PDF, see chapter
+Similarly, from release 5.33, PMW can optionally write a copy of the music in
+MusicXML format. This, too, is experimental, incomplete, and documented in
+another appendix.
+
+The main output of PMW is either a PostScript or a PDF (Portable Document
+Format) file. The former format can be `encapsulated PostScript', which can be
+useful if the music is an illustration that will subsequently be included in
+another document. For a discussion of PostScript versus PDF, see chapter
 &<<CHAPPDFPS>>&. In addition to its normal output, PMW can also write a MIDI
 file for playing through the computer's sound system. MIDI output is not at all
 sophisticated, and is intended for `proof-hearing' purposes rather than for
@@ -271,8 +277,7 @@ specialist information. Finally, there are chapters giving details of text
 fonts, the PMW music fonts, summaries of the syntax of input files, and an
 index. Many cross-references are given in a shortened form using a pointing
 hand symbol, for example, &R; &<<SECTsetdefop>>&. These cross-references are
-clickable when this PDF is being displayed by software that supports the
-facility.
+clickable when this PDF is displayed by software that supports the facility.
 
 
 .section "Terminology"
@@ -359,11 +364,12 @@ PMW is developed on a Linux system, but as it is a straightforward C program
 without any kind of fancy interface, it should run on any system with a C
 compiler and runtime system. However, the only provided building scheme uses
 Unix-style &_configure_& and &_Makefile_& files, which should work in any
-Unix-like environment including the Cygwin environment under Microsoft Windows.
-The author of PMW has no Windows experience, but Neil Killeen, a PMW user, has
-kindly provided notes on running PMW under Windows. These may be found in the
-PMW distribution tarball in the file &_doc/Cygwin.txt_&. There are also some
-contributed notes on running under MacOS X in the file &_doc/MacOS.txt_&.
+Unix-like environment, including the Cygwin environment under Microsoft
+Windows and the command line in MacOS. The author of PMW has no Windows
+experience, but Neil Killeen, a PMW user, has kindly provided notes on running
+PMW under Windows. These may be found in the PMW distribution tarball in the
+file &_doc/Cygwin.txt_&. There are also some contributed notes on running under
+MacOS in the file &_doc/MacOS.txt_&.
 
 In a Unix-like environment, PMW is installed from source in the same way as
 many other applications. First, download the tarball into a suitable directory.
@@ -423,7 +429,7 @@ PMW-Music.
 .index "fonts" "metrics"
 &_share/pmw/fontmetrics/_& is a directory that contains files giving character
 widths and kerning information for the standard set of PDF and PostScript fonts
-and the PMW music fonts. There are also two files with &`.utr`& extensions;
+and the PMW music fonts. There are also two files with &_.utr_& extensions;
 these contain translations from Unicode code points to the default code points
 in the &'Symbol'& font and the &'PMW-Music'& font (&R;
 &<<SUBSECTuniutf>>&).
@@ -432,7 +438,7 @@ As well as the usual &(configure)& options, there are four that are specific
 to PMW:
 .ilist
 &`--disable-pmwrc`& cuts out the code that looks for a file called
-&`.pmwrc`& in the user's home directory (&R; &<<SECTsetdefop>>&). This code
+&_.pmwrc_& in the user's home directory (&R; &<<SECTsetdefop>>&). This code
 uses Unix-specific functions so must be omitted in other environments.
 .next
 &`--enable-b2pf`& causes PMW to be built with support for using the B2PF
@@ -441,18 +447,18 @@ library, which converts Unicode text strings from their base to their
 This option requires the B2PF library to be installed. See section
 &<<SUBSECTb2pffont>>& for details of how to use this facility.
 .next
-&`--enable-musicxml`& causes PMW to be built with support for reading MusicXML
-files. This is experimental code which is far from complete. See appendix
-&<<APPA>>& for details.
+&`--enable-musicxml`& causes PMW to be built with support for reading and
+writing MusicXML files. This is experimental code which is far from complete.
+See appendix &<<APPA>>& and appendix &<<APPB>>& for details.
 .next
 .index "PDF" "set as default"
-&`--enable-pdf-default`& sets PMW's default output format to be PDF. Otherwise
-it is PostScript.
+&`--enable-pdf-default`& sets PMW's default main output format to be PDF.
+Otherwise it is PostScript.
 .endlist
 
 Once you have installed PMW, you can use the &(pmw)& command to generate
 PostScript or PDF output, as described in the next chapter. The subsequent
-chapter (&R; &<<CHAPpmwoutput>>&) discusses PMW output.
+chapter (&R; &<<CHAPpmwoutput>>&) discusses what to do with PMW output.
 
 
 .section "Uninstalling PMW"
@@ -525,7 +531,7 @@ The pages are A5-sized; arrange them two-up, suitable for A4 paper. The
 Show the setting of a build-time option and then exit with its value, which
 is 1 for `set' and 0 for `unset'. The possible arguments are &`b2pf`& for B2PF
 support (&R; &<<SUBSECTb2pffont>>&) and &`musicxml`& for MusicXML support (&R;
-&<<APPA>>&).
+&<<APPA>>&, &<<APPB>>&).
 
 .vitem &%-drawbarlines%&
 
@@ -578,7 +584,7 @@ file that can easily be embedded in any DTP program.
 
 .index "fonts" "metrics"
 Search the directories in the colon-separated list for &_fontmetrics_&
-(&`.afm`&) files and other font-related files, before searching the default
+(&_.afm_&) files and other font-related files, before searching the default
 directory that was set up when PMW was installed. This option is useful when
 you want to make use of a non-standard font in text strings without having to
 copy files into the default directory. Relative file names are taken as
@@ -663,6 +669,17 @@ This option specifies which movement is to be output as MIDI (&%-mm%& is a
 synonym). Only one movement can be output in this manner. The default is the
 first movement in the file.
 
+.vitem "&%-musicxml%& <&'file'&> or &%-xml%& <&'file'&>"
+
+When PMW has been built with MusicXML support, this option requests an
+additional output in the form of a MusicXML file. See appendix &<<APPB>>& for
+more details.
+
+.vitem "&%-musicxmlmovement%& <&'number'&> or &%-xmlmovement%& <&'number'&> or &%-xm%& <&'number'&>"
+
+Only one movement can be output as a MusicXML file; this option specifies which
+one. The default is the first movement.
+
 .vitem "&%-norc%& or &%-nopmwrc%&"
 
 If this option is used, it must be the very first option that follows the
@@ -670,12 +687,12 @@ If this option is used, it must be the very first option that follows the
 &<<SECTsetdefop>>&). Note that PMW can be built without support for &_.pmwrc_&
 files; when this is the case this option is ignored.
 
-.vitem &%-norepeats%&
+.vitem "&%-norepeats%& or &%-nr%&"
 
 When generating a MIDI output file, do not repeat repeated sections of the
-music (&%-nr%& is a synonym).
+music.
 
-.vitem &%-nowidechars%&
+.vitem "&%-nowidechars%& or &%-nw%&"
 
 This option stops PMW from using wide characters for staves. It is provided
 because it seems that some PostScript/PDF interpreters cannot deal correctly
@@ -684,13 +701,12 @@ with characters whose width is 100 points at the default magnification
 normally output using the string FFFC. (The code numbers of wide and narrow
 5-line stave characters in the music font correspond to F and C in text fonts.)
 With &%-nowidechars%&, the same stave is output as
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC. &%-nw%& is an abbreviation for
-&%-nowidechars%&. The &%-drawstavelines%& option overrides this option. See
-also the &%nowidechars%& header directive.
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC. The &%-drawstavelines%& option overrides this
+option. See also the &%nowidechars%& header directive.
 
 .vitem "&%-o%& <&'file'&>"
 
-Write the output to the given file, or, if a single hyphen is given
+Write the main output to the given file, or, if a single hyphen is given
 as the file name, to the standard output. A file name should be given
 with the required extension (for example, &_etude.pdf_&, not just &_etude_&).
 
@@ -894,12 +910,14 @@ duplex printing.
 .section "Maintenance and debugging options"
 .index "options" "debugging"
 The following options are of interest only to a PMW maintainer. They are listed
-here for completeness, but few details are included.
+here for completeness, but few details are included. There is further
+information in a file called &_HACKNOTES_& in the &_doc_& directory of the PMW
+distribution.
 
 .vlist
-.vitem "&%-d%&&'<options>'&"
+.vitem "&%-d%&&'<selectors>'&"
 
-Write debugging information to the standard error file. The options are a
+Write debugging information to the standard error file. The selectors are a
 sequence of words, separated by plus or minus characters.
 
 .vitem "&%-dbd%& <&'m'&>,<&'s'&>,<&'b'&>"
@@ -908,7 +926,8 @@ Write internal debugging data for the contents of bar <&'b'&> (an absolute bar
 number) on stave <&'s'&> in movement <&'m'&> to the standard error file. If
 only one number is given, it is taken as a bar number in stave 1 of the first
 movement; if only two numbers are given, they are taken as a stave and bar
-number in the first movement.
+number in the first movement. If no numbers are given, the information is given
+for all bars in all staves in all movements.
 
 .vitem "&%-dtp%& <&'n'&>"
 
@@ -950,7 +969,7 @@ time and version from the output, and also does not include the
 standard PSheader file for PostScript. The version information is also omitted
 before any error messages. This makes it straightforward to compare the
 significant output from different versions of the program. A non-zero value can
-be used for fine control.
+be used for fine control of testing behaviour.
 .endlist
 
 .index-to I02
@@ -1018,7 +1037,7 @@ For each movement in the piece, PMW displays a bar count for each stave, the
 pitch range of notes on the stave, and the average pitch. The count includes
 only properly counted bars; if there are any uncounted bars, they are shown in
 parentheses with a plus sign. For example, if a piece starts with an uncounted,
-incomplete bar, the bar count might be shown as `24(+1)'.
+incomplete bar, the bar count might be shown as &`24(+1)`&.
 
 The pitches are specified at octave zero, that is, starting at the C below
 middle C. The average pitch of a vocal part is some kind of measure of the
@@ -1680,8 +1699,8 @@ is also drawn.
 The last set of notes shows that triplets are beamed onto adjoining notes
 unless a beam breaking character is present. PMW supports other irregular note
 groupings as well as triplets, and has several more options for controlling the
-form and placing of the mark (&R; &<<SUBSECTtripletfont>>&,
-&<<SUBSECTtripletlinewidth>>&, &<<SUBSECTplets>>&, &<<SUBSECTtriplets>>&).
+form and placing of the mark (&R; &<<SUBSECTtupletfont>>&,
+&<<SUBSECTtupletlinewidth>>&, &<<SUBSECTtupletintro>>&, &<<SUBSECTtuplets>>&).
 
 
 .subsection "Accents and ornaments"
@@ -2786,14 +2805,14 @@ be found in the &_contrib_& directory in the PMW distribution.
 When describing the syntax of directives, use is often made of one or more
 italic words in angle brackets, for example:
 .display
-&`tripletfont`& <&'fontsize'&> <&'name'&>
+&`tupletfont`& <&'fontsize'&> <&'name'&>
 .endd
 What this means is that the bracketed italic words must be replaced by some
 specific instance of what they describe (in this case, values for the font size
 and the font name) when the directive is used. This is an example of the use
-of &%tripletfont%&:
+of &%tupletfont%&:
 .code
-tripletfont 8 italic
+tupletfont 8 italic
 .endd
 Frequently, when the required value is a single number, &'n'& or some other
 single letter is used. In the example above, <&'fontsize'&> was replaced by a
@@ -8648,27 +8667,39 @@ may be preceded by a number, specifying the size of font to be used. The
 default size is 10 points.
 
 
-.subsection "Tripletfont" SUBSECTtripletfont
+.subsection "Tripletfont"
 .index "&%tripletfont%&"
 .index "fonts" "for triplets"
+This directive is a synonym for &%tupletfont%&.
+
+
+.subsection "Tripletlinewidth"
+.index "&%tripletlinewidth%&"
+.index "line width for triplets"
+This directive is a synonym for &%tupletlinewidth%&.
+
+
+.subsection "Tupletfont" SUBSECTtupletfont
+.index "&%tupletfont%&"
+.index "fonts" "for tuplets"
 .index "irregular note groups" "font for number"
 This directive specifies the size and style of the text font used for the `3'
-over triplets, and also similar numbers over other irregular note groups. The
-syntax is:
+over triplets, and also similar numbers over other irregular note groups
+(tuplets). The syntax is:
 .display
-&`tripletfont`& <&'fontsize'&> <&'name'&>
+&`tupletfont`& <&'fontsize'&> <&'name'&>
 .endd
 The size is a number giving the font size (with an optional stretching factor
 and shearing angle). If it is omitted, a size of 10 points is used. The name
 must be one of the standard font name words such as `bolditalic' (&R;
 &<<SECTtextfonts>>&). It cannot be omitted. When this directive is not used, a
-10-point roman font is used for triplet numbers.
+10-point roman font is used for tuplet numbers.
 
 
 
-.subsection "Tripletlinewidth" SUBSECTtripletlinewidth
-.index "&%tripletlinewidth%&"
-.index "line width for triplets"
+.subsection "Tupletlinewidth" SUBSECTtupletlinewidth
+.index "&%tupletlinewidth%&"
+.index "line width for tuplets"
 This directive sets the width of lines used for the horizontal brackets of
 irregular note groups. The default width is 0.3 points.
 
@@ -9753,15 +9784,17 @@ follows:
 .row &`\nx\`&             "cross notehead"
 .row &`\nz\`&             "no notehead"
 .row &`\o\`&              "small circle over note (harmonic)"
+.row &`\rt\`&             "inverted turn (reversed)"
+.row &`\rt|\`&            "reversed turn with bar"
 .row &`\sd\`&             "force note stem down"
-.row &`\su\`&             "force note stem up"
-.row &`\sw\`&             "swap note stem direction in beam (&R; &<<SUBSECTbeamsides>>&)"
 .row &`\sl`&<&'n'&>&`\`&  "lengthen stem by <&'n'&> points (&R; &<<SUBSECTstemlengths>>&)"
 .row &`\sl-`&<&'n'&>&`\`& "shorten stem by <&'n'&> points  (&R; &<<SUBSECTstemlengths>>&)"
 .row &`\sm\`&             "use small (cue sized) notehead (&R; &<<SUBSECTnoteheads>>&)"
 .row &`\sp\`&             "spread chord"
+.row &`\su\`&             "force note stem up"
+.row &`\sw\`&             "swap note stem direction in beam (&R; &<<SUBSECTbeamsides>>&)"
 .row &`\t\`&              "turn"
-.row &`\t|\`&             "inverted turn"
+.row &`\t|\`&             "inverted turn (with bar)"
 .row &`\tr\`&             "trill"
 .row &`\tr#\`&            "trill, with a sharp sign above"
 .row &`\tr$\`&            "trill, with a flat sign above"
@@ -9774,7 +9807,7 @@ follows:
 
 Here are some examples (there is further discussion below):
 
-.music "music39" 164 4,-12
+.music "music39" 164 4,-8
 
 More than one of these character sequences can be present between the
 backslashes, and spaces can be used to separate them, for example:
@@ -9792,6 +9825,10 @@ requested by specifying &`\sd\`&.
 .index "grace notes, stem direction"
 If there is more than one grace note in sequence, specifying a downward
 stem for the first one causes all of them to have downward stems.
+
+There are two conventions for notating inverse turns: either a normal turn sign
+with a vertical bar through it, or a reversed turn sign. PMW caters for both,
+and for completeness also has an reversed turn sign with a bar.
 
 The sequences &`\c\`& and &`\h\`& are used to override the default note placing
 when coupled staves are in use (see &%[couple]%&). The single and double colon
@@ -9848,9 +9885,10 @@ stave. If &`!`& is used with a fermata or trill or other ornament,
 .index "fermata" "below note"
 .index "trill" "position of"
 .index "ornaments" "position of"
+.index "bowing marks"
 the sign is placed below instead of above the note. String bowing marks are
 not affected by the use of the &`!`& option. They are put above the stave
-unless the &%[bowing]%& directive has specified othewise.
+unless the &%[bowing]%& directive has specified otherwise.
 
 .index "accents" "within the stave"
 Three accents (staccato, staccatissimo, emphasis bar) and the harmonic circle
@@ -10200,7 +10238,7 @@ sections &<<SECTtiesslurs>>& and &<<SUBSECTrottext>>&.
 
 
 
-.subsection "Triplets and other irregular note groups" SUBSECTplets
+.subsection "Triplets and other irregular note groups" SUBSECTtupletintro
 .index "irregular note groups"
 In his book &'Music Notation'&, Gardner Read writes: &'Notating unequal groups
 &-- triplets against duplets or quadruplets, quintuplets against triplets, and
@@ -10306,17 +10344,30 @@ second stave to show how the irregular groups are interpreted.
 
 
 
+.subsection "Nested irregular note groups"
+.index "nested irregular note groups"
+.index "irregular note groups" "nested"
+From release 5.33, PMW supports the nesting of irregular note groups, for
+example:
+.code
+g b {/a e'c' {c'-c'-c'-} }
+.endd
+
+.music "music72" 50 4,-6
+
+
+
 .subsection "Options for irregular note groups"
 By default, PMW puts the number of an irregular note group (for example,
 the `3' for a triplet) on the same side of the noteheads as the stems. The
-&%tripletfont%& directive is used to specify the size and type of font used. If
+&%tupletfont%& directive is used to specify the size and type of font used. If
 the notes are beamed, just the number is output; if not, a horizontal
 `bracket' is drawn as well.
 .index "irregular note groups" "suppressing the number"
 .index "irregular note groups" "moving the number"
 The whole mark can be moved, forced to be above or below the stave, and the
 horizontal bracket can be omitted. The mark may also be totally suppressed.
-The &%[triplets]%& directive can be used to set defaults for some of these
+The &%[tuplets]%& directive can be used to set defaults for some of these
 options. For individual groups, the following qualifiers may appear after the
 opening curly bracket, following any numbers that may be present:
 
@@ -10342,7 +10393,7 @@ opening curly bracket, following any numbers that may be present:
 .row &`/ru`&<&'n'&>  "move right end of bracket up <&'n'&> points"
 .endtable
 
-The &`/x`& option suppresses the mark unless &%[triplets]%& has been used to
+The &`/x`& option suppresses the mark unless &%[tuplets]%& has been used to
 suppress all irregular note group marks, in which case &`/x`& causes the mark
 to appear. When a dimension is given after &`/a`& or &`/b`&, the value given is
 the position above or below the stave of the baseline of the numerical text for
@@ -10360,18 +10411,17 @@ mark is being moved to the other side of the noteheads, and therefore the
 bracket is automatically added. The &`/n`& qualifier must be used if a bracket
 is not required in this circumstance.
 
-By default, PMW draws the brackets for triplets and other irregular note groups
-horizontal. Occasionally a sloping bracket is required; these can be
-obtained by means of the &`/lu`&, &`/ld`&, &`/ru`&, and &`/rd`& options on the
-opening curly bracket. They have the effect of moving the left or right hand
-ends of the bracket up or down, respectively, by an amount specified after the
-option.
+By default, PMW draws the brackets for irregular note groups horizontal.
+Occasionally a sloping bracket is required; these can be obtained by means of
+the &`/lu`&, &`/ld`&, &`/ru`&, and &`/rd`& options on the opening curly
+bracket. They have the effect of moving the left or right hand ends of the
+bracket up or down, respectively, by an amount specified after the option.
 .code
 {/ld10 dfa}
 .endd
 This example moves the left hand end down by 10 points. Very occasionally, when
 using coupled staves, it is useful to be able to alter the direction of the
-`jog' at one end of a triplet bracket so that it points in the opposite
+`jog' at one end of a tuplet bracket so that it points in the opposite
 direction to the jog at the other end. The qualifiers &`/lx`& and &`/rx`&
 request this, for the left-hand and right-hand jogs, respectively.
 
@@ -11144,17 +11194,19 @@ example is shown in chapter &<<CHAPfirstintro>>&.
 .index "- (hyphen) in underlay string"
 .index "hyphen" "in underlay string"
 .index "strings" "hyphen in underlay"
-When a word consists of more than one syllable, the syllable breaks must be
-delimited by hyphens. PMW uses one or more hyphens in the output, depending on
-the distance between the syllables. The header directive &%hyphenthreshold%&
-can be used to specify the distance between syllables at which more than one
-hyphen will be used. The default value is 50 points. If the space is less than
-this, a single hyphen is used, centred in the space. Otherwise, a number of
-hyphens appear, the distance between them being the threshold value divided by
-three. PMW can alternatively use en-dash characters (or any other characters)
-as `hyphens' between syllables of underlaid text. See the &%hyphenstring%&
-header directive for details. Whatever is output, the syllable separator in the
-input remains a single hyphen.
+Hyphens are used to indicate that a multi-syllable word is to associated with 
+several notes. All but the final syllable must end with a hyphen. This applies
+however the input is supplied &-- either as a separate syllable for each note
+or as a longer string that PMW splits up. PMW uses one or more hyphens in the
+output, depending on the distance between the syllables. The header directive
+&%hyphenthreshold%& can be used to specify the distance between syllables at
+which more than one hyphen will be used. The default value is 50 points. If the
+space is less than this, a single hyphen is used, centred in the space.
+Otherwise, a number of hyphens appear, the distance between them being the
+threshold value divided by three. PMW can alternatively use en-dash characters
+(or any other characters) as `hyphens' between syllables of underlaid text. See
+the &%hyphenstring%& header directive for details. Whatever is output, the
+syllable separator in the input remains a single hyphen.
 
 PMW does not check that the number of syllables matches the number of notes,
 except that it warns if text is left over at the end of the stave. Each
@@ -11201,15 +11253,17 @@ notes, because PMW does not distinguish between ties and short slurs.
 "glo-==ri-a" F. | B`. | C. | E. | F. |
 "glo-========ri-a" a-e-a- | b-c'=b=a=b= | c'- c'- b- |
 .endd
-PMW automatically draws an extender line after a word that ends with an equals,
-finishing underneath the last note, provided that the line is of reasonable
-length. The vertical position of the extender level is just below the baseline
-of the text, but this can be altered (&R; &<<SECTextlevel>>&). By default, PMW
-centres all underlay and overlay syllables at the position of their respective
-notes. The &%underlaystyle%& directive (&R; &<<SUBSECTunderlaystyle>>&) can be
-used to request PMW to align underlay and overlay multinote syllables flush
-left with the initial note. The circumflex character can still be used to
-specify that particular multinote syllables be centred.
+There must not be any space characters between the end of a syllable and any
+following equals. If the final syllable of a word is followed by one or more
+equals characters, PMW automatically draws an extender line that finishes
+underneath the last note, provided that the line is of reasonable length. The
+vertical position of the extender level is just below the baseline of the text,
+but this can be altered (&R; &<<SECTextlevel>>&). By default, PMW centres all
+underlay and overlay syllables at the position of their respective notes. The
+&%underlaystyle%& directive (&R; &<<SUBSECTunderlaystyle>>&) can be used to
+request PMW to align underlay and overlay multinote syllables flush left with
+the initial note. The circumflex character can still be used to specify that
+particular multinote syllables be centred.
 
 Text for two or more verses can be specified in multi-syllable fashion before
 the relevant notes by giving each verse as a separate string.
@@ -11256,7 +11310,11 @@ If there are more notes on the stave, but no more words, a syllable consisting
 of just a &`#`& character can be used to stop PMW drawing an extender line
 further than is required.
 
-&*Warning*&: There is one important restriction on the use of multi-syllable
+&*Warning 1*&: The shortcuts for omitting equals characters should not be
+relied on when there is more than one underlay verse because it may not be 
+clear which string belongs to which verse.
+
+&*Warning 2*&: There is an important restriction on the use of multi-syllable
 underlay text strings. Because they are processed during the input stage of
 PMW, they cannot in general be used successfully with the square bracket
 notation for repeating bars. Each syllable in such a string is allocated to
@@ -11485,9 +11543,10 @@ directive (&R; &<<SUBSECTclefstyle>>&). The following clefs are available:
 .music "music42" 40 4,-14
 
 The last two clefs shown are the alternative forms for C and F clefs.
-If a clef directive is given without an argument, no change is made to the
-current default octave. However, the directive name may be followed by a number
-to indicate a new setting for the current octave.
+&%[hclef]%& and &%[noclef]%& behave like a treble clef for note pitch and
+positioning. If a clef directive is given without an argument, no change is
+made to the current default octave. However, the directive name may be followed
+by a number to indicate a new setting for the current octave.
 .code
 [treble 1]
 .endd
@@ -12121,9 +12180,11 @@ put first on all staves.
 There are a number of situations where it is required to draw a straight line
 above or below a sequence of notes, with or without small `jogs' at the ends.
 The directive &%[line]%& works exactly like &%[slur]%& (&R;
-&<<SUBSECTslurs>>&), except that what is drawn is a straight line with a
-vertical `jog' on each end, giving a sort of horizontal or near-horizontal
-bracket. The angle of the line depends on the `shape' of the note sequence that
+&<<SUBSECTslurs>>&) and internally shares the same code, except that what is
+drawn is a straight line with a vertical `jog' on each end, giving a sort of
+horizontal or near-horizontal bracket.
+
+The angle of the line depends on the `shape' of the note sequence that
 is above or below. The end of the line is marked by &%[endline]%& or &%[el]%&
 and there are the same options as for &%[slur]%& &-- for example, &`/b`&,
 &`/u`&, &`/d`&, &`/rr`&, etc. The &`/i`& and &`/ip`& qualifiers are available,
@@ -12146,7 +12207,8 @@ or drawing in the gap. For handling complicated overlapping lines, there is an
 &%[xline]%& directive that corresponds to &%[xslur]%&, and lines can also be
 `tagged' like slurs (&R; &<<SUBSECTtaggedslurs>>&). The &`/=`& option that is
 used in &%[endslur]%& to identify tagged slurs is also available in
-&%[endline]%& for tagged lines.
+&%[endline]%& for tagged lines. Slurs and lines share the same name space for 
+tags.
 
 
 .subsection "[Linegap]" SUBSECTlinegap
@@ -13263,7 +13325,9 @@ to describe what is wanted, and it is necessary to use `tagged' slurs. The
 qualifier &`/=`& can be used within a &%[slur]%& directive to `tag' a slur. It
 must be followed by a single ASCII alphanumeric character, which acts as an
 identifier. It is recommended that capital letters normally be used, as they
-are visually distinctive. A tagged slur is placed on top of the stack as
+are visually distinctive. Tagging is also available for lines drawn with
+&%[line]%&. These are just treated as differently drawn slurs, and they share
+the same tagging name space. A tagged slur is placed on top of the stack as
 normal. The &%[endslur]%& directive may also contain a tag, using the same
 syntax. When a tagged &%[endslur]%& directive is obeyed, the stack of
 unterminated slurs is searched for a slur with a matching tag, and if one is
@@ -14056,7 +14120,6 @@ tremolos can be added underneath the normal beams of a beamed group if
 necessary. From release 5.32 &%[tremolo]%& has an effect on MIDI output.
 
 
-
 .subsection "[Tripletize]"
 .index "&%[tripletize]%&"
 This directive enables and disables `tripletizing', which causes certain
@@ -14064,24 +14127,27 @@ groups of regularly notated notes to be positioned (and played if MIDI is
 generated) as triplets. Details are given in section &<<SUBSECTtripletize>>&.
 
 
+.subsection "[Triplets]"
+.index "&%[triplets]%&"
+This directive is a synonym for &%[tuplets]%&.
 
-.subsection "[Triplets]" SUBSECTtriplets
+
+.subsection "[Tuplets]" SUBSECTtuplets
 .index "irregular note groups" "suppressing the number"
 .index "irregular note groups" "forcing position"
 .index "irregular note groups" "forcing brackets"
-.index "&%[triplets]%&"
-This directive is used to control triplet and other irregular note group marks.
-Despite its name, it applies to all irregular note groups. It must be followed
-by one or more of the words `on', `off', `above', `below', `bracket',
-`nobracket, or `auto'. `On' and `off' apply to the `3', with or without a
-bracket, above or below a group of triplets (or equivalent for other groups).
+.index "&%[tuplets]%&"
+This directive is used to control the marks on triplets and other irregular
+note groups. It must be followed by one or more of the words `on', `off',
+`above', `below', `bracket', `nobracket, or `auto'. `On' and `off' apply to the
+number, with or without a bracket, that appears above or below a tuplet group.
 The default is `on'. When `off' is specified, nothing is output. Note that the
-qualifier &`/x`& can be used to suppress the number for an individual triplet,
+qualifier &`/x`& can be used to suppress the number for an individual tuplet,
 or to enable it, if it has been previously disabled. The other words set
 default options for irregular note groups, and they are independent of each
 other.
 .code
-[triplets above]
+[tuplets above]
 .endd
 This example causes all the irregular note marks to be placed above the notes,
 but (unlike the &`/a`& option on an individual group) it does not specify
@@ -14091,7 +14157,7 @@ irregular note group marks. If the dimension is preceded by &`+`& or &`-`&,
 this does not set a fixed position, but provides a default vertical adjustment
 for subsequent irregular groups.
 .code
-[triplets above +4]
+[tuplets above +4]
 .endd
 This example causes subsequent marks to be four points higher than they would
 otherwise appear. Brackets can be forced or inhibited by means of `bracket' and
@@ -14102,7 +14168,7 @@ The `auto' option resets both the position and the bracketing options to their
 initial states, where the marks are placed above or below the notes, depending
 on their pitch, and the bracket is omitted if the notes are beamed. Options
 given on an individual note group override the defaults set by the
-&%[triplets]%& directive. Note that the use of &`/a`& or &`/b`& forces a
+&%[tuplets]%& directive. Note that the use of &`/a`& or &`/b`& forces a
 bracket to be drawn, unless followed by &`/n`&.
 
 
@@ -15447,6 +15513,8 @@ dagger affect only the movement in which they appear.
 &` Trillstring `&&`"`&<&'string'&>&`"`&
 &` Tripletfont `&<&'fontsize'&>&` `&<&'name'&>
 &` Tripletlinewidth `&<&'n'&>
+&` Tupletfont `&<&'fontsize'&>&` `&<&'name'&>
+&` Tupletlinewidth `&<&'n'&>
 &` Underlaydepth `&<&'n'&>
 &` Underlayextenders`&
 &` Underlaysize `&<&'fontsize'&>
@@ -15538,15 +15606,17 @@ The possible expression/option codes are:
 .row &`nx`&           "cross notehead"
 .row &`nz`&           "no notehead"
 .row &`o`&            "indicate harmonic with small circle"
+.row &`rt`&           "inverted turn (reversed)"
+.row &`rt|`&          "reversed turn with bar"
+.row &`sd`&           "stem down"
 .row &`sl`&<&'n'&>    "extend stem length"
 .row &`sl-`&<&'n'&>   "shorten stem length"
 .row &`sm`&           "use small notehead"
 .row &`sp`&           "spread chord"
 .row &`su`&           "stem up"
-.row &`sd`&           "stem down"
 .row &`sw`&           "swap stem direction in beam"
 .row &`t`&            "turn"
-.row &`t|`&           "inverted turn"
+.row &`t|`&           "inverted turn (with bar)"
 .row &`tr`&           "trill"
 .row &`tr#`&          "trill with sharp"
 .row &`tr$`&          "trill with flat"
@@ -15607,8 +15677,8 @@ rests:
 .row &`(:`&             "start repeated section"
 .row &`:)`&             "end repeated section"
 .row &`{`&              "start triplet"
-.row &`{`&<&'n'&>       "start non-standard group"
-.row &`}`&              "end non-standard group"
+.row &`{`&<&'n'&>       "start irregular note group"
+.row &`}`&              "end irregular note group"
 .row &`//`&             "caesura"
 .row &`>`&              "diminuendo hairpin"
 .row &`<`&              "crescendo hairpin"
@@ -15949,6 +16019,9 @@ rests:
 .row "&`[triplets off]`&"                    "don't show triplet indications"
 .row "&`[triplets on]`&"                     "show triplet indications"
 .row "&`[triplets `&<&'options'&>&`]`&"      "control triplet format"
+.row "&`[tuplets off]`&"                     "don't show tuplet indications"
+.row "&`[tuplets on]`&"                      "show tuplet indications"
+.row "&`[tuplets `&<&'options'&>&`]`&"       "control tuplet format"
 .row "&`[ulevel `&<&'n'&>&`]`&"              "force underlay level"
 .row "&`[ulevel *]`&"                        "revert to automatic underlay level"
 .row "&`[ulhere `&<&'n'&>&`]`&"              "adjust underlay level for this system"
@@ -16076,8 +16149,8 @@ lines can take the following options:
 .row "Time signature warnings"  "enabled"
 .row "Top margin"               "10"
 .row "Trill string"             "&{&#136;}&"
-.row "Triplet font"             "roman"
-.row "Triplet size"             "10 points"
+.row "Tuplet font"              "roman"
+.row "Tuplet size"              "10 points"
 .row "Transposition"            "none"
 .row "Underlay depth"           "11 points"
 .row "Underlay size"            "10 points"
@@ -16140,6 +16213,46 @@ No transposition is applied to the MusicXML notes.
 
 Some exotic effects are possible by mixing PMW staves with MusicXML files. The
 full extent has not been explored.
+
+
+
+. ////////////////////////////////////////////////////////////////////////////
+. ////////////////////////////////////////////////////////////////////////////
+
+.appendix "Writing MusicXML files" "APPB"
+.index "MusicXML" "output files"
+The ability to write MusicXML output in addition to PostScript, PDF, and MIDI
+was added in release 5.33. However, this is experimental and currently very
+incomplete (and probably quite buggy). Please do not expect great things of it.
+
+A MusicXML output file is requested by means of the &%-musicxml%& or &%-xml%& 
+command line option, which must supply the name of the file. This output is in 
+addition to the normal PostScript or PDF output. 
+
+MusicXML is a music encoding that has become popular for exchanging music 
+information between different applications. It uses the standard XML syntax to 
+encode the music, and contains performance as well as notational information.
+There is a lot of mismatch between the ways in which PMW and MusicXML encode
+music. For example, dynamic markings such as &'m&*f*&'& and &'&*pp*&'& are
+handled as text strings in PMW whereas MusicXML has dedicated elements for
+dynamics. 
+
+.ilist
+It will never be possible to convert everything that might be in a PMW file
+into MusicXML. An obvious example is the drawing facility.
+.next
+Some `difficult' PMW features that are currently missing may be partly or
+wholly added later as time permits.
+.next
+There are also features that are straightforward to translate, but which have 
+just been overlooked. I will add these if asked or if I happen to notice.
+.endlist
+
+One thing to remember about MusicXML is that applications that read it do not
+always honour all the content. For example, tests have shown that several 
+ignore MusicXML's &%relative-x%& and &%relative-y%& attributes. After importing 
+a piece that PMW has exported, it will almost always be necessary to make some 
+modifications.
 
 
 

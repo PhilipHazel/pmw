@@ -496,7 +496,7 @@ PF("-dsl [<n>]            synonym for -drawstavelines\n");
 PF("-eps                  output encapsulated PostScript\n");
 PF("-F <directory-list>   specify fontmetrics, .utr, and font directories\n");
 PF("-f <name>             specify format name\n");
-PF("-help                 output this information, then exit\n");
+PF("-help or --help       output this information, then exit\n");
 PF("-MP <file>            specify MIDIperc file\n");
 PF("-MV <file>            specify MIDIvoices file\n");
 PF("-mb <range>           synonym for -midibars\n");
@@ -525,7 +525,7 @@ PF("-ps                   select PostScript output\n");
 PF("-reverse              output pages in reverse order\n");
 PF("-s <list>             select staves\n");
 PF("-t <number>           set transposition\n");
-PF("-V                    output PMW version number, then exit\n");
+PF("-V or --version       output PMW version number, then exit\n");
 PF("-v                    output verification information\n");
 #if SUPPORT_XML
 PF("-xm <n>               synonym for -musicxmlmovement\n");
@@ -550,7 +550,6 @@ PF("-em <n>               synonym for -errormaximum\n");
 PF("-errormaximum <n>     set maximum number of errors (for testing)\n");
 PF("-MacOSapp <directory> resource directory when run from a MacOS app\n");
 PF("-MF <directory-list>  specify music font directories\n");
-PF("-noid                 don't show version number for error output\n");
 PF("-SM <directory>       specify standard macros directory\n");
 PF("-testing [<n>]        run in testing mode\n");
 

@@ -2,7 +2,7 @@ PMW HACKING NOTES
 =================
 
 This document contains a few notes about the internals of PMW for the benefit
-of anyone wanting to make changes. See also the file src/README and comments
+of anyone wanting to make changes. See also the file src/README, comments
 within the code modules, and the files doc/fontspec.pdf and fontmaint/README
 for information about the PMW-Music and PMW-Alpha fonts.
 
@@ -23,23 +23,44 @@ calls src/Makefile to build the pmw binary within the src directory.
 DEBUGGING AIDS
 ==============
 
-The command line -d option can be used to request debugging output. It must be 
-followed, without any space, by one or more debug selectors, separated by plus 
+The command line -d option can be used to request debugging output. It must be
+followed, without any space, by one or more debug selectors, separated by plus
 or minus signs, which add or remove the selector, respectively. For example:
 
   pmw -d+headers some.file
-  
-The -help option lists all the selectors. The "trace" selector tracks the path 
-through the various code functions. The various "bar" selectors output the 
-internal bar data at different parts of the processing; "bar" and "barR" are 
-synonymous, and show the data immediately after the input has been read; "barP" 
-shows it after pagination; "barO" after the main output is written. If MusicXML 
-output is requested, "barX" shows the bar data if it gets modified for underlay 
-continuation handling. Without other options, the "bar" selectors show all 
-bars; the -dbd option can be used to restrict the output to a single bar, and 
+
+The -help option lists all the selectors. The "trace" selector tracks the path
+through the various code functions. The various "bar" selectors output the
+internal bar data at different parts of the processing; "bar" and "barR" are
+synonymous, and show the data immediately after the input has been read; "barP"
+shows it after pagination; "barO" after the main output is written. If MusicXML
+output is requested, "barX" shows the bar data if it gets modified for underlay
+continuation handling. Without other options, the "bar" selectors show all
+bars; the -dbd option can be used to restrict the output to a single bar, and
 it implies -d+bar.
 
-See also some comments in the main documentation.   
+The command line -testing option makes some modifications to the output that
+PMW generates, to aid automatic and manual testing. It can be followed by a
+number that defaults to 2. For PostScript output, any non-zero value has the
+effect of the 0x01 bit, and also suppresses the inclusion of the PostScript
+header file.
+
+The 0x01 bit suppresses version and date information in the output so that
+automatic comparisons between versions are straightforward. The RunTests script
+in the "testing" directory makes use of this.
+
+The 0x02 bit applies to PDF output only: it causes comments to be inserted at
+page and bar boundaries in the output, to help human navigation.
+
+The 0x04 bit also applies only to PDF: it causes font programs to be omitted
+from the output to reduce the size of test file output and make it easier for
+humans to read.
+
+The 0x08 bit forces the output to be red. This is useful when comparing
+PostScript versus PDF output, or output from two different versions of PMW. By
+displaying red on top of black and vice versa, differences are easy to spot.
+
+See also some comments in the main documentation.
 
 
 PROCESSING OVERVIEW
