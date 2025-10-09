@@ -2325,7 +2325,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_lrepeat:
-    PA("<barline location=\"left\">");
+    PA("<barline location=\"%s\">", (xml_moff == 0)? "left" : "middle");
     PN("<repeat direction=\"forward\"/>");
     PB("</barline>");
     break;
@@ -2371,7 +2371,8 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_rrepeat:
-    PA("<barline>");
+    PA("<barline location=\"%s\">", (b->next->type == b_barline)? 
+      "right" : "middle" );
     PN("<repeat direction=\"backward\"/>");
     PB("</barline>");
     break;
@@ -3049,7 +3050,10 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
     {
     if ((tuplets & 1) != 0 && divisions % i != 0) divisions *= i;
     }
-  if (divisions < 4) divisions = 4;  /* Impose a minimum */
+
+  /* Impose a minimum */
+
+  if (divisions < 4) divisions = (divisions == 3)? 6:4;
 
   /* Start the part */
 
