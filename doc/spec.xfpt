@@ -926,8 +926,8 @@ Write internal debugging data for the contents of bar <&'b'&> (an absolute bar
 number) on stave <&'s'&> in movement <&'m'&> to the standard error file. If
 only one number is given, it is taken as a bar number in stave 1 of the first
 movement; if only two numbers are given, they are taken as a stave and bar
-number in the first movement. If no numbers are given, the information is given
-for all bars in all staves in all movements.
+number in the first movement. This option contrains the amount of output that 
+is produced by &`-d+bar`& (which it implies).
 
 .vitem "&%-dtp%& <&'n'&>"
 

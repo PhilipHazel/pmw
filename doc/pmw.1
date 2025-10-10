@@ -227,8 +227,9 @@ These options are of use only to the program maintainer.
 \fB-d<\fIselectors\fR>\fR
 Write general debugging information to stderr.
 .TP
-\fB-dbd\fR [[\fI<movement>\fR,][\fI<stave>\fR,]\fI<bar>\fR]
-Write debugging data for all bars or the given the bar to stderr.
+\fB-dbd\fR [\fI<movement>\fR,][\fI<stave>\fR,]\fI<bar>\fR
+Write debugging data for the given the bar to stderr. This option contrains the 
+amount of output that is produced by -d+bar (which it implies).
 .TP
 \fB-dtp\fR \fI<bar>\fR
 Write debugging positioning data for the bar to stderr. If there is more than
