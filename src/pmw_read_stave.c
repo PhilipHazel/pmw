@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -355,7 +355,7 @@ while (!done)
     /* Various kinds of bar line. */
 
     case '|':
-    bs = mem_get_item(sizeof(b_barlinestr), b_barline);
+    bs = read_lastbarline = mem_get_item(sizeof(b_barlinestr), b_barline);
     bs->bartype = barline_normal;
     bs->barstyle = srs.barlinestyle;
 
@@ -365,7 +365,7 @@ while (!done)
       read_nextc();
       if (read_c == '|')
         {
-        bs->bartype = barline_ending;  /* ||| is an "dnding" barline */
+        bs->bartype = barline_ending;  /* ||| is an "ending" barline */
         read_nextc();
         }
       else
@@ -416,8 +416,8 @@ while (!done)
 
     case '/':
     read_nextc();
-    if (read_c != '/') 
-      error_skip(ERR8, ' ', "'/' (to make // for caesura)"); 
+    if (read_c != '/')
+      error_skip(ERR8, ' ', "'/' (to make // for caesura)");
     else
       {
       (void)mem_get_item(sizeof(bstr), b_caesura);
@@ -959,6 +959,7 @@ int32_t stave;
 uint32_t lastnextbaroffset = 0;
 uint32_t nextbaroffset = 0;
 
+read_lastbarline = NULL;
 pletstackcount = 0;
 
 read_nextc();
@@ -1003,8 +1004,7 @@ re-read the current character. */
 read_c = '[';
 read_i--;
 
-/* This is the main stave-reading loop. The yield of read_bar() is the number
-of bars to skip. It is negative at the end of the stave. */
+/* This is the main loop for reading the stave, bar by bar. */
 
 while (!endstave)
   {
@@ -1014,15 +1014,14 @@ while (!endstave)
   endstave = read_bar(&bar, &barrepeat);
   nextbaroffset += brs.skip;
 
-  /* If we have reached [endstave] or EOF and the bar is empty,
-  and there is no repeat or skip pending, discard it. Otherwise, add a regular
-  bar line. */
+  /* If we have reached [endstave] or EOF and the bar is empty, and there is no
+  repeat or skip pending, discard it. Otherwise, add a regular bar line. */
 
   if (endstave)
     {
     b_barlinestr *bs;
     if (bar->next == NULL && barrepeat == 1 && brs.skip == 0) break;
-    bs = mem_get_item(sizeof(b_barlinestr), b_barline);
+    bs = read_lastbarline = mem_get_item(sizeof(b_barlinestr), b_barline);
     bs->bartype = barline_normal;
     bs->barstyle = srs.barlinestyle;
     }
@@ -1038,7 +1037,7 @@ while (!endstave)
   if (lastnextbaroffset < nextbaroffset)
     {
     barstr *bs = mem_get(sizeof(barstr));
-    b_barlinestr *bl = mem_get(sizeof(b_barlinestr));
+    b_barlinestr *bl = read_lastbarline = mem_get(sizeof(b_barlinestr));
 
     bs->next = (bstr *)bl;
     bs->prev = NULL;
@@ -1095,7 +1094,22 @@ if (srs.pitchcount != 0)
   st->notecount = srs.pitchcount;
   }
 
+/* Warnings */
+
 if (srs.pendulay != NULL || srs.pendolay != NULL) error(ERR164, stave); /* Warn */
+
+if (srs.slurcount > 0)
+  {
+  error(ERR195, stave);
+  unclosed_slurline = TRUE; 
+  
+  while (srs.slurcount-- > 0)
+    { 
+    b_endslurstr *p = mem_get_insert_item(sizeof(b_endslurstr), b_endslur,
+      (bstr *)read_lastbarline);
+    p->value = 0;
+    } 
+  }
 }
 
 /* End of pmw_read_stave.c */

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -132,7 +132,7 @@ for (int i = 0; i <= curmovt->laststave; i++)
     empty_bar->type = b_start;
     empty_bar->repeatnumber = 0;
 
-    bl = mem_get_item(sizeof(b_barlinestr), b_barline);
+    bl = read_lastbarline = mem_get_item(sizeof(b_barlinestr), b_barline);
     bl->bartype = barline_normal;
     bl->barstyle = barlinestyles[i];
 
@@ -140,7 +140,6 @@ for (int i = 0; i <= curmovt->laststave; i++)
       st->barindex[j] = empty_bar;
     }
   }
-
 }
 
 

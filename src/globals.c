@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 #include "pmw.h"
 
@@ -340,6 +340,7 @@ usint        read_filestackptr = 0;
 uint32_t     read_headmap = 0;
 size_t       read_i = 0;
 uint32_t     read_invalid_unicode[UUSIZE];
+b_barlinestr  *read_lastbarline = NULL;
 bstr        *read_lastitem = NULL;
 usint        read_linenumber = 0;
 usint        read_nextheadsize = 0;
@@ -362,6 +363,8 @@ int          stave_use_draw = 0;
 BOOL         stave_use_widechars = TRUE;
 uschar      *stdmacs_dir = US STDMACS;
 int          string_double_precision = 2;
+
+BOOL         unclosed_slurline = FALSE;
 
 contstr     *wk_cont;
 

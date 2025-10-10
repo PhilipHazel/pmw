@@ -1344,8 +1344,13 @@ if (midi_filename != NULL)
 #if SUPPORT_XML
 if (outxml_filename != NULL)
   {
-  if (main_verify) eprintf("Writing MusicXML file \"%s\"\n", outxml_filename);
-  outxml_write();
+  if (unclosed_slurline) 
+    eprintf("** MusicXML output cannot be generated for unclosed lines/slurs\n\n");
+  else
+    { 
+    if (main_verify) eprintf("Writing MusicXML file \"%s\"\n", outxml_filename);
+    outxml_write();
+    } 
   }
 #endif
 

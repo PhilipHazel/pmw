@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: September 2025 */
+/* This file last modified: October 2025 */
 
 
 /*************************************************
@@ -378,6 +378,7 @@ extern usint        read_filestackptr;
 extern uint32_t     read_headmap;
 extern size_t       read_i;
 extern uint32_t     read_invalid_unicode[];
+extern b_barlinestr *read_lastbarline;
 extern bstr        *read_lastitem;
 extern usint        read_linenumber;
 extern usint        read_nextheadsize;
@@ -400,6 +401,8 @@ extern int          stave_use_draw;
 extern BOOL         stave_use_widechars;
 extern uschar      *stdmacs_dir;
 extern int          string_double_precision;
+
+extern BOOL         unclosed_slurline;
 
 extern contstr     *wk_cont;
 
