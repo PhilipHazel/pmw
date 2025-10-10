@@ -130,6 +130,7 @@ c'\t\ c'\t|\ c'\rt\ c'\rt|\ |
 
 (: abcd :) | (: abcd |  abcd :) | R! |
 [1st] GG :)| [2nd] AA | [all] Bbb | R! |
+(: G+ | G :)(: G | G+ :) |
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Text other than rehearsal and lyrics
