@@ -378,7 +378,6 @@ extern usint        read_filestackptr;
 extern uint32_t     read_headmap;
 extern size_t       read_i;
 extern uint32_t     read_invalid_unicode[];
-extern b_barlinestr *read_lastbarline;
 extern bstr        *read_lastitem;
 extern usint        read_linenumber;
 extern usint        read_nextheadsize;

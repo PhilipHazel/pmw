@@ -355,7 +355,7 @@ while (!done)
     /* Various kinds of bar line. */
 
     case '|':
-    bs = read_lastbarline = mem_get_item(sizeof(b_barlinestr), b_barline);
+    bs = mem_get_item(sizeof(b_barlinestr), b_barline);
     bs->bartype = barline_normal;
     bs->barstyle = srs.barlinestyle;
 
@@ -959,7 +959,6 @@ int32_t stave;
 uint32_t lastnextbaroffset = 0;
 uint32_t nextbaroffset = 0;
 
-read_lastbarline = NULL;
 pletstackcount = 0;
 
 read_nextc();
@@ -1021,7 +1020,7 @@ while (!endstave)
     {
     b_barlinestr *bs;
     if (bar->next == NULL && barrepeat == 1 && brs.skip == 0) break;
-    bs = read_lastbarline = mem_get_item(sizeof(b_barlinestr), b_barline);
+    bs = mem_get_item(sizeof(b_barlinestr), b_barline);
     bs->bartype = barline_normal;
     bs->barstyle = srs.barlinestyle;
     }
@@ -1037,7 +1036,7 @@ while (!endstave)
   if (lastnextbaroffset < nextbaroffset)
     {
     barstr *bs = mem_get(sizeof(barstr));
-    b_barlinestr *bl = read_lastbarline = mem_get(sizeof(b_barlinestr));
+    b_barlinestr *bl = mem_get(sizeof(b_barlinestr));
 
     bs->next = (bstr *)bl;
     bs->prev = NULL;
@@ -1102,13 +1101,6 @@ if (srs.slurcount > 0)
   {
   error(ERR195, stave);
   unclosed_slurline = TRUE; 
-  
-  while (srs.slurcount-- > 0)
-    { 
-    b_endslurstr *p = mem_get_insert_item(sizeof(b_endslurstr), b_endslur,
-      (bstr *)read_lastbarline);
-    p->value = 0;
-    } 
   }
 }
 

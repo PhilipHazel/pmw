@@ -1,0 +1,10 @@
+** Warning: slur(s) or line(s) unclosed at the end of stave 1
+   Detected near line 39 of changetests/422
+[endstave]
+--------->
+
+** Warning: slur(s) or line(s) unclosed at the end of stave 1
+   Detected near line 67 of changetests/422
+[endstave]
+--------->
+

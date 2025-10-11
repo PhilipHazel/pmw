@@ -303,4 +303,9 @@ g\.\ x3\x\ a |
 "abc"/r5 /u3 aaaa |
 ------------------->
 
+** Warning: slur(s) or line(s) unclosed at the end of stave 1
+   Detected near line 85 of misctests/Errors
+[endstave]
+--------->
+
 ** No output generated

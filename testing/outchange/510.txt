@@ -1,3 +1,8 @@
+** Warning: slur(s) or line(s) unclosed at the end of stave 1
+   Detected near line 201 of changetests/510
+[endstaff]
+--------->
+
 ** Warning: in one or more non-standardly encoded fonts, the following
 unsupported Unicode code point has been changed to a font-specific code point
 or to 0x24 in the Music font: U+1D000

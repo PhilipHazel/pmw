@@ -132,7 +132,7 @@ for (int i = 0; i <= curmovt->laststave; i++)
     empty_bar->type = b_start;
     empty_bar->repeatnumber = 0;
 
-    bl = read_lastbarline = mem_get_item(sizeof(b_barlinestr), b_barline);
+    bl = mem_get_item(sizeof(b_barlinestr), b_barline);
     bl->bartype = barline_normal;
     bl->barstyle = barlinestyles[i];
 

@@ -33,7 +33,7 @@ a``- [endslur] [\.\] d`-f`-a`-d-f- [\\] | @9
 fr [slur] c'-#a- | b-d'-f' [endslur][slur] c'-#a- | @7
 b-d'-f' [endslur] r | [2] R! | @10
 [slur/b] c-e-c-e-d-e- [endslur] | @11
-cr :)(: [slur] e-g- | @12
+cr :)(: [slur] e-g- [endslur] | @12
 [endstave]
 
 [stave 3 "\it\violino II" treble 1]

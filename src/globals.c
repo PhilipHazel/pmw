@@ -340,7 +340,6 @@ usint        read_filestackptr = 0;
 uint32_t     read_headmap = 0;
 size_t       read_i = 0;
 uint32_t     read_invalid_unicode[UUSIZE];
-b_barlinestr  *read_lastbarline = NULL;
 bstr        *read_lastitem = NULL;
 usint        read_linenumber = 0;
 usint        read_nextheadsize = 0;
