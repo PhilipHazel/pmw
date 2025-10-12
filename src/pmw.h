@@ -293,9 +293,10 @@ typedef uint8_t CBOOL;
 
 #define isdigitorsign(x) (x=='-'||x=='+'||isdigit(x))
 
-#define PCHAR(x) ((x) & 0x00ffffffu)
-#define PFTOP(x) ((x) & 0xff000000u)
-#define PFONT(x) (((x) & 0xff000000u)>>24)
+#define PCHAR(x)  ((x) & 0x00ffffffu)
+#define PFTOP(x)  ((x) & 0xff000000u)
+#define PFONT(x)  (((x) & 0xff000000u)>>24)
+#define PBFONT(x) (PFONT(x) & ~font_small)
 
 #define MFLAG(x) ((curmovt->flags & x) != 0)
 
@@ -393,7 +394,7 @@ enum error_number {
   ERR160,ERR161,ERR162,ERR163,ERR164,ERR165,ERR166,ERR167,ERR168,ERR169,
   ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176,ERR177,ERR178,ERR179,
   ERR180,ERR181,ERR182,ERR183,ERR184,ERR185,ERR186,ERR187,ERR188,ERR189,
-  ERR190,ERR191,ERR192,ERR193,ERR194,ERR195
+  ERR190,ERR191,ERR192,ERR193,ERR194,ERR195,ERR196
 };
 
 /* Types of input file */

@@ -81,7 +81,7 @@ static const char *X_ignored_message[] = {
   "Circumflex in underlay or overlay",
   "Page or bar number insert into string",
   "(8) with brackets for trebletenorB",
-  "Figured bass notations",
+  "Some figured bass notations",
   "Non-zero join in [tremolo]",
   "Rest level adjustment",
   "[move]"
@@ -429,7 +429,7 @@ for (uint32_t *p = s; *p != 0; p++)
 
   else if (c >= LOWCHARLIMIT)
     {
-    int f = PFONT(c) & ~font_small;
+    int f = PBFONT(c);
     fontstr *fs = &(font_list[font_table[f]]);
     if ((fs->flags & ff_stdencoding) != 0)
       {
@@ -2019,16 +2019,24 @@ if (style != NULL || end_ending != 0)
 *************************************************/
 
 /* Underlay and overlay have to be saved up so they can be output using <lyric>
-in the next <note>. Other text can be output here. */
+in the next <note>. Other text can be output here. For figured bass, we handle
+several in succession.
 
-static void
+Argument:  the barstr that is a textstr
+Returns:   the last barstr used (may change for figured bass)
+*/
+
+static barstr *
 handle_text(barstr *b)
 {
 b_textstr *t = (b_textstr *)b;
 uint32_t flags = t->flags;
 BOOL rehearse = ((flags & text_rehearse) != 0);
-fontinststr *fdata = rehearse? &xml_movt->fontsizes->fontsize_rehearse :
-                               &xml_movt->fontsizes->fontsize_text[t->size];
+BOOL figbass = ((flags & text_fb) != 0);
+fontinststr *fdata =
+  rehearse? &xml_movt->fontsizes->fontsize_rehearse :
+   figbass? &xml_movt->fontsizes->fontsize_text[ff_offset_fbass] :
+            &xml_movt->fontsizes->fontsize_text[t->size];
 int32_t size = fdata->size;
 
 if ((flags & (text_absolute|text_atulevel|text_baralign|text_barcentre|
@@ -2039,17 +2047,166 @@ if ((flags & text_ul) != 0)
   if (underlay_pending_count >= UNDERLAY_MAX)
     error(ERR191, "too many underlay strings on one note");
   else underlay_pending[underlay_pending_count++] = t;
-  return;
+  return b;
   }
 
 /* Figured bass has its own element in MusicXML, which requires knowledge of
 the figures and other marks (e.g. accidentals). In PMW figured base is just a
-special kind of text, so handling this is a major TODO. */
+special kind of text, so handling this is complicated. */
 
-if ((flags & text_fb) != 0)
+if (figbass)
   {
   X(X_FIGBASS);
-  return;
+
+//TODO set default-y
+
+  PA("<figured-bass font-size=\"%s\">", sff(size));
+
+  /* Loop for a sequence of fb strings. In PMW they stack below each other, and
+  luckily in MusicXML this is also the case. */
+
+  for (;;)
+    {
+    BOOL done = FALSE;
+    uint32_t *s = t->string;
+    uint32_t ss[20];
+    uint32_t len = 0;
+    uint32_t *p;
+
+    PA("<figure>");
+
+    /* First, remove all the music font moving characters. */
+
+    for (p = s; *p != 0; p++)
+      {
+      if (PBFONT(*p)  == font_mf)
+        {
+        uint32_t c = PCHAR(*p);
+        if (c == ' ' || (c >= 118 && c <= 126) || (c >= 185 && c <= 188))
+          continue;
+        }
+      if (len >= sizeof(ss) - 1)
+        {
+        error(ERR196);
+        break;
+        }
+      ss[len++] = *p;
+      }
+    ss[len] = 0;
+
+    /* Now process the characters in the string. If the first character is an
+    accidental in the music font, set up a <prefix> element. */
+
+    p = ss;
+    if (PBFONT(*p) == font_mf)
+      {
+      switch(PCHAR(*p))
+        {
+        case 37:
+        PN("<prefix>sharp</prefix>");
+        p++;
+        break;
+
+        case 39:
+        PN("<prefix>flat</prefix>");
+        p++;
+        break;
+
+        case 40:
+        PN("<prefix>natural</prefix>");
+        p++;
+        break;
+        }
+      }
+
+    /* If we now have one of the Music font's special figured bass characters,
+    output suitable code, which involves a suffix. Only one suffix is permitted
+    in MusicXML, so nothing more is permitted. */
+
+    if (PBFONT(*p) == font_mf)
+      {
+      switch(PCHAR(*p))
+        {
+        case 106:
+        PN("<figure-number>7</figure-number>");
+        PN("<suffix>slash</suffix>");
+        done = TRUE;
+        break;
+
+        case 107:
+        PN("<figure-number>4</figure-number>");
+        PN("<suffix>plus</suffix>");
+        done = TRUE;
+        break;
+
+        case 115:
+        PN("<figure-number>6</figure-number>");
+        PN("<suffix>back-slash</suffix>");
+        done = TRUE;
+        break;
+
+        case 179:
+        PN("<figure-number>5</figure-number>");
+        PN("<suffix>plus</suffix>");
+        done = TRUE;
+        break;
+        }
+      }
+
+    /* If not a special figured bass character, output any non-Music-font
+    characters. */
+
+    if (!done && *p != 0)
+      {
+      uint32_t f = PBFONT(*p);
+
+      if (f != font_mf)
+        {
+        PO("<figure-number>");
+        while (*p != 0 && PBFONT(*p) != font_mf)
+          PC("%c", PCHAR(*p++));
+        PC("</figure-number>\n");
+        }
+
+      /* See if there is a following accidental for a suffix. */
+
+      if (PBFONT(*p) == font_mf)
+        {
+        switch(PCHAR(*p))
+          {
+          case 37:
+          PN("<suffix>sharp</suffix>");
+          p++;
+          break;
+
+          case 39:
+          PN("<suffix>flat</suffix>");
+          p++;
+          break;
+
+          case 40:
+          PN("<suffix>natural</suffix>");
+          p++;
+          break;
+          }
+        }
+      }
+
+    PB("</figure>");
+
+    /* If the immediately following item is not another figured bass string,
+    break the loop. Otherwise, advance and handle it. */
+
+    if (b->next->type != b_text ||
+       (((b_textstr *)(b->next))->flags & text_fb) == 0)
+      break;
+
+    b = (barstr *)b->next;
+    t = (b_textstr *)b;
+    }
+
+  PB("</figured-bass>");
+  return b;
   }
 
 /* All other types of text come within <direction> */
@@ -2069,6 +2226,7 @@ write_PMW_string(t->string, UINT_MAX, size, elname, NULL, 0, y,
 
 PB("</direction-type>");
 PB("</direction>");
+return b;
 }
 
 
@@ -2217,7 +2375,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_text:
-    handle_text(b);
+    b = handle_text(b);   /* Changes b for multiple figured bass */
     break;
 
 
@@ -2371,7 +2529,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_rrepeat:
-    PA("<barline location=\"%s\">", (b->next->type == b_barline)? 
+    PA("<barline location=\"%s\">", (b->next->type == b_barline)?
       "right" : "middle" );
     PN("<repeat direction=\"backward\"/>");
     PB("</barline>");

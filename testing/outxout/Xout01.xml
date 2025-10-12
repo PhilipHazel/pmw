@@ -6030,7 +6030,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="123" width="66">
+    <measure number="123" width="107">
       <print new-system="yes"/>
       <note>
         <pitch>
@@ -6044,7 +6044,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="124" width="103">
+    <measure number="124" width="146">
       <attributes>
         <clef print-object="no">
           <sign>G</sign>
@@ -6065,6 +6065,192 @@
         <duration>8640</duration>
         <type>whole</type>
         <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="125" width="260">
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>3</figure-number>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>4</figure-number>
+        </figure>
+        <figure>
+          <figure-number>2</figure-number>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>7</figure-number>
+          <suffix>slash</suffix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>4</figure-number>
+          <suffix>plus</suffix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="126" width="260">
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>6</figure-number>
+          <suffix>back-slash</suffix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <figured-bass font-size="8.2">
+        <figure>
+          <prefix>sharp</prefix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <figured-bass font-size="8.2">
+        <figure>
+          <prefix>flat</prefix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <figured-bass font-size="8.2">
+        <figure>
+          <prefix>natural</prefix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="127" width="266">
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>A</figure-number>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>3</figure-number>
+          <suffix>flat</suffix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>3</figure-number>
+          <suffix>natural</suffix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>4</figure-number>
+          <suffix>sharp</suffix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
       </note>
       <barline>
         <bar-style>light-heavy</bar-style>

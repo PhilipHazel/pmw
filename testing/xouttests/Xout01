@@ -1,10 +1,9 @@
 @ Basic XML output test
 
-@ Not all renderers handle these
-
 heading "Left|Centre|Right"
 heading "Second heading"
 
+fbsize 8.2
 key E$
 textsizes 10 25 20 8
 
@@ -209,5 +208,14 @@ g\M\ [tremolo] b\M\ R |
 
 R! | [assume bass 0] D+ | [assume time 3/4][assume key c] G. |
 [newline] G. | [assume treble 1 time A] G+ |
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Figured bass
+
+[text fb]
+"3" g  "4" "2" g  "\mf\\106\" g  "\mf\\107\" g |
+"\mf\\115\" g  "\mf\\37\" g   "\mf\\39\" g   "\mf\\40\" g |
+"A" g  "3\mu\z~v'" g  "\rm\3\mf\\sc\zxv\mu\\40\" g  "\rm\4\mf\\sc\zxv%" g |
+[text below]
 
 [endstave]

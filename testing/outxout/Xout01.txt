@@ -5,4 +5,5 @@ complete list:
 
   Support for headings and footings is only partial
   (8) with brackets for trebletenorB
+  Some figured bass notations
 
