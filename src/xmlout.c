@@ -3146,6 +3146,7 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
         {
         t1 = nexteqinstave((barstr *)t2, &barno);
         if (t1 == NULL) break;
+        barno_t1 = barno;
         continue;
         }
 
