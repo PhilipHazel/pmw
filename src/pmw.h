@@ -953,6 +953,13 @@ enum {
 
 #if SUPPORT_XML
 #include "xml.h"
+
+/* MusicXML output options */
+
+#define mx_numberlyrics  0x00000001u
+
+#define MX(x) ((main_xmloptions & (x)) != 0)
+
 #endif
 
 /* End of pmw.h */

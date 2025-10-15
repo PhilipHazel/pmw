@@ -182,6 +182,7 @@ extern BOOL         main_transposedaccforce;
 extern trkeystr    *main_transposedkeys;
 extern int32_t      main_truepagelength;
 extern BOOL         main_verify;
+extern uint32_t     main_xmloptions;
 
 extern uint32_t     midi_endbar;
 extern uschar      *midi_filename;

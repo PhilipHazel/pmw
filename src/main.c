@@ -74,7 +74,8 @@ static const char *arg_pattern =
   "testing/n=2,"
   "tumble/s,"
   "-version=V/s,"
-  "v/s";
+  "v/s,"
+  "?x";                  /* Matches any other key starting with 'd' */
 
 /* Offsets in results vector for command line keys */
 
@@ -128,24 +129,25 @@ enum {
   arg_testing,
   arg_tumble,
   arg_V,
-  arg_v
+  arg_v,
+  arg_x
 };
 
 /* Vector for modified command line options (after adding .pmwrc) */
 
 static char **newargv = NULL;
 
-/* Debugging options */
+/* Bit options for debugging and for XML output */
 
-typedef struct debug_bit_table {
+typedef struct bit_table {
   uschar *name;
   uint32_t bit;
-} debug_bit_table;
+} bit_table;
 
 /* This table must be in alphabetical order because it is searched by binary
 chop. */
 
-static debug_bit_table debug_options[] = {
+static bit_table debug_options[] = {
   { US"all",             D_all },
   { US"any",             D_any },
   { US"bar",             D_bar },
@@ -172,7 +174,13 @@ static debug_bit_table debug_options[] = {
   { US"xmlstaves",       D_xmlstaves }
 };
 
-#define DEBUG_OPTIONS_COUNT (sizeof(debug_options)/sizeof(debug_bit_table))
+#define DEBUG_OPTIONS_COUNT (sizeof(debug_options)/sizeof(bit_table))
+
+static bit_table xout_options[] = {
+  { US"numberlyrics",    mx_numberlyrics }
+};
+
+#define XOUT_OPTIONS_COUNT (sizeof(xout_options)/sizeof(bit_table))
 
 
 
@@ -194,57 +202,60 @@ return 0;
 
 
 /*************************************************
-*          Debug option decoding                 *
+*        Debug & XML output option decoding      *
 *************************************************/
 
 /* This function decodes a string containing bit settings in the form of +name
-and/or -name sequences, and sets/unsets bits in the debug_selector bit string
+and/or -name sequences, and sets/unsets bits in the selector bit string
 accordingly.
 
 Arguments:
+  name           option name (for errors)
   string         the argument string
+  bit_table      table of options
+  btlen          length of table
+  selector       the selector
 
 Returns:         nothing; all errors are hard
 */
 
 static void
-decode_debug(const char *string)
+decode_bitselector(const char *name, const char *string, bit_table *table,
+  size_t btlen, uint32_t *selector)
 {
 for(;;)
   {
   BOOL adding;
   const char *s;
   int len;
-  debug_bit_table *start, *end;
+  bit_table *start = table;
+  bit_table *end = start + btlen;
 
   if (*string == 0) return;
-  if (*string != '+' && *string != '-') error(ERR31, string);  /* Hard */
+  if (*string != '+' && *string != '-') error(ERR31, name, string);  /* Hard */
 
   adding = *string++ == '+';
   s = string;
   while (isalnum((unsigned char)*string) || *string == '_') string++;
   len = string - s;
 
-  start = debug_options;
-  end = debug_options + DEBUG_OPTIONS_COUNT;
-
   while (start < end)
     {
-    debug_bit_table *middle = start + (end - start)/2;
+    bit_table *middle = start + (end - start)/2;
     int c = Ustrncmp(s, middle->name, len);
     if (c == 0)
       {
       if (middle->name[len] != 0) c = -1; else
         {
         uint32_t bit = middle->bit;
-        if (adding) debug_selector |= bit; else debug_selector &= ~bit;
+        if (adding) *selector |= bit; else *selector &= ~bit;
         break;  /* Out of loop to match selector name */
         }
       }
     if (c < 0) end = middle; else start = middle + 1;
     }  /* Loop to match selector name */
 
-  if (start >= end) error(ERR32, adding? '+' : '-', len, s);  /* Hard */
+  if (start >= end) error(ERR32, name, adding? '+' : '-', len, s);  /* Hard */
   }           /* Loop for selector names */
 }
 
@@ -683,7 +694,8 @@ if ((main_testing = results[arg_testing].number) != 0)
 if (results[arg_d].text != NULL)
   {
   debug_selector |= D_any;
-  decode_debug(results[arg_d].text + 2);   /* Any errors are hard */
+  decode_bitselector("-d", results[arg_d].text + 2, debug_options,
+    DEBUG_OPTIONS_COUNT, &debug_selector);   /* Any errors are hard */
   }
 
 if (results[arg_dbd].text != NULL)
@@ -767,6 +779,12 @@ if (results[arg_musicxmlmovement].presence != arg_present_not)
 #else
   error(ERR3, "MusicXML output");
 #endif
+  }
+
+if (results[arg_x].text != NULL)
+  {
+  decode_bitselector("-x", results[arg_x].text + 2, xout_options,
+    XOUT_OPTIONS_COUNT, &main_xmloptions);   /* Any errors are hard */
   }
 
 /* Deal with MIDI output */
@@ -1344,13 +1362,13 @@ if (midi_filename != NULL)
 #if SUPPORT_XML
 if (outxml_filename != NULL)
   {
-  if (unclosed_slurline) 
+  if (unclosed_slurline)
     eprintf("** MusicXML output cannot be generated for unclosed lines/slurs\n\n");
   else
-    { 
+    {
     if (main_verify) eprintf("Writing MusicXML file \"%s\"\n", outxml_filename);
     outxml_write();
-    } 
+    }
   }
 #endif
 

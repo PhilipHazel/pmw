@@ -1765,11 +1765,16 @@ for (;;)
 
   if (underlay_pending_count > 0)
     {
+    char numberbuff[16] = {0};
+    BOOL number = MX(mx_numberlyrics) || underlay_pending_count > 1;
+
     for (int i = 0; i < underlay_pending_count; i++)
       {
       b_textstr *t = underlay_pending[i];
       fontinststr *fdata = &xml_movt->fontsizes->fontsize_text[t->size];
       int y = T(t->y) + (((t->flags & text_above) == 0)? -44 : 4);
+
+      if (number) sprintf(numberbuff, " number=\"%d\"", i + 1);
 
       /* If this string is just the single character '=' it is a continuation
       of the previous syllable. In order to decide whether to use "middle" or
@@ -1801,7 +1806,7 @@ for (;;)
             }
           else extend = "continue";
 
-          PA("<lyric>");
+          PA("<lyric%s>", numberbuff);
           PN("<extend type=\"%s\"/>", extend);
           PB("</lyric>");
           }
@@ -1846,7 +1851,7 @@ for (;;)
 
         // TODO What about x?
 
-        PA("<lyric default-y=\"%d\"%s%s>", y, placement, justify);
+        PA("<lyric%s default-y=\"%d\"%s%s>", numberbuff, y, placement, justify);
         PO("<syllabic>");
 
         /* Underlay state is '-': this is the next syllable of a word. */
@@ -2526,10 +2531,17 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     plet_pending[plet_pending_count++] = (b_pletstr *)b;
     break;
 
+    /* There's an overflow trap here because "divisions" may be quite large, so
+    just multiplying the amount by it is a bad plan (found by experience). We
+    do not want to lose any precision, so do things the hard way. */
+
     case b_reset:
+    uint32_t backby = xml_moff - ((b_resetstr *)b)->moff;
+    backby = (backby / len_crotchet) * divisions +
+      ((backby % len_crotchet) * divisions)/len_crotchet;
     PA("<backup>");
-    PN("<duration>%d</duration>",
-      ((xml_moff - ((b_resetstr *)b)->moff) * divisions)/len_crotchet);
+    PN("<duration>%d</duration>", backby);
+
     PB("</backup>");
     xml_moff = ((b_resetstr *)b)->moff;
     break;

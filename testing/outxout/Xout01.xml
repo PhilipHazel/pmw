@@ -5010,11 +5010,11 @@
         <duration>2160</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <lyric default-y="-44">
+        <lyric number="1" default-y="-44">
           <syllabic>single</syllabic>
           <text font-size="10">First</text>
         </lyric>
-        <lyric default-y="-44">
+        <lyric number="2" default-y="-44">
           <syllabic>single</syllabic>
           <text font-size="10">Verse</text>
         </lyric>
@@ -5027,11 +5027,11 @@
         <duration>2160</duration>
         <type>quarter</type>
         <stem>up</stem>
-        <lyric default-y="-44">
+        <lyric number="1" default-y="-44">
           <syllabic>single</syllabic>
           <text font-size="10">verse</text>
         </lyric>
-        <lyric default-y="-44">
+        <lyric number="2" default-y="-44">
           <syllabic>single</syllabic>
           <text font-size="10">two</text>
         </lyric>
@@ -5850,7 +5850,7 @@
         <stem>up</stem>
       </note>
       <backup>
-        <duration>520</duration>
+        <duration>6480</duration>
       </backup>
       <note>
         <pitch>
@@ -5919,7 +5919,7 @@
         <stem>up</stem>
       </note>
       <backup>
-        <duration>670</duration>
+        <duration>2160</duration>
       </backup>
       <note>
         <pitch>

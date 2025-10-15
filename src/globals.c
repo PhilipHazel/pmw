@@ -133,6 +133,7 @@ BOOL         main_transposedaccforce = TRUE;
 trkeystr    *main_transposedkeys = NULL;
 int32_t      main_truepagelength = 0;
 BOOL         main_verify = FALSE;
+uint32_t     main_xmloptions = 0;
 
 uint32_t     midi_endbar = UINT32_MAX;
 uschar      *midi_filename = NULL;

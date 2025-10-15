@@ -82,8 +82,8 @@ static error_struct error_data[] = {
 { ec_failed,  "-norc must be given as the first option" },
 /* 30-34 */
 { ec_failed,  "malformed %s selection on command line" },
-{ ec_failed,  "malformed -d option: + or - expected but found \"%s\"" },
-{ ec_failed,  "unknown debug selector setting: %c%.*s" },
+{ ec_failed,  "malformed %s option: + or - expected but found \"%s\"" },
+{ ec_failed,  "unknown %s selector setting: %c%.*s" },
 { ec_failed,  "included files too deeply nested (max depth is %d)" },
 { ec_major,   "numbers out of order" },
 /* 35-39 */
