@@ -89,7 +89,7 @@
   </part-list>
   <!--===============================================================-->
   <part id="P1">
-    <measure number="0" width="75">
+    <measure number="1" width="75">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -115,7 +115,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="80">
+    <measure number="2" width="80">
       <note>
         <pitch>
           <step>G</step>
@@ -133,7 +133,7 @@
   </part>
   <!--===============================================================-->
   <part id="P2">
-    <measure number="0" width="75">
+    <measure number="1" width="75">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -159,7 +159,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="80">
+    <measure number="2" width="80">
       <note>
         <pitch>
           <step>G</step>
@@ -177,7 +177,7 @@
   </part>
   <!--===============================================================-->
   <part id="P3">
-    <measure number="0" width="75">
+    <measure number="1" width="75">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -203,7 +203,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="80">
+    <measure number="2" width="80">
       <note>
         <pitch>
           <step>G</step>
@@ -221,7 +221,7 @@
   </part>
   <!--===============================================================-->
   <part id="P4">
-    <measure number="0" width="75">
+    <measure number="1" width="75">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -247,7 +247,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="80">
+    <measure number="2" width="80">
       <note>
         <pitch>
           <step>G</step>
@@ -265,7 +265,7 @@
   </part>
   <!--===============================================================-->
   <part id="P5">
-    <measure number="0" width="75">
+    <measure number="1" width="75">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -291,7 +291,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="80">
+    <measure number="2" width="80">
       <note>
         <pitch>
           <step>G</step>
@@ -309,7 +309,7 @@
   </part>
   <!--===============================================================-->
   <part id="P6">
-    <measure number="0" width="75">
+    <measure number="1" width="75">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -335,7 +335,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="80">
+    <measure number="2" width="80">
       <note>
         <pitch>
           <step>G</step>

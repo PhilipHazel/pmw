@@ -36,7 +36,7 @@
   </part-list>
   <!--===============================================================-->
   <part id="P1">
-    <measure number="0" width="75">
+    <measure number="1" width="75">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -59,7 +59,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="80">
+    <measure number="2" width="80">
       <direction>
         <direction-type>
           <rehearsal font-size="15" default-y="4" font-style="italic" enclosure="circle" justify="left">A</rehearsal>

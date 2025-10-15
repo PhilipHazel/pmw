@@ -2235,9 +2235,9 @@ return b;
 *             Handle start of a measure          *
 *************************************************/
 
-/* This is used at the start of the second and subsequent bars of a stave.
+/* This is used at the start of all measures.
 
-Argument: the bar number
+Argument: the absolute bar number (starts at 0)
 Returns:  nothing
 */
 
@@ -2258,11 +2258,16 @@ uint32_t pnofr = pno & 0xffff;
 pno >>= 16;
 const char *implicit = (pnofr != 0 || pno == 0)? " implicit=\"yes\"" : "";
 
-PA("<measure number=\"%d\" width=\"%d\"%s>", bar,
+/* Lilypond doesn't like it if the bar numbers start at 0, so we start them
+from 1 to reduce noise from at least one MusicXML interpreter. */
+
+PA("<measure number=\"%d\" width=\"%d\"%s>", bar + 1,
   T(xml_pos[xml_barpos->count - 1].xoff), implicit);
 
 /* Sort out text for bar numbering. Not sure if this is needed (the element
 is optional).*/
+
+// TODO
 
 #ifdef NEVER
 if (pnofr == 0)
@@ -2344,10 +2349,11 @@ PB("</attributes>");
 *        Handle the items in a bar (measure)     *
 *************************************************/
 
-/* This is called for all bars after either first_measure() or start_measure().
+/* This is called for all bars, after first_measure() for bar 0, otherwise
+directly after start_measure().
 
 Arguments:
-  bar         the bar number
+  bar         the absolute bar number (starting at 0)
   divisions   divisions value
 
 Returns:      nothing

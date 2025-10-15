@@ -36,7 +36,7 @@
   </part-list>
   <!--===============================================================-->
   <part id="P1">
-    <measure number="0" width="160">
+    <measure number="1" width="160">
       <attributes>
         <divisions>4</divisions>
         <key>
@@ -97,7 +97,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="1" width="160">
+    <measure number="2" width="160">
       <note>
         <pitch>
           <step>A</step>
@@ -144,7 +144,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="2" width="177">
+    <measure number="3" width="177">
       <note>
         <pitch>
           <step>G</step>
