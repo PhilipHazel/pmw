@@ -701,7 +701,7 @@ PA("<direction placement=\"%s\">", above? "above" : "below");
 PA("<direction-type>");
 PO("<bracket type=\"start\"%s number=\"%d\" line-end=\"%s\"", line_type, s->id,
   ((s->flags & sflag_ol) != 0)? "none" : above? "down" : "up");
-if (s->ally != 0) PC(" default-y=\"%d\"", T(s->ally));
+if (s->ally != 0) PC(" relative-y=\"%d\"", T(s->ally));
 PC("/>\n");
 
 PB("</direction-type>");

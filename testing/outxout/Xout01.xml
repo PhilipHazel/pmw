@@ -3416,7 +3416,7 @@
     <measure number="53" width="160">
       <direction placement="below">
         <direction-type>
-          <bracket type="start" number="1" line-end="up" default-y="-25"/>
+          <bracket type="start" number="1" line-end="up" relative-y="-25"/>
         </direction-type>
       </direction>
       <note>
