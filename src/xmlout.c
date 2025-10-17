@@ -2996,7 +2996,7 @@ if (xml_movt->laststave > 1)
 
   /* Find runs of staves that either have or have not barlines. */
 
-  for (int stave = 1; stave <= xml_movt->laststave;)
+  for (int stave = 1; stave <= xml_movt->laststave - 1;)
     {
     int ss;
     uint64_t first = (breaks >> stave) & 1;
