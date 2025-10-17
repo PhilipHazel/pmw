@@ -3041,7 +3041,7 @@ if (xml_movt->laststave > 1)
 
 /* Now we can output a list of parts, mapping each PMW stave to a part and
 creating groups for joining information. Brackets are always group 1, braces
-group 2. */
+group 2, barline groups are 3 and no-barline groups are 4. */
 
 PA("<part-list>");
 
@@ -3049,17 +3049,21 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   {
   if (mac_notbit(xml_staves, stave)) continue;
 
-  uschar *name = US"";
+  uint32_t *name = NULL;
+  uint32_t *abbr = NULL; 
 
   st = xml_movt->stavetable[stave];
   snamestr *sn = st->stave_name;
 
-  /* Support only a basic stave name (at least one XML processor insists on the
-  presence of <part-name>, though it can be empty. We have to convert a PMW
-  string to UTF-8. Take note of any magic characters that are ignored. */
+  /* Support only a basic stave name and abbreviation. At least one XML
+  processor insists on the presence of <part-name>, though it can be empty. We
+  have to convert strings to UTF-8. */
 
-  if (sn!= NULL && sn->text != NULL)
-    name = convert_PMW_string(sn->text);
+  if (sn!= NULL)
+    {
+    if (sn->text != NULL) name = sn->text;
+    if (sn->next != NULL && sn->next->text != NULL) abbr = sn->next->text;  
+    } 
 
   if ((joinbits[stave] & jb_bracket_start) != 0)
     {
@@ -3090,7 +3094,10 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
     }
 
   PA("<score-part id=\"P%d\">", stave);
-  PN("<part-name>%s</part-name>", name);
+  PN("<part-name>%s</part-name>", (name == NULL)? 
+    US"" : convert_PMW_string(name));
+  if (abbr != NULL) 
+    PN("<part-abbreviation>%s</part-abbreviation>", convert_PMW_string(abbr)); 
 
 // TODO midi-instrument - if anything set
 
