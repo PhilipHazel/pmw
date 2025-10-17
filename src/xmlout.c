@@ -1053,7 +1053,7 @@ for (;;)
   const char *ac_placement =
     (((note->flags & nf_stemup) != 0) == opposite)? "above" : "below";
 
-  PA("<note>");
+  PA("<note%s>", ((note->flags & nf_hidden) != 0)? " print-object=\"no\"" : "");
   if (inchord) PN("<chord/>");
 
   // TODO Handle rest level, which can only be done by setting display-step and
