@@ -58,6 +58,9 @@
           <line>2</line>
         </clef>
       </attributes>
+      <print>
+        <measure-numbering>none</measure-numbering>
+      </print>
       <note>
         <pitch>
           <step>C</step>
@@ -945,13 +948,17 @@
         <duration>480</duration>
         <type>eighth</type>
         <time-modification>
-          <actual-notes>3</actual-notes>
-          <normal-notes>2</normal-notes>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
         </time-modification>
         <stem>up</stem>
         <beam number="1">begin</beam>
         <notations>
-          <tuplet number="2" type="start" bracket="no" placement="below" show-number="actual"/>
+          <tuplet number="2" type="start" bracket="no" placement="below" show-number="actual">
+            <tuplet-actual>
+              <tuplet-number>3</tuplet-number>
+            </tuplet-actual>
+          </tuplet>
         </notations>
       </note>
       <note>
@@ -962,8 +969,8 @@
         <duration>480</duration>
         <type>eighth</type>
         <time-modification>
-          <actual-notes>3</actual-notes>
-          <normal-notes>2</normal-notes>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
         </time-modification>
         <stem>up</stem>
         <beam number="1">continue</beam>
@@ -976,8 +983,8 @@
         <duration>480</duration>
         <type>eighth</type>
         <time-modification>
-          <actual-notes>3</actual-notes>
-          <normal-notes>2</normal-notes>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
         </time-modification>
         <stem>up</stem>
         <beam number="1">end</beam>
@@ -1025,13 +1032,17 @@
         <duration>480</duration>
         <type>eighth</type>
         <time-modification>
-          <actual-notes>3</actual-notes>
-          <normal-notes>2</normal-notes>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
         </time-modification>
         <stem>down</stem>
         <beam number="1">begin</beam>
         <notations>
-          <tuplet number="2" type="start" bracket="no" placement="above" show-number="actual"/>
+          <tuplet number="2" type="start" bracket="no" placement="above" show-number="actual">
+            <tuplet-actual>
+              <tuplet-number>3</tuplet-number>
+            </tuplet-actual>
+          </tuplet>
         </notations>
       </note>
       <note>
@@ -1043,8 +1054,8 @@
         <duration>480</duration>
         <type>eighth</type>
         <time-modification>
-          <actual-notes>3</actual-notes>
-          <normal-notes>2</normal-notes>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
         </time-modification>
         <stem>down</stem>
         <beam number="1">continue</beam>
@@ -1057,8 +1068,8 @@
         <duration>480</duration>
         <type>eighth</type>
         <time-modification>
-          <actual-notes>3</actual-notes>
-          <normal-notes>2</normal-notes>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
         </time-modification>
         <stem>down</stem>
         <beam number="1">end</beam>
@@ -1105,14 +1116,22 @@
         <duration>480</duration>
         <type>eighth</type>
         <time-modification>
-          <actual-notes>3</actual-notes>
-          <normal-notes>2</normal-notes>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
         </time-modification>
         <stem>up</stem>
         <beam number="1">begin</beam>
         <notations>
-          <tuplet number="1" type="start" bracket="yes" placement="above" show-number="actual"/>
-          <tuplet number="2" type="start" bracket="no" placement="below" show-number="actual"/>
+          <tuplet number="1" type="start" bracket="yes" placement="above" show-number="actual">
+            <tuplet-actual>
+              <tuplet-number>3</tuplet-number>
+            </tuplet-actual>
+          </tuplet>
+          <tuplet number="2" type="start" bracket="no" placement="below" show-number="actual">
+            <tuplet-actual>
+              <tuplet-number>3</tuplet-number>
+            </tuplet-actual>
+          </tuplet>
         </notations>
       </note>
       <note>
@@ -1123,8 +1142,8 @@
         <duration>480</duration>
         <type>eighth</type>
         <time-modification>
-          <actual-notes>3</actual-notes>
-          <normal-notes>2</normal-notes>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
         </time-modification>
         <stem>up</stem>
         <beam number="1">continue</beam>
@@ -1137,8 +1156,8 @@
         <duration>480</duration>
         <type>eighth</type>
         <time-modification>
-          <actual-notes>3</actual-notes>
-          <normal-notes>2</normal-notes>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
         </time-modification>
         <stem>up</stem>
         <beam number="1">end</beam>

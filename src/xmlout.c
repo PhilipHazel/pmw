@@ -31,7 +31,8 @@ and the X_ignored variable. Current implementation allows up to 63. */
 
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT,
-  X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_RLEVEL, X_MOVE, X_COUNT };
+  X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_RLEVEL, X_MOVE, X_ENC_BARNO,
+  X_BARNO_INTERVAL, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -84,7 +85,9 @@ static const char *X_ignored_message[] = {
   "Some figured bass notations",
   "Non-zero join in [tremolo]",
   "Rest level adjustment",
-  "[move]"
+  "[move]",
+  "Boxing or circling bar numbers",
+  "Bar numbering every n bars, can only number all bars"
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -165,9 +168,6 @@ static int        ornament_pending_count = 0;
 static b_textstr *underlay_pending[UNDERLAY_MAX];
 static int        underlay_pending_count = 0;
 static uint8_t    underlay_state[UNDERLAY_MAX];
-
-/* NOTE: PMW doesn't yet support nested tuplets - nobody has ever remarked on
-this - but if it ever does, the code in this module should cope. */
 
 static BOOL       plet_enable = TRUE;
 static int        plet_level = 0;
@@ -1132,9 +1132,8 @@ for (;;)
 
 //TODO allow for different half-accidental styles
 
-  /* If this is the start of a tuplet, we have to set up <time-modification>
-  here, and save the data for the remaining notes in the tuplet. A stack is
-  used so as to deal with nested tuplets. Leave plet_pending_count unchanged,
+  /* If this is the start of one or more tuplets, put the data onto a stack
+  (used to deal with nested tuplets). Leave plet_pending_count unchanged,
   because it is used later on for other tuplet options. */
 
   if (plet_pending_count > 0)
@@ -1146,21 +1145,13 @@ for (;;)
       }
     }
 
-  /* This note is in a tuplet. If it is nested, we have to divide the
-  parameters by the previous set. */
+  /* If this note is in a tuplet we have to set up <time-modification> here. */
 
   if (plet_actual[plet_level] != 0)
     {
-    int actual = plet_actual[plet_level];
-    int normal = plet_normal[plet_level];
-    if (plet_level > 1)
-      {
-      actual /= plet_actual[plet_level - 1];
-      normal /= plet_normal[plet_level - 1];
-      }
     PA("<time-modification>");
-    PN("<actual-notes>%d</actual-notes>", actual);
-    PN("<normal-notes>%d</normal-notes>", normal);
+    PN("<actual-notes>%d</actual-notes>", plet_actual[plet_level]);
+    PN("<normal-notes>%d</normal-notes>", plet_normal[plet_level]);
     PB("</time-modification>");
     }
 
@@ -1545,9 +1536,32 @@ for (;;)
         notations_open = TRUE;
         }
 
-      PN("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
-        "placement=\"%s\" show-number=\"%s\"/>",
-        plet_level - plet_pending_count + i + 1, bracket, placement, show);
+      /* For a top-level tuplet, the <time-modification> values (output above)
+      are sufficient. */
+
+      if (plet_level < 2)
+        {
+        PN("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
+          "placement=\"%s\" show-number=\"%s\"/>",
+          plet_level - plet_pending_count + i + 1, bracket, placement, show);
+        }
+
+      /* For a nested tuplet we have to specify what is to be printed. For
+      example, if a triplet is nested within a triplet, the actual and normal
+      values will be 3/2 for the outer triplet, and 9/4 for the inner, but we
+      want the inner's displayed number to be 3. */
+
+      else
+        {
+        PA("<tuplet number=\"%d\" type=\"start\" bracket=\"%s\" "
+          "placement=\"%s\" show-number=\"%s\">",
+          plet_level - plet_pending_count + i + 1, bracket, placement, show);
+        PA("<tuplet-actual>");
+          PN("<tuplet-number>%d</tuplet-number>",
+            plet_actual[plet_level] / plet_actual[plet_level - 1]);
+        PB("</tuplet-actual>");
+        PB("</tuplet>");
+        }
       }
 
     plet_pending_count = 0;
@@ -2351,6 +2365,77 @@ PB("</attributes>");
 
 
 /*************************************************
+*        Set up bar numbering as required        *
+*************************************************/
+
+/* This function is called for the first bar of the first stave. */
+
+static void
+set_barnumbering(void)
+{
+int size = xml_movt->fontsizes->fontsize_barnumber.size;
+int f = xml_movt->fonttype_barnumber;
+
+if ((xml_movt->barnumber_textflags & (text_boxed|text_ringed)) != 0)
+  X(X_ENC_BARNO);
+
+/* The numbering info is put into a <print> element. */
+
+PA("<print>");
+
+/* No bar numbering */
+
+if (xml_movt->barnumber_interval == 0)
+  PN("<measure-numbering>none</measure-numbering>");
+
+/* Yes bar numbering */
+
+else
+  {
+  PO("<measure-numbering font-size=\"%s\"", sff(size));
+  switch(f)
+    {
+    case font_rm:
+    break;
+
+    case font_bf:
+    PC(" font-weight=\"bold\"");
+    break;
+
+    case font_bi:
+    PC(" font-weight=\"bold\" font-style=\"italic\"");
+    break;
+
+    case font_it:
+    PC(" font-style=\"italic\"");
+    break;
+
+    default:
+    X(X_FONT);
+    break;
+    }
+
+  /* Bar numbers at start of systems */
+
+  if (xml_movt->barnumber_interval < 0)
+    PC(">system</measure-numbering>\n");
+
+  /* Bar numbers every n bars: MusicXML does not support this, except for
+  numbering every bar. */
+
+  else
+    {
+    if (xml_movt->barnumber_interval != 1) X(X_BARNO_INTERVAL);
+    PC(">measure</measure-numbering>\n");
+    }
+  }
+
+PB("</print>");
+}
+
+
+
+/*************************************************
 *        Handle the items in a bar (measure)     *
 *************************************************/
 
@@ -3050,7 +3135,7 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   if (mac_notbit(xml_staves, stave)) continue;
 
   uint32_t *name = NULL;
-  uint32_t *abbr = NULL; 
+  uint32_t *abbr = NULL;
 
   st = xml_movt->stavetable[stave];
   snamestr *sn = st->stave_name;
@@ -3062,8 +3147,8 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   if (sn!= NULL)
     {
     if (sn->text != NULL) name = sn->text;
-    if (sn->next != NULL && sn->next->text != NULL) abbr = sn->next->text;  
-    } 
+    if (sn->next != NULL && sn->next->text != NULL) abbr = sn->next->text;
+    }
 
   if ((joinbits[stave] & jb_bracket_start) != 0)
     {
@@ -3094,10 +3179,10 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
     }
 
   PA("<score-part id=\"P%d\">", stave);
-  PN("<part-name>%s</part-name>", (name == NULL)? 
+  PN("<part-name>%s</part-name>", (name == NULL)?
     US"" : convert_PMW_string(name));
-  if (abbr != NULL) 
-    PN("<part-abbreviation>%s</part-abbreviation>", convert_PMW_string(abbr)); 
+  if (abbr != NULL)
+    PN("<part-abbreviation>%s</part-abbreviation>", convert_PMW_string(abbr));
 
 // TODO midi-instrument - if anything set
 
@@ -3244,11 +3329,13 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   PA("<part id=\"P%d\">", stave);
 
   /* The first bar has special handling because of the need to deal with
-  default clef, key, and time, and to set <divisions>. */
+  default clef, key, and time, and to set <divisions>. The first measure of the
+  first stave is where bar numbering can be specified. */
 
   start_measure(0);
   comment_bar = 0;
   first_measure(barvector[0], divisions);
+  if (stave == 1) set_barnumbering();
   complete_measure(0, divisions);
 
   /* Now process the remaining bars of the stave. */

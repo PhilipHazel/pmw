@@ -104,6 +104,9 @@
           <line>2</line>
         </clef>
       </attributes>
+      <print>
+        <measure-numbering>none</measure-numbering>
+      </print>
       <note>
         <pitch>
           <step>G</step>
