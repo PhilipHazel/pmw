@@ -91,6 +91,8 @@ static const char *X_ignored_message[] = {
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
+static int lcr_order[] = { 1, 0, 2 };
+
 
 static const char *XML_note_names[] = {
   "breve", "whole", "half", "quarter", "eighth", "16th", "32nd", "64th" };
@@ -3022,32 +3024,36 @@ PB("</defaults>");
 
 for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
   {
+  int count = 0;
   sysblock *sb = page->sysblocks;
+
   if (sb != NULL && !sb->is_sysblock)         /* Starts with headblock */
     {
-    BOOL credit_open = FALSE;
-
     for (headstr *h = ((headblock *)sb)->headings; h != NULL; h = h->next)
       {
       if (h->drawing != NULL) X(X_DRAW);
-      if (!credit_open)
+      for (int j = 0; j < 3; j++)
         {
-        PA("<credit page=\"%d\">", page->number);
-        credit_open = TRUE;
-        }
-      for (int i = 0; i < 3; i++)
-        {
+        int i = lcr_order[j];   /* Do it in centre, left, right order */
+
         if (h->string[i] != NULL && h->string[i][0] != 0)
           {
+          PA("<credit page=\"%d\">", page->number);
+          if (page->number == 1)
+            {
+            if (count == 0) PN("<credit-type>title</credit-type>");
+              else if (count == 1) PN("<credit-type>subtitle</credit-type>");
+            count++;
+            }
           write_PMW_string(h->string[i], UINT_MAX, h->fdata.size,
             "credit-words", leftcenterright[i], 0, INT32_MAX, NULL, NULL, 0);
+          PB("</credit>");
           }
         }
 // TODO h->space is space to follow
 // TODO h->spaceabove is space above
 
       }
-    if (credit_open) PB("</credit>");
     X(X_HEADING);
     }
   }

@@ -31,9 +31,17 @@
     </system-layout>
   </defaults>
   <credit page="1">
-    <credit-words font-size="17" halign="left">Left</credit-words>
+    <credit-type>title</credit-type>
     <credit-words font-size="17" halign="center">Centre</credit-words>
+  </credit>
+  <credit page="1">
+    <credit-type>subtitle</credit-type>
+    <credit-words font-size="17" halign="left">Left</credit-words>
+  </credit>
+  <credit page="1">
     <credit-words font-size="17" halign="right">Right</credit-words>
+  </credit>
+  <credit page="1">
     <credit-words font-size="12" halign="left">Second heading</credit-words>
   </credit>
   <part-list>
