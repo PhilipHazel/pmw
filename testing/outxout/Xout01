@@ -549,7 +549,7 @@ rm 10 ss(A-B)454.723 39.01 s mf 10 ss(3)460.333 52.01 s rm 10 ss(A=B)
 rm 10 ss(A#B)506.176 39.01 s mf 10 ss(2)512.621 52.01 s
 (@)543.994 50.01 s
 (FFFFCCCCCCC)64 50.01 s (C)533.994 50.01 s
-
+rm 8 ss(F)291.612 30 s(ooting)-0.12 0 rs
 pagesave restore showpage
 
 %%Page: 2 2

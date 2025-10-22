@@ -470,7 +470,7 @@ Arguments:
   length   maximum length to output (used for underlay)
   size     font size
   elname   element name to use (e.g. "words")
-  halign   halign value or NULL
+  elattr   element attribute(s) to include
   x        horizontal positioning
   y        vertical positioning - ignore if INT32_MAX
   enc      enclosure value or NULL
@@ -482,7 +482,7 @@ Returns:   nothing
 
 static void
 write_PMW_string(uint32_t *s, uint32_t length, int32_t size, const char *elname,
-  const char *halign, int32_t x, int32_t y, const char *enc, const char *jus,
+  const char *elattr, int32_t x, int32_t y, const char *enc, const char *jus,
   int32_t rot)
 {
 BOOL first = TRUE;
@@ -500,8 +500,7 @@ while (*s != 0 && count < length)
   save = *s;
   *s = 0;        /* Temporary terminator */
 
-  PO("<%s font-size=\"%s\"", elname, sff(size));
-  if (halign != NULL) PC(" halign=\"%s\"", halign);
+  PO("<%s%s font-size=\"%s\"", elname, elattr, sff(size));
 
   if (first)
     {
@@ -1912,8 +1911,8 @@ for (;;)
           }
 
         PC("</syllabic>\n");
-        write_PMW_string(ss, len, fdata->size, "text", NULL, 0, INT32_MAX,
-          NULL, NULL, 0);
+        write_PMW_string(ss, len, fdata->size, "text", "", 0, INT32_MAX, NULL,
+          NULL, 0);
         if (extend != NULL) PN("<extend type=\"%s\"/>", extend);
         PB("</lyric>");
         }
@@ -2238,7 +2237,7 @@ int y = T(t->y) + (((flags & text_above) == 0)? -44 : 4);
 PA("<direction>");
 PA("<direction-type>");
 
-write_PMW_string(t->string, UINT_MAX, size, elname, NULL, 0, y,
+write_PMW_string(t->string, UINT_MAX, size, elname, "", 0, y,
   ((flags & (text_boxed|text_boxrounded)) != 0)? "rectangle" :
   ((flags & text_ringed) != 0)? "circle" : NULL,
   ((flags & text_centre) != 0)? "center" :
@@ -2866,6 +2865,7 @@ void
 outxml_write(void)
 {
 char datebuff[100];
+uint32_t lcr_positions[3];
 time_t now;
 
 TRACE("outxml_write() movement %d\n", outxml_movement);
@@ -2935,6 +2935,11 @@ PN("<supports element=\"accidental\" type=\"yes\"/>");
 PN("<supports element=\"beam\" type=\"yes\"/>");
 PN("<supports element=\"stem\" type=\"yes\"/>");
 
+PN("<supports attribute=\"new-system\" element=\"print\" type=\"yes\""
+   " value=\"yes\"/>");
+PN("<supports attribute=\"new-page\" element=\"print\" type=\"yes\""
+  " value=\"yes\"/>");
+
 PB("</encoding>");
 PB("</identification>");
 
@@ -2981,6 +2986,12 @@ PN("<bottom-margin>%d</bottom-margin>", vmargin);
 PB("</page-margins>");
 PB("</page-layout>");
 
+/* Set positions for left/centre/right for headings and footings. */
+
+lcr_positions[0] = hmargin;
+lcr_positions[1] = converted_linelength/2;
+lcr_positions[2] = converted_linelength;
+
 /* PMW measures system gap from bottom of last stave to bottom of top stave;
 MusicXML measures from bottom to top. PMW supports only lefthand system
 separators; MusicXML doesn't seem to allow for defining separator
@@ -3018,20 +3029,67 @@ for (int stave = 2; stave <= xml_movt->laststave; stave++)
 
 PB("</defaults>");
 
-// TODO Headings - can more be done?
-
-/* Try to do something with page headings. */
+/* Try to do something with headings and footings. Different apps do different
+things with these strings. For example, MuseScore needs default-y for it to
+show them in a sensible place; Lilypond does not.*/
 
 for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
   {
-  int count = 0;
+  BOOL had_heading = FALSE;
   sysblock *sb = page->sysblocks;
 
   if (sb != NULL && !sb->is_sysblock)         /* Starts with headblock */
     {
+    uint32_t y = converted_pagelength - vmargin;
+    int count = 0;
+
     for (headstr *h = ((headblock *)sb)->headings; h != NULL; h = h->next)
       {
       if (h->drawing != NULL) X(X_DRAW);
+
+      for (int j = 0; j < 3; j++)
+        {
+        int i = lcr_order[j];   /* Do it in centre, left, right order */
+        if (h->string[i] != NULL && h->string[i][0] != 0)
+          {
+          char attrbuff[80];
+          sprintf(attrbuff, " default-x=\"%d\" default-y=\"%d\"",
+            lcr_positions[i], y);
+          PA("<credit page=\"%d\">", page->number);
+          if (page->number == 1)
+            {
+            if (count == 0) PN("<credit-type>title</credit-type>");
+              else if (count == 1) PN("<credit-type>subtitle</credit-type>");
+            count++;
+            }
+          write_PMW_string(h->string[i], UINT_MAX, h->fdata.size,
+            "credit-words", attrbuff, 0, INT32_MAX, NULL, leftcenterright[i], 0);
+          PB("</credit>");
+          had_heading = TRUE;
+          }
+        }
+
+      y -= (h->space * 5) / (main_magnification * 2);
+      }
+    X(X_HEADING);
+    }
+
+  /* Something similar for footings. A credit type is required, at least for
+  the first one. Use "rights" because that's interpreted as wanted at least by
+  some renderers. */
+
+  if (page->footing != NULL)
+    {
+    int count = 0;
+    uint32_t y = vmargin;
+    for (headstr *h = page->footing->headings; h!= NULL; h = h->next)
+      {
+      char attrbuff[80];
+
+      if (h->drawing != NULL) X(X_DRAW);
+
+      sprintf(attrbuff, " valign=\"bottom\" default-y=\"%d\"", y);
+
       for (int j = 0; j < 3; j++)
         {
         int i = lcr_order[j];   /* Do it in centre, left, right order */
@@ -3041,20 +3099,30 @@ for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
           PA("<credit page=\"%d\">", page->number);
           if (page->number == 1)
             {
-            if (count == 0) PN("<credit-type>title</credit-type>");
-              else if (count == 1) PN("<credit-type>subtitle</credit-type>");
-            count++;
+            if (count++ == 0) PN("<credit-type>rights</credit-type>");
             }
           write_PMW_string(h->string[i], UINT_MAX, h->fdata.size,
-            "credit-words", leftcenterright[i], 0, INT32_MAX, NULL, NULL, 0);
+            "credit-words", attrbuff, 0, INT32_MAX, NULL, leftcenterright[i], 0);
           PB("</credit>");
           }
         }
-// TODO h->space is space to follow
-// TODO h->spaceabove is space above
 
+      y -= (h->space * 5) / (main_magnification * 2);
       }
+
     X(X_HEADING);
+    }
+
+  /* If there were no footings, but we did output at least one heading,
+  generate an empty footing, because this stops at least one renderer showing
+  one heading as a footing. */
+
+  else if (had_heading)
+    {
+    PA("<credit page=\"%d\">", page->number);
+    PN("<credit-type>rights</credit-type>");
+    PN("<credit-words valign=\"bottom\"/>");
+    PB("</credit>");
     }
   }
 

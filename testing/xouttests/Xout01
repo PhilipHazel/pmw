@@ -2,6 +2,7 @@
 
 heading "Left|Centre|Right"
 heading "Second heading"
+footing "|Footing"
 
 fbsize 8.2
 key E$
