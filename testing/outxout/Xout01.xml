@@ -5982,6 +5982,11 @@
         </pitch>
         <duration>2160</duration>
         <type>half</type>
+        <time-modification>
+          <actual-notes>2</actual-notes>
+          <normal-notes>1</normal-notes>
+          <normal-type>quarter</normal-type>
+        </time-modification>
         <stem>down</stem>
         <notations>
           <ornaments>
@@ -5997,6 +6002,11 @@
         </pitch>
         <duration>2160</duration>
         <type>half</type>
+        <time-modification>
+          <actual-notes>2</actual-notes>
+          <normal-notes>1</normal-notes>
+          <normal-type>quarter</normal-type>
+        </time-modification>
         <stem>down</stem>
         <notations>
           <ornaments>

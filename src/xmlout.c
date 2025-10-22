@@ -93,9 +93,11 @@ static const char *X_ignored_message[] = {
 static const char *leftcenterright[] = { "left", "center", "right" };
 static int lcr_order[] = { 1, 0, 2 };
 
-
 static const char *XML_note_names[] = {
   "breve", "whole", "half", "quarter", "eighth", "16th", "32nd", "64th" };
+  
+static const int note_relative_lengths[] = {
+  512, 256, 128, 64, 32, 16, 8, 4 }; 
 
 static const char *XML_accidental_names[] = {
   "natural", "quarter-sharp", "sharp", "double-sharp",
@@ -1130,6 +1132,42 @@ for (;;)
     PN("<accidental%s>%s</accidental>", bra,
       XML_accidental_names[note->acc - 1]);
     }
+    
+  /* MusicXML requires that we supply information about any masquerading. */
+  
+  if (note->masq != MASQ_UNSET)
+    {
+//    int actual, normal; 
+    
+    int rla = note_relative_lengths[note->masq];
+    int rln = note_relative_lengths[note->notetype]; 
+
+// TODO adjust for dots when can do so (PMW needs an update)
+
+    /* Remove common factors of 2 */
+    
+    while (rla % 2 == 0 && rln % 2 == 0) { rla /= 2; rln /= 2; } 
+ 
+#ifdef NEVER
+    if (diff > 0)
+      {
+      actual = times;
+      normal = 1; 
+      }
+    else
+      {
+      actual = 1;
+      normal = times;  
+      }       
+#endif
+       
+    
+    PA("<time-modification>");
+      PN("<actual-notes>%d</actual-notes>", rla); 
+      PN("<normal-notes>%d</normal-notes>", rln); 
+      PN("<normal-type>%s</normal-type>", XML_note_names[note->notetype]); 
+    PB("</time-modification>");
+    }    
 
 //TODO allow for different half-accidental styles
 
