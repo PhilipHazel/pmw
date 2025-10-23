@@ -6136,7 +6136,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="126" width="69">
+    <measure number="126" width="70">
       <print new-system="yes"/>
       <note>
         <pitch>
@@ -6174,7 +6174,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="128" width="169">
+    <measure number="128" width="170">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>3</figure-number>
@@ -6238,7 +6238,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="129" width="169">
+    <measure number="129" width="170">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>6</figure-number>
@@ -6298,7 +6298,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="130" width="169">
+    <measure number="130" width="170">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>A</figure-number>
@@ -6360,7 +6360,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="131" width="185">
+    <measure number="131" width="186">
       <note>
         <grace/>
         <pitch>
@@ -6417,7 +6417,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="132" width="177">
+    <measure number="132" width="172">
       <note>
         <cue/>
         <pitch>
@@ -6456,6 +6456,94 @@
         <duration>2160</duration>
         <type>quarter</type>
         <stem>down</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="133" width="162">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <glissando type="start" line-type="solid"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <glissando type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <glissando type="start" line-type="solid"/>
+          <slur type="start" number="1" placement="below"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <glissando type="stop"/>
+          <slur type="stop" number="1"/>
+        </notations>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="134" width="142">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <glissando type="start" line-type="solid"/>
+          <slur type="start" number="1" placement="above"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+        <notations>
+          <glissando type="stop"/>
+          <slur type="stop" number="1"/>
+        </notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>4320</duration>
+        <type>half</type>
+        <stem>none</stem>
       </note>
       <barline>
         <bar-style>light-heavy</bar-style>

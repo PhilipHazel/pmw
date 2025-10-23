@@ -181,6 +181,7 @@ static uint8_t    plet_actual[MAX_PLETNEST];
 static uint8_t    plet_normal[MAX_PLETNEST];
 
 static b_tiestr  *tie_active = NULL;
+static BOOL       gliss_active = FALSE;
 
 static b_slurstr *slurs_active[SLURS_MAX];
 static b_slurstr *slurs_pending[SLURS_MAX];
@@ -816,16 +817,23 @@ BOOL add_comma = FALSE;
 BOOL add_tick = FALSE;
 BOOL inchord = FALSE;
 BOOL stoptie = FALSE;
+BOOL stopgliss = FALSE;
 b_tremolostr *add_tremolo = NULL;
 barstr *bb;
 
-/* Handle a note/chord at the end of a tie. */
+/* Make if the note/chord is at the end of a tie or glissando. */
 
 if (tie_active != NULL)
   {
   stoptie = TRUE;
   tie_active = NULL;
   }
+  
+if (gliss_active)
+  {
+  stopgliss = TRUE;
+  gliss_active = FALSE;
+  }   
 
 /* Find the last note if this is the start of a chord. */
 
@@ -842,28 +850,33 @@ if (bb->next->type == b_tie)
   bb = (barstr *)tie_active;   /* "Last" is now the tie item */
 
   /* If this is really a short slur we have to set up a fake pending slur and
-  insert an endslur after the next note. */
+  insert an endslur after the next note. This may also be a glissando, with or 
+  without an accompanying slur. */
 
   if ((((b_notestr *)b)->flags & (nf_chord|nf_wastied)) == 0)
     {
-    if (slurs_pending_count >= SLURS_MAX)
-      error(ERR191, "too many nested slurs");
-    else
-      {
-      slurs_pending[slurs_pending_count++] = &short_slur;
-      short_slur.flags = (tie_active->abovecount <= 0)? sflag_b : 0;
-
-      /* Find next note */
-
-      int barno = bar;
-      b_notestr *nb = find_next_note(bb, &barno);
-      if (nb == NULL) error (ERR192, "missing note after short slur"); /* Hard */
-
-      b_endslurstr *es =
-        mem_get_insert_item(sizeof(b_endslurstr), b_endslur, nb->next);
-      es->value = 0;
-      }
-
+    if ((tie_active->flags & (tief_slur|tief_default)) != 0)
+      { 
+      if (slurs_pending_count >= SLURS_MAX)
+        error(ERR191, "too many nested slurs");
+      else
+        {
+        slurs_pending[slurs_pending_count++] = &short_slur;
+        short_slur.flags = (tie_active->abovecount <= 0)? sflag_b : 0;
+      
+        /* Find next note */
+      
+        int barno = bar;
+        b_notestr *nb = find_next_note(bb, &barno);
+        if (nb == NULL) error (ERR192, "missing note after short slur"); /* Hard */
+      
+        b_endslurstr *es =
+          mem_get_insert_item(sizeof(b_endslurstr), b_endslur, nb->next);
+        es->value = 0;
+        }
+      } 
+      
+    if ((tie_active->flags & tief_gliss) != 0) gliss_active = TRUE; 
     tie_active = NULL;  /* It's not actually a tie. */
     }
 
@@ -1628,6 +1641,30 @@ for (;;)
         }
       }
     }
+    
+  /* Handle the end of a glissando */
+  
+  if (stopgliss)
+    {
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
+    PN("<glissando type=\"stop\"/>");
+    }
+    
+  /* Handle the start of a glissando */
+  
+  if (gliss_active)
+    {
+    if (!notations_open)
+      {
+      PA("<notations>");
+      notations_open = TRUE;
+      }
+    PN("<glissando type=\"start\" line-type=\"solid\"/>");
+    }   
 
   /* Handle the end of a tie (the notation part - see also <tie> above). */
 
@@ -1666,7 +1703,7 @@ for (;;)
     PN("<tied type=\"start\" placement=\"%s\"%s/>", placement, line_type);
     }
   else abovecount--;
-
+  
   /* Deal with slurs. Any [slur] items before this note were put on a pending
   list. We can start them here, moving them to an active list. Then search for
   any [endslur] items before the next note or end of bar, and act on them. */
@@ -1810,7 +1847,7 @@ for (;;)
         }
       }   /* End [endslur] loop */
     }     /* End [endslur] processing */
-
+    
   /* Close <notations> if it's open. */
 
   if (notations_open) PB("</notations>");
