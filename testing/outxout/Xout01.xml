@@ -5923,7 +5923,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="119" width="211">
+    <measure number="119" width="209">
       <note>
         <pitch>
           <step>C</step>
@@ -5974,7 +5974,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="120" width="178">
+    <measure number="120" width="176">
       <note>
         <pitch>
           <step>G</step>
@@ -5987,7 +5987,7 @@
           <normal-notes>1</normal-notes>
           <normal-type>quarter</normal-type>
         </time-modification>
-        <stem>down</stem>
+        <stem>up</stem>
         <notations>
           <ornaments>
             <tremolo type="start">2</tremolo>
@@ -6007,7 +6007,7 @@
           <normal-notes>1</normal-notes>
           <normal-type>quarter</normal-type>
         </time-modification>
-        <stem>down</stem>
+        <stem>up</stem>
         <notations>
           <ornaments>
             <tremolo type="stop">2</tremolo>
@@ -6022,7 +6022,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="121" width="145">
+    <measure number="121" width="143">
       <note>
         <pitch>
           <step>G</step>
@@ -6035,7 +6035,7 @@
           <normal-notes>2</normal-notes>
           <normal-type>half</normal-type>
         </time-modification>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -6045,7 +6045,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="122" width="175">
+    <measure number="122" width="184">
       <note>
         <pitch>
           <step>A</step>
@@ -6059,7 +6059,7 @@
           <normal-notes>3</normal-notes>
           <normal-type>quarter</normal-type>
         </time-modification>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <note>
         <pitch>
@@ -6075,7 +6075,7 @@
           <normal-notes>1</normal-notes>
           <normal-type>eighth</normal-type>
         </time-modification>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <note>
         <rest/>
@@ -6112,7 +6112,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="125" width="87">
+    <measure number="125" width="86">
       <attributes>
         <time print-object="no">
           <beats>3</beats>
@@ -6136,7 +6136,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="126" width="107">
+    <measure number="126" width="84">
       <print new-system="yes"/>
       <note>
         <pitch>
@@ -6150,7 +6150,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="127" width="146">
+    <measure number="127" width="120">
       <attributes>
         <clef print-object="no">
           <sign>G</sign>
@@ -6174,7 +6174,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="128" width="260">
+    <measure number="128" width="204">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>3</figure-number>
@@ -6187,7 +6187,7 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <figured-bass font-size="8.2">
         <figure>
@@ -6204,7 +6204,7 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <figured-bass font-size="8.2">
         <figure>
@@ -6219,7 +6219,7 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <figured-bass font-size="8.2">
         <figure>
@@ -6234,11 +6234,11 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
     </measure>
     <!--============================-->
-    <measure number="129" width="260">
+    <measure number="129" width="204">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>6</figure-number>
@@ -6252,7 +6252,7 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <figured-bass font-size="8.2">
         <figure>
@@ -6266,7 +6266,7 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <figured-bass font-size="8.2">
         <figure>
@@ -6280,7 +6280,7 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <figured-bass font-size="8.2">
         <figure>
@@ -6294,11 +6294,11 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
     </measure>
     <!--============================-->
-    <measure number="130" width="266">
+    <measure number="130" width="204">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>A</figure-number>
@@ -6311,7 +6311,7 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <figured-bass font-size="8.2">
         <figure>
@@ -6326,7 +6326,7 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <figured-bass font-size="8.2">
         <figure>
@@ -6341,7 +6341,7 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
       <figured-bass font-size="8.2">
         <figure>
@@ -6356,13 +6356,70 @@
         </pitch>
         <duration>2160</duration>
         <type>quarter</type>
-        <stem>down</stem>
+        <stem>up</stem>
       </note>
-      <barline>
-        <bar-style>light-heavy</bar-style>
-      </barline>
     </measure>
     <!--============================-->
-  </part>
-  <!--===============================================================-->
-</score-partwise>
+    <measure number="131" width="225">
+      <note>
+        <grace/>
+          <pitch>
+            <step>A</step>
+            <octave>4</octave>
+          </pitch>
+          <type>eighth</type>
+          <stem>up</stem>
+        </note>
+        <note>
+          <pitch>
+            <step>G</step>
+            <octave>4</octave>
+          </pitch>
+          <duration>2160</duration>
+          <type>quarter</type>
+          <stem>up</stem>
+        </note>
+        <note>
+          <grace slash="yes"/>
+            <pitch>
+              <step>A</step>
+              <octave>4</octave>
+            </pitch>
+            <type>eighth</type>
+            <stem>up</stem>
+          </note>
+          <note>
+            <pitch>
+              <step>G</step>
+              <octave>4</octave>
+            </pitch>
+            <duration>2160</duration>
+            <type>quarter</type>
+            <stem>up</stem>
+          </note>
+          <note>
+            <pitch>
+              <step>G</step>
+              <octave>4</octave>
+            </pitch>
+            <duration>2160</duration>
+            <type>quarter</type>
+            <stem>up</stem>
+          </note>
+          <note>
+            <pitch>
+              <step>G</step>
+              <octave>4</octave>
+            </pitch>
+            <duration>2160</duration>
+            <type>quarter</type>
+            <stem>up</stem>
+          </note>
+          <barline>
+            <bar-style>light-heavy</bar-style>
+          </barline>
+        </measure>
+        <!--============================-->
+      </part>
+      <!--===============================================================-->
+    </score-partwise>

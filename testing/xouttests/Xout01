@@ -198,6 +198,7 @@ gggg | aaar | g=x3 G r |
 
 [stems up] c' x2 [reset stems down] g x3 |
 [stems up] c' x2 [backup stems down] g x |
+[stems auto]
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Tremolo between notes and general masquerade
@@ -219,5 +220,10 @@ R! | [assume bass 0] D+ | [assume time 3/4][assume key c] G. |
 "\mf\\115\" g  "\mf\\37\" g   "\mf\\39\" g   "\mf\\40\" g |
 "A" g  "3\mu\z~v'" g  "\rm\3\mf\\sc\zxv\mu\\40\" g  "\rm\4\mf\\sc\zxv%" g |
 [text below]
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Grace notes
+
+a-\g\ g a-\g/\ g gg |
 
 [endstave]

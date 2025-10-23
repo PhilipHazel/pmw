@@ -1053,10 +1053,13 @@ for (;;)
   uint32_t acflags = note->acflags;
   BOOL opposite = (acflags & af_opposite) != 0;
   BOOL wastied = (note->flags & nf_wastied) != 0;
+  BOOL grace = (note->length == 0 && note->spitch != 0); 
   const char *ac_placement =
     (((note->flags & nf_stemup) != 0) == opposite)? "above" : "below";
 
   PA("<note%s>", ((note->flags & nf_hidden) != 0)? " print-object=\"no\"" : "");
+  if (grace) PA("<grace%s/>", ((note->flags & nf_appogg) != 0)?
+    " slash=\"yes\"" : "");
   if (inchord) PN("<chord/>");
 
   // TODO Handle rest level, which can only be done by setting display-step and
@@ -1102,7 +1105,7 @@ for (;;)
   likely as the length of a breve is 0x015fea00. Therefore, resort to using
   64-bit arithmetic. */
 
-  PN("<duration>%d</duration>",
+  if (!grace) PN("<duration>%d</duration>",
     (uint32_t)(((uint64_t)note->length * divisions) / (uint64_t)len_crotchet));
 
   /* The <tie> element is concerned with sound, and comes here. Do nothing if
