@@ -95,9 +95,9 @@ static int lcr_order[] = { 1, 0, 2 };
 
 static const char *XML_note_names[] = {
   "breve", "whole", "half", "quarter", "eighth", "16th", "32nd", "64th" };
-  
+
 static const int note_relative_lengths[] = {
-  512, 256, 128, 64, 32, 16, 8, 4 }; 
+  512, 256, 128, 64, 32, 16, 8, 4 };
 
 static const char *XML_accidental_names[] = {
   "natural", "quarter-sharp", "sharp", "double-sharp",
@@ -1132,42 +1132,41 @@ for (;;)
     PN("<accidental%s>%s</accidental>", bra,
       XML_accidental_names[note->acc - 1]);
     }
-    
-  /* MusicXML requires that we supply information about any masquerading. */
-  
+
+  /* MusicXML requires that we supply information about any masquerading,
+  giving the ratio of the displayed ("actual") note to the "normal" note that
+  it replaces. The note extension flags for dotted notes are those of the
+  masquerade, but there is also a record of the original state. */
+
   if (note->masq != MASQ_UNSET)
     {
-//    int actual, normal; 
-    
     int rla = note_relative_lengths[note->masq];
-    int rln = note_relative_lengths[note->notetype]; 
+    int rln = note_relative_lengths[note->notetype];
 
-// TODO adjust for dots when can do so (PMW needs an update)
+    switch(note->flags & (nf_dot|nf_dot2|nf_plus))
+      {
+      case nf_plus: rla += rla/4; break;
+      case nf_dot|nf_dot2: rla += 3*rla/4; break;
+      case nf_dot: rla += rla/2; break;
+      }
+
+    switch(note->dot_orig)
+      {
+      case od_plus: rln += rln/4; break;
+      case od_dot|od_dot2: rln += 3*rln/4; break;
+      case od_dot: rln += rln/2; break;
+      }
 
     /* Remove common factors of 2 */
-    
-    while (rla % 2 == 0 && rln % 2 == 0) { rla /= 2; rln /= 2; } 
- 
-#ifdef NEVER
-    if (diff > 0)
-      {
-      actual = times;
-      normal = 1; 
-      }
-    else
-      {
-      actual = 1;
-      normal = times;  
-      }       
-#endif
-       
-    
+
+    while (rla % 2 == 0 && rln % 2 == 0) { rla /= 2; rln /= 2; }
+
     PA("<time-modification>");
-      PN("<actual-notes>%d</actual-notes>", rla); 
-      PN("<normal-notes>%d</normal-notes>", rln); 
-      PN("<normal-type>%s</normal-type>", XML_note_names[note->notetype]); 
+      PN("<actual-notes>%d</actual-notes>", rla);
+      PN("<normal-notes>%d</normal-notes>", rln);
+      PN("<normal-type>%s</normal-type>", XML_note_names[note->notetype]);
     PB("</time-modification>");
-    }    
+    }
 
 //TODO allow for different half-accidental styles
 

@@ -666,6 +666,14 @@ space in 32-bits. */
 #define nf_couple      (nf_coupleU+nf_coupleD)
 #define nf_dotted      (nf_dot+nf_dot2+nf_plus)
 
+/* These flags are for a copy of the dot & plus settings that are needed for 
+correctly handling masquerading in MusicXML output. They are set in an 8-bit 
+field. */
+
+#define od_dot          0x01u
+#define od_dot2         0x02u
+#define od_plus         0x04u
+
 /* Flags for the tie item (currently 8-bits) */
 
 #define tief_default    0x01u

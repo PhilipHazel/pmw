@@ -219,6 +219,7 @@ typedef struct {
   uint16_t spitch;
   uint8_t  acc_orig;
   uint8_t  char_orig;
+  uint8_t  dot_orig; 
   uint8_t  noteheadstyle;
 } b_notestr;
 

@@ -170,9 +170,9 @@ BAR 17 (18)
   barline type=1 style=0
 
 BAR 18 (19)
-  g masq=2 flags=0x06000000 length=2882880 P_2L 1G
-  g masq=4 flags=0x06000000 length=2882880 P_2L 1G
-  g. masq=1 flags=0x04000800 length=2882880 P_2L 1G
+  g masq=2 dot_orig=0x00 flags=0x06000000 length=2882880 P_2L 1G
+  g masq=4 dot_orig=0x00 flags=0x06000000 length=2882880 P_2L 1G
+  g. masq=1 dot_orig=0x00 flags=0x04000800 length=2882880 P_2L 1G
   g flags=0x06000000 nhstyle=0x02 length=2882880 P_2L 1G
   g flags=0x06000000 nhstyle=0x01 length=2882880 P_2L 1G
   g flags=0x06000000 length=0 P_2L 1G

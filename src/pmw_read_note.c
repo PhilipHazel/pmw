@@ -1429,7 +1429,7 @@ for (;;)
 
   uint8_t *acc_above = NULL;
   uint8_t acc;
-  uint8_t acc_orig, char_orig;
+  uint8_t acc_orig, char_orig, dot_orig; 
   uint8_t transposedacc = ac_no;
   uint8_t noteheadstyle = srs.noteheadstyle;
   BOOL    transposedaccforce = active_transposedaccforce;
@@ -1804,8 +1804,11 @@ for (;;)
     else error(ERR116, "augmentation dot movement");
     }
 
-  /* Lengthen the note according to .+ . or .. */
+  /* Lengthen the note according to .+ . or .. and save additional flags in 
+  dot_orig, for the benefit of MusicXML output. */
 
+  dot_orig = 0;
+   
   if (read_c == '.' )
     {
     read_nextc();
@@ -1813,16 +1816,19 @@ for (;;)
       {
       read_nextc();
       flags |= nf_plus;
+      dot_orig |= od_plus; 
       pn_notelength = (pn_notelength*5)/4;
       }
     else
       {
       flags |= nf_dot;
+      dot_orig |= od_dot; 
       pn_notelength = (pn_notelength*3)/2;
       if (read_c == '.' )
         {
         read_nextc();
         flags |= nf_dot2;
+        dot_orig |= od_dot2; 
         pn_notelength = (pn_notelength*7)/6;
         }
       }
@@ -2356,6 +2362,7 @@ for (;;)
   noteptr->acc = acc;
   noteptr->acc_orig = acc_orig;
   noteptr->char_orig = char_orig;
+  noteptr->dot_orig = dot_orig; 
   noteptr->spitch = pitch;
   noteptr->flags = flags;
   noteptr->acflags = acflags;

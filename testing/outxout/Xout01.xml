@@ -5923,7 +5923,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="119" width="312">
+    <measure number="119" width="211">
       <note>
         <pitch>
           <step>C</step>
@@ -5974,7 +5974,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="120" width="263">
+    <measure number="120" width="178">
       <note>
         <pitch>
           <step>G</step>
@@ -6022,7 +6022,70 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="121" width="146">
+    <measure number="121" width="145">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>4320</duration>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>1</actual-notes>
+          <normal-notes>2</normal-notes>
+          <normal-type>half</normal-type>
+        </time-modification>
+        <stem>down</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>4320</duration>
+        <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="122" width="175">
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>3240</duration>
+        <type>half</type>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+          <normal-type>quarter</normal-type>
+        </time-modification>
+        <stem>down</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>1080</duration>
+        <type>quarter</type>
+        <dot/>
+        <time-modification>
+          <actual-notes>3</actual-notes>
+          <normal-notes>1</normal-notes>
+          <normal-type>eighth</normal-type>
+        </time-modification>
+        <stem>down</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>4320</duration>
+        <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="123" width="98">
       <note>
         <rest measure="yes"/>
         <duration>8640</duration>
@@ -6031,7 +6094,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="122" width="146">
+    <measure number="124" width="98">
       <attributes>
         <clef print-object="no">
           <sign>F</sign>
@@ -6049,7 +6112,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="123" width="128">
+    <measure number="125" width="87">
       <attributes>
         <time print-object="no">
           <beats>3</beats>
@@ -6073,7 +6136,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="124" width="107">
+    <measure number="126" width="107">
       <print new-system="yes"/>
       <note>
         <pitch>
@@ -6087,7 +6150,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="125" width="146">
+    <measure number="127" width="146">
       <attributes>
         <clef print-object="no">
           <sign>G</sign>
@@ -6111,7 +6174,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="126" width="260">
+    <measure number="128" width="260">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>3</figure-number>
@@ -6175,7 +6238,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="127" width="260">
+    <measure number="129" width="260">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>6</figure-number>
@@ -6235,7 +6298,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="128" width="266">
+    <measure number="130" width="266">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>A</figure-number>
