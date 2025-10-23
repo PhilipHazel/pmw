@@ -1058,8 +1058,9 @@ for (;;)
     (((note->flags & nf_stemup) != 0) == opposite)? "above" : "below";
 
   PA("<note%s>", ((note->flags & nf_hidden) != 0)? " print-object=\"no\"" : "");
-  if (grace) PA("<grace%s/>", ((note->flags & nf_appogg) != 0)?
+  if (grace) PN("<grace%s/>", ((note->flags & nf_appogg) != 0)?
     " slash=\"yes\"" : "");
+  else if ((note->flags & nf_cuesize) != 0) PN("<cue/>");   
   if (inchord) PN("<chord/>");
 
   // TODO Handle rest level, which can only be done by setting display-step and

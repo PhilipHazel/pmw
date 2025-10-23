@@ -6136,7 +6136,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="126" width="84">
+    <measure number="126" width="69">
       <print new-system="yes"/>
       <note>
         <pitch>
@@ -6150,7 +6150,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="127" width="120">
+    <measure number="127" width="104">
       <attributes>
         <clef print-object="no">
           <sign>G</sign>
@@ -6174,7 +6174,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="128" width="204">
+    <measure number="128" width="169">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>3</figure-number>
@@ -6238,7 +6238,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="129" width="204">
+    <measure number="129" width="169">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>6</figure-number>
@@ -6298,7 +6298,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="130" width="204">
+    <measure number="130" width="169">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>A</figure-number>
@@ -6360,66 +6360,108 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="131" width="225">
+    <measure number="131" width="185">
       <note>
         <grace/>
-          <pitch>
-            <step>A</step>
-            <octave>4</octave>
-          </pitch>
-          <type>eighth</type>
-          <stem>up</stem>
-        </note>
-        <note>
-          <pitch>
-            <step>G</step>
-            <octave>4</octave>
-          </pitch>
-          <duration>2160</duration>
-          <type>quarter</type>
-          <stem>up</stem>
-        </note>
-        <note>
-          <grace slash="yes"/>
-            <pitch>
-              <step>A</step>
-              <octave>4</octave>
-            </pitch>
-            <type>eighth</type>
-            <stem>up</stem>
-          </note>
-          <note>
-            <pitch>
-              <step>G</step>
-              <octave>4</octave>
-            </pitch>
-            <duration>2160</duration>
-            <type>quarter</type>
-            <stem>up</stem>
-          </note>
-          <note>
-            <pitch>
-              <step>G</step>
-              <octave>4</octave>
-            </pitch>
-            <duration>2160</duration>
-            <type>quarter</type>
-            <stem>up</stem>
-          </note>
-          <note>
-            <pitch>
-              <step>G</step>
-              <octave>4</octave>
-            </pitch>
-            <duration>2160</duration>
-            <type>quarter</type>
-            <stem>up</stem>
-          </note>
-          <barline>
-            <bar-style>light-heavy</bar-style>
-          </barline>
-        </measure>
-        <!--============================-->
-      </part>
-      <!--===============================================================-->
-    </score-partwise>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+        <type>eighth</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <grace slash="yes"/>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+        <type>eighth</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="132" width="177">
+      <note>
+        <cue/>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <cue/>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <cue/>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>down</stem>
+      </note>
+      <barline>
+        <bar-style>light-heavy</bar-style>
+      </barline>
+    </measure>
+    <!--============================-->
+  </part>
+  <!--===============================================================-->
+</score-partwise>
