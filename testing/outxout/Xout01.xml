@@ -4841,7 +4841,7 @@
     <measure number="85" width="163">
       <direction>
         <direction-type>
-          <words font-size="10" default-y="-44" font-style="italic" justify="left">abc</words>
+          <words font-size="10" default-y="-44" font-style="italic" justify="left">a&lt;b&gt;c</words>
         </direction-type>
       </direction>
       <note>
@@ -4855,7 +4855,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="10" default-y="4" font-style="italic" justify="left">xyz</words>
+          <words font-size="10" default-y="4" font-style="italic" justify="left">&amp;xyz</words>
         </direction-type>
       </direction>
       <note>

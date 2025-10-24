@@ -135,7 +135,7 @@ c'\t\ c'\t|\ c'\rt\ c'\rt|\ |
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Text other than rehearsal and lyrics
 
-"abc" g "xyz"/a g "pqr"/box g "123"/ring/a g |
+"a<b>c" g "&&xyz"/a g "pqr"/box g "123"/ring/a g |
 "abcd"/rot30 g "abcd"/rot-30 g "centred"/c g "right"/a/e g |
 
 "italic \rm\roman \bi\bold italic" g
