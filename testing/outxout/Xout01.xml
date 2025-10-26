@@ -6136,7 +6136,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="126" width="70">
+    <measure number="126" width="74">
       <print new-system="yes"/>
       <note>
         <pitch>
@@ -6150,7 +6150,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="127" width="104">
+    <measure number="127" width="108">
       <attributes>
         <clef print-object="no">
           <sign>G</sign>
@@ -6174,7 +6174,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="128" width="170">
+    <measure number="128" width="180">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>3</figure-number>
@@ -6238,7 +6238,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="129" width="170">
+    <measure number="129" width="180">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>6</figure-number>
@@ -6298,10 +6298,9 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="130" width="170">
+    <measure number="130" width="180">
       <figured-bass font-size="8.2">
         <figure>
-          <figure-number>A</figure-number>
         </figure>
       </figured-bass>
       <note>
@@ -6360,7 +6359,32 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="131" width="186">
+    <measure number="131" width="119">
+      <figured-bass font-size="8.2">
+        <figure>
+          <figure-number>4</figure-number>
+          <suffix>plus</suffix>
+        </figure>
+      </figured-bass>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>6480</duration>
+        <type>half</type>
+        <dot/>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="132" width="195">
       <note>
         <grace/>
         <pitch>
@@ -6417,7 +6441,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="132" width="172">
+    <measure number="133" width="162">
       <note>
         <cue/>
         <pitch>
@@ -6459,7 +6483,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="133" width="162">
+    <measure number="134" width="162">
       <note>
         <pitch>
           <step>G</step>
@@ -6512,7 +6536,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="134" width="142">
+    <measure number="135" width="142">
       <note>
         <pitch>
           <step>G</step>

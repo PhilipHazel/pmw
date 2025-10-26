@@ -1,3 +1,5 @@
+** Warning: figured bass string not fully converted to MusicXML - remainder is "A"
+
 
 Not all PMW items can be translated to MusicXML. Some items in this file that
 were wholly or partially ignored are listed below. This is probably not a

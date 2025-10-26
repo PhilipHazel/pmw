@@ -2256,26 +2256,38 @@ if (figbass)
         done = TRUE;
         break;
         }
+
+      if (done) p++;
       }
 
-    /* If not a special figured bass character, output any non-Music-font
-    characters. */
+    /* Not a music font special figured bass character. */
 
     if (!done && *p != 0)
       {
-      uint32_t f = PBFONT(*p);
+      /* Output any non-music-font digits. Then check for a following "+"
+      character, which is output as a suffix. */
 
-      if (f != font_mf)
+      if (PBFONT(*p) != font_mf && isdigit(PCHAR(*p)))
         {
         PO("<figure-number>");
-        while (*p != 0 && PBFONT(*p) != font_mf)
+        do
           PC("%c", PCHAR(*p++));
+        while (*p != 0 && PBFONT(*p) != font_mf && isdigit(PCHAR(*p)));
         PC("</figure-number>\n");
+
+        if (*p != 0 && PBFONT(*p) != font_mf && PCHAR(*p) == '+')
+          {
+          PN("<suffix>plus</suffix>");
+          p++;
+          done = TRUE;
+          }
         }
 
-      /* See if there is a following accidental for a suffix. */
+      /* If we haven't had a suffix, see if there is a following accidental in
+      the music font. There is also a plus character in the music font which
+      might be used. */
 
-      if (PBFONT(*p) == font_mf)
+      if (!done && PBFONT(*p) == font_mf)
         {
         switch(PCHAR(*p))
           {
@@ -2293,11 +2305,20 @@ if (figbass)
           PN("<suffix>natural</suffix>");
           p++;
           break;
+
+          case 135:
+          PN("<suffix>plus</suffix>");
+          p++;
+          break;
           }
         }
       }
 
+    /* End the figure and heck that we've used up all the string; warn if not.
+    */
+
     PB("</figure>");
+    if (*p != 0) error(ERR197, p);
 
     /* If the immediately following item is not another figured bass string,
     break the loop. Otherwise, advance and handle it. */
@@ -3299,16 +3320,6 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   st = xml_movt->stavetable[stave];
   snamestr *sn = st->stave_name;
 
-  /* Support only a basic stave name and abbreviation. At least one XML
-  processor insists on the presence of <part-name>, though it can be empty. We
-  have to convert strings to UTF-8. */
-
-  if (sn!= NULL)
-    {
-    if (sn->text != NULL) name = sn->text;
-    if (sn->next != NULL && sn->next->text != NULL) abbr = sn->next->text;
-    }
-
   if ((joinbits[stave] & jb_bracket_start) != 0)
     {
     PA("<part-group number=\"1\" type=\"start\">");
@@ -3337,11 +3348,39 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
     PB("</part-group>");
     }
 
+  /* Support only a basic stave name and abbreviation. At least one XML
+  processor insists on the presence of <part-name>, though it can be empty. We
+  have to convert strings to UTF-8. MusicXML requires <part-name> be present,
+  even if there is also <part-name-display>. */
+
+  if (sn!= NULL)
+    {
+    if (sn->text != NULL) name = sn->text;
+    if (sn->next != NULL && sn->next->text != NULL) abbr = sn->next->text;
+    }
+
   PA("<score-part id=\"P%d\">", stave);
   PN("<part-name>%s</part-name>", (name == NULL)?
     US"" : convert_PMW_string(name));
+
+  if (name != NULL)
+    {
+    PA("<part-name-display>");
+    write_PMW_string(name, INT32_MAX,
+      (&xml_movt->fontsizes->fontsize_text[sn->size])->size,
+      "display-text", "", 0,  INT32_MAX, NULL, NULL, 0);
+    PB("</part-name-display>");
+    }
+
   if (abbr != NULL)
+    {
     PN("<part-abbreviation>%s</part-abbreviation>", convert_PMW_string(abbr));
+    PA("<part-abbreviation-display>");
+    write_PMW_string(abbr, INT32_MAX,
+      (&xml_movt->fontsizes->fontsize_text[sn->next->size])->size,
+      "display-text", "", 0,  INT32_MAX, NULL, NULL, 0);
+    PB("</part-abbreviation-display>");
+    }
 
 // TODO midi-instrument - if anything set
 
