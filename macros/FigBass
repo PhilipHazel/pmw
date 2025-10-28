@@ -59,6 +59,7 @@
 @ This version uses a 5 and a +
 *define 5cpsb "&FBI\rm\5\mu\x~vyyy\135\"&FBU "&FBI\mu\z~%"/fb
 *define 5f   "&FBI\rm\5\mu\z~v'"&FBU
+*define 5fb  "&FBI\rm\5"&FBU "\mu\z~v'"/fb
 *define 5sb  "&FBI\rm\5"&FBU "&FBI\mu\z~%"/fb
 *define 6    "&FBI\rm\6"&FBU
 *define 6c   "&FBI\mf\s"&FBU
