@@ -76,6 +76,7 @@
 *define 6f4  "&FBI\rm\6\mu\z~v'"&FBU "&FBI\rm\4"/fb
 *define 6n   "&FBI\rm\6\mu\z~\40\"&FBU
 *define 6s   "&FBI\rm\6\mu\z~%"&FBU
+*define 6sb  "&FBI\rm\6"&FBU "&FBI\mu\z~%"/fb
 *define 6s4  "&FBI\rm\6\mu\z~%"&FBU "&FBI\rm\4"/fb
 *define 7    "&FBI\rm\7"&FBU
 *define 72f  "&FBI\rm\7"&FBU "&FBI\rm\2\mu\z~v'"/fb
