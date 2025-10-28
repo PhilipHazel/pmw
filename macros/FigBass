@@ -89,6 +89,7 @@
 *define 7sb  "&FBI\rm\7"&FBU "&FBI\mu\z~%"/fb
 *define 7s3  "&FBI\rm\7\mu\z~%"&FBU "&FBI\rm\3"/fb
 *define 7u   "&FBI\rm\7_"&FBU
+*define 7f   "&FBI\rm\7\mu\z~v'"&FBU
 *define 86   "&FBI\rm\8"&FBU "&FBI\rm\6"/fb
 *define 95   "&FBI\rm\9"&FBU "&FBI\rm\5"/fb
 *define 97   "&FBI\rm\9"&FBU "&FBI\rm\7"/fb
