@@ -6,7 +6,7 @@ fbsize 8
 systemgap 52
 
 [stave 1 bass 0]
-"ulay"/ul c &3 c &3f c &3n c |
+"ulay"/ul c &2s c &3 c &3f c &3n c |
 &4 c &42 c &43 c &4c2 c &4cp2 c |
 &4f c &4f3 c &4n2 c &4n3 c &4s c |
 

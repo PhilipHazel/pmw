@@ -34,6 +34,7 @@
 @ examples that I happened to be printing when I originally defined these, and
 @ they have been added to subsequently.
 
+*define 2s   "&FBI\rm\2\mf\\sc\zxv%"&FBU
 *define 3    "&FBI\rm\3"&FBU
 *define 3f   "&FBI\rm\3\mu\z~v'"&FBU
 *define 3n   "&FBI\rm\3\mf\\sc\zxv\mu\\40\"&FBU
