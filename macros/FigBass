@@ -65,6 +65,7 @@
 *define 6c   "&FBI\mf\s"&FBU
 @ This version uses a 6 and a rotated +
 *define 6cp  "&FBI\rm\6"&FBU "&FBI\mu\xxxz\32\\135\"/fb/rot26
+*define 6cp4 "&FBI\rm\6"&FBU "&FBI\mu\xxxz\32\\135\"/fb/rot26"&FBI\rm\4"/fb/u10
 *define 64   "&FBI\rm\6"&FBU "&FBI\rm\4"/fb
 *define 64c  "&FBI\rm\6"&FBU "&FBI\mf\k"/fb
 @ This version built from a 4 and a +
