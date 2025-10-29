@@ -6441,7 +6441,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="133" width="162">
+    <measure number="133" width="238">
       <note>
         <cue/>
         <pitch>
@@ -6483,7 +6483,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="134" width="162">
+    <measure number="134" width="238">
       <note>
         <pitch>
           <step>G</step>
@@ -6536,7 +6536,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="135" width="142">
+    <measure number="135" width="201">
       <note>
         <pitch>
           <step>G</step>
@@ -6567,6 +6567,38 @@
         <rest/>
         <duration>4320</duration>
         <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="136" width="110">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8640</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="137" width="131">
+      <attributes>
+        <measure-style>
+          <multiple-rest>3</multiple-rest>
+        </measure-style>
+      </attributes>
+    </measure>
+    <!--============================-->
+    <measure number="140" width="115">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8640</duration>
+        <type>whole</type>
         <stem>none</stem>
       </note>
       <barline>

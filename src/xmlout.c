@@ -2370,6 +2370,7 @@ Returns:  nothing
 static void
 start_measure(int bar)
 {
+comment_bar = bar;
 xml_barpos = xml_movt->posvector + bar;
 xml_pos = xml_barpos->vector;
 xml_poslast = xml_pos + xml_barpos->count - 1;
@@ -2546,19 +2547,38 @@ PB("</print>");
 *        Handle the items in a bar (measure)     *
 *************************************************/
 
-/* This is called for all bars, after first_measure() for bar 0, otherwise
-directly after start_measure().
+/* This is called for all bars except the non-first bars in a multirest, after
+first_measure() for bar 0, otherwise directly after start_measure(). It
+normally returns 1, but a bigger number after a multirest.
 
 Arguments:
   bar         the absolute bar number (starting at 0)
   divisions   divisions value
 
-Returns:      nothing
+Returns:      number of bars processed
 */
 
-static void
+static int
 complete_measure(int bar, int divisions)
 {
+/* Handle a multirest bar */
+
+if (xml_barpos->multi > 1)
+  {
+  const char *cmr = ((xml_movt->flags & mf_codemultirests) == 0)? "" :
+    " use-symbols=\"yes\"";
+  PA("<attributes>");
+  PA("<measure-style>"); 
+  PN("<multiple-rest%s>%d</multiple-rest>", cmr, xml_barpos->multi);
+  PB("</measure-style>"); 
+  PB("</attributes>");
+  PB("</measure>");
+  PN("%s", MEASURE_SEPARATOR);
+  return xml_barpos->multi;
+  }
+
+/* Handle non multirest bar */
+
 barstr *bnext = (st->barcount > bar + 1)?
   st->barindex[bar + 1] : NULL;
 
@@ -2951,6 +2971,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
 PB("</measure>");
 PN("%s", MEASURE_SEPARATOR);
+return 1;
 }
 
 
@@ -3529,20 +3550,19 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   /* The first bar has special handling because of the need to deal with
   default clef, key, and time, and to set <divisions>. The first measure of the
   first stave is where bar numbering can be specified. */
-
-  start_measure(0);
-  comment_bar = 0;
-  first_measure(barvector[0], divisions);
+  
+  int bar = 0;
+  start_measure(bar);
+  first_measure(barvector[bar], divisions);
   if (stave == 1) set_barnumbering();
-  complete_measure(0, divisions);
+  bar += complete_measure(bar, divisions);
 
   /* Now process the remaining bars of the stave. */
 
-  for (int bar = 1; bar < st->barcount; bar++)
+  while (bar < st->barcount)
     {
     start_measure(bar);
-    comment_bar = bar;
-    complete_measure(bar, divisions);
+    bar += complete_measure(bar, divisions);
     }
 
   PB("</part>");
