@@ -228,6 +228,12 @@ comment(const char *format, ...)
 va_list ap;
 va_start(ap, format);
 
+if (main_showid)
+  {
+  (void)fprintf(stderr, "PMW version %s\n", PMW_VERSION);
+  main_showid = FALSE;
+  }
+
 uint32_t pno = xml_movt->barvector[comment_bar];
 uint32_t pnofr = pno & 0xffff;
 pno >>= 16;
@@ -2011,16 +2017,47 @@ for (;;)
   PB("</note>");
 
   /* If this was a single note or the last note of chord, we update the musical
-  and horizontal positions, then break the loop. */
+  position, and also the horizontal position unless there is a [reset] before
+  the next note, because in that event there may not be a recorded position at
+  the next musical offset. */
 
   if (b->next->type != b_chord)
     {
+    BOOL reset = FALSE;
+
+    /* Check for [reset] */
+
+    for (barstr *bn = (barstr *)b->next; bn != NULL; bn = (barstr *)bn->next)
+      {
+      if (bn->type == b_note) break;
+      if (bn->type == b_reset)
+        {
+        reset = TRUE;
+        break;
+        }
+      }
+
+    /* Update musical position - needed even if [reset] because the reset
+    amount is relative to the next position. */
+
     xml_moff += note->length;
-    while (xml_moff > xml_pos->moff && xml_pos < xml_poslast) xml_pos++;
-    while (xml_moff < xml_pos->moff && xml_pos > xml_barpos->vector) xml_pos--;
-    if (xml_pos->moff != xml_moff)
-      error(ERR192, "position data failure");   /* Hard */
-    xml_xoff = xml_pos->xoff;
+
+    /* Unless [reset], update the horizontal position. */
+
+    if (!reset)
+      {
+      while (xml_moff > xml_pos->moff && xml_pos < xml_poslast) xml_pos++;
+      while (xml_moff < xml_pos->moff && xml_pos > xml_barpos->vector) xml_pos--;
+      if (xml_pos->moff != xml_moff)
+        {
+        comment("fatal error");
+        error(ERR192, "position data failure");   /* Hard */
+        }
+      xml_xoff = xml_pos->xoff;
+      }
+
+    /* End of single note or chord. */
+
     break;
     }
 
@@ -2568,9 +2605,9 @@ if (xml_barpos->multi > 1)
   const char *cmr = ((xml_movt->flags & mf_codemultirests) == 0)? "" :
     " use-symbols=\"yes\"";
   PA("<attributes>");
-  PA("<measure-style>"); 
+  PA("<measure-style>");
   PN("<multiple-rest%s>%d</multiple-rest>", cmr, xml_barpos->multi);
-  PB("</measure-style>"); 
+  PB("</measure-style>");
   PB("</attributes>");
   PB("</measure>");
   PN("%s", MEASURE_SEPARATOR);
@@ -2753,9 +2790,12 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
       ((backby % len_crotchet) * divisions)/len_crotchet;
     PA("<backup>");
     PN("<duration>%d</duration>", backby);
-
     PB("</backup>");
     xml_moff = ((b_resetstr *)b)->moff;
+    
+// TODO? xml_xoff is not being reset, but neither is it actually used at the
+//   moment.
+ 
     break;
 
     case b_rrepeat:
@@ -3550,7 +3590,7 @@ for (int stave = 1; stave <= xml_movt->laststave; stave++)
   /* The first bar has special handling because of the need to deal with
   default clef, key, and time, and to set <divisions>. The first measure of the
   first stave is where bar numbering can be specified. */
-  
+
   int bar = 0;
   start_measure(bar);
   first_measure(barvector[bar], divisions);

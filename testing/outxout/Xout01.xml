@@ -5923,7 +5923,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="119" width="209">
+    <measure number="119" width="182">
       <note>
         <pitch>
           <step>C</step>
@@ -5974,7 +5974,50 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="120" width="176">
+    <measure number="120" width="122">
+      <attributes>
+        <time>
+          <beats>3</beats>
+          <beat-type>2</beat-type>
+        </time>
+      </attributes>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>6480</duration>
+        <type>half</type>
+        <dot/>
+        <stem>up</stem>
+      </note>
+      <direction>
+        <direction-type>
+          <words font-size="10" default-y="-44" font-style="italic" justify="left">ab</words>
+        </direction-type>
+      </direction>
+      <backup>
+        <duration>6480</duration>
+      </backup>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12960</duration>
+        <type>whole</type>
+        <dot/>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="121" width="154">
+      <attributes>
+        <time symbol="common" print-object="no">
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
       <note>
         <pitch>
           <step>G</step>
@@ -6022,7 +6065,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="121" width="143">
+    <measure number="122" width="125">
       <note>
         <pitch>
           <step>G</step>
@@ -6045,7 +6088,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="122" width="184">
+    <measure number="123" width="161">
       <note>
         <pitch>
           <step>A</step>
@@ -6085,7 +6128,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="123" width="98">
+    <measure number="124" width="85">
       <note>
         <rest measure="yes"/>
         <duration>8640</duration>
@@ -6094,7 +6137,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="124" width="98">
+    <measure number="125" width="85">
       <attributes>
         <clef print-object="no">
           <sign>F</sign>
@@ -6112,7 +6155,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="125" width="86">
+    <measure number="126" width="75">
       <attributes>
         <time print-object="no">
           <beats>3</beats>
@@ -6136,7 +6179,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="126" width="74">
+    <measure number="127" width="74">
       <print new-system="yes"/>
       <note>
         <pitch>
@@ -6150,7 +6193,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="127" width="108">
+    <measure number="128" width="108">
       <attributes>
         <clef print-object="no">
           <sign>G</sign>
@@ -6174,7 +6217,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="128" width="180">
+    <measure number="129" width="180">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>3</figure-number>
@@ -6238,7 +6281,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="129" width="180">
+    <measure number="130" width="180">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>6</figure-number>
@@ -6298,7 +6341,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="130" width="180">
+    <measure number="131" width="180">
       <figured-bass font-size="8.2">
         <figure>
         </figure>
@@ -6359,7 +6402,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="131" width="119">
+    <measure number="132" width="119">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>4</figure-number>
@@ -6384,7 +6427,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="132" width="195">
+    <measure number="133" width="195">
       <note>
         <grace/>
         <pitch>
@@ -6441,7 +6484,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="133" width="238">
+    <measure number="134" width="238">
       <note>
         <cue/>
         <pitch>
@@ -6483,7 +6526,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="134" width="238">
+    <measure number="135" width="238">
       <note>
         <pitch>
           <step>G</step>
@@ -6536,7 +6579,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="135" width="201">
+    <measure number="136" width="201">
       <note>
         <pitch>
           <step>G</step>
@@ -6571,7 +6614,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="136" width="110">
+    <measure number="137" width="110">
       <note>
         <pitch>
           <step>G</step>
@@ -6583,7 +6626,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="137" width="131">
+    <measure number="138" width="131">
       <attributes>
         <measure-style>
           <multiple-rest>3</multiple-rest>
@@ -6591,7 +6634,7 @@
       </attributes>
     </measure>
     <!--============================-->
-    <measure number="140" width="115">
+    <measure number="141" width="115">
       <note>
         <pitch>
           <step>G</step>
