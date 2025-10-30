@@ -2002,6 +2002,18 @@ for (;;)
           }
 
         PC("</syllabic>\n");
+        
+        /* If a PMW underlay string starts with a hyphen, it delimits an empty 
+        syllable. The write_PMW_string() function won't output anything if its 
+        input is an empty string, but at least one picky MusicXML interpreter 
+        grumbles if <text> is missing. So set up a single space. */
+        
+        if (len == 0)
+          {
+          ss[0] = ' ' | (font_rm << 24);
+          len = 1;
+          }     
+ 
         write_PMW_string(ss, len, fdata->size, "text", "", 0, INT32_MAX, NULL,
           NULL, 0);
         if (extend != NULL) PN("<extend type=\"%s\"/>", extend);

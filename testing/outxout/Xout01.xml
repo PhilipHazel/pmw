@@ -5464,7 +5464,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="98" width="330">
+    <measure number="98" width="209">
       <note>
         <pitch>
           <step>G</step>
@@ -5519,7 +5519,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="99" width="330">
+    <measure number="99" width="209">
       <note>
         <pitch>
           <step>G</step>
@@ -5570,7 +5570,78 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="100" width="179">
+    <measure number="100" width="176">
+      <note>
+        <rest/>
+        <duration>4320</duration>
+        <type>half</type>
+        <stem>none</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>none</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <tie type="start"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="start" placement="below"/>
+        </notations>
+        <lyric default-y="-44">
+          <syllabic>begin</syllabic>
+          <text font-size="10">qui</text>
+        </lyric>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="101" width="176">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <tie type="stop"/>
+        <type>quarter</type>
+        <stem>up</stem>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+        <lyric default-y="-44">
+          <syllabic>middle</syllabic>
+          <text font-size="10"> </text>
+        </lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <type>quarter</type>
+        <stem>up</stem>
+        <lyric default-y="-44">
+          <syllabic>end</syllabic>
+          <text font-size="10">a</text>
+        </lyric>
+      </note>
+      <note>
+        <rest/>
+        <duration>4320</duration>
+        <type>half</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="102" width="122">
       <attributes>
         <time symbol="common">
           <beats>4</beats>
@@ -5588,7 +5659,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="101" width="179">
+    <measure number="103" width="122">
       <attributes>
         <time symbol="cut">
           <beats>4</beats>
@@ -5606,7 +5677,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="102" width="77">
+    <measure number="104" width="77">
       <print new-page="yes"/>
       <attributes>
         <clef>
@@ -5622,41 +5693,11 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="103" width="113">
+    <measure number="105" width="113">
       <attributes>
         <clef>
           <sign>F</sign>
           <line>3</line>
-        </clef>
-      </attributes>
-      <note>
-        <rest measure="yes"/>
-        <duration>8640</duration>
-        <type>whole</type>
-        <stem>none</stem>
-      </note>
-    </measure>
-    <!--============================-->
-    <measure number="104" width="113">
-      <attributes>
-        <clef>
-          <sign>F</sign>
-          <line>4</line>
-        </clef>
-      </attributes>
-      <note>
-        <rest measure="yes"/>
-        <duration>8640</duration>
-        <type>whole</type>
-        <stem>none</stem>
-      </note>
-    </measure>
-    <!--============================-->
-    <measure number="105" width="113">
-      <attributes>
-        <clef>
-          <sign>C</sign>
-          <line>5</line>
         </clef>
       </attributes>
       <note>
@@ -5672,7 +5713,6 @@
         <clef>
           <sign>F</sign>
           <line>4</line>
-          <clef-octave-change>-1</clef-octave-change>
         </clef>
       </attributes>
       <note>
@@ -5686,7 +5726,7 @@
     <measure number="107" width="113">
       <attributes>
         <clef>
-          <sign>F</sign>
+          <sign>C</sign>
           <line>5</line>
         </clef>
       </attributes>
@@ -5701,7 +5741,9 @@
     <measure number="108" width="113">
       <attributes>
         <clef>
-          <sign>percussion</sign>
+          <sign>F</sign>
+          <line>4</line>
+          <clef-octave-change>-1</clef-octave-change>
         </clef>
       </attributes>
       <note>
@@ -5713,6 +5755,35 @@
     </measure>
     <!--============================-->
     <measure number="109" width="113">
+      <attributes>
+        <clef>
+          <sign>F</sign>
+          <line>5</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest measure="yes"/>
+        <duration>8640</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="110" width="113">
+      <attributes>
+        <clef>
+          <sign>percussion</sign>
+        </clef>
+      </attributes>
+      <note>
+        <rest measure="yes"/>
+        <duration>8640</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="111" width="113">
       <attributes>
         <clef>
           <sign>C</sign>
@@ -5727,7 +5798,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="110" width="113">
+    <measure number="112" width="113">
       <attributes>
         <clef print-object="no">
           <sign>G</sign>
@@ -5745,7 +5816,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="111" width="84">
+    <measure number="113" width="84">
       <attributes>
         <clef>
           <sign>F</sign>
@@ -5761,7 +5832,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="112" width="120">
+    <measure number="114" width="120">
       <attributes>
         <clef>
           <sign>C</sign>
@@ -5776,43 +5847,11 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="113" width="120">
+    <measure number="115" width="120">
       <attributes>
         <clef>
           <sign>C</sign>
           <line>4</line>
-        </clef>
-      </attributes>
-      <note>
-        <rest measure="yes"/>
-        <duration>8640</duration>
-        <type>whole</type>
-        <stem>none</stem>
-      </note>
-    </measure>
-    <!--============================-->
-    <measure number="114" width="120">
-      <attributes>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-          <clef-octave-change>1</clef-octave-change>
-        </clef>
-      </attributes>
-      <note>
-        <rest measure="yes"/>
-        <duration>8640</duration>
-        <type>whole</type>
-        <stem>none</stem>
-      </note>
-    </measure>
-    <!--============================-->
-    <measure number="115" width="120">
-      <attributes>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-          <clef-octave-change>-1</clef-octave-change>
         </clef>
       </attributes>
       <note>
@@ -5828,7 +5867,7 @@
         <clef>
           <sign>G</sign>
           <line>2</line>
-          <clef-octave-change>-1</clef-octave-change>
+          <clef-octave-change>1</clef-octave-change>
         </clef>
       </attributes>
       <note>
@@ -5844,6 +5883,7 @@
         <clef>
           <sign>G</sign>
           <line>2</line>
+          <clef-octave-change>-1</clef-octave-change>
         </clef>
       </attributes>
       <note>
@@ -5854,7 +5894,38 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="118" width="180">
+    <measure number="118" width="120">
+      <attributes>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+          <clef-octave-change>-1</clef-octave-change>
+        </clef>
+      </attributes>
+      <note>
+        <rest measure="yes"/>
+        <duration>8640</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="119" width="120">
+      <attributes>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest measure="yes"/>
+        <duration>8640</duration>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="120" width="180">
       <note>
         <pitch>
           <step>C</step>
@@ -5923,7 +5994,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="119" width="182">
+    <measure number="121" width="182">
       <note>
         <pitch>
           <step>C</step>
@@ -5974,7 +6045,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="120" width="122">
+    <measure number="122" width="122">
       <attributes>
         <time>
           <beats>3</beats>
@@ -6011,7 +6082,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="121" width="154">
+    <measure number="123" width="154">
       <attributes>
         <time symbol="common" print-object="no">
           <beats>4</beats>
@@ -6065,7 +6136,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="122" width="125">
+    <measure number="124" width="125">
       <note>
         <pitch>
           <step>G</step>
@@ -6088,7 +6159,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="123" width="161">
+    <measure number="125" width="161">
       <note>
         <pitch>
           <step>A</step>
@@ -6128,7 +6199,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="124" width="85">
+    <measure number="126" width="85">
       <note>
         <rest measure="yes"/>
         <duration>8640</duration>
@@ -6137,7 +6208,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="125" width="85">
+    <measure number="127" width="85">
       <attributes>
         <clef print-object="no">
           <sign>F</sign>
@@ -6155,7 +6226,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="126" width="75">
+    <measure number="128" width="75">
       <attributes>
         <time print-object="no">
           <beats>3</beats>
@@ -6179,7 +6250,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="127" width="74">
+    <measure number="129" width="74">
       <print new-system="yes"/>
       <note>
         <pitch>
@@ -6193,7 +6264,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="128" width="108">
+    <measure number="130" width="108">
       <attributes>
         <clef print-object="no">
           <sign>G</sign>
@@ -6217,7 +6288,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="129" width="180">
+    <measure number="131" width="180">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>3</figure-number>
@@ -6281,7 +6352,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="130" width="180">
+    <measure number="132" width="180">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>6</figure-number>
@@ -6341,7 +6412,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="131" width="180">
+    <measure number="133" width="180">
       <figured-bass font-size="8.2">
         <figure>
         </figure>
@@ -6402,7 +6473,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="132" width="119">
+    <measure number="134" width="119">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>4</figure-number>
@@ -6427,7 +6498,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="133" width="195">
+    <measure number="135" width="195">
       <note>
         <grace/>
         <pitch>
@@ -6484,7 +6555,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="134" width="238">
+    <measure number="136" width="238">
       <note>
         <cue/>
         <pitch>
@@ -6526,7 +6597,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="135" width="238">
+    <measure number="137" width="238">
       <note>
         <pitch>
           <step>G</step>
@@ -6579,7 +6650,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="136" width="201">
+    <measure number="138" width="201">
       <note>
         <pitch>
           <step>G</step>
@@ -6614,7 +6685,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="137" width="110">
+    <measure number="139" width="110">
       <note>
         <pitch>
           <step>G</step>
@@ -6626,7 +6697,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="138" width="131">
+    <measure number="140" width="131">
       <attributes>
         <measure-style>
           <multiple-rest>3</multiple-rest>
@@ -6634,7 +6705,7 @@
       </attributes>
     </measure>
     <!--============================-->
-    <measure number="141" width="115">
+    <measure number="143" width="115">
       <note>
         <pitch>
           <step>G</step>
