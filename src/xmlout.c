@@ -3071,6 +3071,7 @@ void
 outxml_write(void)
 {
 char datebuff[100];
+uint32_t laststave;
 uint32_t lcr_positions[3];
 time_t now;
 
@@ -3093,6 +3094,7 @@ if (xml_movt->barcount < 1)
 of changing this. */
 
 xml_staves = xml_movt->select_staves;
+laststave = xml_movt->laststave;
 
 /* Open the output file */
 
@@ -3220,7 +3222,7 @@ minimum for above. MusicXML staff-distance is a measure from above, bottom to
 top. The value for the top staff is ignored. Hard to know exactly what to do
 here; for the moment, just set values for stave 2 onwards. */
 
-for (int stave = 2; stave <= xml_movt->laststave; stave++)
+for (usint stave = 2; stave <= laststave; stave++)
   {
   PA("<staff-layout number=\"%d\">", stave);
   PN("<staff-distance>%d</staff-distance>",
@@ -3351,23 +3353,24 @@ characteristics. */
 
 uint8_t joinbits[MAX_STAVE + 1];
 
-for (int stave = 0; stave <= xml_movt->laststave; stave++) joinbits[stave] = 0;
+for (usint stave = 0; stave <= laststave; stave++) joinbits[stave] = 0;
 
 /* If there is only one stave, we don't need to do anything. */
 
-if (xml_movt->laststave > 1)
+if (laststave > 1)
   {
   uint64_t breaks = xml_movt->breakbarlines;
 
   /* Find runs of staves that either have or have not barlines. */
 
-  for (int stave = 1; stave <= xml_movt->laststave - 1;)
+  for (usint stave = 1; stave <= laststave - 1;)
     {
-    int ss;
+    usint ss;
     uint64_t first = (breaks >> stave) & 1;
 
-    for (ss = stave + 1; ss <= xml_movt->laststave; ss++)
+    for (ss = stave + 1; ss <= laststave; ss++)
       if (((breaks >> ss) & 1) != first) break;
+    if (ss > laststave) ss = laststave;
 
     if (first != 0)
       {
@@ -3383,24 +3386,26 @@ if (xml_movt->laststave > 1)
     stave = ss;
     }
 
-  /* Set up braces and brackets */
+  /* Set up braces and brackets. As the default for bracket is 1-63, we need to
+  check the actual highest stave, and in any case a user may create a value
+  that is greater than the actual. */
 
   for (stavelist *s = xml_movt->bracelist; s != NULL; s = s->next)
     {
     joinbits[s->first] |= jb_brace_start;
-    joinbits[s->last] |= jb_brace_stop;
+    joinbits[(s->last <= laststave)? s->last : laststave] |= jb_brace_stop;
     }
 
   for (stavelist *s = xml_movt->bracketlist; s != NULL; s = s->next)
     {
     joinbits[s->first] |= jb_bracket_start;
-    joinbits[s->last] |= jb_bracket_stop;
+    joinbits[(s->last <= laststave)? s->last : laststave] |= jb_bracket_stop;
     }
 
   for (stavelist *s = xml_movt->thinbracketlist; s != NULL; s = s->next)
     {
     joinbits[s->first] |= jb_bracket_start;
-    joinbits[s->last] |= jb_bracket_stop;
+    joinbits[(s->last <= laststave)? s->last : laststave] |= jb_bracket_stop;
     }
   }
 
@@ -3410,7 +3415,7 @@ group 2, barline groups are 3 and no-barline groups are 4. */
 
 PA("<part-list>");
 
-for (int stave = 1; stave <= xml_movt->laststave; stave++)
+for (usint stave = 1; stave <= laststave; stave++)
   {
   if (mac_notbit(xml_staves, stave)) continue;
 
@@ -3516,7 +3521,7 @@ PN(PART_SEPARATOR);
 
 /* Now we can output each stave as a "part". */
 
-for (int stave = 1; stave <= xml_movt->laststave; stave++)
+for (usint stave = 1; stave <= laststave; stave++)
   {
   if (mac_notbit(xml_staves, stave)) continue;
 

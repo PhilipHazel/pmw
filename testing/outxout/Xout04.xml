@@ -88,6 +88,8 @@
     <score-part id="P6">
       <part-name></part-name>
     </score-part>
+    <part-group number="3" type="stop">
+    </part-group>
   </part-list>
   <!--===============================================================-->
   <part id="P1">
