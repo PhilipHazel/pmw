@@ -201,6 +201,8 @@ Rr "qui-"/ul g_ | "-a"/ul gg R |
 [stems up] c' x2 [backup stems down] g x |
 [stems auto]
 
+gggg [reset] cc | @ incomplete bar after reset
+
 [time 3/2]
 F. "ab" [reset] C'+. |
 [assume time C]

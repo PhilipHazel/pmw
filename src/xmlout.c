@@ -2002,18 +2002,18 @@ for (;;)
           }
 
         PC("</syllabic>\n");
-        
-        /* If a PMW underlay string starts with a hyphen, it delimits an empty 
-        syllable. The write_PMW_string() function won't output anything if its 
-        input is an empty string, but at least one picky MusicXML interpreter 
+
+        /* If a PMW underlay string starts with a hyphen, it delimits an empty
+        syllable. The write_PMW_string() function won't output anything if its
+        input is an empty string, but at least one picky MusicXML interpreter
         grumbles if <text> is missing. So set up a single space. */
-        
+
         if (len == 0)
           {
           ss[0] = ' ' | (font_rm << 24);
           len = 1;
-          }     
- 
+          }
+
         write_PMW_string(ss, len, fdata->size, "text", "", 0, INT32_MAX, NULL,
           NULL, 0);
         if (extend != NULL) PN("<extend type=\"%s\"/>", extend);
@@ -2628,8 +2628,8 @@ if (xml_barpos->multi > 1)
 
 /* Handle non multirest bar */
 
-barstr *bnext = (st->barcount > bar + 1)?
-  st->barindex[bar + 1] : NULL;
+int moff_hwm = xml_moff;   /* Will actually be zero */
+barstr *bnext = (st->barcount > bar + 1)? st->barindex[bar + 1] : NULL;
 
 for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
   {
@@ -2674,6 +2674,9 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     case b_barline:
     int end_ending = 0;
     const char *end_ending_type = NULL;
+
+    /* Deal with the end of a 1st or 2nd (etc) time bar. */
+
     if (ending_active != 0)
       {
       if (bnext == NULL) end_ending = ending_active; else
@@ -2697,6 +2700,29 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
         }
       if (end_ending != 0) ending_active = 0;
       }
+
+    /* If we've had a b_reset, the current musical position may be less than
+    the high water mark recorded, for example if there's a full bar, reset,
+    then only half a bar. Picky MusicXML interpreters grumble if a barline's
+    position doesn't agree with the musical position, so we generate a
+    <forward> element in this event. If there's never been a b_reset, moff_hwm
+    will be zero.
+
+    As in the case of b_reset, there's an overflow trap here because
+    "divisions" may be quite large, so just multiplying the amount by it is a
+    bad plan (found by experience). We do not want to lose any precision, so do
+    things the hard way. */
+
+    if (xml_moff < moff_hwm)
+      {
+      uint32_t forwardby = moff_hwm - xml_moff;
+      forwardby = (forwardby / len_crotchet) * divisions +
+        ((forwardby % len_crotchet) * divisions)/len_crotchet;
+      PA("<forward>");
+      PN("<duration>%d</duration>", forwardby);
+      PB("</forward>");
+      }
+
     write_barline(b, bar == st->barcount-1, end_ending, end_ending_type);
     break;
 
@@ -2803,11 +2829,12 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     PA("<backup>");
     PN("<duration>%d</duration>", backby);
     PB("</backup>");
+    if (xml_moff > moff_hwm) moff_hwm = xml_moff;  /* Keep high water mark */
     xml_moff = ((b_resetstr *)b)->moff;
-    
+
 // TODO? xml_xoff is not being reset, but neither is it actually used at the
-//   moment.
- 
+// moment.
+
     break;
 
     case b_rrepeat:
