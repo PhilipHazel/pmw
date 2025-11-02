@@ -6,7 +6,7 @@ justify top left right
 nocheck
 notespacing *2
 notime
-systemgap 54
+systemgap 56
 textfont extra 1 "Courier"
 unfinished
 
@@ -22,7 +22,7 @@ unfinished
 &M(FBN,&FBN) 
 &M(FBS,&FBS) 
 
-&M(2f,&2f) 
+&M(2s,&2s) 
 &M(3,&3) 
 &M(3f,&3f) 
 &M(3n,&3n) 
@@ -46,7 +46,7 @@ unfinished
 &M(5c,&5c)
 
 &M(5cp,&5cp)
-&M(5csb,&5csb)
+&M(5csb,&5csb) [space 6]
 &M(5cpsb,&5cpsb)
 &M(5f,&5f)
 &M(5fb,&5fb)

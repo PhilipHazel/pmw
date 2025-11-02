@@ -38,6 +38,11 @@ down was lost.
 
 13. Make "tuplet" a synonym of "triplet", except for "tripletize".
 
+14. Merged Jan Nemecek's additional figured bass macros into the standard 
+macros.
+
+15. There is now some basic (experimental) support for MusicXML output.
+
 
 Version 5.32 25-June-2025
 -------------------------
