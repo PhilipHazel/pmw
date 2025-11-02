@@ -221,10 +221,21 @@ while (scalar @dirs > 0)
     $options = `cat $tests/$file.opt` if -e "$tests/$file.opt";
     chomp $options;
 
+    # For testing MusicXML multi-movement output, a variation on the -xml
+    # option is needed and is set in $options. In the event, we must unset
+    # $specialopt.
+
+    $specialopt = "" if $options =~ /-xml /;
+
+    # Start clean
+
     unlink "test.out";
     unlink "test.txt";
     unlink "test.mid";
     unlink "test.xml";
+    unlink "test-1.xml";
+    unlink "test-2.xml";
+    unlink "test-3.xml";
 
     # If "view" has been requested, run pmw without -testing and display any
     # PostScript output that it produces, before going on to do the actual
@@ -483,7 +494,11 @@ while (scalar @dirs > 0)
         else { printf "Test $file OK MIDI\n"; }
         }
 
-      # If there's an XML output file, compare it.
+      # If there's an XML output file, compare it. If multiple XML files have
+      # been generated for multiple movements, concatenate them for ease of
+      # comparision (and also minimize hacking existing code).
+
+      system("cat test-*.xml > test.xml") if -e "test-1.xml" ;
 
       if (-e "$outs/$file.xml" || -e "test.xml")
         {
@@ -554,7 +569,7 @@ while (scalar @dirs > 0)
       # If just done PostScript, repeat for PDF unless running MIDI or XML
       # output tests.
 
-      if ($pdf eq "-ps" && $dopdf && $specialopt =~ /^$/)
+      if ($pdf eq "-ps" && $dopdf && $tests !~ /^xouttests$/)
         {
         $pdf = "-pdf";
         $header = "";

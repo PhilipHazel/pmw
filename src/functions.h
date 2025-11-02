@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: September 2025 */
+/* This file last modified: November 2025 */
 
 /* -------- General functions -------- */
 
@@ -176,7 +176,8 @@ extern BOOL         tree_insert(tree_node **, tree_node *);
 extern tree_node   *tree_search(tree_node *, uschar *);
 
 #if SUPPORT_XML
-extern void         outxml_write(void);
+extern void         outxml_write(BOOL);
+extern void         outxml_write_ignored(void);
 extern void         xml_read(void);
 #endif
 

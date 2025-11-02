@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: October 2025 */
+/* This file last modified: November 2025 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -136,6 +136,10 @@ enum {
 /* Vector for modified command line options (after adding .pmwrc) */
 
 static char **newargv = NULL;
+
+/* Flag to record when -xmlmovement is set */
+
+static BOOL xml_movement_set = FALSE;
 
 /* Bit options for debugging and for XML output */
 
@@ -774,8 +778,13 @@ if (results[arg_musicxml].text != NULL)
 if (results[arg_musicxmlmovement].presence != arg_present_not)
   {
 #if SUPPORT_XML
-  if (outxml_filename == NULL) error(ERR193, "-xmlmovement");
-    else outxml_movement = results[arg_musicxmlmovement].number;
+  if (outxml_filename == NULL)
+    error(ERR193, "-xmlmovement");
+  else
+    {
+    outxml_movement = results[arg_musicxmlmovement].number;
+    xml_movement_set = TRUE;
+    }
 #else
   error(ERR3, "MusicXML output");
 #endif
@@ -1357,19 +1366,59 @@ if (midi_filename != NULL)
   midi_write();
   }
 
-/* Write MusicXML output if required */
+/* Write MusicXML output if required. MusicXML supports only one movement per
+file. The -xm option allows for a single movement selection. If this is not
+set, and there is more than one movement, and the file name contains
+%<digits>d, all movements are output to separate files with each movement
+number inserted into the file name. */
 
 #if SUPPORT_XML
 if (outxml_filename != NULL)
   {
-  if (unclosed_slurline)
-    eprintf("** MusicXML output cannot be generated for unclosed lines/slurs\n\n");
+  BOOL multimovt = FALSE;
+
+  if (unclosed_slurline) error(ERR198);  /* Hard */
+
+  /* See if the file name conforms and -xm was not used */
+
+  if (movement_count > 1 && !xml_movement_set)
+    {
+    char *p = strchr(CS outxml_filename, '%');
+    if (p != NULL)
+      {
+      while (isdigit(*(++p))) {};
+      if (*p == 'd') multimovt = TRUE;
+      }
+    }
+
+  /* Write multiple files */
+
+  if (multimovt)
+    {
+    uschar *basename = outxml_filename;
+    uschar buffer[256];
+
+    outxml_filename = buffer;
+
+    for (outxml_movement = 1; outxml_movement <= (int)movement_count;
+         outxml_movement++)
+      {
+      sprintf(CS buffer, CS basename, outxml_movement);
+      if (main_verify) eprintf("Writing MusicXML file \"%s\"\n", outxml_filename);
+      outxml_write(TRUE);
+      }
+    }
+
+  /* Write a single file */
+
   else
     {
     if (main_verify) eprintf("Writing MusicXML file \"%s\"\n", outxml_filename);
-    outxml_write();
+    outxml_write(FALSE);
     }
   }
+
+outxml_write_ignored();
 #endif
 
 if (main_verify) eprintf( "PMW done\n"); else TRACE("Done\n");

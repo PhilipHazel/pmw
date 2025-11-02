@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: August 2025 */
-/* This file last modified: October 2025 */
+/* This file last modified: November 2025 */
 
 #include "pmw.h"
 
@@ -157,56 +157,73 @@ static const char *beam_names[] = {
 *             Local variables                    *
 *************************************************/
 
-static int        indent = 0;
-static int        comment_bar = 0;
-static int        comment_stave = 0;
-static int        beam_state = -1;
-static int        ending_active = 0;
-static uschar     string_buffer[256];
-
-static BOOL       bowingabove = TRUE;
+/* Vectors that do not need to be initialized. */
 
 static b_ornamentstr *ornament_pending[ORNAMENT_MAX];
-static int        ornament_pending_count = 0;
 
 static b_textstr *underlay_pending[UNDERLAY_MAX];
-static int        underlay_pending_count = 0;
 static uint8_t    underlay_state[UNDERLAY_MAX];
 
-static BOOL       plet_enable = TRUE;
-static int        plet_level = 0;
-static int        plet_pending_count = 0;
 static b_pletstr *plet_pending[MAX_PLETNEST];
 static uint8_t    plet_actual[MAX_PLETNEST];
 static uint8_t    plet_normal[MAX_PLETNEST];
 
-static b_tiestr  *tie_active = NULL;
-static BOOL       gliss_active = FALSE;
-
 static b_slurstr *slurs_active[SLURS_MAX];
 static b_slurstr *slurs_pending[SLURS_MAX];
-static int        slurs_active_count = 0;
-static int        slurs_pending_count = 0;
-
 static uint16_t   slurs_trans[SLURS_MAX];
-static int        slurs_trans_count = 0;
 
 static b_slurstr *lines_active[SLURS_MAX];
-static int        lines_active_count = 0;
-
 static uint16_t   lines_trans[SLURS_MAX];
-static int        lines_trans_count = 0;
 
-static int        stop_tremolo_pending = 0;
-static b_slurstr  short_slur = { NULL, NULL, b_slur, 0, 0, NULL, 0 };
+static uschar     string_buffer[256];
+
+/* This vector is used for a reverse Unicode translation table, which is
+constructed the first time it is needed. It does not need to be reset for a new
+movement. */
 
 static uint32_t   unihigh[50] = { 0 };
 
+/* This slur structure is used for PMW "short slurs", which in PMW are coded as
+"ties" between different notes. The flags field gets set for each use; the
+others are never changed, so static initialization is all that is needed. */
+
+static b_slurstr  short_slur = { NULL, NULL, b_slur, 0, 0, NULL, 0 };
+
+/* The bits in this variable are set for various ignored PMW items. It is
+initialized statically, because the collection of bits applies to all movements
+if multiple movements are being processed. A single message it output by the
+outxml_write_ignored() function, called right at the end of processing. */
+
 static uint64_t   X_ignored = 0;
+
+/* These variables have to be dynamically initialized for each movement that is
+processed. */
+
+static int        beam_state;
+static BOOL       bowingabove;
+static int        comment_bar;
+static int        comment_stave;
+static int        ending_active;
+static BOOL       gliss_active;
+static int        indent;
+static int        lines_active_count;
+static int        lines_trans_count;
+static int        ornament_pending_count;
+static BOOL       plet_enable;
+static int        plet_level;
+static int        plet_pending_count;
+static int        slurs_active_count;
+static int        slurs_pending_count;
+static int        slurs_trans_count;
+static int        stop_tremolo_pending;
+static b_tiestr  *tie_active;
+static int        underlay_pending_count;
+
+/* These variables do not need to be initialized. */
 
 static FILE      *xml_file;
 static movtstr   *xml_movt;
-static uint64_t   xml_staves = ~0uL;
+static uint64_t   xml_staves;
 
 static barposstr *xml_barpos;
 static posstr    *xml_pos;
@@ -1824,9 +1841,7 @@ for (;;)
           int i, n;
 
           for (i = 0; i < slurs_trans_count; i++)
-            {
             if ((slurs_trans[i] >> 8) == e->value) break;
-            }
 
           if (i >= slurs_trans_count)
             error (ERR192, "could not translate PMW slur id"); /* Hard */
@@ -3056,6 +3071,70 @@ return 1;
 
 
 /*************************************************
+*         Output comments about ignorances       *
+*************************************************/
+
+/* There is one set if "ignored" bits that may be set by multiple calls to
+outxml_write() below, for multiple movements. When all are done, this function
+is called to output a relevant comment.
+
+Argument: the bits
+Returns:  nothing
+*/
+
+void
+outxml_write_ignored(void)
+{
+if (X_ignored == 0) return;
+
+fprintf(stderr,
+  "\nNot all PMW items can be translated to MusicXML. Some items in this file that\n"
+  "were wholly or partially ignored are listed below. This is probably not a\n"
+  "complete list:\n\n");
+
+for (int i = 0; i < X_COUNT; i++)
+  {
+  if ((X_ignored & 1 << i) != 0)
+    fprintf(stderr, "  %s\n", X_ignored_message[i]);
+  }
+fprintf(stderr, "\n");
+}
+
+
+
+/*************************************************
+*          Initialize static variables           *
+*************************************************/
+
+/* Needed to ensure they have the right values at the start of a new movement,
+just in case the previoue movement left them in the wrong state. */
+
+static void
+initialize(void)
+{
+beam_state = -1;
+bowingabove = TRUE;
+comment_bar = 0;
+comment_stave = 0;
+ending_active = 0;
+gliss_active = FALSE;
+indent = 0;
+lines_active_count = 0;
+lines_trans_count = 0;
+ornament_pending_count = 0;
+plet_enable = TRUE;
+plet_level = 0;
+plet_pending_count = 0;
+slurs_active_count = 0;
+slurs_pending_count = 0;
+slurs_trans_count = 0;
+stop_tremolo_pending = 0;
+tie_active = NULL;
+underlay_pending_count = 0;
+}
+
+
+/*************************************************
 *                Write MusicXML file             *
 *************************************************/
 
@@ -3063,12 +3142,12 @@ return 1;
 memory and global variables. Writing a MusicXML file is triggered by the use of
 the -musicxml or -xml command line option, which sets outxml_filename non-NULL.
 
-Arguments:  none
-Returns:    nothing
+Argument:   TRUE if a <movement-number> element is wanted
+Returns:    bits for ignored things
 */
 
 void
-outxml_write(void)
+outxml_write(BOOL include_movement_number)
 {
 char datebuff[100];
 uint32_t laststave;
@@ -3089,6 +3168,11 @@ if (xml_movt->barcount < 1)
   error(ERR160, xml_movt->number, "MusicXML");
   return;
   }
+
+/* Initialize static variables because this function may be called several
+times for multiple movements. */
+
+initialize();
 
 /* Stave selection is the movement's stave selection. Currently there's no way
 of changing this. */
@@ -3111,13 +3195,15 @@ PA("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
   " \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
   "<score-partwise version=\"3.1\">");
 
-/* If the first page has a first heading that has a centered part, use that as
+if (include_movement_number)
+  PN("<movement-number>%d</movement-number>", outxml_movement);
+
+/* If the momvement has a first heading that has a centered part, use that as
 the movement title. All font information in the string is ignored. */
 
-if (main_pageanchor != NULL && main_pageanchor->sysblocks != NULL &&
-    !main_pageanchor->sysblocks->is_sysblock)
+if (xml_movt->heading != NULL)
   {
-  headstr *h = ((headblock *)(main_pageanchor->sysblocks))->headings;
+  headstr *h = xml_movt->heading;
   if (h->string[1] != NULL && h->string[1][0] != 0)
     PN("<movement-title>%s</movement-title>", convert_PMW_string(h->string[1]));
   }
@@ -3241,97 +3327,88 @@ PB("</defaults>");
 things with these strings. For example, MuseScore needs default-y for it to
 show them in a sensible place; Lilypond does not.*/
 
-for (pagestr *page = main_pageanchor; page != NULL; page = page->next)
+BOOL had_heading = FALSE;
+
+if (xml_movt->heading != NULL)
   {
-  BOOL had_heading = FALSE;
-  sysblock *sb = page->sysblocks;
+  uint32_t y = converted_pagelength - vmargin;
+  int heading_count = 0;
 
-  if (sb != NULL && !sb->is_sysblock)         /* Starts with headblock */
+  for (headstr *h = xml_movt->heading; h != NULL; h = h->next)
     {
-    uint32_t y = converted_pagelength - vmargin;
-    int count = 0;
+    if (h->drawing != NULL) X(X_DRAW);
 
-    for (headstr *h = ((headblock *)sb)->headings; h != NULL; h = h->next)
+    for (int j = 0; j < 3; j++)
       {
-      if (h->drawing != NULL) X(X_DRAW);
-
-      for (int j = 0; j < 3; j++)
+      int i = lcr_order[j];   /* Do it in centre, left, right order */
+      if (h->string[i] != NULL && h->string[i][0] != 0)
         {
-        int i = lcr_order[j];   /* Do it in centre, left, right order */
-        if (h->string[i] != NULL && h->string[i][0] != 0)
-          {
-          char attrbuff[80];
-          sprintf(attrbuff, " default-x=\"%d\" default-y=\"%d\"",
-            lcr_positions[i], y);
-          PA("<credit page=\"%d\">", page->number);
-          if (page->number == 1)
-            {
-            if (count == 0) PN("<credit-type>title</credit-type>");
-              else if (count == 1) PN("<credit-type>subtitle</credit-type>");
-            count++;
-            }
-          write_PMW_string(h->string[i], UINT_MAX, h->fdata.size,
-            "credit-words", attrbuff, 0, INT32_MAX, NULL, leftcenterright[i], 0);
-          PB("</credit>");
-          had_heading = TRUE;
-          }
+        char attrbuff[80];
+        sprintf(attrbuff, " default-x=\"%d\" default-y=\"%d\"",
+          lcr_positions[i], y);
+        PA("<credit page=\"1\">");
+        if (heading_count == 0) PN("<credit-type>title</credit-type>");
+          else if (heading_count == 1) PN("<credit-type>subtitle</credit-type>");
+        heading_count++;
+        write_PMW_string(h->string[i], UINT_MAX, h->fdata.size,
+          "credit-words", attrbuff, 0, INT32_MAX, NULL, leftcenterright[i], 0);
+        PB("</credit>");
+        had_heading = TRUE;
+        X(X_HEADING);
         }
-
-      y -= (h->space * 5) / (main_magnification * 2);
-      }
-    X(X_HEADING);
-    }
-
-  /* Something similar for footings. A credit type is required, at least for
-  the first one. Use "rights" because that's interpreted as wanted at least by
-  some renderers. */
-
-  if (page->footing != NULL)
-    {
-    int count = 0;
-    uint32_t y = vmargin;
-    for (headstr *h = page->footing->headings; h!= NULL; h = h->next)
-      {
-      char attrbuff[80];
-
-      if (h->drawing != NULL) X(X_DRAW);
-
-      sprintf(attrbuff, " valign=\"bottom\" default-y=\"%d\"", y);
-
-      for (int j = 0; j < 3; j++)
-        {
-        int i = lcr_order[j];   /* Do it in centre, left, right order */
-
-        if (h->string[i] != NULL && h->string[i][0] != 0)
-          {
-          PA("<credit page=\"%d\">", page->number);
-          if (page->number == 1)
-            {
-            if (count++ == 0) PN("<credit-type>rights</credit-type>");
-            }
-          write_PMW_string(h->string[i], UINT_MAX, h->fdata.size,
-            "credit-words", attrbuff, 0, INT32_MAX, NULL, leftcenterright[i], 0);
-          PB("</credit>");
-          }
-        }
-
-      y -= (h->space * 5) / (main_magnification * 2);
       }
 
-    X(X_HEADING);
+    y -= (h->space * 5) / (main_magnification * 2);
     }
+  }
+
+/* Something similar for footings. A credit type is required, at least for the
+first one. Use "rights" because that's interpreted as wanted at least by some
+renderers. */
+
+if (xml_movt->footing != NULL)
+  {
+  int footing_count = 0;
+  uint32_t y = vmargin;
+
+  for (headstr *h = xml_movt->footing; h!= NULL; h = h->next)
+    {
+    char attrbuff[80];
+
+    if (h->drawing != NULL) X(X_DRAW);
+
+    sprintf(attrbuff, " valign=\"bottom\" default-y=\"%d\"", y);
+
+    for (int j = 0; j < 3; j++)
+      {
+      int i = lcr_order[j];   /* Do it in centre, left, right order */
+
+      if (h->string[i] != NULL && h->string[i][0] != 0)
+        {
+        PA("<credit page=\"1\">");
+        if (footing_count++ == 0) PN("<credit-type>rights</credit-type>");
+        write_PMW_string(h->string[i], UINT_MAX, h->fdata.size,
+          "credit-words", attrbuff, 0, INT32_MAX, NULL, leftcenterright[i], 0);
+        PB("</credit>");
+        }
+      }
+
+    y -= (h->space * 5) / (main_magnification * 2);
+    }
+
+  X(X_HEADING);
+  }
 
   /* If there were no footings, but we did output at least one heading,
   generate an empty footing, because this stops at least one renderer showing
   one heading as a footing. */
 
-  else if (had_heading)
-    {
-    PA("<credit page=\"%d\">", page->number);
-    PN("<credit-type>rights</credit-type>");
-    PN("<credit-words valign=\"bottom\"/>");
-    PB("</credit>");
-    }
+else if (had_heading)
+  {
+  PA("<credit page=\"1\">");
+  PN("<credit-type>rights</credit-type>");
+  PN("<credit-words valign=\"bottom\"/>");
+  PB("</credit>");
   }
 
 /* Before we can output a list of parts, we have to analyse PMW's bracket,
@@ -3657,23 +3734,6 @@ for (usint stave = 1; stave <= laststave; stave++)
 
 PB("</score-partwise>");
 fclose(xml_file);
-
-/* Output comments about things that were ignored. */
-
-if (X_ignored != 0)
-  {
-  fprintf(stderr,
-    "\nNot all PMW items can be translated to MusicXML. Some items in this file that\n"
-    "were wholly or partially ignored are listed below. This is probably not a\n"
-    "complete list:\n\n");
-
-  for (int i = 0; i < X_COUNT; i++)
-    {
-    if ((X_ignored & 1 << i) != 0)
-      fprintf(stderr, "  %s\n", X_ignored_message[i]);
-    }
-  fprintf(stderr, "\n");
-  }
 }
 
 /* End of xmlout.c */

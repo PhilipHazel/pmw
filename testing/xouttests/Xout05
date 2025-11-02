@@ -1,0 +1,13 @@
+@ A test for multiple movements
+
+heading "One"
+[stave 1]
+R!
+[endstave]
+
+[newmovement]
+
+heading "Two"
+[stave 1]
+G+
+[endstave]

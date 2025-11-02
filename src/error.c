@@ -299,7 +299,8 @@ aborts the run after outputting additional information. */
 /* 195-199 */
 { ec_warning, "slur(s) or line(s) unclosed at the end of stave %d" },
 { ec_major,   "figured bass string is too long for conversion to MusicXML - truncated" },
-{ ec_warning, "figured bass string not fully converted to MusicXML - remainder is \"%s\"" }
+{ ec_warning, "figured bass string not fully converted to MusicXML - remainder is \"%s\"" },
+{ ec_failed,  "MusicXML output cannot be generated (unclosed slur or line)" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))
