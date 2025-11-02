@@ -22,6 +22,7 @@ unfinished
 &M(FBN,&FBN) 
 &M(FBS,&FBS) 
 
+&M(2f,&2f) 
 &M(3,&3) 
 &M(3f,&3f) 
 &M(3n,&3n) 
@@ -48,11 +49,13 @@ unfinished
 &M(5csb,&5csb)
 &M(5cpsb,&5cpsb)
 &M(5f,&5f)
+&M(5fb,&5fb)
 &M(5sb,&5sb)
 
 &M(6,&6)
 &M(6c,&6c)
 &M(6cp,&6cp)
+&M(6cp4,&6cp4)
 &M(64,&64)
 
 &M(64c,&64c)
@@ -67,6 +70,7 @@ unfinished
 
 &M(6n,&6n)
 &M(6s,&6s)
+&M(6sb,&6sb)
 
 &M(7,&7)
 &M(72f,&72f)
@@ -83,6 +87,7 @@ unfinished
 &M(7sb,&7sb)
 &M(7s3,&7s3)
 &M(7u,&7u)
+&M(7f,&7f)
 
 &M(86,&86)
 &M(95,&95)
