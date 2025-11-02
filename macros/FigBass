@@ -34,6 +34,7 @@
 @ examples that I happened to be printing when I originally defined these, and
 @ they have been added to subsequently.
 
+*define 2s   "&FBI\rm\2\mf\\sc\zxv%"&FBU
 *define 3    "&FBI\rm\3"&FBU
 *define 3f   "&FBI\rm\3\mu\z~v'"&FBU
 *define 3n   "&FBI\rm\3\mf\\sc\zxv\mu\\40\"&FBU
@@ -59,11 +60,13 @@
 @ This version uses a 5 and a +
 *define 5cpsb "&FBI\rm\5\mu\x~vyyy\135\"&FBU "&FBI\mu\z~%"/fb
 *define 5f   "&FBI\rm\5\mu\z~v'"&FBU
+*define 5fb  "&FBI\rm\5"&FBU "\mu\z~v'"/fb
 *define 5sb  "&FBI\rm\5"&FBU "&FBI\mu\z~%"/fb
 *define 6    "&FBI\rm\6"&FBU
 *define 6c   "&FBI\mf\s"&FBU
 @ This version uses a 6 and a rotated +
 *define 6cp  "&FBI\rm\6"&FBU "&FBI\mu\xxxz\32\\135\"/fb/rot26
+*define 6cp4 "&FBI\rm\6"&FBU "&FBI\mu\xxxz\32\\135\"/fb/rot26"&FBI\rm\4"/fb/u10
 *define 64   "&FBI\rm\6"&FBU "&FBI\rm\4"/fb
 *define 64c  "&FBI\rm\6"&FBU "&FBI\mf\k"/fb
 @ This version built from a 4 and a +
@@ -75,6 +78,7 @@
 *define 6f4  "&FBI\rm\6\mu\z~v'"&FBU "&FBI\rm\4"/fb
 *define 6n   "&FBI\rm\6\mu\z~\40\"&FBU
 *define 6s   "&FBI\rm\6\mu\z~%"&FBU
+*define 6sb  "&FBI\rm\6"&FBU "&FBI\mu\z~%"/fb
 *define 6s4  "&FBI\rm\6\mu\z~%"&FBU "&FBI\rm\4"/fb
 *define 7    "&FBI\rm\7"&FBU
 *define 72f  "&FBI\rm\7"&FBU "&FBI\rm\2\mu\z~v'"/fb
@@ -89,6 +93,7 @@
 *define 7sb  "&FBI\rm\7"&FBU "&FBI\mu\z~%"/fb
 *define 7s3  "&FBI\rm\7\mu\z~%"&FBU "&FBI\rm\3"/fb
 *define 7u   "&FBI\rm\7_"&FBU
+*define 7f   "&FBI\rm\7\mu\z~v'"&FBU
 *define 86   "&FBI\rm\8"&FBU "&FBI\rm\6"/fb
 *define 95   "&FBI\rm\9"&FBU "&FBI\rm\5"/fb
 *define 97   "&FBI\rm\9"&FBU "&FBI\rm\7"/fb
