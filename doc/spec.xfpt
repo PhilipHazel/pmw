@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>03 October 2025</date>
+<date>02 November 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>03 October 2025</date>
+  <date>02 November 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -671,14 +671,16 @@ first movement in the file.
 
 .vitem "&%-musicxml%& <&'file'&> or &%-xml%& <&'file'&>"
 
-When PMW has been built with MusicXML support, this option requests an
-additional output in the form of a MusicXML file. See appendix &<<APPB>>& for
+When PMW has been built with MusicXML support, this option requests additional
+output in the form of one or more MusicXML files. See appendix &<<APPB>>& for
 more details.
 
 .vitem "&%-musicxmlmovement%& <&'number'&> or &%-xmlmovement%& <&'number'&> or &%-xm%& <&'number'&>"
 
-Only one movement can be output as a MusicXML file; this option specifies which
-one. The default is the first movement.
+Only one movement can be contained in a MusicXML file; this option selects
+a movement that is then written to a single file. The default is the first
+movement, unless there are multiple movements and the XML file name contains
+`%d'. See appendix &<<APPB>>& for details.
 
 .vitem "&%-norc%& or &%-nopmwrc%&"
 
@@ -848,6 +850,13 @@ read.
 
 Output verification information about the typesetting to the standard error
 file (&R; &<<SECTinfo>>&).
+
+.vitem "&%-x%&&'<selectors>'&"
+
+Set one or more options for MusicXML output. The selectors are a sequence of
+words, separated by plus or minus characters. See appendix &<<APPB>>& for
+details.
+
 .endlist
 
 
@@ -926,7 +935,7 @@ Write internal debugging data for the contents of bar <&'b'&> (an absolute bar
 number) on stave <&'s'&> in movement <&'m'&> to the standard error file. If
 only one number is given, it is taken as a bar number in stave 1 of the first
 movement; if only two numbers are given, they are taken as a stave and bar
-number in the first movement. This option contrains the amount of output that 
+number in the first movement. This option contrains the amount of output that
 is produced by &`-d+bar`& (which it implies).
 
 .vitem "&%-dtp%& <&'n'&>"
@@ -11194,7 +11203,7 @@ example is shown in chapter &<<CHAPfirstintro>>&.
 .index "- (hyphen) in underlay string"
 .index "hyphen" "in underlay string"
 .index "strings" "hyphen in underlay"
-Hyphens are used to indicate that a multi-syllable word is to associated with 
+Hyphens are used to indicate that a multi-syllable word is to associated with
 several notes. All but the final syllable must end with a hyphen. This applies
 however the input is supplied &-- either as a separate syllable for each note
 or as a longer string that PMW splits up. PMW uses one or more hyphens in the
@@ -11311,7 +11320,7 @@ of just a &`#`& character can be used to stop PMW drawing an extender line
 further than is required.
 
 &*Warning 1*&: The shortcuts for omitting equals characters should not be
-relied on when there is more than one underlay verse because it may not be 
+relied on when there is more than one underlay verse because it may not be
 clear which string belongs to which verse.
 
 &*Warning 2*&: There is an important restriction on the use of multi-syllable
@@ -12207,7 +12216,7 @@ or drawing in the gap. For handling complicated overlapping lines, there is an
 &%[xline]%& directive that corresponds to &%[xslur]%&, and lines can also be
 `tagged' like slurs (&R; &<<SUBSECTtaggedslurs>>&). The &`/=`& option that is
 used in &%[endslur]%& to identify tagged slurs is also available in
-&%[endline]%& for tagged lines. Slurs and lines share the same name space for 
+&%[endline]%& for tagged lines. Slurs and lines share the same name space for
 tags.
 
 
@@ -16221,37 +16230,59 @@ full extent has not been explored.
 
 .appendix "Writing MusicXML files" "APPB"
 .index "MusicXML" "output files"
-The ability to write MusicXML output in addition to PostScript, PDF, and MIDI
-was added in release 5.33. However, this is experimental and currently very
-incomplete (and probably quite buggy). Please do not expect great things of it.
-
-A MusicXML output file is requested by means of the &%-musicxml%& or &%-xml%& 
-command line option, which must supply the name of the file. This output is in 
-addition to the normal PostScript or PDF output. 
-
-MusicXML is a music encoding that has become popular for exchanging music 
-information between different applications. It uses the standard XML syntax to 
+MusicXML is a music encoding that has become popular for exchanging music
+information between different applications. It uses the standard XML syntax to
 encode the music, and contains performance as well as notational information.
 There is a lot of mismatch between the ways in which PMW and MusicXML encode
 music. For example, dynamic markings such as &'m&*f*&'& and &'&*pp*&'& are
 handled as text strings in PMW whereas MusicXML has dedicated elements for
-dynamics. 
+dynamics.
+
+The ability to write MusicXML output in addition to PostScript, PDF, and MIDI
+was added to PMW in release 5.33. However, this is experimental and currently
+incomplete (and probably quite buggy). Please do not expect great things of it.
+
+MusicXML output is requested by means of the &%-musicxml%& or &%-xml%& command
+line option, which must supply a file name. This output is in addition to the
+normal PostScript or PDF output. A MusicXML file can contain only a single
+movement, but a PMW input file may contain many. This mismatch has been
+addressed in two ways:
 
 .ilist
-It will never be possible to convert everything that might be in a PMW file
-into MusicXML. An obvious example is the drawing facility.
+The &%-musicxmlmovement%& or &%-xm%& command line option can be used to select
+a specific movement.
 .next
-Some `difficult' PMW features that are currently missing may be partly or
-wholly added later as time permits.
-.next
-There are also features that are straightforward to translate, but which have 
-just been overlooked. I will add these if asked or if I happen to notice.
+If no movement is selected from a multi-movement PMW file, and the file name
+given to the &%-musicxml%& option contains the character sequence &`%d`& with
+optional digits between the two characters, then each movement is written as
+MusicXML to a separate file, with the movement's number replacing the &`%d`&
+sequence, which is used as a format instruction.
 .endlist
 
+When using the second strategy, a number included in the &`%d`& sequence
+defines the minimum number of digits that are to be inserted. It should
+normally be preceded by a zero, which requests leading zeros, as otherwise you
+might end up with file names that contain spaces. This example will create
+files called &_movement-01.xml_&, &_movement-02.xml_&, etc.
+
+.code
+pmw -xml movement-%02d.xml mysymphony.pmw
+.endd
+
+If the file name does not contain &`%d`& when no movement is selected, the
+first movement is output.
+
+It will never be possible to convert everything that might be in a PMW file
+into MusicXML. An obvious example is the drawing facility. Some `difficult' PMW
+features that are currently missing may be partly or wholly added later as time
+permits. There are also features that are straightforward to translate, but
+which have just been overlooked. I will add these if asked or if I happen to
+notice.
+
 One thing to remember about MusicXML is that applications that read it do not
-always honour all the content. For example, tests have shown that several 
-ignore MusicXML's &%relative-x%& and &%relative-y%& attributes. After importing 
-a piece that PMW has exported, it will almost always be necessary to make some 
+always honour all the content. For example, tests have shown that several
+ignore MusicXML's &%relative-x%& and &%relative-y%& attributes. After importing
+a piece that PMW has exported, it will almost always be necessary to make some
 modifications.
 
 

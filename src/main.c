@@ -500,8 +500,8 @@ PF("\nDefault output is <input>.ps or <input>.pdf when an input file name is giv
 PF("Default output is stdout if no input file name is given.\n");
 
 PF("\nGENERAL OPTIONS\n\n");
-PF("-a4ona3               print A4 images 2-up on A3\n");
-PF("-a5ona4               print A5 images 2-up on A4\n");
+PF("-a4ona3               arrange A4 images 2-up on A3\n");
+PF("-a5ona4               arrange A5 images 2-up on A4\n");
 PF("-C <arg>              show a compile-time option; exit with its value (0 or 1).\n");
 PF("    b2pf              support for B2PF processing\n");
 PF("    musicxml          support for MusicXML input and output\n");
@@ -519,10 +519,6 @@ PF("-midi <file>          specify MIDI output file\n");
 PF("-midibars <range>     limit MIDI output to given bar range\n");
 PF("-midimovement <n>     specifies movement for MIDI output\n");
 PF("-mm <n>               synonym for -midimovement\n");
-#if SUPPORT_XML
-PF("-musicxml <file>      specify MusicXML output file\n");
-PF("-musicxmlmovement <n> select movement for MusicXML output\n");
-#endif
 #if !defined NO_PMWRC || NO_PMWRC == 0
 PF("-norc or -nopmwrc     don't read .pmwrc (must be first option)\n");
 #endif
@@ -530,23 +526,18 @@ PF("-norepeats or -nr     do not play repeats in MIDI output\n");
 PF("-nowidechars or -nw   don't use 100-point stave chars\n");
 PF("-o <file>             specify output file ('-' for stdout)\n");
 PF("-p <list>             select pages\n");
-PF("-pamphlet             print pages in pamphlet order\n");
+PF("-pamphlet             output pages in pamphlet order\n");
 PF("-pdf                  select PDF output\n");
 PF("-printadjust <x> <y>  move on page by (x,y)\n");
 PF("-printgutter <x>      move recto/verso pages by x/-x\n");
 PF("-printscale <n>       scale the image by n\n");
-PF("-printside <n>        print only odd or even sides\n");
+PF("-printside <n>        output only odd or even sides\n");
 PF("-ps                   select PostScript output\n");
 PF("-reverse              output pages in reverse order\n");
 PF("-s <list>             select staves\n");
 PF("-t <number>           set transposition\n");
 PF("-V or --version       output PMW version number, then exit\n");
 PF("-v                    output verification information\n");
-#if SUPPORT_XML
-PF("-xm <n>               synonym for -musicxmlmovement\n");
-PF("-xml <file>           synonym for -musicxml\n");
-PF("-xmlmovement <n>      synonym for -musicxmlmovement\n");
-#endif
 
 PF("\nPOSTSCRIPT-SPECIFIC OPTIONS\n\n");
 PF("-a4sideways           assume A4 paper fed sideways\n");
@@ -556,6 +547,24 @@ PF("-H <file>             specify PostScript header file\n");
 PF("-incPMWfont or -ipf   include PMW font in the output\n");
 PF("-manualfeed           set manualfeed in the PostScript\n");
 PF("-tumble               set tumble for duplex printing\n");
+
+#if SUPPORT_XML
+PF("\nMUSICXML OUTPUT OPTIONS\n\n");
+PF("-musicxml <file>      specify MusicXML output file\n");
+PF("-musicxmlmovement <n> select movement for MusicXML output\n");
+PF("-x<selectors>         set option(s) for MusicXML output (see below)\n");
+PF("-xm <n>               synonym for -musicxmlmovement\n");
+PF("-xml <file>           synonym for -musicxml\n");
+PF("-xmlmovement <n>      synonym for -musicxmlmovement\n");
+
+PF("\nMusicXML option selectors (+ to add, - to subtract):");
+for (usint i = 0, j = 0; i < XOUT_OPTIONS_COUNT; i++)
+  {
+  if ((j++ & 7) == 0) PF("\n ");
+  (void)printf(" %s", xout_options[i].name);
+  }
+PF("\n");
+#endif
 
 PF("\nMAINTENANCE AND DEBUGGING OPTIONS\n\n");
 PF("-d<selectors>         write debugging info to stderr (see below)\n");
@@ -584,6 +593,9 @@ PF("pmw myscore\n");
 PF("pmw -s 1,2-4 -p 3,6-10,11 -f small -c 2 k491.pmw\n");
 PF("pmw -pdf -pamphlet -a5ona4 scorefile\n");
 PF("pmw -s 1 -midi zz.mid -mm 2 -mb 10-20 sonata\n");
+#if SUPPORT_XML
+PF("pmw -xml quartet.xml -xm 2 quartet.pmw\n");
+#endif
 }
 
 

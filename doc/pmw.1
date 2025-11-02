@@ -20,7 +20,7 @@ quality.
 A full description of PMW and its markup language is given in the reference
 manual. This man page just summarizes the command line options.
 .in 0
-.SH OPTIONS
+.SH "GENERAL OPTIONS"
 .rs
 .TP 10
 \fB-a4ona3\fR
@@ -96,16 +96,6 @@ movement. \fB-mb\fR is an abbreviation for \fB-midibars\fR.
 For a multi-movement input file, this specifies the movement that is to be
 output as MIDI when \fB-midi\fR is given. The default is the first movement.
 \fB-mm\fR is an abbreviation for \fB-midimovement\fR.
-.TP
-\fB-musicxml\fR \fI<file>\fR
-If PMW has been built with optional MusicXML support, this requests that, in
-addition to the normal PostScript or PDF output, a MusicXML file be written.
-\fB-xml\fR is an abbreviation for \fB-musicxml\fR.
-.TP
-\fB-musicxmlmovement\fR \fI<number>\fR
-In conjunction with \fB-musicxml\fR, this selects which movement in a file is
-to be written as MusicXML. The default is the first movement.
-\fB-xmlmovement\fR and \fB-xm\fR are abbreviations for \fB-musicxmlmovement\fR.
 .TP
 \fB-norc\fR or \fB-nopmwrc\fP
 Do not read the caller's \fI.pmwrc\fR file. This must be the first option
@@ -219,16 +209,43 @@ When \fB-duplex\fR is set, \fB-tumble\fR causes the PostScript option for
 "tumbled" duplex printing.
 .
 .
+.SH "MUSICXML OUTPUT OPTIONS"
+.rs
+.sp
+These options are available when PMW has been built with optional MusicXML
+support. If the PMW input file contains more than one movement, and no
+individual movement is selected by \fB-musicxmlmovement\fP, and the file name
+set by \fB-musicxml\fP contains "%d" with optional digits between those two
+characters, each movement is output as a separate MusicXML file, with the "%d"
+sequence replaced by the movement number.
+.TP
+\fB-musicxml\fR \fI<file>\fR
+This option requests that, in addition to the normal PostScript or PDF output,
+one or more MusicXML files be written. \fB-xml\fR is an abbreviation for
+\fB-musicxml\fR.
+.TP
+\fB-musicxmlmovement\fR \fI<number>\fR
+In conjunction with \fB-musicxml\fR, this selects which movement is to be
+written as MusicXML. The default is the first movement. \fB-xmlmovement\fR and
+\fB-xm\fR are abbreviations for \fB-musicxmlmovement\fR.
+.TP
+\fB-x<\fIselectors\fR>\fR
+This sets one or more options for MusicXML output. They must be separated from
+each other and from \fB-x\fP by plus signs, with no white space. A list of
+possible options is output when PMW is called with the \fB--help\fP option. The 
+PMW manual describes what each one does.
+.
+.
 .SH "MAINTENANCE AND DEBUGGING OPTIONS"
 .rs
 .sp
-These options are of use only to the program maintainer.
+These options are of use only to a PMW maintainer.
 .TP
 \fB-d<\fIselectors\fR>\fR
 Write general debugging information to stderr.
 .TP
 \fB-dbd\fR [\fI<movement>\fR,][\fI<stave>\fR,]\fI<bar>\fR
-Write debugging data for the given the bar to stderr. This option contrains the 
+Write debugging data for the given the bar to stderr. This option contrains the
 amount of output that is produced by -d+bar (which it implies).
 .TP
 \fB-dtp\fR \fI<bar>\fR
