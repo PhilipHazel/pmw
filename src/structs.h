@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: October 2025 */
+/* This file last modified: November 2025 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -1173,5 +1173,12 @@ typedef struct an2uencod {
   int code;                    /* Unicode code point */
   int poffset;                 /* Offset for printing certain chars */
 } an2uencod;
+
+/* Bit options for debugging and for XML output options */
+
+typedef struct bit_table {
+  uschar *name;
+  uint32_t bit;
+} bit_table;
 
 /* End of structs.h */

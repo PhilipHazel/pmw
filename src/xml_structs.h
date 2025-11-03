@@ -2,8 +2,8 @@
 *            MusicXML input for PMW              *
 *************************************************/
 
-/* Copyright (c) Philip Hazel, 2022 */
-/* File last edited: March 2022 */
+/* Copyright (c) Philip Hazel, 2025 */
+/* File last edited: November 2025 */
 
 /* This module contains definitions of structures that are used throughout the
 XML modules. */
@@ -58,14 +58,6 @@ typedef struct xml_item {
     xml_textblock *txtblk;
   } p;
 } xml_item;
-
-
-/* Structure for bit tables for debugging */
-
-typedef struct bit_table {
-  uschar *name;
-  unsigned int bit;
-} bit_table;
 
 
 /* Structure for a list of parts */

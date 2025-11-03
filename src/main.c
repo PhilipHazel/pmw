@@ -141,13 +141,6 @@ static char **newargv = NULL;
 
 static BOOL xml_movement_set = FALSE;
 
-/* Bit options for debugging and for XML output */
-
-typedef struct bit_table {
-  uschar *name;
-  uint32_t bit;
-} bit_table;
-
 /* This table must be in alphabetical order because it is searched by binary
 chop. */
 
