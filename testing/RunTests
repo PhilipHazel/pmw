@@ -569,7 +569,8 @@ while (scalar @dirs > 0)
       # If just done PostScript, repeat for PDF unless running MIDI or XML
       # output tests.
 
-      if ($pdf eq "-ps" && $dopdf && $tests !~ /^xouttests$/)
+      if ($pdf eq "-ps" && $dopdf && $tests !~ /^xouttests$/ && 
+          $tests !~ /^miditests$/)
         {
         $pdf = "-pdf";
         $header = "";
