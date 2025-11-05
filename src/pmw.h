@@ -666,8 +666,8 @@ space in 32-bits. */
 #define nf_couple      (nf_coupleU+nf_coupleD)
 #define nf_dotted      (nf_dot+nf_dot2+nf_plus)
 
-/* These flags are for a copy of the dot & plus settings that are needed for 
-correctly handling masquerading in MusicXML output. They are set in an 8-bit 
+/* These flags are for a copy of the dot & plus settings that are needed for
+correctly handling masquerading in MusicXML output. They are set in an 8-bit
 field. */
 
 #define od_dot          0x01u
@@ -739,10 +739,10 @@ enum { accent_none, accent_staccato, accent_bar, accent_gt, accent_wedge,
 /* Ornament types. These are for rarer things. Accidentals above/below notes
 are handled as ornaments. These values must all be less than 256, and if ever
 there are more than 32 real ornaments, recoding in read_note() will be
-necessary (flag bits are used to handle duplication). 
+necessary (flag bits are used to handle duplication).
 
-NOTE: Any extension or re-arrangement of this list must be matched by 
-corresponding adjustments to the tables in setnote.c whose names begin with 
+NOTE: Any extension or re-arrangement of this list must be matched by
+corresponding adjustments to the tables in setnote.c whose names begin with
 "ornament_". */
 
 enum {
@@ -764,7 +764,7 @@ enum {
   or_turn,        /* Turn */
   or_iturn,       /* Inverted turn (vertical line) */
   or_rturn,       /* Reversed turn (flipped about vertical axix) */
-  or_irturn,      /* Inverted reversed turn */  
+  or_irturn,      /* Inverted reversed turn */
   or_spread,      /* Spread */
 
   /* These come directly under <notations> in XML output. Fermata must be
@@ -827,6 +827,7 @@ enum {
 #define mf_underlayextenders 0x00800000u
 #define mf_unfinished        0x01000000u
 #define mf_uselastfooting    0x02000000u
+#define mf_hadbackup         0x04000000u  /* For MusicXML output */
 
 /* These flags are set at the start of the first movement. */
 
@@ -843,7 +844,8 @@ enum {
 flags from the [newmovement] directive. */
 
 #define mf_unsetflags (mf_typeflags|mf_copiedfontsizes|mf_nopageheading| \
-  mf_midistart|mf_startjoin|mf_startnotime|mf_unfinished|mf_uselastfooting)
+  mf_midistart|mf_startjoin|mf_startnotime|mf_unfinished|mf_uselastfooting| \
+  mf_hadbackup)
 
 /* These flags are set at the start of a new movement. */
 

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: February 2021 */
-/* This file last modified: October 2025 */
+/* This file last modified: November 2025 */
 
 #include "pmw.h"
 
@@ -190,6 +190,10 @@ if (!brs.resetOK)
 if (reset) read_init_baraccs(read_baraccs, srs.key);
 brs.barlength = r->moff = whereto;
 brs.resetOK = FALSE;
+
+/* Record the use, for MusicXML output. */
+
+curmovt->flags |= mf_hadbackup;
 }
 
 

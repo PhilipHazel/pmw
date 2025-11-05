@@ -58,11 +58,12 @@ variable to save initializing multiple variables for every note. */
 #define BSHIFT_CONTINUE 24
 #define BSHIFT_END      32
 
-/* Size of vectors for slur and ornament handling. */
+/* Size of vectors for slur, ornament, and voice handling. */
 
 #define SLURS_MAX        8
 #define ORNAMENT_MAX     8
 #define UNDERLAY_MAX     8
+#define VOICE_MAX        8
 
 
 /*************************************************
@@ -175,6 +176,8 @@ static uint16_t   slurs_trans[SLURS_MAX];
 static b_slurstr *lines_active[SLURS_MAX];
 static uint16_t   lines_trans[SLURS_MAX];
 
+static int32_t    voice_hwm[VOICE_MAX];
+
 static uschar     string_buffer[256];
 
 /* This vector is used for a reverse Unicode translation table, which is
@@ -224,11 +227,12 @@ static int        underlay_pending_count;
 static FILE      *xml_file;
 static movtstr   *xml_movt;
 static uint64_t   xml_staves;
+static int        xml_voice;
 
 static barposstr *xml_barpos;
 static posstr    *xml_pos;
 static posstr    *xml_poslast;
-static int        xml_moff;
+static int32_t    xml_moff;
 static uint32_t   xml_xoff;
 
 
@@ -1161,7 +1165,10 @@ for (;;)
     if (tie_active != NULL) PN("<tie type=\"start\"/>");
     }
 
-  /* Note details */
+  /* Note details. In a movement that uses {backup] or [reset], we include a
+  voice number. */
+
+  if (xml_voice != 0) PN("<voice>%d</voice>", xml_voice);
 
   PN("<type>%s</type>",
     XML_note_names[(note->masq == MASQ_UNSET)? note->notetype : note->masq]);
@@ -2441,6 +2448,20 @@ xml_poslast = xml_pos + xml_barpos->count - 1;
 xml_moff = 0;
 xml_xoff = 0;
 
+/* If the movement had no [backup] or [reset] directives, we need not bother
+with <voice> elements. Otherwise reset to voice 1 at the start of each bar and
+zero the high water marks. */
+
+if ((xml_movt->flags & mf_hadbackup) == 0)
+  {
+  xml_voice = 0;
+  }
+else
+  {
+  xml_voice = 1;
+  memset(voice_hwm, 0, sizeof(voice_hwm));
+  }
+
 /* A PMW uncounted bar will have a non-zero fractional part or a zero
 integer part. */
 
@@ -2720,8 +2741,8 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     the high water mark recorded, for example if there's a full bar, reset,
     then only half a bar. Picky MusicXML interpreters grumble if a barline's
     position doesn't agree with the musical position, so we generate a
-    <forward> element in this event. If there's never been a b_reset, moff_hwm
-    will be zero.
+    <forward> element in this event, with a <voice> setting it is non zero. If
+    there's never been a b_reset, moff_hwm will be zero.
 
     As in the case of b_reset, there's an overflow trap here because
     "divisions" may be quite large, so just multiplying the amount by it is a
@@ -2735,6 +2756,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
         ((forwardby % len_crotchet) * divisions)/len_crotchet;
       PA("<forward>");
       PN("<duration>%d</duration>", forwardby);
+      if (xml_voice != 0) PN("<voice>%d</voice>", xml_voice);
       PB("</forward>");
       }
 
@@ -2844,8 +2866,29 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     PA("<backup>");
     PN("<duration>%d</duration>", backby);
     PB("</backup>");
+
+    /* Keep overall high water mark for all voices. */
+
     if (xml_moff > moff_hwm) moff_hwm = xml_moff;  /* Keep high water mark */
+
+    /* The value of xml_voice should not be zero in a movement that contains
+    b_reset. First save the high water mark for this voice, then move back and
+    look for a voice whose high water mark is less than or equal to the new
+    position. */
+
+    if (xml_voice == 0)
+      error(ERR193, "voice is zero in a [backup] or [reset] movement");  /* Hard */
+
+    voice_hwm[xml_voice] = xml_moff;
     xml_moff = ((b_resetstr *)b)->moff;
+
+    for (xml_voice = 1; xml_voice < VOICE_MAX; xml_voice++)
+      {
+      if (voice_hwm[xml_voice] <= xml_moff) break;
+      }
+
+    if (xml_voice >= VOICE_MAX)
+      error(ERR193, "can't find valid voice after [backup] or [reset]"); /* Hard */
 
 // TODO? xml_xoff is not being reset, but neither is it actually used at the
 // moment.
