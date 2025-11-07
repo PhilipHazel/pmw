@@ -2650,6 +2650,14 @@ complete_measure(int bar, int divisions)
 
 if (xml_barpos->multi > 1)
   {
+  barstr *b = (barstr *)(st->barindex[bar]->next);
+  if (b->type != b_note)
+    error(ERR193, "missing note in multirest bar"); /* Hard */
+
+  uint32_t duration =
+    (uint32_t)(((uint64_t)(((b_notestr *)b)->length) * divisions) /
+      (uint64_t)len_crotchet);
+
   const char *cmr = ((xml_movt->flags & mf_codemultirests) == 0)? "" :
     " use-symbols=\"yes\"";
   PA("<attributes>");
@@ -2657,8 +2665,22 @@ if (xml_barpos->multi > 1)
   PN("<multiple-rest%s>%d</multiple-rest>", cmr, xml_barpos->multi);
   PB("</measure-style>");
   PB("</attributes>");
-  PB("</measure>");
-  PN("%s", MEASURE_SEPARATOR);
+
+  /* Note that the value of "bar" starts at zero, but the number given to
+  MusicXML bars starts at one. */
+
+  for (int i = 1; i <= xml_barpos->multi; i++)
+    {
+    if (i != 1) PA("<measure number=\"%d\">", bar + i);
+    PA("<note>");
+    PN("<rest/>");
+    PN("<duration>%d</duration>", duration);
+    if (xml_voice != 0) PN("<voice>%d</voice>", xml_voice);
+    PB("</note>");
+    PB("</measure>");
+    PN("%s", MEASURE_SEPARATOR);
+    }
+
   return xml_barpos->multi;
   }
 
