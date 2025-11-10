@@ -1,0 +1,116 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Times-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a4
+a4
+%%EndPaperSize
+
+%%BeginProlog
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Times-Bold
+/bf /bfX /Times-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+mf 10 ss(")63.5 760 s bf 11.8 ss(4)80 768 s(4)80 760.15 s
+%1/2
+mf 10 ss(2)93.9 772 s(@)125.597 760 s
+%2/2
+(2)131.936 772 s(@)163.633 760 s
+%3/2
+(2)169.972 772 s(@)201.669 760 s
+%4/2
+(2)208.008 772 s(@)239.705 760 s
+%5/2
+(2)246.044 772 s(@)277.741 760 s
+%6/2
+(2)284.08 772 s(@)315.777 760 s
+%7/2
+(2)322.116 772 s(@)353.813 760 s
+%8/2
+(2)360.152 772 s(@)391.849 760 s
+%9/2
+(2)398.188 772 s(@)429.885 760 s
+%10/2
+(2)436.224 772 s(@)467.921 760 s
+%11/2
+(2)474.26 772 s(@)505.957 760 s
+%12/2
+(2)512.296 772 s(@)543.993 760 s
+(FFFFCCCCCCC)64 760 s (C)533.993 760 s
+(!)64 716 s(")63.5 672 s 16 672(@)64 716 b 60.5 732 672 k
+%13/2
+(2)88 684 s(@)119.962 672 s
+%13/1
+(+)96.981 724 s 16 688(@)119.962 716 b
+%14/2
+(2)126.354 684 s(@)158.316 672 s
+%14/1
+(+)136.139 724 s 16 688(@)158.316 716 b
+%15/2
+(2)164.708 684 s(@)196.67 672 s
+%15/1
+(+)174.493 724 s 16 688(@)196.67 716 b
+%16/2
+(2)203.062 684 s(@)235.024 672 s
+%16/1
+(+)212.847 724 s 16 688(@)235.024 716 b
+%17/2
+(2)241.416 684 s(@)273.378 672 s
+%17/1
+(+)251.201 724 s 16 688(@)273.378 716 b
+%18/2
+(2)279.77 684 s(@)311.732 672 s
+%18/1
+(+)289.555 724 s 16 688(@)311.732 716 b
+%19/2
+(2)318.124 684 s(@)350.086 672 s
+%19/1
+(+)327.909 724 s 16 688(@)350.086 716 b
+%20/2
+(2)356.478 684 s(@)388.44 672 s
+%20/1
+(+)366.263 724 s 16 688(@)388.44 716 b
+%21/2
+(2)394.832 684 s(@)426.794 672 s
+%21/1
+(2)394.832 718 s 16 688(@)426.794 716 b
+%22/2
+(2)433.186 684 s(@)465.148 672 s
+%22/1
+(2)433.186 718 s 16 688(@)465.148 716 b
+%23/2
+(2)471.54 684 s(@)503.502 672 s
+%23/1
+(2)471.54 718 s 16 688(@)503.502 716 b
+%24/2
+(2)509.894 684 s(B)542.487 672 s(@)540.487 672 s
+%24/1
+(2)509.894 718 s 16 688(B)542.487 716 b 16 688(@)540.487 716 b
+(FFFFCCCCCCC)64 716 s (C)533.987 716 s
+(FFFFCCCCCCC)64 672 s (C)533.987 672 s
+
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1

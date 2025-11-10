@@ -199,13 +199,19 @@ outxml_write_ignored() function, called right at the end of processing. */
 
 static uint64_t   X_ignored = 0;
 
+/* This vector contains pointers to bit maps of suspended bars for each stave.
+The pointers are initialized to dynamic memory when the first movement is being
+processed, triggered by the [1] value being NULL. */
+
+static uint8_t   *suspendmap[64] = { NULL, NULL };
+
 /* These variables have to be dynamically initialized for each movement that is
 processed. */
 
 static int        beam_state;
 static BOOL       bowingabove;
 static int        comment_bar;
-static int        comment_stave;
+static int        current_stave;
 static int        ending_active;
 static BOOL       gliss_active;
 static int        indent;
@@ -228,6 +234,7 @@ static FILE      *xml_file;
 static movtstr   *xml_movt;
 static uint64_t   xml_staves;
 static int        xml_voice;
+static BOOL       xml_suspended;
 
 static barposstr *xml_barpos;
 static posstr    *xml_pos;
@@ -259,7 +266,7 @@ uint32_t pno = xml_movt->barvector[comment_bar];
 uint32_t pnofr = pno & 0xffff;
 pno >>= 16;
 
-fprintf(stderr, "XML output (%d/", comment_stave);
+fprintf(stderr, "XML output (%d/", current_stave);
 if (pnofr == 0) fprintf(stderr, "%d) ", pno);
   else fprintf(stderr, "%d.%d) ", pno, pnofr);
 
@@ -2646,6 +2653,16 @@ Returns:      number of bars processed
 static int
 complete_measure(int bar, int divisions)
 {
+/* Handle suspension */
+
+if (((suspendmap[current_stave][bar/8] & (1 << (bar%8))) != 0) != xml_suspended)
+  {
+  PA("<attributes>");
+  PN("<staff-details print-object=\"%s\"/>", xml_suspended? "yes" : "no");
+  PB("</attributes>");
+  xml_suspended = !xml_suspended;
+  }
+
 /* Handle a multirest bar */
 
 if (xml_barpos->multi > 1)
@@ -2722,6 +2739,17 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     case b_tremolo:
     break;
 
+
+    /* --------------------------------------------------------*/
+    /* These can be ignored because lists of suspended bars are created for
+    each stave from the systems on output pages, and they are consulted when 
+    each bar is output. */
+
+    case b_resume:
+    break;
+
+    case b_suspend:
+    break;
 
     /* --------------------------------------------------------*/
     /* These are partially or wholly handled here. */
@@ -3062,10 +3090,6 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     comment("ignored [topmargin]");
     break;
 
-    case b_resume:
-    comment("ignored [resume]");
-    break;
-
     case b_sgabove:
     comment("ignored [sgabove]");
     break;
@@ -3100,10 +3124,6 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_ssnext:
     comment("ignored [ssnext]");
-    break;
-
-    case b_suspend:
-    comment("ignored [suspend]");
     break;
 
     case b_ulevel:
@@ -3172,15 +3192,19 @@ fprintf(stderr, "\n");
 *************************************************/
 
 /* Needed to ensure they have the right values at the start of a new movement,
-just in case the previoue movement left them in the wrong state. */
+just in case the previoue movement left them in the wrong state. Also
+initialize the suspend maps. */
 
 static void
 initialize(void)
 {
+pagestr *p;
+sysblock *s = NULL;
+
 beam_state = -1;
 bowingabove = TRUE;
 comment_bar = 0;
-comment_stave = 0;
+current_stave = 0;
 ending_active = 0;
 gliss_active = FALSE;
 indent = 0;
@@ -3196,6 +3220,95 @@ slurs_trans_count = 0;
 stop_tremolo_pending = 0;
 tie_active = NULL;
 underlay_pending_count = 0;
+
+/* If suspendmap[1] is NULL we are processing the first (or only) movement.
+Find the largest number of bars and the maximum number of staves in any
+movement. Then allocate suitable memory for the suspend maps. */
+
+if (suspendmap[1] == NULL)
+  {
+  int maxbars = 0;
+  int maxstave = 0;
+
+  for (usint i = 0; i < movement_count; i++)
+    {
+    movtstr *m = movements[i];
+    if (m->barcount > maxbars) maxbars = m->barcount;
+    if (m->laststave > maxstave) maxstave = m->laststave;
+    }
+
+  size_t size = (maxbars + 7) / 8;
+
+  for (int i = 1; i <= maxstave; i++) suspendmap[i] = mem_get(size);
+  }
+
+/* Initialize the suspend maps for the current movement. First clear to zero,
+then scan all the output pages and set bits for all bars in systems where
+staves are suspended. */
+
+for (int i = 1; i <= xml_movt->laststave; i++)
+  memset(suspendmap[i], 0, (xml_movt->barcount + 7) / 8);
+
+/* Scan all the pages, looking for the first one that starts this movement. */
+
+for (p = main_pageanchor; p != NULL; p = p->next)
+  {
+  for (s = p->sysblocks; s != NULL; s = s->next)
+    if (s->movt == xml_movt) break;
+  if (s != NULL) break;
+  }
+
+if (s == NULL) error(ERR192, "did not find movement in page data"); /* Hard */
+
+/* We should now have p pointing to the first page that contains some of this
+movement, and s pointing to the first sysblock or headblock. Scan for sysblocks
+and for each extract any suspend data. Then move on to the next page, until we
+hit a sysblock/headblock that does not belong to this movement. */
+
+for (;;)
+  {
+  for (; s != NULL; s = s->next)
+    {
+    if (s->movt != xml_movt) break;
+    if (!s->is_sysblock) continue;
+    uint64_t suspend = (~s->notsuspend) >> 1;  /* Bottom bit is stave 1 */
+
+    if (suspend == 0) continue;
+
+    for (int i = 1;
+         i <= xml_movt->laststave && suspend != 0;
+         i++, suspend = suspend >> 1)
+      {
+      if ((suspend & 1) != 0)
+        {
+        uint8_t *map = suspendmap[i];
+        for (int j = s->barstart; j <= s->barend; j++)
+          map[j/8] |= 1 << (j%8);
+        }
+      }
+    }
+
+  /* Move on to the next page; break if it's another movement. */
+
+  p = p->next;
+  if (p == NULL) break;
+  s = p-> sysblocks;
+  if (s->movt != xml_movt) break;
+  }
+
+/********* This was debugging code, left here just in case it is ever needed
+again.
+
+for (int i = 1; i <= xml_movt->laststave; i++)
+  {
+  uint8_t *map = suspendmap[i];
+  eprintf("Stave %d:", i);
+
+  for (int j = 0; j < (xml_movt->barcount + 7) / 8; j++)
+    eprintf(" 0x%02x", map[j]);
+  eprintf("\n");
+  }
+***************************/
 }
 
 
@@ -3669,7 +3782,8 @@ for (usint stave = 1; stave <= laststave; stave++)
 
   st = xml_movt->stavetable[stave];
   barstr **barvector = st->barindex;
-  comment_stave = stave;
+  current_stave = stave;
+  xml_suspended = FALSE;
 
   /* If this stave has underlay and used the "=" continuation feature, we need
   to scan it and insert any missing "=" syllables because MusicXML needs

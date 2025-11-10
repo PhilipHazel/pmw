@@ -165,10 +165,10 @@ while (scalar @dirs > 0)
   my($tests) = shift @dirs;
   my($outs) = shift @dirs;
   my($filecount) = 0;
-  my($specialopt) = "";
+  my($setspecialopt) = "";
 
-  $specialopt = "-midi test.mid" if $tests =~ /^miditests$/;
-  $specialopt = "-xml test.xml" if $tests =~ /^xouttests$/;
+  $setspecialopt = "-midi test.mid" if $tests =~ /^miditests$/;
+  $setspecialopt = "-xml test.xml" if $tests =~ /^xouttests$/;
 
   if ($show_progress)
     {
@@ -188,6 +188,10 @@ while (scalar @dirs > 0)
     my($options) = "";
     my($testOK) = 1;
     my($fontsearch) = "-F ../fontmetrics:../fontextra:../psfonts";
+    
+    # $specialopt is reset for some tests, so it must be reset for each file.
+    
+    my($specialopt) = $setspecialopt;
 
     # Skip . and .. and any file ending in .opt because that contains options
     # for any given test, and any that end in .inc because they are included
@@ -224,6 +228,7 @@ while (scalar @dirs > 0)
     # For testing MusicXML multi-movement output, a variation on the -xml
     # option is needed and is set in $options. In the event, we must unset
     # $specialopt.
+     
 
     $specialopt = "" if $options =~ /-xml /;
 

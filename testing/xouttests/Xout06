@@ -1,0 +1,9 @@
+suspend 1
+
+[stave 1 treble 1]
+[20] R! | [4] G+ |
+[endstave]
+
+[stave 2 bass 0]
+[24] G+ |
+[endstave]
