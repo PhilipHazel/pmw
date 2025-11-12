@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: October 2025 */
+/* This file last modified: November 2025 */
 
 #include "pmw.h"
 
@@ -2409,6 +2409,12 @@ if (out_tremolo != NULL && n_pitch != 0 && !out_beaming)
   int32_t y;
   int32_t x0 = out_tremx - out_barx + (75*out_stavemagn)/100;
   int32_t x1 = n_x - out_barx + (115*out_stavemagn)/100;
+ 
+  if (main_righttoleft)
+    {
+    x0 -= 5*out_stavemagn;
+    x1 -= 5*out_stavemagn; 
+    }  
 
   beam_Xcorrection = (51*out_stavemagn)/10;
 

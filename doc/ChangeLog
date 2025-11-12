@@ -43,6 +43,9 @@ macros.
 
 15. There is now some basic (experimental) support for MusicXML output.
 
+16. In right-to-left mode, tremolos between notes were appearing too far to the 
+left.
+
 
 Version 5.32 25-June-2025
 -------------------------

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: October 2025 */
+/* This file last modified: November 2025 */
 
 #include "pmw.h"
 
