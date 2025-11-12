@@ -173,12 +173,18 @@ static bit_table debug_options[] = {
 
 #define DEBUG_OPTIONS_COUNT (sizeof(debug_options)/sizeof(bit_table))
 
+/* Likewise, this table of XML output options must be in alphabetical order. */
+
+#if SUPPORT_XML
 static bit_table xout_options[] = {
-  { US"numberlyrics",    mx_numberlyrics }
+  { US"newline",         mx_newline },
+  { US"newpage",         mx_newpage },
+  { US"numberlyrics",    mx_numberlyrics },
+  { US"suspend",         mx_suspend }
 };
 
 #define XOUT_OPTIONS_COUNT (sizeof(xout_options)/sizeof(bit_table))
-
+#endif
 
 
 /*************************************************
@@ -209,7 +215,7 @@ accordingly.
 Arguments:
   name           option name (for errors)
   string         the argument string
-  bit_table      table of options
+  bit_table      table of options, in alphabetical order
   btlen          length of table
   selector       the selector
 
@@ -797,8 +803,12 @@ if (results[arg_musicxmlmovement].presence != arg_present_not)
 
 if (results[arg_x].text != NULL)
   {
+#if SUPPORT_XML
   decode_bitselector("-x", results[arg_x].text + 2, xout_options,
     XOUT_OPTIONS_COUNT, &main_xmloptions);   /* Any errors are hard */
+#else
+  error(ERR3, "MusicXML output");
+#endif
   }
 
 /* Deal with MIDI output */

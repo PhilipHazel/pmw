@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>02 November 2025</date>
+<date>11 November 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>02 November 2025</date>
+  <date>11 November 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -16278,6 +16278,52 @@ features that are currently missing may be partly or wholly added later as time
 permits. There are also features that are straightforward to translate, but
 which have just been overlooked. I will add these if asked or if I happen to
 notice.
+
+Some features may or may not be wanted in MusicXML output. For example,
+explicit formatting instructions such as &%[newpage]%& may not be wanted when
+another typesetting program is used. For this reason, there are some options
+for controlling the inclusion of some items. These options are given as a list
+of words, separated by plus signs, following the &%-x%& command line option,
+without a space. For example:
+
+.code
+pmw -xml export.xml -x+newline+newpage something.pmw
+.endd
+
+The options are as follows:
+
+.vlist
+
+.vitem "&%newline%&"
+
+The &%[newline]%& directive causes PMW to start a new system in its PostScript
+or PDF output. It is ignored when generating MusicXML unless this option is
+set.
+
+.vitem "&%newpage%&"
+
+The &%[newpage]%& directive causes PMW to start a new page in its PostScript or
+PDF output. It is ignored when generating MusicXML unless this option is set.
+
+.vitem "&%numberlyrics%&"
+
+When there is more than one underlay verse in a vocal part, PMW will output a
+number for each &`<lyric>`& item when generating MusicXML. By default, it does
+not do this if there is only one verse. There is at least one version of one
+processor that completely ignores unnumbered lyrics, so this option is provided
+to ensure that even a single verse is numbered `1'. However, this may result in
+the addition of the text `1.' at the start.
+
+.vitem "&%suspend%&"
+
+The &%suspend%& and &%[suspend]%& directives can cause staves to be omitted
+from systems in PostScript or PDF output when all a stave's bars are empty or
+are rest bars. These directives are ignored for MusicXML output unless this
+option is set. When it is, the stave bars that were omitted in the PostScript
+or PDF output are flagged as non-printing, but because another processor may
+put different numbers of bars into its systems, the effect may not be ideal.
+
+.endlist
 
 One thing to remember about MusicXML is that applications that read it do not
 always honour all the content. For example, tests have shown that several

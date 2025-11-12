@@ -967,6 +967,9 @@ enum {
 /* MusicXML output options */
 
 #define mx_numberlyrics  0x00000001u
+#define mx_newline       0x00000002u
+#define mx_newpage       0x00000004u
+#define mx_suspend       0x00000008u
 
 #define MX(x) ((main_xmloptions & (x)) != 0)
 

@@ -6118,7 +6118,6 @@
     </measure>
     <!--============================-->
     <measure number="104" width="77">
-      <print new-page="yes"/>
       <attributes>
         <clef>
           <sign>C</sign>
@@ -6802,7 +6801,6 @@
     </measure>
     <!--============================-->
     <measure number="130" width="74">
-      <print new-system="yes"/>
       <note>
         <pitch>
           <step>G</step>

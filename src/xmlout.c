@@ -32,7 +32,7 @@ and the X_ignored variable. Current implementation allows up to 63. */
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT,
   X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_RLEVEL, X_MOVE, X_ENC_BARNO,
-  X_BARNO_INTERVAL, X_COUNT };
+  X_BARNO_INTERVAL, X_NEWLINE, X_NEWPAGE, X_SUSPEND, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -88,7 +88,10 @@ static const char *X_ignored_message[] = {
   "Rest level adjustment",
   "[move]",
   "Boxing or circling bar numbers",
-  "Bar numbering every n bars, can only number all bars"
+  "Bar numbering every n bars, can only number all bars",
+  "[newline] (use -x+newline to enable)",
+  "[newpage] (use -x+newpage to enable)",
+  "Suspend/resume (use -x+suspend to enable)"
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -200,8 +203,9 @@ outxml_write_ignored() function, called right at the end of processing. */
 static uint64_t   X_ignored = 0;
 
 /* This vector contains pointers to bit maps of suspended bars for each stave.
-The pointers are initialized to dynamic memory when the first movement is being
-processed, triggered by the [1] value being NULL. */
+It is used only when processing of suspend/resume is explicitly enabled. The
+pointers are then initialized to dynamic memory when the first movement is
+being processed, triggered by the [1] value being NULL. */
 
 static uint8_t   *suspendmap[64] = { NULL, NULL };
 
@@ -2653,9 +2657,10 @@ Returns:      number of bars processed
 static int
 complete_measure(int bar, int divisions)
 {
-/* Handle suspension */
+/* Handle suspension. This is not done by default. */
 
-if (((suspendmap[current_stave][bar/8] & (1 << (bar%8))) != 0) != xml_suspended)
+if (MX(mx_suspend) &&
+    ((suspendmap[current_stave][bar/8] & (1<<(bar%8))) != 0) != xml_suspended)
   {
   PA("<attributes>");
   PN("<staff-details print-object=\"%s\"/>", xml_suspended? "yes" : "no");
@@ -2741,14 +2746,16 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
 
     /* --------------------------------------------------------*/
-    /* These can be ignored because lists of suspended bars are created for
-    each stave from the systems on output pages, and they are consulted when 
-    each bar is output. */
+    /* These can be ignored because when support for suspension is enabled,
+    lists of suspended bars are created for each stave from the systems on
+    output pages, and they are consulted when each bar is output. */
 
     case b_resume:
+    if (!MX(mx_suspend)) X(X_SUSPEND);
     break;
 
     case b_suspend:
+    if (!MX(mx_suspend)) X(X_SUSPEND);
     break;
 
     /* --------------------------------------------------------*/
@@ -2887,11 +2894,11 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_newline:
-    PN("<print new-system=\"yes\"/>");
+    if (MX(mx_newline)) PN("<print new-system=\"yes\"/>"); else X(X_NEWLINE);
     break;
 
     case b_newpage:
-    PN("<print new-page=\"yes\"/>");
+    if (MX(mx_newpage)) PN("<print new-page=\"yes\"/>"); else X(X_NEWPAGE);
     break;
 
     case b_ornament:
@@ -3159,7 +3166,7 @@ return 1;
 *         Output comments about ignorances       *
 *************************************************/
 
-/* There is one set if "ignored" bits that may be set by multiple calls to
+/* There is one set of "ignored" bits that may be set by multiple calls to
 outxml_write() below, for multiple movements. When all are done, this function
 is called to output a relevant comment.
 
@@ -3173,9 +3180,9 @@ outxml_write_ignored(void)
 if (X_ignored == 0) return;
 
 fprintf(stderr,
-  "\nNot all PMW items can be translated to MusicXML. Some items in this file that\n"
-  "were wholly or partially ignored are listed below. This is probably not a\n"
-  "complete list:\n\n");
+  "\nNot all PMW items can be translated to MusicXML, and some items are ignored\n"
+  "unless requested by a -x option. Some items in this file that were wholly or\n"
+  "partially ignored are listed below. This is probably not complete list:\n\n");
 
 for (int i = 0; i < X_COUNT; i++)
   {
@@ -3193,7 +3200,7 @@ fprintf(stderr, "\n");
 
 /* Needed to ensure they have the right values at the start of a new movement,
 just in case the previoue movement left them in the wrong state. Also
-initialize the suspend maps. */
+initialize the suspend maps when support for suspension is enabled. */
 
 static void
 initialize(void)
@@ -3220,6 +3227,10 @@ slurs_trans_count = 0;
 stop_tremolo_pending = 0;
 tie_active = NULL;
 underlay_pending_count = 0;
+
+/* That's all we need to do unless support for suspension is enabled. */
+
+if (!MX(mx_suspend)) return;
 
 /* If suspendmap[1] is NULL we are processing the first (or only) movement.
 Find the largest number of bars and the maximum number of staves in any
@@ -3346,6 +3357,11 @@ if (xml_movt->barcount < 1)
   error(ERR160, xml_movt->number, "MusicXML");
   return;
   }
+
+/* Set the warning flag if any staves are suspended from the start when
+suspension support is not enabled (there may not be a [resume]). */
+
+if (xml_movt->suspend_staves != 0 && !MX(mx_suspend)) X(X_SUSPEND);
 
 /* Initialize static variables because this function may be called several
 times for multiple movements. */
