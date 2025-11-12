@@ -1,0 +1,17 @@
+stavesizes 3/0.8 4/1.5
+
+[stave 1/1 treble 1]
+R!
+[endstave]
+
+[stave 2/4 bass 0]
+G+
+[endstave]
+
+[stave 3 treble 1]
+R!
+[endstave]
+
+[stave 4 bass 0]
+G+
+[endstave]

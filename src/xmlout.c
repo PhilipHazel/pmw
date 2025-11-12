@@ -2518,6 +2518,8 @@ first_measure(barstr *b, int divisions)
 uint32_t clef = clef_treble;
 uint32_t key = xml_movt->key;
 uint32_t time = xml_movt->time;
+uint32_t lines = xml_movt->stavetable[current_stave]->stavelines;
+uint32_t size = xml_movt->stavesizes[current_stave];
 
 for (; b != NULL; b = (barstr *)b->next)
   {
@@ -2563,6 +2565,14 @@ write_key(key, FALSE);
 if ((xml_movt->flags & (mf_showtime | mf_startnotime)) != 0)
   write_time(time, FALSE);
 write_clef(clef, FALSE);
+if (lines != 5 || size != 1000) 
+  {
+  PA("<staff-details>");
+  if (lines != 5) PN("<staff-lines>%d</staff-lines>", lines); 
+  if (size != 1000) 
+    PN("<staff-size scaling=\"%d\">%d</staff-size>", size/10, size/10); 
+  PB("</staff-details>");
+  }
 PB("</attributes>");
 }
 
