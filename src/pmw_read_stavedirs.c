@@ -1963,9 +1963,15 @@ else
     return;
     }
 
-  /* Check for absolute setting */
+  /* Check for absolute level setting by an unsigned number */
 
   read_sigc();
+  if (read_c == '-' || read_c == '+')
+    {
+    error(ERR8, "Unsigned number");
+    read_nextc();
+    }
+
   if (isdigit(read_c))
     {
     srs.textflags |= text_absolute;
