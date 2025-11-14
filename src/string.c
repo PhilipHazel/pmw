@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: April 2025 */
+/* This file last modified: November 2025 */
 
 #include "pmw.h"
 
@@ -2187,7 +2187,7 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
 
     default:
     error_skip(ERR8, ('/'<<8) | ' ', "/a, /ao, /b, /bar, /box, /bu, /d, /e, "
-      "/F, /fb, /h, /l, /m, /ol, /r, /rbox, /ring, /S, /s, /u or /ul");
+      "/F, /fb, /fbu, /h, /l, /m, /ol, /r, /rbox, /ring, /S, /s, /u or /ul");
     break;
     }
   }

@@ -11,7 +11,7 @@ Version 5.33 xx-xxx-2025
 correctly placed in right-to-left mode.
 
 3. Tremolo bars on breves and semibreves were incorrectly placed in 
-rithg-to-left mode.
+right-to-left mode.
 
 4. Implemented the Miditremolo directives.
 
@@ -41,10 +41,10 @@ down was lost.
 14. Merged Jan Nemecek's additional figured bass macros into the standard 
 macros.
 
-15. There is now some basic (experimental) support for MusicXML output.
-
-16. In right-to-left mode, tremolos between notes were appearing too far to the 
+15. In right-to-left mode, tremolos between notes were appearing too far to the 
 left.
+
+16. Add support for [text fbu], which had been overlooked when /fbu was added.
 
 
 Version 5.32 25-June-2025

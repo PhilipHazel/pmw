@@ -203,12 +203,12 @@ g\.\ x3\x\ a |
 "a" "b"/F/rc0.5 a "a" "b"/F/ps a "a"/ps "b"/F a |
 --------------->
 
-** Error: /a, /ao, /b, /bar, /box, /bu, /d, /e, /F, /fb, /h, /l, /m, /ol, /r, /rbox, /ring, /S, /s, /u or /ul expected
+** Error: /a, /ao, /b, /bar, /box, /bu, /d, /e, /F, /fb, /fbu, /h, /l, /m, /ol, /r, /rbox, /ring, /S, /s, /u or /ul expected
    Detected near line 69 of misctests/Errors
 "a" "b"/F/rc0.5 a "a" "b"/F/ps a "a"/ps "b"/F a |
 ---------------------------->
 
-** Error: /a, /ao, /b, /bar, /box, /bu, /d, /e, /F, /fb, /h, /l, /m, /ol, /r, /rbox, /ring, /S, /s, /u or /ul expected
+** Error: /a, /ao, /b, /bar, /box, /bu, /d, /e, /F, /fb, /fbu, /h, /l, /m, /ol, /r, /rbox, /ring, /S, /s, /u or /ul expected
    Detected near line 69 of misctests/Errors
 "a" "b"/F/rc0.5 a "a" "b"/F/ps a "a"/ps "b"/F a |
 ------------------------------------->

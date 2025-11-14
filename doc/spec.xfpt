@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>11 November 2025</date>
+<date>14 November 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>11 November 2025</date>
+  <date>14 November 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -13866,24 +13866,27 @@ This specifies a C clef with its centre on the fourth stave line (&R;
 .index "text" "default type"
 The default type for text within a stave (which implies a default vertical
 level and size) can be set for an individual stave by means of the &%[text]%&
-directive. It takes a word as its argument.
+directive. It takes a word as its argument, which in two cases may optionally
+be followed by a dimension.
 
 .itable none 0 0 2  120 left  300 left
 .row "&`[text above]`&"              "output above the stave"
-.row "&`[text above`& <&'n'&>&`]`&"  "ditto, at a given level"
+.row "&`[text above`& <&'n'&>&`]`&"  "ditto, at a fixed level"
 .row "&`[text below]`&"              "output below the stave"
-.row "&`[text below`& <&'n'&>&`]`&"  "ditto, at a given level"
+.row "&`[text below`& <&'n'&>&`]`&"  "ditto, at a fixed level"
 .row "&`[text underlay]`&"           "default is underlay"
 .row "&`[text overlay]`&"            "default is overlay"
 .row "&`[text fb]`&"                 "default is figured bass"
+.row "&`[text fbu]`&"                "default is figured bass at underlay level"
 .endtable
 
-To override a default with an absolute position (for example &`[text above
-15]`&), the text options  &`/a`& or &`/b`& without a following number can be
+The words &`above`& or &`below`& may be followed by an unsigned number, which
+specifies a fixed level above or below the stave, respectively. To override a
+default with a fixed level (for example &`[text above 15]`&) on an individual
+string, the text options &`/a`& or &`/b`& without a following number can be
 used (as well as &`/ul`&, &`/fb`&, &`/fbu`&, or &`/m`&). Similarly, the
 appearance of &%[text above]%& or &%[text below]%& without a number resets to
-the initial state, where the default vertical position depends on the next
-note.
+the initial state, where the default level depends on the next note.
 
 Ordinary text that is positioned above or below the stave is by default output
 at settable size 1 (specified by the &%textsizes%& header directive), unless
@@ -16007,7 +16010,9 @@ rests:
 .row "&`[stems `&<&'alignment'&>&`]`&"       "set/unset centralized stems"
 .row "&`[suspend]`&"                         "suspend stave at next system"
 .row "&`[tenor `&<&'octave'&>&`]`&"          "select tenor clef"
-.row "&`[text `&<&'name'&>&`]`&"             "select default text type"
+.row "&`[text `&<&'name'&>&`]`&"             "set default text type"
+.row "&`[text above `&<&'n'&>&`]`&"          "set default text above at fixed level"
+.row "&`[text below `&<&'n'&>&`]`&"          "set default text below at fixed level"
 .row "&`[textfont `&<&'name'&>&`]`&"         "set default text font"
 .row "&`[textsize `&<&'n'&>&`]`&"            "set default text size"
 .row "&`[tick]`&"                            "tick pause"

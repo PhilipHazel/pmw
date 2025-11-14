@@ -1947,6 +1947,7 @@ srs.textabsolute = 0;
 if (Ustrcmp(read_wordbuffer, "underlay") == 0) srs.textflags = text_ul;
 else if (Ustrcmp(read_wordbuffer, "overlay") == 0) srs.textflags = text_ul | text_above;
 else if (Ustrcmp(read_wordbuffer, "fb") == 0) srs.textflags = text_fb;
+else if (Ustrcmp(read_wordbuffer, "fbu") == 0) srs.textflags = text_fb | text_atulevel;
 
 else
   {
@@ -1958,7 +1959,7 @@ else
     }
   else
     {
-    error(ERR8, "\"underlay\", \"fb\", \"above\", or \"below\"");
+    error(ERR8, "\"underlay\", \"fb\", \"fbu\", \"above\", or \"below\"");
     return;
     }
 
