@@ -32,7 +32,7 @@ and the X_ignored variable. Current implementation allows up to 63. */
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT,
   X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_RLEVEL, X_MOVE, X_ENC_BARNO,
-  X_BARNO_INTERVAL, X_NEWLINE, X_NEWPAGE, X_SUSPEND, X_COUNT };
+  X_BARNO_INTERVAL, X_NEWLINE, X_NEWPAGE, X_SUSPEND, X_HALFSHARP, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -91,7 +91,8 @@ static const char *X_ignored_message[] = {
   "Bar numbering every n bars, can only number all bars",
   "[newline] (use -x+newline to enable)",
   "[newpage] (use -x+newpage to enable)",
-  "Suspend/resume (use -x+suspend to enable)"
+  "Suspend/resume (use -x+suspend to enable)",
+  "Half sharp style 1" 
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -3367,6 +3368,12 @@ if (xml_movt->barcount < 1)
   error(ERR160, xml_movt->number, "MusicXML");
   return;
   }
+  
+/* PMW's alternative half sharp doesn't seem to be available in MusicXML, but 
+there is a variant half flat. */ 
+  
+if (xml_movt->halfflatstyle != 0) XML_accidental_names[4] = "quarter-flat"; 
+if (xml_movt->halfsharpstyle != 0) X(X_HALFSHARP);
 
 /* Set the warning flag if any staves are suspended from the start when
 suspension support is not enabled (there may not be a [resume]). */
