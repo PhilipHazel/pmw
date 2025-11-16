@@ -32,7 +32,8 @@ and the X_ignored variable. Current implementation allows up to 63. */
 enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT,
   X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_RLEVEL, X_MOVE, X_ENC_BARNO,
-  X_BARNO_INTERVAL, X_NEWLINE, X_NEWPAGE, X_SUSPEND, X_HALFSHARP, X_COUNT };
+  X_BARNO_INTERVAL, X_NEWLINE, X_NEWPAGE, X_SUSPEND, X_HALFSHARP, X_JOIN,
+  X_MARGIN, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -92,7 +93,9 @@ static const char *X_ignored_message[] = {
   "[newline] (use -x+newline to enable)",
   "[newpage] (use -x+newpage to enable)",
   "Suspend/resume (use -x+suspend to enable)",
-  "Half sharp style 1" 
+  "Half sharp style 1",
+  "Join or joindotted directive",
+  "Margin setting(s)"
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -508,6 +511,42 @@ return string_buffer;
 
 
 /*************************************************
+*        Start an element with font info         *
+*************************************************/
+
+/* Start an element that has a font setting. It's left open for possible
+further additions. */
+
+static void
+element_set_font(const char *name, int font, int size)
+{
+PO("<%s font-size=\"%s\"", name, sff(size));
+switch(font)
+  {
+  case font_rm:
+  break;
+
+  case font_bf:
+  PC(" font-weight=\"bold\"");
+  break;
+
+  case font_bi:
+  PC(" font-weight=\"bold\" font-style=\"italic\"");
+  break;
+
+  case font_it:
+  PC(" font-style=\"italic\"");
+  break;
+
+  default:
+  X(X_FONT);
+  break;
+  }
+}
+
+
+
+/*************************************************
 *              Write PMW string                  *
 *************************************************/
 
@@ -550,34 +589,13 @@ while (*s != 0 && count < length)
   save = *s;
   *s = 0;        /* Temporary terminator */
 
-  PO("<%s%s font-size=\"%s\"", elname, elattr, sff(size));
+  element_set_font(elname, f, size);
+  if (elattr[0] != 0) PC("%s", elattr);
 
   if (first)
     {
     if (y != INT32_MAX) PC(" default-y=\"%d\"", y);
     first = FALSE;
-    }
-
-  switch(f)
-    {
-    case font_rm:
-    break;
-
-    case font_bf:
-    PC(" font-weight=\"bold\"");
-    break;
-
-    case font_bi:
-    PC(" font-weight=\"bold\" font-style=\"italic\"");
-    break;
-
-    case font_it:
-    PC(" font-style=\"italic\"");
-    break;
-
-    default:
-    X(X_FONT);
-    break;
     }
 
   if (enc != NULL) PC(" enclosure=\"%s\"", enc);
@@ -702,6 +720,8 @@ else if (time == time_cut)
   time = 0x00000404u;
   symbol = " symbol=\"cut\"";
   }
+else if ((xml_movt->flags & mf_showtimebase) == 0)
+  symbol = " symbol=\"single-number\"";
 
 PA("<time%s%s>", symbol, assume? " print-object=\"no\"" : "");
 PN("<beats>%d</beats>", time >> 8);
@@ -1261,8 +1281,12 @@ for (;;)
 
   /* Stem */
 
-  if ((note->flags & nf_stem) == 0) PN("<stem>none</stem>");
-    else PN("<stem>%s</stem>", ((note->flags & nf_stemup) != 0)? "up":"down");
+  if ((note->flags & nf_stem) == 0) PN("<stem>none</stem>"); else
+    {
+    PO("<stem");
+    if (note->yextra != 0) PC(" relative-y=\"%d\"", T(note->yextra));
+    PC(">%s</stem>\n", ((note->flags & nf_stemup) != 0)? "up":"down");
+    }
 
   /* Notehead style */
 
@@ -2563,15 +2587,15 @@ for (; b != NULL; b = (barstr *)b->next)
 PA("<attributes>");
 PN("<divisions>%d</divisions>", divisions);
 write_key(key, FALSE);
-if ((xml_movt->flags & (mf_showtime | mf_startnotime)) != 0)
-  write_time(time, FALSE);
+write_time(time, (xml_movt->flags & mf_showtime) == 0 ||
+                 (xml_movt->flags & mf_startnotime) != 0);
 write_clef(clef, FALSE);
-if (lines != 5 || size != 1000) 
+if (lines != 5 || size != 1000)
   {
   PA("<staff-details>");
-  if (lines != 5) PN("<staff-lines>%d</staff-lines>", lines); 
-  if (size != 1000) 
-    PN("<staff-size scaling=\"%d\">%d</staff-size>", size/10, size/10); 
+  if (lines != 5) PN("<staff-lines>%d</staff-lines>", lines);
+  if (size != 1000)
+    PN("<staff-size scaling=\"%d\">%d</staff-size>", size/10, size/10);
   PB("</staff-details>");
   }
 PB("</attributes>");
@@ -2588,9 +2612,6 @@ PB("</attributes>");
 static void
 set_barnumbering(void)
 {
-int size = xml_movt->fontsizes->fontsize_barnumber.size;
-int f = xml_movt->fonttype_barnumber;
-
 if ((xml_movt->barnumber_textflags & (text_boxed|text_ringed)) != 0)
   X(X_ENC_BARNO);
 
@@ -2607,28 +2628,8 @@ if (xml_movt->barnumber_interval == 0)
 
 else
   {
-  PO("<measure-numbering font-size=\"%s\"", sff(size));
-  switch(f)
-    {
-    case font_rm:
-    break;
-
-    case font_bf:
-    PC(" font-weight=\"bold\"");
-    break;
-
-    case font_bi:
-    PC(" font-weight=\"bold\" font-style=\"italic\"");
-    break;
-
-    case font_it:
-    PC(" font-style=\"italic\"");
-    break;
-
-    default:
-    X(X_FONT);
-    break;
-    }
+  element_set_font("measure-numbering", xml_movt->fonttype_barnumber,
+    xml_movt->fontsizes->fontsize_barnumber.size);
 
   /* Bar numbers at start of systems */
 
@@ -2894,7 +2895,9 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     case b_nbar:
     b_nbarstr *nb = (b_nbarstr *)b;
     PA("<barline location=\"left\">");
-    PO("<ending type=\"start\" number=\"%d\">", nb->n);
+    element_set_font("ending", xml_movt->fonttype_repeatbar,
+      xml_movt->fontsizes->fontsize_repno.size);
+    PC(" type=\"start\" number=\"%d\">", nb->n);
     if (nb->s != NULL)
       PC("%s", convert_PMW_string(nb->s));
     else
@@ -2992,12 +2995,10 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_time:
-    if ((xml_movt->flags & mf_showtime) != 0)
-      {
-      PA("<attributes>");
-      write_time(((b_timestr *)b)->time, ((b_timestr *)b)->assume);
-      PB("</attributes>");
-      }
+    PA("<attributes>");
+    write_time(((b_timestr *)b)->time, ((b_timestr *)b)->assume ||
+     (xml_movt->flags & mf_showtime) == 0);
+    PB("</attributes>");
     break;
 
     case b_tripsw:
@@ -3101,11 +3102,11 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_pagebotmargin:
-    comment("ignored [bottommargin]");
+    X(X_MARGIN);
     break;
 
     case b_pagetopmargin:
-    comment("ignored [topmargin]");
+    X(X_MARGIN);
     break;
 
     case b_sgabove:
@@ -3201,6 +3202,38 @@ for (int i = 0; i < X_COUNT; i++)
     fprintf(stderr, "  %s\n", X_ignored_message[i]);
   }
 fprintf(stderr, "\n");
+}
+
+
+
+/*************************************************
+*             Set brace/bracket join bits        *
+*************************************************/
+
+/* This function sets start/stop bits for braces and brackets in a per-stave
+vector. As the default for bracket is 1-63, we need to check the actual highest
+stave, and in any case a user may create a value that is greater than the
+actual. We must also take note of stave selection so as not to start or end a
+group on an unselected stave. */
+
+static void
+set_bracebrack(uint8_t *joinbits, stavelist *s, usint startbit, usint stopbit)
+{
+for (; s != NULL; s = s->next)
+  {
+  uint32_t first = s->first;
+  uint32_t last = (s->last <= (uint32_t)xml_movt->laststave)?
+    s->last : (uint32_t)xml_movt->laststave;
+
+  while (first < last && mac_notbit(xml_staves, first)) first++;
+  while (last > first && mac_notbit(xml_staves, last)) last--;
+
+  if (first < last)  /* Omit single-stave groups */
+    {
+    joinbits[first] |= startbit;
+    joinbits[last] |= stopbit;
+    }
+  }
 }
 
 
@@ -3356,6 +3389,12 @@ time_t now;
 
 TRACE("outxml_write() movement %d\n", outxml_movement);
 
+/* Safety check in case the X_ numbers get too big. */
+
+if (X_COUNT > 63) error(192, "X_COUNT is greater than 63"); /* Hard */
+
+/* Set up a pointer to the required movement. */
+
 if (outxml_movement < 1 || (usint)outxml_movement > movement_count)
   {
   error(ERR189, outxml_movement, "MusicXML");
@@ -3368,17 +3407,26 @@ if (xml_movt->barcount < 1)
   error(ERR160, xml_movt->number, "MusicXML");
   return;
   }
-  
-/* PMW's alternative half sharp doesn't seem to be available in MusicXML, but 
-there is a variant half flat. */ 
-  
-if (xml_movt->halfflatstyle != 0) XML_accidental_names[4] = "quarter-flat"; 
-if (xml_movt->halfsharpstyle != 0) X(X_HALFSHARP);
+
+/* Set warning flags for various unsupported things. */
+
+if (xml_movt->joinlist->first != 1 ||
+    xml_movt->joinlist->last != MAX_STAVE ||
+    xml_movt->joindottedlist != NULL)
+  X(X_JOIN);
+
+if (xml_movt->bottommargin != 0 || xml_movt->leftmargin >= 0) X(X_MARGIN);
 
 /* Set the warning flag if any staves are suspended from the start when
 suspension support is not enabled (there may not be a [resume]). */
 
 if (xml_movt->suspend_staves != 0 && !MX(mx_suspend)) X(X_SUSPEND);
+
+/* PMW's alternative half sharp doesn't seem to be available in MusicXML, but
+there is a variant half flat. */
+
+if (xml_movt->halfflatstyle != 0) XML_accidental_names[4] = "quarter-flat";
+if (xml_movt->halfsharpstyle != 0) X(X_HALFSHARP);
 
 /* Initialize static variables because this function may be called several
 times for multiple movements. */
@@ -3640,26 +3688,33 @@ characteristics. */
 #define jb_break_stop    0x80u
 
 uint8_t joinbits[MAX_STAVE + 1];
+uint64_t breaks = xml_movt->breakbarlines;
 
 for (usint stave = 0; stave <= laststave; stave++) joinbits[stave] = 0;
 
-/* If there is only one stave, we don't need to do anything. */
+/* Find runs of staves that either have or have not barlines. */
 
-if (laststave > 1)
+for (usint stave = 1; stave <= laststave - 1;)
   {
-  uint64_t breaks = xml_movt->breakbarlines;
+  usint ss;
+  usint next;
+  uint64_t first = (breaks >> stave) & 1;
 
-  /* Find runs of staves that either have or have not barlines. */
+  for (ss = stave + 1; ss <= laststave; ss++)
+    if (((breaks >> ss) & 1) != first) break;
+  if (ss > laststave) ss = laststave;
 
-  for (usint stave = 1; stave <= laststave - 1;)
+  next = ss;  /* Where to continue */
+
+  /* We must now take note of any stave selection and adjust the start and
+  end of the run if necessary so as not to be on omitted staves. If we end up
+  with just one stave, do not set any joining bits. */
+
+  while (stave < ss && mac_notbit(xml_staves, stave)) stave++;
+  while (ss > stave && mac_notbit(xml_staves, ss)) ss--;
+
+  if (stave < ss)
     {
-    usint ss;
-    uint64_t first = (breaks >> stave) & 1;
-
-    for (ss = stave + 1; ss <= laststave; ss++)
-      if (((breaks >> ss) & 1) != first) break;
-    if (ss > laststave) ss = laststave;
-
     if (first != 0)
       {
       joinbits[stave] |= jb_break_start;
@@ -3670,32 +3725,18 @@ if (laststave > 1)
       joinbits[stave] |= jb_barline_start;
       joinbits[ss] |= jb_barline_stop;
       }
-
-    stave = ss;
     }
 
-  /* Set up braces and brackets. As the default for bracket is 1-63, we need to
-  check the actual highest stave, and in any case a user may create a value
-  that is greater than the actual. */
+  /* Advance for another group */
 
-  for (stavelist *s = xml_movt->bracelist; s != NULL; s = s->next)
-    {
-    joinbits[s->first] |= jb_brace_start;
-    joinbits[(s->last <= laststave)? s->last : laststave] |= jb_brace_stop;
-    }
-
-  for (stavelist *s = xml_movt->bracketlist; s != NULL; s = s->next)
-    {
-    joinbits[s->first] |= jb_bracket_start;
-    joinbits[(s->last <= laststave)? s->last : laststave] |= jb_bracket_stop;
-    }
-
-  for (stavelist *s = xml_movt->thinbracketlist; s != NULL; s = s->next)
-    {
-    joinbits[s->first] |= jb_bracket_start;
-    joinbits[(s->last <= laststave)? s->last : laststave] |= jb_bracket_stop;
-    }
+  stave = next;
   }
+
+/* Set up braces and brackets. */
+
+set_bracebrack(joinbits, xml_movt->bracelist, jb_brace_start, jb_brace_stop);
+set_bracebrack(joinbits, xml_movt->bracketlist, jb_bracket_start, jb_bracket_stop);
+set_bracebrack(joinbits, xml_movt->thinbracketlist, jb_bracket_start, jb_bracket_stop);
 
 /* Now we can output a list of parts, mapping each PMW stave to a part and
 creating groups for joining information. Brackets are always group 1, braces

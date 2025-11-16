@@ -34,21 +34,21 @@
   </defaults>
   <credit page="1">
     <credit-type>title</credit-type>
-    <credit-words default-x="600" default-y="1648" font-size="17" justify="center">Centre</credit-words>
+    <credit-words font-size="17" default-x="600" default-y="1648" justify="center">Centre</credit-words>
   </credit>
   <credit page="1">
     <credit-type>subtitle</credit-type>
-    <credit-words default-x="143" default-y="1648" font-size="17" justify="left">Left</credit-words>
+    <credit-words font-size="17" default-x="143" default-y="1648" justify="left">Left</credit-words>
   </credit>
   <credit page="1">
-    <credit-words default-x="1200" default-y="1648" font-size="17" justify="right">Right</credit-words>
+    <credit-words font-size="17" default-x="1200" default-y="1648" justify="right">Right</credit-words>
   </credit>
   <credit page="1">
-    <credit-words default-x="143" default-y="1606" font-size="12" justify="left">Second heading</credit-words>
+    <credit-words font-size="12" default-x="143" default-y="1606" justify="left">Second heading</credit-words>
   </credit>
   <credit page="1">
     <credit-type>rights</credit-type>
-    <credit-words valign="bottom" default-y="152" font-size="8" justify="center">Footing</credit-words>
+    <credit-words font-size="8" valign="bottom" default-y="152" justify="center">Footing</credit-words>
   </credit>
   <part-list>
     <score-part id="P1">
@@ -5049,7 +5049,7 @@
     <!--============================-->
     <measure number="78" width="135">
       <barline location="left">
-        <ending type="start" number="1">1</ending>
+        <ending font-size="10" type="start" number="1">1</ending>
       </barline>
       <note>
         <pitch>
@@ -5081,7 +5081,7 @@
     <!--============================-->
     <measure number="79" width="115">
       <barline location="left">
-        <ending type="start" number="2">2</ending>
+        <ending font-size="10" type="start" number="2">2</ending>
       </barline>
       <note>
         <pitch>
@@ -5220,7 +5220,7 @@
     <measure number="85" width="163">
       <direction>
         <direction-type>
-          <words font-size="10" default-y="-44" font-style="italic" justify="left">a&lt;b&gt;c</words>
+          <words font-size="10" font-style="italic" default-y="-44" justify="left">a&lt;b&gt;c</words>
         </direction-type>
       </direction>
       <note>
@@ -5235,7 +5235,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="10" default-y="4" font-style="italic" justify="left">&amp;xyz</words>
+          <words font-size="10" font-style="italic" default-y="4" justify="left">&amp;xyz</words>
         </direction-type>
       </direction>
       <note>
@@ -5250,7 +5250,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="10" default-y="-44" font-style="italic" enclosure="rectangle" justify="left">pqr</words>
+          <words font-size="10" font-style="italic" default-y="-44" enclosure="rectangle" justify="left">pqr</words>
         </direction-type>
       </direction>
       <note>
@@ -5265,7 +5265,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="10" default-y="4" font-style="italic" enclosure="circle" justify="left">123</words>
+          <words font-size="10" font-style="italic" default-y="4" enclosure="circle" justify="left">123</words>
         </direction-type>
       </direction>
       <note>
@@ -5283,7 +5283,7 @@
     <measure number="86" width="163">
       <direction>
         <direction-type>
-          <words font-size="10" default-y="-44" font-style="italic" justify="left" rotation="-30">abcd</words>
+          <words font-size="10" font-style="italic" default-y="-44" justify="left" rotation="-30">abcd</words>
         </direction-type>
       </direction>
       <note>
@@ -5298,7 +5298,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="10" default-y="-44" font-style="italic" justify="left" rotation="30">abcd</words>
+          <words font-size="10" font-style="italic" default-y="-44" justify="left" rotation="30">abcd</words>
         </direction-type>
       </direction>
       <note>
@@ -5313,7 +5313,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="10" default-y="-44" font-style="italic" justify="center">centred</words>
+          <words font-size="10" font-style="italic" default-y="-44" justify="center">centred</words>
         </direction-type>
       </direction>
       <note>
@@ -5328,7 +5328,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="10" default-y="4" font-style="italic" justify="right">right</words>
+          <words font-size="10" font-style="italic" default-y="4" justify="right">right</words>
         </direction-type>
       </direction>
       <note>
@@ -5346,7 +5346,7 @@
     <measure number="87" width="163">
       <direction>
         <direction-type>
-          <words font-size="10" default-y="-44" font-style="italic" justify="left">italic </words>
+          <words font-size="10" font-style="italic" default-y="-44" justify="left">italic </words>
           <words font-size="10" justify="left">roman </words>
           <words font-size="10" font-weight="bold" font-style="italic" justify="left">bold italic</words>
         </direction-type>
@@ -5363,7 +5363,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="25" default-y="4" font-style="italic" justify="left">2</words>
+          <words font-size="25" font-style="italic" default-y="4" justify="left">2</words>
         </direction-type>
       </direction>
       <note>
@@ -5378,7 +5378,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="20" default-y="4" font-style="italic" justify="left">3</words>
+          <words font-size="20" font-style="italic" default-y="4" justify="left">3</words>
         </direction-type>
       </direction>
       <note>
@@ -5393,7 +5393,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="8" default-y="4" font-style="italic" justify="left">4</words>
+          <words font-size="8" font-style="italic" default-y="4" justify="left">4</words>
         </direction-type>
       </direction>
       <note>
@@ -6602,7 +6602,7 @@
       </note>
       <direction>
         <direction-type>
-          <words font-size="10" default-y="-44" font-style="italic" justify="left">ab</words>
+          <words font-size="10" font-style="italic" default-y="-44" justify="left">ab</words>
         </direction-type>
       </direction>
       <backup>
@@ -7126,7 +7126,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="137" width="238">
+    <measure number="137" width="191">
       <note>
         <cue/>
         <pitch>
@@ -7172,7 +7172,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="138" width="238">
+    <measure number="138" width="191">
       <note>
         <pitch>
           <step>G</step>
@@ -7229,7 +7229,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="139" width="201">
+    <measure number="139" width="161">
       <note>
         <pitch>
           <step>G</step>
@@ -7267,7 +7267,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="140" width="110">
+    <measure number="140" width="88">
       <note>
         <pitch>
           <step>G</step>
@@ -7280,7 +7280,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="141" width="131">
+    <measure number="141" width="127">
       <attributes>
         <measure-style>
           <multiple-rest>3</multiple-rest>
@@ -7309,7 +7309,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="144" width="115">
+    <measure number="144" width="88">
       <note>
         <pitch>
           <step>G</step>
@@ -7319,6 +7319,49 @@
         <voice>1</voice>
         <type>whole</type>
         <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="145" width="193">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem relative-y="10">up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem relative-y="-10">up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
       </note>
       <barline>
         <bar-style>light-heavy</bar-style>

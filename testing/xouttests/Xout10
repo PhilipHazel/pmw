@@ -1,0 +1,18 @@
+selectstaves 2 3
+
+[stave 1 treble 1]
+G+ |
+[endstave]
+
+[stave 2 bass 0]
+G+ |
+[endstave]
+
+[stave 3 alto 1]
+G+ |
+[endstave]
+
+[stave 4 tenor 0]
+G+ |
+[endstave] 
+

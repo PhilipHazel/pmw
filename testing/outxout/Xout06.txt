@@ -1,0 +1,7 @@
+
+Not all PMW items can be translated to MusicXML, and some items are ignored
+unless requested by a -x option. Some items in this file that were wholly or
+partially ignored are listed below. This is probably not complete list:
+
+  Boxing or circling bar numbers
+

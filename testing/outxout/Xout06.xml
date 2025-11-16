@@ -70,7 +70,7 @@
         </clef>
       </attributes>
       <print>
-        <measure-numbering>none</measure-numbering>
+        <measure-numbering font-size="10">system</measure-numbering>
       </print>
       <attributes>
         <staff-details print-object="no"/>
