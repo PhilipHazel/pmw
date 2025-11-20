@@ -156,6 +156,7 @@ BAR 10 (10)
   [time 1 * 3/4]
   [assume time 1 * 6/8]
   [time 2 * C nowarn]
+  [transpose] value=4 letter=2
   [tremolo/x2/j0]
   [tremolo/x3/j2]
   [triplets off]

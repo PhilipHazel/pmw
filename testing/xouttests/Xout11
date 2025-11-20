@@ -1,0 +1,10 @@
+key g
+transpose 2
+
+[stave 1 treble 1]
+gggr |
+[key B$] bagr |
+[key c] G+ |
+[transpose -4 key B$] bagr |
+[endstave]
+

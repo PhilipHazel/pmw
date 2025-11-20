@@ -2051,12 +2051,16 @@ if (isalpha(read_c))
 
 /* A stave transpose does not of itself change the key signature. This is
 a facility, not a bug! However, we must call the routine in order to set up the
-letter count for transposing notes. The yield is discarded. */
+letter count for transposing notes. The yield is discarded, but the data that 
+ends up in globals for use in the current stave is put into a b_transpose item
+for the benefit of MusicXML output. */
 
 static void
 p_transpose(void)
 {
 int32_t x;
+b_transposestr *t;
+
 if (!read_expect_integer(&x, FALSE, TRUE)) return;
 if (active_transpose == NO_TRANSPOSE) active_transpose = 0;
 active_transpose += x * 2;  /* Quarter tones */
@@ -2065,6 +2069,10 @@ if (abs(active_transpose) > MAX_TRANSPOSE)
     MAX_TRANSPOSE/2);  /* Hard error */
 (void)transpose_key(srs.key);
 srs.lastnoteptr = NULL;
+
+t = mem_get_item(sizeof(b_transposestr), b_transpose);
+t->transpose = active_transpose;
+t->transpose_letter = active_transpose_letter;
 }
 
 

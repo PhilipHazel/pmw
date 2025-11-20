@@ -377,6 +377,12 @@ typedef struct {
 
 typedef struct {
   BSTRHEAD;
+  int32_t transpose;
+  int32_t transpose_letter;
+} b_transposestr;     
+
+typedef struct {
+  BSTRHEAD;
   uint8_t count;
   uint8_t join;
 } b_tremolostr;

@@ -679,7 +679,7 @@ static int16_t key_fifths[] = {
 };
 
 static void
-write_key(uint32_t key, BOOL assume)
+write_key(uint32_t key, uint32_t cancel_key, BOOL assume)
 {
 if (key == key_N)
   key = key_C;
@@ -689,6 +689,7 @@ else if (key >= key_X)
   key = key_C;
   }
 PA("<key%s>", assume? " print-object=\"no\"" : "");
+if (cancel_key >= 128) PN("<cancel>%d</cancel>", key_fifths[cancel_key & 63]);
 PN("<fifths>%d</fifths>", key_fifths[key]);
 PB("</key>");
 }
@@ -1157,7 +1158,9 @@ for (;;)
   // TODO Think about <unpitched>?
   else
     {
-    int letter = toupper(note->char_orig);
+    int letter = toupper(note->char_orig) + active_transpose_letter;
+    if (letter > 'G') letter = 'A'; else if (letter < 'A') letter = 'G';
+
     int16_t *p = alter_table[note->abspitch % OCTAVE];
     int alter = (letter == p[0])? p[1] : (letter == p[2])? p[3] : 0;
 
@@ -2535,13 +2538,14 @@ else
 any of clef, key, or time are specified before the first note. If not, default
 the clef to treble, and use the movement's default key and time. If any of them
 are found, remove that item from the chain. Process these three items, along
-with the divisions setting. */
+with the divisions setting. NOTE: the key in the movement structure is not
+transposed, but any b_key items are already transposed. */
 
 static void
 first_measure(barstr *b, int divisions)
 {
 uint32_t clef = clef_treble;
-uint32_t key = xml_movt->key;
+uint32_t key = transpose_key(xml_movt->key);
 uint32_t time = xml_movt->time;
 uint32_t lines = xml_movt->stavetable[current_stave]->stavelines;
 uint32_t size = xml_movt->stavesizes[current_stave];
@@ -2586,7 +2590,7 @@ for (; b != NULL; b = (barstr *)b->next)
 
 PA("<attributes>");
 PN("<divisions>%d</divisions>", divisions);
-write_key(key, FALSE);
+write_key(key, 0, FALSE);
 write_time(time, (xml_movt->flags & mf_showtime) == 0 ||
                  (xml_movt->flags & mf_startnotime) != 0);
 write_clef(clef, FALSE);
@@ -2880,9 +2884,21 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     PB("</direction>");
     break;
 
+    /* A key value > 128 is a cancelling key, always followed immediately by
+    the new key. */
+
     case b_key:
     PA("<attributes>");
-    write_key(((b_keystr *)b)->key, ((b_keystr *)b)->assume);
+    if (((b_keystr *)b)->key >= 128)
+      {
+      int oldkey = ((b_keystr *)b)->key;
+      b = (barstr *)b->next;
+      write_key(((b_keystr *)b)->key, oldkey, ((b_keystr *)b)->assume);
+      }
+    else
+      {
+      write_key(((b_keystr *)b)->key, 0, ((b_keystr *)b)->assume);
+      }
     PB("</attributes>");
     break;
 
@@ -2999,6 +3015,11 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     write_time(((b_timestr *)b)->time, ((b_timestr *)b)->assume ||
      (xml_movt->flags & mf_showtime) == 0);
     PB("</attributes>");
+    break;
+
+    case b_transpose:
+    active_transpose = ((b_transposestr *)b)->transpose;
+    active_transpose_letter = ((b_transposestr *)b)->transpose_letter;
     break;
 
     case b_tripsw:

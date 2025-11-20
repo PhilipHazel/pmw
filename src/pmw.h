@@ -6,7 +6,7 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: October 2025 */
+/* This file last modified: November 2025 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
@@ -519,8 +519,8 @@ enum {
   b_overbeam, b_page, b_pagebotmargin, b_pagetopmargin, b_plet, b_reset,
   b_resume, b_rrepeat, b_sgabove, b_sghere, b_sgnext, b_slur, b_slurgap,
   b_space, b_ssabove, b_sshere, b_ssnext, b_suspend, b_text, b_tick, b_tie,
-  b_time, b_tremolo, b_tripsw, b_ulevel, b_ulhere, b_unbreakbarline,
-  b_zerocopy,
+  b_time, b_transpose, b_tremolo, b_tripsw, b_ulevel, b_ulhere, 
+  b_unbreakbarline, b_zerocopy,
 
   b_baditem   /* For detecting bad values */
 };
