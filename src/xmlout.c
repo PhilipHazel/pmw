@@ -2509,23 +2509,17 @@ uint32_t pnofr = pno & 0xffff;
 pno >>= 16;
 const char *implicit = (pnofr != 0 || pno == 0)? " implicit=\"yes\"" : "";
 
-/* Lilypond doesn't like it if the bar numbers start at 0, so we start them
-from 1 to reduce noise from at least one MusicXML interpreter. */
+/* The measure number given here is what is supposed to be shown when measure
+numbering is enabled, though not all renderers seem to honour it. The number 
+attribute is documented as not necessarily being numeric. Therefore, we set it 
+to PMW's identification string. */
 
-PA("<measure number=\"%d\" width=\"%d\"%s>", bar + 1,
-  T(xml_pos[xml_barpos->count - 1].xoff), implicit);
-
-/* Sort out text for bar numbering. Not sure if this is needed (the element
-is optional).*/
-
-// TODO
-
-#ifdef NEVER
 if (pnofr == 0)
-  PN("<measure-text>%d</measure-text>", pno);
+  PA("<measure number=\"%d\" width=\"%d\"%s>", pno,
+    T(xml_pos[xml_barpos->count - 1].xoff), implicit);
 else
-  PN("<measure-text>%d.%d</measure-text>", pno, pnofr);
-#endif
+  PA("<measure number=\"%d.%d\" width=\"%d\"%s>", pno, pnofr,
+    T(xml_pos[xml_barpos->count - 1].xoff), implicit);
 }
 
 
