@@ -7126,7 +7126,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="137" width="191">
+    <measure number="137" width="173">
       <note>
         <cue/>
         <pitch>
@@ -7172,7 +7172,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="138" width="191">
+    <measure number="138" width="173">
       <note>
         <pitch>
           <step>G</step>
@@ -7229,7 +7229,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="139" width="161">
+    <measure number="139" width="146">
       <note>
         <pitch>
           <step>G</step>
@@ -7267,7 +7267,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="140" width="88">
+    <measure number="140" width="79">
       <note>
         <pitch>
           <step>G</step>
@@ -7280,7 +7280,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="141" width="127">
+    <measure number="141" width="133">
       <attributes>
         <measure-style>
           <multiple-rest>3</multiple-rest>
@@ -7309,7 +7309,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="144" width="88">
+    <measure number="144" width="79">
       <note>
         <pitch>
           <step>G</step>
@@ -7322,7 +7322,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="145" width="193">
+    <measure number="145" width="170">
       <note>
         <pitch>
           <step>G</step>
@@ -7362,6 +7362,44 @@
         <voice>1</voice>
         <type>quarter</type>
         <stem>up</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="146" width="79">
+      <direction>
+        <direction-type>
+          <words font-size="10" font-style="italic" default-y="-44" justify="left">First</words>
+          <words font-size="10" font-weight="bold" font-style="italic" default-y="-44" justify="left">Second</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8640</duration>
+        <voice>1</voice>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="147" width="80">
+      <direction>
+        <direction-type>
+          <words font-size="10" font-style="italic" default-y="-44" justify="left">Normal </words>
+          <words font-size="7" font-style="italic" justify="left">SMALL CAPS</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8640</duration>
+        <voice>1</voice>
+        <type>whole</type>
+        <stem>none</stem>
       </note>
       <barline>
         <bar-style>light-heavy</bar-style>

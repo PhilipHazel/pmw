@@ -6,6 +6,7 @@ unless requested by a -x option. Some items in this file that were wholly or
 partially ignored are listed below. This is probably not complete list:
 
   Support for headings and footings is only partial
+  Only roman, italic, bold, and bold italic fonts are supported
   (8) with brackets for trebletenorB
   Some figured bass notations
   [newline] (use -x+newline to enable)

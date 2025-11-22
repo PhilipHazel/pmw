@@ -358,6 +358,19 @@ va_start(ap, format);
 va_end(ap);
 }
 
+/* Output without indent (continue), add newline, increase indent  */
+
+static void
+PCA(const char *format, ...)
+{
+va_list ap;
+va_start(ap, format);
+(void)vfprintf(xml_file, format, ap);
+va_end(ap);
+(void)fprintf(xml_file, "\n");
+indent += 2;
+}
+
 
 
 /*************************************************
@@ -584,12 +597,19 @@ while (*s != 0 && count < length)
   uint32_t save;
   uint32_t *sb = s;
   uint32_t f = PFONT(*s);
+  int32_t use_size = size;
 
   while (count++ < length && *s != 0 && PFONT(*s) == f) s++;
   save = *s;
   *s = 0;        /* Temporary terminator */
 
-  element_set_font(elname, f, size);
+  if ((f & 0x80) != 0)  /* Small caps */
+    {
+    f &= 63;
+    use_size = mac_muldiv(size, xml_movt->smallcapsize, 1000);
+    }
+
+  element_set_font(elname, f, use_size);
   if (elattr[0] != 0) PC("%s", elattr);
 
   if (first)
@@ -2238,7 +2258,7 @@ in the next <note>. Other text can be output here. For figured bass, we handle
 several in succession.
 
 Argument:  the barstr that is a textstr
-Returns:   the last barstr used (may change for figured bass)
+Returns:   the last barstr used (may change for figured bass or follow-on text)
 */
 
 static barstr *
@@ -2273,9 +2293,8 @@ if (figbass)
   {
   X(X_FIGBASS);
 
-//TODO set default-y
-
-  PA("<figured-bass font-size=\"%s\">", sff(size));
+  element_set_font("figured-bass", PFONT(t->string[0]), size);
+  PCA(">");
 
   /* Loop for a sequence of fb strings. In PMW they stack below each other, and
   luckily in MusicXML this is also the case. */
@@ -2453,12 +2472,23 @@ int y = T(t->y) + (((flags & text_above) == 0)? -44 : 4);
 PA("<direction>");
 PA("<direction-type>");
 
-write_PMW_string(t->string, UINT_MAX, size, elname, "", 0, y,
-  ((flags & (text_boxed|text_boxrounded)) != 0)? "rectangle" :
-  ((flags & text_ringed) != 0)? "circle" : NULL,
-  ((flags & text_centre) != 0)? "center" :
-  ((flags & text_endalign) != 0)? "right" : "left",
-  t->rotate);
+/* Loop for follow-on text */
+
+for (;;)
+  {
+  write_PMW_string(t->string, UINT_MAX, size, elname, "", 0, y,
+    ((flags & (text_boxed|text_boxrounded)) != 0)? "rectangle" :
+    ((flags & text_ringed) != 0)? "circle" : NULL,
+    ((flags & text_centre) != 0)? "center" :
+    ((flags & text_endalign) != 0)? "right" : "left",
+    t->rotate);
+
+  if (b->next->type != b_text ||
+      (((b_textstr *)(b->next))->flags & text_followon) == 0)
+    break;
+  b = (barstr *)(b->next);
+  t = (b_textstr *)b;
+  }
 
 PB("</direction-type>");
 PB("</direction>");
@@ -2510,8 +2540,8 @@ pno >>= 16;
 const char *implicit = (pnofr != 0 || pno == 0)? " implicit=\"yes\"" : "";
 
 /* The measure number given here is what is supposed to be shown when measure
-numbering is enabled, though not all renderers seem to honour it. The number 
-attribute is documented as not necessarily being numeric. Therefore, we set it 
+numbering is enabled, though not all renderers seem to honour it. The number
+attribute is documented as not necessarily being numeric. Therefore, we set it
 to PMW's identification string. */
 
 if (pnofr == 0)
