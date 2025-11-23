@@ -11,4 +11,5 @@ partially ignored are listed below. This is probably not complete list:
   Some figured bass notations
   [newline] (use -x+newline to enable)
   [newpage] (use -x+newpage to enable)
+  Changing fonts within a footnote
 

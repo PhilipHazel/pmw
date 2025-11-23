@@ -264,4 +264,9 @@ g g\sl4\ g\sl-4\ g |
 
 "Normal \sc\SMALL CAPS" G+ |
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Footnote
+
+g [footnote "This is an \it\italic \rm\word in a footnote"] ggg |
+
 [endstave]

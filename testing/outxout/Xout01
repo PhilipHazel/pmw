@@ -712,9 +712,13 @@ it 10 ss(F)512.041 530 s(ir)-0.45 0 rs(st)-0.1 0 rs bi 25 ss(Second)
 (!)64 496 s
 %147/1
 it 10 ss(Normal )85 486 s it 7 ss(SMALL CAPS)118.06 486 s mf 10 ss(2)
-85 498 s(B)115.5 496 s(@)113.5 496 s
-(CCCCC)64 496 s (C)107 496 s
-
+85 498 s(@)115 496 s
+%148/1
+(5)121 498 s(5)137 498 s(5)153 498 s(5)169 498 s(B)185.5 496 s
+(@)183.5 496 s
+(FCC)64 496 s (C)177 496 s
+rm 9 ss(This is an )64 475 s it 9 ss(italic )101.251 475 s rm 9 ss
+(w)122.005 475 s(ord in a footnote)-0.09 0 rs
 pagesave restore showpage
 
 %%Trailer

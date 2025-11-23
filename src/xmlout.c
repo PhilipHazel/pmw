@@ -33,7 +33,7 @@ enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT,
   X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_RLEVEL, X_MOVE, X_ENC_BARNO,
   X_BARNO_INTERVAL, X_NEWLINE, X_NEWPAGE, X_SUSPEND, X_HALFSHARP, X_JOIN,
-  X_MARGIN, X_COUNT };
+  X_MARGIN, X_FOOTNOTEFONT, X_COUNT };
 
 #define X(N) X_ignored |= 1 << N
 
@@ -95,7 +95,8 @@ static const char *X_ignored_message[] = {
   "Suspend/resume (use -x+suspend to enable)",
   "Half sharp style 1",
   "Join or joindotted directive",
-  "Margin setting(s)"
+  "Margin setting(s)",
+  "Changing fonts within a footnote"
 };
 
 static const char *leftcenterright[] = { "left", "center", "right" };
@@ -2882,6 +2883,33 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     line_end((b_bytevaluestr *)b);
     break;
 
+    /* It appears that the use of multiple fonts within a footnote is not
+    possible in MusicXML. Force the whole string to be in the initial font. It
+    also seems necessary to include an empty "words" string within
+    "direction-type" in order to satisfy the schema. */
+
+    case b_footnote:
+    headstr *hd = &(((b_footnotestr *)b)->h);
+    uint32_t fnfont = PFTOP(hd->string[0][0]);
+
+    for (uint32_t *s = hd->string[0]; *s != 0; s++)
+      {
+      if (PFTOP(*s) != fnfont)
+        {
+        *s = (*s & 0x00ffffffu) | fnfont;
+        X(X_FOOTNOTEFONT);
+        }
+      }
+
+    PA("<direction>");
+    PA("<direction-type>");
+    PN("<words/>");
+    PB("</direction-type>");
+    write_PMW_string(hd->string[0], UINT_MAX, hd->fdata.size,
+      "footnote", "", 0, 0, NULL, NULL, 0);
+    PB("</direction>");
+    break;
+
     case b_hairpin:
     b_hairpinstr *h = (b_hairpinstr *)b;
     PA("<direction placement=\"%s\">", ((h->flags & hp_below) == 0)?
@@ -3096,10 +3124,6 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
 
     case b_ensure:
     comment("ignored [ensure]");
-    break;
-
-    case b_footnote:
-    comment("ignored [footnote]");
     break;
 
     case b_justify:
