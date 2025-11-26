@@ -2473,9 +2473,19 @@ int y = T(t->y) + (((flags & text_above) == 0)? -44 : 4);
 PA("<direction>");
 PA("<direction-type>");
 
-/* Loop for follow-on text */
+/* If the text string consists of just character 0x63 or character 0x64 in the 
+music font, output a <segno> element because those are the two "dal segno" 
+characters. */
 
-for (;;)
+if (t->string[1] == 0 && PBFONT(t->string[0]) == font_mf &&
+     (PCHAR(t->string[0]) == 0x63 || PCHAR(t->string[0]) == 0x64))
+  {
+  PN("<segno/>"); 
+  }   
+
+/* Loop in case there is follow-on text */
+
+else for (;;)
   {
   write_PMW_string(t->string, UINT_MAX, size, elname, "", 0, y,
     ((flags & (text_boxed|text_boxrounded)) != 0)? "rectangle" :
@@ -2487,6 +2497,7 @@ for (;;)
   if (b->next->type != b_text ||
       (((b_textstr *)(b->next))->flags & text_followon) == 0)
     break;
+     
   b = (barstr *)(b->next);
   t = (b_textstr *)b;
   }

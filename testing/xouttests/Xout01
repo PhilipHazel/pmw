@@ -269,4 +269,9 @@ g g\sl4\ g\sl-4\ g |
 
 g [footnote "This is an \it\italic \rm\word in a footnote"] ggg |
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Segno
+
+"\*99\" g g "\*100\" g g |
+
 [endstave]
