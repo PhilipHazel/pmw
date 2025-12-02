@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: August 2025 */
-/* This file last modified: November 2025 */
+/* This file last modified: December 2025 */
 
 #include "pmw.h"
 
@@ -33,9 +33,11 @@ enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_SPREAD, X_HEADING, X_TEXT, X_FONT, X_CIRCUMFLEX, X_STRING_INSERT,
   X_TREBLETENORB, X_FIGBASS, X_TREMJOIN, X_RLEVEL, X_MOVE, X_ENC_BARNO,
   X_BARNO_INTERVAL, X_NEWLINE, X_NEWPAGE, X_SUSPEND, X_HALFSHARP, X_JOIN,
-  X_MARGIN, X_FOOTNOTEFONT, X_COUNT };
+  X_MARGIN, X_FOOTNOTEFONT, X_ACCENTMOVE, X_BARNUMBER, X_BEAMACCRIT,
+  X_BEAMMOVESLOPE, X_BREAKBARLINE, X_DOTRIGHT, X_NS, X_ENSURE, X_JUSTIFY,
+  X_MIDI, X_COUNT };
 
-#define X(N) X_ignored |= 1 << N
+#define X(N) X_ignored |= 1l << N
 
 /* Some comment strings */
 
@@ -87,7 +89,7 @@ static const char *X_ignored_message[] = {
   "Some figured bass notations",
   "Non-zero join in [tremolo]",
   "Rest level adjustment",
-  "[move]",
+  "[move] and/or [space] and/or [rmove], [smove], etc.",
   "Boxing or circling bar numbers",
   "Bar numbering every n bars, can only number all bars",
   "[newline] (use -x+newline to enable)",
@@ -95,9 +97,127 @@ static const char *X_ignored_message[] = {
   "Suspend/resume (use -x+suspend to enable)",
   "Half sharp style 1",
   "Join or joindotted directive",
-  "Margin setting(s)",
-  "Changing fonts within a footnote"
+  "Margin setting within a stave",
+  "Changing fonts within a footnote",
+  "Moving the position of accents and/or ornaments",
+  "[Barnumber]",
+  "[beamacc] and/or [beamrit]",
+  "[beammove] and/or [beamslope]",
+  "[breakbarline] and/or [unbreakbarline]",
+  "Movement of augmentation dots",
+  "Change of note spacing within a stave",
+  "[ensure]",
+  "[justify]",
+  "MIDI setting within a stave"
 };
+
+/* These are header dirctives that have no effect on MusicXML output. */
+
+static const char *nondirs[] = {
+  "accadjusts",
+  "accspacing",
+  "b2pffont",
+  "barlinesize",
+  "barlinespace",
+  "barnumberlevel",
+  "beamendrests",
+  "beamflaglength",
+  "beamthickness",
+  "bottommargin",
+  "bracestyle",
+  "breakbarlinesx",
+  "breveledgerextra",
+  "breverests",
+  "clefsize",
+  "clefstyle",
+  "clefwidths",
+  "copyzero",
+  "cuegracesize",
+  "cuesize",
+  "dotspacefactor",
+  "draw",
+  "endlinesluradjust",
+  "endlineslurstyle",
+  "endlinetieadjust",
+  "endlinetiestyle",
+  "extenderlevel",
+  "footnotesep",
+  "footnotesize",
+  "gracesize",
+  "gracespacing",
+  "gracestyle",
+  "hairpinlinewidth",
+  "hyphenstring",
+  "hyphenthreshold",
+  "justify",
+  "keydoublebar",
+  "keysinglebar",
+  "keytranspose",
+  "keywarn",
+  "lastfooting",
+  "layout",
+  "ledgerstyle",
+  "leftmargin",
+  "longrestfont",
+  "makekey",
+  "maxbeamslope",
+  "maxvertjustify",
+  "midichannel",
+  "midifornotesoff",
+  "midistart",
+  "miditempo",
+  "miditranspose",
+  "miditremolo",
+  "midivolume",
+  "midkeyspacing",
+  "midtimespacing",
+  "musicfont",
+  "nobeamendrests",
+  "nokerning",
+  "nokeywarn",
+  "nosluroverwarnings",
+  "nospreadunderlay",
+  "notespacing",
+  "notimewarn",
+  "nounderlayextenders",
+  "nowidechars",
+  "overlaydepth",
+  "overlaysize",
+  "page",
+  "pagefooting",
+  "pageheading",
+  "pagelength",
+  "printkey",
+  "printtime",
+  "repeatbarfont",
+  "repeatstyle",
+  "righttoleft",
+  "shortenstems",
+  "sluroverwarnings",
+  "smallcapsize",
+  "startbracketbar",
+  "startlinespacing",
+  "stemlengths",
+  "textfont",
+  "thinbracket",
+  "timefont",
+  "timewarn",
+  "topmargin",
+  "trillstring",
+  "tripletfont",
+  "tripletlinewidth",
+  "tupletfont",
+  "tupletlinewidth",
+  "underlaydepth",
+  "underlayextenders",
+  "underlaysize",
+  "underlaystyle",
+  "vertaccsize"
+};
+
+static int nondirsize = sizeof(nondirs)/sizeof(char *);
+static uint8_t dirs_ignored[100];
+static int dirs_ignored_count = 0;
 
 static const char *leftcenterright[] = { "left", "center", "right" };
 static int lcr_order[] = { 1, 0, 2 };
@@ -257,7 +377,7 @@ static uint32_t   xml_xoff;
 *        Write commentary item to stderr         *
 *************************************************/
 
-/* Used while in development to note unsupported things. */
+/* Used to note unsupported things. */
 
 static void
 comment(const char *format, ...)
@@ -1056,7 +1176,7 @@ if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
   place in the <note> element. For each beam setting (begin, end, etc) two
   4-bit values are packed into a byte: the start and end number. For example,
   if we are starting a semiquaver beam, we set (1,2) because two
-  <beam>start</beam> elements are needed. When dealing with changes in the
+  <beam>begin</beam> elements are needed. When dealing with changes in the
   number of beams the start can be otner than 1. */
 
   /* If not currently in a beam, set up to start one unless BEAMBREAK_ALL is
@@ -1180,7 +1300,8 @@ for (;;)
   else
     {
     int letter = toupper(note->char_orig) + active_transpose_letter;
-    if (letter > 'G') letter = 'A'; else if (letter < 'A') letter = 'G';
+    while (letter > 'G') letter -= 7;
+    while (letter < 'A') letter += 7;
 
     int16_t *p = alter_table[note->abspitch % OCTAVE];
     int alter = (letter == p[0])? p[1] : (letter == p[2])? p[3] : 0;
@@ -1393,8 +1514,10 @@ for (;;)
     /* In PMW "bowing below" is really organ heel/toe. The accidental placement
     value is not relevant. */
 
-    if ((acflags & af_down) != 0) PN(bowingabove? "<down-bow/>" : "<heel/>");
-    else if ((acflags & af_up) != 0) PN(bowingabove? "<up-bow/>" : "<toe/>");
+    if ((acflags & af_down) != 0)
+      PN(bowingabove? "<down-bow/>" : "<heel placement=\"below\"/>");
+    else if ((acflags & af_up) != 0)
+      PN(bowingabove? "<up-bow/>" : "<toe placement=\"below\"/>");
 
     else
       {
@@ -2473,15 +2596,15 @@ int y = T(t->y) + (((flags & text_above) == 0)? -44 : 4);
 PA("<direction>");
 PA("<direction-type>");
 
-/* If the text string consists of just character 0x63 or character 0x64 in the 
-music font, output a <segno> element because those are the two "dal segno" 
+/* If the text string consists of just character 0x63 or character 0x64 in the
+music font, output a <segno> element because those are the two "dal segno"
 characters. */
 
 if (t->string[1] == 0 && PBFONT(t->string[0]) == font_mf &&
      (PCHAR(t->string[0]) == 0x63 || PCHAR(t->string[0]) == 0x64))
   {
-  PN("<segno/>"); 
-  }   
+  PN("<segno/>");
+  }
 
 /* Loop in case there is follow-on text */
 
@@ -2497,7 +2620,7 @@ else for (;;)
   if (b->next->type != b_text ||
       (((b_textstr *)(b->next))->flags & text_followon) == 0)
     break;
-     
+
   b = (barstr *)(b->next);
   t = (b_textstr *)b;
   }
@@ -2886,6 +3009,12 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     PB("</attributes>");
     break;
 
+    case b_dotbar:
+    PA("<barline location=\"middle\">");
+    PN("<bar-style>dashed</bar-style>");
+    PB("</barline>");
+    break;
+
     case b_draw:
     X(X_DRAW);
     break;
@@ -3094,55 +3223,64 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     /* These are currently not supported */
 
     case b_accentmove:
-    comment("ignored accentmove");
+    X(X_ACCENTMOVE);
     break;
 
+    /* With some difficulty it *might* be possible to handle [barnumber]. In
+    MusicXML, a sequence such as
+
+      <print>
+        <measure-numbering>measure</measure-numbering>
+      </print>
+
+    may appear within a measure, but only one interpreter I've tried takes any
+    notice when it's not in the first measure. Also, this interpreter applies
+    the setting to the *following* bar(s). So, to implement [barnumber] there
+    would have to be some kind of pre-pass to discover which bars need special
+    handling for turning this on and off. */
+
     case b_barnum:
-    comment("ignored [barnumber]");
+    X(X_BARNUMBER);
     break;
 
     case b_beamacc:
-    comment("ignored [beamacc]");
+    X(X_BEAMACCRIT);
     break;
 
     case b_beammove:
-    comment("ignored [beammove]");
+    X(X_BEAMMOVESLOPE);
     break;
 
     case b_beamrit:
-    comment("ignored [beamrit]");
+    X(X_BEAMACCRIT);
     break;
 
     case b_beamslope:
-    comment("ignored [beamslope]");
+    X(X_BEAMMOVESLOPE);
     break;
 
     case b_breakbarline:
-    comment("ignored [breakbarline]");
-    break;
-
-    case b_dotbar:
-    comment("ignored : (dotted barline)");
+    X(X_BREAKBARLINE);
     break;
 
     case b_dotright:
-    comment("ignored dotright movement");
+    X(X_DOTRIGHT);
     break;
 
     case b_ens:
-    comment("ignored [ns]");
+    X(X_NS);
     break;
 
     case b_ensure:
-    comment("ignored [ensure]");
+    X(X_ENSURE);
     break;
 
     case b_justify:
-    comment("ignored [justify]");
+    X(X_JUSTIFY);
     break;
 
     case b_midichange:
-    comment("ignored MIDI parameter change");
+    X(X_MIDI);
     break;
 
     case b_move:
@@ -3158,11 +3296,11 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_ns:
-    comment("ignored absolute note spacing");
+    X(X_NS);
     break;
 
     case b_nsm:
-    comment("ignored multiply note spacing");
+    X(X_NS);
     break;
 
     case b_olevel:
@@ -3210,7 +3348,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_space:
-    comment("ignored [space]");
+    X(X_MOVE);
     break;
 
     case b_ssabove:
@@ -3234,7 +3372,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_unbreakbarline:
-    comment("ignored [unbreakbarline]");
+    X(X_BREAKBARLINE);
     break;
 
     case b_zerocopy:
@@ -3259,7 +3397,8 @@ return 1;
 *************************************************/
 
 /* There is one set of "ignored" bits that may be set by multiple calls to
-outxml_write() below, for multiple movements. When all are done, this function
+outxml_write() or outxml_check_directive() below, for multiple movements. There
+is also a list of ignored header directives. When all are done, this function
 is called to output a relevant comment.
 
 Argument: the bits
@@ -3269,19 +3408,57 @@ Returns:  nothing
 void
 outxml_write_ignored(void)
 {
-if (X_ignored == 0) return;
+if (X_ignored == 0 && dirs_ignored_count == 0) return;
 
 fprintf(stderr,
-  "\nNot all PMW items can be translated to MusicXML, and some items are ignored\n"
-  "unless requested by a -x option. Some items in this file that were wholly or\n"
-  "partially ignored are listed below. This is probably not complete list:\n\n");
+  "\nSome PMW items cannot be translated to MusicXML. A few items that are ignored\n"
+  "by default can be requested by a -x option. Items in this file that were wholly\n"
+  "or partially ignored while generating XML output are listed below. This is\n"
+  "probably not a complete list:\n\n");
 
 for (int i = 0; i < X_COUNT; i++)
   {
-  if ((X_ignored & 1 << i) != 0)
+  if ((X_ignored & 1l << i) != 0)
     fprintf(stderr, "  %s\n", X_ignored_message[i]);
   }
+
+for (int i = 0; i < dirs_ignored_count; i++)
+  fprintf(stderr, "  Header directive \"%s\"\n", nondirs[dirs_ignored[i]]);
+
 fprintf(stderr, "\n");
+}
+
+
+
+/*************************************************
+*          Check for unsupported directive       *
+*************************************************/
+
+/* There are plenty of PMW directives that are not supported in MusicXML
+output. This function is called for every header directive so that warning bits
+can be set. Stave directives affect the contents of staves, which are
+independently checked.
+
+Argument: the header directive
+Returns:  nothing
+*/
+
+void
+outxml_check_directive(const char *s)
+{
+int first = 0;
+int last = nondirsize - 1;
+while (last > first)
+  {
+  int mid = (first + last)/2;
+  int c = strcmp(s, nondirs[mid]);
+  if (c == 0)
+    {
+    dirs_ignored[dirs_ignored_count++] = mid;
+    break;
+    }
+  if (c > 0) first = mid + 1; else last = mid;
+  }
 }
 
 
@@ -3488,14 +3665,13 @@ if (xml_movt->barcount < 1)
   return;
   }
 
-/* Set warning flags for various unsupported things. */
+/* Set warning flags for various unsupported things. Note that flags for
+unsupported header directives are set via xmlout_check_directive() above. */
 
 if (xml_movt->joinlist->first != 1 ||
     xml_movt->joinlist->last != MAX_STAVE ||
     xml_movt->joindottedlist != NULL)
   X(X_JOIN);
-
-if (xml_movt->bottommargin != 0 || xml_movt->leftmargin >= 0) X(X_MARGIN);
 
 /* Set the warning flag if any staves are suspended from the start when
 suspension support is not enabled (there may not be a [resume]). */

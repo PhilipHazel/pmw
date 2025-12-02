@@ -274,4 +274,9 @@ g [footnote "This is an \it\italic \rm\word in a footnote"] ggg |
 
 "\*99\" g g "\*100\" g g |
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Mid-bar dotted (dashed) bar line
+
+gg:gg |
+
 [endstave]

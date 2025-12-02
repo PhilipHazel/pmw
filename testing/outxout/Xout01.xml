@@ -3822,7 +3822,7 @@
         <stem>up</stem>
         <notations>
           <technical>
-            <heel/>
+            <heel placement="below"/>
           </technical>
         </notations>
       </note>
@@ -3838,7 +3838,7 @@
         <stem>up</stem>
         <notations>
           <technical>
-            <toe/>
+            <toe placement="below"/>
           </technical>
         </notations>
       </note>
@@ -7384,7 +7384,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="147" width="75">
+    <measure number="147" width="142">
       <direction>
         <direction-type>
           <words font-size="10" font-style="italic" default-y="-44" justify="left">Normal </words>
@@ -7403,7 +7403,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="148" width="160">
+    <measure number="148" width="304">
       <note>
         <pitch>
           <step>G</step>
@@ -7452,7 +7452,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="149" width="165">
+    <measure number="149" width="304">
       <direction>
         <direction-type>
           <segno/>
@@ -7483,6 +7483,52 @@
           <segno/>
         </direction-type>
       </direction>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="150" width="309">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <barline location="middle">
+        <bar-style>dashed</bar-style>
+      </barline>
       <note>
         <pitch>
           <step>G</step>

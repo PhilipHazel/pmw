@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: October 2025 */
+/* This file last modified: December 2025 */
 
 #include "pmw.h"
 
@@ -2647,11 +2647,16 @@ for (;;)
     error_skip(ERR8, '\n', "header directive");
     continue;
     }
+    
+  /* If generating MusicXML output, check that this is a supported directive. 
+  If not, a warning will eventually be output. */
+  
+#if SUPPORT_XML
+  if (outxml_filename != NULL) outxml_check_directive(CS read_wordbuffer);
+#endif 
 
   /* Look up the word in the list of heading directives and if found, call the
-  appropriate function. The directives whose names start with "play" are
-  obsolete synonyms for those that start "midi" and are no longer documented.
-  Give a warning, but continue to process them. */
+  appropriate function. */
 
   first = headlist;
   last  = first + headsize;
