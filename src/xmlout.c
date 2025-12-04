@@ -35,7 +35,7 @@ enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_BARNO_INTERVAL, X_NEWLINE, X_NEWPAGE, X_SUSPEND, X_HALFSHARP, X_JOIN,
   X_MARGIN, X_FOOTNOTEFONT, X_ACCENTMOVE, X_BARNUMBER, X_BEAMACCRIT,
   X_BEAMMOVESLOPE, X_BREAKBARLINE, X_DOTRIGHT, X_NS, X_ENSURE, X_JUSTIFY,
-  X_MIDI, X_COUNT };
+  X_MIDI, X_NAME, X_NOTES, X_OLEVEL, X_COUNT };
 
 #define X(N) X_ignored |= 1l << N
 
@@ -108,7 +108,10 @@ static const char *X_ignored_message[] = {
   "Change of note spacing within a stave",
   "[ensure]",
   "[justify]",
-  "MIDI setting within a stave"
+  "MIDI setting within a stave",
+  "[name]",
+  "[notes]",
+  "[olevel] and/or [olhere]"
 };
 
 /* These are header dirctives that have no effect on MusicXML output. */
@@ -152,7 +155,6 @@ static const char *nondirs[] = {
   "justify",
   "keydoublebar",
   "keysinglebar",
-  "keytranspose",
   "keywarn",
   "lastfooting",
   "layout",
@@ -182,22 +184,17 @@ static const char *nondirs[] = {
   "nounderlayextenders",
   "nowidechars",
   "overlaydepth",
-  "overlaysize",
   "page",
   "pagefooting",
   "pageheading",
-  "pagelength",
   "printkey",
   "printtime",
   "repeatbarfont",
   "repeatstyle",
   "righttoleft",
-  "shortenstems",
   "sluroverwarnings",
-  "smallcapsize",
   "startbracketbar",
   "startlinespacing",
-  "stemlengths",
   "textfont",
   "thinbracket",
   "timefont",
@@ -210,7 +207,6 @@ static const char *nondirs[] = {
   "tupletlinewidth",
   "underlaydepth",
   "underlayextenders",
-  "underlaysize",
   "underlaystyle",
   "vertaccsize"
 };
@@ -292,6 +288,8 @@ static b_ornamentstr *ornament_pending[ORNAMENT_MAX];
 
 static b_textstr *underlay_pending[UNDERLAY_MAX];
 static uint8_t    underlay_state[UNDERLAY_MAX];
+
+static b_notestr *overbeam_start = NULL;
 
 static b_pletstr *plet_pending[MAX_PLETNEST];
 static uint8_t    plet_actual[MAX_PLETNEST];
@@ -1131,28 +1129,92 @@ pointed to by bb. */
 
 if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
   {
-  int thatcount = 0;
-  int thiscount = ((b_notestr *)b)->notetype - crotchet;
-  b_notestr *nextnote = NULL;
-  int beambreak = (bb->next->type == b_beambreak)?
+  int thiscount, thatcount, beambreak;
+  b_notestr *nextnote;
+
+  /* Not continuing a beam from the previous bar. */
+
+  if (overbeam_start == NULL)
+    {
+    thatcount = 0;
+    thiscount = ((b_notestr *)b)->notetype - crotchet;
+    nextnote = NULL;
+    }
+
+  /* We are continuing a beam from the previous bar. */
+
+  else
+    {
+    thiscount = overbeam_start->notetype - crotchet;
+    thatcount = ((b_notestr *)b)->notetype - crotchet;
+    }
+
+  beambreak = (bb->next->type == b_beambreak)?
     ((b_beambreakstr *)(bb->next))->value : -1;
 
-  /* Seek the next note if there isn't an explicit break for all beams. No
-  following note in the bar, or a note longer than a quaver is a full
-  beambreak. Skip over any rests shorter than a crotchet - if a suitable next
-  note is found, they will appear under the beam. */
+  /* All set to go if we are continuing over a bar line. */
 
-  if (beambreak != BEAMBREAK_ALL)
+  if (overbeam_start != NULL) overbeam_start = NULL;
+
+  /* Otherwise, seek the next note if there isn't an explicit break for all
+  beams. No following note in the bar, or a note longer than a quaver is a full
+  beambreak. Skip over any rests shorter than a crotchet - if a suitable next
+  note is found, the rests will appear under the beam.
+
+  SPECIAL CASE: If an overbeam item is found while looking for the next note
+  (overbeam always immediately precedes a barline), look for the next note in
+  the next bar. If a continuing beam is required, remember this next note. */
+
+  else if (beambreak != BEAMBREAK_ALL)
     {
     for (barstr *bbn = (barstr *)bb->next; bbn != NULL;
          bbn = (barstr *)bbn->next)
       {
-      nextnote = (b_notestr *)bbn;
-      if (nextnote->type == b_note)
+      /* Handle beaming over a bar line. */
+
+      if (bbn->type == b_overbeam && bar + 1 < st->barcount)
         {
-        if (nextnote->spitch == 0 && nextnote->notetype > crotchet) continue;
-        thatcount = nextnote->notetype - crotchet;
+        for (barstr *bbo = st->barindex[bar+1]; bbo != NULL;
+             bbo = (barstr *)bbo->next)
+          {
+          b_notestr *nn = (b_notestr *)bbo;
+          if (nn->type != b_note) continue;
+
+          if (nn->notetype > crotchet)
+            {
+            if (nn->spitch == 0) continue;  /* Skip over short rest */
+
+            /* Found a note shorter than a crotchet in the next bar onto which
+            we can continue beaming. Set it up as nextnote, and remember this
+            note for use in the next bar. */
+
+            nextnote = nn;
+            thatcount = nextnote->notetype - crotchet;
+            overbeam_start = (b_notestr *)bb;
+            }
+
+          /* Either found a continuation or beam ender. No need to look further
+          into the next bar. */
+
+          break;
+          }
+
+        /* No need to look any further in the current bar. */
+
         break;
+        }
+
+      /* Not an overbeam item. Check out the next note in this bar. */
+
+      else
+        {
+        nextnote = (b_notestr *)bbn;
+        if (nextnote->type == b_note)
+          {
+          if (nextnote->spitch == 0 && nextnote->notetype > crotchet) continue;
+          thatcount = nextnote->notetype - crotchet;
+          break;
+          }
         }
       }
 
@@ -1428,9 +1490,11 @@ for (;;)
 
   if ((note->flags & nf_stem) == 0) PN("<stem>none</stem>"); else
     {
+    int32_t yextra = note->yextra + xml_movt->stemadjusts[note->notetype];
     PO("<stem");
-    if (note->yextra != 0) PC(" relative-y=\"%d\"", T(note->yextra));
-    PC(">%s</stem>\n", ((note->flags & nf_stemup) != 0)? "up":"down");
+    if (yextra != 0) PC(" relative-y=\"%d\"", T(yextra));
+    if ((note->flags & nf_stemup) != 0) PC(">up</stem>\n");
+      else PC(">down</stem>\n");
     }
 
   /* Notehead style */
@@ -2914,6 +2978,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     case b_comma:
     case b_endslur:
     case b_endplet:
+    case b_overbeam:
     case b_tick:
     case b_tie:
     case b_tremolo:
@@ -3288,11 +3353,11 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_name:
-    comment("ignored [name]");
+    X(X_NAME);
     break;
 
     case b_notes:
-    comment("ignored [notes]");
+    X(X_NOTES);
     break;
 
     case b_ns:
@@ -3304,15 +3369,11 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_olevel:
-    comment("ignored [olevel]");
+    X(X_OLEVEL);
     break;
 
     case b_olhere:
-    comment("ignored [olhere]");
-    break;
-
-    case b_overbeam:
-    comment("ignored beam over barline");
+    X(X_OLEVEL);
     break;
 
     case b_page:

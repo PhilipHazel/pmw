@@ -279,4 +279,10 @@ g [footnote "This is an \it\italic \rm\word in a footnote"] ggg |
 
 gg:gg |
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Beam over barline
+
+G. g-g- |= g-g- R. |
+G. g-g- |= g R. |
+
 [endstave]
