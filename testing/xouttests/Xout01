@@ -285,4 +285,9 @@ gg:gg |
 G. g-g- |= g-g- R. |
 G. g-g- |= g R. |
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Skip on a single stave
+
+G+ | [skip 3] G+ |
+
 [endstave]

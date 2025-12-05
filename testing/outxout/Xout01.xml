@@ -7384,7 +7384,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="147" width="84">
+    <measure number="147" width="75">
       <direction>
         <direction-type>
           <words font-size="10" font-style="italic" default-y="-44" justify="left">Normal </words>
@@ -7403,7 +7403,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="148" width="179">
+    <measure number="148" width="160">
       <note>
         <pitch>
           <step>G</step>
@@ -7452,7 +7452,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="149" width="179">
+    <measure number="149" width="160">
       <direction>
         <direction-type>
           <segno/>
@@ -7505,7 +7505,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="150" width="179">
+    <measure number="150" width="162">
       <note>
         <pitch>
           <step>G</step>
@@ -7551,7 +7551,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="151" width="141">
+    <measure number="151" width="126">
       <note>
         <pitch>
           <step>G</step>
@@ -7587,7 +7587,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="152" width="141">
+    <measure number="152" width="126">
       <note>
         <pitch>
           <step>G</step>
@@ -7620,7 +7620,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="153" width="141">
+    <measure number="153" width="126">
       <note>
         <pitch>
           <step>G</step>
@@ -7656,7 +7656,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="154" width="111">
+    <measure number="154" width="106">
       <note>
         <pitch>
           <step>G</step>
@@ -7673,6 +7673,41 @@
         <voice>1</voice>
         <type>half</type>
         <dot/>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="155" width="75">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8640</duration>
+        <voice>1</voice>
+        <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="156" width="125">
+    </measure>
+    <!--============================-->
+    <measure number="157">
+    </measure>
+    <!--============================-->
+    <measure number="158">
+    </measure>
+    <!--============================-->
+    <measure number="159" width="80">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>8640</duration>
+        <voice>1</voice>
+        <type>whole</type>
         <stem>none</stem>
       </note>
       <barline>

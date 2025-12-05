@@ -35,7 +35,8 @@ enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_BARNO_INTERVAL, X_NEWLINE, X_NEWPAGE, X_SUSPEND, X_HALFSHARP, X_JOIN,
   X_MARGIN, X_FOOTNOTEFONT, X_ACCENTMOVE, X_BARNUMBER, X_BEAMACCRIT,
   X_BEAMMOVESLOPE, X_BREAKBARLINE, X_DOTRIGHT, X_NS, X_ENSURE, X_JUSTIFY,
-  X_MIDI, X_NAME, X_NOTES, X_OLEVEL, X_COUNT };
+  X_MIDI, X_NAME, X_NOTES, X_OLEVEL, X_PAGE, X_SG, X_SS, X_GAP, X_ULEVEL,
+  X_COPYZERO, X_ZERO, X_OMITEMPTY, X_COUNT };
 
 #define X(N) X_ignored |= 1l << N
 
@@ -111,7 +112,15 @@ static const char *X_ignored_message[] = {
   "MIDI setting within a stave",
   "[name]",
   "[notes]",
-  "[olevel] and/or [olhere]"
+  "[olevel] and/or [olhere]",
+  "[page]",
+  "[sgabove] and/or [sghere] and/or [sgnext]",
+  "[ssabove] and/or [sshere] and/or [ssnext]",
+  "{slurgap] and/or [linegap]",
+  "[ulevel] and/or [ulhere]",
+  "[copyzero]",
+  "Stave 0",
+  "Omitempty" 
 };
 
 /* These are header dirctives that have no effect on MusicXML output. */
@@ -2907,13 +2916,27 @@ if (MX(mx_suspend) &&
   xml_suspended = !xml_suspended;
   }
 
-/* Handle a multirest bar */
+/* Handle a multirest bar, which might also be a sequence of [skip] bars. */
 
 if (xml_barpos->multi > 1)
   {
   barstr *b = (barstr *)(st->barindex[bar]->next);
+
+  /* If there's no note (i.e. rest) then just output empty bars because this
+  was probably the result of [skip]. */
+
   if (b->type != b_note)
-    error(ERR193, "missing note in multirest bar"); /* Hard */
+    {
+    for (int i = 1; i <= xml_barpos->multi; i++)
+      {
+      if (i != 1) PA("<measure number=\"%d\">", bar + i);
+      PB("</measure>");
+      PN("%s", MEASURE_SEPARATOR);
+      }
+    return xml_barpos->multi;
+    }
+
+  /* Otherwise output the appropriate bars for a multirest. */
 
   uint32_t duration =
     (uint32_t)(((uint64_t)(((b_notestr *)b)->length) * divisions) /
@@ -3221,7 +3244,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     position. */
 
     if (xml_voice == 0)
-      error(ERR193, "voice is zero in a [backup] or [reset] movement");  /* Hard */
+      error(ERR192, "voice is zero in a [backup] or [reset] movement");  /* Hard */
 
     voice_hwm[xml_voice] = xml_moff;
     xml_moff = ((b_resetstr *)b)->moff;
@@ -3232,7 +3255,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
       }
 
     if (xml_voice >= VOICE_MAX)
-      error(ERR193, "can't find valid voice after [backup] or [reset]"); /* Hard */
+      error(ERR192, "can't find valid voice after [backup] or [reset]"); /* Hard */
 
 // TODO? xml_xoff is not being reset, but neither is it actually used at the
 // moment.
@@ -3377,7 +3400,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_page:
-    comment("ignored [page]");
+    X(X_PAGE);
     break;
 
     case b_pagebotmargin:
@@ -3389,23 +3412,23 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_sgabove:
-    comment("ignored [sgabove]");
+    X(X_SG);
     break;
 
     case b_sghere:
-    comment("ignored [sghere]");
+    X(X_SG);
     break;
 
     case b_sgnext:
-    comment("ignored [sgnext]");
+    X(X_SG);
     break;
 
     case b_slurgap:
-    comment("ignored [slurgap]");
+    X(X_GAP);
     break;
 
     case b_linegap:
-    comment("ignored [linegap]");
+    X(X_GAP);
     break;
 
     case b_space:
@@ -3413,23 +3436,23 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_ssabove:
-    comment("ignored [ssabove]");
+    X(X_SS);
     break;
 
     case b_sshere:
-    comment("ignored [sshere]");
+    X(X_SS);
     break;
 
     case b_ssnext:
-    comment("ignored [ssnext]");
+    X(X_SS);
     break;
 
     case b_ulevel:
-    comment("ignored [ulevel]");
+    X(X_ULEVEL);
     break;
 
     case b_ulhere:
-    comment("ignored [ulhere]");
+    X(X_ULEVEL);
     break;
 
     case b_unbreakbarline:
@@ -3437,11 +3460,11 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_zerocopy:
-    comment("ignored [copyzero]");
+    X(X_COPYZERO);
     break;
 
     default:
-    comment("ignored unknown b_type %d", b->type);
+    error(ERR192, "Unknown b_ type encountered");
     break;
     }
   }
@@ -3689,12 +3712,14 @@ for (int i = 1; i <= xml_movt->laststave; i++)
 *                Write MusicXML file             *
 *************************************************/
 
-/* This is the only external entry to this set of functions. The data is all in
+/* This is the main external entry to this set of functions. The data is all in
 memory and global variables. Writing a MusicXML file is triggered by the use of
 the -musicxml or -xml command line option, which sets outxml_filename non-NULL.
+This function may be called several times if more than one PMW movement is
+being processed.
 
 Argument:   TRUE if a <movement-number> element is wanted
-Returns:    bits for ignored things
+Returns:    nothing
 */
 
 void
@@ -3728,6 +3753,8 @@ if (xml_movt->barcount < 1)
 
 /* Set warning flags for various unsupported things. Note that flags for
 unsupported header directives are set via xmlout_check_directive() above. */
+
+if (xml_movt->stavetable[0]->barcount != 0) X(X_ZERO);
 
 if (xml_movt->joinlist->first != 1 ||
     xml_movt->joinlist->last != MAX_STAVE ||
@@ -4172,6 +4199,7 @@ for (usint stave = 1; stave <= laststave; stave++)
   if (mac_notbit(xml_staves, stave)) continue;
 
   st = xml_movt->stavetable[stave];
+  if (st->omitempty) X(X_OMITEMPTY); 
   barstr **barvector = st->barindex;
   current_stave = stave;
   xml_suspended = FALSE;
