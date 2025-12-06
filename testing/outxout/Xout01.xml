@@ -7677,7 +7677,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="155" width="75">
+    <measure number="155" width="145">
       <note>
         <pitch>
           <step>G</step>
@@ -7690,7 +7690,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="156" width="125">
+    <measure number="156" width="126">
     </measure>
     <!--============================-->
     <measure number="157">
@@ -7699,7 +7699,7 @@
     <measure number="158">
     </measure>
     <!--============================-->
-    <measure number="159" width="80">
+    <measure number="159" width="145">
       <note>
         <pitch>
           <step>G</step>
@@ -7708,6 +7708,86 @@
         <duration>8640</duration>
         <voice>1</voice>
         <type>whole</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="160" width="301">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3240</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <stem>up</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>1080</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <stem>none</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3780</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <dot/>
+        <stem>up</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>540</duration>
+        <voice>1</voice>
+        <type>16th</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="161" width="311">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3240</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot placement="below"/>
+        <stem>up</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>1080</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <stem>none</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3780</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot placement="below"/>
+        <dot placement="below"/>
+        <stem>up</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>540</duration>
+        <voice>1</voice>
+        <type>16th</type>
         <stem>none</stem>
       </note>
       <barline>

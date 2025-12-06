@@ -1,8 +1,8 @@
 
 Some PMW items cannot be translated to MusicXML. A few items that are ignored
-by default can be requested by a -x option. Items in this file that were wholly
-or partially ignored while generating XML output are listed below. This is
-probably not a complete list:
+by default can be requested by a -x option. Items that were wholly or partially
+ignored while generating XML output are listed below. This is probably not
+a complete list:
 
   Round brackets enclosing accidental (square brackets substituted)
 

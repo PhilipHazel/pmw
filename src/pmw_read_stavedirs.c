@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: February 2021 */
-/* This file last modified: November 2025 */
+/* This file last modified: December 2025 */
 
 #include "pmw.h"
 
@@ -2051,7 +2051,7 @@ if (isalpha(read_c))
 
 /* A stave transpose does not of itself change the key signature. This is
 a facility, not a bug! However, we must call the routine in order to set up the
-letter count for transposing notes. The yield is discarded, but the data that 
+letter count for transposing notes. The yield is discarded, but the data that
 ends up in globals for use in the current stave is put into a b_transpose item
 for the benefit of MusicXML output. */
 
@@ -2407,6 +2407,10 @@ read_do_stavedirective(void)
 {
 do
   {
+#if SUPPORT_XML
+  if (outxml_filename != NULL)
+    outxml_check_directive(CS read_wordbuffer, FALSE);
+#endif
   dir = read_stave_searchdirlist(FALSE);
   if (dir == NULL)
     {

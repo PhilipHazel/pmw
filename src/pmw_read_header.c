@@ -2652,7 +2652,7 @@ for (;;)
   If not, a warning will eventually be output. */
   
 #if SUPPORT_XML
-  if (outxml_filename != NULL) outxml_check_directive(CS read_wordbuffer);
+  if (outxml_filename != NULL) outxml_check_directive(CS read_wordbuffer, TRUE);
 #endif 
 
   /* Look up the word in the list of heading directives and if found, call the

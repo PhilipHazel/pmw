@@ -36,7 +36,8 @@ enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_MARGIN, X_FOOTNOTEFONT, X_ACCENTMOVE, X_BARNUMBER, X_BEAMACCRIT,
   X_BEAMMOVESLOPE, X_BREAKBARLINE, X_DOTRIGHT, X_NS, X_ENSURE, X_JUSTIFY,
   X_MIDI, X_NAME, X_NOTES, X_OLEVEL, X_PAGE, X_SG, X_SS, X_GAP, X_ULEVEL,
-  X_COPYZERO, X_ZERO, X_OMITEMPTY, X_COUNT };
+  X_COPYZERO, X_ZERO, X_OMITEMPTY, X_COUPLE, X_PRINTPITCH, X_TRIPLETIZE,
+  X_COUNT };
 
 #define X(N) X_ignored |= 1l << N
 
@@ -120,7 +121,10 @@ static const char *X_ignored_message[] = {
   "[ulevel] and/or [ulhere]",
   "[copyzero]",
   "Stave 0",
-  "Omitempty" 
+  "Omitempty",
+  "[couple]",
+  "[printpitch]",
+  "[tripletize]"
 };
 
 /* These are header dirctives that have no effect on MusicXML output. */
@@ -1367,7 +1371,8 @@ for (;;)
     PC("/>\n");
     }
 
-  // TODO Think about <unpitched>?
+  /* Not a rest */
+
   else
     {
     int letter = toupper(note->char_orig) + active_transpose_letter;
@@ -1421,8 +1426,14 @@ for (;;)
   PN("<type>%s</type>",
     XML_note_names[(note->masq == MASQ_UNSET)? note->notetype : note->masq]);
 
-  if ((note->flags & (nf_dot|nf_dot2)) != 0) PN("<dot/>");
-  if ((note->flags & nf_dot2) != 0) PN("<dot/>");
+  if ((note->flags & (nf_dot|nf_dot2)) != 0)
+    {
+    const char *placement = ((note->flags & nf_lowdot) == 0)? "" :
+      " placement=\"below\"";
+    PN("<dot%s/>", placement);
+    if ((note->flags & nf_dot2) != 0) PN("<dot%s/>",placement);
+    }
+
   if (note->acc != ac_no && (note->flags & nf_accinvis) == 0)
     {
     const char *bra = "";
@@ -1469,8 +1480,6 @@ for (;;)
       PN("<normal-type>%s</normal-type>", XML_note_names[note->notetype]);
     PB("</time-modification>");
     }
-
-//TODO allow for different half-accidental styles
 
   /* If this is the start of one or more tuplets, put the data onto a stack
   (used to deal with nested tuplets). Leave plet_pending_count unchanged,
@@ -1710,7 +1719,7 @@ for (;;)
       They are defined in triples: without adornment, in round brackets, in
       square brackets. The latter two are treated the same here. */
 
-// TODO: No renderer I've yet tried displays these correctly.
+      /* No renderer I've yet tried displays these correctly. */
 
       default:
       int offset = orn->ornament - or_nat;   /* Offset into table */
@@ -2043,8 +2052,8 @@ for (;;)
           else mod = mod2;
         }
 
-// TODO Neither MuseScore nor OSMD demo seem to pay any attention to values
-// that modify a slur.
+      /* No importers seem to pay any attention to values that modify a slur.
+      Consequently, I have not developed this section. */
 
       if (mod != NULL)
         {
@@ -3496,9 +3505,9 @@ if (X_ignored == 0 && dirs_ignored_count == 0) return;
 
 fprintf(stderr,
   "\nSome PMW items cannot be translated to MusicXML. A few items that are ignored\n"
-  "by default can be requested by a -x option. Items in this file that were wholly\n"
-  "or partially ignored while generating XML output are listed below. This is\n"
-  "probably not a complete list:\n\n");
+  "by default can be requested by a -x option. Items that were wholly or partially\n"
+  "ignored while generating XML output are listed below. This is probably not\n"
+  "a complete list:\n\n");
 
 for (int i = 0; i < X_COUNT; i++)
   {
@@ -3519,29 +3528,47 @@ fprintf(stderr, "\n");
 *************************************************/
 
 /* There are plenty of PMW directives that are not supported in MusicXML
-output. This function is called for every header directive so that warning bits
-can be set. Stave directives affect the contents of staves, which are
-independently checked.
+output. This function is called for every directive. Header directives are
+checked against a list of unsupported ones, and a list of those encountered is
+retained. There are only a few unsupported stave directives that are not picked
+up through their stave items in the complete_measure() function, so they are
+handled with X bits.
 
-Argument: the header directive
+Arguments:
+  s       the directive
+  header  TRUE if a header directive
 Returns:  nothing
 */
 
 void
-outxml_check_directive(const char *s)
+outxml_check_directive(const char *s, BOOL header)
 {
-int first = 0;
-int last = nondirsize - 1;
-while (last > first)
+if (header)
   {
-  int mid = (first + last)/2;
-  int c = strcmp(s, nondirs[mid]);
-  if (c == 0)
+  int first = 0;
+  int last = nondirsize - 1;
+  while (last > first)
     {
-    dirs_ignored[dirs_ignored_count++] = mid;
-    break;
+    int mid = (first + last)/2;
+    int c = strcmp(s, nondirs[mid]);
+    if (c == 0)
+      {
+      dirs_ignored[dirs_ignored_count++] = mid;
+      break;
+      }
+    if (c > 0) first = mid + 1; else last = mid;
     }
-  if (c > 0) first = mid + 1; else last = mid;
+  }
+
+/* Check for unsupported stave directive. No point checking for [draw] or
+[overdraw] because the header "draw" gives a message, and if there isn't a
+header "draw" the stave directives will be faulted.  */
+
+else
+  {
+  if (strcmp(s, "couple") == 0) X(X_COUPLE);
+  else if (strcmp(s, "printpitch") == 0) X(X_PRINTPITCH);
+  else if (strcmp(s, "tripletize") == 0) X(X_TRIPLETIZE);
   }
 }
 
@@ -3919,10 +3946,7 @@ for (usint stave = 2; stave <= laststave; stave++)
   PB("</staff-layout>");
   }
 
-// TODO Any need for appearance?
-// TODO Any need for music-font?
-
-// TODO May need to set word-font and lyric-font
+// TODO May need to set word-font and lyric-font?
 
 PB("</defaults>");
 
@@ -4199,7 +4223,7 @@ for (usint stave = 1; stave <= laststave; stave++)
   if (mac_notbit(xml_staves, stave)) continue;
 
   st = xml_movt->stavetable[stave];
-  if (st->omitempty) X(X_OMITEMPTY); 
+  if (st->omitempty) X(X_OMITEMPTY);
   barstr **barvector = st->barindex;
   current_stave = stave;
   xml_suspended = FALSE;
