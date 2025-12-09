@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>16 November 2025</date>
+<date>09 December 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>16 November 2025</date>
+  <date>09 December 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -222,11 +222,11 @@ which is a format used for interchanging encoded music between different
 processing programs. However, this is still very much an experimental feature
 that is not yet of production quality. Moreover, only a subset of MusicXML
 features are supported. It is very much `work in progress' and therefore
-relegated to an appendix of this document.
+relegated to appendix &<<APPA>>& of this document.
 
 Similarly, from release 5.33, PMW can optionally write a copy of the music in
-MusicXML format. This, too, is experimental, incomplete, and documented in
-another appendix.
+MusicXML format. This, too, is experimental and incomplete. It is documented in
+appendix &<<APPB>>&.
 
 The main output of PMW is either a PostScript or a PDF (Portable Document
 Format) file. The former format can be `encapsulated PostScript', which can be
@@ -16278,18 +16278,25 @@ If the file name does not contain &`%d`& when no movement is selected, the
 first movement is output.
 
 It will never be possible to convert everything that might be in a PMW file
-into MusicXML. An obvious example is the drawing facility. Some `difficult' PMW
-features that are currently missing may be partly or wholly added later as time
-permits. There are also features that are straightforward to translate, but
-which have just been overlooked. I will add these if asked or if I happen to
-notice.
+into MusicXML. An obvious example is the use of the drawing facility. After
+importing a piece that PMW has exported, it will almost always be necessary to
+make some modifications from within the importing program.
 
-Some features may or may not be wanted in MusicXML output. For example,
-explicit formatting instructions such as &%[newpage]%& may not be wanted when
-another typesetting program is used. For this reason, there are some options
-for controlling the inclusion of some items. These options are given as a list
-of words, separated by plus signs, following the &%-x%& command line option,
-without a space. For example:
+Some `difficult' PMW features that are currently missing may be partly or
+wholly added later as time permits. MusicXML coding for absolute and relative
+positioning of items is often ignored by programs that process it. They tend to
+lay out the musical content using their own algorithms. For that reason, many
+of PMW's positioning instructions (e.g. the &%[space]%& directive]) are
+currently ignored when generating MusicXML output. There are also features that
+are straightforward to translate, but which have just been overlooked. I will
+add these if asked or if I happen to notice.
+
+Some features that are translatable may or may not be wanted in MusicXML
+output. For example, explicit formatting instructions such as &%[newpage]%& may
+not be wanted when another typesetting program is used. For this reason, there
+are some options for controlling the inclusion of some items. These options are
+given as a list of words, separated by plus signs, following the &%-x%& command
+line option, without a space. For example:
 
 .code
 pmw -xml export.xml -x+newline+newpage something.pmw
@@ -16330,11 +16337,38 @@ put different numbers of bars into its systems, the effect may not be ideal.
 
 .endlist
 
-One thing to remember about MusicXML is that applications that read it do not
-always honour all the content. For example, tests have shown that several
-ignore MusicXML's &%relative-x%& and &%relative-y%& attributes. After importing
-a piece that PMW has exported, it will almost always be necessary to make some
-modifications.
+.section "Specific issues"
+Here are a number of specific issues relating to MusicXML output.
+
+.ilist
+If a transposition is set, it is the transposed music that is output. The
+&`\t`& string escape sequence works.
+
+.next
+Settings for stave spacings do not seem to be much honoured. In particular, a
+stave spacing of zero probably will not carry over successfully.
+
+.next
+Stave 0 is completely ignored.
+
+.next
+MusicXML (release 4.0) does not have a way of specifying a footnote that uses
+more than one font. Changes of font within a footnote are therefore ignored.
+
+.next
+If a PMW string contains just the character 99 or just the character 100 in the
+music font, it is translated into a MusicXML &`<segno>`& element.
+
+.next
+If the setting &`[bowing below]`& is used, upbow and downbow `accents' are
+translated into into MusicXML's &`<toe>`& and &`<heel>`& elements.
+
+.next
+Strings that are marked as figured bass are translated into MusicXML's figured 
+bass elements, but there may be issues with some of the more complicated ones.
+
+.endlist
+
 
 
 
