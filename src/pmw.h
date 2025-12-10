@@ -6,7 +6,7 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: November 2025 */
+/* This file last modified: December 2025 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
@@ -519,7 +519,7 @@ enum {
   b_overbeam, b_page, b_pagebotmargin, b_pagetopmargin, b_plet, b_reset,
   b_resume, b_rrepeat, b_sgabove, b_sghere, b_sgnext, b_slur, b_slurgap,
   b_space, b_ssabove, b_sshere, b_ssnext, b_suspend, b_text, b_tick, b_tie,
-  b_time, b_transpose, b_tremolo, b_tripsw, b_ulevel, b_ulhere, 
+  b_time, b_transpose, b_tremolo, b_tripsw, b_ulevel, b_ulhere,
   b_unbreakbarline, b_zerocopy,
 
   b_baditem   /* For detecting bad values */
@@ -802,38 +802,39 @@ enum {
 /* Boolean bit flags in movement structures */
 
 #define mf_beamendrests      0x00000001u
-#define mf_breverests        0x00000002u
-#define mf_check             0x00000004u
-#define mf_checkdoublebars   0x00000008u
-#define mf_codemultirests    0x00000010u
-#define mf_copiedfontsizes   0x00000020u
-#define mf_fullbarend        0x00000040u
-#define mf_keydoublebar      0x00000080u
-#define mf_keywarn           0x00000100u
-#define mf_midistart         0x00000200u
-#define mf_newpage           0x00000400u
-#define mf_nopageheading     0x00000800u
-#define mf_rehearsallsleft   0x00001000u
-#define mf_repeatwings       0x00002000u
-#define mf_showtime          0x00004000u
-#define mf_showtimebase      0x00008000u
-#define mf_spreadunderlay    0x00010000u
-#define mf_startjoin         0x00020000u
-#define mf_startnotime       0x00040000u
-#define mf_thisline          0x00080000u
-#define mf_thispage          0x00100000u
-#define mf_tiesoverwarnings  0x00200000u
-#define mf_timewarn          0x00400000u
-#define mf_underlayextenders 0x00800000u
-#define mf_unfinished        0x01000000u
-#define mf_uselastfooting    0x02000000u
-#define mf_hadbackup         0x04000000u  /* For MusicXML output */
+#define mf_beamrests         0x00000002u
+#define mf_breverests        0x00000004u
+#define mf_check             0x00000008u
+#define mf_checkdoublebars   0x00000010u
+#define mf_codemultirests    0x00000020u
+#define mf_copiedfontsizes   0x00000040u
+#define mf_fullbarend        0x00000080u
+#define mf_hadbackup         0x00000100u  /* For MusicXML output */
+#define mf_keydoublebar      0x00000200u
+#define mf_keywarn           0x00000400u
+#define mf_midistart         0x00000800u
+#define mf_newpage           0x00001000u
+#define mf_nopageheading     0x00002000u
+#define mf_rehearsallsleft   0x00004000u
+#define mf_repeatwings       0x00008000u
+#define mf_showtime          0x00010000u
+#define mf_showtimebase      0x00020000u
+#define mf_spreadunderlay    0x00040000u
+#define mf_startjoin         0x00080000u
+#define mf_startnotime       0x00100000u
+#define mf_thisline          0x00200000u
+#define mf_thispage          0x00400000u
+#define mf_tiesoverwarnings  0x00800000u
+#define mf_timewarn          0x01000000u
+#define mf_underlayextenders 0x02000000u
+#define mf_unfinished        0x04000000u
+#define mf_uselastfooting    0x08000000u
 
 /* These flags are set at the start of the first movement. */
 
-#define mf_startflags (mf_check|mf_checkdoublebars|mf_copiedfontsizes|\
-  mf_fullbarend|mf_keydoublebar|mf_keywarn|mf_showtime|mf_showtimebase|\
-  mf_timewarn|mf_spreadunderlay|mf_underlayextenders)
+#define mf_startflags (mf_beamrests|mf_check|mf_checkdoublebars|\
+  mf_copiedfontsizes|mf_fullbarend|mf_keydoublebar|mf_keywarn|mf_showtime|\
+  mf_showtimebase|mf_timewarn|mf_spreadunderlay|mf_underlayextenders)
 
 /* These flags specify the type of new movement, and are set by options on the
 [newmovement] directive. */

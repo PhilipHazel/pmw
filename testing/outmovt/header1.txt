@@ -1,15 +1,15 @@
 
 MOVEMENT 1
-  flags = 0x00c1c1cc
+  flags = 0x0307069a
 
 MOVEMENT 2
-  flags = 0x00c1c1cc
+  flags = 0x0307069a
 
 MOVEMENT 3
-  flags = 0x01c58dcc
+  flags = 0x0716369a
 
 MOVEMENT 4
-  flags = 0x02d1c1cc
+  flags = 0x0b47069a
 
 MOVEMENT 5
-  flags = 0x00c9c1cc
+  flags = 0x0327069a

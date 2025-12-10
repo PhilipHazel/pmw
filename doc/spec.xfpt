@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>09 December 2025</date>
+<date>10 December 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>09 December 2025</date>
+  <date>10 December 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -6059,7 +6059,8 @@ horizontally stretched by 1.1.
 .subsection "Beamendrests"
 .index "&%beamendrests%&"
 This directive, which has no arguments, causes PMW to include rests that are
-adjacent to beamed groups within the beams (&R; &<<SECTbeamendrests>>&).
+adjacent to beamed groups within the beams if beaming over rests is enabled,
+which is the default (&R; &<<SECTbeamendrests>>&).
 
 
 
@@ -6068,6 +6069,13 @@ adjacent to beamed groups within the beams (&R; &<<SECTbeamendrests>>&).
 The length of short, straight note flags that are used with beams (for example,
 for a semiquaver beamed to a dotted quaver) can be set by this directive. The
 default is 5 points; it scales with the relative stave magnification.
+
+
+
+.subsection "Beamrests"
+.index "&%beamrests%&"
+This directive, which has no arguments, can be used to override the setting of 
+&%nobeamrests%& in a previous movement (&R; &<<SECTbeambreaking>>&).
 
 
 
@@ -7552,7 +7560,18 @@ versions of the font. The default music font is PMW-Music.
 .subsection "Nobeamendrests"
 .index "&%nobeamendrests%&"
 This directive, which has no arguments, can be used to cancel the effect of
-&%beamendrests%& in a previous movement.
+&%beamendrests%& in a previous movement (&R; &<<SECTbeamendrests>>&).
+
+
+
+.subsection "Nobeamrests"
+.index "&%nobeamrests%&"
+By default, unless there is an explicit beam break, PMW includes rests that are
+shorter than a crotchet within beams, which is a common modern convention in 
+instrumental parts. This directive, which has no arguments, can be used to
+disable this feature, thereby avoiding the need to put in explicit beam breaks 
+which may otherwise be necessary in vocal parts or older styles (&R; 
+&<<SECTbeambreaking>>&).
 
 
 
@@ -10550,7 +10569,8 @@ specify what is required. The &%beamthickness%& header directive can be used
 to set the thickness of line used for drawing beams.
 
 
-.subsection "Beam breaking"
+
+.subsection "Beam breaking" SECTbeambreaking
 .index "semicolon" "beam breaking"
 .index "; (semicolon)" "beam breaking"
 .index "comma" "beam breaking"
@@ -10565,14 +10585,18 @@ characters:
 These characters are ignored if they follow longer notes.
 .index "beaming" "across rests"
 .index "rests" "beaming across"
-PMW automatically beams across rests that are shorter than a crotchet, unless a
-break in the beam is specified. A beam breaking character must appear after the
-end of a note or after the closing parenthesis of a chord, though if the note
-or chord is tied (with an underscore character), the beam break must follow the
-underscore. If any other character follows a note or chord, no breaking
-happens. If the note or chord is the last of an irregular group (for example,
-triplets), the beam break may optionally appear after the closing curly
-bracket. Three pairs of beamed quavers could be notated like this:
+By default, PMW beams across rests that are shorter than a crotchet, unless an
+explicit break in the beam is specified. This feature can be disabled by the
+.index "&%nobeamrests%&"
+&%nobeamrests%& header directive.
+
+A beam breaking character must follow the end of a note or the closing
+parenthesis of a chord, though if the note or chord is tied (with an underscore
+character), the beam break must follow the underscore. If any other character
+follows a note or chord, no breaking happens. If the note or chord is the last
+of an irregular group (for example, triplets), the beam break may optionally
+appear after the closing curly bracket. Three pairs of beamed quavers could be
+notated like this:
 .code
 g-e-; f-a-; b-a-
 .endd
@@ -10638,14 +10662,16 @@ they are at the start or end of the beam. This is thought to be helpful in
 indicating rhythmic groupings.
 .index "&%beamendrests%&"
 .index "&%nobeamendrests%&"
-PMW handles rests in the middle of beams automatically, but does not by default
-draw beams over rests at the ends of beams. If you want this to happen, you can
-request it by specifying &%beamendrests%& in the header. There is also
+.index "&%nobeamrests%&"
+PMW includes rests shorter than a crotchet within beams unless &%nobeamrests%&
+has been used to disable all beaming over rests. However, it does not by
+default draw beams over rests at the ends of beams. If you want this to happen,
+you can request it by specifying &%beamendrests%& in the header. There is also
 &%nobeamendrests%&, which can be used to cancel this effect in a subsequent
 movement. Explicit beam breaks can be used to prevent an individual beam from
-covering a rest.
-Vertical movement of the rests is taken into account when computing the
-position of the beam. As in all beams, this can be adjusted by means of the
+covering a rest. Vertical movement of the rests is taken into account when
+computing the position of the beam. As in all beams, this can be adjusted by
+means of the
 .index "&%[beammove]%&"
 &%[beammove]%& directive.
 Beams covering rests at the end may be continued over bar lines, as described
@@ -15380,6 +15406,7 @@ dagger affect only the movement in which they appear.
 &` Barnumbers `&<&'enclosure'&>&` `&<&'interval'&>&` `&<&'fontsize'&>&` `&<&'font'&>
 &` Beamendrests`&
 &` Beamflaglength `&<&'n'&>
+&` Beamrests`&
 &` Beamthickness `&<&'n'&>
 &` Bottommargin `&<&'n'&>
 &` Brace `&<&'n'&>-<&'m'&> ...
@@ -15459,6 +15486,7 @@ dagger affect only the movement in which they appear.
 &` Midtimespacing `&<&'n'&>
 &`*Musicfont `&&`"`&<&'font name'&>&`"`&
 &` Nobeamendrests`&
+&` Nobeamrests`&
 &` Nocheck`&
 &` Nocheckdoublebars`&
 &` Nocodemultirests`&

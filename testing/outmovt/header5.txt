@@ -54,7 +54,7 @@ MOVEMENT 1
   endlinetieadjust = 0
   endlinetiestyle = 0
   extenderlevel = 0
-  flags = 0x00c1c1cc
+  flags = 0x0307069a
   fontsizes
     barnumber 10
     cue 7

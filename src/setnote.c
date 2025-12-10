@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: June 2021 */
-/* This file last modified: November 2025 */
+/* This file last modified: December 2025 */
 
 #include "pmw.h"
 
@@ -2046,7 +2046,7 @@ if (n_notetype >= quaver)
 
   else
     {
-    if (MFLAG(mf_beamendrests) && !out_beaming)
+    if (MFLAG(mf_beamrests) && MFLAG(mf_beamendrests) && !out_beaming)
       {
       b_notestr *next = misc_nextnote(p);
 

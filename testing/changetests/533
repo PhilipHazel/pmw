@@ -13,3 +13,38 @@ c'\su\ x3 | g\sd\ x3 |
 [text fbu] "1" g "2" f "3" e "lay"/ul d |
 [endstave]
 
+[newmovement]
+[stave 1 treble 1]
+g-g-r-g-g-r-r
+[endstave]
+
+[newmovement]
+nobeamrests
+
+[stave 1 treble 1]
+g-g-r-g-g-r-r
+[endstave]
+
+[newmovement]
+beamrests
+beamendrests
+
+[stave 1 treble 1]
+g-g-r-g-g-r-r
+[endstave]
+
+[newmovement]
+nobeamrests
+
+[stave 1 treble 1]
+g-g-r-g-g-r-r
+[endstave]
+
+[newmovement]
+beamrests
+nobeamendrests
+
+[stave 1 treble 1]
+g-g-r-g-g-r-r
+[endstave]
+

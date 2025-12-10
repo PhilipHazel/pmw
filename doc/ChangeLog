@@ -46,6 +46,9 @@ left.
 
 16. Add support for [text fbu], which had been overlooked when /fbu was added.
 
+17. Add support for "beamrests" and "nobeamrests". The former is the default; 
+the latter disables all beaming over rests.
+
 
 Version 5.32 25-June-2025
 -------------------------

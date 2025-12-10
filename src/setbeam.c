@@ -1003,7 +1003,10 @@ for (pp = (b_notestr *)(p->next); pp->type != b_barline;
         currentmoff += lastp->length; else currentmoff++;
       adjusts[adjustptr] = lastadjust = move_adjust + out_gracefudge;
 
-      if (pp->spitch != 0 || MFLAG(mf_beamendrests))
+      /* If this is not a rest, or if beaming rests is enabled, including rests
+      at the end(s) of a beam, this is definitely part of the beam. */
+
+      if (pp->spitch != 0 || (MFLAG(mf_beamrests) && MFLAG(mf_beamendrests)))
         {
         beam_lastmoff = currentmoff;
         beam_last = pp;
@@ -1012,7 +1015,17 @@ for (pp = (b_notestr *)(p->next); pp->type != b_barline;
           else trailingrests = 0;
         pendingrests = 0;
         }
-      else pendingrests++;
+
+      /* This is a rest and either rest beaming in general is off or beaming
+      over rests at the end(s) is off. If the former, this is not part of the
+      beam; if the latter, remember that it might be if a suitable note
+      follows. */
+
+      else
+        {
+        if (!MFLAG(mf_beamrests)) goto ENDBEAM;
+        pendingrests++;
+        }
 
       beam_count++;
       overbarcount++;
