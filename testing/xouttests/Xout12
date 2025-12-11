@@ -1,8 +1,10 @@
 barnumbers line
 bar 3
+nobeamrests
 
 [stave 1 treble 1]
 [nocount] R! |
 [20]G+ | [nocount] A+ |
 [10] B+ |
+g-g- r- g-g- r- r |
 [endstave]

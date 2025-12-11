@@ -1171,8 +1171,9 @@ if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
 
   /* Otherwise, seek the next note if there isn't an explicit break for all
   beams. No following note in the bar, or a note longer than a quaver is a full
-  beambreak. Skip over any rests shorter than a crotchet - if a suitable next
-  note is found, the rests will appear under the beam.
+  beambreak. If mf_beamrests is set (the default), skip over any rests shorter
+  than a crotchet - if a suitable next note is found, the rests will appear
+  under the beam.
 
   SPECIAL CASE: If an overbeam item is found while looking for the next note
   (overbeam always immediately precedes a barline), look for the next note in
@@ -1224,17 +1225,18 @@ if (((b_notestr *)b)->notetype >= quaver && ((b_notestr *)b)->spitch != 0)
         nextnote = (b_notestr *)bbn;
         if (nextnote->type == b_note)
           {
-          if (nextnote->spitch == 0 && nextnote->notetype > crotchet) continue;
+          if ((xml_movt->flags & mf_beamrests) != 0 &&
+              nextnote->spitch == 0 && nextnote->notetype > crotchet) continue;
           thatcount = nextnote->notetype - crotchet;
           break;
           }
         }
       }
 
-    /* No next note, or at least a crotchet (which includes a non-skipped rest)
-    breaks all beams. */
+    /* No next note, or a a crotchet or a non-skipped rest breaks all beams. */
 
-    if (nextnote == NULL || nextnote->notetype <= crotchet)
+    if (nextnote == NULL || nextnote->notetype <= crotchet ||
+        nextnote->spitch == 0)
       beambreak = BEAMBREAK_ALL;
     }
 
