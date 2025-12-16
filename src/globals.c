@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: October 2025 */
+/* This file last modified: Decenber 2025 */
 
 #include "pmw.h"
 
@@ -158,6 +158,7 @@ int          n_chordcount;
 b_notestr   *n_chordfirst;
 uint32_t     n_chordflags;
 int32_t      n_cueadjust;
+uint32_t     n_dots;
 int32_t      n_dotxadjust;
 uint8_t      n_firstacc;
 uint32_t     n_flags;

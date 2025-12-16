@@ -49,6 +49,8 @@ left.
 17. Add support for "beamrests" and "nobeamrests". The former is the default; 
 the latter disables all beaming over rests.
 
+18. Add support for up to 4 augmentation dots.
+
 
 Version 5.32 25-June-2025
 -------------------------

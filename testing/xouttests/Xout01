@@ -295,4 +295,21 @@ G+ | [skip 3] G+ |
 
 g. r- g.. r= | [dots below]  g. r- g.. r= [dots above] |
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Multiple augmentation dots
+
+[time 4/2]
+G+.G | G+..g | G+...g- | G+....g= |
+[time C]
+G.g | G..g- | G...g= | G....g=- |
+g.g-; g..g= | g...g=-; g....g== |
+g-.g=; g-..g=-; g-...g== r | g-....g-....g-....g-....; g=- |
+g=.g=-; g=..g==; g=...g=...g=...g=...;  rr=- | 
+  g=....g=....g=....g=....; Rr== |
+[time 2/4]
+g=-.g==; g=-..g=-..g=-..g=-..; r-r=r=- |
+  g=-...g=-...g=-...g=-...; rr== |
+[time 2/8]
+g==.g==.; g==..g==..g==..g==..; r=r=- |
+
 [endstave]

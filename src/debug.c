@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: November 2025 */
+/* This file last modified: December 2025 */
 
 #include "pmw.h"
 
@@ -1239,12 +1239,12 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
       eprintf("<%s", sff(nt->accleft));
     eprintf("%c%s", (nt->notetype < crotchet)? toupper(nt->char_orig) :
       nt->char_orig, noteflags[nt->notetype]);
-    if ((nt->flags & nf_dot2) != 0) eprintf("..");
-      else if ((nt->flags & nf_dot) != 0) eprintf(".");
+    if (nt->dots == 255) eprintf("+");
+      else for (i = 0; i < nt->dots; i++) eprintf("."); 
     if (nt->acc != ac_no && nt->acc_orig != nt->acc)
       eprintf(" orig=%s", acnames[nt->acc_orig]);
     if (nt->masq != MASQ_UNSET)
-      eprintf(" masq=%d dot_orig=0x%02x", nt->masq, nt->dot_orig);
+      eprintf(" masq=%d dots_orig=%d", nt->masq, nt->dots_orig);
     if (nt->acflags != 0) eprintf(" acflags=0x%08x", nt->acflags);
     eprintf(" flags=0x%08x", nt->flags);
     if (nt->noteheadstyle != 0) eprintf(" nhstyle=0x%02x", nt->noteheadstyle);

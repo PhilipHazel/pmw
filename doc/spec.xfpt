@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>10 December 2025</date>
+<date>16 December 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>10 December 2025</date>
+  <date>16 December 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -9458,17 +9458,17 @@ for minimizing typing.
 
 .index "dotted notes"
 .index "notes" "dotted"
-One or two dots may follow a note or rest as in conventional music, to extend
-its length by half and three-quarters, respectively. There is also support for
+Up to four dots may follow a note or rest as in conventional music, to extend
+its length by 1/2, 3/4, 7/8, or 15/16, respectively. There is also support for
 .index "Ghent, Emmanuel"
-Emmanuel Ghent's notation for extending the length of a note by one
+Emmanuel Ghent's notation for extending the length of a note by 1/4
 .index "plus after notes"
 .index "notes" "followed by plus"
-quarter (as reported in Gardner Read's book &'Music Notation'&). The PMW
-encoding for this is to follow the note with a dot and then a plus sign. The
-length of the note is extended by one quarter, and it is shown as the normal
-note followed by a plus sign. This facility is particularly useful when there
-are five beats in a bar.
+(as reported in Gardner Read's book &'Music Notation'&). The PMW encoding for
+this is to follow the note with a dot and then a plus sign. The length of the
+note is extended by one quarter, and it is shown as the normal note followed by
+a plus sign. This notation is particularly useful when there are five beats in
+a bar.
 .code
 [time 5/4] A+.+
 .endd
@@ -10099,9 +10099,9 @@ masquerade indication must appear on the first note.
 
 The only effect of masquerading is to substitute a different note for display;
 the position of the note is not affected. Masquerading does not disable
-beaming. When a masquerade is requested, an augmentation dot can be requested
-with it, and if it is not, no dot is output, even if the original note is
-augmented.
+beaming. When a masquerade is requested, one or more augmentation dots can be
+requested with it, but if not, no augmentation is output, even if the original
+note is augmented.
 .index "dotted notes" "dot before bar line"
 The ability to add augmentation dots makes it easier to set renaissance music
 in the style with a dot before a bar line instead of a tie to a quaver in the
@@ -15588,7 +15588,7 @@ upper case letter, these can be freely intermixed.
 .row ""                    "&`+ ++`& &~multiply length by 2 or 4"
 .row ""                    "&`!`& &~note length is bar length"
 .row "move dot"            "&`>`& &~or&~ &'number'&&`>`&"
-.row "dot(s)"              "&`.`& &~or&~ &`..`& &~or&~ &`.+`&"
+.row "dot(s)"              "&`.`& &~or&~ &`..`& &~or&~ &`...`& &~or&~ &`....`& &~or&~ &`.+`&"
 .row "expression/options"  "&`\`&&'expression and options indications'&&`\`&"
 .row "tie or short slur"   "&`_`&"
 .row "&~&~&~above/below"   "&`/a /b`&"

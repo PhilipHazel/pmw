@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: July 2021 */
-/* This file last modified: August 2025 */
+/* This file last modified: December 2025 */
 
 
 #include "pmw.h"
@@ -130,10 +130,11 @@ else
 
   /* Check for dotted note at the left-hand end */
 
-  if (above && leftup && (left->flags & nf_dot) != 0)
+  if (above && leftup && left->dots != 0)
     {
     adjustL += 3*out_stavemagn;
-    if ((left->flags & nf_dot2) != 0) adjustL += (35*out_stavemagn)/10;
+    if (left->dots != 255)
+      for (int i = 1; i < left->dots; i++) adjustL += (35*out_stavemagn)/10;
     }
 
   /* Check for staccato etc. on the left-hand note. Allow for one other accent
@@ -345,6 +346,7 @@ int leftcount = 0;
 uint16_t slurflags = 0;
 uint32_t acflags = 0;
 uint32_t flags = 0;
+uint32_t dots = 0;
 int32_t x0 = bar_cont->tiex;
 BOOL leftup = out_laststemup[curstave];
 BOOL continued;
@@ -372,6 +374,7 @@ while (leftbase->type == b_chord) leftbase = (b_notestr *)(leftbase->prev);
 do this because the notes may be in either order. */
 
 left = leftbase;
+dots = left->dots;
 do
   {
   leftcount++;
@@ -545,12 +548,12 @@ for (int count = 0;
     if (!continued)
       {
       adjustL = 4500;
-      if ((flags & nf_plus) != 0) adjustL += 8000;
-        else if ((flags & nf_dot) != 0)
-          {
-          adjustL += 4000;
-          if ((flags & nf_dot2) != 0) adjustL += 3500;
-          }
+      if (dots == 255) adjustL += 8000;
+      else if (dots != 0)
+        {
+        adjustL += 4000;
+        for (int i = 1; i < dots; i++) adjustL += 3500;
+        }
       }
 
     if (type == 3)
@@ -563,9 +566,8 @@ for (int count = 0;
 
     /* Deal with dots moved right (will apply only to stems up) */
 
-    if (!continued &&
-      (flags & (nf_dot | nf_dotright)) == (nf_dot | nf_dotright))
-        adjustL += 5500;
+    if (!continued && dots != 0 && (flags & nf_dotright) != 0)
+      adjustL += 5500;
 
     /* Else deal with intervals of a second */
 
@@ -671,10 +673,11 @@ if (x0 == 0)    /* at start of line */
   }
 else x0 += 8*out_stavemagn;
 
-if ((left->flags & nf_dot) != 0)
+if (left->dots != 0)
   {
   x0 += 4*out_stavemagn;
-  if ((left->flags & nf_dot2) != 0) x0 += (35*out_stavemagn)/10;
+  if (left->dots != 255)
+    for (int i = 1; i < left->dots; i++) x0 += (35*out_stavemagn)/10;
   }
 
 x1 -= (15*out_stavemagn)/10 + n_accleft;

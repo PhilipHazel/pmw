@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: October 2025 */
+/* This file last modified: December 2025 */
 
 #include "pmw.h"
 
@@ -23,7 +23,7 @@ static BOOL   suppress_warnings = FALSE;
 
 
 /*************************************************
-*   Error and warning texts   *
+*   Error and warning texts                      *
 *************************************************/
 
 /* Error severities are defined in pmw.h:
@@ -300,7 +300,9 @@ aborts the run after outputting additional information. */
 { ec_warning, "slur(s) or line(s) unclosed at the end of stave %d" },
 { ec_major,   "figured bass string is too long for conversion to MusicXML - truncated" },
 { ec_warning, "figured bass string not fully converted to MusicXML - remainder is \"%s\"" },
-{ ec_failed,  "MusicXML output cannot be generated (unclosed slur or line)" }
+{ ec_failed,  "MusicXML output cannot be generated (unclosed slur or line)" },
+{ ec_major,   "Too many augmentation dots for short note" }
+
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

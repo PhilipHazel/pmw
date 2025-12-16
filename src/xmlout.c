@@ -37,7 +37,7 @@ enum { X_DRAW, X_SLUROPT, X_SLURSPLITOPT, X_VLINE_ACCENT, X_SQUARE_ACC,
   X_BEAMMOVESLOPE, X_BREAKBARLINE, X_DOTRIGHT, X_NS, X_ENSURE, X_JUSTIFY,
   X_MIDI, X_NAME, X_NOTES, X_OLEVEL, X_PAGE, X_SG, X_SS, X_GAP, X_ULEVEL,
   X_COPYZERO, X_ZERO, X_OMITEMPTY, X_COUPLE, X_PRINTPITCH, X_TRIPLETIZE,
-  X_COUNT };
+  X_PLUS, X_COUNT };
 
 #define X(N) X_ignored |= 1l << N
 
@@ -124,7 +124,8 @@ static const char *X_ignored_message[] = {
   "Omitempty",
   "[couple]",
   "[printpitch]",
-  "[tripletize]"
+  "[tripletize]",
+  "Plus character augmentation"
 };
 
 /* These are header dirctives that have no effect on MusicXML output. */
@@ -1428,12 +1429,12 @@ for (;;)
   PN("<type>%s</type>",
     XML_note_names[(note->masq == MASQ_UNSET)? note->notetype : note->masq]);
 
-  if ((note->flags & (nf_dot|nf_dot2)) != 0)
+  if (note->dots == 255) X(X_PLUS);
+  else if (note->dots != 0)
     {
     const char *placement = ((note->flags & nf_lowdot) == 0)? "" :
       " placement=\"below\"";
-    PN("<dot%s/>", placement);
-    if ((note->flags & nf_dot2) != 0) PN("<dot%s/>",placement);
+    for (int i = 0; i < note->dots; i++) PN("<dot%s/>", placement);
     }
 
   if (note->acc != ac_no && (note->flags & nf_accinvis) == 0)
@@ -1458,18 +1459,24 @@ for (;;)
     int rla = note_relative_lengths[note->masq];
     int rln = note_relative_lengths[note->notetype];
 
-    switch(note->flags & (nf_dot|nf_dot2|nf_plus))
+    switch(note->dots)
       {
-      case nf_plus: rla += rla/4; break;
-      case nf_dot|nf_dot2: rla += 3*rla/4; break;
-      case nf_dot: rla += rla/2; break;
+      default: break;
+      case 255: rla += rla/4; break;
+      case 1: rla += rla/2; break;
+      case 2: rla += 3*rla/4; break;
+      case 3: rla += 7*rla/8; break;
+      case 4: rla += 15*rla/16; break;
       }
 
-    switch(note->dot_orig)
+    switch(note->dots_orig)
       {
-      case od_plus: rln += rln/4; break;
-      case od_dot|od_dot2: rln += 3*rln/4; break;
-      case od_dot: rln += rln/2; break;
+      default: break;
+      case 255: rln += rln/4; break;
+      case 1: rln += rln/2; break;
+      case 2: rln += 3*rln/4; break;
+      case 3: rln += 7*rln/8; break;
+      case 4: rln += 15*rln/16; break;
       }
 
     /* Remove common factors of 2 */

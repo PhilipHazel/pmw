@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2022 */
-/* This file last updated: March 2022 */
+/* This file last updated: December 2025 */
 
 /* Error handling routines for XML */
 
@@ -123,7 +123,7 @@ static error_struct error_data[] = {
                    "discarded" },
 { ec_warning, "XML entity \"%.*s;\" %s" },
 /* 55 - 59 */
-{ ec_warning, "SPARE" },
+{ ec_major,   "too many augmentation dots (max 4)" },
 { ec_warning, "Unknown accidental \"%s\" in key signature" },
 { ec_failed,  "Too many non-standard custom keys required" },
 { ec_major,   "Multi-staff chords are supported only for 2-staff parts" },

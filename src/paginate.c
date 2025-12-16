@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: April 2021 */
-/* This file last modified: September 2025 */
+/* This file last modified: December 2025 */
 
 #include "pmw.h"
 
@@ -244,12 +244,13 @@ Arguments:
   used       the basic minimum width for the note (unmagnified)
   length     the note's musical length (identifies the note)
   flags      the note's flags
+  dots       the note's dots value 
 
 Returns:     the valued of "used" plus the calculated width
 */
 
 static int32_t
-pos_typewidth(int32_t used, int32_t length, uint32_t flags)
+pos_typewidth(int32_t used, int32_t length, uint32_t flags, uint32_t dots)
 {
 /* Invisible notes use nothing, breves and semibreves need some extra, as do
 freestanding upquavers and shorter, to allow for the tail on the right. */
@@ -266,17 +267,15 @@ dotted. */
 if ((flags & (nf_stemup|nf_invert)) == (nf_stemup|nf_invert) && used < 12400)
   {
   used = 12400;
-  if ((flags & (nf_dot | nf_plus)) != 0) used += 2000;
+  if (dots != 0) used += 2000;
   }
 
-/* Extra width for dots or plus */
+/* Extra width for dots or plus - 3000 for the first dot, 3500 for any others.*/
 
-if ((flags & nf_plus) != 0) used += 8000;
-  else if ((flags & nf_dot) != 0)
-    {
-    used += 3000;
-    if ((flags & nf_dot2) != 0) used += 3500;
-    }
+if (dots == 255) 
+  used += 8000; 
+else if (dots != 0)
+  used += (dots * 3500) - 500;   
 
 /* Allow for magnification */
 
@@ -539,6 +538,7 @@ Arguments:
   previous      pointer to the previous position item
   prevlength
   prevflags
+  prevdots 
 
 Returns:        pointer to final inserted item
 */
@@ -546,7 +546,7 @@ Returns:        pointer to final inserted item
 static workposstr *
 pos_insertextras(int32_t moff, uint32_t xflags, int32_t accleft, int *keyvector,
   int *timevector, int *gracevector, workposstr *previous, int32_t prevlength,
-  uint32_t prevflags)
+  uint32_t prevflags, uint32_t prevdots)
 {
 workposstr *this;
 int rrepeatextra = 0;
@@ -576,7 +576,8 @@ rest. */
 pl_accexistedavail = -1;  /* Unset existing accidental available space */
 if (accleft > 0)
   {
-  used = (prevlength < 0)? 0 : pos_typewidth(7250, prevlength, prevflags);
+  used = (prevlength < 0)? 0 : pos_typewidth(7250, prevlength, prevflags, 
+    prevdots);
   this = pos_insertXpos(previous, this, posx_acc, accleft, used, FALSE);
   if (xflags == 0) return this;
   }
@@ -599,7 +600,8 @@ if (gracevector[0] > 0)
   if (this >= pl_posptr)
     lastspacing += ((xflags & xf_rrepeat) == 0)? 4000 : 8000;
 
-  used = (prevlength < 0)? 0 : pos_typewidth(7250, prevlength, prevflags);
+  used = (prevlength < 0)? 0 : pos_typewidth(7250, prevlength, prevflags, 
+    prevdots);
 
   /* As we process them from right to left, any new ones will be inserted
   first. When we get to pre-existing ones, save where to stop the moving scan,
@@ -656,7 +658,8 @@ if (gracevector[0] > 0)
 /* Compute the space used by the previous note, if any, for the rest of the
 items. */
 
-used = (prevlength < 0)? 0 : pos_typewidth(11000, prevlength, prevflags);
+used = (prevlength < 0)? 0 : pos_typewidth(11000, prevlength, prevflags, 
+  prevdots);
 
 /* Time Signature(s) */
 
@@ -2550,7 +2553,7 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
   workposstr *prev;
   BOOL beambreak2;
   int32_t length, moff;
-  uint32_t flags;
+  uint32_t flags, dots;
 
   if (mac_notbit(curmovt->select_staves, curstave)) continue;
 
@@ -2558,6 +2561,7 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
   if (p == NULL) continue;
 
   flags = 0;
+  dots = 0; 
   length = 0;            /* length of previous note */
   prev = pl_postable;    /* previous pl_postable entry */
   beambreak2 = FALSE;    /* secondary beambreak detected */
@@ -2608,7 +2612,7 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
 
         /* Adjust the minimum width and wanted width if necessary. */
 
-        minwidth = pos_typewidth(minwidth, length, flags);
+        minwidth = pos_typewidth(minwidth, length, flags, dots);
         if (wantedwidth < minwidth) wantedwidth = minwidth;
 
         /* Insert a small amount of space after a secondary beam break, to
@@ -2672,6 +2676,7 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
         {
         length = nextlength;
         flags = ((b_notestr *)p)->flags;
+        dots = ((b_notestr *)p)->dots;
         moff += length;
         }
       }
@@ -2691,11 +2696,10 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
       if (((b_beambreakstr *)p)->value != BEAMBREAK_ALL) beambreak2 = TRUE;
       break;
 
-      /* For a chord, collect the invert and dotting flags for subsequent
-      processing. */
+      /* For a chord, collect the invert flags for subsequent processing. */
 
       case b_chord:        /* 2nd and subsequent notes */
-      flags |= ((b_notestr *)p)->flags & (nf_dotted | nf_invert);
+      flags |= ((b_notestr *)p)->flags & nf_invert;
       break;
       }
     }   /* End of item on stave loop */
@@ -2770,7 +2774,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
   workposstr *previous;
   BOOL arp_read, spread_read;
   int32_t moff, prevlength, ensured;
-  uint32_t xflags, prevflags;
+  uint32_t xflags, prevflags, prevdots;
   int gracevector[posx_maxgrace + 1];
   int timevector[posx_maxtime + 1];
   int keyvector[posx_maxkey + 1];
@@ -2786,6 +2790,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
   xflags = 0;                     /* flags for encountered items */
   prevlength = -1;                /* length of previous note */
   prevflags = 0;                  /* flags on previous note/chord */
+  prevdots = 0;                   /* dots on previous note/chord */ 
   ensured = 0;
   gracevector[0] = 0;             /* count of gracenotes */
   timevector[0] = 0;              /* count of time signatures */
@@ -2822,6 +2827,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
       else
         {
         uint32_t thisflags = 0;
+        uint32_t thisdots = note->dots; 
         int32_t accleft = 0;
 
         /* Collect the maximum accidental width for a chord, and also check
@@ -2884,7 +2890,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
           /* Now do the insertion work */
 
           previous = pos_insertextras(moff, xflags, accleft, keyvector,
-            timevector, gracevector, previous, prevlength, prevflags);
+            timevector, gracevector, previous, prevlength, prevflags, prevdots);
 
           /* Reset all the flags for the next note */
 
@@ -2924,6 +2930,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
 
         prevlength = length;
         prevflags = thisflags;
+        prevdots = thisdots; 
         moff += length;
         }
       break;
@@ -2940,6 +2947,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
       previous = NULL;
       prevlength = -1;
       prevflags = 0;
+      prevdots = 0; 
       break;
 
       case b_lrepeat:
@@ -3028,7 +3036,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
   /* Process for auxiliaries at the end of the bar */
 
   if (xflags != 0) pos_insertextras(moff, xflags, 0, keyvector, timevector,
-    gracevector, previous, prevlength, prevflags);
+    gracevector, previous, prevlength, prevflags, prevdots);
 
   /* Handle [ensure] at end of bar */
 

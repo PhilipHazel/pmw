@@ -394,7 +394,7 @@ enum error_number {
   ERR160,ERR161,ERR162,ERR163,ERR164,ERR165,ERR166,ERR167,ERR168,ERR169,
   ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176,ERR177,ERR178,ERR179,
   ERR180,ERR181,ERR182,ERR183,ERR184,ERR185,ERR186,ERR187,ERR188,ERR189,
-  ERR190,ERR191,ERR192,ERR193,ERR194,ERR195,ERR196,ERR197,ERR198
+  ERR190,ERR191,ERR192,ERR193,ERR194,ERR195,ERR196,ERR197,ERR198,ERR199
 };
 
 /* Types of input file */
@@ -643,36 +643,24 @@ space in 32-bits. */
 #define nf_coupleU     0x00000100u  /* Up coupled note (to control ledgers) */
 #define nf_cuedotalign 0x00000200u  /* Align cue dots with normal dots */
 #define nf_cuesize     0x00000400u  /* Note must print at cue size */
-#define nf_dot         0x00000800u  /* One augmentation dot */
-#define nf_dot2        0x00001000u  /* Two augmentation dots */
-#define nf_dotright    0x00002000u  /* Dot/plus moved right because of invert */
-#define nf_fuq         0x00004000u  /* This note is a free upstemmed quaver */
-#define nf_headbra     0x00008000u  /* Round bracket around notehead */
-#define nf_hidden      0x00010000u  /* Invisible note */
-#define nf_highdot     0x00020000u  /* Move space dot up to next space */
-#define nf_invert      0x00040000u  /* Print this note on other side of stem */
-#define nf_lowdot      0x00080000u  /* Print dots/plus below line */
-#define nf_nopack      0x00100000u  /* Do not pack this rest bar */
-#define nf_noplay      0x00200000u  /* Do not play - note tied */
-#define nf_plus        0x00400000u  /* Augmentation plus */
-#define nf_restrep     0x00800000u  /* Rest displayed as repetition sign */
-#define nf_shortened   0x01000000u  /* This note's stem has been automatically shortened */
-#define nf_stem        0x02000000u  /* This note has a stem */
-#define nf_stemup      0x04000000u  /* Stem direction */
-#define nf_tripletize  0x08000000u  /* Check note for tripletizing */
-#define nf_stemcent    0x10000000u  /* Place stem central to note */
-#define nf_wastied     0x20000000u  /* Tie was output (for XML output) */
+#define nf_dotright    0x00000800u  /* Dot/plus moved right because of invert */
+#define nf_fuq         0x00001000u  /* This note is a free upstemmed quaver */
+#define nf_headbra     0x00002000u  /* Round bracket around notehead */
+#define nf_hidden      0x00004000u  /* Invisible note */
+#define nf_highdot     0x00008000u  /* Move space dot up to next space */
+#define nf_invert      0x00010000u  /* Print this note on other side of stem */
+#define nf_lowdot      0x00020000u  /* Print dots/plus below line */
+#define nf_nopack      0x00040000u  /* Do not pack this rest bar */
+#define nf_noplay      0x00080000u  /* Do not play - note tied */
+#define nf_restrep     0x00100000u  /* Rest displayed as repetition sign */
+#define nf_shortened   0x00200000u  /* This note's stem has been automatically shortened */
+#define nf_stem        0x00400000u  /* This note has a stem */
+#define nf_stemup      0x00800000u  /* Stem direction */
+#define nf_tripletize  0x01000000u  /* Check note for tripletizing */
+#define nf_stemcent    0x02000000u  /* Place stem central to note */
+#define nf_wastied     0x04000000u  /* Tie was output (for XML output) */
 
 #define nf_couple      (nf_coupleU+nf_coupleD)
-#define nf_dotted      (nf_dot+nf_dot2+nf_plus)
-
-/* These flags are for a copy of the dot & plus settings that are needed for
-correctly handling masquerading in MusicXML output. They are set in an 8-bit
-field. */
-
-#define od_dot          0x01u
-#define od_dot2         0x02u
-#define od_plus         0x04u
 
 /* Flags for the tie item (currently 8-bits) */
 

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: November 2025 */
+/* This file last modified: December 2025 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -217,10 +217,11 @@ typedef struct {
    int32_t yextra;
   uint16_t abspitch;
   uint16_t spitch;
+  uint8_t  noteheadstyle;
+  uint8_t  dots; 
+  uint8_t  dots_orig; 
   uint8_t  acc_orig;
   uint8_t  char_orig;
-  uint8_t  dot_orig; 
-  uint8_t  noteheadstyle;
 } b_notestr;
 
 typedef b_bytevaluestr b_noteheadsstr;

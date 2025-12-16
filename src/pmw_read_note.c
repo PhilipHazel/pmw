@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: March 2021 */
-/* This file last modified: October 2025 */
+/* This file last modified: December 2025 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -28,6 +28,12 @@ static uint16_t tuckoffset[] = {
 /* no  nt   hs   sh  ds  hf  fl  df */
   100, 16, 100, 100, 12, 12, 12, 12,
   100, 12, 100, 100, 12, 12, 12, 12 };  /* When bottom is a flat */
+
+/* Numerator and denominator values for multiplying note lengths according to
+the number of dots. The values for offset zero are for the .+ case. */
+
+static int dotnums[] = { 5, 3, 7, 15, 31 };
+static int dotdens[] = { 4, 2, 4, 8, 16 };
 
 /* A number of static variables are used for communication between read_note()
 and post_note(). */
@@ -267,7 +273,7 @@ void
 read_sortchord(b_notestr *w, uint32_t upflag)
 {
 uint8_t masq = w->masq;                 /* Masquerade value */
-uint32_t dotflags = w->flags & (nf_dot|nf_dot2|nf_plus);  /* Extension flags */
+uint8_t dots = w->dots;
 uint32_t dynamics = 0;                  /* Collected dynamics flags */
 uint32_t fuq = 0;                       /* Free upstemmed quaver flag */
 int p, pp;                              /* Working indices */
@@ -290,14 +296,13 @@ using a simple insertion (there won't be many of them). At the same time, sort
 the current tiedata values into a temporary vector, in the same order, in case
 we need this later. Collect the dynamics and fuq flags as we go (to be put on
 the sorted first note), and set the stem direction flag on each note. Also, set
-the flags for extension dots the same as on the first note. They might be
-different if the first note is masqueraded. Set the same masquerade on all
-notes too. */
+augmentation dots the same as on the first note. They might be different if the
+first note is masqueraded. Set the same masquerade on all notes too. */
 
 while (ww != NULL && ww->type == b_chord)
   {
   uint16_t pitch = ww->spitch;
-  uint32_t flags = (ww->flags & ~(nf_dot|nf_dot2|nf_plus)) | dotflags;
+  uint32_t flags = ww->flags;
   uint32_t acflags = ww->acflags;
 
   if (ww->acc != ac_no) acc_count++;
@@ -311,6 +316,7 @@ while (ww != NULL && ww->type == b_chord)
   ww->flags = upflag | (flags & ~(nf_dotright | nf_invert | nf_stemup));
   ww->acflags = acflags & ~(af_accents | af_opposite);
   ww->masq = masq;
+  ww->dots = dots;
 
   /* Find where to insert this note's pointer. */
 
@@ -1429,7 +1435,9 @@ for (;;)
 
   uint8_t *acc_above = NULL;
   uint8_t acc;
-  uint8_t acc_orig, char_orig, dot_orig; 
+  uint8_t dots = 0;
+  uint8_t dots_orig = 0;
+  uint8_t acc_orig, char_orig;
   uint8_t transposedacc = ac_no;
   uint8_t noteheadstyle = srs.noteheadstyle;
   BOOL    transposedaccforce = active_transposedaccforce;
@@ -1804,34 +1812,52 @@ for (;;)
     else error(ERR116, "augmentation dot movement");
     }
 
-  /* Lengthen the note according to .+ . or .. and save additional flags in 
+  /* Lengthen the note according to .+ . or .. and save additional flags in
   dot_orig, for the benefit of MusicXML output. */
 
-  dot_orig = 0;
-   
+  /* Handle augmentation dots, keeping the original in dots_orig for the
+  benefit of MusicXML output, because masquerading may change the basic
+  setting. Up to 4 dots are permitted (see Schumann string quartet Op. 44 #1),
+  and we also support Emmanuel Ghent's '+' notation for extending by a quarter.
+  There are limits on the number of dots for notes shorter than a semiquaver
+  because their lengths don't divide enough. */
+
   if (read_c == '.' )
     {
-    read_nextc();
-    if (read_c == '+')
+    for (int i = 3; i > 0; i--)
       {
-      read_nextc();
-      flags |= nf_plus;
-      dot_orig |= od_plus; 
-      pn_notelength = (pn_notelength*5)/4;
-      }
-    else
-      {
-      flags |= nf_dot;
-      dot_orig |= od_dot; 
-      pn_notelength = (pn_notelength*3)/2;
-      if (read_c == '.' )
+      if (Ustrncmp(main_readbuffer + read_i, "...", i) == 0)
         {
-        read_nextc();
-        flags |= nf_dot2;
-        dot_orig |= od_dot2; 
-        pn_notelength = (pn_notelength*7)/6;
+        dots = i + 1;
+        read_i += i;
+        break;
         }
       }
+
+    if ((pn_notetype == dsquaver && dots > 3) ||
+        (pn_notetype == hdsquaver && dots > 2))
+      {   
+      error(ERR199);
+      brs.checklength = FALSE; 
+      } 
+
+    /* If only one dot, look for '.+' and leave temporarily leave dots at zero
+    for that; otherwise we have just one dot. */
+
+    if (dots == 0)
+      {
+      if (main_readbuffer[read_i] == '+') read_i++;
+        else dots = 1;
+      }
+
+    read_nextc();  /* Next character becomes current. */
+
+    /* Adjust the notelength. Then set dots to 255 for .+ and save this
+    original dots value. */
+
+    pn_notelength = (pn_notelength * dotnums[dots])/dotdens[dots];
+    if (dots == 0) dots = 255;
+    dots_orig = dots;
     }
 
   /* Handle doubled or halved note lengths - note that full bar rests must be
@@ -1978,7 +2004,7 @@ for (;;)
         case 'm':
         if (pn_chordcount != 0) error(ERR116, "masquerade setting");
         masq = (read_c == 'm')? crotchet : minim;
-        flags &= ~(nf_dot|nf_dot2|nf_plus);
+        dots = 0;
         for (;;)
           {
           read_nextc();
@@ -1992,24 +2018,31 @@ for (;;)
           error_skip(ERR115, '\\');
           masq = MASQ_UNSET;
           }
+
         if (read_c == '.')
           {
-          read_nextc();
-          if (read_c == '+')
+          for (int i = 3; i > 0; i--)
             {
-            read_nextc();
-            flags |= nf_plus;
-            }
-          else
-            {
-            flags |= nf_dot;
-            if (read_c == '.')
+            if (Ustrncmp(main_readbuffer + read_i, "...", i) == 0)
               {
-              read_nextc();
-              flags |= nf_dot2;
+              dots = i + 1;
+              read_i += i;
+              break;
               }
             }
+          if (dots == 0)
+            {
+            if (main_readbuffer[read_i] == '+')
+              {
+              dots = 255;
+              read_i++;
+              }
+            else dots = 1;
+            }
+
+          read_nextc();  /* Next character becomes current. */
           }
+
         break;
 
         case 'n':
@@ -2297,11 +2330,11 @@ for (;;)
 
   else if (pn_notelength != chordlength)
     {
-    if (pn_notetype == crotchet && (flags & nf_dotted) == 0)
+    if (pn_notetype == crotchet && dots == 0)
       {
       pn_notelength = chordlength;
       pn_notetype = srs.firstnoteptr->notetype;
-      flags |= srs.firstnoteptr->flags & nf_dotted;
+      dots = srs.firstnoteptr->dots;
       }
     else error(ERR124);
     }
@@ -2360,9 +2393,10 @@ for (;;)
   noteptr->notetype = pn_notetype;
   noteptr->masq = (uint8_t)masq;
   noteptr->acc = acc;
+  noteptr->dots = dots;
   noteptr->acc_orig = acc_orig;
   noteptr->char_orig = char_orig;
-  noteptr->dot_orig = dot_orig; 
+  noteptr->dots_orig = dots_orig;
   noteptr->spitch = pitch;
   noteptr->flags = flags;
   noteptr->acflags = acflags;
@@ -2392,8 +2426,8 @@ for (;;)
       noteptr->notetype = pn_notetype;
       noteptr->acflags &= ~af_accents;
       noteptr->length = pn_notelength;
-      noteptr->flags = (noteptr->flags & ~nf_dotted & ~nf_stem) |
-        (flags & (nf_dotted | nf_stem));
+      noteptr->flags = (noteptr->flags & ~nf_stem) | (flags & nf_stem);
+      noteptr->dots = dots;
 
       if (noteptr->spitch > pn_maxpitch) pn_maxpitch = noteptr->spitch;
       if (noteptr->spitch < pn_minpitch) pn_minpitch = noteptr->spitch;

@@ -45,3 +45,23 @@ ab [noteheads cross] ab [noteheads harmonic] ab
 
 ab [x] ab [h] ab [z] ab [o] ab |
 [endstave]
+
+[newmovement]
+check
+
+[stave 1 treble 1]
+[time 4/2]
+G+.G | G+..g | G+...g- | G+....g= |
+[time C]
+G.g | G..g- | G...g= | G....g=- |
+g.g-; g..g= | g...g=-; g....g== |
+g-.g=; g-..g=-; g-...g== r | g-....g-....g-....g-....; g=- |
+g=.g=-; g=..g==; g=...g=...g=...g=...;  rr=- | 
+  g=....g=....g=....g=....; Rr== |
+[time 2/4]
+g=-.g==; g=-..g=-..g=-..g=-..; r-r=r=- |
+  g=-...g=-...g=-...g=-...; rr== |
+[time 2/8]
+g==.g==.; g==..g==..g==..g==..; r=r=- |
+[endstave]
+

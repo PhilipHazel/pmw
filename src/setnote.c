@@ -973,7 +973,7 @@ if ((bar_cont->flags & cf_notes) != 0 && (n_flags & nf_hidden) == 0)
     if (out_manyrest == 1) notetype = n_notetype; else
       {
       notetype = -1;
-      n_flags &= ~(nf_dot+nf_plus);   /* Kill dots for many bar rest */
+      n_dots = 0;      /* Kill dots for many bar rest */
       }
     show_rest(xn, notetype);
     }
@@ -982,11 +982,12 @@ if ((bar_cont->flags & cf_notes) != 0 && (n_flags & nf_hidden) == 0)
 
   /* Deal with horizontal dots/plus - fudge for quavers and breves */
 
-  if ((n_flags & (nf_dot + nf_plus)) != 0)
+  if (n_dots != 0)
     {
-    BOOL dotplus = (n_flags & nf_plus) != 0;
+    BOOL dotplus = n_dots == 255;
     int32_t dotpos = 84;
     int32_t dotlevel;
+    int32_t y_dot;
 
     if (n_pitch == 0)
       {
@@ -1023,18 +1024,26 @@ if ((bar_cont->flags & cf_notes) != 0 && (n_flags & nf_hidden) == 0)
         dotpos = mac_muldiv(dotpos, n_fontsize, 10000);
       }
 
-    /* Output the dot(s). The '+' character is 135 (0x87) in the music font. */
+    /* Output the dot(s). The '+' character is 135 (0x87) in the music font;
+    the normal dot is at the "?" code point. */
 
     x_dot = xn + dotpos;
-    ofi_musstring(dotplus? US"\x87" : US"?", fontsize, x_dot,
-      out_ystave - dotlevel - n_pcorrection);
+    y_dot = out_ystave - dotlevel - n_pcorrection;
 
-    if ((n_flags & nf_dot2) != 0)
+    if (dotplus)
       {
-      x_dot += (35*out_stavemagn)/10;
-      ofi_musstring(US"?", fontsize, x_dot, out_ystave - dotlevel - n_pcorrection);
+      ofi_musstring(US"\x87", fontsize, x_dot, y_dot);
+      x_dot += 4*out_stavemagn;  /* Extra for ) */
       }
-    if (dotplus) x_dot += 4*out_stavemagn;  /* Extra for ) */
+    else
+      {
+      ofi_musstring(US"?", fontsize, x_dot, y_dot);
+      for (usint i = 1; i < n_dots; i++)
+        {
+        x_dot += (35*out_stavemagn)/10;
+        ofi_musstring(US"?", fontsize, x_dot, y_dot);
+        }
+      }
     }
 
   /* Deal with bracketed notehead */
@@ -1633,6 +1642,7 @@ n_acc = p->acc;
 n_acflags = n_chordacflags = p->acflags;
 n_accleft = n_maxaccleft = (p->accleft * out_stavemagn)/1000;
 n_flags = n_chordflags = p->flags;
+n_dots = p->dots;
 n_lastnote = p;
 n_length = p->length;
 n_masq = p->masq;
@@ -1919,7 +1929,7 @@ else
           crotchets = (crotchets * ((t >> 8) & 255)) / d;
 
         if (crotchets == 8 || crotchets == 12) n_notetype = breve;
-        if (crotchets == 6 || crotchets == 12) n_flags |= nf_dot;
+        if (crotchets == 6 || crotchets == 12) n_dots |= 1;
         }
       }
 
@@ -2409,12 +2419,12 @@ if (out_tremolo != NULL && n_pitch != 0 && !out_beaming)
   int32_t y;
   int32_t x0 = out_tremx - out_barx + (75*out_stavemagn)/100;
   int32_t x1 = n_x - out_barx + (115*out_stavemagn)/100;
- 
+
   if (main_righttoleft)
     {
     x0 -= 5*out_stavemagn;
-    x1 -= 5*out_stavemagn; 
-    }  
+    x1 -= 5*out_stavemagn;
+    }
 
   beam_Xcorrection = (51*out_stavemagn)/10;
 

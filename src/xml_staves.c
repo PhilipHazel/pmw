@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2025 */
-/* This file last modified: August 2025 */
+/* This file last modified: December 2025 */
 
 
 /* This module contains functions for generating stave data */
@@ -602,8 +602,13 @@ note->notetype = note_types[i].pmwtype;
 if (note->notetype >= crotchet) note->char_orig = tolower(note->char_orig);
 blen = note->length = note_types[i].length;
 
-if (dots > 0) note->flags |= nf_dot;
-if (dots > 1) note->flags |= nf_dot2;
+if (dots > 4)
+  {
+  xml_Eerror(mi, ERR55);
+  dots = 4;
+  }
+  
+note->dots = dots;     
 while (dots-- > 0)
   {
   blen /= 2;
