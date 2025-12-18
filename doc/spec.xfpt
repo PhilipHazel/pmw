@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>16 December 2025</date>
+<date>18 December 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>16 December 2025</date>
+  <date>18 December 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -6074,7 +6074,7 @@ default is 5 points; it scales with the relative stave magnification.
 
 .subsection "Beamrests"
 .index "&%beamrests%&"
-This directive, which has no arguments, can be used to override the setting of 
+This directive, which has no arguments, can be used to override the setting of
 &%nobeamrests%& in a previous movement (&R; &<<SECTbeambreaking>>&).
 
 
@@ -7567,10 +7567,10 @@ This directive, which has no arguments, can be used to cancel the effect of
 .subsection "Nobeamrests"
 .index "&%nobeamrests%&"
 By default, unless there is an explicit beam break, PMW includes rests that are
-shorter than a crotchet within beams, which is a common modern convention in 
+shorter than a crotchet within beams, which is a common modern convention in
 instrumental parts. This directive, which has no arguments, can be used to
-disable this feature, thereby avoiding the need to put in explicit beam breaks 
-which may otherwise be necessary in vocal parts or older styles (&R; 
+disable this feature, thereby avoiding the need to put in explicit beam breaks
+which may otherwise be necessary in vocal parts or older styles (&R;
 &<<SECTbeambreaking>>&).
 
 
@@ -12004,23 +12004,24 @@ movement or by the end of the file.
 .subsection "[Ensure]"
 .index "&%[ensure]%&"
 .index "spacing" "ensuring sufficient"
-The &%[space]%& directive always inserts extra space before a note. Sometimes
-all that is needed is an assurance that a certain amount of space is available,
-for example, when using the drawing facilities for marks that PMW does not know
-about. The &%[ensure]%& directive provides this facility. If the requested
-amount of space is not available between the previous note (or the start of the
-bar) and the next note (or the end of the bar), a suitable amount of space is
-inserted.
+The &%[space]%& and &%[rspace]%& directives always insert extra horizontal
+space before a note. Sometimes all that is needed is an assurance that a
+certain amount of space is available, for example, when using the drawing
+facilities for marks that PMW does not know about. The &%[ensure]%& directive
+provides this facility. If the requested amount of space is not available
+between the previous note (or the start of the bar) and the next note (or the
+end of the bar), a suitable amount of additional space is inserted. The
+argument value is always scaled to the relative stave size.
 .code
 G [ensure 32] G
 .endd
 In this example, if this is the only stave, because minims are normally 20
 points apart, the &%[ensure]%& directive has the effect of inserting 12 points
-of space. However, if there is another stave containing four crotchets, which
-are 16 points apart, there is already 32 points between the two minims, and no
-extra space is inserted. The additional space is inserted immediately before
-the note, thus moving it further away from any other items, such as clefs,
-which may lie between it and the previous note.
+of space. However, if there is another stave that contains four crotchets,
+which are 16 points apart, there is already 32 points between the two minims,
+and no extra space is inserted. The additional space is inserted immediately
+before the note, thus moving it further away from any other items, such as
+clefs, which may lie between it and the previous note.
 
 
 .subsection "[Fbfont]"
@@ -16392,7 +16393,7 @@ If the setting &`[bowing below]`& is used, upbow and downbow `accents' are
 translated into into MusicXML's &`<toe>`& and &`<heel>`& elements.
 
 .next
-Strings that are marked as figured bass are translated into MusicXML's figured 
+Strings that are marked as figured bass are translated into MusicXML's figured
 bass elements, but there may be issues with some of the more complicated ones.
 
 .endlist
