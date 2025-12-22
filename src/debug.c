@@ -1240,7 +1240,7 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
     eprintf("%c%s", (nt->notetype < crotchet)? toupper(nt->char_orig) :
       nt->char_orig, noteflags[nt->notetype]);
     if (nt->dots == 255) eprintf("+");
-      else for (i = 0; i < nt->dots; i++) eprintf("."); 
+      else for (i = 0; i < nt->dots; i++) eprintf(".");
     if (nt->acc != ac_no && nt->acc_orig != nt->acc)
       eprintf(" orig=%s", acnames[nt->acc_orig]);
     if (nt->masq != MASQ_UNSET)

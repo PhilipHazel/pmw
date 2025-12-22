@@ -2,54 +2,54 @@ Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
 
-Version 5.33 xx-xxx-2025
-------------------------
+Version 5.33 22-December-2025
+-----------------------------
 
 1. Added MIDI support for tr-type trills.
 
-2. Moved noteheads in chords that contained intervals of a second were not 
+2. Moved noteheads in chords that contained intervals of a second were not
 correctly placed in right-to-left mode.
 
-3. Tremolo bars on breves and semibreves were incorrectly placed in 
+3. Tremolo bars on breves and semibreves were incorrectly placed in
 right-to-left mode.
 
-4. Implemented the Miditremolo directives.
+4. Implemented the MidiTremolo directives.
 
-5. Removed an obsolete tuplet-related variable in the bar-reading structure 
-that is no longer used. Called pletden, I think in the distant past (before 
+5. Removed an obsolete tuplet-related variable in the bar-reading structure
+that is no longer used. Called pletden, I think in the distant past (before
 5.00) it was part of some now-obsolete tuplet feature.
 
-6. Added basic support for MusicXML output, compiled conditionally with 
+6. Added basic support for MusicXML output, compiled conditionally with
 MusicXML input. Still very experimental.
 
 7. Added support for nested tuplets.
 
 8. Regularised debugging support for looking at internal bar data.
 
-9. A stray '/' in stave input now skips to the next space after giving an 
+9. A stray '/' in stave input now skips to the next space after giving an
 error, instead of trying to interpret what follows.
 
-10. Add support for reversed turn symbols.
+10. Added support for reversed turn symbols.
 
-11. Fix crash wnen [all] has no preceding [1st] or [2nd].
+11. Fixed crash wnen [all] has no preceding [1st] or [2nd].
 
-12. If a note with a forced stem down was duplicated using "x", the forced stem 
+12. If a note with a forced stem down was duplicated using "x", the forced stem
 down was lost.
 
 13. Make "tuplet" a synonym of "triplet", except for "tripletize".
 
-14. Merged Jan Nemecek's additional figured bass macros into the standard 
+14. Merged Jan Nemecek's additional figured bass macros into the standard
 macros.
 
-15. In right-to-left mode, tremolos between notes were appearing too far to the 
+15. In right-to-left mode, tremolos between notes were appearing too far to the
 left.
 
-16. Add support for [text fbu], which had been overlooked when /fbu was added.
+16. Added support for [text fbu], which had been overlooked when /fbu was added.
 
-17. Add support for "beamrests" and "nobeamrests". The former is the default; 
+17. Added support for "beamrests" and "nobeamrests". The former is the default;
 the latter disables all beaming over rests.
 
-18. Add support for up to 4 augmentation dots.
+18. Added support for up to 4 augmentation dots.
 
 
 Version 5.32 25-June-2025

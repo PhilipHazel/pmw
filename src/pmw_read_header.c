@@ -2649,13 +2649,13 @@ for (;;)
     error_skip(ERR8, '\n', "header directive");
     continue;
     }
-    
-  /* If generating MusicXML output, check that this is a supported directive. 
+
+  /* If generating MusicXML output, check that this is a supported directive.
   If not, a warning will eventually be output. */
-  
+
 #if SUPPORT_XML
   if (outxml_filename != NULL) outxml_check_directive(CS read_wordbuffer, TRUE);
-#endif 
+#endif
 
   /* Look up the word in the list of heading directives and if found, call the
   appropriate function. */

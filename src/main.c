@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: November 2025 */
+/* This file last modified: December 2025 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -139,7 +139,9 @@ static char **newargv = NULL;
 
 /* Flag to record when -xmlmovement is set */
 
+#if SUPPORT_XML
 static BOOL xml_movement_set = FALSE;
+#endif
 
 /* This table must be in alphabetical order because it is searched by binary
 chop. */

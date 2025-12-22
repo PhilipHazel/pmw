@@ -222,7 +222,7 @@ Arguments:
   fdata        points to font instance size etc data
   x            the x coordinate
   y            the y coordinate
-  startadjust  TRUE in RTL mode if start needs adjusting 
+  startadjust  TRUE in RTL mode if start needs adjusting
 
 Returns:       nothing
 */

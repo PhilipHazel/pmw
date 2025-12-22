@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>18 December 2025</date>
+<date>22 December 2025</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.33</revnumber>
-  <date>18 December 2025</date>
+  <date>22 December 2025</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
@@ -283,6 +283,10 @@ clickable when this PDF is displayed by software that supports the facility.
 .section "Terminology"
 .index "terminology"
 .index "default" "definition of term"
+When a dimension is required in PMW input, its units are usually printers'
+&'points'&. One point is 1/72 of an inch, and fractional values are allowed.
+The few exceptions to the use of points are explicitly documented.
+
 The word `default' occurs frequently in this manual. It means some value or
 option setting that is used when the user does not supply any alternative. For
 example, if no key signature is given for a piece, the default that is used is
@@ -680,7 +684,7 @@ more details.
 Only one movement can be contained in a MusicXML file; this option selects
 a movement that is then written to a single file. The default is the first
 movement, unless there are multiple movements and the XML file name contains
-`%d'. See appendix &<<APPB>>& for details.
+&`%d`&. See appendix &<<APPB>>& for details.
 
 .vitem "&%-norc%& or &%-nopmwrc%&"
 
@@ -770,11 +774,11 @@ format set to PostScript.
 .index "image position adjustment"
 Experience has revealed that not all printing methods position the image in
 exactly the same position on the page. These two values specify a movement of
-the image on the page, in printers' points (1/72 of an inch). The movement is
-relative to the normal reading orientation of the page images (which may be
-rotated on the paper). The first value is left-to-right, and the second is up
-and down. Positive values move the image to the right and upwards,
-respectively, and negative values move it in the opposite directions.
+the image on the page. The movement is relative to the normal reading
+orientation of the page images (which may be rotated on the paper). The first
+value is left-to-right, and the second is up and down. Positive values move the
+image to the right and upwards, respectively, and negative values move it in
+the opposite directions.
 
 .vitem "&%-printgutter%& <&'x'&>"
 
@@ -1140,7 +1144,7 @@ output, you can ignore the next three sections.
 .index "PDF" "conversion from PostScript"
 &'GhostScript'& is an application for processing PostScript. It can display it
 on the screen or convert it to a PDF via its &(ps2pdf)& command. Such a PDF is
-uaually smaller than a PDF written directly by PMW because &'GhostScript'& can
+usually smaller than a PDF written directly by PMW because &'GhostScript'& can
 disassemble fonts and include only those characters that are actually used,
 whereas PMW includes entire fonts in its PDF output. Other document
 viewers such as &(evince)& make use of &'GhostScript'& when processing
@@ -1316,7 +1320,7 @@ This will make a file called &_bday.ps_& which includes PMW's music font
 PostScript viewer such as &'GhostScript'&, using its &(gs)& command or a
 wrapper such as &(gv)& or &(evince)&. See chapter &<<CHAPpmwoutput>>& for more
 details about handling PostScript output. In both the PDF and PostScript cases,
-the output should display this:
+the output should look like this:
 
 .music music01 88 0,-22 centre
 
@@ -1449,8 +1453,8 @@ the music and words of the first stave:
 
 .code
 "Hap-py birth-day to you, hap-py birth-day to you. Hap-py"
-[nocheck nocount] c-. c= |
-d c f | E c-. c= | d c g | F c-. c= |
+[nocheck nocount] c-.; c= |
+d c f | E c-.; c= | d c g | F c-.; c= |
 .endd
 
 .index "underlay"
@@ -1680,9 +1684,10 @@ bar (&R; &<<SUBSECTstringrepetition>>&).
 Notes that are shorter than a crotchet are automatically beamed together within
 a bar, except when a note is followed by a beam breaking character. A semicolon
 breaks the beaming completely, whereas a comma breaks all but the outermost
-beam. Beams carry on across rests that are shorter than a crotchet, but they
-are always broken at the end of a bar, unless a continuation over the bar line
-is explicitly requested (&R; &<<SECTbeaming>>&.)
+beam. Beams carry on across rests that are shorter than a crotchet by default,
+but this can be disabled by the &%nobeamrests%& directive. Beams are always
+broken at the end of a bar, unless a continuation over the bar line is
+explicitly requested (&R; &<<SECTbeaming>>&.)
 
 .music music03 40 0,-10 centre
 
@@ -1929,15 +1934,13 @@ underlaid syllables may be forced into each other. It's best to avoid settings
 of &%layout%& that cause compression if possible.
 
 Sometimes you may want to make additional adjustments to the spacing. The
-&%[space]%& directive is used to insert additional space between notes. The
-units used for space in PMW are &'printers' points'&, of which there are 72 to
-the inch.
+&%[space]%& directive is used to insert additional space between notes.
 .code
 a [space 7] b
 .endd
-This coding ensures that the two notes are 7 points (about 0.1 of an inch)
-further apart than they would otherwise be. Any underlay that is attached to
-the notes is also moved appropriately.
+This coding ensures that the two notes are 7 points further apart than they
+would otherwise be. Any underlay that is attached to the notes is also moved
+appropriately.
 .index "# character in underlay"
 .index "^ character" "in underlay"
 .index "circumflex" "in underlay"
@@ -1971,11 +1974,10 @@ is aligned so as to end at the subsequent note or bar line.
 
 The position of any string can be adjusted by following it by one or more of
 the options &`/u`& (up), &`/d`& (down), &`/l`& (left), or &`/r`& (right) and a
-number, which is a distance in printers' points. It is also possible to adjust
-the horizontal position by reference to the musical offset (&R;
-&<<SECThorizalign>>&). The initial font for non-underlay strings is italic,
-but the escape sequences described above can be used to change it as necessary.
-Here are some examples:
+number. It is also possible to adjust the horizontal position by reference to
+the musical offset (&R; &<<SECThorizalign>>&). The initial font for
+non-underlay strings is italic, but the escape sequences described above can be
+used to change it as necessary. Here are some examples:
 
 .code
 "X"/a g "X"/a/u4 g "X"/a/l6 g |
@@ -2094,10 +2096,9 @@ and &`>`& in pairs. The hairpin starts at the note following &`<`& or
 stave by default, but the directive &%[hairpins above]%& can be used to cause
 them to be drawn above. Either end of a hairpin can be moved by following the
 angle bracket with &`/u`& (up), &`/d`& (down), &`/l`& (left), or &`/r`&
-(right), and a number, which gives a distance in points. Any up or down
-movements specified at the start of a hairpin apply to the whole hairpin, but
-any that are specified at the end apply only to the end &-- by this means,
-sloping hairpins can be drawn.
+(right), and a number. Any up or down movements specified at the start of a
+hairpin apply to the whole hairpin, but any that are specified at the end apply
+only to the end &-- by this means, sloping hairpins can be drawn.
 .display
 &`&~< abc'd' <  |  </d4 abc'd' </l10  |  </r4/d8 abc'd' </u10`&
 .endd
@@ -2755,7 +2756,7 @@ The meaning of the following macro names should be obvious:
 
 &`f ff fff fp fz mf mp p pp ppp sf sfz fsubito fsub psubito psub ppsubito ppsub
 animato cantabile atempo cresc decresc semprecresc dim pocorall pocorit
-ponticallo naturale legno rall rit simile sonore sotto tempo1 ten tranq`&
+ponticello naturale legno rall rit simile sonore sotto tempo1 ten tranq`&
 
 
 .subsection "Slur shorthands"
@@ -3479,10 +3480,11 @@ example above would be `3(+2)'.
 .section "Dimensions"
 .index "dimensions"
 .index "point, definition of"
-The unit of length used by PMW is the printer's &'point'&. Historically the
+The unit of length used by PMW is the printers' &'point'&. Historically the
 size of this has varied, but a value of 1/72 of an inch is now established as
-the standard in digital publishing. One millimetre is 2.835 points. Whenever a
-dimension is required in a PMW directive, its units are always points.
+the standard in digital publishing. One millimetre is 2.835 points. When a
+dimension is required in PMW input, its units are points unless explicitly
+documented otherwise.
 .code
 linelength 720
 .endd
@@ -3566,8 +3568,8 @@ default, are `played' as a number of shorter notes/chords. However, this is not
 always satisfactory for tremolos, so there are directives to disable it (&R;
 &<<SUBSECTmiditremolo>>&).
 
-A number of other directives whose names all start with `midi' are available
-for controlling the allocation of MIDI voices and channels to staves. The
+A number of directives whose names all start with `midi' are available for
+controlling the allocation of MIDI voices and channels to staves. The
 &%midichannel%& (&R; &<<SUBSECTmidichannel>>&) header directive is used to
 specify the allocation of a MIDI voice and/or particular PMW staves to a MIDI
 channel, and the &%[midichannel]%& (&R; &<<SUBSECTmidichannelST>>&),
@@ -4659,7 +4661,7 @@ no noticeable effect, for example, a position movement and its opposite.
 .code
 "\rm\Y\*u*d\orkshire"
 .endd
-In this example is the o is not moved nearer to the Y.
+In this example the o is prevented from being moved nearer to the Y.
 
 
 
@@ -6395,8 +6397,10 @@ In this example, the amount of space that follows a dotted note is 1.5 times
 the amount that would follow an undotted note of the same type. (Of course,
 when several staves are involved, the value is a minimum, because the notes on
 the other staves may cause additional spacing.) When a note is double-dotted,
-half as much space again is added. Thus in the default case a double-dotted
-note occupies 1.3 times the space of an undotted note.
+half as much space again is added. Thus in the default case when the factor is
+1.2, a double-dotted note occupies 1.3 times the space of an undotted note.
+Further space is added if there are more dots, giving factors of 1.4 and 1.5
+with the default setting.
 
 
 
@@ -6711,7 +6715,7 @@ three arguments:
 .endd
 .index "heading" "size of type"
 The first argument is a number, and is optional. If present, it defines the
-font size for this heading, in printer's points. As for all font size sizes, an
+font size for this heading, in printers' points. As for all font size sizes, an
 aspect ratio and/or shear angle may be specified as well as the basic size. If
 this argument is omitted, default sizes are used. For headings at the start of
 the piece the default sizes are 17 points for the first heading line, 12 points
@@ -8848,7 +8852,7 @@ Notes, rests and other items may be interspersed freely, as required.
 .index "space character"
 Space characters and line breaks can be used to separate items, in order to
 make the input easier to read, though they are not necessary except to avoid
-ambiguity . PMW makes no attempt to check on the musical sense of what it is
+ambiguity. PMW makes no attempt to check on the musical sense of what it is
 asked to typeset, other than to check bar lengths.
 .index "bar lengths"
 When there is more than one stave, the length of the notes in each bar must be
@@ -8948,17 +8952,15 @@ In the second repetition, the key signature is included in the first bar only.
 If it had followed &`[10]`& it would have been included in all ten bars. Within
 any string that is part of a bar that is repeated in this way, the escape
 sequence &`\r\`& is replaced by the repetition number. Thus, to number a
-sequence of rest bars, centring the number over the rest sign, coding like this
-can be used:
+sequence of identical bars, coding like this can be used:
 .code
-[10] "\r\"/a/c R! |
+[10] "\r\"/a/cb G+ |
 .endd
-You can also use &`\r2\`&, which does the same thing, but starting at the
-second bar; nothing is inserted in the first repeated bar. This makes it
-possible to put something different on the first bar. Note the use of &`/cb`&
-in the next example to centre each text string in its bar. See section
-&<<SECTtextitems>>& for details of string options.
-
+Note the use of &`/cb`& to centre each text string in its bar. See section
+&<<SECTtextitems>>& for details of string options. You can also use &`\r2\`&,
+which does the same thing, but starting at the second bar; nothing is inserted
+in the first repeated bar. This makes it possible to put something different on
+the first bar.
 .code
  "1-6"/a/cb [6] "\r2\"/a/cb f-x3 |
 .endd
@@ -10575,9 +10577,9 @@ to set the thickness of line used for drawing beams.
 .index "; (semicolon)" "beam breaking"
 .index "comma" "beam breaking"
 .index ", (comma)" "beam breaking"
-Notes and chords shorter than a crotchet are automatically beamed together
-unless they are separated in the input by one of the following beam breaking
-characters:
+Within a bar, notes and chords shorter than a crotchet are automatically beamed
+together unless they are separated in the input by one of the following beam
+breaking characters:
 .display
 &`;`&    break all beams (semicolon)
 &`,`&    break secondary beams only (comma)
@@ -14312,7 +14314,7 @@ printers. Some printers can interpret PostScript directly; for others
 intermediate translation software such as &'GhostScript'& is needed.
 Appropriate translation is often automatically installed in printing systems.
 &'GhostScript'& can be used to interpret PostScript for display on the screen
-and to convert it into a PDF.
+or to convert it into a PDF.
 
 A PDF created directly by PMW will be larger than one created by running
 PostScript output through &'GhostScript'& because &'GhostScript'& can

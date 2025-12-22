@@ -10,8 +10,8 @@
 
 /* This file is included by all the other sources except rdargs.c. */
 
-#define PMW_VERSION "5.33-DEV"
-#define PMW_DATE    "05-April-2025"
+#define PMW_VERSION "5.33"
+#define PMW_DATE    "22-December-2025"
 #define COPYRIGHT   "Copyright (c) Philip Hazel 2025"
 
 /* Standard C headers */
@@ -910,8 +910,8 @@ enum { barline_normal, barline_double, barline_ending, barline_invisible };
 #define rep_dleft  45
 
 /* Characters in a virtual musical font. These are used to index the table
-out_mftable_ps, which is defined in tables.c and must be kept in step. The
-order is arbitrary. */
+out_mftable, which is defined in tables.c and must be kept in step. The order
+is arbitrary. */
 
 enum {
   mc_trebleclef,       mc_trebleTclef,    mc_trebleDclef,

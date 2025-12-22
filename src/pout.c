@@ -533,19 +533,19 @@ while (*s != 0)
     int32_t xx = x;
     int32_t yy = y;
     int rtlfudge = main_righttoleft? -1 : 1;
-  
+
 if (main_righttoleft)
   {
   int32_t last_width, last_r2ladjust;
   fontstr *fs = &(font_list[font_table[f & ~font_small]]);
   int32_t swidth = pout_getswidth(p, f, fs, &last_width, &last_r2ladjust);
-   
+
   /* Adjust the printing position for the string by the length of the string,
   adjusted for the actual bounding box of the final character, and scaled to
   the font size. */
 
   xx += mac_muldiv(swidth - last_width + last_r2ladjust, fdata->size, 1000);
-  }  
+  }
 
     /* Break the music font substring into further substrings as controlled by
     unsupported moving characters. */

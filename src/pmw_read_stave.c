@@ -1100,7 +1100,7 @@ if (srs.pendulay != NULL || srs.pendolay != NULL) error(ERR164, stave); /* Warn 
 if (srs.slurcount > 0)
   {
   error(ERR195, stave);
-  unclosed_slurline = TRUE; 
+  unclosed_slurline = TRUE;
   }
 }
 

@@ -218,8 +218,8 @@ typedef struct {
   uint16_t abspitch;
   uint16_t spitch;
   uint8_t  noteheadstyle;
-  uint8_t  dots; 
-  uint8_t  dots_orig; 
+  uint8_t  dots;
+  uint8_t  dots_orig;
   uint8_t  acc_orig;
   uint8_t  char_orig;
 } b_notestr;
@@ -380,7 +380,7 @@ typedef struct {
   BSTRHEAD;
   int32_t transpose;
   int32_t transpose_letter;
-} b_transposestr;     
+} b_transposestr;
 
 typedef struct {
   BSTRHEAD;
@@ -628,7 +628,7 @@ typedef struct sreadstr {
    int32_t   clef_octave;
    int32_t   hairpinsru;
    int32_t   hairpiny;
-   int32_t   laststemforce; 
+   int32_t   laststemforce;
   uint32_t   longest_note; /* Or rest... */
   uint32_t   matchden;     /* For matching to an incompatible time signature */
   uint32_t   matchnum;     /* For matching to an incompatible time signature */
@@ -804,7 +804,7 @@ typedef struct stavestr {
   uint8_t   stavelines;
   CBOOL     omitempty;
   CBOOL     halfaccs;
-  CBOOL     hadlayequals; 
+  CBOOL     hadlayequals;
 } stavestr;
 
 /* Data pertaining to a movement. Keep in step with initializing values in

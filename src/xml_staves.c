@@ -607,8 +607,8 @@ if (dots > 4)
   xml_Eerror(mi, ERR55);
   dots = 4;
   }
-  
-note->dots = dots;     
+
+note->dots = dots;
 while (dots-- > 0)
   {
   blen /= 2;
@@ -1886,6 +1886,7 @@ for (xml_item *mi = measure->next;
     newnote->accleft = 0;
     newnote->acflags = 0;
     newnote->flags = 0;
+    newnote->dots = 0;
     newnote->length = len_crotchet;
     newnote->yextra = 0;
     newnote->abspitch = 0;
@@ -2890,6 +2891,7 @@ for (xml_item *mi = measure->next;
         newnote->length = (note_duration/divisions) * len_crotchet;
         newnote->notetype = semibreve;
         newnote->flags = nf_centre;
+        newnote->dots = 0;
         }
       else
         {

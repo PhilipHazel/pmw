@@ -244,7 +244,7 @@ Arguments:
   used       the basic minimum width for the note (unmagnified)
   length     the note's musical length (identifies the note)
   flags      the note's flags
-  dots       the note's dots value 
+  dots       the note's dots value
 
 Returns:     the valued of "used" plus the calculated width
 */
@@ -272,10 +272,10 @@ if ((flags & (nf_stemup|nf_invert)) == (nf_stemup|nf_invert) && used < 12400)
 
 /* Extra width for dots or plus - 3000 for the first dot, 3500 for any others.*/
 
-if (dots == 255) 
-  used += 8000; 
+if (dots == 255)
+  used += 8000;
 else if (dots != 0)
-  used += (dots * 3500) - 500;   
+  used += (dots * 3500) - 500;
 
 /* Allow for magnification */
 
@@ -316,8 +316,8 @@ the width here to become non-zero, the spacing in that test will change. */
 if (type >= NOTETYPE_COUNT) { width = 0; type = NOTETYPE_COUNT; }
   else width = nextdata->note_spacing[type];
 
-/* If we don't have an exact note length, first check for a single or double
-dot; otherwise it's a note in an irregular group. */
+/* If we don't have an exact note length, first check for dots; otherwise it's
+a note in an irregular group. */
 
 if (length != thislength)
   {
@@ -328,6 +328,12 @@ if (length != thislength)
     }
   else if (extra == (3*thislength)/4)
     width = mac_muldiv(width, 3*curmovt->dotspacefactor - 1000, 2000);
+
+  else if (extra == (7*thislength)/8)
+    width = mac_muldiv(width, 4*curmovt->dotspacefactor - 2000, 2000);
+
+  else if (extra == (15*thislength)/16)
+    width = mac_muldiv(width, 5*curmovt->dotspacefactor - 3000, 2000);
 
   /* Breve tuplets are rarer than hen's teeth, so fudge the "next note" spacing
   to make things work. We then set the width as a pro rata amount between the
@@ -538,7 +544,7 @@ Arguments:
   previous      pointer to the previous position item
   prevlength
   prevflags
-  prevdots 
+  prevdots
 
 Returns:        pointer to final inserted item
 */
@@ -576,7 +582,7 @@ rest. */
 pl_accexistedavail = -1;  /* Unset existing accidental available space */
 if (accleft > 0)
   {
-  used = (prevlength < 0)? 0 : pos_typewidth(7250, prevlength, prevflags, 
+  used = (prevlength < 0)? 0 : pos_typewidth(7250, prevlength, prevflags,
     prevdots);
   this = pos_insertXpos(previous, this, posx_acc, accleft, used, FALSE);
   if (xflags == 0) return this;
@@ -600,7 +606,7 @@ if (gracevector[0] > 0)
   if (this >= pl_posptr)
     lastspacing += ((xflags & xf_rrepeat) == 0)? 4000 : 8000;
 
-  used = (prevlength < 0)? 0 : pos_typewidth(7250, prevlength, prevflags, 
+  used = (prevlength < 0)? 0 : pos_typewidth(7250, prevlength, prevflags,
     prevdots);
 
   /* As we process them from right to left, any new ones will be inserted
@@ -658,7 +664,7 @@ if (gracevector[0] > 0)
 /* Compute the space used by the previous note, if any, for the rest of the
 items. */
 
-used = (prevlength < 0)? 0 : pos_typewidth(11000, prevlength, prevflags, 
+used = (prevlength < 0)? 0 : pos_typewidth(11000, prevlength, prevflags,
   prevdots);
 
 /* Time Signature(s) */
@@ -2561,7 +2567,7 @@ else for (curstave = 0; curstave <= curmovt->laststave; curstave++)
   if (p == NULL) continue;
 
   flags = 0;
-  dots = 0; 
+  dots = 0;
   length = 0;            /* length of previous note */
   prev = pl_postable;    /* previous pl_postable entry */
   beambreak2 = FALSE;    /* secondary beambreak detected */
@@ -2790,7 +2796,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
   xflags = 0;                     /* flags for encountered items */
   prevlength = -1;                /* length of previous note */
   prevflags = 0;                  /* flags on previous note/chord */
-  prevdots = 0;                   /* dots on previous note/chord */ 
+  prevdots = 0;                   /* dots on previous note/chord */
   ensured = 0;
   gracevector[0] = 0;             /* count of gracenotes */
   timevector[0] = 0;              /* count of time signatures */
@@ -2827,7 +2833,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
       else
         {
         uint32_t thisflags = 0;
-        uint32_t thisdots = note->dots; 
+        uint32_t thisdots = note->dots;
         int32_t accleft = 0;
 
         /* Collect the maximum accidental width for a chord, and also check
@@ -2930,7 +2936,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
 
         prevlength = length;
         prevflags = thisflags;
-        prevdots = thisdots; 
+        prevdots = thisdots;
         moff += length;
         }
       break;
@@ -2947,7 +2953,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
       previous = NULL;
       prevlength = -1;
       prevflags = 0;
-      prevdots = 0; 
+      prevdots = 0;
       break;
 
       case b_lrepeat:

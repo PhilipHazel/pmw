@@ -18,7 +18,7 @@ when PMW is built, but this is currently experimental and not yet of production
 quality.
 
 A full description of PMW and its markup language is given in the reference
-manual. This man page just summarizes the command line options.
+manual. This man page just summarises the command line options.
 .in 0
 .SH "GENERAL OPTIONS"
 .rs
@@ -232,7 +232,7 @@ written as MusicXML. The default is the first movement. \fB-xmlmovement\fR and
 \fB-x<\fIselectors\fR>\fR
 This sets one or more options for MusicXML output. They must be separated from
 each other and from \fB-x\fP by plus signs, with no white space. A list of
-possible options is output when PMW is called with the \fB--help\fP option. The 
+possible options is output when PMW is called with the \fB--help\fP option. The
 PMW manual describes what each one does.
 .
 .
@@ -258,6 +258,10 @@ bars.
 Set the maximum number of errors before the program gives up. The default is
 40. This option is provided mainly so that an error test can generate a large
 number of errors. \fB-em\fR is an abbreviation for \fB-errormaximum\fR.
+.TP
+\fB-MacOSapp\fR \fI<directory>\fR
+Specify the resource directory when PMW is run from within a MacOS app
+(experimental).
 .TP
 \fB-MF\fR \fI<directory>\fR
 Search the given colon-separated list of directories for PMW's music fonts,
@@ -294,6 +298,6 @@ warnings, and EXIT_FAILURE (usually 1) otherwise.
   Email domain: \fIgmail.com\fR
 .sp
 .in 0
-Last updated: 04 October 2025
+Last updated: 19 December 2025
 .br
 Copyright (c) 2025 Philip Hazel

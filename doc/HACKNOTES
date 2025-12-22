@@ -81,7 +81,7 @@ are saved in various global variables.
 data structures in memory (more details below). The code for reading an input
 file in PMW's own format is mainly in the source files whose names begin
 "pmw_read_", plus the file called preprocess.c. The files whose names begin
-"xml" contain code for reading input in MusicXML format, an optional feature
+"xml_" contain code for reading input in MusicXML format, an optional feature
 that is experimental (and incomplete).
 
 3. Pagination: The next phase processes the in-memory data, assigning bars to
@@ -95,9 +95,13 @@ functions in files whose names start with "set". These in turn call either the
 functions in ps.c or those in pdf.c. Some sub-functions used in both formats
 are in the file pout.c.
 
-5. MIDI: If MIDI output has been requested, there is a final phase in which the
+5. MIDI: If MIDI output has been requested, there is another phase in which the
 code in the midi.c file scans the music data (not the pagination data) to
 generate a MIDI file.
+
+6. Similarly, if MusicXML output has been requested, there is a final phase in 
+which the music and pagination data are used by the code in the xmlout.c file 
+to write one or more MusicXML output files.
 
 The names of source modules not mentioned above should give a clue to their
 contents. For example, "font.c" is all about font handling, and "transpose"

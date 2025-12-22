@@ -1836,10 +1836,10 @@ for (;;)
 
     if ((pn_notetype == dsquaver && dots > 3) ||
         (pn_notetype == hdsquaver && dots > 2))
-      {   
+      {
       error(ERR199);
-      brs.checklength = FALSE; 
-      } 
+      brs.checklength = FALSE;
+      }
 
     /* If only one dot, look for '.+' and leave temporarily leave dots at zero
     for that; otherwise we have just one dot. */

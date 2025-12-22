@@ -552,7 +552,7 @@ for (int count = 0;
       else if (dots != 0)
         {
         adjustL += 4000;
-        for (int i = 1; i < dots; i++) adjustL += 3500;
+        for (usint ii = 1; ii < dots; ii++) adjustL += 3500;
         }
       }
 

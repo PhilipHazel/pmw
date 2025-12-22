@@ -733,7 +733,7 @@ while (*s != 0 && count < length)
   int32_t use_size = size;
 
   while (count++ < length && *s != 0 && PFONT(*s) == f) s++;
-  save = *s;
+  save = (count >= length)? 0 : *s;
   *s = 0;        /* Temporary terminator */
 
   if ((f & 0x80) != 0)  /* Small caps */
@@ -1681,6 +1681,7 @@ for (;;)
 
   for (int i = 0; i < ornament_pending_count; i++)
     {
+    int offset;
     b_ornamentstr *orn = ornament_pending[i];
     if (orn->ornament < or_ferm) continue;
 
@@ -1731,7 +1732,7 @@ for (;;)
       /* No renderer I've yet tried displays these correctly. */
 
       default:
-      int offset = orn->ornament - or_nat;   /* Offset into table */
+      offset = orn->ornament - or_nat;   /* Offset into table */
       if (offset % 3 == 1) X(X_SQUARE_ACC);
       PO("<accidental-mark");
       if (offset % 3 != 0) PC(" bracket=\"yes\"");
@@ -2167,7 +2168,7 @@ for (;;)
 
   if (underlay_pending_count > 0)
     {
-    char numberbuff[16] = {0};
+    char numberbuff[32] = {0};
     BOOL number = MX(mx_numberlyrics) || underlay_pending_count > 1;
 
     for (int i = 0; i < underlay_pending_count; i++)
@@ -2993,6 +2994,14 @@ barstr *bnext = (st->barcount > bar + 1)? st->barindex[bar + 1] : NULL;
 
 for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
   {
+  int end_ending;                 /* These declarations are here because     */
+  const char *end_ending_type;    /* strictly one cannot have a declaration  */
+  headstr *hd;                    /* that follows a label because a label is */
+  uint32_t fnfont;                /* attached to a statement. Strict syntax  */
+  b_hairpinstr *h;                /* checking grumbles about a declaration   */
+  b_nbarstr *nb;                  /* that follows a case label.              */
+  uint32_t backby;
+
   switch(b->type)
     {
     case b_start:
@@ -3046,8 +3055,8 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_barline:
-    int end_ending = 0;
-    const char *end_ending_type = NULL;
+    end_ending = 0;
+    end_ending_type = NULL;
 
     /* Deal with the end of a 1st or 2nd (etc) time bar. */
 
@@ -3135,8 +3144,8 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     "direction-type" in order to satisfy the schema. */
 
     case b_footnote:
-    headstr *hd = &(((b_footnotestr *)b)->h);
-    uint32_t fnfont = PFTOP(hd->string[0][0]);
+    hd = &(((b_footnotestr *)b)->h);
+    fnfont = PFTOP(hd->string[0][0]);
 
     for (uint32_t *s = hd->string[0]; *s != 0; s++)
       {
@@ -3157,7 +3166,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_hairpin:
-    b_hairpinstr *h = (b_hairpinstr *)b;
+    h = (b_hairpinstr *)b;
     PA("<direction placement=\"%s\">", ((h->flags & hp_below) == 0)?
       "above":"below");
     PA("<direction-type>");
@@ -3207,7 +3216,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     break;
 
     case b_nbar:
-    b_nbarstr *nb = (b_nbarstr *)b;
+    nb = (b_nbarstr *)b;
     PA("<barline location=\"left\">");
     element_set_font("ending", xml_movt->fonttype_repeatbar,
       xml_movt->fontsizes->fontsize_repno.size);
@@ -3245,7 +3254,7 @@ for (barstr *b = st->barindex[bar]; b != NULL; b = (barstr *)b->next)
     do not want to lose any precision, so do things the hard way. */
 
     case b_reset:
-    uint32_t backby = xml_moff - ((b_resetstr *)b)->moff;
+    backby = xml_moff - ((b_resetstr *)b)->moff;
     backby = (backby / len_crotchet) * divisions +
       ((backby % len_crotchet) * divisions)/len_crotchet;
     PA("<backup>");
