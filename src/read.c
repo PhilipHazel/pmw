@@ -2,9 +2,9 @@
 *         PMW general reading functions          *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: October 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -466,27 +466,27 @@ read_linenumber = 0;  /* No longer in reading phase */
 
 if (read_uunext > 0)
   {
-  fprintf(stderr, "** Warning: the following unsupported Unicode code point%s "
+  (void)fprintf(stderr, "** Warning: the following unsupported Unicode code point%s "
     "been changed\nto U+%04X:", (read_uunext == 1)? " has":"s have",
     UNKNOWN_CHAR_S);
-  while (read_uunext > 0) fprintf(stderr, " U+%04X",
+  while (read_uunext > 0) (void)fprintf(stderr, " U+%04X",
     read_unsupported_unicode[--read_uunext]);
-  if (read_uuoverflow) fprintf(stderr, " ...");
-  fprintf(stderr, "\n\n");
+  if (read_uuoverflow) (void)fprintf(stderr, " ...");
+  (void)fprintf(stderr, "\n\n");
   }
 
 /* Warn for invalid Unicode code points in non-standardly encode fonts. */
 
 if (read_uinvnext > 0)
   {
-  fprintf(stderr, "** Warning: in one or more non-standardly encoded fonts, "
+  (void)fprintf(stderr, "** Warning: in one or more non-standardly encoded fonts, "
     "the following\nunsupported Unicode code point%s been changed to a "
     "font-specific code point\nor to 0x%02X in "
     "the Music font:", (read_uinvnext == 1)? " has":"s have", UNKNOWN_CHAR_N);
-  while (read_uinvnext > 0) fprintf(stderr, " U+%04X",
+  while (read_uinvnext > 0) (void)fprintf(stderr, " U+%04X",
     read_invalid_unicode[--read_uinvnext]);
-  if (read_uinvoverflow) fprintf(stderr, " ...");
-  fprintf(stderr, "\n\n");
+  if (read_uinvoverflow) (void)fprintf(stderr, " ...");
+  (void)fprintf(stderr, "\n\n");
   }
 
 DEBUG(D_movtflags)

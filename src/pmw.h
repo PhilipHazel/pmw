@@ -2,17 +2,17 @@
 *              Main header for PMW               *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: December 2025 */
+/* This file last modified: January 2026 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
-#define PMW_VERSION "5.33"
-#define PMW_DATE    "22-December-2025"
-#define COPYRIGHT   "Copyright (c) Philip Hazel 2025"
+#define PMW_VERSION "5.34-DEV"
+#define PMW_DATE    "06-January-2026"
+#define COPYRIGHT   "Copyright (c) Philip Hazel 2026"
 
 /* Standard C headers */
 
@@ -371,6 +371,11 @@ debug decoding. */
 #define TRACE(...)     if ((debug_selector & D_trace) != 0) \
                          (void)fprintf(stderr, __VA_ARGS__)
 #define eprintf(...)   (void)fprintf(stderr, __VA_ARGS__)
+#define Cfprintf(...)  checked_fprintf(__VA_ARGS__)
+#define Vfprintf(...)  if (fprintf(__VA_ARGS__) < 0) \
+  error(ERR201, "fprintf", strerror(errno))
+#define Vvfprintf(...)  if (vfprintf(__VA_ARGS__) < 0) \
+  error(ERR201, "vfprintf", strerror(errno))
 
 /* Error numbers, named for ease of finding. */
 
@@ -394,7 +399,8 @@ enum error_number {
   ERR160,ERR161,ERR162,ERR163,ERR164,ERR165,ERR166,ERR167,ERR168,ERR169,
   ERR170,ERR171,ERR172,ERR173,ERR174,ERR175,ERR176,ERR177,ERR178,ERR179,
   ERR180,ERR181,ERR182,ERR183,ERR184,ERR185,ERR186,ERR187,ERR188,ERR189,
-  ERR190,ERR191,ERR192,ERR193,ERR194,ERR195,ERR196,ERR197,ERR198,ERR199
+  ERR190,ERR191,ERR192,ERR193,ERR194,ERR195,ERR196,ERR197,ERR198,ERR199,
+  ERR200,ERR201
 };
 
 /* Types of input file */

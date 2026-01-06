@@ -2,11 +2,13 @@
 *       PMW prototypes for global functions      *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: December 2025 */
+/* This file last modified: January 2026 */
 
 /* -------- General functions -------- */
+
+extern int          checked_fprintf(FILE *, const char *, ...);
 
 extern void         debug_bar(const char *);
 extern void         debug_header(void);

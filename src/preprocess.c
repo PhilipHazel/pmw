@@ -2,9 +2,9 @@
 *          PMW preprocess one input line         *
 *************************************************/
 
-/* Copyright Philip Hazel 2022 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: July 2022 */
+/* This file last modified: January 2026 */
 
 /* This file contains code for handling pre-processing directives. */
 
@@ -29,7 +29,7 @@ BOOL was_include = FALSE;
 read_nextword();
 read_sigcNL();
 
-DEBUG(D_preprocess) fprintf(stderr, "preprocess *%s\n", read_wordbuffer);
+DEBUG(D_preprocess) (void)fprintf(stderr, "preprocess *%s\n", read_wordbuffer);
 
 /* "if", "else", and "fi" must always be processed, whether or not we are
 currently skipping. */
@@ -42,7 +42,7 @@ if (Ustrcmp(read_wordbuffer, "if") == 0)
     read_skipdepth++;
     read_i = main_readlength;
     read_c = '\n';
-    DEBUG(D_preprocess) fprintf(stderr, "already skipping\n");
+    DEBUG(D_preprocess) (void)fprintf(stderr, "already skipping\n");
     return;
     }
 
@@ -192,7 +192,7 @@ if (Ustrcmp(read_wordbuffer, "if") == 0)
   /* Decision taken; act appropriately */
 
   if (OK) read_okdepth++; else read_skipdepth++;
-  DEBUG(D_preprocess) fprintf(stderr, "skip=%d ok=%d\n", read_skipdepth,
+  DEBUG(D_preprocess) (void)fprintf(stderr, "skip=%d ok=%d\n", read_skipdepth,
     read_okdepth);
   return;
   }
@@ -216,7 +216,7 @@ if (Ustrcmp(read_wordbuffer, "else") == 0)
       }
     else error_skip(ERR11, '\n', "\"*else\"");
     }
-  DEBUG(D_preprocess) fprintf(stderr, "skip=%d ok=%d\n", read_skipdepth,
+  DEBUG(D_preprocess) (void)fprintf(stderr, "skip=%d ok=%d\n", read_skipdepth,
     read_okdepth);
   return;
   }
@@ -229,7 +229,7 @@ if (Ustrcmp(read_wordbuffer, "fi") == 0)
   if (read_skipdepth > 0) read_skipdepth--; else
     if (read_okdepth > 0) read_okdepth--;
       else error_skip(ERR11, '\n', "\"*fi\"");
-  DEBUG(D_preprocess) fprintf(stderr, "skip=%d ok=%d\n", read_skipdepth,
+  DEBUG(D_preprocess) (void)fprintf(stderr, "skip=%d ok=%d\n", read_skipdepth,
     read_okdepth);
   return;
   }
@@ -239,7 +239,7 @@ if (Ustrcmp(read_wordbuffer, "fi") == 0)
 
 if (read_skipdepth >  0)
   {
-  DEBUG(D_preprocess) fprintf(stderr, "skipping\n");
+  DEBUG(D_preprocess) (void)fprintf(stderr, "skipping\n");
   return;
   }
 
@@ -360,10 +360,10 @@ if (Ustrcmp(read_wordbuffer, "define") == 0)
 
   DEBUG(D_macro)
     {
-    fprintf(stderr, "defined macro \"%s\" argcount=%d\n", p->name, argcount);
-    fprintf(stderr, "  replacement: >%s<\n", rep);
+    (void)fprintf(stderr, "defined macro \"%s\" argcount=%d\n", p->name, argcount);
+    (void)fprintf(stderr, "  replacement: >%s<\n", rep);
     for (i = 0; i < argcount; i++)
-      fprintf(stderr, "  %d %s\n", i+1, mm->args[i]);
+      (void)fprintf(stderr, "  %d %s\n", i+1, mm->args[i]);
     }
 
   if (!tree_insert(&macro_tree, p)) error(ERR16, read_wordbuffer);

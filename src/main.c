@@ -2,9 +2,9 @@
 *        PMW entry point and initialization      *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: December 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -457,7 +457,7 @@ while (Ufgets(line, 60, f) != NULL)
 /* An empty name marks the end of the list */
 
 *p = 0;
-fclose(f);
+if (fclose(f) != 0) error(ERR200, "MIDI translation file", strerror(errno));
 }
 
 
@@ -1066,7 +1066,7 @@ else
           while (isspace(*p)) p++;
           }
         }
-      fclose(f);
+      if (fclose(f) != 0) error(ERR200, ".pmwrc file", strerror(errno));
 
       /* Check that what we have obtained from the .pmwrc file is a complete
       set of options; we don't want to end up with one that expects a data
@@ -1183,7 +1183,7 @@ Returns:   nothing
 static void
 tidy_up(void)
 {
-if (read_filehandle != NULL) fclose(read_filehandle);
+if (read_filehandle != NULL) (void)fclose(read_filehandle);
 free(font_list);
 
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
@@ -1366,7 +1366,8 @@ print_pageorigin =
 
 main_state = STATE_WRITE;
 if (PDF) pdf_go(); else ps_go();
-if (out_file != stdout) fclose(out_file);
+if (out_file != stdout && fclose(out_file) != 0) error(ERR200,
+  PDF? "PDF file" : "PostScript file", strerror(errno));
 main_state = STATE_ENDING;
 
 DEBUG(D_barO) debug_bar("After writing main output");

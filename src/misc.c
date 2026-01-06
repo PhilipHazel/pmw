@@ -2,9 +2,9 @@
 *       PMW miscellaneous utility functions      *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: January 2021 */
-/* This file last modified: October 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -24,6 +24,24 @@ static int accboundtable[] = { 4000, 0, 0, 4000, 0, -4000, -4000, 0 };
 static int32_t resttable[] = {
   12000, 12000, 10000, 16000, 12000, 12000, 16000, 16000, 16000,  16000,
    8000, 10000,  8000,  2000,  4000,     0,     0, -4000, -8000, -12000 };
+
+
+
+/*************************************************
+*           Checked fprintf call                 *
+*************************************************/
+
+int
+checked_fprintf(FILE *f, const char *format, ...)
+{
+int rc;
+va_list ap;
+va_start(ap, format);
+
+rc = vfprintf(f, format, ap);
+if (rc < 0) error(ERR201, "vfprintf", strerror(errno));  /* Hard */
+return rc;
+}
 
 
 

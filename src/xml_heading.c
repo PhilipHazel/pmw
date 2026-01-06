@@ -2,8 +2,8 @@
 *            MusicXML input for PMW              *
 *************************************************/
 
-/* Copyright (c) Philip Hazel, 2025 */
-/* This file last modified: February 2025 */
+/* Copyright (c) Philip Hazel, 2026 */
+/* This file last modified: January 2026 */
 
 
 /* This module contains functions for processing heading and general
@@ -242,10 +242,11 @@ if (main_verify && id != NULL)
       FALSE);
     if (software != NULL || encoding_date != NULL)
       {
-      if (software != NULL) fprintf(stderr, "MusicXML input by %s\n", software);
-      if (encoding_date != NULL) fprintf(stderr, "MusicXML input date: %s\n",
-        encoding_date);
-      fprintf(stderr, "\n");
+      if (software != NULL)
+        (void)fprintf(stderr, "MusicXML input by %s\n", software);
+      if (encoding_date != NULL)
+        (void)fprintf(stderr, "MusicXML input date: %s\n", encoding_date);
+      (void)fprintf(stderr, "\n");
       }
     }
   }

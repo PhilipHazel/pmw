@@ -2,9 +2,9 @@
 *            PMW debugging functions             *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: December 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -35,7 +35,6 @@ static const char *fonttype_names[] = {
 static const char *stemswaptype[] = {
   "default", "up", "down", "left", "right" };
 
-#define fp  (void)fprintf
 #define sfk string_format_key
 
 

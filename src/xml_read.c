@@ -2,9 +2,9 @@
 *              MusicXML input reading            *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: January 2022 */
-/* This file last modified: April 2022 */
+/* This file last modified: January 2026 */
 
 /* This file contains the top-level function for MusicXML input files. */
 
@@ -41,15 +41,16 @@ if (tn->name[0] == '+')
   uschar *eptr = Ustrrchr(tn->name, ':');
   uschar *vptr = Ustrchr(tn->name, '=');
   if (vptr == NULL)
-    fprintf(stderr, "'%.*s' in <%s>\n", (int)(eptr - tn->name - 1), tn->name + 1,
-      eptr + 1);
+    (void)fprintf(stderr, "'%.*s' in <%s>\n", (int)(eptr - tn->name - 1), 
+      tn->name + 1, eptr + 1);
   else
-    fprintf(stderr, "'%.*s' value \"%.*s\" in <%s>\n", (int)(vptr - tn->name - 1),
-      tn->name + 1, (int)(eptr - vptr - 1), vptr + 1, eptr + 1);
+    (void)fprintf(stderr, "'%.*s' value \"%.*s\" in <%s>\n", 
+      (int)(vptr - tn->name - 1), tn->name + 1, (int)(eptr - vptr - 1), 
+      vptr + 1, eptr + 1);
   }
 else
   {
-  fprintf(stderr, "<%s>\n", tn->name);
+  (void)fprintf(stderr, "<%s>\n", tn->name);
   }
 if (tn->right != NULL) print_unknown_tree(tn->right);
 }

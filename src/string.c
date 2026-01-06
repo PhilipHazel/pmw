@@ -546,14 +546,14 @@ char *s = fbuffer + findex;
 findex += BSIZ;
 if (findex >= sizeof(fbuffer)) findex = 0;
 
-if (k == key_N) sprintf(s, "N");
+if (k == key_N) (void)sprintf(s, "N");
 else if (k >= key_X)
   {
-  sprintf(s, "X%d", k - key_X + 1);
+  (void)sprintf(s, "X%d", k - key_X + 1);
   }
 else
   {
-  sprintf(s, "%c%s", (k % 7) + 'A', keysuffix[k/7]);
+  (void)sprintf(s, "%c%s", (k % 7) + 'A', keysuffix[k/7]);
   }
 
 return s;
@@ -892,7 +892,7 @@ while (*s != 0)
 
     /* Page or bar repeat number wanted */
 
-    sprintf(temp, "%d", pn);
+    (void)sprintf(temp, "%d", pn);
     for (char *p = temp; *p != 0; p++)
       {
       int32_t h;
@@ -1109,9 +1109,9 @@ if (call_b2pf)  /* The string contains a font that is set up for B2PF */
         error(ERR157, buffer);  /* Not hard so we can show the string */
         for (uint32_t *pp = t; pp < s; pp++) *pp |= f;
         *s = 0;
-        fprintf(stderr, "** While processing ");
+        (void)fprintf(stderr, "** While processing ");
         debug_string(t);
-        fprintf(stderr, "\n** pmw processing abandoned\n");
+        (void)fprintf(stderr, "\n** pmw processing abandoned\n");
         exit(EXIT_FAILURE);
         }
 
@@ -1734,7 +1734,7 @@ for (read_nextc(); read_c != '\"' && read_c != ENDFILE; read_nextc())
         int t = (active_transpose == NO_TRANSPOSE)? 0 : active_transpose/2;
         if (p + 8 > string_max)
           expand_string_buffer(&block, &yield, &mem_size, &string_max);
-        sprintf(buff, "%d", t);
+        (void)sprintf(buff, "%d", t);
         for (char *pp = buff; *pp != 0; pp++) yield[p++] = *pp | set_fontid;
         goto NEXTSTRINGCHAR;
         }

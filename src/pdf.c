@@ -2,9 +2,9 @@
 *                  PMW PDF functions             *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2024 */
-/* This file last modified: March 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -784,7 +784,7 @@ switch(i)
     if (Ustrcmp(buffer2, "/FontType 3 def\n") == 0)
       error(ERR187, buffer1);  /* Hard: type 3 not supported */
     }
-  fclose(f);
+  (void)fclose(f);
   error(ERR186, buffer1);  /* Hard: unrecognized file */
   break;
   }
@@ -2399,9 +2399,9 @@ uint32_t lenstart;
 uint32_t filecount = 0;
 uint32_t count = 0;
 
-filecount += fprintf(out_file, "<</Filter/ASCII85Decode\n");
-if (subtype != NULL) filecount += fprintf(out_file, "/Subtype/%s\n", subtype);
-filecount += fprintf(out_file, "/Length %d 0 R>>\nstream\n", length_number);
+filecount += Cfprintf(out_file, "<</Filter/ASCII85Decode\n");
+if (subtype != NULL) filecount += Cfprintf(out_file, "/Subtype/%s\n", subtype);
+filecount += Cfprintf(out_file, "/Length %d 0 R>>\nstream\n", length_number);
 
 acc = 0;
 n = 0;
@@ -2427,11 +2427,11 @@ while ((c = fgetc(f)) != EOF)
         acc /= 85;
         }
       coded[0] = acc + '!';
-      filecount += fprintf(out_file, "%s", coded);
+      filecount += Cfprintf(out_file, "%s", coded);
 
       if ((count += 5) >= 75)
         {
-        filecount += fprintf(out_file, "\n");
+        filecount += Cfprintf(out_file, "\n");
         count = 0;
         }
       }
@@ -2450,17 +2450,17 @@ if (n != 0)
     acc /= 85;
     }
   coded[0] = acc + '!';
-  filecount += fprintf(out_file, "%.*s", n + 1, coded);
+  filecount += Cfprintf(out_file, "%.*s", n + 1, coded);
   }
 
 /* Finally, the EOD sequence. We then have the length of the stream item and
 can update the length object, which always follows the font object. Then end
 the stream. */
 
-filecount += fprintf(out_file, "~>");
+filecount += Cfprintf(out_file, "~>");
 EO(length, "%d\n", filecount - lenstart);  /* Update the length object */
-filecount += fprintf(out_file, "\nendstream\n");
-fclose(f);
+filecount += Cfprintf(out_file, "\nendstream\n");
+if (fclose(f) != 0) error(ERR200, "font file", strerror(errno));
 return filecount;
 }
 
@@ -2586,7 +2586,7 @@ for (int i = 0; i < font_tablen; i++)
 
 /* Initializing stuff at the start of the PDF file. */
 
-filecount += fprintf(out_file, "%%PDF-2.0\n%c%c%c%c%c\n", 0x25, 0xb5, 0xb5,
+filecount += Cfprintf(out_file, "%%PDF-2.0\n%c%c%c%c%c\n", 0x25, 0xb5, 0xb5,
   0xb5, 0xb5);
 
 /* Create the first PDF object block in memory by hand. This means that
@@ -3010,7 +3010,7 @@ objectcount = 1;
 for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
   {
   p->file_offset = filecount;                    /* Save for index */
-  filecount += fprintf(out_file, "%d 0 obj\n", objectcount++);
+  filecount += Cfprintf(out_file, "%d 0 obj\n", objectcount++);
 
   /* If the object starts with the text "*Font PMW-Music" it is a placeholder
   for inserting the music font. There's a testing option for omitting this,
@@ -3036,7 +3036,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
     else
       {
       filecount += fwrite(p->data, 1, p->data_used, out_file);
-      fclose(f);
+      if (fclose(f) != 0) error(ERR200, "font file", strerror(errno));
       }
     }
 
@@ -3045,9 +3045,9 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
 
   else if (p->data_used >=7 && Ustrncmp(p->data, "stream\n", 7) == 0)
     {
-    filecount += fprintf(out_file, "<</Length %lu>>\n", p->data_used - 7);
+    filecount += Cfprintf(out_file, "<</Length %lu>>\n", p->data_used - 7);
     filecount += fwrite(p->data, 1, p->data_used, out_file);
-    filecount += fprintf(out_file, "endstream\n");
+    filecount += Cfprintf(out_file, "endstream\n");
     }
 
   /* Not a stream object. In testing mode there may be empty objects where font
@@ -3058,7 +3058,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
 
   /* Terminate the object */
 
-  filecount += fprintf(out_file, "endobj\n");
+  filecount += Cfprintf(out_file, "endobj\n");
   }
 
 /* At this point, objectcount is one more than the number of objects, which is

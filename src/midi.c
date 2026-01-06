@@ -2,9 +2,9 @@
 *            PMW MIDI output generation          *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: August 2021 */
-/* This file last modified: August 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -949,7 +949,7 @@ if (midi_file == NULL) error(ERR23, midi_filename, strerror(errno));  /* Hard */
 
 /* Write header chunk */
 
-fprintf(midi_file, "MThd");
+Vfprintf(midi_file, "MThd");
 write32(6);                     /* length */
 write16(0);                     /* format */
 write16(1);                     /* number of tracks */
@@ -957,7 +957,7 @@ write16(24);                    /* ticks per crotchet (MIDI standard) */
 
 /* Now write the track, leaving space for the length */
 
-fprintf(midi_file, "MTrk");
+Vfprintf(midi_file, "MTrk");
 write32(0);
 file_count = 0;                 /* For computing the length */
 
@@ -1076,7 +1076,7 @@ writebyte(0);
 fseek(midi_file, 18, SEEK_SET);
 write32(file_count);
 
-fclose(midi_file);
+if (fclose(midi_file) != 0) error(ERR200, "MIDI file", strerror(errno));
 }
 
 /* End of midi.c */

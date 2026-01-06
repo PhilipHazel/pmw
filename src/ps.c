@@ -2,9 +2,9 @@
 *             PMW PostScript functions           *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: May 2021 */
-/* This file last modified: July 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -334,13 +334,13 @@ for (p = s; *p != 0; p++)
     }
 
   if (pc == '(' || pc == ')' || pc == '\\')
-    ps_chcount += fprintf(out_file, "\\%c", pc);
+    ps_chcount += Cfprintf(out_file, "\\%c", pc);
   else if (pc >= 32 && pc <= 126)
     {
     fputc(pc, out_file);
     ps_chcount++;
     }
-  else ps_chcount += fprintf(out_file, "\\%03o", pc);
+  else ps_chcount += Cfprintf(out_file, "\\%03o", pc);
 
   /* If there is another character, scan the kerning table */
 
@@ -1235,7 +1235,7 @@ while (Ufgets(read_stringbuffer, read_stringbuffer_size, f) != NULL)
 if (read_stringbuffer[Ustrlen(read_stringbuffer)-1] != '\n')
   fputc('\n', out_file);
 if (insert_eps) fputs("epspicsave restore\n", out_file);
-fclose(f);
+if (fclose(f) != 0) error(ERR200, "included PostScript file", strerror(errno));
 ps_chcount = 0;
 }
 
@@ -1299,7 +1299,7 @@ while ((s = Ufgets(buff, sizeof(buff), f)) != NULL)
   }
 
 if (s == NULL) fprintf(out_file, "\n%%%%EndResource\n\n");
-fclose(f);
+if (fclose(f) != 0) error(ERR200, "included font file", strerror(errno));
 }
 
 

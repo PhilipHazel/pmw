@@ -2,9 +2,9 @@
 *              PMW font functions                *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: January 2021 */
-/* This file last modified: September 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -469,7 +469,7 @@ if (fu != NULL)
     ucount++;
     }
 
-  (void)fclose(fu);
+  if (fclose(fu) != 0) error(ERR200, ".utr file", strerror(errno));
 
   /* Sort the data by Unicode value, check for duplicates, and remember with
   the font. */
@@ -754,7 +754,7 @@ qsort(kerntable, fs->kerncount, sizeof(kerntablestr), kern_table_cmp);
 /* Finished with the AFM file */
 
 ENDKERN:
-(void)fclose(fa);
+if (fclose(fa) != 0) error(ERR200, "AFM file", strerror(errno));
 
 /* Early checking debugging code; retained in the source in case it is ever
 needed again. */

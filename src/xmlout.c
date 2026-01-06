@@ -2,9 +2,9 @@
 *          PMW MusicXML output generation        *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: August 2025 */
-/* This file last modified: December 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -407,12 +407,12 @@ uint32_t pno = xml_movt->barvector[comment_bar];
 uint32_t pnofr = pno & 0xffff;
 pno >>= 16;
 
-fprintf(stderr, "XML output (%d/", current_stave);
-if (pnofr == 0) fprintf(stderr, "%d) ", pno);
-  else fprintf(stderr, "%d.%d) ", pno, pnofr);
+(void)fprintf(stderr, "XML output (%d/", current_stave);
+if (pnofr == 0) (void)fprintf(stderr, "%d) ", pno);
+  else (void)fprintf(stderr, "%d.%d) ", pno, pnofr);
 
-vfprintf(stderr, format, ap);
-fprintf(stderr, "\n");
+(void)vfprintf(stderr, format, ap);
+(void)fprintf(stderr, "\n");
 va_end(ap);
 }
 
@@ -435,9 +435,9 @@ PA(const char *format, ...)
 va_list ap;
 va_start(ap, format);
 for (int i = 0; i < indent; i++) fputc(' ', xml_file);
-(void)vfprintf(xml_file, format, ap);
+Vvfprintf(xml_file, format, ap);
 va_end(ap);
-(void)fprintf(xml_file, "\n");
+Vfprintf(xml_file, "\n");
 indent += 2;
 }
 
@@ -450,9 +450,9 @@ va_list ap;
 va_start(ap, format);
 indent -= 2;
 for (int i = 0; i < indent; i++) fputc(' ', xml_file);
-(void)vfprintf(xml_file, format, ap);
+Vvfprintf(xml_file, format, ap);
 va_end(ap);
-(void)fprintf(xml_file, "\n");
+Vfprintf(xml_file, "\n");
 }
 
 /* Output at current indent with newline, no change to indent. */
@@ -463,9 +463,9 @@ PN(const char *format, ...)
 va_list ap;
 va_start(ap, format);
 for (int i = 0; i < indent; i++) fputc(' ', xml_file);
-(void)vfprintf(xml_file, format, ap);
+Vvfprintf(xml_file, format, ap);
 va_end(ap);
-(void)fprintf(xml_file, "\n");
+Vfprintf(xml_file, "\n");
 }
 
 /* Output at current indent, no newline (leave open) */
@@ -476,7 +476,7 @@ PO(const char *format, ...)
 va_list ap;
 va_start(ap, format);
 for (int i = 0; i < indent; i++) fputc(' ', xml_file);
-(void)vfprintf(xml_file, format, ap);
+Vvfprintf(xml_file, format, ap);
 va_end(ap);
 }
 
@@ -487,7 +487,7 @@ PC(const char *format, ...)
 {
 va_list ap;
 va_start(ap, format);
-(void)vfprintf(xml_file, format, ap);
+Vvfprintf(xml_file, format, ap);
 va_end(ap);
 }
 
@@ -498,9 +498,9 @@ PCA(const char *format, ...)
 {
 va_list ap;
 va_start(ap, format);
-(void)vfprintf(xml_file, format, ap);
+Vvfprintf(xml_file, format, ap);
 va_end(ap);
-(void)fprintf(xml_file, "\n");
+Vfprintf(xml_file, "\n");
 indent += 2;
 }
 
@@ -3521,7 +3521,7 @@ outxml_write_ignored(void)
 {
 if (X_ignored == 0 && dirs_ignored_count == 0) return;
 
-fprintf(stderr,
+(void)fprintf(stderr,
   "\nSome PMW items cannot be translated to MusicXML. A few items that are ignored\n"
   "by default can be requested by a -x option. Items that were wholly or partially\n"
   "ignored while generating XML output are listed below. This is probably not\n"
@@ -3530,13 +3530,13 @@ fprintf(stderr,
 for (int i = 0; i < X_COUNT; i++)
   {
   if ((X_ignored & 1l << i) != 0)
-    fprintf(stderr, "  %s\n", X_ignored_message[i]);
+    (void)fprintf(stderr, "  %s\n", X_ignored_message[i]);
   }
 
 for (int i = 0; i < dirs_ignored_count; i++)
-  fprintf(stderr, "  Header directive \"%s\"\n", nondirs[dirs_ignored[i]]);
+  (void)fprintf(stderr, "  Header directive \"%s\"\n", nondirs[dirs_ignored[i]]);
 
-fprintf(stderr, "\n");
+(void)fprintf(stderr, "\n");
 }
 
 
@@ -4373,7 +4373,7 @@ for (usint stave = 1; stave <= laststave; stave++)
 /* Write ending boilerplate and close the file. */
 
 PB("</score-partwise>");
-fclose(xml_file);
+if (fclose(xml_file) != 0) error(ERR200, "XML file", strerror(errno));
 }
 
 /* End of xmlout.c */

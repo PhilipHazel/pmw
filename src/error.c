@@ -2,9 +2,9 @@
 *            PMW error message handling          *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: December 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -301,8 +301,10 @@ aborts the run after outputting additional information. */
 { ec_major,   "figured bass string is too long for conversion to MusicXML - truncated" },
 { ec_warning, "figured bass string not fully converted to MusicXML - remainder is \"%s\"" },
 { ec_failed,  "MusicXML output cannot be generated (unclosed slur or line)" },
-{ ec_major,   "Too many augmentation dots for short note" }
-
+{ ec_major,   "Too many augmentation dots for short note" },
+/* 200-204 */
+{ ec_warning, "unexpected fclose error for %s: %s" },
+{ ec_failed,  "Unexpected %s error: %s" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

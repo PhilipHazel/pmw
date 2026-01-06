@@ -2,9 +2,9 @@
 *         PMW memory handling functions          *
 *************************************************/
 
-/* Copyright Philip Hazel 2021 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: June 2021 */
+/* This file last modified: January 2026 */
 
 /* This module handles two types of memory management. "Independent" blocks are
 used for large items such as font tables. Smaller blocks are doled out from
@@ -84,7 +84,7 @@ void *
 mem_get_independent(size_t size)
 {
 void *new;
-DEBUG(D_memorydetail) fprintf(stderr, "Get independent %zd\n", size);
+DEBUG(D_memorydetail) (void)fprintf(stderr, "Get independent %zd\n", size);
 size += sizeof(char *);
 new = malloc(size);
 if (new == NULL) error(ERR0, "", "mem_get_independent()", size);  /* Hard */
@@ -113,7 +113,7 @@ void *yield;
 size = (size + sizeof(char *) - 1);
 size -= size % sizeof(char *);
 
-DEBUG(D_memorydetail) fprintf(stderr, "Get small %zd (%zd available)\n", size,
+DEBUG(D_memorydetail) (void)fprintf(stderr, "Get small %zd (%zd available)\n", size,
   available);
 
 /* We should never be requesting a block that is bigger than the chunk size.
@@ -125,7 +125,7 @@ if (size > MEMORY_MAXBLOCK) error(ERR1, size, MEMORY_MAXBLOCK);  /* Hard */
 if (available < size)
   {
   char *newblock = malloc(MEMORY_CHUNKSIZE);
-  DEBUG(D_memorydetail) fprintf(stderr, "\nNew small chunk 0x%p - 0x%p\n",
+  DEBUG(D_memorydetail) (void)fprintf(stderr, "\nNew small chunk 0x%p - 0x%p\n",
     (void *)newblock, (void *)(newblock + MEMORY_CHUNKSIZE));
   if (newblock == NULL) error(ERR0, "", "mem_get()", MEMORY_CHUNKSIZE); /* Hard */
   chunk_count++;

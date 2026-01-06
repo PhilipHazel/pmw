@@ -2,9 +2,9 @@
 *        PMW native input reading functions      *
 *************************************************/
 
-/* Copyright Philip Hazel 2024 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2024 */
-/* This file last modified: December 2024 */
+/* This file last modified: January 2026 */
 
 /* This file contains the top-level function and character handling functions
 that are called from the modules that read headings and staves. */
@@ -718,7 +718,7 @@ static size_t
 expand_string(uschar *inbuffer, size_t in, size_t inlen,
   uschar *outbuffer, size_t out, size_t outlen, int nest)
 {
-DEBUG(D_macro) fprintf(stderr, "Macro expand: %s", inbuffer);
+DEBUG(D_macro) (void)fprintf(stderr, "Macro expand: %s", inbuffer);
 
 while (in <= inlen)  /* Include terminating zero to get buffer extension */
   {
@@ -988,7 +988,7 @@ while (in <= inlen)  /* Include terminating zero to get buffer extension */
     }
   }
 
-DEBUG(D_macro) fprintf(stderr, "Expanded: %s", outbuffer);
+DEBUG(D_macro) (void)fprintf(stderr, "Expanded: %s", outbuffer);
 
 return out - 1;  /* Exclude terminating zero */
 }
@@ -1109,7 +1109,9 @@ for (;;)   /* Loop until a character is obtained or very end is reached. */
     /* Handle reaching the end of an input file. Set up a suitable text for
     error reflection, but also set up as an empty line. */
 
-    fclose(read_filehandle);
+    if (fclose(read_filehandle) != 0) error(ERR200,
+      (read_filestackptr != 0)? "included input file" : "input file",
+      strerror(errno));
     read_filehandle = NULL;
 
     Ustrcpy(main_readbuffer, "---- End of file ----\n");
