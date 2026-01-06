@@ -370,12 +370,14 @@ debug decoding. */
 #define DEBUG(x)       if ((debug_selector & (x)) != 0)
 #define TRACE(...)     if ((debug_selector & D_trace) != 0) \
                          (void)fprintf(stderr, __VA_ARGS__)
+
 #define eprintf(...)   (void)fprintf(stderr, __VA_ARGS__)
 #define Cfprintf(...)  checked_fprintf(__VA_ARGS__)
 #define Vfprintf(...)  if (fprintf(__VA_ARGS__) < 0) \
   error(ERR201, "fprintf", strerror(errno))
 #define Vvfprintf(...)  if (vfprintf(__VA_ARGS__) < 0) \
   error(ERR201, "vfprintf", strerror(errno))
+#define Cfwrite(...)   checked_fwrite(__VA_ARGS__)
 
 /* Error numbers, named for ease of finding. */
 

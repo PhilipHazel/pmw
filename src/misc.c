@@ -46,6 +46,20 @@ return rc;
 
 
 /*************************************************
+*            Checked fwrite call                 *
+*************************************************/
+
+size_t
+checked_fwrite(const void *ptr, size_t size, size_t n, FILE *f)
+{
+size_t rc = fwrite(ptr, size, n, f);
+if (rc != size * n) error(ERR201, "fwrite", strerror(errno));
+return rc;
+}
+
+
+
+/*************************************************
 *           Get range from bit map               *
 *************************************************/
 

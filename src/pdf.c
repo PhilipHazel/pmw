@@ -3035,7 +3035,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
       filecount += write_font_stream(f, "OpenType", p->next, objectcount);
     else
       {
-      filecount += fwrite(p->data, 1, p->data_used, out_file);
+      filecount += Cfwrite(p->data, 1, p->data_used, out_file);
       if (fclose(f) != 0) error(ERR200, "font file", strerror(errno));
       }
     }
@@ -3046,7 +3046,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
   else if (p->data_used >=7 && Ustrncmp(p->data, "stream\n", 7) == 0)
     {
     filecount += Cfprintf(out_file, "<</Length %lu>>\n", p->data_used - 7);
-    filecount += fwrite(p->data, 1, p->data_used, out_file);
+    filecount += Cfwrite(p->data, 1, p->data_used, out_file);
     filecount += Cfprintf(out_file, "endstream\n");
     }
 
@@ -3054,7 +3054,7 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
   data has been omitted. */
 
   else if (p->data != NULL)
-    filecount += fwrite(p->data, 1, p->data_used, out_file);
+    filecount += Cfwrite(p->data, 1, p->data_used, out_file);
 
   /* Terminate the object */
 
@@ -3066,21 +3066,21 @@ exactly the value we need for the xref and trailer items. The current value of
 filecount is the offset of the xref object. There is no need to increase it
 further. First write the xref table. */
 
-(void)fprintf(out_file, "xref\n0 %d\n", objectcount);
-(void)fprintf(out_file, "0000000000 65535 f\r\n");
+Vfprintf(out_file, "xref\n0 %d\n", objectcount);
+Vfprintf(out_file, "0000000000 65535 f\r\n");
 
 for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
-  fprintf(out_file, "%010lu 00000 n\r\n", p->file_offset);
+  Vfprintf(out_file, "%010lu 00000 n\r\n", p->file_offset);
 
 /* Now write the trailer, which contains (inter alia) the number of objects and
 where to start. */
 
-fprintf(out_file, "trailer\n<</Size %d/Root 1 0 R/Info 2 0 R\n", objectcount);
-fprintf(out_file, "/ID[<%s><%s>]>>\n", md5ID, md5ID);
+Vfprintf(out_file, "trailer\n<</Size %d/Root 1 0 R/Info 2 0 R\n", objectcount);
+Vfprintf(out_file, "/ID[<%s><%s>]>>\n", md5ID, md5ID);
 
 /* Finally, the offset to the start of the xref table. */
 
-fprintf(out_file, "startxref\n%u\n%%%%EOF\n", filecount);
+Vfprintf(out_file, "startxref\n%u\n%%%%EOF\n", filecount);
 }
 
 /* End of pdf.c */

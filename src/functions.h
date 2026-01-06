@@ -9,6 +9,7 @@
 /* -------- General functions -------- */
 
 extern int          checked_fprintf(FILE *, const char *, ...);
+extern size_t       checked_fwrite(const void *, size_t, size_t, FILE *);
 
 extern void         debug_bar(const char *);
 extern void         debug_header(void);

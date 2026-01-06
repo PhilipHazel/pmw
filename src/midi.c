@@ -1073,7 +1073,7 @@ writebyte(0xff);
 writebyte(0x2f);
 writebyte(0);
 
-fseek(midi_file, 18, SEEK_SET);
+if (fseek(midi_file, 18, SEEK_SET) != 0) error(ERR201, "fseek", strerror(errno));
 write32(file_count);
 
 if (fclose(midi_file) != 0) error(ERR200, "MIDI file", strerror(errno));
