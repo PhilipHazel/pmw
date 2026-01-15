@@ -9,19 +9,14 @@ new implementation.
 July 2025: Removed some things that have been implemented in the meantime and
 added some comments. The items are in a random order.
 
+Last Updated: January 2026
+
+
 INFELICITIES
 ============
 
 * If one stave has a key or time signature and others do not, if space is
 needed for an accidental on non-signature stave, refrain from inserting any.
-
-* [newline] sometimes changes the number of bars in a system if it's a close
-thing. This needs verifying to see it it's still true.
-
-* Adjust left margin if there's a new movement mid page. What exactly did this
-mean?
-
-* Clef+key at start of mid-line bar; note the double bar and respace.
 
 * If no music, don't require PMW-Music. This applies only to PostScript output.
 
@@ -46,6 +41,8 @@ Also demis not good.
 
 * Non-centred tremolo beams for (g'$b') [tremolo] %d'
 
+* Gliss between two adjacent notes should slope a bit.
+
 
 BIG ENHANCEMENTS
 ================
@@ -65,7 +62,8 @@ fudgeable but could be better.
 * Tremolos with beamed notes.
 
 * Use of colour other than in drawings. Would need major work because stave
-lines are drawn last.
+lines are output last, but would need to be first. So a pre-scan to find the
+line length (or bar length in the case of an [omitempty] bar) would be needed.
 
 * Option for old-fashioned key signature changes - naturalizing key, then
 double bar, then new key. Or a mixture, e.g. from E to D, print two naturals
@@ -73,10 +71,23 @@ and two sharps.
 
 * Import EPS files for logos or other images etc. easily (check psheading etc to
 see if that's OK). That's for PostScript. Is it possible to import anything for
-PDF output? SVG? Any kind of image?
+PDF output? SVG? PNG? Any kind of image?
 
 * Time signatures in brackets - could perhaps do with printtime. For things
 like 4/4 (12/8).
+
+* Allow transposition by quarter tones (new syntax needed and custom key
+signature rules)
+
+* How to handle notes shorter than hdsquaver (if at all)? (Check error 115)
+
+* Update the Makefile so that one can build in another directory. Then enable
+the test for this in testing/ManyConfigTests. This is not straightforward.
+
+* Investigate SMuFL (font layout standard)and the (remote) possibility of using
+a different music font.
+
+* MIDI 2.0.
 
 
 MEDIUM ENHANCEMENTS
@@ -146,12 +157,20 @@ What is this used for?
 
 * A `pad' command to assume bar filled without actually spacing notes.
 
+* A way of printing a time signature large above a group of instruments (maybe
+using stave 0 and a way of moving up) combined with no ts on following staves
+(see [notime] below). Search for an example.
+
+* [barlinestyle invisible] that is, force all barlines to be invisible.
+
 
 SMALL ENHANCEMENTS
 ==================
 
-If linegap width less than 1, treat as fraction? Or implement a percentage
+* If linegap width less than 1, treat as fraction? Or implement a percentage
 notation? What about split lines?
+
+* [notime] for a single stave, or possibly an option of [stave] like omitempty.
 
 
 UNLIKELY ENHANCEMENTS
@@ -170,7 +189,7 @@ Majority of stems? First stem? Only if all stems same way?
 spread *3/4 and so on. Squashing must happen to all note positions after
 initial creation but before inserting clefs, etc.
 
-* Hint mechanism for line/page breaks.
+* Hint mechanism for line/page breaks. How does this interact with layout?
 
 * Things on stave 0 to apply to all staves: key/time/doublenotes...
 
@@ -188,6 +207,8 @@ HAIRPINS
 ones must be narrower. Maybe what we need is an aspect ratio... Note there may
 be problems with < followed by > when you want the two to be the same size,
 even if different lengths.
+
+* /bu option for hairpins.
 
 
 ACCENTS AND ORNAMENTS
@@ -243,7 +264,13 @@ DRAWING
 
 * A version of headright that takes dots into account.
 
-* A variable to say if dots are present on a note.
+* A variable to say if (and how many) dots are present on a note.
+
+* A variable to say what this drawing is attached to (heading, note, bar, etc.)
+
+* A variable containing the number of arguments to a draw call.
+
+* String concatenation using "add".
 
 
 ERRORS
@@ -289,6 +316,14 @@ underlay levels. (Effectively, to adjust the default level.)
 
 * Make /bar work for "#"/ul ?
 
+* Invent options for text box thickness.
+
+* Underlaystyle applies to both underlay and overlay. Should there be a
+separate overlaystyle?
+
+* Vertical positioning to look at subsequent notes as well as current. Would
+need to be possible to turn this off for backwards compatibility.
+
 
 CHORDS
 ======
@@ -322,8 +357,6 @@ how to turn off? C+- or something? Perhaps don't turn off. Maybe nowadays ABC
 would be a better "standard" notation?
 
 * Rectangular shaped breves.
-
-* Up to 4 augmentation dots!
 
 * Unison breve - masquerade?
 
@@ -363,6 +396,13 @@ already.
 * Thin off slurs more?
 
 * Option to cause slur to start at edge of notehead. See also ties.
+
+* In [slur] allow \-1\ to refer to the last section of a split.
+
+* After calls to slur_endslur(), when should any gapstr attached blocks be
+freed? The main block is freed (cached) in slur_endslur() because it is used
+immediately, but we can't do the same with the gaps because there is a chain of
+them.
 
 
 TIES
