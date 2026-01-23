@@ -2,9 +2,9 @@
 *        PMW native stave reading functions      *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: October 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -700,7 +700,7 @@ while (!done)
         {
         int sign = +1;
 
-        /* b is anomalous - /bar is always allowed, but /b only on
+        /* b is anomalous - /bar is always allowed, but /b and /bu only on
         beginning hairpins. */
 
         if (Ustrncmp(main_readbuffer + read_i, "bar", 3) == 0)
@@ -768,10 +768,23 @@ while (!done)
             sign = -1;
             /* Fall through */
             case 'a':
-            p->flags &= ~(hp_below | hp_middle | hp_abs);
-            if (read_c == 'b') p->flags |= hp_below;
             p->y = 0;
-            read_nextc();
+            p->flags &= ~(hp_below | hp_middle | hp_underlay | hp_abs);
+            if (read_c == 'b')
+              {
+              p->flags |= hp_below;
+              read_nextc();
+              if (read_c == 'u')
+                {
+                p->flags |= hp_underlay;
+                read_nextc();
+                break;
+                }
+              }
+            else read_nextc();
+
+            /* Either /a or /b (not /bu) */
+
             if (isdigit(read_c))
               {
               p->flags |= hp_abs;
@@ -790,7 +803,7 @@ while (!done)
             break;
 
             default:
-            error(ERR8, "/u, /d, /l, /r, /a, /b, /m, /w, /slu, /sru or /h");
+            error(ERR8, "/u, /d, /l, /r, /a, /b, /bu, /m, /w, /slu, /sru or /h");
             break;
             }
           break;

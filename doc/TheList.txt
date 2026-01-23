@@ -208,8 +208,6 @@ ones must be narrower. Maybe what we need is an aspect ratio... Note there may
 be problems with < followed by > when you want the two to be the same size,
 even if different lengths.
 
-* /bu option for hairpins.
-
 
 ACCENTS AND ORNAMENTS
 =====================

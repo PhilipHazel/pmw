@@ -2,9 +2,9 @@
 *        PMW code for setting non-note things    *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: June 2021 */
-/* This file last modified: November 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -127,6 +127,9 @@ else
     gap -= 8 * out_stavemagn;
     if (-gap < offset) offset = -gap;
     }
+
+  else if ((flags & hp_underlay) != 0)
+    offset = out_sysblock->ulevel[curstave];
   }
 
 /* At start of line, start just before first note; also set small gap at start

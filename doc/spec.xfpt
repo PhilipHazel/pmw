@@ -12,7 +12,7 @@
 . the <bookinfo> element must also be updated for each new edition.
 . /////////////////////////////////////////////////////////////////////////////
 
-.set version "5.33"
+.set version "5.34"
 . Zero-width space
 .set B "&#x200B;"
 . Right-pointing hand
@@ -155,16 +155,16 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>22 December 2025</date>
+<date>23 January 2026</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
-  <revnumber>5.33</revnumber>
-  <date>22 December 2025</date>
+  <revnumber>5.34</revnumber>
+  <date>23 January 2026</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
-<copyright><year>2025</year><holder>Philip Hazel</holder></copyright>
+<copyright><year>2026</year><holder>Philip Hazel</holder></copyright>
 </bookinfo>
 .literal off
 
@@ -9061,6 +9061,7 @@ continuation.
 
 
 .subsection "Horizontal hairpin positioning"
+.index "hairpins" "horizontal position"
 By default, a hairpin starts at the left-hand edge of the first enclosed note,
 and ends at the right-hand edge of the last enclosed note, but there are
 options to change this. The start or the end of a hairpin can be set to be
@@ -9097,6 +9098,7 @@ positioning that is used in MusicXML. An offset value is used only if neither
 
 
 .subsection "Horizontal hairpin adjustments"
+.index "hairpins" "horizontal adjustment"
 The hairpin characters can be followed by &`/l`& or &`/r`&, followed by a
 number, to move left or right from where the hairpin would otherwise appear.
 These qualifiers affect only the end of the hairpin at which they are
@@ -9110,6 +9112,7 @@ the effect is cumulative.
 
 
 .subsection "Vertical hairpin positioning"
+.index "hairpins" "vertical position"
 Hairpins are positioned under the stave by default, but the &%[hairpins]%&
 directive (&R; &<<SUBSECThairpinsstave>>&) can be used to place them above
 instead. When a hairpin's vertical position is not explicitly specified, it is
@@ -9117,12 +9120,13 @@ determined by the notes under or above which it lies. However, the
 &%[hairpins]%& directive can also specify a fixed distance above or below the
 stave, or a general vertical adjustment for all hairpins.
 
-Individual hairpins can be forced to be above the stave, below the stave, or in
-the middle between the current stave and the one below, by means of the options
-&`/a`&, &`/b`&, and &`/m`&. Do not confuse &`/m`& with &`/h`&. One way of
-remembering the difference is to associate &`/h`& with `horizontal' rather than
-`halfway'. A fixed level above or below the stave can be specified by following
-&`/a`& or &`/b`& by a dimension.
+Individual hairpins can be forced to be above the stave, below the stave
+(optionally at the underlay level), or in the middle between the current stave
+and the one below, by means of the options &`/a`&, &`/b`&, &`/bu`&, or &`/m`&.
+Do not confuse &`/m`& with &`/h`&. One way of remembering the difference is to
+associate &`/h`& with `horizontal' rather than `halfway'. A fixed level above
+or below the stave can be specified by following &`/a`& or &`/b`& by a
+dimension.
 .code
 >/a10 bc'eb > |  </b12 gfag < |
 .endd
@@ -9131,10 +9135,12 @@ top of the stave and twelve points below the bottom of the stave, respectively.
 
 
 .subsection "Vertical hairpin adjustments"
+.index "hairpins" "vertical adjustment"
 The hairpin characters can be followed by &`/u`& or &`/d`&, followed by a
-number, to move up or down from where the hairpin would otherwise appear. If
-&`/u`& or &`/d`& is given at the start of a hairpin, it causes the whole
-hairpin to be moved up or down.
+number, to move up or down from where the hairpin would otherwise appear. These
+options may appear in addition to &`/a`& etc., in any order. If &`/u`& or
+&`/d`& is given at the start of a hairpin, it causes the whole hairpin to be
+moved up or down.
 .code
 a b </d4 c d <
 .endd
@@ -9150,6 +9156,7 @@ down, without affecting the angle of slope.
 
 
 .subsection "Split hairpins"
+.index "hairpins" "split"
 If a hairpin is split over a line break, specifying &`/u`& or &`/d`& at its
 start moves both halves of the hairpin up or down, but specifying one of them
 on the final angle bracket moves just the final end point, as for non-split
@@ -9165,6 +9172,8 @@ To move the second part of a hairpin down by 10 points, you would use
 
 
 .subsection "Hairpin size and line thickness" SUBSECThairpinwidth
+.index "hairpins" "opening width"
+.index "hairpins" "line thickness"
 The width of the open end of an individual hairpin can be set by following the
 initial &`<`& or &`>`& character with &`/w`& and a dimension.
 .code
@@ -12083,26 +12092,33 @@ they are ordered by stave, those for the lowest numbered stave appearing first.
 
 .subsection "[Hairpins]" SUBSECThairpinsstave
 .index "&%[hairpins]%&"
-.index "hairpin position"
+.index "hairpins" "vertical position"
 Hairpins (&R; &<<SECThairpins>>&) are normally placed below the stave. The
 &%[hairpins]%& directive is provided for changing this for an individual stave.
-It must be followed by one of the words `above' or `below'. It can also be
-followed by `middle', which causes hairpins to be below the stave, half way
-between it and the following stave, unless low notes on the upper stave force
-them lower still. Hairpins in fixed positions above or below the stave can be
-made the default by following `above' or `below' in the &%[hairpins]%&
-directive by a dimension.
+It can be followed by one of the words `above', `below', or `underlay'. For the
+first two, the default vertical position depends on the notes covered by the
+hairpin. For `underlay', the vertical position is what would be used for
+underlaid words (lyrics). This means that, in any system, all hairpins on this
+stave are at the same level, but the level may vary from system to system.
+
+The &%[hairpins]%& directive can alternatively be followed by `middle', which
+causes hairpins to be below the stave, half way between it and the following
+stave, unless low notes on the upper stave force them lower still. Hairpins in
+fixed absolute positions above or below the stave can be made the default by
+following `above' or `below' in the &%[hairpins]%& directive by a dimension.
 .code
 [hairpins above 10]
 .endd
 This example specifies that the `sharp end' of hairpins should be positioned 10
-points above the top of the stave. Individual hairpins can be moved from this
-position by the normal &`/u`& and &`/d`& qualifiers on the angle bracket
-characters that specify hairpins. In addition, &`/a`& and &`/b`& can be used
-without a dimension to specify the default type of hairpin, whose vertical
-position depends on the notes it covers. It is also possible to set up a
-default adjustment for variable-position hairpins, by giving a dimension
-preceded by &`+`& or &`-`& in the &%[hairpins]%& directive.
+points above the top of the stave.
+
+Individual hairpins can be moved from their default position by &`/u`& and
+&`/d`& qualifiers on the angle bracket characters that specify hairpins. In
+addition, &`/a`&, &`/b`&, and &`/bu`& can be used without a dimension to
+specify the default type of hairpin, whose vertical position depends on the
+notes it covers. It is also possible to set up a default adjustment for
+variable-position hairpins, by giving a dimension preceded by &`+`& or &`-`& in
+the &%[hairpins]%& directive.
 .code
 [hairpins below -4]
 .endd
@@ -12123,7 +12139,7 @@ This directive, which must be followed by a dimension, sets the default width
 of the open ends of any subsequent hairpins on the current stave. The overall
 default is 7 points. The width of the open end of an individual hairpin can be
 set by following the initial &`<`& or &`>`& character with &`/w`& and a
-dimension.
+dimension (in addition to any other options such as &`/bu`&).
 
 
 .subsection "[Halvenotes]" SUBSECTstavehalvenotes
@@ -15728,20 +15744,21 @@ rests:
 .endtable
 
 .section "Hairpin adjustment options"
-The &`/a`&, &`/b`&, &`/m`& and &`/w`& options may appear only at the start of a
-hairpin. The other options may appear at either end. If vertical movement is
-specified at the start of a hairpin, it applied to the whole hairpin. If
-specified at the end, it affects only the end.
+The &`/a`&, &`/b`&, &`/bu`&, &`/m`& and &`/w`& options may appear only at the
+start of a hairpin. The other options may appear at either end. If vertical
+movement is specified at the start of a hairpin, it applied to the whole
+hairpin. If specified at the end, it affects only the end.
 
 .itable none 0 0 2  60 left  300 left
 .row &`/a`&<&`n`&>     "position above the stave (dimension optional)"
 .row &`/b`&<&`n`&>     "position below the stave (dimension optional)"
 .row &`/bar`&          "position at previous bar line"
+.row &`/bu`&           "position below at underlay level"
 .row &`/d`&<&'n'&>     "move down <&'n'&> points"
 .row &`/h`&            "position halfway between notes"
 .row &`/l`&<&'n'&>     "move left <&'n'&> points"
 .row &`/lc`&<&'n'&>    "position left <&'n'&> crotchets"
-.row &`/m`&            "position in midway between two staves"
+.row &`/m`&            "position midway between two staves"
 .row &`/r`&<&'n'&>     "move right <&'n'&> points"
 .row &`/rc`&<&'n'&>    "position right <&'n'&> crotchets"
 .row &`/slu`&<&`n`&>   "split left up"
@@ -15973,6 +15990,7 @@ rests:
 .row "&`[hairpins above]`&"                  "put hairpins above"
 .row "&`[hairpins below]`&"                  "put hairpins below"
 .row "&`[hairpins middle]`&"                 "centre hairpins between two staves"
+.row "&`[hairpins underlay]`&"               "put hairpins below at underlay level"
 .row "&`[hairpinwidth `&<&'n'&>&`]`&"        "set hairpinwidth for this stave"
 .row "&`[halvenotes]`&"                      "halve note lengths "
 .row "&`[hclef `&<&'octave'&>&`]`&"          "select percussion H-clef"

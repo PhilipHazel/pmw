@@ -2,9 +2,9 @@
 *  PMW native stave directive reading functions  *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: February 2021 */
-/* This file last modified: December 2025 */
+/* This file last modified: January 2026 */
 
 #include "pmw.h"
 
@@ -599,13 +599,15 @@ read_nextword();
 if (Ustrcmp(read_wordbuffer, "below") == 0) srs.hairpinflags = hp_below;
 else if (Ustrcmp(read_wordbuffer, "middle") == 0)
   srs.hairpinflags = hp_below | hp_middle;
+else if (Ustrcmp(read_wordbuffer, "underlay") == 0)
+  srs.hairpinflags = hp_below | hp_underlay;
 else if (Ustrcmp(read_wordbuffer, "above") != 0)
   {
-  error(ERR8, "\"above\", \"below\", or \"middle\"");
+  error(ERR8, "\"above\", \"below\", \"middle\", or \"underlay\"");
   return;
   }
 
-/* Default adjustment is allowed for all three positions */
+/* Default adjustment is allowed for all positions */
 
 read_sigc();
 if (read_c == '+' || read_c == '-')
@@ -615,11 +617,15 @@ if (read_c == '+' || read_c == '-')
 
 /* Absolute value is allowed only for above and below */
 
-else if ((srs.hairpinflags & hp_middle) == 0 && isdigit(read_c))
+else if isdigit(read_c)
   {
-  srs.hairpinflags |= hp_abs;
-  srs.hairpiny = read_fixed();
-  if ((srs.hairpinflags & hp_below) != 0) srs.hairpiny = -srs.hairpiny;
+  if ((srs.hairpinflags & (hp_middle|hp_underlay)) == 0)
+    {
+    srs.hairpinflags |= hp_abs;
+    srs.hairpiny = read_fixed();
+    if ((srs.hairpinflags & hp_below) != 0) srs.hairpiny = -srs.hairpiny;
+    }
+  else error_skip(ERR8, (' ' << 8) | ']', "+ or -");
   }
 }
 

@@ -278,7 +278,7 @@ g\.\ x3\x\ a |
 [slur/=0] [slur/=x] {/q abc } / </q |
 ------------------------------->
 
-** Error: /u, /d, /l, /r, /a, /b, /m, /w, /slu, /sru or /h expected
+** Error: /u, /d, /l, /r, /a, /b, /bu, /m, /w, /slu, /sru or /h expected
    Detected near line 81 of misctests/Errors
 [slur/=0] [slur/=x] {/q abc } / </q |
 ---------------------------------->

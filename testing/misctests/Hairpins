@@ -31,4 +31,19 @@ notime
 < gggg < </w4 gggg < >/w10 gggg > |
 [newline hairpinwidth 7]
 < gggg <  </w4/l9 </l9 >/w4/r4 >/r6 g
+[endstave]
+
+[newmovement]
+nocheck
+hairpinwidth 7
+hairpinlinewidth 0.2
+
+[stave 1 treble 1]
+< ccc < </bu ccc <
+[hairpins underlay] < ccc <
+[hairpins below] < ccc <
+[hairpins underlay -6] < ccc <
+[hairpins below] </bu/d6 ccc <
+[endstave]
+
 

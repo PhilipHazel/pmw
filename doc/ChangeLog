@@ -7,6 +7,8 @@ Version 5.34 xx-xxx-2026
 
 1. Added error checks to fclose() and fprintf() except when writing to stderr.
 
+2. Implement [hairpins underlay] and /bu on individual hairpins.
+
 
 Version 5.33 22-December-2025
 -----------------------------

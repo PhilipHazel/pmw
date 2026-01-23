@@ -632,9 +632,10 @@ space in 32-bits. */
 
 #define hp_below     0x0001u
 #define hp_middle    0x0002u
-#define hp_halfway   0x0004u
-#define hp_abs       0x0008u
-#define hp_bar       0x0010u
+#define hp_underlay  0x0004u
+#define hp_halfway   0x0008u
+#define hp_abs       0x0010u
+#define hp_bar       0x0020u
 #define hp_end       0x4000u
 #define hp_cresc     0x8000u
 
