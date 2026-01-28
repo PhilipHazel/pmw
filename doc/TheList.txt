@@ -200,15 +200,6 @@ initial creation but before inserting clefs, etc.
 * Lastfootnote directive for text at end.
 
 
-HAIRPINS
-========
-
-* Auto-scale hairpinwidths from a given range that is user settable. Short
-ones must be narrower. Maybe what we need is an aspect ratio... Note there may
-be problems with < followed by > when you want the two to be the same size,
-even if different lengths.
-
-
 ACCENTS AND ORNAMENTS
 =====================
 

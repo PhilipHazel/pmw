@@ -798,6 +798,7 @@ while (!done)
             break;
 
             case 'w':
+            p->flags |= hp_widthset; 
             read_nextc();
             read_expect_integer(&p->width, TRUE, FALSE);
             break;

@@ -46,4 +46,15 @@ hairpinlinewidth 0.2
 [hairpins below] </bu/d6 ccc <
 [endstave]
 
+[newmovement]
+nocheck
+justify top left
+
+[stave 1 treble 1]
+<g< </w7g< <gg< <ggg< | <gggg< <ggggg< <gggggg< |
+[endstave]
+
+[stave 2 treble 1]
+>g> >/w7g> >gg> >ggg> | >gggg> >ggggg> >gggggg> |
+[endstave]
 

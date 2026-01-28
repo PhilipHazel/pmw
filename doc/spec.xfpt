@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>23 January 2026</date>
+<date>28 January 2026</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.34</revnumber>
-  <date>23 January 2026</date>
+  <date>28 January 2026</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2026</year><holder>Philip Hazel</holder></copyright>
@@ -6644,14 +6644,16 @@ may help alleviate jagged effects on long hairpins on high resolution printers.
 .index "&%hairpinwidth%&"
 .index "width" "of hairpin openings"
 This directive specifies the default vertical width of the open end of
-hairpins. Its argument is the number of points.
+hairpins. Its argument is a number of points.
 .code
 hairpinwidth 5.6
 .endd
 The number may be preceded by a plus or a minus sign, indicating a change to
 the existing value. If neither of these is present, the number specifies an
-absolute value. The default value for this parameter is 7 points. A different
-width may be set for any individual hairpin (&R; &<<SUBSECThairpinwidth>>&).
+absolute value. The default value for this parameter is 7 points. A specific
+width may be set for any individual hairpin. If this is not done, the width set
+by &%hairpinwidth%& is used unless the hairpin is very short. See section
+&<<SUBSECThairpinwidth>>& for details.
 
 
 
@@ -9171,7 +9173,7 @@ To move the second part of a hairpin down by 10 points, you would use
 &`/srd10`& on the starting angle bracket, and &`/d10`& on the final bracket.
 
 
-.subsection "Hairpin size and line thickness" SUBSECThairpinwidth
+.subsection "Hairpin width and line thickness" SUBSECThairpinwidth
 .index "hairpins" "opening width"
 .index "hairpins" "line thickness"
 The width of the open end of an individual hairpin can be set by following the
@@ -9181,8 +9183,12 @@ initial &`<`& or &`>`& character with &`/w`& and a dimension.
 .endd
 This example sets a width of 4 points. The default is 7 points, but this can be
 changed by the &%hairpinwidth%& header directive (for the whole piece) or by
-the &%[hairpinwidth]%& directive (for the current stave). There is also a
-&%hairpinlinewidth%& directive, which is used to change the thickness of the
+the &%[hairpinwidth]%& directive (for the current stave). However, the default
+value is reduced for short hairpins such that the width is no greater than 2/9
+of the length, unless it would be less than 2 points. If you set an explicit
+width using &`/w`& this automatic narrowing does not apply.
+
+There is also a &%hairpinlinewidth%& directive, which sets the thickness of the
 lines used for drawing hairpins. The default thickness is 0.2 points.
 
 
@@ -12137,8 +12143,9 @@ hairpin.
 .index "&%[hairpinwidth]%&"
 This directive, which must be followed by a dimension, sets the default width
 of the open ends of any subsequent hairpins on the current stave. The overall
-default is 7 points. The width of the open end of an individual hairpin can be
-set by following the initial &`<`& or &`>`& character with &`/w`& and a
+default is 7 points. For very short hairpins the default width is automatically
+narrowed. The width of the open end of an individual hairpin can be set
+explicitly by following the initial &`<`& or &`>`& character with &`/w`& and a
 dimension (in addition to any other options such as &`/bu`&).
 
 

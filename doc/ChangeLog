@@ -9,6 +9,10 @@ Version 5.34 xx-xxx-2026
 
 2. Implement [hairpins underlay] and /bu on individual hairpins.
 
+3. For hairpins that do not have an explicit opening width setting (the /w 
+option), if the length is sufficiently short, reduce the width to be no more 
+than 2/9 of the length, but with a minimum of 2 points.
+
 
 Version 5.33 22-December-2025
 -----------------------------

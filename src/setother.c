@@ -199,11 +199,21 @@ if (!skip)
   {
   if ((h0->flags & hp_cresc) == 0)
     {
+    if ((h0->flags & hp_widthset) == 0 && dwidth > (x1 - x0)/9)
+      {
+      dwidth = (x1-x0)/9;
+      if (dwidth < 2000) dwidth = 2000;
+      }
     ofi_line(x0, y0 + dwidth, x1, y1 + y1hole, thickness, 0);
     ofi_line(x0, y0 - dwidth, x1, y1 - y1hole, thickness, 0);
     }
   else
     {
+    if ((h0->flags & hp_widthset) == 0 && cwidth > (x1 - x0)/9)
+      {
+      cwidth = (x1-x0)/9;
+      if (cwidth < 2000) cwidth = 2000;
+      }
     ofi_line(x0, y0 + y0hole, x1, y1 + cwidth, thickness, 0);
     ofi_line(x0, y0 - y0hole, x1, y1 - cwidth, thickness, 0);
     }
