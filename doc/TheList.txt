@@ -9,7 +9,7 @@ new implementation.
 July 2025: Removed some things that have been implemented in the meantime and
 added some comments. The items are in a random order.
 
-Last Updated: January 2026
+Last Updated: February 2026
 
 
 INFELICITIES
@@ -26,9 +26,13 @@ come out symmetric.
 * Musical offsets - see if error can be given in better terms for aux values.
 
 * Triplets on a group with an accent on the first note and no bracket print
-the number too high up.
+the number too high up. Is this the same as the next? Certainly similar.
 
-* {g-\sd\d'-f'-} with no bracket - '3' too low.
+* {g-\sd\d'-f'-} with no bracket - '3' too low. The problem here is that the
+vertical position is based on the lowest note in the triplet, but that's not
+where the '3' is to be placed. To do any better would prbably need keeping the
+high/low for every note in the triplet, and using the value for the central
+note(s). Tricky because all would have to be stacked for nested tuplets.
 
 * Improve grace note position handling w.r.t. accidentals on other staves, etc.
 
@@ -335,8 +339,6 @@ TRIPLETS
 
 * Triplets with slur instead of brackets.
 
-* Query {b-a-b- f-e-d-}
-
 
 NOTES
 =====
@@ -451,8 +453,6 @@ MIDI
 
 MUSIC FONT
 ==========
-
-.section "Music font"
 
 * Wind symbols
 
