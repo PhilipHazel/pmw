@@ -16,6 +16,10 @@ than 2/9 of the length, but with a minimum of 2 points.
 4. Merged more of Jan Nemecek's additional figured bass macros into the
 standard macros.
 
+5. If the second or a subsequent movement did not have any staves, the 
+calculation of page depth went wrong, leading to headings or staves being 
+output too far down the page (possibly on top of a page number).
+
 
 Version 5.33 22-December-2025
 -----------------------------

@@ -238,12 +238,6 @@ lines).
 Option to force expression marks above/below.
 
 
-ODDITIES
-========
-
-* Improve [95]Q! when [nocheck] and bars of different lengths in other stave.
-
-
 DRAWING
 =======
 

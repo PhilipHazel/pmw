@@ -1,0 +1,17 @@
+pagefooting "|- \bf\\p\ -" 20
+
+[stave 1 treble 1]
+[20] G+ |
+[endstave]
+
+[newmovement]
+Heading 10 "One"
+[newmovement]
+heading 11 "Two"
+[newmovement]
+heading 12 "Three"
+
+[newmovement]
+[stave 1 treble 1]
+[300] G+ |
+[endstave]

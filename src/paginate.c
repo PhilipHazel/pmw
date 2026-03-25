@@ -2,9 +2,9 @@
 *             PMW pagination functions           *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: April 2021 */
-/* This file last modified: December 2025 */
+/* This file last modified: March 2026 */
 
 #include "pmw.h"
 
@@ -4768,66 +4768,78 @@ while (!page_done) switch(page_state)
     {
     do_endpage(TRUE);
     page_done = TRUE;
+    break;
     }
 
   /* There is another movement to follow. If it contains no staves, we must
   deal with the headings here. */
 
+  movtstr *nextmovt = movements[movtnumber - 1];
+  uint32_t movt_type = nextmovt->flags & mf_typeflags;
+
+  /* Deal with the case of no staves in the movement; we must decide now
+  whether or not it fits on the page if none of newpage, thispage, or thisline
+  is specified. Only one of these flags is ever set. */
+
+  if (nextmovt->barcount < 1 && movt_type == 0)
+    {
+    headstr *h = nextmovt->heading;
+    int32_t depth = 0;
+    while (h != NULL)
+      {
+      depth += h->space;
+      h = h->next;
+      }
+    movt_type = (curpage->spaceleft < depth)? mf_newpage : mf_thispage;
+
+    /* When the next movement has no staves and fits on the same page we must
+    allow for the stave depth plus one that is added after headings when
+    there *is* a following stave. However, if there are several movements
+    without staves this must happen only once. The movement number must be at
+    least 2 at this point, as we have just completed a movement. Add the
+    extra space only if the previous movement is not staveless and this
+    movement has some heading depth.
+
+    This code was added for 5.34. I think it does the right thing. */
+
+    if (movt_type == mf_thispage && movements[movtnumber - 2]->barcount >= 1 &&
+        depth > 0)
+      curpage->spaceleft -= 17000;
+    }
+
+  /* Handle new page; set page_heading NULL to prevent any heading output,
+  which will be done by the start-of-movt code. */
+
+  if (movt_type == mf_newpage)
+    {
+    do_endpage((nextmovt->flags & mf_uselastfooting) != 0);
+    curmovt = nextmovt;
+    do_newpage(NULL, NULL);
+    }
+
+  /* If newpage is not set, we can't decide whether to start a new page until
+  after the next system has been read. We just set a flag for the work to be
+  done then. For the very special case of "thisline", we remove and vertical
+  advance from the last system. Another system of the same depth will then
+  always fit. We must also reduce the count of spreadable systems, since this
+  one should not get additional space added to it! */
+
   else
     {
-    movtstr *nextmovt = movements[movtnumber - 1];
-    uint32_t movt_type = nextmovt->flags & mf_typeflags;
-
-    /* Deal with the case of no staves in the movement; we must decide now
-    whether or not it fits on the page if none of newpage, thispage, or
-    thisline is specified. Only one of these flags is ever set. */
-
-    if (nextmovt->barcount < 1 && movt_type == 0)
+    curmovt = nextmovt;
+    if (movt_type == mf_thisline && pl_lastsystem != NULL)
       {
-      headstr *h = nextmovt->heading;
-      int32_t depth = 0;
-      while (h != NULL)
-        {
-        depth += h->space;
-        h = h->next;
-        }
-      movt_type = (curpage->spaceleft < depth)? mf_newpage : mf_thispage;
+      curpage->spaceleft += pl_lastsystem->systemdepth +
+        pl_lastsystem->systemgap;
+      pl_lastsystem->flags |= sysblock_noadvance;
+      pl_countsystems--;
       }
-
-    /* Handle new page; set page_heading NULL to prevent any heading output,
-    which will be done by the start-of-movt code. */
-
-    if (movt_type == mf_newpage)
-      {
-      do_endpage((nextmovt->flags & mf_uselastfooting) != 0);
-      curmovt = nextmovt;
-      do_newpage(NULL, NULL);
-      }
-
-    /* If newpage is not set, we can't decide whether to start a new page until
-    after the next system has been read. We just set a flag for the work to be
-    done then. For the very special case of "thisline", we remove and vertical
-    advance from the last system. Another system of the same depth will then
-    always fit. We must also reduce the count of spreadable systems, since this
-    one should not get additional space added to it! */
-
-    else
-      {
-      curmovt = nextmovt;
-      if (movt_type == mf_thisline && pl_lastsystem != NULL)
-        {
-        curpage->spaceleft += pl_lastsystem->systemdepth +
-          pl_lastsystem->systemgap;
-        pl_lastsystem->flags |= sysblock_noadvance;
-        pl_countsystems--;
-        }
-      if (movt_type != mf_thispage) movt_pending = TRUE;
-      }
-
-    /* Change state */
-
-    page_state = page_state_newmovt;
+    if (movt_type != mf_thispage) movt_pending = TRUE;
     }
+
+  /* Change state */
+
+  page_state = page_state_newmovt;
   break;
   }
 
