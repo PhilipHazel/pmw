@@ -20,6 +20,8 @@ standard macros.
 calculation of page depth went wrong, leading to headings or staves being 
 output too far down the page (possibly on top of a page number).
 
+6. Add preprocess condition "def".
+
 
 Version 5.33 22-December-2025
 -----------------------------

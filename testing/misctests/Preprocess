@@ -34,7 +34,13 @@
 *if undef quoted
 *comment undef quoted
 *else
+*comment not undef quoted
+*fi
+
+*if def quoted
 *comment def quoted
+*else
+*comment not def quoted
 *fi
 
 *if special

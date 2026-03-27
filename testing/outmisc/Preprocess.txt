@@ -2,6 +2,7 @@ Testing comment "quotes with @ in them" "abcd
 score
 not part
 undef junk
+not undef quoted
 def quoted
 not special
 not staves 4-6

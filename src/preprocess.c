@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: January 2026 */
+/* This file last modified: March 2026 */
 
 /* This file contains code for handling pre-processing directives. */
 
@@ -109,9 +109,11 @@ if (Ustrcmp(read_wordbuffer, "if") == 0)
 
     /* Deal with definition test */
 
-    else if (Ustrcmp(read_wordbuffer, "undef") == 0)
+    else if (Ustrcmp(read_wordbuffer, "def") == 0 ||
+             Ustrcmp(read_wordbuffer, "undef") == 0)
       {
       int i = 0;
+      BOOL is_undef = (read_wordbuffer[0] == 'u');
       read_sigcNL();
 
       /* We cannot use read_nextword() because macro names may start with a
@@ -132,7 +134,8 @@ if (Ustrcmp(read_wordbuffer, "if") == 0)
 
       if (read_wordbuffer[0] == 0) error_skip(ERR8, '\n', "macro name"); else
         {
-        if (tree_search(macro_tree, read_wordbuffer) != NULL) OK = !OK;
+        if ((tree_search(macro_tree, read_wordbuffer) != NULL) == is_undef)
+        OK = !OK;
         }
       }
 

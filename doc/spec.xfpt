@@ -161,7 +161,7 @@
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.34</revnumber>
-  <date>28 January 2026</date>
+  <date>27 March 2026</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2026</year><holder>Philip Hazel</holder></copyright>
@@ -3380,6 +3380,10 @@ If the word is `stave' or `staff' or `staves', it must be followed by a list
 of staves. In this case, the condition is true if the listed staves, &'and no
 others'&, are selected. The intended use is for varying the headings of the
 piece when different combinations of staves are selected.
+.next
+If the word is `def', it must be followed by a name, and the condition is true
+only if the given name has been defined as a macro using the &%*define%&
+directive.
 .next
 If the word is `undef', it must be followed by a name, and the condition is
 true only if the given name has not yet been defined as a macro using the
