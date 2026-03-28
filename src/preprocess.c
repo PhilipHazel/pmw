@@ -46,7 +46,7 @@ if (Ustrcmp(read_wordbuffer, "if") == 0)
     return;
     }
 
-  /* Loop for multiple "or" conditions */
+  /* Loop for multiple "and" and "or" conditions */
 
   for (;;)
     {
@@ -176,19 +176,29 @@ if (Ustrcmp(read_wordbuffer, "if") == 0)
       else main_format_tested = TRUE;
       }
 
-    /* See if the next thing is "or"; if not and if not newline, error.
-    Otherwise, if it's "or" and OK == FALSE, let the loop continue. */
+    /* See if the next thing is newline or "and" or "or"; if not, error. If
+    it's "and" and OK == TRUE or "or" and OK == FALSE, let the loop continue.
+    Otherwise, OK is the final result. */
 
     read_sigcNL();
     if (read_c == '\n') break;
+
     read_nextword();
-    if (Ustrcmp(read_wordbuffer, "or") != 0)
+
+    if (Ustrcmp(read_wordbuffer, "and") == 0)
       {
-      error_skip(ERR8, '\n', "\"or\"");
+      if (!OK) break;
+      }
+    else if (Ustrcmp(read_wordbuffer, "or") == 0)
+      {
+      if (OK) break;
+      }
+    else
+      {
+      error_skip(ERR8, '\n', "\"and\" or \"or\"");
       break;
       }
 
-    if (OK) break;
     read_sigcNL();
     }
 

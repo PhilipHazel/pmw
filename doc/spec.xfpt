@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>28 January 2026</date>
+<date>28 March 2026</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.34</revnumber>
-  <date>27 March 2026</date>
+  <date>28 March 2026</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2026</year><holder>Philip Hazel</holder></copyright>
@@ -3332,14 +3332,13 @@ directives.
 .index "&%*else%&"
 The conditional preprocessing directives are &%*if%&, &%*else%&, and &%*fi%&.
 Their purpose is to arrange for certain sections of the input file to be
-included or omitted under certain circumstances. The &%*if%& directive is
-followed by a condition, which consists of a word, possibly followed by more
-data. It the condition is true, subsequent lines of the input, up to &%*else%&
-or &%*fi%&, are processed. If the condition is not true, these lines are
-skipped. When &%*else%& is used to terminate the block of lines after &%*if%&,
-the lines between it and a subsequent &%*fi%& are obeyed or skipped depending
-on whether the first block of lines was skipped or obeyed. An example will make
-this clearer:
+included or omitted under certain circumstances. If the condition that is
+specified for the &%*if%& directive is true, subsequent lines of the input, up
+to &%*else%& or &%*fi%&, are processed. If the condition is not true, these
+lines are skipped. When &%*else%& is used to terminate the block of lines after
+&%*if%&, the lines between it and a subsequent &%*fi%& are obeyed or skipped
+depending on whether the first block of lines was skipped or obeyed. An example
+will make this clearer:
 .code
 *if score
   magnification 0.9
@@ -3349,28 +3348,49 @@ this clearer:
 .endd
 Each &%*if%& must have a matching &%*fi%&, but there need not be an &%*else%&
 between them. It is permitted to nest conditional directives, that is, a
-complete sequence of &%*if%& &rarr; &%*fi%& may occur within another. This
-provides a way of testing that a number of conditions are all true. The word
-`or' can be used in a condition to test whether either one of two (or more)
-conditions is true:
+complete sequence of &%*if%& &rarr; &%*fi%& may occur within another.
+The overall condition that follows &%*if%& can be composed of several
+sub-conditions, separated `and' or `or'.
 .code
 *if staves 1-3 or stave 7
 *if violin or viola
+*if transpose and stave 6
 .endd
-If a condition is preceded by the word `not', the sense of the condition is
+Each basic condition starts with a word, which in some cases is followed by
+additional data. If a condition is preceded by the word `not', the sense is
 negated:
 .code
 *if not score
   magnification 1.2
 *fi
 .endd
+PMW allows a mixture of `and' and `or' conjunctions between multiple
+conditions, but it processes them strictly from left to right, and it does not
+support any kind of parenthesis.
+.ilist
+When the next word is `and': If the current state is `true`, processing
+continues to the next condition; otherwise the overall condition is false.
+.next
+When the next word is `or': If the current state is `false', processing
+continues to the next condition; otherwise the overall condition is true.
+.endlist
+Note that this means that
+.code
+*if A or B and C
+.endd
+(where A, B, and C are individual conditions) is not the same as
+.code
+*if B and C or A
+.endd
+The overall result is true for the former if A is true, or if B and C are both
+true. For the latter either B and C or B and A must be true.
 
-We now describe the various conditions that can be tested using &%*if%&.
+We now describe the various basic conditions that can be tested using &%*if%&.
 
 .ilist
-If the word that follows &%*if%& or &%*if not%& is `score', the condition
-is true only if no stave selection option is specified on the PMW command
-line, and the &%selectstave%& directive has not been used earlier in the file.
+If the conditional word is `score', the condition is true only if no stave
+selection option is specified on the PMW command line, and the &%selectstave%&
+directive has not been used earlier in the file.
 .next
 If the word is `part', the condition is true if and only if a stave selection
 option is given on the command line, or via the &%selectstave%& directive
@@ -3382,8 +3402,8 @@ others'&, are selected. The intended use is for varying the headings of the
 piece when different combinations of staves are selected.
 .next
 If the word is `def', it must be followed by a name, and the condition is true
-only if the given name has been defined as a macro using the &%*define%&
-directive.
+only if the given name has previously been defined as a macro using the
+&%*define%& directive.
 .next
 If the word is `undef', it must be followed by a name, and the condition is
 true only if the given name has not yet been defined as a macro using the
@@ -3402,13 +3422,13 @@ Otherwise (for PostScript output) it is false. This condition is mainly for
 testing so that the same input can be used for both kinds of output.
 .next
 .index "format option"
-If the word following &%*if%& is not one of the above, the condition is false,
-unless the &%-f%& command line option was used to specify the same word that
-follows &%*if%& or &%*if not%& as a format name. The comparison of the words is
-done in a case-independent manner.
+If the word is not one of the above, the condition is false, unless the &%-f%&
+command line option was used to specify the same word. The comparison of the
+words is done in a case-independent manner.
 .endlist
 
-Here are some examples of the use of the conditional preprocessing directives:
+Here are some more examples of the use of the conditional preprocessing
+directives:
 .code flow
 *if score              @ full score reduced
   magnification 0.8
@@ -15396,11 +15416,12 @@ on its own.
 &`*else`&
 &`*fi`&
 &`*if`& <&'condition'&>
-&`*if not `&<&'condition'&>
 &`*include `&"&'file name'&"
 .endd
 A macro name must be followed by parentheses, with optional default argument
-values, if it is to be used with arguments.
+values, if it is to be used with arguments. A condition may consist of multiple 
+sub-conditions, separated by `and' or `or'; each may optionally be preceded by 
+`not'.
 
 
 .section "Macro calls"

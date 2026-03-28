@@ -61,6 +61,59 @@
 *comment not staves 4-6
 *fi
 
+
+*if def A or def B and def C
+*comment 1 A or B and C TRUE
+*else
+*comment 1 A or B and C FALSE
+*fi
+
+*define A
+
+*if def A or def B and def C
+*comment 2 A or B and C TRUE
+*else
+*comment 2 A or B and C FALSE
+*fi
+
+*define B
+
+*if def D or def B and def C
+*comment 3 D or B and C TRUE
+*else
+*comment 3 D or B and C FALSE
+*fi
+
+*define C
+
+*if def D or def B and def C
+*comment 4 D or B and C TRUE
+*else
+*comment 4 D or B and C FALSE
+*fi
+
+*if def B and def C or def D
+*comment 5 D or B and C TRUE
+*else
+*comment 5 D or B and C FALSE
+*fi
+
+*define D
+
+*if def E and def F or def D
+*comment 5 D or E and F TRUE
+*else
+*comment 5 D or E and F FALSE
+*fi
+
+*define E 
+
+*if def E and def F or def D
+*comment 6 D or E and F TRUE
+*else
+*comment 6 D or E and F FALSE
+*fi
+
 nocheck
 
 [stave 1

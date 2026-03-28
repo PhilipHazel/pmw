@@ -22,6 +22,9 @@ output too far down the page (possibly on top of a page number).
 
 6. Add preprocess condition "def".
 
+7. Add support for "and" to the *if preprocessing directive, but with stricly 
+left-to-right processing - no operator precedence.
+
 
 Version 5.33 22-December-2025
 -----------------------------

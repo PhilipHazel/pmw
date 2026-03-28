@@ -6,3 +6,10 @@ not undef quoted
 def quoted
 not special
 not staves 4-6
+1 A or B and C FALSE
+2 A or B and C TRUE
+3 D or B and C FALSE
+4 D or B and C TRUE
+5 D or B and C TRUE
+5 D or E and F FALSE
+6 D or E and F TRUE
