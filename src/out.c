@@ -2,9 +2,9 @@
 *        PMW main output control functions       *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: May 2021 */
-/* This file last modified: June 2025 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -361,7 +361,7 @@ out_text(b_textstr *p, BOOL atbar)
 {
 fontinststr local_fdata, *fdata;
 
-uint16_t flags = p->flags;
+uint32_t flags = p->flags;
 BOOL above = (flags & text_above) != 0;
 BOOL endalign = (flags & text_endalign) != 0;
 BOOL rehearse = (flags & text_rehearse) != 0;
@@ -375,7 +375,12 @@ int32_t y = above? 20000 : -10000;
 uint32_t *s = p->string;
 uint32_t ss[256];            /* For building continuation strings */
 
-TRACE("out_text()%s\n", ((flags & text_ul) != 0)? " underlay" :"");
+TRACE("out_text()%s\n", ((flags & text_ul) != 0)? " underlay" :
+  ((flags & text_fb) != 0)? " figured bass" : "");
+  
+/* Do nothing if this text output is suppressed. */
+
+if ((flags & text_suppress) != 0) return; 
 
 /* Make a local copy of the relevant font data, and keep a copy of the unscaled
 size before scaling the font. */

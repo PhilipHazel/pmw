@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: August 2025 */
-/* This file last modified: January 2026 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -2490,6 +2490,12 @@ fontinststr *fdata =
             &xml_movt->fontsizes->fontsize_text[t->size];
 int32_t size = fdata->size;
 
+/* Ignore if this text is suppressed. */
+
+if ((flags & text_suppress) != 0) return b;
+
+/* Warn for unsupported things */
+
 if ((flags & (text_absolute|text_atulevel|text_baralign|text_barcentre|
   text_followon|text_middle|text_timealign)) != 0) X(X_TEXT);
 
@@ -2659,7 +2665,7 @@ if (figbass)
         }
       }
 
-    /* End the figure and heck that we've used up all the string; warn if not.
+    /* End the figure and check that we've used up all the string; warn if not.
     */
 
     PB("</figure>");

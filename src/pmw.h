@@ -6,7 +6,7 @@
 
 /* PMW rewrite project started: December 2020 */
 /* This file created: December 2020 */
-/* This file last modified: January 2026 */
+/* This file last modified: April 2026 */
 
 /* This file is included by all the other sources except rdargs.c. */
 
@@ -462,8 +462,15 @@ enum { lv_barcount, lv_repeatcount, lv_repeatptr, lv_newpage };
 #define text_middle     0x00000800u  /* Put halfway betwen staves */
 #define text_rehearse   0x00001000u  /* Rehearsal mark */
 #define text_ringed     0x00002000u  /* Enclose in a ring */
-#define text_timealign  0x00004000u  /* Align with time signature */
-#define text_ul         0x00008000u  /* Underlay; with text_above = overlay */
+#define text_suppress   0x00004000u  /* Suppress output */
+#define text_timealign  0x00008000u  /* Align with time signature */
+#define text_ul         0x00010000u  /* Underlay; with text_above = overlay */
+
+/* Flags for text suppression */
+
+#define txtsup_fb       0x01u
+#define txtsup_overlay  0x02u
+#define txtsup_underlay 0x04u
 
 /* Flags for stave name texts */
 

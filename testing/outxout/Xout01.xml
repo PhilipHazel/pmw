@@ -6800,7 +6800,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="130" width="74">
+    <measure number="130" width="66">
       <note>
         <pitch>
           <step>G</step>
@@ -6814,7 +6814,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="131" width="108">
+    <measure number="131" width="99">
       <attributes>
         <clef print-object="no">
           <sign>G</sign>
@@ -6839,7 +6839,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="132" width="180">
+    <measure number="132" width="160">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>3</figure-number>
@@ -6907,7 +6907,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="133" width="180">
+    <measure number="133" width="160">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>6</figure-number>
@@ -6971,7 +6971,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="134" width="180">
+    <measure number="134" width="160">
       <figured-bass font-size="8.2">
         <figure>
         </figure>
@@ -7036,7 +7036,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="135" width="119">
+    <measure number="135" width="106">
       <figured-bass font-size="8.2">
         <figure>
           <figure-number>4</figure-number>
@@ -7063,7 +7063,28 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="136" width="195">
+    <measure number="136" width="106">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2160</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>6480</duration>
+        <voice>1</voice>
+        <type>half</type>
+        <dot/>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="137" width="175">
       <note>
         <grace/>
         <pitch>
@@ -7126,7 +7147,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="137" width="173">
+    <measure number="138" width="173">
       <note>
         <cue/>
         <pitch>
@@ -7172,7 +7193,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="138" width="173">
+    <measure number="139" width="173">
       <note>
         <pitch>
           <step>G</step>
@@ -7229,7 +7250,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="139" width="146">
+    <measure number="140" width="146">
       <note>
         <pitch>
           <step>G</step>
@@ -7267,7 +7288,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="140" width="79">
+    <measure number="141" width="79">
       <note>
         <pitch>
           <step>G</step>
@@ -7280,20 +7301,12 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="141" width="133">
+    <measure number="142" width="133">
       <attributes>
         <measure-style>
           <multiple-rest>3</multiple-rest>
         </measure-style>
       </attributes>
-      <note>
-        <rest/>
-        <duration>8640</duration>
-        <voice>1</voice>
-      </note>
-    </measure>
-    <!--============================-->
-    <measure number="142">
       <note>
         <rest/>
         <duration>8640</duration>
@@ -7309,7 +7322,15 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="144" width="79">
+    <measure number="144">
+      <note>
+        <rest/>
+        <duration>8640</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="145" width="79">
       <note>
         <pitch>
           <step>G</step>
@@ -7322,7 +7343,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="145" width="170">
+    <measure number="146" width="170">
       <note>
         <pitch>
           <step>G</step>
@@ -7365,7 +7386,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="146" width="79">
+    <measure number="147" width="79">
       <direction>
         <direction-type>
           <words font-size="10" font-style="italic" default-y="-44" justify="left">First</words>
@@ -7384,7 +7405,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="147" width="75">
+    <measure number="148" width="75">
       <direction>
         <direction-type>
           <words font-size="10" font-style="italic" default-y="-44" justify="left">Normal </words>
@@ -7403,7 +7424,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="148" width="160">
+    <measure number="149" width="160">
       <note>
         <pitch>
           <step>G</step>
@@ -7452,7 +7473,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="149" width="160">
+    <measure number="150" width="160">
       <direction>
         <direction-type>
           <segno/>
@@ -7505,7 +7526,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="150" width="162">
+    <measure number="151" width="162">
       <note>
         <pitch>
           <step>G</step>
@@ -7551,7 +7572,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="151" width="126">
+    <measure number="152" width="126">
       <note>
         <pitch>
           <step>G</step>
@@ -7587,7 +7608,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="152" width="126">
+    <measure number="153" width="126">
       <note>
         <pitch>
           <step>G</step>
@@ -7620,7 +7641,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="153" width="126">
+    <measure number="154" width="126">
       <note>
         <pitch>
           <step>G</step>
@@ -7656,7 +7677,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="154" width="106">
+    <measure number="155" width="106">
       <note>
         <pitch>
           <step>G</step>
@@ -7677,7 +7698,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="155" width="76">
+    <measure number="156" width="76">
       <note>
         <pitch>
           <step>G</step>
@@ -7690,16 +7711,16 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="156" width="127">
-    </measure>
-    <!--============================-->
-    <measure number="157">
+    <measure number="157" width="127">
     </measure>
     <!--============================-->
     <measure number="158">
     </measure>
     <!--============================-->
-    <measure number="159" width="76">
+    <measure number="159">
+    </measure>
+    <!--============================-->
+    <measure number="160" width="76">
       <note>
         <pitch>
           <step>G</step>
@@ -7708,46 +7729,6 @@
         <duration>8640</duration>
         <voice>1</voice>
         <type>whole</type>
-        <stem>none</stem>
-      </note>
-    </measure>
-    <!--============================-->
-    <measure number="160" width="157">
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>3240</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <dot/>
-        <stem>up</stem>
-      </note>
-      <note>
-        <rest/>
-        <duration>1080</duration>
-        <voice>1</voice>
-        <type>eighth</type>
-        <stem>none</stem>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>3780</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <dot/>
-        <dot/>
-        <stem>up</stem>
-      </note>
-      <note>
-        <rest/>
-        <duration>540</duration>
-        <voice>1</voice>
-        <type>16th</type>
         <stem>none</stem>
       </note>
     </measure>
@@ -7761,6 +7742,46 @@
         <duration>3240</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <dot/>
+        <stem>up</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>1080</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <stem>none</stem>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3780</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <dot/>
+        <stem>up</stem>
+      </note>
+      <note>
+        <rest/>
+        <duration>540</duration>
+        <voice>1</voice>
+        <type>16th</type>
+        <stem>none</stem>
+      </note>
+    </measure>
+    <!--============================-->
+    <measure number="162" width="157">
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3240</duration>
+        <voice>1</voice>
+        <type>quarter</type>
         <dot placement="below"/>
         <stem>up</stem>
       </note>
@@ -7792,7 +7813,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="162" width="167">
+    <measure number="163" width="167">
       <attributes>
         <time>
           <beats>4</beats>
@@ -7822,7 +7843,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="163" width="139">
+    <measure number="164" width="139">
       <note>
         <pitch>
           <step>G</step>
@@ -7847,7 +7868,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="164" width="138">
+    <measure number="165" width="138">
       <note>
         <pitch>
           <step>G</step>
@@ -7873,7 +7894,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="165" width="160">
+    <measure number="166" width="160">
       <note>
         <pitch>
           <step>G</step>
@@ -7900,7 +7921,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="166" width="142">
+    <measure number="167" width="142">
       <attributes>
         <time symbol="common">
           <beats>4</beats>
@@ -7930,7 +7951,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="167" width="114">
+    <measure number="168" width="114">
       <note>
         <pitch>
           <step>G</step>
@@ -7955,7 +7976,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="168" width="121">
+    <measure number="169" width="121">
       <note>
         <pitch>
           <step>G</step>
@@ -7981,7 +8002,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="169" width="127">
+    <measure number="170" width="127">
       <note>
         <pitch>
           <step>G</step>
@@ -8008,7 +8029,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="170" width="181">
+    <measure number="171" width="181">
       <note>
         <pitch>
           <step>G</step>
@@ -8054,7 +8075,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="171" width="199">
+    <measure number="172" width="199">
       <note>
         <pitch>
           <step>G</step>
@@ -8104,7 +8125,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="172" width="313">
+    <measure number="173" width="313">
       <note>
         <pitch>
           <step>G</step>
@@ -8192,7 +8213,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="173" width="320">
+    <measure number="174" width="320">
       <note>
         <pitch>
           <step>G</step>
@@ -8265,7 +8286,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="174" width="473">
+    <measure number="175" width="473">
       <note>
         <pitch>
           <step>G</step>
@@ -8396,7 +8417,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="175" width="290">
+    <measure number="176" width="290">
       <note>
         <pitch>
           <step>G</step>
@@ -8477,7 +8498,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="176" width="294">
+    <measure number="177" width="294">
       <attributes>
         <time>
           <beats>2</beats>
@@ -8595,7 +8616,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="177" width="239">
+    <measure number="178" width="239">
       <note>
         <pitch>
           <step>G</step>
@@ -8676,7 +8697,7 @@
       </note>
     </measure>
     <!--============================-->
-    <measure number="178" width="277">
+    <measure number="179" width="277">
       <attributes>
         <time>
           <beats>2</beats>

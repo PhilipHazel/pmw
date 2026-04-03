@@ -15,3 +15,16 @@ heading 12 "Three"
 [stave 1 treble 1]
 [300] G+ |
 [endstave]
+
+[newmovement]
+[stave 1 treble 1]
+"ul"/ul g "ol"/ol g "fb"/fb g r |
+[textshow underlay off]
+"ul"/ul g "ol"/ol g "fb"/fb g r |
+[textshow overlay off]
+"ul"/ul g "ol"/ol g "fb"/fb g r |
+[textshow underlay on textshow fb off]
+"ul"/ul g "ol"/ol g "fb"/fb g r |
+[textshow fb on textshow overlay on]
+"ul"/ul g "ol"/ol g "fb"/fb g r |
+[endstave]

@@ -2,9 +2,9 @@
 *                PMW fixed tables                *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: January 2021 */
-/* This file last modified: October 2025 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -457,6 +457,7 @@ sreadstr init_sreadstr = {
   0,                  /* ornament */
   0,                  /* pletflags */
   0,                  /* stemsdirection: 0 => auto */
+  0,                  /* textsuppress */
   0,                  /* tiesplacement: 0 => auto */
   FALSE,              /* beaming */
   TRUE,               /* noteson */

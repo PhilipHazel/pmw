@@ -2,9 +2,9 @@
 *           PMW structure definitions            *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: December 2025 */
+/* This file last modified: April 2026 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -328,7 +328,7 @@ typedef struct {
    int32_t    width;
    int32_t    textx;
    int32_t    texty;
-  uint16_t    textflags;
+  uint32_t    textflags;
   uint16_t    textsize;
 } b_slurgapstr;
 
@@ -347,7 +347,7 @@ typedef struct {
 
 typedef struct {
   BSTRHEAD;
-  uint16_t  flags;
+  uint32_t  flags;
   uint32_t *string;
    int32_t  x;
    int32_t  y;
@@ -675,6 +675,7 @@ typedef struct sreadstr {
   uint8_t    ornament;
   uint8_t    pletflags;
    int8_t    stemsdirection;
+  uint8_t    textsuppress;
    int8_t    tiesplacement;
   CBOOL      beaming;
   CBOOL      noteson;

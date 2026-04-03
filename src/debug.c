@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: January 2026 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -288,6 +288,7 @@ static textflag_name textflags[] = {
   { text_middle,    "middle" },
   { text_rehearse,  "rehearse" },
   { text_ringed,    "ringed" },
+  { text_suppress,  "suppressed" }, 
   { text_timealign, "timealign" },
   { text_ul,        "ul" }
 };

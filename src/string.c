@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: November 2025 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -2289,11 +2289,13 @@ if (undoverlay)
     {
     default_font = srs.ulfont;
     if (s1->size < 0) s1->size = srs.ulsize;
+    if ((srs.textsuppress & txtsup_underlay) != 0) s1->flags |= text_suppress; 
     }
   else
     {
     default_font = srs.olfont;
     if (s1->size < 0) s1->size = srs.olsize;
+    if ((srs.textsuppress & txtsup_overlay) != 0) s1->flags |= text_suppress; 
     }
   }
 
@@ -2301,6 +2303,7 @@ else if ((s1->flags & text_fb) != 0)
   {
   default_font = srs.fbfont;
   if (s1->size < 0) s1->size = srs.fbsize;
+  if ((srs.textsuppress & txtsup_fb) != 0) s1->flags |= text_suppress; 
   }
 
 /* Currently, the size of individual rehearsal marks cannot be changed. */

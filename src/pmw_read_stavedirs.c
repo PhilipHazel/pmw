@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: February 2021 */
-/* This file last modified: January 2026 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -1965,7 +1965,7 @@ else
     }
   else
     {
-    error(ERR8, "\"underlay\", \"fb\", \"fbu\", \"above\", or \"below\"");
+    error(ERR8, "\"underlay\", \"overlay\", \"fb\", \"fbu\", \"above\", or \"below\"");
     return;
     }
 
@@ -1984,6 +1984,34 @@ else
     srs.textabsolute = sign*read_fixed();
     }
   }
+}
+
+
+
+/*************************************************
+*                  Textshow                      *
+*************************************************/
+
+static void
+p_textshow(void)
+{
+uint8_t flag = 0;
+
+read_nextword();
+
+if (Ustrcmp(read_wordbuffer, "underlay") == 0) flag = txtsup_underlay;
+else if (Ustrcmp(read_wordbuffer, "overlay") == 0) flag = txtsup_overlay;
+else if (Ustrcmp(read_wordbuffer, "fb") == 0) flag = txtsup_fb;
+else
+  {
+  error(ERR8, "\"underlay\", \"overlay\", or \"fb\"");
+  return;
+  }
+
+read_nextword();
+if (Ustrcmp(read_wordbuffer, "on") == 0) srs.textsuppress &= ~flag;
+else if (Ustrcmp(read_wordbuffer, "off") == 0) srs.textsuppress |= flag;
+else error(ERR8, "\"on\" or \"off\"");
 }
 
 
@@ -2333,6 +2361,7 @@ static dirstr read_stavedirlist[] = {
   { "tenor",          p_clef,          clef_tenor, FALSE },
   { "text",           p_text,          0, TRUE },
   { "textfont",       p_fonttype,      1, TRUE },
+  { "textshow",       p_textshow,      0, TRUE },
   { "textsize",       p_fontsize,      1, TRUE },
   { "tick",           p_common,        b_tick, FALSE },
   { "ties",           p_stems,         FALSE, TRUE },

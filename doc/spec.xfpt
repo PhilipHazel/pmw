@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>28 March 2026</date>
+<date>03 April 2026</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.34</revnumber>
-  <date>28 March 2026</date>
+  <date>03 April 2026</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2026</year><holder>Philip Hazel</holder></copyright>
@@ -10547,8 +10547,6 @@ and the dotted crotchet's length is appropriately shortened.
 
 
 
-
-
 .subsection "Short cuts for inputting notes" SUBSECTshortcuts
 .index "input short cuts"
 .index "repeated notes"
@@ -10901,7 +10899,8 @@ overlay, or figured bass text. Any individual string can always be explicitly
 qualified to indicate its type. Underlay, overlay, and figured bass text is by
 default output in the roman typeface. The directives &%[underlayfont]%&,
 &%[overlayfont]%&, and &%[fbfont]%& can be used to change the default font for
-these kinds of text on individual staves.
+these kinds of text on individual staves. The &%[textshow]%& directive can be
+used to suppress their output.
 
 Text strings, enclosed in double quote characters, are coded in among the notes
 of a stave.
@@ -13996,6 +13995,25 @@ given text string it is always possible to change font by using the appropriate
 escape sequence.
 
 
+.subsection "[Textshow]"
+.index "&%[textshow]%&"
+.index "figured bass" "hiding"
+.index "underlay" "hiding"
+.index "overlay" "hiding"
+This directive can be used to disable underlay, overlay, or figured bass 
+output. It must be followed by one of the words `underlay', `overlay', or `fb' 
+and then either `on' or `off'. The default is `on', when all these kinds of 
+text are included in the output. Turning one or more of these special kinds of 
+text off may be useful when the same input is used to generate parts for 
+different instruments. For example, if the same input is used to generate a 
+keyboard part with figured bass and also a part for a doubling instrument, you 
+could use
+.code
+[textshow fb off]
+.endd
+to remove the figuring from the latter.
+
+
 .subsection "[Textsize]"
 .index "&%[textsize]%&"
 This directive must be followed by a number in the range 1 to 20. It selects
@@ -16095,6 +16113,7 @@ rests:
 .row "&`[text above `&<&'n'&>&`]`&"          "set default text above at fixed level"
 .row "&`[text below `&<&'n'&>&`]`&"          "set default text below at fixed level"
 .row "&`[textfont `&<&'name'&>&`]`&"         "set default text font"
+.row "&`[textshow `&<&'name'&> &`on/off]`&"  "enable/disable certain text types"
 .row "&`[textsize `&<&'n'&>&`]`&"            "set default text size"
 .row "&`[tick]`&"                            "tick pause"
 .row "&`[ties `&<&'direction'&>&`]`&"        "force/unforce tie direction"
