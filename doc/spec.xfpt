@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>03 April 2026</date>
+<date>05 April 2026</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.34</revnumber>
-  <date>03 April 2026</date>
+  <date>05 April 2026</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2026</year><holder>Philip Hazel</holder></copyright>
@@ -6571,7 +6571,9 @@ Footing lines are placed below the bottom of the page, as specified by the
 &%pagelength%& directive, the first one being 20 points below. This is an
 absolute distance that does not change if the magnification is altered.
 However, the distance between footings and the sizes of fonts used are subject
-to magnification.
+to magnification. If there are many footing lines on any page, the other output
+is moved upwards in order to accommodate them. This movement applies to all
+pages.
 
 See the &%pagefooting%& and &%lastfooting%& directives for a means of setting
 up footings for pages other than the first. If no &%footing%& directive is
@@ -14000,13 +14002,13 @@ escape sequence.
 .index "figured bass" "hiding"
 .index "underlay" "hiding"
 .index "overlay" "hiding"
-This directive can be used to disable underlay, overlay, or figured bass 
-output. It must be followed by one of the words `underlay', `overlay', or `fb' 
-and then either `on' or `off'. The default is `on', when all these kinds of 
-text are included in the output. Turning one or more of these special kinds of 
-text off may be useful when the same input is used to generate parts for 
-different instruments. For example, if the same input is used to generate a 
-keyboard part with figured bass and also a part for a doubling instrument, you 
+This directive can be used to disable underlay, overlay, or figured bass
+output. It must be followed by one of the words `underlay', `overlay', or `fb'
+and then either `on' or `off'. The default is `on', when all these kinds of
+text are included in the output. Turning one or more of these special kinds of
+text off may be useful when the same input is used to generate parts for
+different instruments. For example, if the same input is used to generate a
+keyboard part with figured bass and also a part for a doubling instrument, you
 could use
 .code
 [textshow fb off]
@@ -15437,8 +15439,8 @@ on its own.
 &`*include `&"&'file name'&"
 .endd
 A macro name must be followed by parentheses, with optional default argument
-values, if it is to be used with arguments. A condition may consist of multiple 
-sub-conditions, separated by `and' or `or'; each may optionally be preceded by 
+values, if it is to be used with arguments. A condition may consist of multiple
+sub-conditions, separated by `and' or `or'; each may optionally be preceded by
 `not'.
 
 

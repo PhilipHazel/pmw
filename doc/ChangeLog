@@ -28,6 +28,9 @@ left-to-right processing - no operator precedence.
 8. Add [textshow] directive, to disable/enable underlay, overlay, or figured 
 bass.
 
+9. When there is more than one footing line, check the space required and move 
+everything up the page if necessary.
+
 
 Version 5.33 22-December-2025
 -----------------------------

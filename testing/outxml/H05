@@ -31,6 +31,7 @@ a4
 %%Page: 1 1
 %%BeginPageSetup
 /pagesave save def
+0 118.924 T
 0.992 dup scale
 %%EndPageSetup
 rm 17 ss(T)235.212 641.202 s(itle added by PMW)-0.595 0 rs rm 12 ss
@@ -146,6 +147,7 @@ pagesave restore showpage
 %%Page: 2 2
 %%BeginPageSetup
 /pagesave save def
+0 118.924 T
 0.992 dup scale
 %%EndPageSetup
 rm 12 ss(MusicXML )265.602 641.202 s(T)-0.216 0 rs(itle)-0.42 0 rs

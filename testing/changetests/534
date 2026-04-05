@@ -28,3 +28,17 @@ heading 12 "Three"
 [textshow fb on textshow overlay on]
 "ul"/ul g "ol"/ol g "fb"/fb g r |
 [endstave]
+
+[newmovement newpage]
+
+Footing "First line"
+Footing "Second line"
+Footing "Third line"
+Footing "Fourth line"
+Footing "Fifth line"
+Footing "Sixth line" 100
+
+[stave 1 treble 1]
+G+
+[endstave]
+

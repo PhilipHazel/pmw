@@ -31,6 +31,7 @@ a4
 %%Page: 1 1
 %%BeginPageSetup
 /pagesave save def
+0 20 T
 %%EndPageSetup
 mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
 %1/1
@@ -448,6 +449,7 @@ pagesave restore showpage
 %%Page: 2 2
 %%BeginPageSetup
 /pagesave save def
+0 20 T
 %%EndPageSetup
 mf 10 ss(!)64 760 s
 %169/1
@@ -761,5 +763,18 @@ mf 10 ss(5)500.03 52.005 s(-)522.011 54.005 s(B)542.495 50.005 s
 rm 8 ss(- )297.336 30 s bf 8 ss(2 -)302 30 s
 pagesave restore showpage
 
+%%Page: 3 3
+%%BeginPageSetup
+/pagesave save def
+0 20 T
+%%EndPageSetup
+mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
+%1/1
+mf 10 ss(2)90.9 762 s(B)121.4 760 s(@)119.4 760 s
+(CCCCC)64 760 s (C)112.9 760 s
+rm 8 ss(First line)64 30 s(Second line)64 22 s(Third line)64 14 s
+(F)64 6 s(ourth line)-0.12 0 rs(Fifth line)64 -2 s(Sixth line)64 -10 s
+pagesave restore showpage
+
 %%Trailer
-%%Pages: 2
+%%Pages: 3

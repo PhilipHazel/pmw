@@ -1246,6 +1246,7 @@ All errors detected in init_command() and decode_command() are hard. */
 int
 main(int argc, char **argv)
 {
+int maxfootingdepth = 0;
 (void) argc;
 
 if (atexit(tidy_up) != 0) error(ERR25);  /* Hard */
@@ -1317,6 +1318,28 @@ if (main_suppress_output)
   eprintf( "** No output generated\n");
   return(EXIT_FAILURE);
   }
+
+/* Find the largest depth of footings on any page. The space field of the last
+footing is ignored because there will be nothing below it. */
+
+for (pagestr *ps = main_pageanchor; ps != NULL; ps = ps->next)
+  {
+  int thisdepth = 0;
+  headblock *hb = ps->footing;
+  if (hb != NULL)
+    {
+    for (headstr *hs = hb->headings;
+         hs != NULL && hs->next != NULL;
+         hs = hs->next)
+      thisdepth += hs->space;
+    }
+  if (thisdepth > maxfootingdepth) maxfootingdepth = thisdepth;
+  }
+
+/* If there is a requirement for lots of footings, move the page image upwards
+by adjusting the -pageadjust value. */
+
+if (maxfootingdepth > 20000) print_image_yadjust += maxfootingdepth - 20000;
 
 /* Show pagination information if verifying */
 
