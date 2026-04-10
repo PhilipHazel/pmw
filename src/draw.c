@@ -14,7 +14,7 @@ stack (stack_rqd) in must be kept in step with this. Also remember to add any
 new operators into the check_ptr() function. */
 
 enum {
-  dr_accleft, dr_add, dr_and,
+  dr_accleft, dr_add, dr_and, dr_argcount,
   dr_barnumber, dr_bra,
   dr_calledfrom, dr_copy, dr_cos, dr_currentcolor, dr_currentdash,
     dr_currentgray, dr_currentlinewidth, dr_currentpoint, dr_curveto, dr_cvs,
@@ -58,6 +58,7 @@ static uint32_t stack_rqd[] = {
   0u,                 /* accleft */
   0x00000022u,        /* add */
   0x00000022u,        /* and */
+  0u,                 /* argcount */
   0u,                 /* barnumber */
   0u,                 /* bra */
   0u,                 /* calledfrom */
@@ -153,6 +154,7 @@ static uint32_t stack_rqd[] = {
 *                Variables                       *
 *************************************************/
 
+static int argcount;
 static int called_from;
 static BOOL currentpoint;
 static int32_t colour[3];
@@ -186,6 +188,7 @@ static draw_op draw_operators[] = {
   { "accleft",      dr_accleft },
   { "add",          dr_add },
   { "and",          dr_and },
+  { "argcount",     dr_argcount },
   { "barnumber",    dr_barnumber },
   { "calledfrom",   dr_calledfrom },
   { "copy",         dr_copy },
@@ -822,6 +825,7 @@ while (pp != p && pp->d.val != dr_end)
     case dr_accleft:     /* These have no data */
     case dr_add:
     case dr_and:
+    case dr_argcount:
     case dr_barnumber:
     case dr_bra:
     case dr_calledfrom:
@@ -1057,6 +1061,11 @@ while (p->d.val != dr_end)
       int a2 = draw_stack[--out_drawstackptr].d.val / 1000;
       draw_stack[out_drawstackptr++].d.val = (a1 & a2)*1000;
       }
+    break;
+
+    case dr_argcount:
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = argcount * 1000;
     break;
 
     /* In a heading or footing, the current barnumber is negative. */
@@ -1735,8 +1744,12 @@ int32_t save_colour[3];
 called_from = from;  /* Set calledfrom system variable */
 
 if (args != NULL)
+  {
   for (int i = 1; i <= args[0].d.val; i++)
     draw_stack[out_drawstackptr++] = args[i];
+  argcount = args[0].d.val;
+  }
+else argcount = 0;
 
 colour[0] = colour[1] = colour[2] = 0;
 xp = yp = cp = level = dash[0] = dash[1] = 0;

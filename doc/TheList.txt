@@ -254,8 +254,6 @@ indicate text type.
 
 * A variable to say if (and how many) dots are present on a note.
 
-* A variable containing the number of arguments to a draw call.
-
 * String concatenation using "add".
 
 

@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>08 April 2026</date>
+<date>10 April 2026</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.34</revnumber>
-  <date>08 April 2026</date>
+  <date>10 April 2026</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2026</year><holder>Philip Hazel</holder></copyright>
@@ -5284,6 +5284,10 @@ edge of the accidental that is furthest to the left, as a positive number. If
 there are no accidentals, the value is zero, which is also the case if the 
 drawing is associated with a rest.
 .next
+&%argcount%&: This variable contains the number of arguments pushed onto the 
+stack as part of an external call to a drawing function. This value does not 
+change when a drawing function is called as a subroutine of another.
+.next
 &%barnumber%&: When used in a bar, this variable contains the bar number. Note
 that if the bar is uncounted, its number includes a decimal fraction (&R;
 &<<SECTident>>&). If this variable is used in a drawing that is obeyed at the
@@ -5550,8 +5554,9 @@ One drawing can be called as a subroutine from within another by means of the
 stack and graphics state (current position, current path, line width, colour,
 etc). Changes made by the subroutine can therefore affect the caller. The
 behaviour is as if the &%draw%& operation is replaced by the text of the
-subroutine. For example, to draw two crosses below the stave on either side of
-a note's position:
+subroutine. Note that the value of the &%argcount%& system variable does not
+change when a subroutine is called. For example, to draw two crosses below the
+stave on either side of a note's position:
 .code
 draw cross
   -4  0 rmoveto 8 0 rlineto

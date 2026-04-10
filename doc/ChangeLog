@@ -38,6 +38,9 @@ caused repeated error messages until "too many error" stopped it.
 
   * A new system variable "calledfrom" tells where a drawing is called from 
     (note, heading, barline, etc.)
+    
+  * A new system variable "argcount" contains the number of arguments pushed 
+    onto the stack as part of an external drawing call.
 
 
 Version 5.33 22-December-2025

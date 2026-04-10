@@ -49,6 +49,11 @@ draw x
   calledfrom "" cvs show
 enddraw   
 
+draw y
+  0 -10 moveto
+  argcount "" cvs show
+enddraw    
+
 heading draw x 40
 footing draw x
 
@@ -57,6 +62,8 @@ footing draw x
 
 [line] gg [linegap/w20/l6/draw x] gg [endline] |
 [slur] gg [slurgap/w20/l6/draw x] gg [endslur] |
+[draw y] g [draw "" y] g [draw 10 "" y] g [draw 1 2 3 4 y] r | 
+
 [endstave]
 
 
