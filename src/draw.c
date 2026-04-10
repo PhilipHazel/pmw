@@ -2,9 +2,9 @@
 *             PMW drawing functions              *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: February 2021 */
-/* This file last modified: January 2025 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -16,8 +16,8 @@ new operators into the check_ptr() function. */
 enum {
   dr_accleft, dr_add, dr_and,
   dr_barnumber, dr_bra,
-  dr_copy, dr_cos, dr_currentcolor, dr_currentdash, dr_currentgray,
-    dr_currentlinewidth, dr_currentpoint, dr_curveto, dr_cvs,
+  dr_calledfrom, dr_copy, dr_cos, dr_currentcolor, dr_currentdash,
+    dr_currentgray, dr_currentlinewidth, dr_currentpoint, dr_curveto, dr_cvs,
   dr_def, dr_div, dr_draw, dr_dup,
   dr_end, dr_eq, dr_exch, dr_exit,
   dr_false, dr_fill, dr_fillretain, dr_fontsize,
@@ -60,6 +60,7 @@ static uint32_t stack_rqd[] = {
   0x00000022u,        /* and */
   0u,                 /* barnumber */
   0u,                 /* bra */
+  0u,                 /* calledfrom */
   0x00000001u,        /* copy */
   0x00000002u,        /* cos */
   0u,                 /* currentcolor */
@@ -152,6 +153,7 @@ static uint32_t stack_rqd[] = {
 *                Variables                       *
 *************************************************/
 
+static int called_from;
 static BOOL currentpoint;
 static int32_t colour[3];
 static int32_t dash[2];
@@ -185,6 +187,7 @@ static draw_op draw_operators[] = {
   { "add",          dr_add },
   { "and",          dr_and },
   { "barnumber",    dr_barnumber },
+  { "calledfrom",   dr_calledfrom },
   { "copy",         dr_copy },
   { "cos",          dr_cos },
   { "currentcolor", dr_currentcolor },
@@ -535,7 +538,8 @@ for (;;)
     if (--bracount < 0) error(ERR81, drawnode->name);
     }
 
-  /* Deal with variable names; data put into "value" is the variable index */
+  /* Deal with user variable names; data put into "value" is the variable
+  index. */
 
   else if (read_c == '/')
     {
@@ -564,7 +568,7 @@ for (;;)
       }
     }
 
-  /* Else it must be a command word */
+  /* Else it must be a command word or system variable */
 
   else if (isalpha(read_c))
     {
@@ -625,11 +629,11 @@ for (;;)
     if (type < 0) error(ERR83, read_wordbuffer);
     }
 
-  /* Grumble if unrecognized input; error 10 skips to end of line */
+  /* Grumble if unrecognized input */
 
   else
     {
-    error(ERR8, "number, string, name, or curly bracket");
+    error_skip(ERR8, '\n', "number, string, name, or curly bracket");
     continue;
     }
 
@@ -820,6 +824,7 @@ while (pp != p && pp->d.val != dr_end)
     case dr_and:
     case dr_barnumber:
     case dr_bra:
+    case dr_calledfrom:
     case dr_copy:
     case dr_cos:
     case dr_currentcolor:
@@ -1071,6 +1076,11 @@ while (p->d.val != dr_end)
       draw_stack[out_drawstackptr].dtype = dd_number;
       draw_stack[out_drawstackptr++].d.val = a * 1000 + b;
       }
+    break;
+
+    case dr_calledfrom:
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = called_from * 1000;
     break;
 
     case dr_copy:
@@ -1709,17 +1719,20 @@ Arguments:
   t          the node of the drawing function
   args       vector of arguments
   overflag   TRUE if the output is to be saved till after the stave is done
+  from       code for where called from
 
 Returns:     nothing; all errors are hard
 */
 
 void
-out_dodraw(tree_node *t, drawitem *args, BOOL overflag)
+out_dodraw(tree_node *t, drawitem *args, BOOL overflag, int from)
 {
 int32_t x[100];
 int32_t y[100];
 int c[100];
 int32_t save_colour[3];
+
+called_from = from;  /* Set calledfrom system variable */
 
 if (args != NULL)
   for (int i = 1; i <= args[0].d.val; i++)

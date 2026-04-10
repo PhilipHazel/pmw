@@ -2,9 +2,9 @@
 *            PMW code for setting slurs          *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: July 2021 */
-/* This file last modified: January 2025 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -872,7 +872,7 @@ if (s->gaps != NULL)
         draw_ox = xg0 + draw_lgx;
         draw_oy = yg0 + draw_lgy + (below? (-3000) : (3000));
         draw_gap = below? -1000 : +1000;
-        out_dodraw(sg->drawing, sg->drawargs, FALSE);
+        out_dodraw(sg->drawing, sg->drawargs, FALSE, cf_linegap);
         draw_lgx = draw_lgy = draw_gap = 0;
         }
 
@@ -915,7 +915,7 @@ if (s->gaps != NULL)
         draw_lgx = c[2] - c[0];
         draw_lgy = c[3] - c[1];
         draw_gap = below? -1000 : +1000;
-        out_dodraw(sg->drawing, sg->drawargs, FALSE);
+        out_dodraw(sg->drawing, sg->drawargs, FALSE, cf_slurgap);
         draw_lgx = draw_lgy = draw_gap = 0;
         }
 

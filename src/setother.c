@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: June 2021 */
-/* This file last modified: January 2026 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -895,7 +895,8 @@ switch (p->type)
     }
   break;
 
-  /* Draw items associated with notes must be saved, as for text items. */
+  /* Draw items associated with notes must be saved, as for text items, but if 
+  there isn't a following note, do the drawing now. */
 
   case b_draw:
   if (misc_nextnote((b_notestr *)p) == NULL)
@@ -903,7 +904,7 @@ switch (p->type)
     b_drawstr *d = (b_drawstr *)p;
     draw_ox = out_barlinex;
     draw_oy = 0;
-    out_dodraw(d->drawing, d->drawargs, d->overflag);
+    out_dodraw(d->drawing, d->drawargs, d->overflag, cf_barline);
     }
   else
     {

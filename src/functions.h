@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: January 2026 */
+/* This file last modified: April 2026 */
 
 /* -------- General functions -------- */
 
@@ -59,7 +59,7 @@ extern int32_t      misc_timewidth(uint32_t);
 extern int32_t      misc_ybound(BOOL, b_tiestr *, BOOL, BOOL);
 
 extern void         out_ascstring(uschar *, int, int32_t, int32_t, int32_t);
-extern void         out_dodraw(tree_node *, drawitem *, BOOL);
+extern void         out_dodraw(tree_node *, drawitem *, BOOL, int);
 extern void         out_drawhairpin(b_hairpinstr *, int32_t);
 extern int32_t      out_drawnbar(BOOL, int32_t);
 extern void         out_extension(int32_t, int32_t, int32_t, fontinststr *);

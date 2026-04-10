@@ -2,9 +2,9 @@
 *        PMW code for setting one note/chord     *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: June 2021 */
-/* This file last modified: December 2025 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -2389,7 +2389,7 @@ if (out_drawqueue_ptr > 0)
   for (size_t i = 0; i < out_drawqueue_ptr; i++)
     {
     b_drawstr *d = out_drawqueue[i];
-    out_dodraw(d->drawing, d->drawargs, d->overflag);
+    out_dodraw(d->drawing, d->drawargs, d->overflag, cf_note);
     }
   out_drawqueue_ptr = 0;
   }

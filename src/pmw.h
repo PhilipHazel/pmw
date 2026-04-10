@@ -508,6 +508,11 @@ field in the structure above for items on the stack and for variables. */
 #define dd_code     4
 #define dd_varname  5
 
+/* Code values for where a drawing function is called from. */
+
+enum called_from { cf_note, cf_barline, cf_heading, cf_footing, cf_stavename, 
+  cf_slurgap, cf_linegap };
+
 /* Justification options */
 
 #define just_none       0u

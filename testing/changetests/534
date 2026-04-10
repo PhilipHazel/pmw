@@ -42,3 +42,21 @@ Footing "Sixth line" 100
 G+
 [endstave]
 
+[newmovement]
+draw x
+  -2 0 moveto
+  calledfrom 2 lt { 0 -10 rmoveto } if
+  calledfrom "" cvs show
+enddraw   
+
+heading draw x 40
+footing draw x
+
+[stave 1 "   " draw x treble 1]
+[draw x] G+ [draw x] |
+
+[line] gg [linegap/w20/l6/draw x] gg [endline] |
+[slur] gg [slurgap/w20/l6/draw x] gg [endslur] |
+[endstave]
+
+

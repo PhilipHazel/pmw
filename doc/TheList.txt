@@ -247,13 +247,12 @@ DRAWING
 
 * Line styles
 
-* Drawing relative to a text item, e.g. "text"/draw=thing.
+* Drawing relative to a text item, e.g. "text"/draw=thing. Need variable to 
+indicate text type.
 
 * A version of headright that takes dots into account.
 
 * A variable to say if (and how many) dots are present on a note.
-
-* A variable to say what this drawing is attached to (heading, note, bar, etc.)
 
 * A variable containing the number of arguments to a draw call.
 

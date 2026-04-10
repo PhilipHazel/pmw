@@ -31,7 +31,6 @@ a4
 %%Page: 1 1
 %%BeginPageSetup
 /pagesave save def
-0 20 T
 %%EndPageSetup
 mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
 %1/1
@@ -449,7 +448,6 @@ pagesave restore showpage
 %%Page: 2 2
 %%BeginPageSetup
 /pagesave save def
-0 20 T
 %%EndPageSetup
 mf 10 ss(!)64 760 s
 %169/1
@@ -766,14 +764,31 @@ pagesave restore showpage
 %%Page: 3 3
 %%BeginPageSetup
 /pagesave save def
-0 20 T
 %%EndPageSetup
 mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
 %1/1
 mf 10 ss(2)90.9 762 s(B)121.4 760 s(@)119.4 760 s
 (CCCCC)64 760 s (C)112.9 760 s
-rm 8 ss(First line)64 30 s(Second line)64 22 s(Third line)64 14 s
-(F)64 6 s(ourth line)-0.12 0 rs(Fifth line)64 -2 s(Sixth line)64 -10 s
+rm 10 ss(2)62 716 s(   )64 663 s(4)62 659 s mf 10 ss(!)77.5 659 s
+bf 11.8 ss(4)90.5 667 s(4)90.5 659.15 s
+%1/1
+rm 10 ss(0)102.4 649 s mf 10 ss(2)104.4 661 s rm 10 ss(1)132.4 649 s
+mf 10 ss(@)134.4 659 s
+%2/1
+(5)140.4 661 s(5)156.4 661 s(5)172.4 661 s(5)188.4 661 s
+159.4 680 140.4 680 0.3 l 140.4 677 140.4 680.15 0.3 l rm 10 ss(6)
+167.4 680 s 195.4 680 179.4 680 0.3 l 195.4 677 195.4 680.15 0.3 l
+mf 10 ss(@)204.4 659 s
+%3/1
+(5)210.4 661 s(5)226.4 661 s(5)242.4 661 s(5)258.4 661 s GS 239.9 677 T
+-21.5 0.05 Mt -18.45 1.864 -14.19 3.126 -9.459 3.833 Ct -9.459 4.433 Lt
+-14.19 3.594 -18.45 2.1 -21.5 -0.05 Ct -21.5 0.05 Lt F GR rm 10 ss(5)
+237.041 680.931 s GS 239.9 677 T 7.742 4.064 Mt
+13.153 3.419 18.085 2.081 21.5 0.05 Ct 21.5 -0.05 Lt
+18.085 2.357 13.153 3.942 7.742 4.706 Ct 7.742 4.064 Lt F GR mf 10 ss
+(B)274.9 659 s(@)272.9 659 s
+(FCCCCCCCCC)77.5 659 s (C)266.4 659 s
+rm 10 ss(3)62 30 s
 pagesave restore showpage
 
 %%Trailer

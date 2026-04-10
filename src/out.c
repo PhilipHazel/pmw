@@ -2112,12 +2112,15 @@ if (p->string[2] != NULL)
 
 /* Called from out_page() below.
 
-Argument:   pointer to chain of heading blocks
+Arguments:   
+  h         pointer to chain of heading blocks
+  from      code to distinguish heading/footing for drawings
+    
 Returns:    nothing
 */
 
 static void
-out_heading(headblock *h)
+out_heading(headblock *h, int from)
 {
 TRACE("out_heading() start\n");
 
@@ -2132,7 +2135,7 @@ for (headstr *p = h->headings; p != NULL; p = p->next)
     draw_ox = draw_oy = 0;
     curstave = -1;
     out_ystave = out_yposition;
-    out_dodraw(p->drawing, p->drawargs, FALSE);
+    out_dodraw(p->drawing, p->drawargs, FALSE, from);
     out_yposition += p->space;
     }
 
@@ -2333,7 +2336,7 @@ for (curstave = 1; curstave <= out_laststave; curstave++)
     if (sname->drawing != NULL)
       {
       draw_ox = draw_oy = 0;
-      out_dodraw(sname->drawing, sname->drawargs, FALSE);
+      out_dodraw(sname->drawing, sname->drawargs, FALSE, cf_stavename);
       }
     }
 
@@ -2670,7 +2673,7 @@ for (out_sysblock = curpage->sysblocks;
       out_yposition += topspace;
       topspace = 0;
       }
-    out_heading((headblock *)out_sysblock);
+    out_heading((headblock *)out_sysblock, cf_heading);
     lastwasheading = firstsystem = TRUE;
     }
 
@@ -2708,7 +2711,7 @@ if (curpage->footing != NULL)
   out_stavemagn = 1000;
   out_pitchmagn = out_stavemagn/2;
   out_yposition = main_pagelength + 20000000/main_magnification;
-  out_heading(curpage->footing);
+  out_heading(curpage->footing, cf_footing);
   }
 
 TRACE("out_page() end\n");

@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>05 April 2026</date>
+<date>08 April 2026</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.34</revnumber>
-  <date>05 April 2026</date>
+  <date>08 April 2026</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2026</year><holder>Philip Hazel</holder></copyright>
@@ -5275,17 +5275,32 @@ description, the name of a variable has the effect of pushing the relevant data
 value onto the stack. The system variables that relate to notes should be used
 only when the drawing function is called immediately before a note, and those
 that relate to staves and systems should not be used in drawings that are
-called as headings or footings.
+called as headings or footings. Unless specified below, the value of any 
+variable that is inappropriately referenced is undefined.
 .ilist
-&%accleft%&: This variable contains distance from the left-hand edge of the
-leftmost notehead to the left-hand edge of the accidental that is furthest to
-the left, as a positive number. If there are no accidentals, the value is zero.
+&%accleft%&: When the drawing is associated with a note, this variable contains
+the distance from the left-hand edge of the leftmost notehead to the left-hand
+edge of the accidental that is furthest to the left, as a positive number. If
+there are no accidentals, the value is zero, which is also the case if the 
+drawing is associated with a rest.
 .next
 &%barnumber%&: When used in a bar, this variable contains the bar number. Note
 that if the bar is uncounted, its number includes a decimal fraction (&R;
 &<<SECTident>>&). If this variable is used in a drawing that is obeyed at the
 start of a system, it contains the number of the first bar in the system. If
 used in headings or footings, it contains zero.
+.next
+&%calledfrom%&: The value of this variable depends on where the drawing 
+function is called from:
+.itable none 0 0 2  20 left  300 left
+.row 0 "before a note or rest"
+.row 1 "before a barline"
+.row 2 "in a heading"
+.row 3 "in a footing"
+.row 4 "as part of a stave name"
+.row 5 "in a slur gap"
+.row 6 "in a line gap"
+.endtable
 .next
 &%gaptype%&: This variable contains +1 or -1 when a drawing function is being
 obeyed as part of a &%[linegap]%& or &%[slurgap]%& directive; the value is
@@ -5297,41 +5312,45 @@ is below. Otherwise the variable contains zero.
 coordinates of the start of the next part of the line or slur. Otherwise they
 contain zero.
 .next
-&%headbottom%&: This variable contains the y-coordinate of the bottom of the
-notehead; if the drawing function precedes a chord, this refers to the lowest
-notehead.
+&%headbottom%&: When the drawing is associated with a note, this variable
+contains the y-coordinate of the bottom of the notehead; if the drawing
+function precedes a chord, this refers to the lowest notehead.
 .next
 &%headleft%&: For a chord with a downwards stem in which there is a notehead on
 the `wrong' side of the stem, this variable contains the width of this notehead
 as a positive number; otherwise its value is zero.
 .next
-&%headright%&: This variable contains the width of the notehead, except that,
-for a chord with an upwards pointing stem in which there is a notehead on the
-`wrong' side of the stem, the value is twice the notehead width.
+&%headright%&: When the drawing is associated with a note, this variable
+contains the width of the notehead, except that, for a chord with an upwards
+pointing stem in which there is a notehead on the `wrong' side of the stem, the
+value is twice the notehead width.
 .next
-&%headtop%&: This variable contains the y-coordinate of the top of the
-notehead; if the drawing function precedes a chord, this refers to the highest
-notehead.
+&%headtop%&: When the drawing is associated with a note, this variable contains
+the y-coordinate of the top of the notehead; if the drawing function precedes a
+chord, this refers to the highest notehead.
 .next
-&%leftbarx%&: This variable contains the x-coordinate of the previous bar line,
-except in the first bar of a system, in which case it is the x-coordinate of a
-point slightly to the left of the first note in the bar.
+&%leftbarx%&: When drawing in a stave, this variable contains the x-coordinate
+of the previous bar line, relative to the current origin, except in the first
+bar of a system, in which case it is the x-coordinate of a point slightly to
+the left of the first note in the bar.
 .next
-&%linebottom%&: This variable contains the value 2 (scaled to the stave size)
-if the bottom of the lowest notehead is on a stave (or ledger) line (that is,
-the notehead itself is positioned in a space); otherwise its value is zero.
+&%linebottom%&: When the drawing is associated with a note, this variable
+contains the value 2 (scaled to the stave size) if the bottom of the lowest
+notehead is on a stave (or ledger) line (that is, the notehead itself is
+positioned in a space); otherwise its value is zero.
 .next
 &%linegapx%& and &%linegapy%&: These variables are old synonyms for &%gapx%&
 and &%gapy%&.
 .next
 &%linelength%&: This variable contains the current line length, as set by the
 &%linelength%& header directive, but scaled to the current magnification. For
-example, with a magnification of 2 and the default pagelength of 480, the value
-in &%linelength%& is 240.
+example, with a magnification of 2 and the default line length of 480, the
+value in &%linelength%& is 240.
 .next
-&%linetop%&: This variable contains the value 2 (scaled to the stave size) if
-the top of the highest notehead is on a stave (or ledger) line (that is, the
-notehead itself is positioned in a space); otherwise its value is zero.
+&%linetop%&: When the drawing is associated with a note, this variable contains
+the value 2 (scaled to the stave size) if the top of the highest notehead is on
+a stave (or ledger) line (that is, the notehead itself is positioned in a
+space); otherwise its value is zero.
 .next
 &%magnification%&: This variable contains the value of the overall
 magnification. If used on a stave, it does not include the relative
@@ -5353,8 +5372,9 @@ value in &%pagelength%& is 360.
 .next
 &%pagenumber%&: This variable contains the current page number.
 .next
-&%stavesize%&: This variable contains the relative magnification for the
-current stave, as specified by the &%stavesize%& header directive.
+&%stavesize%&: When used on a stave, this variable contains the relative
+magnification for the stave, as specified by the &%stavesize%& header
+directive.
 .next
 &%stavespace%&: This variable contains the stave spacing for the current stave,
 that is, the vertical distance between this stave and the next one.
@@ -5363,12 +5383,12 @@ that is, the vertical distance between this stave and the next one.
 the current system, relative to the current origin.
 .next
 &%stembottom%&: This variable contains the y-coordinate of the bottom of the
-stem of the note or chord. If there is no stem, or if the stem points upwards,
+stem of a note or chord. If there is no stem, or if the stem points upwards,
 this is the same value as &%headbottom%&.
 .next
 &%stemtop%&: This variable contains the y-coordinate of the top of the stem of
-the note or chord. If there is no stem, or if the stem points downwards, this
-is the same value as &%headtop%&.
+a note or chord. If there is no stem, or if the stem points downwards, this is
+the same value as &%headtop%&.
 .next
 &%systemdepth%&: This variable contains the distance from the bottom of the top
 stave of the current system to the bottom of the bottom stave.
