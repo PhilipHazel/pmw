@@ -18,7 +18,7 @@ enum {
   dr_barnumber, dr_bra,
   dr_calledfrom, dr_copy, dr_cos, dr_currentcolor, dr_currentdash,
     dr_currentgray, dr_currentlinewidth, dr_currentpoint, dr_curveto, dr_cvs,
-  dr_def, dr_div, dr_draw, dr_dup,
+  dr_def, dr_div, dr_dots, dr_draw, dr_dup,
   dr_end, dr_eq, dr_exch, dr_exit,
   dr_false, dr_fill, dr_fillretain, dr_fontsize,
   dr_gaptype, dr_gapx, dr_gapy, dr_ge, dr_gt,
@@ -73,6 +73,7 @@ static uint32_t stack_rqd[] = {
   0x00000023u,        /* cvs */
   0x00000051u,        /* def */
   0x00000022u,        /* div */
+  0u,                 /* dots */
   0u,                 /* draw */
   0x00000001u,        /* dup */
   0u,                 /* end */
@@ -204,6 +205,7 @@ static draw_op draw_operators[] = {
   { "cvs",          dr_cvs },
   { "def",          dr_def },
   { "div",          dr_div },
+  { "dots",         dr_dots },
   { "dup",          dr_dup },
   { "eq",           dr_eq },
   { "exch",         dr_exch },
@@ -840,6 +842,7 @@ while (pp != p && pp->d.val != dr_end)
     case dr_cvs:
     case dr_def:
     case dr_div:
+    case dr_dots:
     case dr_dup:
     case dr_end:
     case dr_eq:
@@ -1192,6 +1195,11 @@ while (p->d.val != dr_end)
       mac_muldiv(draw_stack[out_drawstackptr-2].d.val, 1000,
         draw_stack[out_drawstackptr-1].d.val);
     out_drawstackptr--;
+    break;
+
+    case dr_dots:
+    draw_stack[out_drawstackptr].dtype = dd_number;
+    draw_stack[out_drawstackptr++].d.val = n_dots * 1000;;
     break;
 
     case dr_draw:

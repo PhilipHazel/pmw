@@ -41,6 +41,9 @@ caused repeated error messages until "too many error" stopped it.
     
   * A new system variable "argcount" contains the number of arguments pushed 
     onto the stack as part of an external drawing call.
+    
+  * A new system variable "dots" contains the number of augmentation dots that 
+    follow a note. 
 
 
 Version 5.33 22-December-2025

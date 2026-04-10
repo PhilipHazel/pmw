@@ -5275,17 +5275,17 @@ description, the name of a variable has the effect of pushing the relevant data
 value onto the stack. The system variables that relate to notes should be used
 only when the drawing function is called immediately before a note, and those
 that relate to staves and systems should not be used in drawings that are
-called as headings or footings. Unless specified below, the value of any 
+called as headings or footings. Unless specified below, the value of any
 variable that is inappropriately referenced is undefined.
 .ilist
 &%accleft%&: When the drawing is associated with a note, this variable contains
 the distance from the left-hand edge of the leftmost notehead to the left-hand
 edge of the accidental that is furthest to the left, as a positive number. If
-there are no accidentals, the value is zero, which is also the case if the 
+there are no accidentals, the value is zero, which is also the case if the
 drawing is associated with a rest.
 .next
-&%argcount%&: This variable contains the number of arguments pushed onto the 
-stack as part of an external call to a drawing function. This value does not 
+&%argcount%&: This variable contains the number of arguments pushed onto the
+stack as part of an external call to a drawing function. This value does not
 change when a drawing function is called as a subroutine of another.
 .next
 &%barnumber%&: When used in a bar, this variable contains the bar number. Note
@@ -5294,7 +5294,7 @@ that if the bar is uncounted, its number includes a decimal fraction (&R;
 start of a system, it contains the number of the first bar in the system. If
 used in headings or footings, it contains zero.
 .next
-&%calledfrom%&: The value of this variable depends on where the drawing 
+&%calledfrom%&: The value of this variable depends on where the drawing
 function is called from:
 .itable none 0 0 2  20 left  300 left
 .row 0 "before a note or rest"
@@ -5305,6 +5305,11 @@ function is called from:
 .row 5 "in a slur gap"
 .row 6 "in a line gap"
 .endtable
+.next
+&%dots%&: When the drawing is associated with a note or chord, this variable
+contains the number of augmentation dots. The conventional value 255 is used
+when the the length of a note is extended by 1/4 using the special `dot plus'
+notation (&R; &<<SUBSECTlengthnotesrests>>&).
 .next
 &%gaptype%&: This variable contains +1 or -1 when a drawing function is being
 obeyed as part of a &%[linegap]%& or &%[slurgap]%& directive; the value is
@@ -9526,17 +9531,17 @@ for minimizing typing.
 
 .index "dotted notes"
 .index "notes" "dotted"
-Up to four dots may follow a note or rest as in conventional music, to extend
-its length by 1/2, 3/4, 7/8, or 15/16, respectively. There is also support for
+Up to four augmentation dots may follow a note or rest as in conventional
+music, to extend its length by 1/2, 3/4, 7/8, or 15/16, respectively. There is
+also support for
 .index "Ghent, Emmanuel"
 Emmanuel Ghent's notation for extending the length of a note by 1/4
 .index "plus after notes"
 .index "notes" "followed by plus"
 (as reported in Gardner Read's book &'Music Notation'&). The PMW encoding for
-this is to follow the note with a dot and then a plus sign. The length of the
-note is extended by one quarter, and it is shown as the normal note followed by
-a plus sign. This notation is particularly useful when there are five beats in
-a bar.
+this is to follow the note with a dot and then a plus sign. It is shown as the
+normal note followed by a plus sign. This notation is particularly useful when
+there are five beats in a bar.
 .code
 [time 5/4] A+.+
 .endd

@@ -9,7 +9,7 @@ new implementation.
 July 2025: Removed some things that have been implemented in the meantime and
 added some comments. The items are in a random order.
 
-Last Updated: February 2026
+Last Updated: April 2026
 
 
 INFELICITIES
@@ -247,12 +247,8 @@ DRAWING
 
 * Line styles
 
-* Drawing relative to a text item, e.g. "text"/draw=thing. Need variable to 
-indicate text type.
-
-* A version of headright that takes dots into account.
-
-* A variable to say if (and how many) dots are present on a note.
+* Drawing relative to a text item, e.g. "text"/draw=thing. Need variables to 
+indicate text type and string length.
 
 * String concatenation using "add".
 
