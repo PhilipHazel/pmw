@@ -235,7 +235,7 @@ sets of flags for above/below on chords so that slur computations work right.
 * Option to print > accents inside staves (with closed point mid-way between
 lines).
 
-Option to force expression marks above/below.
+* Option to force expression marks above/below.
 
 
 DRAWING

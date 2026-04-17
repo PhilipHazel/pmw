@@ -32,7 +32,7 @@ bass.
 everything up the page if necessary.
 
 10. When reading the definition of a drawing function, an unexpected character 
-caused repeated error messages until "too many error" stopped it.
+caused repeated error messages until "too many errors" stopped it.
 
 11. Additions to the drawing facilities:
 
