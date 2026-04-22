@@ -2,9 +2,9 @@
 *       PMW global variable instantiations       *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: Decenber 2025 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 
@@ -267,6 +267,7 @@ int32_t      out_yposition;
 int32_t      out_ystave;
 
 #if SUPPORT_XML
+uschar      *outpmw_filename = NULL;
 uschar      *outxml_filename = NULL;
 int          outxml_movement = 1;
 #endif

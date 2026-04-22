@@ -23,7 +23,7 @@ OBJ = debug.o draw.o error.o font.o globals.o main.o mem.o midi.o misc.o \
       setother.o setslur.o settie.o string.o tables.o transpose.o tree.o
 
 ifeq ($(SUPPORT_XML),1)
-  XMLOBJ = xml.o xml_analyze.o xml_debug.o xml_error.o xml_globals.o \
+  XMLOBJ = pmwout.o xml.o xml_analyze.o xml_debug.o xml_error.o xml_globals.o \
            xml_heading.o xml_read.o xml_staves.o xml_tables.o xmlout.o
 else
   XMLOBJ=
@@ -66,6 +66,7 @@ misc.o:                $(DEPS) misc.c
 out.o:                 $(DEPS) out.c
 paginate.o:            $(DEPS) paginate.c
 pdf.o:                 $(DEPS) pdf.c
+pmwout.o:              $(DEPS) pmwout.c
 pmw_read.o:            $(DEPS) pmw_read.c
 pmw_read_header.o:     $(DEPS) pmw_read_header.c
 pmw_read_note.o:       $(DEPS) pmw_read_note.c

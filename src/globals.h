@@ -2,9 +2,9 @@
 *         PMW global variable definitions        *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: December 2025 */
+/* This file last modified: April 2026 */
 
 
 /*************************************************
@@ -316,6 +316,7 @@ extern int32_t      out_yposition;
 extern int32_t      out_ystave;
 
 #if SUPPORT_XML
+extern uschar      *outpmw_filename;
 extern uschar      *outxml_filename;
 extern int          outxml_movement;
 #endif
