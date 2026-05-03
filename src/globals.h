@@ -22,10 +22,14 @@ extern movtstr       default_movtstr;
 
 extern uschar *      font_IdStrings[];
 
+extern int32_t       init_accadjusts[];
+extern uint32_t      init_accspacing[];
 extern breadstr      init_breadstr;
 extern snamestr      init_snamestr;
 extern sreadstr      init_sreadstr;
 extern stavestr      init_stavestr;
+extern uint32_t      init_trillstring[];
+extern zerocopystr   init_zerocopy;
 
 extern uint8_t       keyclefadjusts[];
 extern uint8_t       keysigtable[][MAX_KEYACCS+1];

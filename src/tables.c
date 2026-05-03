@@ -356,19 +356,19 @@ accent accent_chars[] = {
 /* Accidental adjustments are initialized to zero by the rules of Standard C,
 so we don't have to specify a list of fixed length. */
 
-static int32_t init_accadjusts[NOTETYPE_COUNT];
+int32_t init_accadjusts[NOTETYPE_COUNT];
 
 /* Accspacing contains the width of each accidental character. The first entry
 in the table (corresponding to "no accidental") is used for the narrow Egyptian
 half sharp. */
 
-static uint32_t init_accspacing[] =
+uint32_t init_accspacing[] =
   /* E#-   %     #-    #     ##    $-    $     $$  */
   { 4800, 4250, 5000, 5000, 5250, 4500, 4500, 8000 };
 
 /* Default trill string is character 136 in the music font. */
 
-static uint32_t init_trillstring[] = { (font_mf << 24)|136, 0 };
+uint32_t init_trillstring[] = { (font_mf << 24)|136, 0 };
 
 /* Default accent move structure (no move, no bracketing flags; the accent
 number is not relevant. */
@@ -377,7 +377,7 @@ b_accentmovestr no_accent_move = { NULL, NULL, b_accentmove, 0, 0, 0, 0 };
 
 /* Starting stave zero copy block */
 
-static zerocopystr init_zerocopy = { NULL, NULL, 1, 0, 0, 0 };
+zerocopystr init_zerocopy = { NULL, NULL, 1, 0, 0, 0 };
 
 /* Values for sreadstr that are reset at the start of reading each stave. Some
 are overridden by values from the movement. */
