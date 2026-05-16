@@ -15,6 +15,101 @@ static int accspacingorder[] = { ac_ds, ac_fl, ac_df, ac_nt, ac_sh, ac_no };
 static const char *fonttype_names[] = {
   "roman", "italic", "bold", "bolditalic", "symbol", "music"};
 
+/* This vector is used for a reverse Unicode translation table, which is
+constructed the first time it is needed. It does not need to be reset for a new
+movement. */
+
+static uint32_t   unihigh[50] = { 0 };
+
+/* Type for tables of fields in the movement structure. */
+
+typedef struct movtfield {
+  const char *name;
+  size_t offset;
+} movtfield;
+
+/* Table of signed 32-bit dimension values in the movement structure and the
+directives that are used to set them. */
+
+static movtfield movt32dimfields[] = {
+  { "barlinesize",       offsetof(movtstr, barlinesize) },
+  { "barlinespace",      offsetof(movtstr, barlinespace) },
+  { "dotspacefactor",    offsetof(movtstr, dotspacefactor) },
+  { "endlinesluradjust", offsetof(movtstr, endlinesluradjust) },
+  { "endlinetieadjust",  offsetof(movtstr, endlinetieadjust) },
+  { "extenderlevel",     offsetof(movtstr, extenderlevel) },
+  { "footnotesep",       offsetof(movtstr, footnotesep) },
+  { "hyphenthreshold",   offsetof(movtstr, hyphenthreshold) },
+  { "leftmargin",        offsetof(movtstr, leftmargin) },
+  { "linelength",        offsetof(movtstr, linelength) },
+  { "midkeyspacing",     offsetof(movtstr, midkeyspacing) },
+  { "midtimespacing",    offsetof(movtstr, midtimespacing) },
+  { "overlsydepth",      offsetof(movtstr, overlaydepth) },
+  { "shortenstems",      offsetof(movtstr, shortenstems) },
+  { "underlsydepth",     offsetof(movtstr, underlaydepth) }
+};
+
+#define movt32dimfieldscount (sizeof(movt32dimfields)/sizeof(movtfield))
+
+/* Table of unsigned 32-bit dimension values in the movement structure and the
+directives that are used to set them. */
+
+static movtfield movtu32dimfields[] = {
+  { "beamflaglength",    offsetof(movtstr, beamflaglength) },
+  { "beamthickness",     offsetof(movtstr, beamthickness) },
+  { "bottommargin",      offsetof(movtstr, bottommargin) },
+  { "breveledgerextra",  offsetof(movtstr, breveledgerextra) },
+  { "hairpinlinewidth",  offsetof(movtstr, hairpinlinewidth) },
+  { "hairpinwidth",      offsetof(movtstr, hairpinwidth) },
+  { "smallcapsize",      offsetof(movtstr, smallcapsize) },
+  { "systemgap",         offsetof(movtstr, systemgap) },
+  { "topmargin",         offsetof(movtstr, topmargin) },
+  { "tupletlinewidth",   offsetof(movtstr, tripletlinewidth) }
+};
+
+#define movtu32dimfieldscount (sizeof(movtu32dimfields)/sizeof(movtfield))
+
+/* Table of signed 32-bit numerical values in the movement structure and the
+directives that are used to set them. */
+
+static movtfield movt32numfields[] = {
+  { "startbracketbar",   offsetof(movtstr, startbracketbar) },
+};
+
+#define movt32numfieldscount (sizeof(movt32numfields)/sizeof(movtfield))
+
+#ifdef NEVER
+/* Table of unsigned 32-bit numerical values in the movement structure and the
+directives that are used to set them. */
+
+static movtfield movtu32numfields[] = {
+
+};
+
+#define movtu32numfieldscount (sizeof(movtu32numfields)/sizeof(movtfield))
+#endif
+
+/* Table of unsigned 8-bit numerical values in the movement structure and the
+directives that are used to set them. */
+
+static movtfield movtu8numfields[] = {
+  { "barlinestyle",      offsetof(movtstr, barlinestyle) },
+  { "bracestyle",        offsetof(movtstr, bracestyle) },
+  { "caesurastyle",      offsetof(movtstr, caesurastyle) },
+  { "clefstyle",         offsetof(movtstr, clefstyle) },
+  { "endlineslurstyle",  offsetof(movtstr, endlineslurstyle) },
+  { "endlinetiestyle",   offsetof(movtstr, endlinetiestyle) },
+  { "gracestyle",        offsetof(movtstr, gracestyle) },
+  { "halfflatstyle",     offsetof(movtstr, halfflatstyle) },
+  { "halfsharpstyle",    offsetof(movtstr, halfsharpstyle) },
+  { "ledgerstyle",       offsetof(movtstr, ledgerstyle) },
+  { "repeatstyle",       offsetof(movtstr, repeatstyle) },
+  { "underlaystyle",       offsetof(movtstr, underlaystyle) }
+};
+
+#define movtu8numfieldscount (sizeof(movtu8numfields)/sizeof(movtfield))
+
+
 
 
 /*************************************************
@@ -32,6 +127,20 @@ Vvfprintf(pmw_file, format, ap);
 va_end(ap);
 }
 
+
+
+/*************************************************
+*              Write bar number                  *
+*************************************************/
+
+static void
+write_barnumber(uint32_t bar, const char *lead)
+{
+uint32_t n = bar >> 16;
+uint32_t f = bar & 0xffffu;
+P("%s%d", lead, n);
+if (f != 0) P(".%d", f);
+}
 
 
 /*************************************************
@@ -71,28 +180,96 @@ return FALSE;  /* Though control should never get here. */
 
 
 /*************************************************
-*             Write PMW string                   *
+*         Write PMW string contents              *
 *************************************************/
 
-static void
-write_pmw_string(uint32_t *s, const char *lead)
-{
-uint32_t settype = 0xffffffffu;
+/* The code for characters above LOWCHARLIMIT is much the same as in xmlout.c,
+but I'm repeating it to avoid dependency between the two forms of output. */
 
-P("%s\"", lead);
+static uint32_t
+write_pmw_string_contents(uint32_t *s, uint32_t settype)
+{
 for (; *s != 0; s++)
   {
-  int i;
   uschar buffer[8];
   uint32_t type = PFONT(*s);
+  uint32_t c = PCHAR(*s);
+
   if (type != settype)
     {
     P("\\%s\\", font_IdStrings[type]);
     settype = type;
     }
-  i = misc_ord2utf8(PCHAR(*s), buffer);
-  for (int j = 0; j < i; j++) P("%c", buffer[j]);
+
+  /* Handle special characters above the Unicode limit. */
+
+  if (c > MAX_UNICODE)
+    {
+    switch(c)
+      {
+      case ss_verticalbar:   c = '|'; break;
+      case ss_asciiquote:    c = '\''; break;
+      case ss_asciigrave:    c = '`'; break;
+      case ss_escapedhyphen: c = '-'; break;
+      case ss_escapedequals: c = '='; break;
+      case ss_escapedsharp:  c = '#'; break;
+
+      default:
+      error(ERR191, "Unknown special character in string");
+      continue;
+      }
+    }
+
+  /* If the character is above LOWCHARLIMIT and the font is standardly encoded,
+  convert the value back to the original Unicode code point. The first time we
+  need to do this we construct the relevant lookup table from the table that
+  goes the other way. */
+
+  else if (c >= LOWCHARLIMIT)
+    {
+    int f = PBFONT(c);
+    fontstr *fs = &(font_list[font_table[f]]);
+    if ((fs->flags & ff_stdencoding) != 0)
+      {
+      if (unihigh[0] == 0)
+        {
+        for (usint i = 0; i < an2ucount; i++)
+          {
+          an2uencod *an = an2ulist + i;
+          if (an->poffset >= 0) unihigh[an->poffset] = an->code;
+          }
+        }
+      c = unihigh[c - LOWCHARLIMIT];
+      }
+    }
+
+  int k = misc_ord2utf8(c, buffer);
+  for (int j = 0; j < k; j++) P("%c", buffer[j]);
   }
+
+return settype;
+}
+
+
+
+/*************************************************
+*             Write PMW string                   *
+*************************************************/
+
+/*
+Arguments:
+  s          the string
+  lead       leading text
+  settype    font type to assume at start (negative if unknown)
+
+Returns:     nothing
+*/
+
+static void
+write_pmw_string(uint32_t *s, const char *lead, uint32_t settype)
+{
+P("%s\"", lead);
+(void)write_pmw_string_contents(s, settype);
 P("\"");
 }
 
@@ -184,9 +361,8 @@ if (!compare_fonts(check_matrix, m, p, t1, t2))
 
 
 
-
 /*************************************************
-*              Output stave list                 *
+*               Write stave list                 *
 *************************************************/
 
 static void
@@ -200,6 +376,59 @@ while (sl != NULL)
   sl = sl->next;
   }
 P("\n");
+}
+
+
+/*************************************************
+*            Write stave bit map                 *
+*************************************************/
+
+static void
+write_stavebits(uint64_t stavebits, const char *lead)
+{
+int bit = 1;
+P("%s", lead);
+for (int i= 0; i < 64; i++)
+  {
+  if ((stavebits & bit) != 0) P(" %d", i);
+  bit <<= 1;
+  }
+P("\n");
+}
+
+
+
+/*************************************************
+*             Write headings/footings            *
+*************************************************/
+
+static void
+write_headfoot(headstr *p, const char *directive)
+{
+uint32_t settype = font_rm;
+
+for (; p != NULL; p = p->next)
+  {
+  if (p->drawing == NULL)  /* Text heading */
+    {
+    P("%s", directive);
+    write_fontsize(&(p->fdata), "", 1);
+    P(" \"");
+    for (int i = 0; i < 3; i++)
+      {
+      if (p->string[i] != NULL)
+        settype = write_pmw_string_contents(p->string[i], settype);
+      if (i != 2) P("|");
+      }
+    P("\"");
+    if (p->space != p->fdata.size) P(" %s", sff(p->space));
+    P("\n");
+    }
+  else                  /* Drawing heading */
+    {
+    fprintf(stderr, "** Draw heading/footing not yet supported\n");
+    }
+  }
 }
 
 
@@ -281,10 +510,12 @@ for (int movt = 0; movt < (int)movement_count; movt++)
   if (m->bracelist != p->bracelist)
     write_stavelist("brace", m->bracelist);
 
-  /* --- Bracket --- */
+  /* --- Bracket and ThinBracket--- */
 
   if (m->bracketlist != p->bracketlist)
     write_stavelist("bracket", m->bracketlist);
+  if (m->thinbracketlist != p->thinbracketlist)
+    write_stavelist("thinbracket", m->thinbracketlist);
 
   /* --- Font sizes only --- */
 
@@ -378,11 +609,215 @@ for (int movt = 0; movt < (int)movement_count; movt++)
     {
     P("trillstring");
     write_fontsize(&(m->fontsizes->fontsize_trill), "", 1);
-    write_pmw_string(m->trillstring, " ");
+    write_pmw_string(m->trillstring, " ", 0xffffffffu);
     P("\n");
     }
 
   /* --- End of font settings --- */
+
+  /* --- Headings and footings --- */
+
+  if (m->heading != p->heading)
+    write_headfoot(m->heading, "heading");
+  if (m->pageheading != p->pageheading)
+    write_headfoot(m->pageheading, "pageheading");
+
+  if (m->footing != p->footing)
+    write_headfoot(m->footing, "footing");
+  if (m->pagefooting != p->pagefooting)
+    write_headfoot(m->pagefooting, "pagefooting");
+  if (m->lastfooting != p->lastfooting)
+    write_headfoot(m->lastfooting, "lastfooting");
+
+  /* --- Hyphenstring --- */
+
+  if (!compare_pmw_strings(m->hyphenstring, p->hyphenstring))
+    {
+    write_pmw_string( m->hyphenstring, "hyphenstring ", font_rm);
+    P("\n");
+    }
+
+  /* ---- Join and Joindotted ---- */
+
+  if (m->joinlist != p->joinlist)
+    write_stavelist("join", m->joinlist);
+
+  if (m->joindottedlist != p->joindottedlist)
+    write_stavelist("joindotted", m->joindottedlist);
+
+  /* ---- Layout ---- */
+
+  if (m->layout != NULL)   /* Layout does not carry over to a new movement. */
+    {
+    uint16_t *lp = m->layout;
+    const char *sp = " ";
+
+    P("layout");
+
+    for (;;)
+      {
+      switch (*lp++)
+        {
+        case lv_barcount:
+        P("%s%d", sp, *lp++);
+        sp = ", ";
+        break;
+
+        case lv_repeatcount:
+        P(" %d(", *lp++);
+        sp = "";
+        break;
+
+        case lv_repeatptr:
+        if (*lp++ == 0)
+          {
+          P("\n");
+          goto ENDLAYOUT;
+          }
+        P(")");
+        sp = " ";
+        break;
+
+        case lv_newpage:
+        P(";");
+        sp = " ";
+        break;
+
+        default:
+        error(ERR47);  /* Hard */
+        break;
+        }
+      }
+    ENDLAYOUT:
+    }
+
+  /* ---- MIDIstart ---- */
+
+  if (m->midistart != p->midistart)
+    {
+    P("midistart");
+    for (int i = 1; i <= m->midistart[0]; i++)
+      P(" %d", m->midistart[i]);
+    P("\n");
+    }
+
+  /* ---- MIDItempo ---- */
+
+  if (m->miditempo != p->miditempo || m->miditempochanges != NULL)
+    {
+    uint32_t *t = m->miditempochanges;
+    P("miditempo %d", m->miditempo);
+    if (t != NULL) while (*t != UINT32_MAX)
+      {
+      write_barnumber(*t++, " ");
+      P("/%d", *t++);
+      }
+    P("\n");
+    }
+
+  /* ---- Stavesizes ---- */
+
+  if (memcmp(m->stavesizes, p->stavesizes, sizeof(uint32_t)*(MAX_STAVE+1)) != 0)
+    {
+    P("stavesizes");
+    for (int i = 0; i < 64; i++)
+      if (m->stavesizes[i] != p->stavesizes[i])
+        P(" %d/%s", i, sff(m->stavesizes[i]));
+    P("\n");
+    }
+
+  /* ---- Copyzero ---- */
+
+  if (m->zerocopy != p->zerocopy)
+    {
+    P("copyzero");
+    for (zerocopystr *z = m->zerocopy; z != NULL; z = z->next)
+      P(" %d/%s", z->stavenumber, sff(z->adjust));
+    P("\n");
+    }
+
+  /* ---- Breakbarlines ---- */
+
+  if (m->breakbarlines != p->breakbarlines)
+    write_stavebits(m->breakbarlines, "breakbarlines");
+
+  /* ---- Selectstaves ---- */
+
+  if (m->select_staves != p->select_staves)
+    write_stavebits(m->select_staves, "selectstaves");
+
+  /* ---- Suspend ---- */
+
+  if (m->suspend_staves != p->suspend_staves)
+    write_stavebits(m->suspend_staves, "suspend");
+
+  /* ---- Bar ---- */
+
+  if (m->baroffset != 0) P("bar %d\n", m->baroffset + 1);
+
+  /* ---- Transpose ---- */
+
+  if (m->transpose != 0) P("transpose %d\n", m->transpose/2);
+
+
+
+
+  /* ---- Various int32_t dimension fields in movtstr ---- */
+
+  for (usint i = 0; i < movt32dimfieldscount; i++)
+    {
+    movtfield *f = &(movt32dimfields[i]);
+    size_t offset = f->offset;
+    if (*((int32_t *)((char *)m + offset)) !=
+        *((int32_t *)((char *)p + offset)))
+      P("%s %s\n", f->name, sff(*((int32_t *)((char *)m + offset))));
+    }
+
+  /* ---- Various int32_t numerical fields in movtstr ---- */
+
+  for (usint i = 0; i < movt32numfieldscount; i++)
+    {
+    movtfield *f = &(movt32numfields[i]);
+    size_t offset = f->offset;
+    if (*((int32_t *)((char *)m + offset)) !=
+        *((int32_t *)((char *)p + offset)))
+      P("%s %d\n", f->name, *((int32_t *)((char *)m + offset)));
+    }
+
+  /* ---- Various uint32_t dimension fields in movtstr ---- */
+
+  for (usint i = 0; i < movtu32dimfieldscount; i++)
+    {
+    movtfield *f = &(movtu32dimfields[i]);
+    size_t offset = f->offset;
+    if (*((uint32_t *)((char *)m + offset)) !=
+        *((uint32_t *)((char *)p + offset)))
+      P("%s %s\n", f->name, sff(*((uint32_t *)((char *)m + offset))));
+    }
+
+#ifdef NEVER
+  /* ---- Various uint32_t numerical fields in movtstr ---- */
+
+  for (usint i = 0; i < movtu32numfieldscount; i++)
+    {
+    movtfield *f = &(movtu32numfields[i]);
+    size_t offset = f->offset;
+    if (*((uint32_t *)((char *)m + offset)) !=
+        *((uint32_t *)((char *)p + offset)))
+      P("%s %d\n", f->name, *((uint32_t *)((char *)m + offset)));
+    }
+#endif
+
+  /* ---- Various uint8_t numerical fields in movtstr ---- */
+
+  for (usint i = 0; i < movtu8numfieldscount; i++)
+    {
+    movtfield *f = &(movtu8numfields[i]);
+    size_t offset = f->offset;
+    if (*((uint8_t *)((char *)m + offset)) !=
+        *((uint8_t *)((char *)p + offset)))
+      P("%s %d\n", f->name, *((uint8_t *)((char *)m + offset)));
+    }
 
 
 
@@ -394,14 +829,14 @@ for (int movt = 0; movt < (int)movement_count; movt++)
     st = m->stavetable[stave];
     if (st->barcount == 0) continue;
 
-    barstr **barvector = st->barindex;
+//    barstr **barvector = st->barindex;
 
     P("\n[stave %d]\n", stave);
 
 
     P("[endstave]\n");
     }    /* End of loop through the staves */
-  }
+  }      /* End of loop through the movements */
 
 P("\n@ End\n");
 if (fclose(pmw_file) != 0) error(ERR200, "PMW file", strerror(errno));
