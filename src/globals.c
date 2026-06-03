@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: April 2026 */
+/* This file last modified: May 2026 */
 
 #include "pmw.h"
 
@@ -105,11 +105,11 @@ BOOL         main_landscape = FALSE;
 uint32_t     main_lastpagenumber = 0;
 uint32_t     main_magnification = 1000;
 int32_t      main_maxstave = -1;
-int32_t      main_maxvertjustify = 60000;
+int32_t      main_maxvertjustify = DEFAULT_MAXVERTJUSTIFY;
 BOOL         main_midifornotesoff = FALSE;
 b_ornamentstr *main_nextnoteornament = NULL;
 pagestr     *main_pageanchor;
-int32_t      main_pagelength = 720000;
+int32_t      main_pagelength = DEFAULT_PAGELENGTH;
 pkeystr     *main_printkey = NULL;
 ptimestr    *main_printtime = NULL;
 uschar      *main_readbuffer = NULL;
@@ -120,9 +120,9 @@ size_t       main_readbuffer_threshold = MAIN_READBUFFER_CHUNKSIZE - 2;
 size_t       main_readlength = 0;
 BOOL         main_righttoleft = FALSE;
 uint64_t     main_selectedstaves = ~0uL;
-uint32_t     main_sheetdepth = 842000;
+uint32_t     main_sheetdepth = DEFAULT_SHEETDEPTH;
 uint32_t     main_sheetsize = sheet_A4;
-uint32_t     main_sheetwidth = 595000;
+uint32_t     main_sheetwidth = DEFAULT_SHEETWIDTH;
 BOOL         main_showid = TRUE;
 int          main_state = STATE_INIT;
 BOOL         main_suppress_output = FALSE;
