@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: January 2021 */
-/* This file last modified: May 2026 */
+/* This file last modified: June 2026 */
 
 #include "pmw.h"
 
@@ -636,7 +636,10 @@ movtstr default_movtstr = {
   0,                  /* midtimespacing */
   1,                  /* noteden - reset at movement start */
   1,                  /* notenum - reset at movement start */
-  { 0 },              /* note_spacing - reset at movement start */
+  { 30000, 30000,     /* note_spacing - reset at movement start, */
+    22000, 16000,     /*  but set here for PMW output check */
+    12000, 10000,
+    10000, 10000 },
   0,                  /* number - set at movement start */
   11000,              /* overlaydepth */
   text_boxed,         /* rehearsalstyle */

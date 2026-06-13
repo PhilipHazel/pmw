@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: April 2021 */
-/* This file last modified: March 2026 */
+/* This file last modified: June 2026 */
 
 #include "pmw.h"
 
@@ -3677,13 +3677,9 @@ while (!page_done) switch(page_state)
   active_transpose = curmovt->transpose;
   firstsystem = TRUE;
 
-  /* The equivalent of this code also exists in pmw_read_header, in connection
-  with the barlinespace directive. Keep in step. */
-
   if (curmovt->barlinespace == FIXED_UNSET)
     {
-    pl_barlinewidth = (curmovt->note_spacing)[minim]/2 - 5000;
-    if (pl_barlinewidth < 3000) pl_barlinewidth = 3000;
+    pl_barlinewidth = misc_default_barlinespace(curmovt);
     curmovt->barlinespace = pl_barlinewidth;
     }
   else pl_barlinewidth = curmovt->barlinespace;

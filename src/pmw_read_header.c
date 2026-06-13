@@ -606,7 +606,7 @@ curmovt->baroffset -= 1;
 *************************************************/
 
 /* We have to set the default here in case the directive uses + or - to adjust
-the value. Note that this code is replicated in paginate.c. */
+the value. */
 
 static void
 barlinespace(void)
@@ -619,10 +619,7 @@ if (read_c == '*')
 else
   {
   if (curmovt->barlinespace == FIXED_UNSET)
-    {
-    curmovt->barlinespace = (curmovt->note_spacing)[minim]/2 - 5000;
-    if (curmovt->barlinespace < 3000) curmovt->barlinespace = 3000;
-    }
+    curmovt->barlinespace = misc_default_barlinespace(curmovt);
   movt_int();
   }
 }

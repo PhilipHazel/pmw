@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: April 2026 */
+/* This file last modified: June 2026 */
 
 /* -------- General functions -------- */
 
@@ -47,6 +47,7 @@ extern void         midi_write(void);
 
 extern void         misc_commoncont(bstr *);
 extern void         misc_copycontstr(contstr *, contstr *, int, BOOL);
+extern int32_t      misc_default_barlinespace(movtstr *);
 extern void         misc_freenbar(void);
 extern BOOL         misc_get_range(uint64_t, usint, usint *, usint *);
 extern int32_t      misc_keywidth(uint32_t, uint16_t);
