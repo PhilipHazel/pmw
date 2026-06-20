@@ -184,6 +184,21 @@ if (type < font_xx) P("%s%s", lead, fonttype_names[type]);
 
 
 /*************************************************
+*               Format xy movement               *
+*************************************************/
+
+static char *
+format_move(int32_t x, int32_t y, char *cp)
+{
+if (x > 0) cp += sprintf(cp, "/r%s", sff(x));
+  else if (x < 0) cp += sprintf(cp, "/l%s", sff(-x));
+if (y > 0) cp += sprintf(cp, "/u%s", sff(y));
+  else if (y < 0) cp += sprintf(cp, "/d%s", sff(-y));
+return cp;
+}
+
+
+/*************************************************
 *            Compare PMW strings                 *
 *************************************************/
 
@@ -1243,12 +1258,14 @@ for (usint movt = 0; movt < movement_count; movt++)
     int note_sd = 0;
     int note_suw = 0;
     int note_sdw = 0;
-    int stemsdirection = 0;   /* Auto */
+    int chordcount = 0;
+    int stemdirection = 0;   /* Auto */
     int barno;
     int octave = 0;
     int octave_counts[8];
     int max_octave_count = 0;
     barstr **barvector, *b;
+    b_ornamentstr *ornament = NULL;
 
     st = m->stavetable[stave];
     if (st->barcount == 0) continue;
@@ -1311,13 +1328,13 @@ for (usint movt = 0; movt < movement_count; movt++)
         note_suw > note_su/4)   /* More than 1/4 are "wrong" */
       {
       P("[stems up]\n");
-      stemsdirection = +1;
+      stemdirection = +1;
       }
     else if (note_sd > 2*note_su &&  /* Substantially more down than up */
              note_sdw > note_sd/4)   /* More than 1/4 are "wrong" */
       {
       P("[stems down]\n");
-      stemsdirection = -1;
+      stemdirection = -1;
       }
 
     /* Now process the stave's data */
@@ -1338,21 +1355,48 @@ for (usint movt = 0; movt < movement_count; movt++)
 
         break;
 
+        case b_ornament:
+        ornament = (b_ornamentstr *)b;
+        break;
+
+        case b_chord:
         case b_note:
+        char options[100];
+        char *cp = options;
         b_notestr *n = (b_notestr *)b;
         int octvar = n->abspitch/24 - octave;
+        uint32_t acflags = n->acflags;
 
-        P("%s", acnames[n->acc]);
-        if ((n->flags & nf_accinvis) != 0) P("?");
-          else if ((n->flags & nf_accrbra) != 0) P(")");
-            else if ((n->flags & nf_accsbra) != 0) P("]");
+        /* Handle start of chord */
 
-        if ((n->flags & nf_accleft) != 0)
+        if (b->type == b_note && (n->flags & nf_chord) != 0)
           {
-          int32_t accleft = n->accleft - m->accspacing[n->acc] +
-            m->accadjusts[n->notetype];
-          P("<");
-          if (accleft != 5000) P("%s", sff(accleft));
+          P("(");
+          chordcount = 1;
+          for (barstr *bb = (barstr *)b->next; bb != NULL;
+               bb = (barstr *)bb->next)
+            {
+            if (bb->type != b_chord) break;
+            chordcount++;
+            }
+          }
+
+        /* Handle individual note */
+
+        if (n->acc != ac_no)
+          {
+          P("%s", acnames[n->acc]);
+          if ((n->flags & nf_accinvis) != 0) P("?");
+            else if ((n->flags & nf_accrbra) != 0) P(")");
+              else if ((n->flags & nf_accsbra) != 0) P("]");
+
+          if ((n->flags & nf_accleft) != 0)
+            {
+            int32_t accleft = n->accleft - m->accspacing[n->acc] +
+              m->accadjusts[n->notetype];
+            P("<");
+            if (accleft != 5000) P("%s", sff(accleft));
+            }
           }
 
         if (n->notetype < crotchet) P("%c", toupper(n->char_orig));
@@ -1362,6 +1406,7 @@ for (usint movt = 0; movt < movement_count; movt++)
           if (octvar > 0) while (octvar-- > 0) P("'");
             else while (octvar++ < 0) P("`");
           }
+
         switch (n->notetype)
           {
           case breve:     P("++"); break;
@@ -1375,13 +1420,91 @@ for (usint movt = 0; movt < movement_count; movt++)
         if (n->dots_orig == 255) P(".+");
           else for (int i = 0; i < n->dots_orig; i++) P(".");
 
+        /* Handle options */
 
+        options[0] = 0;
 
+        /* In auto mode, this takes no special action for notes at the stem
+        swap level. */
 
-(void)stemsdirection;
+        if ((n->flags & nf_stem) != 0)
+          {
+          if ((n->flags & nf_stemup) != 0)
+            {
+            if (stemdirection < 0 || (stemdirection == 0 && n->spitch > P_3L))
+              cp += sprintf(cp, " su");
+            }
+          else
+            {
+            if (stemdirection > 0 || (stemdirection == 0 && n->spitch < P_3L))
+              cp += sprintf(cp, " sd");
+            }
+          }
 
+        /* Accents */
+
+        while (acflags != 0)
+          {
+          for (accent *a = accent_chars; a->flag > 255; a++)
+            {
+            if ((acflags & a->flag) != 0)
+              {
+              cp += sprintf(cp, " %s", a->string);
+              acflags &= ~a->flag;
+              break;
+              }
+            }
+          }
+
+        /* Ornaments */
+
+        if (ornament != NULL)
+          {
+          for (accent *a = accent_chars; a->string != NULL; a++)
+            {
+            if (a->flag == ornament->ornament)
+              {
+              cp += sprintf(cp, " %s", a->string);
+              switch(ornament->bflags & (orn_rbra|orn_rket|orn_sbra|orn_sket))
+                {
+                case orn_rbra|orn_rket: cp += sprintf(cp, "/b"); break;
+                case orn_sbra|orn_sket: cp += sprintf(cp, "/B"); break;
+                case orn_rbra: cp += sprintf(cp, "/("); break;
+                case orn_sbra: cp += sprintf(cp, "/["); break;
+                case orn_rket: cp += sprintf(cp, "/)"); break;
+                case orn_sket: cp += sprintf(cp, "/]"); break;
+                }
+              cp = format_move(ornament->x, ornament->y, cp);
+              break;
+              }
+            }
+          ornament = NULL;
+          }
+
+        /* Masquerade */
+
+        if (n->masq != MASQ_UNSET)
+          {
+          cp += sprintf(cp, " %c", (n->masq < crotchet)? 'M':'m');
+          switch (n->masq)
+            {
+            case breve:     cp += sprintf(cp, "++"); break;
+            case semibreve: cp += sprintf(cp, "+");  break;
+            case quaver:    cp += sprintf(cp, "-");  break;
+            case squaver:   cp += sprintf(cp, "=");  break;
+            case dsquaver:  cp += sprintf(cp, "=-"); break;
+            case hdsquaver: cp += sprintf(cp, "=="); break;
+            }
+          if (n->dots == 255) cp += sprintf(cp, ".+");
+            else for (int i = 0; i < n->dots; i++) cp += sprintf(cp, ".");
+          }
+
+        /* Output any options that have been set. */
+
+        if (options[0] != 0) P("\\%s\\", options + 1);
+        if (--chordcount == 0) P(")");
         P(" ");
-        break;
+        break;  /* End of note handling */
 
 
         }
