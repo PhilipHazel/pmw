@@ -1,0 +1,77 @@
+%%Pages: (atend)
+%%DocumentNeededResources: font Times-Roman Times-Italic 
+%%+ font Helvetica-Bold Times-BoldItalic Symbol 
+%%+ font PMW-Music Helvetica Helvetica-Oblique 
+%%Requirements: numcopies(1)
+%%EndComments
+
+%%BeginPaperSize: a3
+a3
+%%EndPaperSize
+
+%%BeginProlog
+%%Standard Header Omitted (testing)
+%%EndProlog
+
+%%BeginSetup
+%%IncludeResource: font Times-Roman
+/rm /rmX /Times-Roman inf
+%%IncludeResource: font Times-Italic
+/it /itX /Times-Italic inf
+%%IncludeResource: font Helvetica-Bold
+/bf /bfX /Helvetica-Bold inf
+%%IncludeResource: font Times-BoldItalic
+/bi /biX /Times-BoldItalic inf
+%%IncludeResource: font Symbol
+/sy /syX /Symbol inf
+%%IncludeResource: font PMW-Music
+/mf /mfX /PMW-Music inf
+%%IncludeResource: font Helvetica
+/xx1 /xx1X /Helvetica inf
+%%IncludeResource: font Helvetica-Oblique
+/xx10 /xx10X /Helvetica-Oblique inf
+%%EndSetup
+
+%%Page: 4 1
+%%BeginPageSetup
+/pagesave save def
+0 1190 T -90 R
+%%EndPageSetup
+rm 21 ss(Left)65 578.5 s(Centre)287.007 578.5 s(Right)518.317 578.5 s
+it 13 ss(Centr)283.286 553.5 s(e Only)-0.481 0 rs mf 10 ss(!)66 523.5 s(%)
+81 523.5 s
+%45/1
+(5)95 527.5 s(5)111 529.5 s(\270)127 517.5 s(5)127 517.5 s(5)143 519.5 s
+rm 10 ss(45)65 551.5 s 76.5 549.5 63 549.5 63 560.5 76.5 560.5
+76.5 549.5 5 63 549.5 0.666 ll
+%46/1
+mf 9 ss(\256)160.5 524.7 s mf 10 ss(6)181.6 535.5 s(6)197.6 535.5 s(6)
+213.6 535.5 s(6)229.6 535.5 s
+65 523.5 182.6 0.3 4 5 ST
+(!)66 478.5 s it 12 ss(4)79 482.5 s mf 10 ss(!)66 418.5 s it 12 ss(4)
+79 422.5 s mf 9 ss(!)66.07 368.5 s it 10.8 ss(4)79 372.1 s mf 10 ss(!)
+66 318.5 s it 12 ss(4)79 322.5 s 65.135 434.7 65.135 368.7 0.27 l
+61.5 494.5 318.5 k 67.126 512.952 49 504.5 2.1 l
+67.126 508.752 49 500.3 2.1 l
+%1/4
+mf 10 ss(5)93 322.5 s(5)108.2 324.5 s(\270)123.4 312.5 s(5)123.4 312.5 s(5)
+138.6 314.5 s 153.935 334.7 153.935 318.7 0.27 l
+%1/3
+mf 9 ss(5)93 372.1 s(5)108.2 373.9 s(\270)123.4 363.1 s(5)123.4 363.1 s(5)
+138.6 364.9 s 153.935 383.08 153.935 334.68 0.27 l
+%1/2
+mf 10 ss(5)93 422.5 s(6)108.2 424.5 s(\270)123.4 412.5 s(5)123.4 412.5 s(5)
+138.6 414.5 s 153.935 434.7 153.935 383.1 0.27 l
+%1/1
+(5)93 482.5 s(5)108.2 484.5 s(\270)123.4 472.5 s(5)123.4 472.5 s(5)
+138.6 474.5 s 153.935 494.7 153.935 434.7 0.27 l
+65 478.5 88.8 0.3 4 5 ST
+65 418.5 88.8 0.3 4 5 ST
+65 368.5 88.8 0.27 3.6 5 ST
+65 318.5 88.8 0.3 4 5 ST
+rm 12 ss(Right only)513.988 273.5 s rm 8 ss(First)65 14 s(F)307.724 14 s
+(oot)-0.12 0 rs(Ing)554.336 14 s
+pagesave restore showpage
+
+%%Trailer
+%%Pages: 1
