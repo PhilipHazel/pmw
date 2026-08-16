@@ -5,14 +5,136 @@ key C
 time 4/4
 
 [stave 1]
+[ties below]
+[textsize 1]
 [octave 1]
-[treble] R!  | @1
-a b c d  | @2
-c'\su\ c'\su\ c'\su\ c'\su\ c'\su\ G c\sd\ [nocount] | @2.1
-#g'= $)a. $-b.+ %c..  | @3
-#-<g $<6g (g e c) c  | @4
-g\.\ g\>\ g\..\ g  | @5
-g\tr/u4\ g\~/b\ g\M\ G\m=.\  | @6
+[treble] R! | @1
+a b\su\ c d | @2
+c'\su\ c'\su\ c'\su\ c'\su\ c'\su\ G c\sd\ [nocount]| @2.1
+#g'= $)a. $-b.+\su\ %c.. | @3
+#-<g $<6g (g e c) c | @4
+g\.\ g\>\ g\..\ g | @5
+g\tr/u4\ g\~/b\ g\M\ G\m=.\ | @6
+[key G] G+ | @7
+[key B$ nowarn] G+ | @8
+g= g= g= g=; g= g=, g= g= | @9
+g==,2 g== g== | @10
+g // g [comma] g [tick] g | @11
+G+ | @12
+[time 3/4] G. | @13
+[assume time 4/4] G+ || @14
+"a"/ts g "a"/box g "a"/rbox g "abc"/e g | @15
+"a"/cb R! | @16
+"abc"/c g "a"/ring g "a"/rot30 g | @17
+"a"/h0.5 g g "a"/d10 g "a"/r10 g | @18
+"a"/bar g g g g | @19
+(: g g g | @20
+[1st] g g :) | @21
+[2nd] g g | @22
+[all] g g | @23
+{3/2 g g g } g | @24
+{ g- g- g-; } {/a10 g- g- g-; } {/a g- g- g-; } {/a/u10 g- g- g-; } | @25
+[slur] g g [es] [slur/a10] g g [es] | @26
+[slur/u10] g g [es] [slur/ao] g g [es] | @27
+[slur/b] g g [es] [slur/b10] g g [es] | @28
+[slur/b/u10] g g [es] [slur/bu] g g [es] | @29
+[slur/h/ll10/rl10] g g [es] [slur/h/lr10/rr10] g g [es] | @30
+[slur/lu5/rd5] g g [es] [slur/co4] g g [es] | @31
+[slur/clr4/cld4/crr6/cru6] g g [es] [slur/i] g g [es] [slur/ip] g g [es] 
+  | @32
+[slur/e] g g [es] | @33
+[slur/w] g g [es] | @34
+[slur/3/lu4/co4] g g [es] | @35
+[slur/b] a [xslur] b\su\ [es] c [es] | @36
+[slur/=A] [slur/=Z/b] g g g [slur/=B] a [es/=A] a [es/=Z] a [es] | @37
+[line/ol/or] g g [el] | @38
+< g g < | @39
+>/h G A B\su\ >/h0.9 B\su\ | @40
+>/bar G G >/bar | @41
+g </lc1 g g </rc1 g | @42
+g </l2 g g </r3 g | @43
+</a g g < </a10 g g < | @44
+> g g > >/b10 g g > | @45
+</a/u6 g g </d2 </w10 g g < | @46
+</sld2/sru2 g g | @47
+[newline] g g < | @48
+g [move 8] b\su\ g [move 0,10] r | @49
+g [move 8] b\su\ [space 8] g | @50
+g [rspace 10] g | @51
+g g [reset] b\su\ b\su\ | @52
+g g g [backup] b\su\ g | @53
+g [reset] b\su\ g g | @54
+R! | @55
+[suspend] R! | @56
+[3] R! | @59
+[resume] R! | @60
+a_ b\su\ | @61
+a_/a b\su\ (a e c)_/2a/1b (a e c) | @62
+(a e c)_/1a/2b (a e c) (a e c)_/1a/2b (a e c) | @63
+c_/g c' c_/g/s c' g_/e g g_/ip g g_/i g | @64
+d-\m\ [tremolo] g-\m\; d-\m\; [tremolo] g-\m\; d-\m\ [tremolo/x3/j1] g-\m\; 
+  | @65
+g g [sgabove 40] b\su\ [sghere -2] b\su\ [sgnext +10] g | @66
+g g [ssabove 40] b\su\ [sshere -2] b\su\ [ssnext +10] g | @67
+[sshere 3/44] [sshere 6/+3] g g [ssnext 0/50] b\su\ G+ | @68
+[3] R! | @71
+G+ | @72
+[3] B+\su\ | @75
+G+ | @76
+C B+\su\ | @77
+[2] B+\su\ | @79
+G+ | @80
+[endstave]
+
+
+[newmovement]
+key C
+time 4/4
+
+[stave 1]
+[textsize 2]
+[text underlay]
+[octave 1]
+[treble] "The" g "quick" g "brown-" g "ish" g | @1
+"fox" g "m\bi\f"/b/s1 g | @2
+"abc"/b g "def"/a/S3 g "ghi"/b g | @3
+"Cre-=" g g "=" g "=" g | @4
+"=" g "=" g "do" g g | @5
+[endstave]
+
+
+[newmovement]
+key C
+time 4/4
+
+[stave 1 "Abc"]
+[octave 1]
+[treble] g g g g | @1
+[endstave]
+
+[stave 2 "Abc       "/"             def"/S6]
+[octave 1]
+[treble] g g g g | @1
+[endstave]
+
+[stave 3 "A"/c]
+[octave 1]
+[treble] g g g g | @1
+[endstave]
+
+[stave 4 "A"/e]
+[octave 1]
+[treble] g g g g | @1
+[endstave]
+
+[stave 5 "A"/e/m]
+[octave 1]
+[treble] g g g g | @1
+[endstave]
+
+[stave 6 "A"/v/r20]
+[octave 1]
+[treble] g g g g | @1
 [endstave]
 
 @ End

@@ -12,6 +12,7 @@ use Cwd;
 #   nob2pf      skip B2PF tests (auto skipped if not supported)
 #   nomidi      skip MIDI tests (auto skipped if midiscv not present)
 #   nopdf       do only PostScript tests
+#   nopmw       skip PMW output tests
 #
 # Further arguments match a test directory optionally followed by a test name.
 # If not given, looks for directories whose names end in "tests".
@@ -21,6 +22,7 @@ $less = "less -EF";
 $valgrind = "";
 $pmw = "../src/pmw";
 $dopdf = 1;
+$dopmw = 1;
 $force_update = 0;
 $force_quit = 0;
 $show_progress = 0;
@@ -105,6 +107,12 @@ while (defined $ARGV[0])
     $dopdf = 0;
     shift;
     }
+  elsif ($ARGV[0] =~ /^nopmw$/i)
+    {
+    $dopmw = 0;
+    push @skipdirs, "pmwout";
+    shift;
+    }
   else
     {
     last;
@@ -170,6 +178,7 @@ while (scalar @dirs > 0)
 
   $setspecialopt = "-midi test.mid" if $tests =~ /^miditests$/;
   $setspecialopt = "-xml test.xml" if $tests =~ /^xouttests$/;
+  $setspecialopt = "-pmw test.pmw" if $tests =~ /^xmltests$/ && $dopmw;
   $setspecialopt = "-pmw test.pmw" if $tests =~ /^pmwouttests$/;
 
   if ($show_progress)
@@ -240,6 +249,7 @@ while (scalar @dirs > 0)
     unlink "test.txt";
     unlink "test.mid";
     unlink "test.xml";
+    unlink "test.pmw";
     unlink "test-1.xml";
     unlink "test-2.xml";
     unlink "test-3.xml";
@@ -567,9 +577,9 @@ while (scalar @dirs > 0)
         else { printf "Test $file OK XML\n"; }
         }
 
-      # If there is PMW source output, compare it.
+      # If there is PMW source output, compare it if newly generated.
 
-      if (-e "$outs/$file.pmw" || -e "test.pmw")
+      if ($specialopt =~ /-pmw test.pmw/)
         {
         if (! -e "$outs/$file.pmw")
           {
@@ -639,7 +649,9 @@ while (scalar @dirs > 0)
         }
 
       # If just done PostScript, repeat for PDF unless running MIDI or XML or
-      # PMW output tests.
+      # PMW special output tests. PMW output is also specified for XML input
+      # tests; we have to leave this set (i.e. repeat the test) so that any
+      # text output is the same for both PS and PDF.
 
       if ($pdf eq "-ps" && $dopdf && $tests !~ /^xouttests$/ &&
           $tests !~ /^miditests$/ && $tests !~ /^pmwouttests$/)

@@ -5,4 +5,99 @@ R! | abcd | [nocount] c'\su\ x4 G c\sd\ |
 #-<g  $<6g (ceg) c|
 g\.\ g\>\ g\..\ g  |
 g\tr/u4\ g\~/b\ g\M\ G\m=.\ |
+
+[key G] G+ | [key B$ nowarn] G+ |
+g=x3; x2,x2 | g==,2 x2 |
+g // g [comma] g [tick] g |
+G+ | [time 3/4]  G. | [assume time 4/4] G+ ||
+
+"a"/ts g "a"/box g "a"/rbox g "abc"/e g |
+"a"/cb R! | "abc"/c g "a"/ring g "a"/rot30 g |
+"a"/h g g "a"/d10 g "a"/r10 g | "a"/bar gggg |
+
+(: ggg | [1st] gg :) | [2nd] gg | [all] gg |
+
+{2 ggg} g | {g-g-g-}; {/a10 g-g-g-}; {/a g-g-g-}; {/a/u10 g-g-g-}; |
+
+[slur] gg [es] [slur/a10] gg [es] |
+[slur/u10] gg [es] [slur/ao] gg [es] |
+[slur/b] gg [es] [slur/b10] gg [es] |
+[slur/b/u10] gg [es] [slur/bu] gg [es] |
+
+[slur/h/ll10/rl10] gg [es] [slur/h/lr10/rr10] gg [es] |
+[slur/lu5/rd5] gg [es] [slur/co4] gg [es] |
+[slur/cld4/clr4/cru6/crr6] gg [es] [slur/i] gg [es]
+[slur/ip] gg [es] |
+[slur/e] gg [es] | [slur/w] gg [es] |
+
+[slur/3/lu4/co4] gg [es] |
+[slur/b] a [xslur] b [es] c [es] |
+[slur/=A] [slur/b/=Z] ggg [slur/=B] a [es/=A] a [es/=Z] a [es] |
+[line/ol/or] gg [el] |
+
+< gg < | >/h GAB >/h0.9 B | >/bar GG >/bar |
+g </lc1 gg </rc 1 g | g </l2 gg </r3 g |
+</a gg < </a10 gg < | >/b gg > >/b10 gg > |
+</a/u6 gg </d2 </w10 gg < |
+</sld2/sru2 gg | [newline] gg < |
+
+g [move 8] b g [move 0,10] r |
+g [smove 8] b g | g [rspace 10] g |
+
+gg[reset] bb | ggg [backup] b g | g [backup] b gg |
+
+R! | [suspend] [4]R! | [resume] R! |
+a_b | a_/a b (ace)_ x | x_/1a x x_/2b x |
+c_/g c' c_/g/s c'  g_/e g g_/ip g g_/i g |
+
+d-\m\ [tremolo] g-\m\;
+d-\m\; [tremolo] g-\m\;
+d-\m\ [tremolo/j1/x3] g-\m\; |
+
+gg [sgabove 40] b [sghere -2] b [sgnext +10] g |
+gg [ssabove 40] b [sshere -2] b [ssnext +10] g |
+[sshere 3/44 6/+3] gg [ssnext 0/50] b
+
+G+ | [3]R! | G+ | [3]B+ | G+ | C [3]B+ | G+ |
 [endstave]
+
+
+[newmovement]
+nocheck
+
+[stave 1 treble 1 text underlay]
+"The quick brown-ish fox" gggg | g "\it\m\bi\f"/b g |
+"abc"/b/s2 g "def"/a/S3 g "ghi"/b/s2 g |
+"Cre-=====do" gggg | gggg |
+[endstave]
+
+
+[newmovement]
+nocheck
+
+[stave 1 "Abc" treble 1]
+gggg
+[endstave]
+
+[stave 2 "Abc       "/"             def"/S6 treble 1]
+gggg
+[endstave]
+
+[stave 3 "A"/c treble 1]
+gggg
+[endstave]
+
+[stave 4 "A"/e treble 1]
+gggg
+[endstave]
+
+[stave 5 "A"/m/e treble 1]
+gggg
+[endstave]
+
+[stave 6 "A"/v/r20 treble 1]
+gggg
+[endstave]
+
+
+

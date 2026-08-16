@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: April 2021 */
-/* This file last modified: June 2026 */
+/* This file last modified: July 2026 */
 
 #include "pmw.h"
 
@@ -3617,6 +3617,7 @@ main_pagelength = (main_pagelength * 1000)/main_magnification;
 for (i = 0; i < (int)movement_count; i++)
   {
   curmovt = movements[i];
+  curmovt->truelinelength = curmovt->linelength; 
   curmovt->linelength = (curmovt->linelength * 1000)/main_magnification;
   justifyheading(curmovt->heading);
   justifyheading(curmovt->footing);

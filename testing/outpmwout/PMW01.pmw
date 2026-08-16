@@ -101,8 +101,8 @@ notimewarn
 
 [stave 1]
 [octave 0]
-[treble] a' b' c' d'  | @45
-[bass] g g g g  | @46
+[treble] a' b'\su\ c' d' |2 @45
+[bass] g g g g |2 @46
 [endstave]
 
 
@@ -136,22 +136,22 @@ keysinglebar
 
 [stave 1]
 [octave 1]
-[treble] a b c d  | @1
+[treble] a b\su\ c d | @1
 [endstave]
 
 [stave 2]
 [octave 1]
-[treble] a b c d  | @1
+[treble] a b\sd\ c d | @1
 [endstave]
 
 [stave 3]
 [octave 1]
-[treble] a b c d  | @1
+[treble] a b\su\ c d | @1
 [endstave]
 
 [stave 4]
 [octave 1]
-[treble] a b c d  | @1
+[treble] [resume] a b\su\ c d | @1
 [endstave]
 
 

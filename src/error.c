@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: May 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
@@ -305,7 +305,10 @@ aborts the run after outputting additional information. */
 /* 200-204 */
 { ec_warning, "unexpected fclose error for %s: %s" },
 { ec_failed,  "unexpected %s error: %s" },
-{ ec_warning, "%s is not supported for PMW source output" }
+{ ec_warning, "%s is not supported for PMW source output" },
+{ ec_major,   "PMW source output error: unknown special character 0x%08X in string" },
+{ ec_warning, "an %slay syllable found before a rest in bar %s stave %d during\n"
+              "   PMW source output was converted to normal text at %slay level" }
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

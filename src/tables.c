@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: January 2021 */
-/* This file last modified: June 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
@@ -215,7 +215,7 @@ position relative to a stave, where 256 is the bottom line on the stave. */
 uint16_t pitch_clef[] =
 
 /*   A    Ba   B   cBa   CB   DB   H    M    N    SB   S    Te   Tr  TrD  TrT  TrTB */
-  { 152, 168, 176, 168, 166, 184, 128, 144, 128, 166, 136, 160, 128, 128, 128, 128 };
+  { 152, 168, 176, 168, 176, 184, 128, 144, 128, 176, 136, 160, 128, 128, 128, 128 };
 
 
 /* These tables give the extra "accidental left" amounts for accidentals in
@@ -677,6 +677,7 @@ movtstr default_movtstr = {
   10000,              /* topmargin */
   0,                  /* transpose */
   300,                /* tripletlinewidth */
+  480000,             /* truelinelength */
   11000,              /* underlaydepth */
 
   /* 8-bit fields */

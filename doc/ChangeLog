@@ -43,7 +43,22 @@ caused repeated error messages until "too many error" stopped it.
     onto the stack as part of an external drawing call.
     
   * A new system variable "dots" contains the number of augmentation dots that 
-    follow a note. 
+    follow a note.
+    
+12. There are three new size options for text on a stave: /su, /so, and /sf. 
+These select the text sizes of underlay, overlay, or figured bass, 
+respectively, which are themselves defined by header directives. 
+
+13. The option /a<n> is now allowed on rehearsal text marks, to specify a fixed 
+distance above the stave.
+    
+14. When PMW is built to include MusicXML support, there is now an option -pmw 
+that requests another output file in PMW *input* format, thus making it 
+possible to import a MusicXML file and subsequently edit it. Like all XML 
+support, this is still very experimental.
+
+15. While implementing and testing 14 above, a number of bugs in the handling 
+of MusicXML input were discovered and fixed.   
 
 
 Version 5.33 22-December-2025

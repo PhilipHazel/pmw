@@ -73,4 +73,15 @@ footing draw x
 [nocheck draw dots] g.... [draw dots] g.+ R |
 [endstave]
 
+[newmovement]
+underlaysize 6
+overlaysize 14
+fbsize 8
+
+[staff 1 treble 1]
+"a" r "a"/su/bu r "a"/ul g r |
+"a"/a r "a"/so/ao r "a"/ol g r |
+"a" r "a"/sf r "a"/fb g r |
+[endstave]
+
 

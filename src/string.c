@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: April 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
@@ -2149,7 +2149,15 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
 
     case 's':
     read_nextc();
-    if (read_expect_integer(&b->size, FALSE, FALSE))
+    if (!isdigit(read_c))
+      {
+      if (read_c == 'u') b->size = ff_offset_ulay;
+      else if (read_c == 'o') b->size = ff_offset_olay;
+      else if (read_c == 'f') b->size = ff_offset_fbass;
+      else error(ERR8, "/su, /so, or /sf");
+      read_nextc();  
+      }   
+    else if (read_expect_integer(&b->size, FALSE, FALSE))
       {
       if (b->size == 0 || b->size - 1 >= UserFontSizes)
         {
@@ -2267,10 +2275,12 @@ underlay/overlay. */
 more = read_basestring(s1, rehearse, NULL, NULL);
 if (s1->string == NULL) return;    /* There's been an error */
 
-/* Non-movement options and size settings are ignored on rehearsal marks; they
-always use the rehearsal marks style and size. Warn if any are present. */
+/* Non-movement options other than absolute above and size settings are ignored
+on rehearsal marks; they always use the rehearsal marks style and size. Warn if
+any are present. */
 
-if (rehearse && (s1->flags != 0 || s1->size >= 0))
+if (rehearse && 
+     ((s1->flags & ~(text_above|text_absolute)) != 0 || s1->size >= 0))
   {
   error(ERR178);
   s1->flags = 0;  /* No flags */
@@ -2444,9 +2454,9 @@ default absolute position. */
 if ((s1->flags & text_absolute) != 0 && !s1->hadab)
   s1->adjusty += srs.textabsolute;
 
-/* Override flags for rehearsal strings. */
+/* Adjust flags for rehearsal strings. */
 
-if (rehearse) s1->flags = text_rehearse | text_above | curmovt->rehearsalstyle;
+if (rehearse) s1->flags |= text_rehearse | text_above | curmovt->rehearsalstyle;
 
 /* Set up a stave text block that is not (yet) connected to the current bar's
 chain of items. */

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: March 2021 */
-/* This file last modified: February 2026 */
+/* This file last modified: August 2026 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -215,6 +215,7 @@ while (p != NULL)
     {
     s++;
     st->hadlayequals = TRUE;
+    q->x = q->y = 0; 
     }
   else while(Ustrchr("- =", PCHAR(*s)) == NULL) s++;
 

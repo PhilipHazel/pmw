@@ -4,11 +4,15 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: April 2026 */
-/* This file last modified: June 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
+#define PENDULAY_MAX 20
+
 static FILE      *pmw_file;
+static int        outcount = 0;
+static BOOL       disable_outcount = FALSE;
 
 static const char *acnames[] = { "", "%", "#-", "#", "##", "$-", "$", "$$" };
 static int accspacingorder[] = { ac_ds, ac_fl, ac_df, ac_nt, ac_sh, ac_no };
@@ -49,7 +53,7 @@ static movtfield movt32dimfields[] = {
   { "footnotesep",       offsetof(movtstr, footnotesep) },
   { "hyphenthreshold",   offsetof(movtstr, hyphenthreshold) },
   { "leftmargin",        offsetof(movtstr, leftmargin) },
-  { "linelength",        offsetof(movtstr, linelength) },
+  { "linelength",        offsetof(movtstr, truelinelength) },
   { "midkeyspacing",     offsetof(movtstr, midkeyspacing) },
   { "midtimespacing",    offsetof(movtstr, midtimespacing) },
   { "overlaydepth",      offsetof(movtstr, overlaydepth) },
@@ -81,7 +85,7 @@ static movtfield movtu32dimfields[] = {
 directives that are used to set them. */
 
 static movtfield movt32numfields[] = {
-  { "startbracketbar",   offsetof(movtstr, startbracketbar) },
+  { "startbracketbar",   offsetof(movtstr, startbracketbar) }
 };
 
 #define movt32numfieldscount (sizeof(movt32numfields)/sizeof(movtfield))
@@ -147,12 +151,45 @@ static movtflag movtflags[] = {
 static void
 P(const char *format, ...)
 {
+int rc;
 va_list ap;
 va_start(ap, format);
-Vvfprintf(pmw_file, format, ap);
+if (!disable_outcount && outcount > 70 && format[0] == ' ')
+  {
+  fprintf(pmw_file, "\n ");
+  outcount = 0;
+  }
+rc = vfprintf(pmw_file, format, ap);
 va_end(ap);
+if (rc < 0) error(ERR201, "vfprintf", strerror(errno));  /* Hard */
+outcount += rc;
+if (!disable_outcount) switch (format[strlen(format) - 1])
+  {
+  case ' ':
+  if (outcount <= 70) break;
+  fprintf(pmw_file, "\n  ");
+  /* Fall through */
+  case '\n':
+  outcount = 0;
+  break;
+  }
 }
 
+
+
+/*************************************************
+*              Format bar number                 *
+*************************************************/
+
+static void
+format_barnumber(uint32_t bar, char *buffer)
+{
+uint32_t n = bar >> 16;
+uint32_t f = bar & 0xffffu;
+char *p = buffer;
+p += sprintf(p, "%d", n);
+if (f != 0) (void)sprintf(p, ".%d", f);
+}
 
 
 /*************************************************
@@ -162,10 +199,9 @@ va_end(ap);
 static void
 write_barnumber(uint32_t bar, const char *lead)
 {
-uint32_t n = bar >> 16;
-uint32_t f = bar & 0xffffu;
-P("%s%d", lead, n);
-if (f != 0) P(".%d", f);
+char buffer[32];
+format_barnumber(bar, buffer);
+P("%s%s", lead, buffer);
 }
 
 
@@ -183,18 +219,80 @@ if (type < font_xx) P("%s%s", lead, fonttype_names[type]);
 
 
 /*************************************************
+*             Write time signature               *
+*************************************************/
+
+static void
+write_time(uint32_t mts)
+{
+P("time");
+if (mts > 0x0001ffffu) P(" %d*", mts >> 16);
+mts &= 0x0000ffffu;
+if (mts == time_common) P(" C");
+else if (mts == time_cut) P(" A");
+else P(" %d/%d", (mts >> 8) & 0xff, mts & 0xff);
+}
+
+
+
+/*************************************************
+*        Format xy movement given options        *
+*************************************************/
+
+static char *
+format_move_opt(int32_t x, int32_t y, const char *right, const char *left,
+const char *up, const char *down, char *cp)
+{
+if (x > 0) cp += sprintf(cp, "%s%s", right, sff(x));
+  else if (x < 0) cp += sprintf(cp, "%s%s", left, sff(-x));
+if (y > 0) cp += sprintf(cp, "%s%s", up, sff(y));
+  else if (y < 0) cp += sprintf(cp, "%s%s", down, sff(-y));
+return cp;
+}
+
+
+
+/*************************************************
 *               Format xy movement               *
 *************************************************/
 
 static char *
 format_move(int32_t x, int32_t y, char *cp)
 {
-if (x > 0) cp += sprintf(cp, "/r%s", sff(x));
-  else if (x < 0) cp += sprintf(cp, "/l%s", sff(-x));
-if (y > 0) cp += sprintf(cp, "/u%s", sff(y));
-  else if (y < 0) cp += sprintf(cp, "/d%s", sff(-y));
-return cp;
+return format_move_opt(x, y, "/r", "/l", "/u", "/d", cp);
 }
+
+
+
+/*************************************************
+*       Output xy movement given options         *
+*************************************************/
+
+static void
+write_move_opt(int32_t x, int32_t y, const char *right, const char *left,
+  const char *up, const char *down)
+{
+char buffer[64];
+buffer[0] = 0;
+format_move_opt(x, y, right, left, up, down, buffer);
+if (buffer[0] != 0) P("%s", buffer);
+}
+
+
+
+/*************************************************
+*            Output xy movement                  *
+*************************************************/
+
+static void
+write_move(int32_t x, int32_t y)
+{
+char buffer[64];
+buffer[0] = 0;
+format_move(x, y, buffer);
+if (buffer[0] != 0) P("%s", buffer);
+}
+
 
 
 /*************************************************
@@ -238,8 +336,13 @@ for (; *s != 0; s++)
 
   if (type != settype)
     {
-    P("\\%s\\", font_IdStrings[type]);
     settype = type;
+    if ((type & font_small) != 0)
+      {
+      type &= ~font_small;
+      P("\\%s\\", (type == font_mf)? "mu" : "sc");
+      }
+    if (settype != (font_mf | font_small)) P("\\%s\\", font_IdStrings[type]);
     }
 
   /* Handle '&' specially */
@@ -259,12 +362,19 @@ for (; *s != 0; s++)
       case ss_verticalbar:   c = '|'; break;
       case ss_asciiquote:    c = '\''; break;
       case ss_asciigrave:    c = '`'; break;
-      case ss_escapedhyphen: c = '-'; break;
-      case ss_escapedequals: c = '='; break;
-      case ss_escapedsharp:  c = '#'; break;
+
+      case ss_escapedhyphen: c = '-'; P("\\-"); continue;
+      case ss_escapedequals: c = '='; P("\\="); continue;
+      case ss_escapedsharp:  c = '#'; P("\\#"); continue;
+
+      case ss_page:     P("\\p\\");  continue;
+      case ss_pageodd:  P("\\po\\"); continue;
+      case ss_pageeven: P("\\pe\\"); continue;
+      case ss_skipodd:  P("\\so\\"); continue;
+      case ss_skipeven: P("\\se\\"); continue;
 
       default:
-      error(ERR191, "Unknown special character in string");
+      error(ERR203, c);
       continue;
       }
     }
@@ -291,6 +401,17 @@ for (; *s != 0; s++)
       c = unihigh[c - LOWCHARLIMIT];
       }
     }
+
+  /* A few other characters need special handling. */
+
+  else switch(c)
+    {
+    case '|': P("\\|"); continue;   /* Escaped vertical bar */
+    case '"': P("\\\""); continue;  /* Double quote */
+    default: break;                 /* Carry on */
+    }
+
+  /* Output a single UTF-8 character. */
 
   int k = misc_ord2utf8(c, buffer);
   for (int j = 0; j < k; j++) P("%c", buffer[j]);
@@ -428,6 +549,7 @@ P("\n");
 }
 
 
+
 /*************************************************
 *            Write stave bit map                 *
 *************************************************/
@@ -435,7 +557,7 @@ P("\n");
 static void
 write_stavebits(uint64_t stavebits, const char *lead)
 {
-int bit = 1;
+uint64_t bit = 1;
 P("%s", lead);
 for (int i= 0; i < 64; i++)
   {
@@ -454,12 +576,11 @@ P("\n");
 static void
 write_headfoot(headstr *p, const char *directive)
 {
-uint32_t settype = font_rm;
-
 for (; p != NULL; p = p->next)
   {
   if (p->drawing == NULL)  /* Text heading */
     {
+    uint32_t settype = font_rm;
     P("%s", directive);
     write_fontsize(&(p->fdata), "", 1);
     P(" \"");
@@ -479,6 +600,7 @@ for (; p != NULL; p = p->next)
     }
   }
 }
+
 
 
 /*************************************************
@@ -512,7 +634,7 @@ if (main_testing == 0)
   strftime(datebuff, sizeof(datebuff), "%Y-%m-%d", localtime(&now));
   P("@ Generated by PMW %s %s\n\n", PMW_VERSION, datebuff);
   }
-else P("@ Generated by PMW\n\n");    
+else P("@ Generated by PMW\n\n");
 
 /* Always set no check because there's no way of identifying it from individual
 bars. */
@@ -535,7 +657,7 @@ if (main_landscape)
   if (main_sheetwidth != DEFAULT_SHEETDEPTH)
     P("sheetwidth %s\n", sff(main_sheetwidth));
   if (main_pagelength != DEFAULT_PAGELENGTH)
-    P("pagelength %s\n", sff(main_pagelength));
+    P("pagelength %s\n", sff(main_truepagelength));
   }
 else
   {
@@ -544,7 +666,7 @@ else
   if (main_sheetwidth != DEFAULT_SHEETWIDTH)
     P("sheetwidth %s\n", sff(main_sheetwidth));
   if (main_pagelength != DEFAULT_PAGELENGTH)
-    P("pagelength %s\n", sff(main_pagelength));
+    P("pagelength %s\n", sff(main_truepagelength));
   }
 
 if (bar_use_draw) P("drawbarlines\n");
@@ -628,7 +750,7 @@ for (usint movt = 0; movt < movement_count; movt++)
   else
     {
     p = movements[movt - 1];
-    P("\n\n[newmovement]\n");
+    P("\n\n[newmovement%s]\n", ((m->flags & mf_newpage) != 0)? " newpage":"");
     }
 
 
@@ -646,12 +768,7 @@ for (usint movt = 0; movt < movement_count; movt++)
 
   /* ---- Time ---- */
 
-  P("time");
-  if (mts > 0x0001ffffu) P(" %d*", mts >> 16);
-  mts &= 0x0000ffffu;
-  if (mts == time_common) P(" C");
-  else if (mts == time_cut) P(" A");
-  else P(" %d/%d", (mts >> 8) & 0xff, mts & 0xff);
+  write_time(mts);
   P("\n");
 
   /* ---- Layout ---- */
@@ -1010,10 +1127,15 @@ for (usint movt = 0; movt < movement_count; movt++)
 
   /* ---- Breakbarlines(x) ---- */
 
-  if (m->breakbarlines != p->breakbarlines ||
-      (m->flags & mf_fullbarend) != (p->flags & mf_fullbarend))
-    write_stavebits(m->breakbarlines,
-      ((m->flags & mf_fullbarend) == 0)? "breakbarlines" : "breakbarlinesx");
+  if (m->breakbarlines != 0 &&
+       (m->breakbarlines != p->breakbarlines ||
+       (m->flags & mf_fullbarend) != (p->flags & mf_fullbarend)))
+    {
+    const char *directive = ((m->flags & mf_fullbarend) == 0)?
+      "breakbarlines" : "breakbarlinesx";
+    if (m->breakbarlines == 0xffffffffffffffffl) P("%s\n", directive);
+      else write_stavebits(m->breakbarlines, directive);
+    }
 
   /* ---- Selectstaves ---- */
 
@@ -1191,7 +1313,27 @@ for (usint movt = 0; movt < movement_count; movt++)
 
   /* ---- Textsizes ---- */
 
-  if (memcmp(m->fontsizes->fontsize_text, p->fontsizes->fontsize_text,
+  /* Font size settings in the first movement change the default structure. In
+  subsequent movements we check for changes from the previous movement. */
+
+  if (movt == 0)
+    {
+    int last;
+    for (last = UserFontSizes - 1; last >= 0; last--)
+      {
+      fontinststr *f = &(m->fontsizes->fontsize_text[last]);
+      if (f->size != 10000 || f->matrix != NULL) break;
+      }
+    if (last >= 0)
+      {
+      P("textsizes");
+      for (int i = 0; i <= last; i++)
+        write_fontsize(&(m->fontsizes->fontsize_text[i]), "", 1);
+      P("\n");
+      }
+    }
+
+  else if (memcmp(m->fontsizes->fontsize_text, p->fontsizes->fontsize_text,
       UserFontSizes * sizeof(fontinststr)) != 0)
     {
     int last;
@@ -1280,6 +1422,10 @@ for (usint movt = 0; movt < movement_count; movt++)
 
   for (int stave = 0; stave <= m->laststave; stave++)
     {
+    int clefadjust = 0;
+    int couple_up = 0;
+    int couple_down = 0;
+    int couple_state = 0;   
     int note_total = 0;
     int note_su = 0;
     int note_sd = 0;
@@ -1291,32 +1437,113 @@ for (usint movt = 0; movt < movement_count; movt++)
     int octave = 0;
     int octave_counts[8];
     int max_octave_count = 0;
+    int max_fontsize = 0;
+    int hp_abovecount = 0;
+    int hp_belowcount = 0;
+    int hp_ulcount = 0;
+    int textcount_above = 0;
+    int textcount_below = 0;
+    int textcount_overlay = 0;
+    int textcount_underlay = 0;
+    int textcount_fb = 0;
+    int textcount_fbu = 0;
+    int textcount_max;
+    int textsize = -1;
+    int tiesabovecount = 0;
+    int tiesbelowcount = 0;
+    int tiesset = 0;
+    int fontsize_counts[UserFontSizes];
+    BOOL wasnote;
+    BOOL incue = FALSE;
     barstr **barvector, *b;
     b_ornamentstr *ornament = NULL;
+    b_textstr *pendulay[PENDULAY_MAX];
+    int pendulay_count = 0;
+    const char *text_type= "";
+    uint32_t text_type_flags = 0;
+    uint32_t hp_type_flags = hp_below;
+    uint32_t uleqstarted = 0;
+    uint32_t oleqstarted = 0;
 
     st = m->stavetable[stave];
     if (st->barcount == 0) continue;
 
-    P("\n[stave %d]\n", stave);
+    P("\n[stave %d%s", stave, st->omitempty? " omitempty":"");
+
+    for (snamestr *sn = st->stave_name; sn != NULL; sn = sn->next)
+      {
+      if (sn->text == NULL) continue;
+      snamestr *snt = sn;
+      snamestr **snnext = &(sn->extra);
+
+      P(" ");
+      for(;;)
+        {
+        write_pmw_string(snt->text, "", font_rm);
+        if ((snt->flags & snf_hcentre) != 0) P("/c");
+        if ((snt->flags & snf_rightjust) != 0) P("/e");
+        if ((snt->flags & snf_vcentre) != 0) P("/m");
+        if ((snt->flags & snf_vertical) != 0) P("/v");
+
+        if (snt->size != ff_offset_init)
+          {
+          if (snt->size > UserFontSizes)
+            P("/S%d", snt->size - UserFontSizes + 1);
+          else P("/s%d", snt->size + 1);
+          }
+        write_move(snt->adjustx, snt->adjusty);
+
+        snt = *snnext;
+        if (snt == NULL) break;
+        P("/");
+        snnext = &(snt->next);
+        }
+      }
+
+    P("]\n");
 
     /* First make a pass through the stave to collect information such as the
     numbers of notes with various stem conditions, so that certain defaults can
     be set. */
 
     memset(octave_counts, 0, sizeof(octave_counts));
+    memset(fontsize_counts, 0, sizeof(fontsize_counts));
+
     barvector = st->barindex;
     barno = 0;
     b = barvector[barno];
 
     while (b != NULL)
       {
-      if (b->type == b_note)
+      if (b->type == b_clef)
+        {
+        switch (((b_clefstr *)b)->clef)
+          {
+          case clef_contrabass:
+          case clef_trebletenor:
+          case clef_trebletenorB:
+          clefadjust = +1;
+          break;
+
+          case clef_soprabass:
+          case clef_trebledescant:
+          clefadjust = -1;
+          break;
+
+          default:
+          clefadjust = 0;
+          break;
+          }
+        }
+
+      else if (b->type == b_note)
         {
         b_notestr *n = (b_notestr *)b;
         if (n->spitch != 0)             /* Not a rest */
           {
           note_total++;
-          octave_counts[n->abspitch/24] += 1;
+          octave_counts[n->abspitch/24 + clefadjust] += 1;
+           
           if ((n->flags & nf_stem) != 0)
             {
             if ((n->flags & nf_stemup) != 0)
@@ -1330,21 +1557,219 @@ for (usint movt = 0; movt < movement_count; movt++)
               if (n->spitch < P_3L) note_sdw++;
               }
             }
+            
+           if ((n->flags & nf_coupleU) != 0) couple_up++;
+           if ((n->flags & nf_coupleD) != 0) couple_down++;
+
+          /* If there was previous underlay or overlay see if it is immediately
+          before this note, and if not, move it in the chain to be immediately
+          before. This can happen with XML input, though not with PMW input
+          unless there was a default ornament. We want underlay be adjacent to
+          the note because a re-process of this output will put it there and we
+          want another round of PMW output to generate the same output.
+          Examples have been seen that have multiple syllables that are not
+          contiguous, so code for that possibility by treating each syllable on
+          its own. */
+
+          for (int i = 0; i < pendulay_count; i++)
+            {
+            b_textstr *pt = pendulay[i];
+            if ((barstr *)pt->next != b)
+              {
+              bstr *prev, *next;
+
+              /* Cut the sequence out of the chain */
+
+              prev = pt->prev;
+              next = pt->next;
+              prev->next = next;
+              next->prev = prev;
+
+              /* Insert just before this note */
+
+              prev = b->prev;
+              prev->next = (bstr *)pt;
+              pt->prev = prev;
+              ((bstr *)pt)->next = (bstr *)b;
+              b->prev = (bstr *)pt;
+              }
+            }
+
+          pendulay_count = 0;
           }
+
+        /* This is a rest. For PMW input there can never be underlay or overlay
+        preceding a rest because PMW distributes it to the following notes,
+        skipping rests. However, MusicXML is capable of doing this. If we do
+        nothing, it will get moved to just before the next note when this
+        output is processed, so we change it to be not underlay, but at the
+        underlay level. Give a warning. */
+
+        else for (int i = 0; i < pendulay_count; i++)
+          {
+          char buffer[32];
+          b_textstr *pt = pendulay[i];
+
+          while (pt != NULL)
+            {
+            const char *which = ((pt->flags & text_above) == 0)?
+              "under":"over";
+            format_barnumber(m->barvector[barno], buffer);
+            error(ERR204, which, buffer, stave, which);
+            pt->flags = (pt->flags & ~text_ul) | text_atulevel;
+            pt->laylen = 0;
+
+            pt = (b_textstr *)pt->next;
+            if (pt->type != b_text || (pt->flags & text_ul) == 0) break;
+            }
+
+          pendulay_count = 0;
+          }
+        }
+
+      else if (b->type == b_text)
+        {
+        b_textstr *t = (b_textstr *)b;
+
+        /* Remember underlay or overlay items that precede a note. */
+
+        if ((t->flags & text_ul) != 0)
+          pendulay[pendulay_count++] = (b_textstr *)b;
+
+        /* Collect statistics */
+
+        if ((t->flags & text_rehearse) == 0)
+          {
+          if ((t->flags & (text_fb|text_atulevel)) == (text_fb|text_atulevel))
+            textcount_fbu++;
+          else if ((t->flags & text_fb) != 0) textcount_fb++;
+          else if ((t->flags & (text_ul|text_above)) == (text_ul|text_above))
+            textcount_overlay++;
+          else if ((t->flags & text_ul) != 0) textcount_underlay++;
+          else
+            {
+            if ((t->flags & text_above) != 0) textcount_above++;
+              else textcount_below++;
+            if (t->size < UserFontSizes) fontsize_counts[t->size]++;
+            }
+          }
+        }
+
+      else if (b->type == b_hairpin)
+        {
+        b_hairpinstr *h = (b_hairpinstr *)b;
+        if ((h->flags & hp_end) == 0)
+          {
+          if ((h->flags & (hp_below|hp_underlay)) == (hp_below|hp_underlay))
+            hp_ulcount++;
+          else if ((h->flags & hp_below) != 0) hp_belowcount++;
+          else hp_abovecount++;
+          }
+        }
+
+      else if (b->type == b_tie)
+        {
+        b_tiestr *tie = (b_tiestr *)b;
+        if (tie->abovecount > 0 && tie->belowcount == 0) tiesabovecount++;
+        else if (tie->belowcount > 0 && tie->abovecount == 0) tiesbelowcount++;
         }
 
       b = (barstr *)b->next;
       if (b == NULL && ++barno < st->barcount) b = barvector[barno];
+      }  /* End of preliminary scan */
+
+    /* Set a hairpin default if most are not just "below". */
+
+    if (hp_belowcount < hp_abovecount || hp_belowcount < hp_ulcount)
+      {
+      if (hp_abovecount > hp_ulcount)
+        {
+        P("[hairpins above]\n");
+        hp_type_flags = 0;
+        }
+      else
+        {
+        P("[hairpins underlay]\n");
+        hp_type_flags = hp_below | hp_underlay;
+        }
       }
+
+    /* Set a ties default. */
+
+    if (tiesabovecount > tiesbelowcount && tiesabovecount > 0)
+      {
+      P("[ties above]\n");
+      tiesset = +1;
+      }
+    else if (tiesbelowcount > 0)
+      {
+      P("[ties below]\n");
+      tiesset = -1;
+      }
+
+    /* Set a default size for text that is neither underlay nor overlay nor
+    figured bass. */
+
+    for (int i = 0; i < UserFontSizes; i++)
+      {
+      if (fontsize_counts[i] > max_fontsize)
+        {
+        max_fontsize = fontsize_counts[i];
+        textsize = i;
+        }
+      }
+
+    /* Texsize will be netgative if there is no text in the stave. */
+
+    if (textsize >= 0) P("[textsize %d]\n", textsize + 1);
+
+    /* Set a default text type */
+
+    textcount_max = textcount_below;
+    if (textcount_above > textcount_max)
+      {
+      textcount_max = textcount_above;
+      text_type = "above";
+      text_type_flags = text_above;
+      }
+    if (textcount_overlay > textcount_max)
+      {
+      textcount_max = textcount_overlay;
+      text_type = "overlay";
+      text_type_flags = text_ul|text_above;
+      }
+    if (textcount_underlay > textcount_max)
+      {
+      textcount_max = textcount_underlay;
+      text_type = "underlay";
+      text_type_flags = text_ul;
+      }
+    if (textcount_fb > textcount_max)
+      {
+      textcount_max = textcount_fb;
+      text_type = "fb";
+      text_type_flags = text_fb;
+      }
+    if (textcount_fbu > textcount_max)
+      {
+      textcount_max = textcount_fbu;
+      text_type = "fbu";
+      text_type_flags = text_fb|text_ul;
+      }
+
+    if (text_type[0] != 0) P("[text %s]\n", text_type);
 
     /* Select the octave with the most notes */
 
     for (int i = 0; i < 8; i++)
+      {
       if (octave_counts[i] > max_octave_count)
         {
-        max_octave_count= octave_counts[i];
+        max_octave_count = octave_counts[i];
         octave = i;
         }
+      }
+
     P("[octave %d]\n", octave - 3);
 
     /* Decide whether to force a stem direction */
@@ -1363,21 +1788,108 @@ for (usint movt = 0; movt < movement_count; movt++)
       P("[stems down]\n");
       stemdirection = -1;
       }
+      
+    /* Handle coupling */
+    
+    if (couple_up > couple_down)
+      {
+      P("[couple up]\n");
+      couple_state = +1;  
+      }
+    else if (couple_down > 0)
+      {
+      P("[couple down]\n");
+      couple_state = -1;  
+      }         
 
     /* Now process the stave's data */
 
+    wasnote = FALSE;
     barno = 0;
+    clefadjust = 0; 
     b = barvector[barno];
 
     while (b != NULL)
       {
+      if (wasnote && b->type != b_tie && b->type != b_beambreak) P(" ");
+      wasnote = FALSE;
+
       switch (b->type)
         {
+        /* At the start of a bar, look ahead to see if this is a replicated
+        bar and arrange to insert a count and a skip to the last of the
+        replicated group if it is. A replicated bar is identified by having the
+        same next pointer in its initial b_start structure. */
+
+        case b_start:
+        int rcount = 1;
+        for (int barnext = barno + 1; barnext < st->barcount; barnext++)
+          {
+          if (barvector[barnext]->next != b->next) break;
+          rcount++;
+          }
+        if (rcount > 1)
+          {
+          P("[%d] ", rcount);
+          barno += rcount - 1;
+          b = barvector[barno];
+          }
+        incue = FALSE;
+        break;
+
+        case b_all:
+        P("[all] ");
+        break;
+
         case b_barline:
+        b_barlinestr *bl = (b_barlinestr *)b;
         if (m->barvector[barno] == 0 || (m->barvector[barno] & 0xffffu) != 0)
           P("[nocount]");
-        write_barnumber(m->barvector[barno], " | @");
+        switch(bl->bartype)
+          {
+          case barline_normal: P("|"); break;
+          case barline_double: P("||"); break;
+          case barline_ending: P("|||"); break;
+          case barline_invisible: P("|?"); break;
+          }
+        if (bl->barstyle != 0) P("%d", bl->barstyle);
+        write_barnumber(m->barvector[barno], " @");
         P("\n");
+        break;
+
+        /* Some fudge code is needed here to deal with [tremolo], which inserts
+        an "all" beam break of its own. To distinguish this from an explicit
+        beam break in the original, we look at the previous note. If it is not
+        marked as a free upstemmed quaver or shorter, the beambreak is not
+        explicit because if it had been, the note would have been so marked. */
+
+        case b_beambreak:
+        int x = ((b_beambreakstr *)b)->value;
+        if (x == BEAMBREAK_ALL)
+          {
+          BOOL ok = TRUE;
+          if (b->next->type == b_tremolo)
+            {
+            for (barstr *pp = (barstr *)b->prev; pp != NULL;
+                 pp = (barstr *)pp->prev)
+              {
+              if (pp->type == b_note)
+                {
+                ok = !(((b_notestr *)pp)->notetype >= quaver &&
+                  (((b_notestr *)pp)->flags & nf_fuq) == 0);
+                if (!ok) P(" ");
+                break;
+                }
+              }
+            }
+          if (ok) P("; ");
+          }
+        else if (x == 1) P(", ");
+        else P(",%d ", x);
+        break;
+
+        case b_caesura:
+        P("// ");
         break;
 
         case b_clef:
@@ -1385,21 +1897,615 @@ for (usint movt = 0; movt < movement_count; movt++)
         P("[");
         if (clef->assume) P("assume ");
         P("%s] ", clef_names[clef->clef]);
+        
+        switch (clef->clef)
+          {
+          case clef_contrabass:
+          case clef_trebletenor:
+          case clef_trebletenorB:
+          clefadjust = +1;
+          break;
+
+          case clef_soprabass:
+          case clef_trebledescant:
+          clefadjust = -1;
+          break;
+
+          default:
+          clefadjust = 0;
+          break;
+          }
+ 
+        break;
+
+        case b_comma:
+        P("[comma] ");
+        break;
+
+        case b_endplet:
+        P("} ");
+        break;
+
+        case b_endslur:
+        case b_endline:
+        b_endslurstr *bes = (b_endslurstr *)b;
+        P("[%s", (b->type == b_endslur)? "es" : "el");
+        if (bes->value != 0) P("/=%c", bes->value);
+        P("] ");
+        break;
+
+        /* Omit key in the first bar if it's the same as the movement key.
+        Also omit naturalizing keys, which are an artefact of processing and
+        are not needed (or indeed allowed) in PMW input. */
+
+        case b_key:
+        b_keystr *key = (b_keystr *)b;
+        if (key->key < 0x80 && (barno != 0 || key->key != m->key))
+          {
+          P("[");
+          if (key->assume) P("assume ");
+          P("key %s", string_format_key(key->key));
+          if (((m->flags & mf_keywarn) != 0) != key->warn)
+            P(" %swarn", key->warn? "" : "no");
+          P("] ");
+          }
+        break;
+
+        case b_lrepeat:
+        P("(: ");
+        break;
+
+        case b_move:
+        b_movestr *mv = (b_movestr *)b;
+        P("[%smove %s", mv->relative? "r" : "", sff(mv->x));
+        if (mv->y != 0) P(",%s", sff(mv->y));
+        P("] ");
+        break;
+
+        case b_nbar:
+        b_nbarstr *nb = (b_nbarstr *)b;
+        P("[%d%s", nb->n, (nb->n == 1)? "st" : (nb->n == 2)? "nd" :
+          (nb->n == 3)? "rd" : "th");
+        if (nb->s != NULL) write_pmw_string(nb->s, "/", font_rm);
+        write_move(nb->x, nb->y);
+        P("] ");
+        break;
+
+        case b_newline:
+        P("[newline] ");
         break;
 
         case b_ornament:
         ornament = (b_ornamentstr *)b;
         break;
 
+        case b_reset:
+        P("[%s] ", (((b_resetstr *)b)->moff == 0)? "reset" : "backup");
+        break;
+
+        case b_resume:
+        P("[resume] ");
+        break;
+
+        case b_rrepeat:
+        P(":) ");
+        break;
+
+        case b_sgabove:
+        P("[sgabove ");
+        goto SGDATA;
+
+        case b_sghere:
+        P("[sghere ");
+        goto SGDATA;
+
+        case b_sgnext:
+        P("[sgnext ");
+        SGDATA:
+        b_sgstr *sg = (b_sgstr *)b;
+        if (sg->relative && sg->value >= 0) P("+");
+        P("%s] ", sff(sg->value));
+        break;
+
+        case b_space:
+        b_spacestr *sp = (b_spacestr *)b;
+        P("[%sspace %s] ", sp->relative? "r" : "", sff(sp->x));
+        break;
+
+        case b_ssabove:
+        P("[ssabove ");
+        goto SSDATA;
+
+        case b_sshere:
+        P("[sshere ");
+        goto SSDATA;
+
+        case b_ssnext:
+        P("[ssnext ");
+        SSDATA:
+        b_ssstr *ss = (b_ssstr *)b;
+        if (ss->stave != stave) P("%d/", ss->stave);
+        if (ss->relative && ss->value >= 0) P("+");
+        P("%s] ", sff(ss->value));
+        break;
+
+        case b_suspend:
+        P("[suspend] ");
+        break;
+
+        case b_tick:
+        P("[tick] ");
+        break;
+
+        case b_tie:
+        b_tiestr *tie = (b_tiestr *)b;
+        P("_");
+
+        if (tie->abovecount > 0)
+          {
+          if (tie->belowcount != 0) P("/%da", tie->abovecount);
+            else if (tiesset <= 0) P("/a");
+          }
+        if (tie->belowcount > 0)
+          {
+          if (tie->abovecount != 0) P("/%db", tie->belowcount);
+            else if (tiesset >= 0) P("/b");
+          }
+
+        if ((tie->flags & tief_gliss) != 0)
+          {
+          P("/g");
+          if ((tie->flags & tief_slur) != 0) P("/s");
+          }
+
+        if ((tie->flags & tief_editorial) != 0) P("/e");
+        if ((tie->flags & tief_dotted) != 0) P("/ip");
+        if ((tie->flags & tief_dashed) != 0) P("/i");
+        if (b->next->type != b_beambreak) P(" ");
+        break;
+
+        case b_time:
+        b_timestr *tm = (b_timestr *)b;
+        if (barno != 0 || tm->time != m->time)
+          {
+          P("[");
+          if (tm->assume) P("assume ");
+          write_time(tm->time);
+          if (((m->flags & mf_timewarn) != 0) != tm->warn)
+            P(" %swarn", tm->warn? "" : "no");
+          P("] ");
+          }
+        break;
+
+        case b_tremolo:
+        b_tremolostr *trem = (b_tremolostr *)b;
+        P("[tremolo");
+        if (trem->count != 2) P("/x%d", trem->count);
+        if (trem->join != 0) P("/j%d", trem->join);
+        P("] ");
+        break;
+
+        /* -------- Hairpins -------- */
+
+        case b_hairpin:
+        b_hairpinstr *hp = (b_hairpinstr *)b;
+
+        P("%s", ((hp->flags & hp_cresc) != 0)? "<" : ">");
+
+        /* Vertical positioning only at start. It is possible for an absolute
+        above hairpin position to have a negative yvalue or a below one to have
+        a positive yvalue as a result of relative movements. */
+
+        if ((hp->flags & hp_end) == 0 &&
+            ((hp->flags & hp_abs) != 0 ||
+            (hp->flags & (hp_below|hp_underlay)) != hp_type_flags))
+
+          {
+          switch (hp->flags & (hp_below|hp_middle|hp_underlay))
+            {
+            case 0:
+            P("/a");
+            if ((hp->flags & hp_abs) != 0)
+              {
+              if (hp->y >= 0) P("%s", sff(hp->y));
+                else P("0/d%s", sff(-hp->y));
+              }
+            break;
+
+            case hp_below:
+            P("/b");
+            if ((hp->flags & hp_abs) != 0)
+              {
+              if (hp->y <= 0) P("%s", sff(-hp->y));
+                else P("0/u%s", sff(hp->y));
+              }
+            break;
+
+            case hp_below|hp_underlay:
+            P("/bu");
+            break;
+
+            case hp_middle:
+            P("/m");
+            break;
+            }
+          }
+
+        if ((hp->flags & hp_abs) == 0) write_move(hp->x, hp->y);
+
+        if((hp->flags & hp_bar) != 0) P("/bar");
+        if((hp->flags & hp_halfway) != 0)
+          {
+          P("/h");
+          if (hp->halfway != 500) P("%s", sff(hp->halfway));
+          }
+
+        write_move_opt(hp->offset, 0, "/rc", "/lc", NULL, NULL);
+
+        /* Starting hairpin has extra things. */
+
+        if ((hp->flags & hp_end) == 0)
+          {
+          int tempbarno = barno;
+          barstr *tempb = b;
+
+          if (hp->width != (int32_t)(m->hairpinwidth))
+            P("/w%s", sff(hp->width));
+          write_move_opt(0, hp->su, NULL, NULL, "/slu", "/sld");
+
+          /* Look ahead for the ending hairpin, and output the su field as
+          sru/srd. Hairpins are not allowed to nest, so the next one must be
+          the end that matches this one. */
+
+          for (;;)
+            {
+            tempb = (barstr *)tempb->next;
+            if (tempb == NULL && ++tempbarno < st->barcount)
+              tempb = barvector[tempbarno];
+            if (tempb == NULL) break;
+            if (tempb->type == b_hairpin)
+              {
+              write_move_opt(0, ((b_hairpinstr *)tempb)->su, NULL, NULL, "/sru",
+                "/srd");
+              break;
+              }
+            }
+          }
+
+        P(" ");
+        break;
+
+        /* -------- Text -------- */
+
+        case b_text:
+        b_textstr *txt = (b_textstr *)b;
+        uint32_t fl = txt->flags;
+        int32_t yvalue = txt->y;
+        BOOL addsize = TRUE;
+
+        /* Underlay or overlay */
+
+        if (txt->laylen != 0)
+          {
+          uint32_t c;
+          uint32_t *eptr = ((fl & text_above) == 0)? &uleqstarted:&oleqstarted;
+          uint32_t levelbit = 1 << txt->laylevel;
+          usint len = txt->laylen;
+
+          /* There is complication here. If a syllable is not the end of a
+          word, we must include the hyphen in the written text. If a syllable
+          that is not just a single '=' ends in '=' (with or without a
+          preceding hyphen) we must include that in the output, and then
+          arrange that the single '=' that will automatically have been
+          generated for the next note is suppressed. */
+
+          if (txt->string[len] == '-') len++;
+          if (txt->string[len] == '=' && (len > 1 || txt->string[0] != '='))
+            {
+            *eptr |= levelbit;
+            len++;
+            }
+          else if (txt->string[0] == '=' && (*eptr & levelbit) != 0)
+            {
+            *eptr &= ~levelbit;
+            break;  /* Skip this text item */
+            }
+
+          /* Output the underlay or overlay syllable. */
+
+          c = txt->string[len];
+          txt->string[len] = 0;
+          write_pmw_string(txt->string, "", font_rm);
+          txt->string[len] = c;
+
+          if ((fl & text_above) != 0)
+            {
+            if (text_type_flags != (text_ul|text_above)) P("/ol");
+            addsize = txt->size != ff_offset_olay;
+            }
+          else
+            {
+            if (text_type_flags != text_ul) P("/ul");
+            addsize = txt->size != ff_offset_ulay;
+            }
+          }
+
+        /* Figured bass */
+
+        else if ((fl & text_fb) != 0)
+          {
+          write_pmw_string(txt->string, "", font_rm);
+          P("/fb");
+          if ((fl & text_atulevel) != 0) P("u");
+          addsize = txt->size != ff_offset_fbass;
+          }
+
+        /* Rehearsal mark; only allowed options are for movement */
+
+        else if ((fl & text_rehearse) != 0)
+          {
+          P("[");
+          write_pmw_string(txt->string, "", font_it);
+          if ((fl & text_absolute) != 0) P("/a0");
+          write_move(txt->x, yvalue);
+          P("] ");
+          break;
+          }
+
+        /* Neither underlay nor overlay nor figured bass */
+
+        else
+          {
+          write_pmw_string(txt->string, "", font_it);
+          if ((fl & text_type_flags) != text_type_flags ||
+              (fl & text_absolute) != 0)
+            {
+            if ((fl & (text_above|text_atulevel)) == (text_above|text_atulevel))
+              P("/ao");
+
+            /* It is possible for absolute above text to have a negative yvalue
+            or below text to have positive yvalue as a result of relative
+            movements. */
+
+            else if ((fl & text_above) != 0)
+              {
+              P("/a");
+              if ((fl & text_absolute) != 0)
+                {
+                if (yvalue >= 0) P("%s", sff(yvalue));
+                  else P("0/d%s", sff(-yvalue));
+                yvalue = 0;
+                }
+              }
+
+            else if ((fl & text_atulevel) != 0) P("/bu");
+            else
+              {
+              P("/b");
+              if ((fl & text_absolute) != 0)
+                {
+                if (yvalue <= 0) P("%s", sff(-yvalue));
+                  else P("0/u%s", sff(yvalue));
+                yvalue = 0;
+                }
+              }
+            }
+          addsize = txt->size != textsize;
+          }
+
+        /* Add size if necessary */
+
+        if (addsize)
+          {
+          switch(txt->size)
+            {
+            case ff_offset_ulay: P("/su"); break;
+            case ff_offset_olay: P("/so"); break;
+            case ff_offset_fbass: P("/sf"); break;
+            default:
+            if (txt->size > UserFontSizes)
+              P("/S%d", txt->size - UserFontSizes + 1);
+            else P("/s%d", txt->size + 1);
+            break;
+            }
+          }
+
+        /* Other options */
+
+        if ((fl & text_baralign) != 0) P("/bar");
+        if ((fl & text_barcentre) != 0) P("/cb");
+        if ((fl & text_boxrounded) != 0) P("/rbox");
+          else if ((fl & text_boxed) != 0) P("/box");
+        if ((fl & text_centre) != 0) P("/c");
+        if ((fl & text_endalign) != 0) P("/e");
+        if ((fl & text_followon) != 0) P("/F");
+        if ((fl & text_middle) != 0) P("/m");
+        if ((fl & text_ringed) != 0) P("/ring");
+        if ((fl & text_timealign) != 0) P("/ts");
+
+        if (txt->rotate != 0) P("/rot%s", sff(txt->rotate));
+        if (txt->halfway != 0) P("/h%s", sff(txt->halfway));
+        if (txt->offset > 0) P("/rc%s", sff(txt->offset));
+          else if (txt->offset < 0) P("/lc%s", sff(-txt->offset));
+        write_move(txt->x, yvalue);
+        P(" ");
+        break;
+
+        /* -------- Tuplet start -------- */
+
+        case b_plet:
+        b_pletstr *ps = (b_pletstr *)b;
+        uint32_t pf = ps->flags;
+        P("{");
+        if (ps->pletnum != 2 || ps->pletlen != 3)
+          P("%d/%d", ps->pletnum, ps->pletlen);
+
+        /* Vertical position options */
+
+        if ((pf & plet_a) != 0)
+          {
+          P("/a");
+          if ((pf & plet_abs) != 0)
+            {
+            if (ps->yleft == ps->yright)
+              P("%s", sff(ps->yleft));
+            else if (ps->yleft > ps->yright)
+              P("%s/lu%s", sff(ps->yright), sff(ps->yleft - ps->yright));
+            else
+              P("%s/ru%s", sff(ps->yleft), sff(ps->yright - ps->yleft));
+            }
+          else
+            {
+            if (ps->yleft == ps->yright)
+              {
+              if (ps->yleft > 0) P("/u%s", sff(ps->yleft));
+                else if (ps->yleft < 0) P("/d%s", sff(-ps->yleft));
+              }
+            else
+              {
+              if (ps->yleft > 0) P("/lu%s", sff(ps->yleft));
+                else if (ps->yleft < 0) P("/ld%s", sff(-ps->yleft));
+              if (ps->yright > 0) P("/ru%s", sff(ps->yright));
+                else if (ps->yright < 0) P("/rd%s", sff(-ps->yright));
+              }
+            }
+          }
+
+        else if ((pf & plet_b) != 0)
+          {
+          P("/b");
+          if ((pf & plet_abs) != 0)
+            {
+            if (ps->yleft == ps->yright)
+              P("%s", sff(ps->yleft));
+            else if (ps->yleft > ps->yright)
+              P("%s/ld%s", sff(ps->yright), sff(ps->yleft - ps->yright));
+            else
+              P("%s/rd%s", sff(ps->yleft), sff(ps->yright - ps->yleft));
+            }
+          else
+            {
+            if (ps->yleft == ps->yright)
+              {
+              if (ps->yleft > 0) P("/u%s", sff(ps->yleft));
+                else if (ps->yleft < 0) P("/d%s", sff(-ps->yleft));
+              }
+            else
+              {
+              if (ps->yleft > 0) P("/lu%s", sff(ps->yleft));
+                else if (ps->yleft < 0) P("/ld%s", sff(-ps->yleft));
+              if (ps->yright > 0) P("/ru%s", sff(ps->yright));
+                else if (ps->yright < 0) P("/rd%s", sff(-ps->yright));
+              }
+            }
+          }
+
+        /* Horizontal position options */
+
+        if (ps->x > 0) P("/r%s", sff(ps->x));
+          else if (ps->x < 0) P("/l%s", sff(-ps->x));
+
+        /* Other options */
+
+        if ((pf & plet_bn) != 0) P("/n");
+        if ((pf & plet_x) != 0) P("/x");
+        if ((pf & plet_lx) != 0) P("/lx");
+        if ((pf & plet_rx) != 0) P("/rx");
+
+        P(" ");
+        break;
+
+        /* -------- Slur or line start -------- */
+
+        case b_slur:
+        b_slurstr *bs = (b_slurstr *)b;
+
+        P("[%s%s", ((bs->flags & sflag_x) != 0)? "x" : "",
+          ((bs->flags & sflag_l) != 0)? "line" : "slur");
+
+        /* Basic options */
+
+        if (bs->id != 0) P("/=%c", bs->id);
+
+        if ((bs->flags & sflag_b) == 0)  /* Slur above */
+          {
+          if ((bs->flags & sflag_lay) != 0) P("/ao");
+            else if ((bs->flags & sflag_abs) != 0) P("/a%s", sff(bs->ally));
+          }
+
+        else  /* slur below */
+          {
+          P("/b");
+          if ((bs->flags & sflag_lay) != 0) P("u");
+            else if ((bs->flags & sflag_abs) != 0) P("%s", sff(-bs->ally));
+          }
+
+        if ((bs->flags & sflag_abs) == 0) write_move(0, bs->ally);
+
+        if ((bs->flags & sflag_e) != 0) P("/e");
+        if ((bs->flags & sflag_h) != 0) P("/h");
+        if ((bs->flags & sflag_idot) != 0) P("/ip");
+          else if ((bs->flags & sflag_i) != 0) P("/i");
+        if ((bs->flags & sflag_w) != 0) P("/w");
+        if ((bs->flags & sflag_ol) != 0) P("/ol");
+        if ((bs->flags & sflag_or) != 0) P("/or");
+        if ((bs->flags & sflag_cx) != 0) P("/cx");
+
+        /* Loop for modifications that might apply to different parts of a
+        split slur. */
+
+        for (b_slurmodstr *sm = bs->mods; sm != NULL; sm = sm->next)
+          {
+          if (sm->sequence != 0) P("/%d", sm->sequence);
+          if (sm->lxoffset > 0) P("/lrc%s", sff(sm->lxoffset));
+            else if (sm->lxoffset < 0) P("/llc%s", sff(-sm->lxoffset));
+          if (sm->rxoffset > 0) P("/rrc%s", sff(sm->rxoffset));
+            else if (sm->rxoffset < 0) P("/rlc%s", sff(-sm->rxoffset));
+
+          write_move_opt(sm->lx, sm->ly, "/lr", "/ll", "/lu", "/ld");
+          write_move_opt(sm->rx, sm->ry, "/rr", "/rl", "/ru", "/rd");
+
+          write_move_opt(sm->clx, sm->cly, "/clr", "/cll", "/clu", "/cld");
+          write_move_opt(sm->crx, sm->cry, "/crr", "/crl", "/cru", "/crd");
+
+          write_move_opt(sm->c, 0, "/co", "/ci", "", "");
+          }
+
+        P("] ");
+        break;
+
+        /* -------- Notes and chords -------- */
+
         case b_chord:
         case b_note:
         char options[100];
         char *cp = options;
         b_notestr *n = (b_notestr *)b;
-        int octvar = n->abspitch/24 - octave;
+        int octvar = n->abspitch/24 - octave + clefadjust;
         uint32_t acflags = n->acflags;
 
-        /* Handle start of chord */
+        /* Change cue only on single notes and the first notes of chords. */
+
+        if (b->type == b_note)
+          {
+          if ((n->flags & nf_cuesize) != 0)
+            {
+            if (!incue)
+              {
+              P("[cue] ");
+              incue = TRUE;
+              }
+            }
+          else if (incue)
+            {
+            P("[endcue] ");
+            incue = FALSE;
+            }
+          }
+
+        /* Handle start of chord. In PMW input, accents must be on the first
+        note of a chord, but in the processed data they are moved to the
+        non-stem end, so we have to deal with that. */
 
         if (b->type == b_note && (n->flags & nf_chord) != 0)
           {
@@ -1409,19 +2515,17 @@ for (usint movt = 0; movt < movement_count; movt++)
                bb = (barstr *)bb->next)
             {
             if (bb->type != b_chord) break;
+            acflags |= ((b_notestr *)bb)->acflags & (af_accents | af_opposite);
             chordcount++;
             }
           }
+        else if (b->type == b_chord) acflags = 0;
 
-        /* Handle individual note */
+        /* Handle an individual note */
 
         if (n->acc != ac_no)
           {
           P("%s", acnames[n->acc]);
-          if ((n->flags & nf_accinvis) != 0) P("?");
-            else if ((n->flags & nf_accrbra) != 0) P(")");
-              else if ((n->flags & nf_accsbra) != 0) P("]");
-
           if ((n->flags & nf_accleft) != 0)
             {
             int32_t accleft = n->accleft - m->accspacing[n->acc] +
@@ -1429,10 +2533,25 @@ for (usint movt = 0; movt < movement_count; movt++)
             P("<");
             if (accleft != 5000) P("%s", sff(accleft));
             }
+          if ((n->flags & nf_accinvis) != 0) P("?");
+            else if ((n->flags & nf_accrbra) != 0) P(")");
+              else if ((n->flags & nf_accsbra) != 0) P("]");
           }
 
+        /* Because we have calculated the octave from the absolute pitch, we
+        must adjust the octvar value if an accidental has moved the original
+        absolute pitch over an octave boundary, as the octave setting applies
+        to the note without an accidental. */
+
+        if (tolower(n->char_orig) == 'c' && (n->abspitch % 24) > 20) octvar++;
+          else if (tolower(n->char_orig) == 'b' && (n->abspitch % 24) < 3)
+            octvar--;
+
+        /* XML input has rests as Z (can't remember why) */
+
+        if (n->char_orig == 'Z' || n->char_orig == 'z') n->char_orig = 'r';
         if (n->notetype < crotchet) P("%c", toupper(n->char_orig));
-          else P("%c", n->char_orig);
+          else P("%c", tolower(n->char_orig));
 
         if (n->spitch != 0)
           {
@@ -1459,19 +2578,29 @@ for (usint movt = 0; movt < movement_count; movt++)
 
         options[0] = 0;
 
-        /* In auto mode, this takes no special action for notes at the stem
-        swap level. */
+        /* A notional stem direction is needed for all notes. Apart from
+        anything else, it affects the sorting order. PMW assumes stem up for
+        all grace notes that do not have an explicit stem-down option.
+        Therefore, always set an explicit stem down for grace notes. */
 
-        if ((n->flags & nf_stem) != 0)
+        if (n->spitch != 0)
           {
-          if ((n->flags & nf_stemup) != 0)
+          if (n->length == 0)  /* Grace note */
             {
-            if (stemdirection < 0 || (stemdirection == 0 && n->spitch > P_3L))
+            cp += sprintf(cp, " g%s", ((n->flags & nf_appogg) == 0)? "":"/");
+            if ((n->flags & nf_stemup) == 0) cp += sprintf(cp, " sd");
+            }
+
+          /* Not a grace note */
+
+          else if ((n->flags & nf_stemup) != 0)
+            {
+            if (stemdirection < 0 || (stemdirection == 0 && n->spitch >= P_3L))
               cp += sprintf(cp, " su");
             }
           else
             {
-            if (stemdirection > 0 || (stemdirection == 0 && n->spitch < P_3L))
+            if (stemdirection > 0 || (stemdirection == 0 && n->spitch <= P_3L))
               cp += sprintf(cp, " sd");
             }
           }
@@ -1534,33 +2663,57 @@ for (usint movt = 0; movt < movement_count; movt++)
             else for (int i = 0; i < n->dots; i++) cp += sprintf(cp, ".");
           }
 
+        /* Notehead style */
+
+        switch (n->noteheadstyle)
+          {
+          case nh_normal: break;
+          case nh_cross: cp += sprintf(cp, " nx"); break;
+          case nh_harmonic: cp += sprintf(cp, " nh"); break;
+          case nh_none: cp += sprintf(cp, " nz"); break;
+          case nh_direct: cp += sprintf(cp, " nd"); break;
+          case nh_circular: cp += sprintf(cp, " nc"); break;
+          }
+
+        /* Handle note with no stem */
+
+        if (n->spitch != 0 && (n->flags & nf_stem) == 0 && n->notetype >= minim)
+          cp += sprintf(cp, " no");
+
+        /* Stem length adjustment */
+
+        if (n->yextra != 0) cp += sprintf(cp, " sl%s", sff(n->yextra));
+        
+        /* Check for explicit coupling needed */
+        
+        if ((n->flags & nf_couple) != 0)  /* Note is coupled */
+          {
+          if (((n->flags & nf_coupleU) != 0 && couple_state != +1) ||
+              ((n->flags & nf_coupleD) != 0 && couple_state != -1))
+            cp += sprintf(cp, " c");    
+          }   
+
         /* Output any options that have been set. */
 
         if (options[0] != 0) P("\\%s\\", options + 1);
         if (--chordcount == 0) P(")");
-        P(" ");
+        wasnote = TRUE;
         break;  /* End of note handling */
+
 
 
 /* As yet unsupported:
 
-  b_accentmove, b_all, b_barnum, b_beamacc, b_beambreak, b_beammove,
-  b_beamrit, b_beamslope, b_bowing, b_breakbarline, b_caesura,
-  b_comma, b_dotbar, b_dotright, b_draw, b_endline, b_endplet, b_endslur,
-  b_ens, b_ensure, b_footnote, b_hairpin, b_justify, b_key, b_linegap,
-  b_lrepeat, b_midichange, b_move, b_name, b_nbar, b_newline, b_newpage,
+  b_accentmove, b_barnum, b_beamacc, b_beammove,
+  b_beamrit, b_beamslope, b_bowing, b_breakbarline,
+  b_dotbar, b_dotright, b_draw, b_endslur,
+  b_ens, b_ensure, b_footnote, b_justify, b_linegap,
+  b_midichange, b_name, b_newpage,
   b_noteheads, b_notes, b_ns, b_nsm, b_olevel, b_olhere,
-  b_overbeam, b_page, b_pagebotmargin, b_pagetopmargin, b_plet, b_reset,
-  b_resume, b_rrepeat, b_sgabove, b_sghere, b_sgnext, b_slur, b_slurgap,
-  b_space, b_ssabove, b_sshere, b_ssnext, b_suspend, b_text, b_tick, b_tie,
-  b_time, b_transpose, b_tremolo, b_tripsw, b_ulevel, b_ulhere,
+  b_overbeam, b_page, b_pagebotmargin, b_pagetopmargin,
+  b_slurgap,
+  b_transpose, b_tripsw, b_ulevel, b_ulhere,
   b_unbreakbarline, b_zerocopy,
-  
-XML input still needs b_all b_beambreak b_caesura b_comma
-b_endplet b_endslur b_hairpin b_key b_lrepeat b_move b_nbar
-b_plet b_reset b_resume b_rrepeat b_sgabove b_sgnext b_slur b_space b_ssabove
-b_sshere b_suspend b_text b_tie b_time b_tremolo
- 
 */
 
         }

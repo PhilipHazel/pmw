@@ -40,7 +40,7 @@ while (*s != 0)
   {
   int aa = string_check_utf8(s) - 1;
   uint32_t c = *s++;
-
+  
   /* Pick up any additional UTF-8 bytes. If aa < 0 the byte is illegal UTF-8.
   Give a warning and accept it as a one-byte value. */
 
@@ -108,7 +108,12 @@ while (*s != 0)
   }
 
 *tt = 0;
-string_check(ss, NULL, keepnl);
+
+/* The string_check() function may shorten the string if an fi ligature is 
+found. */
+
+(void)string_check(ss, NULL, keepnl);
+for (tt = ss; *tt != 0; tt++) {}
 return tt - ss;
 }
 
@@ -130,7 +135,7 @@ Arguments:
   sr        righthand string
   oldp      pointer to the anchor of the headstr chain
   size      font size or zero for "get next heading size"
-  f         font it
+  f         font id
 
 Returns:    the depth of heading/footing (may be negative)
 */

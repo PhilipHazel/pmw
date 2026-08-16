@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2025 */
-/* This file last modified: December 2025 */
+/* This file last modified: August 2026 */
 
 
 /* This module contains functions for generating stave data */
@@ -53,6 +53,8 @@ typedef struct note_position {
 *             Static variables                   *
 *************************************************/
 
+static int8_t    baraccs[PARTSTAFFMAX+1][BARACCS_LEN];
+
 static int       beam_leastbreak[PARTSTAFFMAX+1];
 static int       beam_breakpending[PARTSTAFFMAX+1];
 static BOOL      beam_seen[PARTSTAFFMAX+1];
@@ -69,7 +71,10 @@ static int32_t   duration[PARTSTAFFMAX+1];
 static xml_group_data *group_name_staves[64];
 static xml_group_data *group_abbrev_staves[64];
 
-static void     *last_item_cache[PARTSTAFFMAX];
+static void     *last_item_cache[PARTSTAFFMAX+1];
+static int       last_note_count[PARTSTAFFMAX+1];
+static tiedata   last_tiedata[PARTSTAFFMAX+1][MAX_CHORDSIZE+1];
+static BOOL      lastwastied[PARTSTAFFMAX+1];
 static uschar    linechars[] = "ZABCDEFGHIJKLMNOPQ";
 
 static uint32_t  measure_length;
@@ -91,6 +96,8 @@ static sl_start *slur_starts = NULL;
 static int32_t   starting_ssabove[PARTSTAFFMAX+1];
 static BOOL      suspended[PARTSTAFFMAX+1];
 
+static int       this_note_count[PARTSTAFFMAX+1];
+static tiedata   this_tiedata[PARTSTAFFMAX+1][MAX_CHORDSIZE+1];
 static BOOL      tuplet_size_set = FALSE;
 
 
@@ -191,9 +198,9 @@ static int clef_cposition[] = {
    4, /* alto */         8, /* baritone */       10, /* bass */
    8, /* cbaritone */   10, /* contrabass */     12, /* deepbass */
   -2, /* hclef */        2, /* mezzo */          -2, /* noclef */
-  12, /* soprabass */    0, /* soprano */         6, /* tenor */
+  10, /* soprabass */    0, /* soprano */         6, /* tenor */
   -2, /* treble */      -2, /* trebledescant */  -2, /* trebletenor */
-  -2, /* trebletenorb */ };
+  -2, /* trebletenorB */ };
 
 static int fonttypes[] = { font_rm, font_it, font_bf, font_bi };
 
@@ -316,8 +323,9 @@ return yield;
 *             Duplicate a PMW item               *
 *************************************************/
 
+#ifdef NEVER
 /* Put a new item on the end of the chain that is a duplicate of an existing
-item.
+item. NOT CURRENTLY IN USE.
 
 Arguments:
   n        number of stave within part (starting at 1)
@@ -335,6 +343,7 @@ void *new = xml_get_item(n, size, 0);
 memcpy((char *)new + offset, (char *)p + offset, size - offset);
 return new;
 }
+#endif
 
 
 
@@ -342,7 +351,7 @@ return new;
 *             Handle pending backup              *
 *************************************************/
 
-/* Handle a pending backup, which in practive can be a move in either direction
+/* Handle a pending backup, which in practice can be a move in either direction
 because it incorporates <forward>. The pending backup value is where we want to
 be in the measure. Check for following a tie - PMW cannot support this, so give
 warning and remove the tie.
@@ -373,30 +382,74 @@ if (last->type == b_tie)
   last_item_cache[staff] = last->prev;
   }
 
+last_note_count[staff] = 0;  /* No previous note/chord now */
+
 if (bac >= dur) bac -= dur; else
   {
   b_resetstr *r = xml_get_item(staff, sizeof(b_resetstr), b_reset);
   r->moff = 0;
   beam_breakpending[staff] = BREAK_UNSET;
+  pending_end_extend[staff] = FALSE;
   }
 
-/* bac is now the amount we need to move forward. Create an invisible rest. */
+/* bac is now the amount we need to move forward in divisions. Create invisible
+rest(s). */
 
-if (bac != 0)
+int64_t pmwmove = (bac * len_crotchet)/divisions;
+
+while(pmwmove >= len_hdsquaver)
   {
+  int dots = 0;
+
   rest = xml_get_item(staff, sizeof(b_notestr), b_note);
-  rest->notetype = crotchet;  /* This is irrelevant for an invisible rest */
   rest->masq = MASQ_UNSET;    /* So is this */
   rest->acc = ac_no;
   rest->accleft = 0;
   rest->acflags = 0;
   rest->flags = nf_hidden;
-  rest->length = bac * (len_crotchet/divisions);
   rest->yextra = 0;
   rest->abspitch = 0;
   rest->spitch = 0;
   rest->acc_orig = ac_no;
-  rest->char_orig = 'Q';
+
+  /* Notetype is irrelevant to PMW itself for an invisible rest, but it must be
+  correct for other output formats (XML, PMW). Ditto for number of dots. */
+
+  rest->notetype = hdsquaver;    /* Shortest supported */
+  rest->length = len_hdsquaver;  /* Set just in case */
+
+  for (int i = 0; i < note_types_count; i++)
+    {
+    int len = note_types[i].length;
+
+    if (pmwmove < len) continue;
+    rest->length = len;
+    rest->notetype = note_types[i].pmwtype;
+    pmwmove -= len;
+
+    if (pmwmove >= len/2)
+      {
+      dots++;
+      rest->length += len/2;
+      pmwmove -= len/2;
+      if (pmwmove >= (3*len)/4)
+        {
+        dots++;
+        rest->length += len/4;
+        pmwmove -= len/4;
+        if (pmwmove >= (7*len)/8)
+          {
+          dots++;
+          rest->length += len/8;
+          pmwmove -= len/8;
+          }
+        }
+      }
+    break;
+    }
+
+  rest->char_orig = (rest->length < len_minim)? 'q':'Q';
+  rest->dots = rest->dots_orig = dots;
   }
 }
 
@@ -608,7 +661,7 @@ if (dots > 4)
   dots = 4;
   }
 
-note->dots = dots;
+note->dots = note->dots_orig = dots;
 while (dots-- > 0)
   {
   blen /= 2;
@@ -647,6 +700,36 @@ else
 
 
 /*************************************************
+*        Output pending beam break               *
+*************************************************/
+
+/* We put it after the previous note in case a tuplet ending or anything else
+intervenes. */
+
+static void
+do_pending_beambreak(int staff, b_notestr *newnote)
+{
+int bbs = beam_breakpending[staff];
+if (bbs < BREAK_UNSET)
+  {
+  b_beambreakstr *bb;
+  bstr *before = (bstr *)newnote;
+  for (bstr *bp = before->prev; bp != NULL; bp = bp->prev)
+    {
+    if (bp->type == b_note || bp->type == b_chord || bp->type == b_tie)
+      {
+      before = bp->next;
+      break;
+      }
+    }
+  bb = mem_get_insert_item(sizeof(b_beambreakstr), b_beambreak, before);
+  bb->value = (bbs == 0)? 255 : bbs;
+  beam_breakpending[staff] = BREAK_UNSET;
+  }
+}
+
+
+/*************************************************
 *        Process one measure for one part        *
 *************************************************/
 
@@ -673,6 +756,7 @@ int tuplet_den[PARTSTAFFMAX+1];
 BOOL contains_backup = xml_find_item(measure, US"backup") != NULL;
 BOOL end_tuplet[PARTSTAFFMAX+1];
 BOOL lastwasgrace[PARTSTAFFMAX+1];
+BOOL addgracespace[PARTSTAFFMAX+1];
 BOOL starting_noprint = FALSE;
 
 b_notestr *inchord[PARTSTAFFMAX+1];
@@ -684,6 +768,7 @@ it's less confusing. */
 
 for (int n = 1; n <= scount; n++)
   {
+  addgracespace[n] = FALSE;
   beam_breakpending[n] = BREAK_UNSET;
   beam_leastbreak[n] = BREAK_UNSET;
   beam_seen[n] = FALSE;
@@ -694,6 +779,7 @@ for (int n = 1; n <= scount; n++)
   pending_backup[n] = -1;
   pending_post_chord[n] = NULL;
   tuplet_num[n] = tuplet_den[n] = 1;
+  read_init_baraccs(baraccs[n], current_key[n]);
   }
 
 /* The "implicit" attribute means this measure is not counted. */
@@ -708,7 +794,7 @@ if (ISATTR(measure, "implicit", "no", FALSE, "yes"))
   else
     {
     curmovt->barvector[measure_number_absolute] =
-      (measure_number << 16) | next_measure_fraction++;
+      ((measure_number - 1) << 16) | next_measure_fraction++;
     }
   yield = 0;
   }
@@ -841,6 +927,7 @@ if (p->noprint_before > 0)
         ks->suppress = FALSE;
         ks->warn = TRUE;
         ks->key = current_key[n];
+        read_init_baraccs(baraccs[n], current_key[n]);
         }
 
       if (!hastime[n])
@@ -1082,20 +1169,31 @@ for (xml_item *mi = measure->next;
           }      /* End non-standard key signature */
 
         /* We now have a key signature number. Create a key signature item for
-        the relevant staves. */
+        the relevant staves. Insert a re-setting "naturals" signature if
+        necessary. */
 
         for (sn = 1; sn <= scount; sn++)
           {
           if (staff >= 0 && staff != sn) continue;
-          current_key[sn] = key;
           if (!starting_noprint)
             {
-            b_keystr *ks = xml_get_item(sn, sizeof(b_keystr), b_key);
+            b_keystr *ks;
+            if (key == key_C || key == key_Am || key == key_N)
+              {
+              ks = xml_get_item(sn, sizeof(b_keystr), b_key);
+              ks->assume = noprint;
+              ks->suppress = FALSE;
+              ks->warn = TRUE;
+              ks->key = current_key[sn] | key_reset;
+              }
+            ks = xml_get_item(sn, sizeof(b_keystr), b_key);
             ks->assume = noprint;
             ks->suppress = FALSE;
             ks->warn = TRUE;
             ks->key = key;
             }
+          read_init_baraccs(baraccs[sn], key);
+          current_key[sn] = key;
           }
         }        /* End key signature */
 
@@ -1111,8 +1209,8 @@ for (xml_item *mi = measure->next;
         staff = xml_get_attr_number(ai, US"number", 1, 10, -1, FALSE);
         measure_length = (time_num * divisions * 4)/time_den;
 
-        if (Ustrcmp(symbol, "cut") == 0) time = time_cut;
-        else if (Ustrcmp(symbol, "common") == 0) time = time_common;
+        if (Ustrcmp(symbol, "cut") == 0) time = time_cut|0x10000u;
+        else if (Ustrcmp(symbol, "common") == 0) time = time_common|0x10000u;
         else
           {
           if (symbol[0] != 0) xml_Eerror(ai, ERR43, "time symbol", symbol);
@@ -1186,10 +1284,10 @@ for (xml_item *mi = measure->next;
 
   else if (Ustrcmp(mi->name, "barline") == 0)
     {
+    BOOL endingstart = FALSE;
     uschar *location = xml_get_attr_string(mi, US"location", US"right", FALSE);
     xml_item *ending = xml_find_item(mi, US"ending");
     xml_item *repeat = xml_find_item(mi, US"repeat");
-    b_textstr *tx = NULL;
 
     /* Handle an nth time bar marking. The "start" version comes at the start
     of a bar with a "left" setting; the "stop" version can be combined with
@@ -1213,6 +1311,7 @@ for (xml_item *mi = measure->next;
         nb->s = NULL;       /* Custom string */
         nb->x = nb->y = 0;
         pending_all_bar = INT_MAX;
+        endingstart = TRUE;
         }
 
       else if (Ustrcmp(type, "stop") == 0)
@@ -1252,7 +1351,7 @@ for (xml_item *mi = measure->next;
       else xml_Eerror(mi, ERR32, "direction");
       }
 
-    else   /* Not a repeat barline */
+    else if (!endingstart)   /* Not a repeat barline or ending start*/
       {
       uschar *style = xml_get_string(mi, US"bar-style", NULL, FALSE);
       b_barlinestr *bl = xml_get_item(1, sizeof(b_barlinestr), b_barline);
@@ -1286,7 +1385,6 @@ for (xml_item *mi = measure->next;
       for (int n = 2; n <= scount; n++)
         {
         b_barlinestr *bl2;
-        if (tx != NULL) (void)xml_duplicate_item(n, tx, sizeof(b_textstr));
         bl2 = xml_get_item(n, sizeof(b_barlinestr), b_barline);
         bl2->bartype = bl->bartype;
         bl2->barstyle = bl->barstyle;
@@ -1489,7 +1587,11 @@ for (xml_item *mi = measure->next;
             if (ohp != NULL)
               {
               hp->flags |= hp_end | (ohp->flags & hp_cresc);
-              if (spread > 0) ohp->width = spread * 400;
+              if (spread > 0)
+                {
+                ohp->width = spread * 400;
+                ohp->flags |= hp_widthset;
+                }
               if (dy != INT_MAX) hp->y += dy * 400 - ohp->y;
               open_wedge[staff] = NULL;
               }
@@ -1503,7 +1605,11 @@ for (xml_item *mi = measure->next;
             if (Ustrcmp(wtype, "crescendo") == 0) hp->flags |= hp_cresc;
               else if (Ustrcmp(wtype, "diminuendo") != 0)
                 xml_Eerror(dt, ERR43, US"wedge type", wtype);
-            if (spread > 0) hp->width = spread * 400;   /* Diminuendo */
+            if (spread > 0)
+              {
+              hp->width = spread * 400;   /* Diminuendo */
+              hp->flags |= hp_widthset;
+              }
             open_wedge[staff] = hp;
 
             if (dy != INT_MAX)
@@ -1785,7 +1891,7 @@ for (xml_item *mi = measure->next;
   else if (Ustrcmp(mi->name, "note") == 0 && !starting_noprint)
     {
     xml_item *dot, *grace, *lyric, *notations, *pitch, *slur, *type;
-    xml_item *rest = NULL;
+    xml_item *rest = xml_find_item(mi, US"rest");
     xml_item *unpitched = NULL;
 
     int dots = 0;
@@ -1862,7 +1968,7 @@ for (xml_item *mi = measure->next;
     /* Insert a "continue extender" syllable if this note had no lyric but
     previously an extension was called for. */
 
-    if (!had_lyric && pending_end_extend[staff])
+    if (!had_lyric && pending_end_extend[staff] && rest == NULL)
       {
       insertpoint = (bstr *)
         stave_text_utf(staff, US"", US"=", US"", font_rm, text_ul);
@@ -1873,10 +1979,9 @@ for (xml_item *mi = measure->next;
     dot = xml_find_item(mi, US"dot");
     pitch = xml_find_item(mi, US"pitch");
     grace = xml_find_item(mi, US"grace");
-    unpitched = rest = NULL;
+    unpitched = NULL;
     notations = xml_find_item(mi, US"notations");
     type = xml_find_item(mi, US"type");
-
     newnote = xml_get_item(staff, sizeof(b_notestr), b_note);
     if (insertpoint == NULL) insertpoint = (bstr *)newnote;
 
@@ -1887,6 +1992,7 @@ for (xml_item *mi = measure->next;
     newnote->acflags = 0;
     newnote->flags = 0;
     newnote->dots = 0;
+    newnote->dots_orig = 0;
     newnote->length = len_crotchet;
     newnote->yextra = 0;
     newnote->abspitch = 0;
@@ -1907,7 +2013,6 @@ for (xml_item *mi = measure->next;
     assume we are dealing with valid XML, so uniqueness is not enforced.
     Whichever comes first is used. */
 
-    octave = clef_octave_change[staff];
     if (pitch != NULL)
       {
       int stepletter;
@@ -1922,9 +2027,10 @@ for (xml_item *mi = measure->next;
       the stave-relative pitch, where 256 is the bottom line, using the same
       tables that are used for PMW input files. */
 
-      octave += xml_get_number(pitch, US"octave", 0, 12, 4, TRUE);
+      octave = xml_get_number(pitch, US"octave", 0, 12, 4, TRUE);
       newnote->abspitch = octave * 24 + read_basicpitch[stepletter - 'A'];
-      newnote->spitch = pitch_stave[newnote->abspitch] +
+      newnote->spitch =
+        pitch_stave[newnote->abspitch + 24*clef_octave_change[staff]] +
         pitch_clef[current_clef[staff]];
 
       /* Deal with coupling */
@@ -1956,9 +2062,10 @@ for (xml_item *mi = measure->next;
       newnote->char_orig = stepletter = step[0];
       if (Ustrchr("ABCDEFG", stepletter) == NULL || stepletter == 0)
         xml_Eerror(pitch, ERR18, step);  /* Hard */
-      octave += xml_get_number(unpitched, US"display-octave", 0, 12, 4, TRUE);
+      octave = xml_get_number(unpitched, US"display-octave", 0, 12, 4, TRUE);
       newnote->abspitch = octave * 24 + read_basicpitch[stepletter - 'A'];
-      newnote->spitch = pitch_stave[newnote->abspitch] +
+      newnote->spitch =
+        pitch_stave[newnote->abspitch + 24*clef_octave_change[staff]] +
         pitch_clef[current_clef[staff]];
       }
 
@@ -1968,11 +2075,11 @@ for (xml_item *mi = measure->next;
 
     else
       {
-      rest = xml_find_item(mi, US"rest");
       if (rest == NULL)
         xml_Eerror(mi, ERR17, "<pitch>, <unpitched>, or <rest>");  /* Hard */
       whole_bar_rest = ISATTR(rest, "measure", "", FALSE, "yes") ||
         note_duration == measure_length;
+       pending_end_extend[staff] = FALSE;
       }
 
     /* We keep a table of the current musical position with any default-x
@@ -1980,7 +2087,7 @@ for (xml_item *mi = measure->next;
     clash. This is not useful in chords, nor for whole bar rests or grace
     notes. */
 
-    if (!inchord[staff] && !whole_bar_rest  && grace == NULL)
+    if (inchord[staff] == NULL && !whole_bar_rest  && grace == NULL)
       {
       int n;
       int note_default_x = xml_get_attr_number(mi, US"default-x", -10000, 10000,
@@ -2078,10 +2185,9 @@ for (xml_item *mi = measure->next;
       dot = xml_find_next(mi, dot);
       }
 
-    /* Handle cue notes; for chords <cue> is only on the first note. */
+    /* Handle cue notes. */
 
-    if (inchord[staff] == NULL &&
-        (xml_find_item(mi, US"cue") != NULL || Ustrcmp(note_size, "cue") == 0))
+    if (xml_find_item(mi, US"cue") != NULL || Ustrcmp(note_size, "cue") == 0)
       newnote->flags |= nf_cuesize;
 
     /* Handle notations. */
@@ -2288,6 +2394,7 @@ for (xml_item *mi = measure->next;
               100, 2, TRUE);
             }
 
+          plet->pletnum = normal;
           plet->pletlen = actual;
           plet->flags = 0;
           plet->x = 0;
@@ -2534,6 +2641,11 @@ for (xml_item *mi = measure->next;
         suspended[staff] = FALSE;
         }
 
+      /* Update the number of notes in this item - either a single note or part
+      of a chord. The count gets reset at the end of a chord or single note. */
+
+      this_note_count[staff]++;
+
       /* Handle the start of a chord. The analysis phase inserts start/end
       chord items into the chain, because all MusicXML does is to flag the 2nd
       and subsequent notes of a chord. */
@@ -2542,7 +2654,6 @@ for (xml_item *mi = measure->next;
         {
         if (inchord[staff] != NULL)
           xml_Eerror(mi, ERR28, "chord start within chord");
-
         newnote->flags |= nf_chord;
         inchord[staff] = newnote;
         }
@@ -2555,6 +2666,11 @@ for (xml_item *mi = measure->next;
         newnote->type = b_chord;
         newnote->flags |= nf_chord;
         }
+
+      /* Sort out type and length of note. */
+
+      note_type_and_length(newnote, note_type_name, dots, tuplet_num[staff],
+        tuplet_den[staff], mi, type);
 
       /* Deai with the note's stem */
 
@@ -2613,18 +2729,14 @@ for (xml_item *mi = measure->next;
 
       else
         {
-        newnote->flags |= nf_stem;
+        if (newnote->notetype >= minim) newnote->flags |= nf_stem;
         stem_up = (newnote->spitch < P_3L)? +1 : -1;
         }
 
       if (stem_up > 0) newnote->flags |= nf_stemup;
 
-      /* Sort out type and length of note. */
-
-      note_type_and_length(newnote, note_type_name, dots, tuplet_num[staff],
-        tuplet_den[staff], mi, type);
-
-      /* Handle an accidental */
+      /* Handle an accidental. At this point, abspitch is the basic pitch
+      derived from the note letter plus the current octave. */
 
       if (accidental != NULL)
         {
@@ -2634,7 +2746,15 @@ for (xml_item *mi = measure->next;
           {
           if (Ustrcmp(astring, accidentals[n].name) == 0)
             {
+            tiedata *td = &this_tiedata[staff][this_note_count[staff]];
             newnote->acc = newnote->acc_orig = accidentals[n].value;
+
+            /* Update baraccs, then adjust abspitch. */
+            baraccs[staff][newnote->abspitch] = read_accpitch[newnote->acc];
+
+            td->pitch = newnote->abspitch;
+            td->acc = newnote->acc;
+
             newnote->abspitch += read_accpitch[newnote->acc];
             newnote->accleft += curmovt->accspacing[newnote->acc] -
               curmovt->accadjusts[newnote->notetype];
@@ -2647,6 +2767,44 @@ for (xml_item *mi = measure->next;
           newnote->flags |= nf_accrbra;
           newnote->accleft += rbra_left[newnote->acc];
           }
+        }
+
+      /* No accidental - adjust abspitch from the tie or bar state.
+      Note that the baraccs value is in quartertones, but the tie data is an
+      accidental id. */
+
+      else
+        {
+        BOOL fromtie = FALSE;
+        int acc = ac_no;
+        tiedata *ttd = &this_tiedata[staff][this_note_count[staff]];
+
+        ttd->pitch = newnote->abspitch;
+
+        if (lastwastied[staff])
+          {
+          for (int j = 1; j <= last_note_count[staff]; j++)
+            {
+            tiedata *ltd = &last_tiedata[staff][j];
+            if (newnote->abspitch == ltd->pitch)
+              {
+              acc = ltd->acc;
+              newnote->abspitch += read_accpitch[acc];
+              fromtie = TRUE;
+              break;
+              }
+            }
+          }
+
+        if (!fromtie)  /* Last not tied */
+          {
+          int bacc = baraccs[staff][newnote->abspitch];
+          newnote->abspitch += bacc;
+          for (acc = 0; acc < 8; acc++)
+            if (read_accpitch[acc] == bacc) break;
+          }
+
+        ttd->acc = acc;
         }
 
       /* Handle noteheads. */
@@ -2684,16 +2842,18 @@ for (xml_item *mi = measure->next;
         }
 
       /* Add a bit of space between the final grace note and what follows. This
-      mimics a PMW [smove] directive. */
+      mimics a PMW [smove] directive. A [move] must be placed before the first
+      note after the grace note, which we can do here. A [space] is required
+      after the next note or chord, which can't be done till later. */
 
       else if (lastwasgrace[staff])
         {
-        b_spacestr *ss = xml_get_item(staff, sizeof(b_spacestr), b_space);
         b_movestr *mv = mem_get_insert_item(sizeof(b_movestr), b_move,
           (bstr *)newnote);
-        mv->relative = ss->relative = FALSE;
-        mv->x = ss->x = 3000;
+        mv->relative = FALSE;
+        mv->x = 3000;
         mv->y = 0;
+        addgracespace[staff] = TRUE;
         lastwasgrace[staff] = FALSE;
         }
 
@@ -2708,6 +2868,17 @@ for (xml_item *mi = measure->next;
         read_sortchord(inchord[staff], newnote->flags & nf_stemup);
         last_item_cache[staff] = read_lastitem;
         inchord[staff] = NULL;
+        }
+
+      /* Now we can insert [space] if needed after the note or chord that
+      follows a grace note. */
+
+      if (inchord[staff] == NULL && addgracespace[staff])
+        {
+        b_spacestr *ss = xml_get_item(staff, sizeof(b_spacestr), b_space);
+        ss->relative = FALSE;
+        ss->x = 3000;
+        addgracespace[staff] = FALSE;
         }
 
       /* Handle notations. */
@@ -2777,7 +2948,9 @@ for (xml_item *mi = measure->next;
         }   /* End notations */
 
 
-      /* Deal with beaming for notes shorter than a crotchet. For a chord, the
+      /* Deal with beaming for notes shorter than a crotchet, for which we must
+      test by notetype, not note_duration, because in a tuplet, the duration of
+      a "crotchet" (for example) will be less than normal. For a chord, the
       beam setting might be on any of the notes. MusicXML has begin, continue,
       and ending beam setting, and also hooks, in contrast to PMW, which has
       only beambreak items. In order not to generate redundant beambreaks, e.g.
@@ -2789,30 +2962,9 @@ for (xml_item *mi = measure->next;
       note/chord. If there isn't one, do nothing; otherwise set up an
       appropriate beam break. */
 
-      if (note_duration < (uint32_t)divisions)
+      if (newnote->notetype > crotchet)
         {
-        int bbs = beam_breakpending[staff];
-
-        /* Output a pending break - we put it after the previous note in case a
-        tuplet ending or anything else intervenes. */
-
-        if (bbs < BREAK_UNSET)
-          {
-          b_beambreakstr *bb;
-          bstr *before = (bstr *)newnote;
-
-          for (bstr *bp = before->prev; bp != NULL; bp = bp->prev)
-            {
-            if (bp->type == b_note || bp->type == b_chord || bp->type == b_tie)
-              {
-              before = bp->next;
-              break;
-              }
-            }
-          bb = mem_get_insert_item(sizeof(b_beambreakstr), b_beambreak, before);
-          bb->value = (bbs == 0)? 255 : bbs;
-          beam_breakpending[staff] = BREAK_UNSET;
-          }
+        do_pending_beambreak(staff, newnote);  /* Output any pending */
 
         /* Scan for the lowest-numbered beam ending, but note if *any* beam
         item is seen. */
@@ -2849,6 +3001,16 @@ for (xml_item *mi = measure->next;
             beam_seen[staff] = FALSE;
             }
           }
+
+        /* Any note or chord shorter than a quaver that has an upstem but is
+        not in a beam needs this flag setting (fuq = "free upstemmed quaver").
+        It causes a spacing adjustment. The "beam" item will only be present on
+        the first note of a chord, but that is enough. */
+
+        if (stem_up > 0 && xml_find_item(mi, US"beam") == NULL &&
+            this_note_count[staff] == 1)
+          newnote->flags |= nf_fuq;
+
         }  /* End handling notes shorter than a crotchet. */
 
       /* If this note is not shorter than a crotchet, discard any pending beam
@@ -2888,10 +3050,10 @@ for (xml_item *mi = measure->next;
 
       if (whole_bar_rest)
         {
-        newnote->length = (note_duration/divisions) * len_crotchet;
+        newnote->length = (note_duration * len_crotchet)/divisions;
         newnote->notetype = semibreve;
         newnote->flags = nf_centre;
-        newnote->dots = 0;
+        newnote->dots = newnote->dots_orig = 0;
         }
       else
         {
@@ -2900,25 +3062,50 @@ for (xml_item *mi = measure->next;
         }
 
       newnote->yextra += yadjust;
+
+      /* If this rest is shorter than a crotchet, handle any pending beam
+      break; otherwise discard any pending beam break. */
+
+      if (note_duration < (uint32_t)divisions)
+        do_pending_beambreak(staff, newnote);
+      else
+        {
+        beam_breakpending[staff] = BREAK_UNSET;
+        beam_leastbreak[staff] = BREAK_UNSET;
+        beam_seen[staff] = FALSE;
+        }
       }
 
     /* At the end of a chord, or after a single note, add on items that have
-    to wait for a chord's end, such as ends of slurs and tuplets. */
+    to wait for a chord's end, such as ties and ends of slurs and tuplets. */
 
-    if (inchord[staff] == NULL && pending_post_chord[staff] != NULL)
+    if (inchord[staff] == NULL)
       {
-      bstr *b = last_item_cache[staff];
-      b->next = pending_post_chord[staff];
-      pending_post_chord[staff]->prev = b;
-      while (b->next != NULL) b = b->next;
-      last_item_cache[staff] = b;
-      pending_post_chord[staff] = NULL;
+      lastwastied[staff] = FALSE;
+      memcpy(last_tiedata[staff], this_tiedata[staff],
+        sizeof(tiedata) * (this_note_count[staff] + 1));
+      last_note_count[staff] = this_note_count[staff];
+      this_note_count[staff] = 0;
 
-      if (end_tuplet[staff])
+      if (pending_post_chord[staff] != NULL)
         {
-        tuplet_num[staff] = 1;
-        tuplet_den[staff] = 1;
-        end_tuplet[staff] = FALSE;
+        bstr *b = last_item_cache[staff];
+        b->next = pending_post_chord[staff];
+        pending_post_chord[staff]->prev = b;
+        while (b->next != NULL)
+          {
+          if (b->next->type == b_tie) lastwastied[staff] = TRUE;
+          b = b->next;
+          }
+        last_item_cache[staff] = b;
+        pending_post_chord[staff] = NULL;
+
+        if (end_tuplet[staff])
+          {
+          tuplet_num[staff] = 1;
+          tuplet_den[staff] = 1;
+          end_tuplet[staff] = FALSE;
+          }
         }
       }
     }
@@ -3391,15 +3578,18 @@ for (xml_part_data *p = xml_parts_list; p != NULL; p = p->next)
   for (int n = 0; n <= PARTSTAFFMAX; n++)
     {
     current_clef[n] = clef_treble;
-    current_key[n] = 0;
+    current_key[n] = key_C;
     current_time[n] = 0x010404;
 
     clef_octave_change[n] = 0;
     open_wedge[n] = NULL;
+    lastwastied[n] = FALSE;
 
     set_noteheads[n] = nh_normal;
     starting_ssabove[n] = -1;
     suspended[n] = FALSE;
+    last_note_count[n] = 0;
+    this_note_count[n] = 0;
     pending_all_bar = INT_MAX;
     pending_end_extend[n] = FALSE;
     }
@@ -3455,6 +3645,7 @@ for (xml_part_data *p = xml_parts_list; p != NULL; p = p->next)
 /* Fill in gaps in staves and bars */
 
 read_tidy_staves(FALSE);
+DEBUG(D_any) eprintf("===> End processing XML parts\n");
 }
 
 /* End of xml_staves.c */
