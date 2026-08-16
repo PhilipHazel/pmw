@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: April 2026 */
+/* This file last modified: July 2026 */
 
 #include "pmw.h"
 
@@ -1255,6 +1255,7 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
 
     if (nt->spitch != 0)
       {
+      eprintf(" abspitch=%d", nt->abspitch);   
       stl = ((int)(nt->spitch) - P_0L)/4;
       eprintf(" P_%d%c", stl/2, ((stl & 1) != 0)? 'S':'L');
       eprintf(" %d%s", nt->abspitch/OCTAVE - 3,

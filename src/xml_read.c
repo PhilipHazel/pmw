@@ -813,6 +813,7 @@ if (xml_error_max >= ec_major)
 
 /* If all is well, generate the PMW data structures */
 
+DEBUG(D_any) eprintf("===> Generating from XML input\n");
 if (rc) xml_process();
 
 if (main_verify && xml_ignored_element_tree != NULL)

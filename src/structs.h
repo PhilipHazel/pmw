@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: April 2026 */
+/* This file last modified: July 2026 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -907,6 +907,7 @@ typedef struct movtstr {
   uint32_t      topmargin;
    int32_t      transpose;
   uint32_t      tripletlinewidth;
+   int32_t      truelinelength; 
    int32_t      underlaydepth;
 
   /* 8-bit fields */

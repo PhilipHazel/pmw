@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: April 2021 */
-/* This file last modified: March 2026 */
+/* This file last modified: July 2026 */
 
 #include "pmw.h"
 
@@ -3617,6 +3617,7 @@ main_pagelength = (main_pagelength * 1000)/main_magnification;
 for (i = 0; i < (int)movement_count; i++)
   {
   curmovt = movements[i];
+  curmovt->truelinelength = curmovt->linelength; 
   curmovt->linelength = (curmovt->linelength * 1000)/main_magnification;
   justifyheading(curmovt->heading);
   justifyheading(curmovt->footing);
@@ -3677,13 +3678,9 @@ while (!page_done) switch(page_state)
   active_transpose = curmovt->transpose;
   firstsystem = TRUE;
 
-  /* The equivalent of this code also exists in pmw_read_header, in connection
-  with the barlinespace directive. Keep in step. */
-
   if (curmovt->barlinespace == FIXED_UNSET)
     {
-    pl_barlinewidth = (curmovt->note_spacing)[minim]/2 - 5000;
-    if (pl_barlinewidth < 3000) pl_barlinewidth = 3000;
+    pl_barlinewidth = misc_default_barlinespace(curmovt);
     curmovt->barlinespace = pl_barlinewidth;
     }
   else pl_barlinewidth = curmovt->barlinespace;

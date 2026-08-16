@@ -1,0 +1,174 @@
+sheetsize A3
+accadjusts 0.1 0.2
+accspacing 5.30 4.5 8 4.25 5
+bar 45
+barlinesize 0.9
+barlinespace +3
+barlinestyle 2
+barnumberlevel +4
+barnumbers boxed line
+beamendrests
+beamflaglength 4.2
+beamrests
+beamthickness 0.9
+bottommargin 5
+brace 2-3
+bracestyle 1
+breakbarlines 3 8
+breveledgerextra 0.3
+caesurastyle 1
+clefsize 0.9
+clefstyle 1
+copyzero 3/1 7
+cuesize 9
+cuegracesize 6
+dotspacefactor 1.7
+drawbarlines
+drawstavelines
+endlinesluradjust -1.2
+endlineslurstyle 1
+endlinetieadjust -1.3
+endlinetiestyle 1
+extenderlevel -0.5
+fbsize 8.2
+footing "First|Foot|Ing"
+footnotesep 6
+gracesize 6.9
+gracespacing -1, 8
+gracestyle 1
+halfflatstyle 1
+halfsharpstyle 1
+hairpinlinewidth 0.5
+hairpinwidth 3
+heading 21 "Left|Centre|Right" 25
+heading 13 "|\it\Centre Only"
+hyphenstring "\--"
+hyphenthreshold 55
+join 2-3
+joindotted 8-10
+key g
+keydoublebar
+landscape
+lastfooting "Last footing"
+leftmargin 65
+ledgerstyle 1
+linelength 500
+makekey X3 #2 $6
+maxbeamslope 0.4 0.45
+maxvertjustify 65
+midistart 176 10 0 177
+miditempo 100 3/40 15.1/60
+midkeyspacing 3
+midtimespacing 4
+nokeywarn
+notespacing 31 31 22 16 12 10 10 10
+notime
+notimebase
+notimewarn
+overlaydepth 8
+overlaysize 9.7
+page 4
+pageheading "pageheading"
+pagefooting "|pagefooting"
+pagelength 800
+printkey G treble "\37\" "\40\"
+printtime 8/8 "3+3+2" "8"
+rehearsalmarks linestartleft boxed 13 extra 2
+repeatstyle 1
+shortenstems 4
+smallcapsize 0.9
+startlinespacing 1 2 -1
+stavesizes 3/0.9
+stavespacing 50 2/44 3/60
+systemgap 45
+systemseparator 20  2.1 25 -16 -2
+textfont bold "Helvetica-Bold"
+textfont extra 1 "Helvetica"
+textfont extra 10 "Helvetica-Oblique"
+textsizes 10.5 11 7.6 9/1.1
+time c
+timefont 12 italic
+topmargin 30
+transposedkey G$ use F#
+trillstring "\it\tr"
+thinbracket 5-7 10-12
+tupletfont 9/1.1 bolditalic
+tupletlinewidth 0.6
+underlaydepth 8
+underlaystyle 1
+
+[stave 1 treble 1]
+abcd | [bass 0] gggg
+[endstave]
+
+
+[newmovement]
+accadjusts 0 0 0.3
+barlinespace *
+barlinestyle 0
+barnumbers ringed 10 9 italic
+brace
+bracket 1-4
+breakbarlinesx 3 8
+breverests
+codemultirests
+footnotesize 10
+justify top left right
+keysinglebar
+layout 3(4,2(5));
+longrestfont 14/1/20 bold
+miditempo 100 6/60
+notespacing *0.95
+rehearsalmarks plain bolditalic
+repeatbarfont 11 extra 6
+stavespacing 50 2/60/50 3/50
+stemswap up
+stemswaplevel 1/1 2/-1
+suspend 4
+unfinished
+vertaccsize 9.5
+
+[stave 1 treble 1]
+abcd
+[endstave]
+
+[stave 2 treble 1]
+abcd
+[endstave]
+
+[stave 3 treble 1]
+abcd
+[endstave]
+
+[stave 4 treble 1]
+abcd
+[endstave]
+
+
+[newmovement]
+barnumbers 0
+clefwidths 10 11 12 13 14
+heading "||Right only"
+justify
+keydoublebar
+keywarn
+miditempo 100
+nobeamendrests
+nospreadunderlay
+nounderlayextenders
+printkey G treble "\38\" "\40\"
+printtime 3/4 "3"/s2 ""
+sluroverwarnings
+startbracketbar 3
+startlinespacing 1 2 -1 3
+startnotime
+stavesizes 3/1.0
+stemlengths 1 1 -1 -1 2.5 3.9
+stemswap right
+systemseparator 0
+textsizes 11
+time 3/4
+transpose -2
+timebase
+timewarn
+underlaysize 9.7

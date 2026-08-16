@@ -17,8 +17,9 @@ endobj
 4 0 obj
 <</ProcSet[/PDF/Text]/Font<<
 /rm 16 0 R
-/bf 19 0 R
-/mf 22 0 R
+/it 19 0 R
+/bf 22 0 R
+/mf 25 0 R
 >> >>
 endobj
 5 0 obj
@@ -2298,7 +2299,7 @@ endobj
 /Resources 4 0 R>>
 endobj
 10 0 obj
-<</Length 2098>>
+<</Length 2787>>
 stream
 % ------ Page 3 ------
 q
@@ -2506,7 +2507,92 @@ BT
 (FFFFCCCCCC)Tj
 456.494 0 Td
 (C)Tj
--471.994 -629 Td
+-469.994 -44 Td
+(!)Tj
+13 8 Td
+/bf 11.8 Tf
+(4)Tj
+0 -7.85 Td
+(4)Tj
+
+%1/1
+14.9 -10.15 Td
+/it 10 Tf
+(a)Tj
+0 14 Td
+/mf 10 Tf
+(-)Tj
+16 -13 Td
+/it 6 Tf
+(a)Tj
+0 13 Td
+/mf 10 Tf
+(-)Tj
+16.668 -13 Td
+/rm 6 Tf
+(a)Tj
+-1.668 11 Td
+/mf 10 Tf
+(5)Tj
+17 2 Td
+(-)Tj
+15 -4 Td
+(@)Tj
+
+%2/1
+7 20 Td
+/it 10 Tf
+(a)Tj
+0 -16 Td
+/mf 10 Tf
+(-)Tj
+16 18 Td
+/it 14 Tf
+(a)Tj
+0 -18 Td
+/mf 10 Tf
+(-)Tj
+14.892 18 Td
+/rm 14 Tf
+(a)Tj
+0.108 -20 Td
+/mf 10 Tf
+(5)Tj
+17 2 Td
+(-)Tj
+15 -4 Td
+(@)Tj
+
+%3/1
+7 -10 Td
+/it 10 Tf
+(a)Tj
+0 14 Td
+/mf 10 Tf
+(-)Tj
+16 -14 Td
+/it 8 Tf
+(a)Tj
+0 14 Td
+/mf 10 Tf
+(-)Tj
+15 -14 Td
+/rm 8 Tf
+(a)Tj
+0 12 Td
+/mf 10 Tf
+(5)Tj
+17 2 Td
+(-)Tj
+15.5 -4 Td
+(B)Tj
+-2 0 Td
+(@)Tj
+-229.4 0 Td
+(FFCCC)Tj
+222.9 0 Td
+(C)Tj
+-224.9 -585 Td
 /rm 10 Tf
 (3)Tj
 ET
@@ -2535,10 +2621,10 @@ endobj
 <</Type/Encoding/BaseEncoding/WinAnsiEncoding/Differences[
 32/space 45/hyphen 48/zero/one
 /two/three/four/five
-/six 79/O 84/T 98/b
-101/e/f 104/h 108/l
-110/n/o 114/r 117/u
-119/w]>>
+/six 79/O 84/T 97/a
+/b 101/e/f 104/h
+108/l 110/n/o 114/r
+117/u 119/w]>>
 endobj
 15 0 obj
 <</Type/FontDescriptor
@@ -2565,11 +2651,30 @@ endobj
 0 0 0 0 0 0 0 722
 0 0 0 0 611 0 0 0
 0 0 0 0 0 0 0 0
-0 0 500 0 0 444 333 0
+0 444 500 0 0 444 333 0
 500 0 0 0 278 0 500 500
 0 0 333 0 0 500 0 722]
 endobj
 18 0 obj
+<</Type/FontDescriptor
+/FontName/Times-Italic
+/Flags 98
+/Ascent 683
+/Descent -217
+/ItalicAngle -15
+/StemV 76
+/CapHeight 653
+/FontBBox[-169 -217 1010 883]>>
+endobj
+19 0 obj
+<</Type/Font/Subtype/OpenType
+/Name/it/BaseFont/Times-Italic/FontDescriptor 18 0 R
+/Encoding 14 0 R/FirstChar 97/LastChar 97/Widths 20 0 R>>
+endobj
+20 0 obj
+[500]
+endobj
+21 0 obj
 <</Type/FontDescriptor
 /FontName/Times-Bold
 /Flags 34
@@ -2580,28 +2685,28 @@ endobj
 /CapHeight 676
 /FontBBox[-168 -218 1000 935]>>
 endobj
-19 0 obj
+22 0 obj
 <</Type/Font/Subtype/OpenType
-/Name/bf/BaseFont/Times-Bold/FontDescriptor 18 0 R
-/Encoding 14 0 R/FirstChar 32/LastChar 52/Widths 20 0 R>>
+/Name/bf/BaseFont/Times-Bold/FontDescriptor 21 0 R
+/Encoding 14 0 R/FirstChar 32/LastChar 52/Widths 23 0 R>>
 endobj
-20 0 obj
+23 0 obj
 [250 0 0 0 0 0 0 0
 0 0 0 0 0 333 0 0
 0 500 500 0 500]
 endobj
-21 0 obj
+24 0 obj
 <</Type/Encoding/BaseEncoding/WinAnsiEncoding/Differences[
 33/PMWtrebleclef 44/PMWmrest/PMWcrest 50/PMWsemibreve
 53/PMWucrotchet 63/PMWhdot/PMWbarsingle 66/PMWbarthick
 /PMWstave1 70/PMWstave10 135/PMWcross]>>
 endobj
-22 0 obj
+25 0 obj
 <</Type/Font/Subtype/OpenType
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 13 0 R
-/Encoding 21 0 R/FirstChar 33/LastChar 135/Widths 23 0 R>>
+/Encoding 24 0 R/FirstChar 33/LastChar 135/Widths 26 0 R>>
 endobj
-23 0 obj
+26 0 obj
 [1500 0 0 0 0 0 0 0
 0 0 0 660 660 0 0 0
 0 840 0 0 840 0 0 0
@@ -2617,34 +2722,37 @@ endobj
 0 0 0 0 0 0 0]
 endobj
 xref
-0 24
+0 27
 0000000000 65535 f
 0000000015 00000 n
 0000000061 00000 n
 0000000094 00000 n
 0000000159 00000 n
-0000000242 00000 n
-0000000341 00000 n
-0000009961 00000 n
-0000010060 00000 n
-0000017838 00000 n
-0000017938 00000 n
-0000020086 00000 n
-0000020118 00000 n
-0000020134 00000 n
-0000020323 00000 n
-0000020519 00000 n
-0000020688 00000 n
-0000020845 00000 n
-0000021081 00000 n
-0000021250 00000 n
-0000021405 00000 n
-0000021475 00000 n
-0000021700 00000 n
-0000021855 00000 n
+0000000253 00000 n
+0000000352 00000 n
+0000009972 00000 n
+0000010071 00000 n
+0000017849 00000 n
+0000017949 00000 n
+0000020786 00000 n
+0000020818 00000 n
+0000020834 00000 n
+0000021023 00000 n
+0000021222 00000 n
+0000021391 00000 n
+0000021548 00000 n
+0000021786 00000 n
+0000021958 00000 n
+0000022115 00000 n
+0000022137 00000 n
+0000022306 00000 n
+0000022461 00000 n
+0000022531 00000 n
+0000022756 00000 n
+0000022911 00000 n
 trailer
-<</Size 24/Root 1 0 R/Info 2 0 R
-/ID[<6d799f3d2ae366be50aebe59ff2ccb78><6d799f3d2ae366be50aebe59ff2ccb78>]>>
+<</Size 27/Root 1 0 R/Info 2 0 R
+/ID[<94a166d1b1bb1e2d92c82d311695998c><94a166d1b1bb1e2d92c82d311695998c>]>>
 startxref
-22103
+23159
 %%EOF

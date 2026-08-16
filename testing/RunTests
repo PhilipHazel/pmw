@@ -12,6 +12,7 @@ use Cwd;
 #   nob2pf      skip B2PF tests (auto skipped if not supported)
 #   nomidi      skip MIDI tests (auto skipped if midiscv not present)
 #   nopdf       do only PostScript tests
+#   nopmw       skip PMW output tests
 #
 # Further arguments match a test directory optionally followed by a test name.
 # If not given, looks for directories whose names end in "tests".
@@ -21,6 +22,7 @@ $less = "less -EF";
 $valgrind = "";
 $pmw = "../src/pmw";
 $dopdf = 1;
+$dopmw = 1;
 $force_update = 0;
 $force_quit = 0;
 $show_progress = 0;
@@ -47,6 +49,7 @@ elsif (! -r "../fontextra/AdobeArabic-Regular.afm" ||
 
 if (system("$pmw -C musicxml >/dev/null") == 0)
   {
+  push @skipdirs, "pmwout";
   push @skipdirs, "xml";
   push @skipdirs, "xout";
   }
@@ -102,6 +105,12 @@ while (defined $ARGV[0])
   elsif ($ARGV[0] =~ /^nopdf$/i)
     {
     $dopdf = 0;
+    shift;
+    }
+  elsif ($ARGV[0] =~ /^nopmw$/i)
+    {
+    $dopmw = 0;
+    push @skipdirs, "pmwout";
     shift;
     }
   else
@@ -169,6 +178,8 @@ while (scalar @dirs > 0)
 
   $setspecialopt = "-midi test.mid" if $tests =~ /^miditests$/;
   $setspecialopt = "-xml test.xml" if $tests =~ /^xouttests$/;
+  $setspecialopt = "-pmw test.pmw" if $tests =~ /^xmltests$/ && $dopmw;
+  $setspecialopt = "-pmw test.pmw" if $tests =~ /^pmwouttests$/;
 
   if ($show_progress)
     {
@@ -188,9 +199,9 @@ while (scalar @dirs > 0)
     my($options) = "";
     my($testOK) = 1;
     my($fontsearch) = "-F ../fontmetrics:../fontextra:../psfonts";
-    
+
     # $specialopt is reset for some tests, so it must be reset for each file.
-    
+
     my($specialopt) = $setspecialopt;
 
     # Skip . and .. and any file ending in .opt because that contains options
@@ -228,7 +239,7 @@ while (scalar @dirs > 0)
     # For testing MusicXML multi-movement output, a variation on the -xml
     # option is needed and is set in $options. In the event, we must unset
     # $specialopt.
-     
+
 
     $specialopt = "" if $options =~ /-xml /;
 
@@ -238,6 +249,7 @@ while (scalar @dirs > 0)
     unlink "test.txt";
     unlink "test.mid";
     unlink "test.xml";
+    unlink "test.pmw";
     unlink "test-1.xml";
     unlink "test-2.xml";
     unlink "test-3.xml";
@@ -565,17 +577,84 @@ while (scalar @dirs > 0)
         else { printf "Test $file OK XML\n"; }
         }
 
+      # If there is PMW source output, compare it if newly generated.
+
+      if ($specialopt =~ /-pmw test.pmw/)
+        {
+        if (! -e "$outs/$file.pmw")
+          {
+          printf("There is PMW source output, but $outs/$file.pmw does not exist.\n");
+          exit 1;
+          }
+
+        if (! -e "test.pmw")
+          {
+          printf("There is no PMW source output, but $outs/$file.pmw exists.\n");
+          exit 1;
+          }
+
+        $rc = system("$cf $outs/$file.pmw test.pmw >test.cf");
+
+        if ($rc != 0)
+          {
+          # printf("PMW source output cf RC=$rc\n");
+          system("$less test.cf");
+
+          $testOK = 0;
+          for (;;)
+            {
+            print "Continue, Update & retry, Quit? [Q] ";
+
+            if ($force_quit)
+              {
+              $_ = 'q';
+              print "... quit forced\n";
+              }
+            elsif ($force_update)
+              {
+              $_ = "u";
+              print "... update forced\n";
+              }
+            else
+              {
+              open(T, "/dev/tty") || die "Failed to open /dev/tty: $!\n";
+              $_ = <T>;
+              close(T);
+              }
+
+            exit 1 if /^q?$/i;
+            last if /^c$/i;
+
+            if (/^u$/)
+              {
+              exit 1 if system("cp test.pmw $outs/$file.pmw") != 0;
+              unshift @files, $file;
+              print (("#" x 79) . "\n");
+              last;
+              }
+            }
+
+          redo if /^u$/;   # Repeat the test
+          }
+        else { printf "Test $file OK PMW\n"; }
+        }
+
+      # All checks done
+
       if ($testOK)
         {
         printf ("Test $file OK $which\n");
+        system("/bin/rm -f test-* test.*");
         # system("gzip $outs/$file") if (-e "$outs/$file");
         }
 
-      # If just done PostScript, repeat for PDF unless running MIDI or XML
-      # output tests.
+      # If just done PostScript, repeat for PDF unless running MIDI or XML or
+      # PMW special output tests. PMW output is also specified for XML input
+      # tests; we have to leave this set (i.e. repeat the test) so that any
+      # text output is the same for both PS and PDF.
 
-      if ($pdf eq "-ps" && $dopdf && $tests !~ /^xouttests$/ && 
-          $tests !~ /^miditests$/)
+      if ($pdf eq "-ps" && $dopdf && $tests !~ /^xouttests$/ &&
+          $tests !~ /^miditests$/ && $tests !~ /^pmwouttests$/)
         {
         $pdf = "-pdf";
         $header = "";

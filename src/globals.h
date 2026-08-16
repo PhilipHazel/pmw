@@ -2,9 +2,9 @@
 *         PMW global variable definitions        *
 *************************************************/
 
-/* Copyright Philip Hazel 2025 */
+/* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: December 2025 */
+/* This file last modified: April 2026 */
 
 
 /*************************************************
@@ -22,10 +22,14 @@ extern movtstr       default_movtstr;
 
 extern uschar *      font_IdStrings[];
 
+extern int32_t       init_accadjusts[];
+extern uint32_t      init_accspacing[];
 extern breadstr      init_breadstr;
 extern snamestr      init_snamestr;
 extern sreadstr      init_sreadstr;
 extern stavestr      init_stavestr;
+extern uint32_t      init_trillstring[];
+extern zerocopystr   init_zerocopy;
 
 extern uint8_t       keyclefadjusts[];
 extern uint8_t       keysigtable[][MAX_KEYACCS+1];
@@ -316,6 +320,7 @@ extern int32_t      out_yposition;
 extern int32_t      out_ystave;
 
 #if SUPPORT_XML
+extern uschar      *outpmw_filename;
 extern uschar      *outxml_filename;
 extern int          outxml_movement;
 #endif

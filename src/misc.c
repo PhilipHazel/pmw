@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: January 2021 */
-/* This file last modified: January 2026 */
+/* This file last modified: June 2026 */
 
 #include "pmw.h"
 
@@ -57,6 +57,19 @@ if (rc != size * n) error(ERR201, "fwrite", strerror(errno));
 return rc;
 }
 
+
+
+/*************************************************
+*         Compute default barline space          *
+*************************************************/
+
+int32_t
+misc_default_barlinespace(movtstr *m)
+{
+uint32_t yield = (m->note_spacing)[minim]/2 - 5000;
+if (yield < 3000) yield = 3000;
+return yield;
+}
 
 
 /*************************************************

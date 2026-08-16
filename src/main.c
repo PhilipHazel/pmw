@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: January 2026 */
+/* This file last modified: April 2026 */
 
 #include "pmw.h"
 #include "rdargs.h"
@@ -62,6 +62,7 @@ static const char *arg_pattern =
   "p/k,"
   "pamphlet/s,"
   "pdf/s,"
+  "pmw/k,"
   "printadjust/k/2/m,"
   "printgutter/k,"
   "printscale/k,"
@@ -116,6 +117,7 @@ enum {
   arg_p,
   arg_pamphlet,
   arg_pdf,
+  arg_pmw,
   arg_printadjustx,
   arg_printadjusty,
   arg_printgutter,
@@ -529,6 +531,9 @@ PF("-o <file>             specify output file ('-' for stdout)\n");
 PF("-p <list>             select pages\n");
 PF("-pamphlet             output pages in pamphlet order\n");
 PF("-pdf                  select PDF output\n");
+#if SUPPORT_XML
+PF("-pmw <file>           specify PMW source output file\n");
+#endif
 PF("-printadjust <x> <y>  move on page by (x,y)\n");
 PF("-printgutter <x>      move recto/verso pages by x/-x\n");
 PF("-printscale <n>       scale the image by n\n");
@@ -776,6 +781,17 @@ if (results[arg_MV].text != NULL)
 
 if (results[arg_SM].text != NULL)
   stdmacs_dir = US results[arg_SM].text;
+
+/* Deal with PMW source output */
+
+if (results[arg_pmw].text != NULL)
+  {
+#if SUPPORT_XML
+  outpmw_filename = US results[arg_pmw].text;
+#else
+  error(ERR3, "PMW source output");
+#endif
+  }
 
 /* Deal with XML output */
 
@@ -1407,13 +1423,21 @@ if (midi_filename != NULL)
   midi_write();
   }
 
+/* Write PMW source output if required. */
+
+#if SUPPORT_XML
+if (outpmw_filename != NULL)
+  {
+  if (main_verify) eprintf("Writing PMW source file \"%s\"\n", outpmw_filename);
+  outpmw_write();
+  }
+
 /* Write MusicXML output if required. MusicXML supports only one movement per
 file. The -xm option allows for a single movement selection. If this is not
 set, and there is more than one movement, and the file name contains
 %<digits>d, all movements are output to separate files with each movement
 number inserted into the file name. */
 
-#if SUPPORT_XML
 if (outxml_filename != NULL)
   {
   BOOL multimovt = FALSE;
