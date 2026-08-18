@@ -1,10 +1,11 @@
+
 /*************************************************
 *             PMW pagination functions           *
 *************************************************/
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: April 2021 */
-/* This file last modified: July 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
@@ -2013,8 +2014,6 @@ BOOL Oldlastenddouble = pl_lastenddouble;  /* this for double bar */
 BOOL restbar = TRUE;
 BOOL firstrestbar = TRUE;
 
-uint64_t ulaymap = 0;                      /* map underlay staves */
-
 /* Initialize shared variables */
 
 pl_lastendwide = FALSE;         /* flag wide bar line (e.g. repeat) */
@@ -2390,11 +2389,6 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
           (curmovt->laststave+1)*sizeof(snamestr *));
         }
       nextdata->stavenames[curstave] = sname;
-      break;
-
-      case b_text:             /* remember underlay staves */
-      if ((((b_textstr *)p)->flags & text_ul) != 0)
-        mac_setbit(ulaymap, curstave);
       break;
 
       case b_clef: case b_time:  case b_key:
@@ -3617,7 +3611,7 @@ main_pagelength = (main_pagelength * 1000)/main_magnification;
 for (i = 0; i < (int)movement_count; i++)
   {
   curmovt = movements[i];
-  curmovt->truelinelength = curmovt->linelength; 
+  curmovt->truelinelength = curmovt->linelength;
   curmovt->linelength = (curmovt->linelength * 1000)/main_magnification;
   justifyheading(curmovt->heading);
   justifyheading(curmovt->footing);
