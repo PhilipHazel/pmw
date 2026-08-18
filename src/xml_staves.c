@@ -3047,10 +3047,14 @@ for (xml_item *mi = measure->next;
             clef_cposition[current_clef[staff]]);
           }
         }
+        
+      /* When divisions is large (e.g. 1024) there is the chance of overflow in 
+      32-bit arithmetic. */ 
 
       if (whole_bar_rest)
         {
-        newnote->length = (note_duration * len_crotchet)/divisions;
+        newnote->length = 
+          (uint32_t)(((uint64_t)note_duration * len_crotchet)/divisions);
         newnote->notetype = semibreve;
         newnote->flags = nf_centre;
         newnote->dots = newnote->dots_orig = 0;
