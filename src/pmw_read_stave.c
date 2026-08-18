@@ -4,14 +4,10 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: January 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
-
-/* Values for baraccs for the different accidentals. */
-
-static int8_t ba_values[] = { 0, 0, 1, 2, 4, -1, -2, -4 };
 
 /* Pitch offsets for different line/space values in the key signature table. */
                             /*  D  E   F   G   A   B  C  D  E  F   G   A */
@@ -60,9 +56,9 @@ clef because the baraccs table is for absolute pitches.  */
 memset(ba, 0, BARACCS_LEN * sizeof(int8_t));
 for (kp = keysigtable[key]; *kp != ks_end; kp++)
   {
-  usint po;
-  int8_t ao = ba_values[*kp >> 4];
-  for (po = ba_offsets[*kp & 0x0f]; po < BARACCS_LEN; po += 24) ba[po] = ao;
+  int8_t ao = read_accpitch[*kp >> 4];
+  for (usint po = ba_offsets[*kp & 0x0f]; po < BARACCS_LEN; po += 24)
+    ba[po] = ao;
   }
 }
 
@@ -798,7 +794,7 @@ while (!done)
             break;
 
             case 'w':
-            p->flags |= hp_widthset; 
+            p->flags |= hp_widthset;
             read_nextc();
             read_expect_integer(&p->width, TRUE, FALSE);
             break;
