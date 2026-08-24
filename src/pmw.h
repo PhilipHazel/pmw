@@ -540,7 +540,7 @@ enum {
   b_comma, b_dotbar, b_dotright, b_draw, b_endline, b_endplet, b_endslur,
   b_ens, b_ensure, b_footnote, b_hairpin, b_justify, b_key, b_linegap,
   b_lrepeat, b_midichange, b_move, b_name, b_nbar, b_newline, b_newpage,
-  b_note, b_noteheads, b_notes, b_ns, b_nsm, b_olevel, b_olhere, b_ornament,
+  b_note, b_notes, b_ns, b_nsm, b_olevel, b_olhere, b_ornament,
   b_overbeam, b_page, b_pagebotmargin, b_pagetopmargin, b_plet, b_reset,
   b_resume, b_rrepeat, b_sgabove, b_sghere, b_sgnext, b_slur, b_slurgap,
   b_space, b_ssabove, b_sshere, b_ssnext, b_suspend, b_text, b_tick, b_tie,

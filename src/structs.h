@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: July 2026 */
+/* This file last modified: August 2026 */
 
 /* These structures must be defined before the stave data items. */
 
@@ -224,7 +224,6 @@ typedef struct {
   uint8_t  char_orig;
 } b_notestr;
 
-typedef b_bytevaluestr b_noteheadsstr;
 typedef b_intvaluestr  b_nsmstr;
 
 typedef struct {

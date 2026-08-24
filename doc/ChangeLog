@@ -58,7 +58,7 @@ possible to import a MusicXML file and subsequently edit it. Like all XML
 support, this is still very experimental.
 
 15. While implementing and testing 14 above, a number of bugs in the handling 
-of MusicXML input were discovered and fixed.   
+of MusicXML input were discovered and fixed and some unused code was removed.   
 
 
 Version 5.33 22-December-2025
