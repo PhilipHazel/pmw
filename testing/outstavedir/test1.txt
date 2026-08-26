@@ -246,4 +246,457 @@ width of "\rm\This is a" = 30.501 at size 9
 width of "\rm\This is a footnote" = 62.748 at size 9
 paginate() end
 
+out_page() start
+out_system() start
+start of line matter for stave 1
+key=2 clef=12 width=0
+width of "\bf\4" = 5.9 at size 11.8
+width of "\bf\4" = 5.9 at size 11.8
+width of "\bf\4" = 5.9 at size 11.8
+width of "\bf\4" = 5.9 at size 11.8
+start of line matter for stave 2
+key=2 clef=12 width=0
+width of "\bf\4" = 5.9 at size 11.8
+width of "\bf\4" = 5.9 at size 11.8
+width of "\bf\4" = 5.9 at size 11.8
+width of "\bf\4" = 5.9 at size 11.8
+start of line matter for stave 3
+joining signs
+out_setbar() start: bar 0
+stave 3
+out_setother() start
+out_setother() end
+stave 2
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+stave 1
+out_setother() start
+out_setother() end
+out_setother() start
+out_text()
+width of "\it\abcd" = 19.44 at size 10
+width of "\it\abcd" = 19.44 at size 10
+out_text() end
+out_setother() end
+out_setother() start
+out_text()
+width of "\rm\def" = 12.77 at size 10
+width of "\rm\def" = 12.77 at size 10
+out_text() end
+out_setother() end
+out_setother() start
+out_text()
+width of "\it\xyz" = 12.77 at size 10
+width of "\it\xyz" = 11.058 height = 6.384 at size 10
+out_text() end
+out_setother() end
+out_setother() start
+out_text()
+width of "\rm\A" = 8.664 at size 12
+width of "\rm\A" = 8.664 at size 12
+out_text() end
+out_setother() end
+out_setother() start
+** Error: misplaced [all] - no preceding [1st] or [2nd] - ignored
+   Detected in bar 1 stave 1
+
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+width of "\mf\N" = 6 at size 10
+width of "\mf\N" = 6 at size 10
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+width of "\mf\\x80\" = 6 at size 10
+width of "\mf\\x80\" = 6 at size 10
+out_setother() end
+out_setother() start
+out_setother() end
+stave 0
+out_setbar() end
+out_setbar() start: bar 1
+stave 3
+out_setother() start
+out_setother() end
+stave 2
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+stave 1
+out_setother() start
+out_setother() end
+stave 0
+out_setbar() end
+out_setbar() start: bar 2
+stave 3
+out_setother() start
+out_setother() end
+stave 2
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+width of "\mf\xI" = 6 height = 4 at size 10
+width of "\mf\x" = 0 height = 4 at size 10
+width of "\mf\I" = 6 at size 10
+out_setother() end
+out_setother() start
+width of "\mf\xI" = 6 height = 4 at size 10
+width of "\mf\x" = 0 height = 4 at size 10
+width of "\mf\I" = 6 at size 10
+out_setother() end
+out_setother() start
+width of "\mf\V" = 10 at size 10
+width of "\mf\V" = 10 at size 10
+out_setother() end
+stave 1
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+stave 0
+width of "\rm\3" = 5 at size 10
+out_setbar() end
+out_setbar() start: bar 3
+stave 3
+out_setother() start
+out_setother() end
+stave 2
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+width of "\rm\3" = 5 at size 10
+width of "\rm\3" = 5 at size 10
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+width of "\rm\3" = 5 at size 10
+width of "\rm\3" = 5 at size 10
+out_setother() end
+stave 1
+out_setother() start
+out_setother() end
+out_setother() start
+out_text() figured bass
+width of "\it\fb" = 7.78 at size 10
+width of "\it\fb" = 7.78 at size 10
+out_text() end
+out_setother() end
+out_setother() start
+out_text()
+width of "\bf\text" = 16.1 at size 10
+width of "\bf\text" = 16.1 at size 10
+out_text() end
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+width of "\mf\B" = 7.6 at size 10
+width of "\mf\B" = 7.6 at size 10
+out_setother() end
+stave 0
+out_setbar() end
+out_setbar() start: bar 4
+stave 3
+out_setother() start
+out_setother() end
+stave 2
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+stave 1
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+width of "\rm\abc" = 13.88 at size 10
+width of "\rm\abc" = 13.88 at size 10
+out_setother() end
+out_setother() start
+** Error: attempt to draw slur or line of zero or negative length
+   Detected in bar 5 stave 1
+
+out_setother() end
+out_setother() start
+** Error: attempt to draw slur or line of zero or negative length
+   Detected in bar 5 stave 1
+
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+** Error: attempt to draw slur or line of zero or negative length
+   Detected in bar 5 stave 1
+
+out_setother() end
+out_setother() start
+** Error: attempt to draw slur or line of zero or negative length
+   Detected in bar 5 stave 1
+
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+stave 0
+out_setbar() end
+out_setbar() start: bar 5
+stave 3
+out_setother() start
+out_setother() end
+stave 2
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+width of "\rm\2" = 5 at size 10
+width of "\rm\, " = 5 at size 10
+width of "\rm\3" = 5 at size 10
+out_setother() end
+out_setother() start
+out_setother() end
+stave 1
+out_setother() start
+out_setother() end
+stave 0
+out_setbar() end
+out_setbar() start: bar 6
+stave 3
+out_setother() start
+out_setother() end
+stave 2
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+stave 1
+out_setother() start
+out_setother() end
+stave 0
+out_setbar() end
+out_setbar() start: bar 7
+stave 3
+out_setother() start
+out_setother() end
+stave 2
+out_setother() start
+out_setother() end
+stave 1
+out_setother() start
+out_setother() end
+stave 0
+out_setbar() end
+out_setbar() start: bar 10
+stave 3
+out_setother() start
+out_setother() end
+stave 2
+out_setother() start
+out_setother() end
+width of "\rm\2" = 5 at size 10
+width of "\rm\, " = 5 at size 10
+width of "\rm\3" = 5 at size 10
+stave 1
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+width of "\bf\3" = 5.9 at size 11.8
+width of "\bf\4" = 5.9 at size 11.8
+width of "\bf\3" = 5.9 at size 11.8
+width of "\bf\4" = 5.9 at size 11.8
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+** Error: misplaced [tremolo]: no following note
+   Detected in bar 10 stave 1
+
+out_setother() end
+out_setother() start
+** Error: misplaced [tremolo]: no following note
+   Detected in bar 10 stave 1
+
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+out_setother() start
+out_setother() end
+stave 0
+out_setbar() end
+lines for stave 1
+lines for stave 2
+lines for stave 3
+out_system() end
+out_heading() start
+width of "\rm\This is a footnote" = 62.748 at size 9
+width of "\rm\This is a footnote" = 62.748 at size 9
+out_heading() end
+out_page() end
 Done

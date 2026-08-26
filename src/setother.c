@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: June 2021 */
-/* This file last modified: April 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
@@ -498,9 +498,11 @@ switch (p->type)
 
       /* Scale the font size, create the string, and find half its width. We
       scale the font size according to the stave size and also according to the
-      size of the previous note. */
+      size of the previous note. In the pathological case of no previous note
+      use 10 points. */
 
-      fdata.size = mac_muldiv(fdata.size*out_stavemagn, n_fontsize, 10000000);
+      fdata.size = mac_muldiv(fdata.size*out_stavemagn,
+        (n_fontsize != 0)? n_fontsize : 10000, 10000000);
 
       /* If this is a nested plet, the number to print is the current
       denominator divided by the previous one. */
@@ -895,7 +897,7 @@ switch (p->type)
     }
   break;
 
-  /* Draw items associated with notes must be saved, as for text items, but if 
+  /* Draw items associated with notes must be saved, as for text items, but if
   there isn't a following note, do the drawing now. */
 
   case b_draw:
