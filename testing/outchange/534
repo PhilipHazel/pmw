@@ -821,5 +821,27 @@ mf 10 ss(-)247.9 619 s rm 8 ss(a)262.9 605 s mf 10 ss(5)262.9 617 s(-)
 rm 10 ss(3)62 30 s
 pagesave restore showpage
 
+%%Page: 5 4
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+mf 10 ss(!)64 760 s bf 11.8 ss(4)77 768 s(4)77 760.15 s
+%1/1
+it 10 ss(5)90.9 750 s mf 10 ss(2)90.9 762 s(@)120.9 760 s
+(CCCCC)64 760 s (C)110.9 760 s
+rm 8 ss(- )297.336 30 s bf 8 ss(5 -)302 30 s
+pagesave restore showpage
+
+%%Page: 7 5
+%%BeginPageSetup
+/pagesave save def
+%%EndPageSetup
+mf 10 ss(!)64 760 s
+%2/1
+it 10 ss(7)85 750 s mf 10 ss(2)85 762 s(B)115.5 760 s(@)113.5 760 s
+(CCCCC)64 760 s (C)107 760 s
+rm 8 ss(- )297.336 30 s bf 8 ss(7 -)302 30 s
+pagesave restore showpage
+
 %%Trailer
-%%Pages: 3
+%%Pages: 5

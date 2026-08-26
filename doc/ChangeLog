@@ -58,7 +58,13 @@ possible to import a MusicXML file and subsequently edit it. Like all XML
 support, this is still very experimental.
 
 15. While implementing and testing 14 above, a number of bugs in the handling 
-of MusicXML input were discovered and fixed and some unused code was removed.   
+of MusicXML input were discovered and fixed and some unused code was removed.
+
+16. The pathological case of tuplet brackets containing no notes, with no 
+preceding notes, caused invalid PostScript or PDF to be generated.   
+
+17. The [page] stave directive did not work if used in the first page of a
+piece.
 
 
 Version 5.33 22-December-2025

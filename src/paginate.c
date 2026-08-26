@@ -1728,6 +1728,10 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
         }
       break;
 
+      /* [page] can only increase the page number. If we are on the first page,
+      we therefore need to reset the first page number. We also need to check
+      the last page number in case this is the last page. */
+
       case b_page:
         {
         b_pagestr *pg = (b_pagestr *)p;
@@ -1735,7 +1739,12 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
         if (pg->relative) value += curpage->number;
         if (value < curpage->number) error(ERR133, value, curpage->number);
         else
+          {
+          if (curpage->number == page_firstnumber && value > page_firstnumber)
+            page_firstnumber = value;
+          if (value > main_lastpagenumber) main_lastpagenumber = value;
           curpage->number = value;
+          }
         }
       break;
 
