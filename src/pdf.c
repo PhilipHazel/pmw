@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2024 */
-/* This file last modified: January 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
@@ -2476,8 +2476,7 @@ PMW exits. */
 void
 pdf_free_data(void)
 {
-for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
-  if (p->data != NULL) free(p->data);
+for (pdfobject *p = obj_anchor; p != NULL; p = p->next) free(p->data);
 }
 
 

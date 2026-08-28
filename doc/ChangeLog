@@ -1,6 +1,8 @@
 Change Log for Philip's Music Writer (Linux/Unix version)
 ---------------------------------------------------------
 
+See also git commit logs.
+
 
 Version 5.34 xx-xxx-2026
 ------------------------
@@ -65,6 +67,8 @@ preceding notes, caused invalid PostScript or PDF to be generated.
 
 17. The [page] stave directive did not work if used in the first page of a
 piece.
+
+18. Removed a redundant check for NULL when freeing PDF data.
 
 
 Version 5.33 22-December-2025
