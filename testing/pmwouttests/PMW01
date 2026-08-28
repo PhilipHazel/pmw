@@ -42,6 +42,8 @@ hairpinlinewidth 0.5
 hairpinwidth 3
 heading 21 "Left|Centre|Right" 25
 heading 13 "|\it\Centre Only"
+heading "Left Only"
+heading "||Right Only"
 hyphenstring "\--"
 hyphenthreshold 55
 join 2-3

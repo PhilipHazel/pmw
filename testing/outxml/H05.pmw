@@ -14,7 +14,7 @@ clefsize 0.7
 underlaysize 8
 tupletfont 6 italic
 barnumbers ringed 3 10 roman
-heading 17 "|Title added by PMW|"
+heading 17 "|Title added by PMW"
 heading 12 "|MusicXML Title|" 32
 heading 10 "|MusicXML Title|" 32
 footing 61.6 "||"

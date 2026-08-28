@@ -36,11 +36,13 @@ rehearsalmarks linestartleft boxed 13 extra 2
 trillstring 10 "\it\tr"
 gracespacing 5 8
 heading 21 "Left|Centre|Right" 25
-heading 13 "|\it\Centre Only|"
-pageheading 10 "pageheading||"
+heading 13 "|\it\Centre Only"
+heading 10 "Left Only"
+heading 8 "||Right Only"
+pageheading 10 "pageheading"
 footing 8 "First|Foot|Ing"
-pagefooting 8 "|pagefooting|"
-lastfooting 8 "Last footing||"
+pagefooting 8 "|pagefooting"
+lastfooting 8 "Last footing"
 hyphenstring "–"
 join 2-3
 joindotted 8-10

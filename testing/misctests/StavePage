@@ -1,0 +1,10 @@
+nocheck
+[stave 1 treble 1]
+
+[page 2] "\p\" g |
+[newpage]
+[page +1] "\p\" g |
+
+
+[endstave]
+

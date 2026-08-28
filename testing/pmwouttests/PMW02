@@ -6,6 +6,8 @@ R! | abcd | [nocount] c'\su\ x4 G c\sd\ |
 g\.\ g\>\ g\..\ g  |
 g\tr/u4\ g\~/b\ g\M\ G\m=.\ |
 
+[bottommargin 30 topmargin 30 copyzero -4]
+
 [key G] G+ | [key B$ nowarn] G+ |
 g=x3; x2,x2 | g==,2 x2 |
 g // g [comma] g [tick] g |
@@ -99,5 +101,76 @@ gggg
 gggg
 [endstave]
 
+[newmovement]
 
+[stave 1 treble 1]
+g\>/r6\ g\./b/d10\ c'\../B\ g\V/(\ g\V/)\ c'\u/[\ c'\d/]\ g\>/r2 ./d20\ 
+[endstave]
 
+[newmovement]
+[stave 1 treble 1]
+G+ | G+ [breakbarline] | [2] G+ |
+[endstave]
+
+[stave 2 bass 0]
+[4] G+ |
+[endstave]
+
+[newmovement]
+heading "" 20
+nocheck
+barnumbers 3
+[stave 1 treble 1]
+[barnumber] G | [barnumber/u6] G | [barnumber off] G | [3] G | 
+
+[beamacc] g-g-g-g-g-; [beamrit 2] a-a-a-a-a-; 
+[beamrit] g-g-g-g-g-; [beamacc 3] a-a-a-a-a-; |
+g-g-; [beammove 10] g-g-; [beamslope 0.2] g-g- |
+
+g\u\ [bowing below] g\d\ [bowing above] g\u\ |
+G+ | G+ : G+ |
+g. g>. [space 4] g7>. [space 4] | 
+
+[ns *1.1] gg | [ns 0 0 0 2] gg | [ns] gg | [ensure 50] gg |
+gg [footnote "A footnote"] gg |
+[justify -right -bottom] gg [justify +left -top] gg |
+[justify +left +right +top +bottom] gg |
+
+[line] gg [linegap] gg [el] |
+[line] gg [linegap/"text"] gg [el] |
+[slur/=A] gg [slurgap/=A/w6/h] gg [es] |
+[slur] gg [slurgap/l4/"text"/ring/u5/s3] gg [es] |
+
+g [name 2] g |
+[newpage] g [notes off] gg [notes on] g|
+
+[olevel 14] "A"/ol g |
+[newline olevel *] "B"/ol g |
+[newline] [olhere +6] "C"/ol g |
+
+[ulevel -6] "D"/ul g |
+[newline ulevel *] "E"/ul g |
+[newline ulhere -6] "F"/ul g |
+
+g-g- |= g-g- |
+g-g- ||= g-g- |
+g-g- |||= g-g- |
+g-g- |?= g-g- |
+g-g- |4= g-g- |
+
+g [transpose 2] g [transpose -2] g |
+[tuplets below] {ggg} [triplets above off] {ggg} |
+
+[endstave]
+
+[newmovement]
+nocheck
+breakbarlines
+
+[stave 1 treble 1]
+G+ | G+ [unbreakbarline] | G+ |
+[endstave]
+
+[stave 2 bass 0]
+[3] R! |
+[endstave]
