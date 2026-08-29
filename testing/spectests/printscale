@@ -2,6 +2,9 @@ nocheck
 justify top left right
 sheetsize A3
 
+printscale 2    @ Together, should leave it as set outside
+printscale 0.5
+
 barnumbers 1
 
 Heading "Heading 1||Heading 1"

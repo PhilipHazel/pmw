@@ -27,6 +27,9 @@ GLOBAL VALUES
   note spacing = 30 30 22 16 12 10 10 10
   page = 3 2
   pagelength = 470
+  printadjust = 0 0
+  printgutter = 0
+  printscale = 1
   righttoleft = false
   sheetdepth = 600
   sheetsize = unknown

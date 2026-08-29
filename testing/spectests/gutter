@@ -1,5 +1,7 @@
 @ Test for gutter setting
 
+printgutter -5 @ Check cumulation
+
 heading 20 "This is the first page"
 
 [stave 1 treble 1]

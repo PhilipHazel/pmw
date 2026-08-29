@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: December 2025 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
@@ -1761,6 +1761,39 @@ if (!ok) error(ERR53, c, string_format_fixed(v), PMW_VERSION);  /* Hard */
 
 
 /*************************************************
+*                Printadjust                     *
+*************************************************/
+
+static void
+printadjust(void)
+{
+int32_t x, y;
+if (!read_expect_integer(&x, TRUE, TRUE)) return;
+if (read_c == ',') read_nextc();
+if (!read_expect_integer(&y, TRUE, TRUE)) return;
+if (movement_count != 1) { error(ERR40, dir->name); return; }
+print_image_xadjust += x;
+print_image_yadjust += y;
+}
+
+
+
+/*************************************************
+*                Printgutter                     *
+*************************************************/
+
+static void
+printgutter(void)
+{
+int32_t x;
+if (!read_expect_integer(&x, TRUE, TRUE)) return;
+if (movement_count != 1) { error(ERR40, dir->name); return; }
+print_gutter += x;
+}
+
+
+
+/*************************************************
 *                Printkey                        *
 *************************************************/
 
@@ -1786,6 +1819,21 @@ p->clef = d->arg1;
 p->string = string_read(font_mf, TRUE);
 read_sigc();
 p->cstring = (read_c == '"')? string_read(font_mf, TRUE) : empty_string;
+}
+
+
+
+/*************************************************
+*                Printscale                      *
+*************************************************/
+
+static void
+printscale(void)
+{
+int32_t m;
+if (!read_expect_integer(&m, TRUE, TRUE)) return;
+if (movement_count != 1) { error(ERR40, dir->name); return; }
+print_magnification = mac_muldiv(print_magnification, m, 1000);
 }
 
 
@@ -2562,7 +2610,10 @@ static dirstr headlist[] = {
   { "pageheading",      movt_headfoot,  oo(movtstr,pageheading), rh_pageheading },
   { "pagelength",       glob_int,       glob_pagelength, int_rs+int_f },
   { "pmwversion",       pmwversion,     0, 0 },
+  { "printadjust",      printadjust,    0, 0 },
+  { "printgutter",      printgutter,    0, 0 },
   { "printkey",         printkey,       0, 0 },
+  { "printscale",       printscale,     0, 0 },
   { "printtime",        printtime,      0, 0 },
   { "rehearsalmarks",   rehearsalmarks, 0, 0 },
   { "repeatbarfont",    movt_font,      oo(movtstr,fonttype_repeatbar), oo(fontsizestr, fontsize_repno) },

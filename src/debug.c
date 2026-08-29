@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: July 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
@@ -512,6 +512,9 @@ eprintf("\n");
 
 eprintf("  page = %d %d\n", page_firstnumber, page_increment);
 eprintf("  pagelength = %s\n", sff(main_pagelength));
+eprintf("  printadjust = %s %s\n", sff(print_image_xadjust), sff(print_image_yadjust));
+eprintf("  printgutter = %s\n", sff(print_gutter));
+eprintf("  printscale = %s\n", sff(print_magnification));
 eprintf("  righttoleft = %s\n", main_righttoleft? "true" : "false");
 eprintf("  sheetdepth = %s\n", sff(main_sheetdepth));
 

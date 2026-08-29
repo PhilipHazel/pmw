@@ -1,6 +1,7 @@
 nocheck
 justify top left right
 sheetsize A4
+printadjust -2 -5  @ Accumlates with command line
 
 Heading "Heading 1||Heading 1"
 Footing "Footing 1||Footing 1"
