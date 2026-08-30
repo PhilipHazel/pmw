@@ -145,4 +145,7 @@ heading "C -> \tC  C# -> \tC#  G$ -> \tG$"
 transpose -2
 heading "C -> \tC  C# -> \tC#  G$ -> \tG$"
 
+[newmovement]
+stemswap default
+
 @ End

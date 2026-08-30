@@ -2221,7 +2221,9 @@ else if (Ustrcmp(read_wordbuffer, "left") == 0)
   curmovt->stemswaptype = stemswap_left;
 else if (Ustrcmp(read_wordbuffer, "right") == 0)
   curmovt->stemswaptype = stemswap_right;
-else error(ERR8, "\"up\", \"down\", \"left\", or \"right\"");
+else if (Ustrcmp(read_wordbuffer, "default") == 0)
+  curmovt->stemswaptype = stemswap_default;
+else error(ERR8, "\"up\", \"down\", \"left\", \"right\", or \"default\"");
 }
 
 
