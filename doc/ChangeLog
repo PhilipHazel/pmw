@@ -75,6 +75,8 @@ which are cumulative with the command line options of the same names.
 
 20. Add "default" to the stemswap directive.
 
+21. Correct misleading error for split slur options that are not allowed.
+
 
 Version 5.33 22-December-2025
 -----------------------------

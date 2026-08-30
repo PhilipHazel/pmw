@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: February 2021 */
-/* This file last modified: April 2026 */
+/* This file last modified: August 2026 */
 
 #include "pmw.h"
 
@@ -1393,7 +1393,7 @@ while (read_c == '/')
 
   if (mod != NULL && mod->sequence != 0)
     {
-    if (strchr("=abeshiow", read_c) != NULL) error(ERR99, read_c);
+    if (strchr("=abehiow", read_c) != NULL) error(ERR99, read_c);
     }
 
   switch (read_c)
