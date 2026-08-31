@@ -308,7 +308,8 @@ aborts the run after outputting additional information. */
 { ec_warning, "%s is not supported for PMW source output" },
 { ec_major,   "PMW source output error: unknown special character 0x%08X in string" },
 { ec_warning, "an %slay syllable found before a rest in bar %s stave %d during\n"
-              "   PMW source output was converted to normal text at %slay level" }
+              "   PMW source output was converted to normal text at %slay level" },
+{ ec_major,   "Clef widths can only be whole numbers" }               
 };
 
 #define ERROR_MAXERROR (int)(sizeof(error_data)/sizeof(error_struct))

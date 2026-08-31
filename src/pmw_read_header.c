@@ -757,6 +757,12 @@ for (i = 0; i < (sizeof(clef_shapes)/sizeof(uint8_t)) && isdigit(read_c); i++)
   {
   int32_t width;
   (void)read_expect_integer(&width, FALSE, FALSE);
+  if (read_c == '.')
+    {
+    error(ERR205);
+    read_nextc();
+    while (isdigit(read_c)) read_nextc();  
+    }   
   if (read_c == ',') read_nextc();
   read_sigc();
   for (j = 0; j < CLEF_COUNT; j++)

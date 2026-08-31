@@ -77,6 +77,9 @@ which are cumulative with the command line options of the same names.
 
 21. Correct misleading error for split slur options that are not allowed.
 
+22. Give better error if clefwidths argument is not a whole number. (The 
+documentation is wrong for this; will be corrected.)
+
 
 Version 5.33 22-December-2025
 -----------------------------
