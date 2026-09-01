@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2024 */
-/* This file last modified: January 2026 */
+/* This file last modified: September 2026 */
 
 /* This file contains the top-level function and character handling functions
 that are called from the modules that read headings and staves. */
@@ -355,7 +355,7 @@ if (allowsign)
 
 if (!isdigit(read_c))
   {
-  error(ERR8, allowsign? "number" : "unsigned number");
+  error_skip(ERR8,  ('\t' << 8) | ' ', allowsign? "number" : "unsigned number");
   return FALSE;
   }
 

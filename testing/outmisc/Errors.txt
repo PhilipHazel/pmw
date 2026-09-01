@@ -33,11 +33,6 @@ heading "ABC\zXYZ"
 -xyz
 ->
 
-** Error: unknown header directive "xyz"
-   Detected near line 27 of misctests/Errors
--xyz
----->
-
 ** Error: bracestyle value is too big (max 1)
    Detected near line 28 of misctests/Errors
 bracestyle 100
