@@ -132,3 +132,16 @@ g. g=g= | g. g- | {a-b-c'-_}; c'- |
 [stave 2 bass 0]
 {ggg} | { ggg } |
 [endstave]
+
+[newmovement]
+nocheck
+heading "" 10
+
+[stave 1 treble 1]
+{ g=g=; g-g-;} | {/h g=g=; g-g-} | 
+{ g-\sd\; g-g- } | {g-g-; g-\sd\ } |
+{ G+ G+ G+ } | {C'+ x2 } |
+{/l20 g-g-g-; } {/l20 g-;g-; g-;} | 
+[endstave]
+
+

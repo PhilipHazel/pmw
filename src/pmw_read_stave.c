@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -551,6 +551,11 @@ while (!done)
             flags |= plet_abs;
             adjustyleft = adjustyright = sign * read_fixed();
             }
+          break;
+
+          case 'h':             /* Force bracket */
+          flags = (flags & ~plet_bn) | plet_by;
+          read_nextc();
           break;
 
           case 'n':             /* Force no bracket */
