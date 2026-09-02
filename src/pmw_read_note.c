@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: March 2021 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 /* This file contains the code for reading one note in PMW notation. */
 
@@ -215,7 +215,7 @@ while (p != NULL)
     {
     s++;
     st->hadlayequals = TRUE;
-    q->x = q->y = 0; 
+    q->x = q->y = 0;
     }
   else while(Ustrchr("- =", PCHAR(*s)) == NULL) s++;
 
@@ -273,22 +273,22 @@ Returns:        nothing
 void
 read_sortchord(b_notestr *w, uint32_t upflag)
 {
-uint8_t masq = w->masq;                 /* Masquerade value */
+uint8_t masq = w->masq;             /* Masquerade value */
 uint8_t dots = w->dots;
-uint32_t dynamics = 0;                  /* Collected dynamics flags */
-uint32_t fuq = 0;                       /* Free upstemmed quaver flag */
-int p, pp;                              /* Working indices */
-int increment;                          /* Working scan increment */
-int sorttop = 0;                        /* End of list pointer */
-usint acc_count = 0;                    /* Count of accidentals */
-BOOL acc_explicit = FALSE;              /* Accidental explicitly positioned */
-BOOL SecondsExist = FALSE;              /* Seconds exist in this chord */
-bstr *after = NULL;                     /* Item after last note */
-bstr *before = w->prev;                 /* Item before first note */
-b_notestr *ww = w;                      /* Working pointer */
+uint32_t dynamics = 0;              /* Collected dynamics flags */
+uint32_t fuq = 0;                   /* Free upstemmed quaver (or shorter) flag */
+int p, pp;                          /* Working indices */
+int increment;                      /* Working scan increment */
+int sorttop = 0;                    /* End of list pointer */
+usint acc_count = 0;                /* Count of accidentals */
+BOOL acc_explicit = FALSE;          /* Accidental explicitly positioned */
+BOOL SecondsExist = FALSE;          /* Seconds exist in this chord */
+bstr *after = NULL;                 /* Item after last note */
+bstr *before = w->prev;             /* Item before first note */
+b_notestr *ww = w;                  /* Working pointer */
 b_notestr *sortvec[MAX_CHORDSIZE];
 tiedata sorttievec[MAX_CHORDSIZE];
-tiedata *tt = read_tiedata;             /* Working tiedata pointer */
+tiedata *tt = read_tiedata;         /* Working tiedata pointer */
 
 ww->type = b_chord;     /* Ensure all are flagged chord pro tem */
 
@@ -827,7 +827,7 @@ because it is also called after [reset] and at the end of a bar if there is an
 unfinished beam. For beams whose stem direction is forced, there is nothing on
 the beam stack. This procedure is even called for single notes that might have
 been the start of a beam, so we use the call to set the fuq (free upstemmed
-quaver) flag when the stem direction is known.
+quaver or shorter) flag when the stem direction is known.
 
 If the option for the stem swap level is "right", we can't take a decision
 here, so the notes are transferred on to the ordinary note pending stack.
@@ -881,7 +881,7 @@ if (brs.beamstackptr > 0)
 
 srs.beaming = FALSE;
 if (srs.beamcount == 1 && (srs.beamfirstnote->flags & nf_stemup) != 0)
-  srs.beamfirstnote->flags |= nf_fuq;  /* Free upstemmed quaver */
+  srs.beamfirstnote->flags |= nf_fuq;  /* Free upstemmed quaver or shorter */
 }
 
 
