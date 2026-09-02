@@ -1774,14 +1774,15 @@ for (;;)
   /* Process other modifiers. Too long or short notes are diagnosed later,
   after halving/doubling. */
 
-  else
+  else for(;;)
     {
-    while (read_c == '=' )
+    if (read_c == '=' )
       { read_nextc(); pn_notetype += 2; pn_notelength /= 4; }
-    while (read_c == '-' )
+    else if (read_c == '-' )
       { read_nextc(); pn_notetype += 1; pn_notelength /= 2; }
-    while (read_c == '+')
+    else if (read_c == '+')
       { read_nextc(); pn_notetype -= 1; pn_notelength *= 2; }
+    else break;   
     }
 
   /* Deal with non-standard lengths. */

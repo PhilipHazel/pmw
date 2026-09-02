@@ -82,6 +82,7 @@ fbsize 8
 "a" r "a"/su/bu r "a"/ul g r |
 "a"/a r "a"/so/ao r "a"/ol g r |
 "a" r "a"/sf r "a"/fb g r |
+g-= g+= G-= G-+= [nocheck] |
 [endstave]
 
 [newmovement newpage]

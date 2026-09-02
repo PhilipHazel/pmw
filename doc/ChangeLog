@@ -11,76 +11,78 @@ Version 5.34 xx-xxx-2026
 
 2. Implement [hairpins underlay] and /bu on individual hairpins.
 
-3. For hairpins that do not have an explicit opening width setting (the /w 
-option), if the length is sufficiently short, reduce the width to be no more 
+3. For hairpins that do not have an explicit opening width setting (the /w
+option), if the length is sufficiently short, reduce the width to be no more
 than 2/9 of the length, but with a minimum of 2 points.
 
 4. Merged more of Jan Nemecek's additional figured bass macros into the
 standard macros.
 
-5. If the second or a subsequent movement did not have any staves, the 
-calculation of page depth went wrong, leading to headings or staves being 
+5. If the second or a subsequent movement did not have any staves, the
+calculation of page depth went wrong, leading to headings or staves being
 output too far down the page (possibly on top of a page number).
 
 6. Add preprocess condition "def".
 
-7. Add support for "and" to the *if preprocessing directive, but with stricly 
+7. Add support for "and" to the *if preprocessing directive, but with stricly
 left-to-right processing - no operator precedence.
 
-8. Add [textshow] directive, to disable/enable underlay, overlay, or figured 
+8. Add [textshow] directive, to disable/enable underlay, overlay, or figured
 bass.
 
-9. When there is more than one footing line, check the space required and move 
+9. When there is more than one footing line, check the space required and move
 everything up the page if necessary.
 
-10. When reading the definition of a drawing function, an unexpected character 
+10. When reading the definition of a drawing function, an unexpected character
 caused repeated error messages until "too many errors" stopped it.
 
 11. Additions to the drawing facilities:
 
-  * A new system variable "calledfrom" tells where a drawing is called from 
+  * A new system variable "calledfrom" tells where a drawing is called from
     (note, heading, barline, etc.)
-    
-  * A new system variable "argcount" contains the number of arguments pushed 
-    onto the stack as part of an external drawing call.
-    
-  * A new system variable "dots" contains the number of augmentation dots that 
-    follow a note.
-    
-12. There are three new size options for text on a stave: /su, /so, and /sf. 
-These select the text sizes of underlay, overlay, or figured bass, 
-respectively, which are themselves defined by header directives. 
 
-13. The option /a<n> is now allowed on rehearsal text marks, to specify a fixed 
+  * A new system variable "argcount" contains the number of arguments pushed
+    onto the stack as part of an external drawing call.
+
+  * A new system variable "dots" contains the number of augmentation dots that
+    follow a note.
+
+12. There are three new size options for text on a stave: /su, /so, and /sf.
+These select the text sizes of underlay, overlay, or figured bass,
+respectively, which are themselves defined by header directives.
+
+13. The option /a<n> is now allowed on rehearsal text marks, to specify a fixed
 distance above the stave.
-    
-14. When PMW is built to include MusicXML support, there is now an option -pmw 
-that requests another output file in PMW *input* format, thus making it 
-possible to import a MusicXML file and subsequently edit it. Like all XML 
+
+14. When PMW is built to include MusicXML support, there is now an option -pmw
+that requests another output file in PMW *input* format, thus making it
+possible to import a MusicXML file and subsequently edit it. Like all XML
 support, this is still very experimental.
 
-15. While implementing and testing 14 above, a number of bugs in the handling 
+15. While implementing and testing 14 above, a number of bugs in the handling
 of MusicXML input were discovered and fixed and some unused code was removed.
 
-16. The pathological case of tuplet brackets containing no notes, with no 
-preceding notes, caused invalid PostScript or PDF to be generated.   
+16. The pathological case of tuplet brackets containing no notes, with no
+preceding notes, caused invalid PostScript or PDF to be generated.
 
 17. The [page] stave directive did not work if used in the first page of a
 piece.
 
 18. Removed a redundant check for NULL when freeing PDF data.
 
-19. Implement new header directives printadjust, printgutter, and printscale, 
+19. Implement new header directives printadjust, printgutter, and printscale,
 which are cumulative with the command line options of the same names.
 
 20. Add "default" to the stemswap directive.
 
 21. Correct misleading error for split slur options that are not allowed.
 
-22. Give better error if clefwidths argument is not a whole number. (The 
+22. Give better error if clefwidths argument is not a whole number. (The
 documentation is wrong for this; will be corrected.)
 
-23. Add /h to tuplet options to force horizontal bracket.
+23. Add /f to tuplet options to force bracket.
+
+24. Allow g-= as well as g=- etc.
 
 
 Version 5.33 22-December-2025
