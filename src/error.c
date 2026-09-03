@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -275,7 +275,7 @@ aborts the run after outputting additional information. */
 { ec_major,   "duplicate glyph name \"%s\" in line %d of %s\n%s" },
 { ec_major,   "duplicate font encoding value %d in line %d of %s\n%s" },
 { ec_major,   "[backup] must follow a note" },
-{ ec_warning, "non-movement options on rehearsal marks are ignored" },
+{ ec_warning, "/b and non-movement options on rehearsal marks are ignored" },
 { ec_major,   "'&' at end of line while reading macro or repetition argument" },
 /* 180-184 */
 { ec_failed,  "repetition count is too large (max %d)" },

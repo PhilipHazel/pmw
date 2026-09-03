@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: January 2021 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -1944,7 +1944,7 @@ read_basestring(basestavestring *b, BOOL rehearse, const char *opts,
   const char *opterror)
 {
 b->hadab = FALSE;
-b->flags = rehearse? 0 : srs.textflags;
+b->flags = rehearse? text_above : srs.textflags;
 b->offset = b->adjustx = b->adjusty = b->halfway = b->rotate = 0;
 b->size = -1;
 
@@ -2276,13 +2276,14 @@ more = read_basestring(s1, rehearse, NULL, NULL);
 if (s1->string == NULL) return;    /* There's been an error */
 
 /* Non-movement options other than absolute above and size settings are ignored
-on rehearsal marks; they always use the rehearsal marks style and size. Warn if
-any are present. */
+on rehearsal marks; they always use the rehearsal marks style and size, and 
+rehearsal marks are always above the stave. */
 
 if (rehearse && 
-     ((s1->flags & ~(text_above|text_absolute)) != 0 || s1->size >= 0))
+     ((s1->flags & ~(text_above|text_absolute)) != 0 || s1->size >= 0 ||
+      (s1->flags & text_above) == 0))
   {
-  error(ERR178);
+  error(ERR178);  /* Warning */ 
   s1->flags = 0;  /* No flags */
   s1->size = -1;  /* Unset */
   }
