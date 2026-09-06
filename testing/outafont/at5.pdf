@@ -3720,7 +3720,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 16 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/rm/BaseFont/Times-Roman/FontDescriptor 15 0 R
 /Encoding 14 0 R/FirstChar 51/LastChar 65/Widths 17 0 R>>
 endobj
@@ -3740,7 +3740,7 @@ endobj
 /FontBBox[-169 -217 1010 883]>>
 endobj
 19 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/it/BaseFont/Times-Italic/FontDescriptor 18 0 R
 /Encoding 14 0 R/FirstChar 49/LastChar 55/Widths 20 0 R>>
 endobj
@@ -3759,7 +3759,7 @@ endobj
 /FontBBox[-168 -218 1000 935]>>
 endobj
 22 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/bf/BaseFont/Times-Bold/FontDescriptor 21 0 R
 /Encoding 14 0 R/FirstChar 32/LastChar 61/Widths 23 0 R>>
 endobj
@@ -3781,7 +3781,7 @@ endobj
 /FontBBox[-200 -218 996 921]>>
 endobj
 25 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/bi/BaseFont/Times-BoldItalic/FontDescriptor 24 0 R
 /Encoding 14 0 R/FirstChar 102/LastChar 112/Widths 26 0 R>>
 endobj
@@ -3801,7 +3801,7 @@ endobj
 176/PMWbratop/PMWbrabot]>>
 endobj
 28 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 13 0 R
 /Encoding 27 0 R/FirstChar 33/LastChar 177/Widths 29 0 R>>
 endobj
@@ -3855,7 +3855,7 @@ endobj
 /FontFile3 30 0 R/FontBBox[-896 -1181 3657 1792]>>
 endobj
 34 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/xx2/BaseFont/AdobeArabic-Bold/FontDescriptor 33 0 R
 /Encoding 32 0 R/FirstChar 32/LastChar 215/Widths 35 0 R>>
 endobj
@@ -3899,7 +3899,7 @@ endobj
 /FontFile3 30 0 R/FontBBox[-896 -1181 3657 1792]>>
 endobj
 38 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/xx2X/BaseFont/AdobeArabic-Bold/FontDescriptor 37 0 R
 /Encoding 36 0 R/FirstChar 50/LastChar 94/Widths 39 0 R>>
 endobj
@@ -3930,32 +3930,32 @@ xref
 0000042404 00000 n
 0000042562 00000 n
 0000042731 00000 n
-0000042887 00000 n
-0000042939 00000 n
-0000043111 00000 n
-0000043268 00000 n
-0000043306 00000 n
-0000043475 00000 n
-0000043630 00000 n
-0000043716 00000 n
-0000043892 00000 n
-0000044055 00000 n
-0000044101 00000 n
-0000044534 00000 n
-0000044689 00000 n
-0000045048 00000 n
-0000045075 00000 n
-0000045091 00000 n
-0000045590 00000 n
-0000045759 00000 n
-0000045922 00000 n
-0000046390 00000 n
-0000046513 00000 n
-0000046682 00000 n
-0000046845 00000 n
+0000042884 00000 n
+0000042936 00000 n
+0000043108 00000 n
+0000043262 00000 n
+0000043300 00000 n
+0000043469 00000 n
+0000043621 00000 n
+0000043707 00000 n
+0000043883 00000 n
+0000044043 00000 n
+0000044089 00000 n
+0000044522 00000 n
+0000044674 00000 n
+0000045033 00000 n
+0000045060 00000 n
+0000045076 00000 n
+0000045575 00000 n
+0000045744 00000 n
+0000045904 00000 n
+0000046372 00000 n
+0000046495 00000 n
+0000046664 00000 n
+0000046824 00000 n
 trailer
 <</Size 40/Root 1 0 R/Info 2 0 R
-/ID[<6ec1f4da2f64ab6594a94e403abc7dcd><6ec1f4da2f64ab6594a94e403abc7dcd>]>>
+/ID[<75cceda5482e263aac081546c68ede16><75cceda5482e263aac081546c68ede16>]>>
 startxref
-46959
+46938
 %%EOF

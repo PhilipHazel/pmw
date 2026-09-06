@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2024 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -836,7 +836,10 @@ make_font(pdfobject *resources, fontstr *fs, const char *X, uschar *ID,
 pdfobject *fontobj;
 int firstX = first;
 int lastX = last;
-const char *subtype = "OpenType";
+
+/* The subtype can be OpenType only when FontFile3 is used. */
+
+const char *subtype = ((fontfilenum & 0xff) == 3)? "OpenType" : "Type1";
 
 if (X[0] != 0)
   {
@@ -3021,6 +3024,10 @@ for (pdfobject *p = obj_anchor; p != NULL; p = p->next)
     uschar buffer[256];
     FILE *f = font_finddata(US "PMW-Music", ".otf", font_music_extra,
       font_music_default, buffer, TRUE);
+
+    /* The music font's font descriptor contains FontFile3, so we can set its
+    subtype to Opentype. */
+
     filecount += write_font_stream(f, "OpenType", p->next, objectcount);
     }
 

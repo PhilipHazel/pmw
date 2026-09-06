@@ -1227,7 +1227,7 @@ endobj
 /FontBBox[-169 -217 1010 883]>>
 endobj
 12 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/it/BaseFont/Times-Italic/FontDescriptor 11 0 R
 /Encoding 10 0 R/FirstChar 50/LastChar 53/Widths 13 0 R>>
 endobj
@@ -1246,7 +1246,7 @@ endobj
 /FontBBox[-168 -218 1000 935]>>
 endobj
 15 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/bf/BaseFont/Times-Bold/FontDescriptor 14 0 R
 /Encoding 10 0 R/FirstChar 32/LastChar 121/Widths 16 0 R>>
 endobj
@@ -1272,7 +1272,7 @@ endobj
 70/PMWstave10 75/PMWdstem 77/PMWmnh]>>
 endobj
 18 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 9 0 R
 /Encoding 17 0 R/FirstChar 33/LastChar 77/Widths 19 0 R>>
 endobj
@@ -1299,16 +1299,16 @@ xref
 0000010722 00000 n
 0000010914 00000 n
 0000011086 00000 n
-0000011243 00000 n
-0000011277 00000 n
-0000011446 00000 n
-0000011602 00000 n
-0000011848 00000 n
-0000012119 00000 n
-0000012272 00000 n
+0000011240 00000 n
+0000011274 00000 n
+0000011443 00000 n
+0000011596 00000 n
+0000011842 00000 n
+0000012113 00000 n
+0000012263 00000 n
 trailer
 <</Size 20/Root 1 0 R/Info 2 0 R
-/ID[<d4cd0c6008b1cfb401a584d3f21e1808><d4cd0c6008b1cfb401a584d3f21e1808>]>>
+/ID[<5d8681562944e5297200b3d17f6771c2><5d8681562944e5297200b3d17f6771c2>]>>
 startxref
-12410
+12401
 %%EOF

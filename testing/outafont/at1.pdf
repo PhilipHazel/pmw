@@ -1141,7 +1141,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 12 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/rm/BaseFont/Times-Roman/FontDescriptor 11 0 R
 /Encoding 10 0 R/FirstChar 32/LastChar 95/Widths 13 0 R>>
 endobj
@@ -1167,7 +1167,7 @@ endobj
 /FontBBox[-169 -217 1010 883]>>
 endobj
 15 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/it/BaseFont/Times-Italic/FontDescriptor 14 0 R
 /Encoding 10 0 R/FirstChar 49/LastChar 55/Widths 16 0 R>>
 endobj
@@ -1186,7 +1186,7 @@ endobj
 /FontBBox[-168 -218 1000 935]>>
 endobj
 18 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/bf/BaseFont/Times-Bold/FontDescriptor 17 0 R
 /Encoding 10 0 R/FirstChar 32/LastChar 61/Widths 19 0 R>>
 endobj
@@ -1205,7 +1205,7 @@ endobj
 /PMWdstem/PMWcnh 193/PMWicomma]>>
 endobj
 21 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 9 0 R
 /Encoding 20 0 R/FirstChar 33/LastChar 193/Widths 22 0 R>>
 endobj
@@ -1261,7 +1261,7 @@ endobj
 /FontFile3 23 0 R/FontBBox[-68 -584 1096 1117]>>
 endobj
 27 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/xx1/BaseFont/OmArabicRsimms/FontDescriptor 26 0 R
 /Encoding 25 0 R/FirstChar 32/LastChar 222/Widths 28 0 R>>
 endobj
@@ -1315,7 +1315,7 @@ endobj
 /FontFile3 29 0 R/FontBBox[-87 -619 1096 1152]>>
 endobj
 33 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/xx2/BaseFont/OmArabicRsimms-Bold/FontDescriptor 32 0 R
 /Encoding 31 0 R/FirstChar 32/LastChar 222/Widths 34 0 R>>
 endobj
@@ -1360,31 +1360,31 @@ xref
 0000013655 00000 n
 0000013819 00000 n
 0000013988 00000 n
-0000014144 00000 n
-0000014296 00000 n
-0000014468 00000 n
-0000014625 00000 n
-0000014669 00000 n
-0000014838 00000 n
-0000014993 00000 n
-0000015083 00000 n
-0000015390 00000 n
-0000015544 00000 n
-0000015923 00000 n
-0000015950 00000 n
-0000015966 00000 n
-0000016497 00000 n
-0000016661 00000 n
-0000016822 00000 n
-0000017296 00000 n
-0000017323 00000 n
-0000017339 00000 n
-0000017655 00000 n
-0000017824 00000 n
-0000017990 00000 n
+0000014141 00000 n
+0000014293 00000 n
+0000014465 00000 n
+0000014619 00000 n
+0000014663 00000 n
+0000014832 00000 n
+0000014984 00000 n
+0000015074 00000 n
+0000015381 00000 n
+0000015532 00000 n
+0000015911 00000 n
+0000015938 00000 n
+0000015954 00000 n
+0000016485 00000 n
+0000016649 00000 n
+0000016807 00000 n
+0000017281 00000 n
+0000017308 00000 n
+0000017324 00000 n
+0000017640 00000 n
+0000017809 00000 n
+0000017972 00000 n
 trailer
 <</Size 35/Root 1 0 R/Info 2 0 R
-/ID[<994f36af9ae7c29e0bf854e52cb599bc><994f36af9ae7c29e0bf854e52cb599bc>]>>
+/ID[<2e530db609415689a82fdd3f90d93a7e><2e530db609415689a82fdd3f90d93a7e>]>>
 startxref
-18436
+18418
 %%EOF

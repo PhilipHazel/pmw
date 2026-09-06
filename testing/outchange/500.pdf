@@ -710,7 +710,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 13 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/rm/BaseFont/Times-Roman/FontDescriptor 12 0 R
 /Encoding 10 0 R/FirstChar 32/LastChar 121/Widths 14 0 R>>
 endobj
@@ -740,7 +740,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 16 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/rmX/BaseFont/Times-Roman/FontDescriptor 15 0 R
 /Encoding 11 0 R/FirstChar 80/LastChar 113/Widths 17 0 R>>
 endobj
@@ -763,7 +763,7 @@ endobj
 /FontBBox[-169 -217 1010 883]>>
 endobj
 19 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/it/BaseFont/Times-Italic/FontDescriptor 18 0 R
 /Encoding 10 0 R/FirstChar 45/LastChar 51/Widths 20 0 R>>
 endobj
@@ -782,7 +782,7 @@ endobj
 /FontBBox[-168 -218 1000 935]>>
 endobj
 22 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/bf/BaseFont/Times-Bold/FontDescriptor 21 0 R
 /Encoding 10 0 R/FirstChar 52/LastChar 52/Widths 23 0 R>>
 endobj
@@ -800,7 +800,7 @@ endobj
 ]>>
 endobj
 25 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 9 0 R
 /Encoding 24 0 R/FirstChar 33/LastChar 177/Widths 26 0 R>>
 endobj
@@ -841,22 +841,22 @@ xref
 0000006210 00000 n
 0000006352 00000 n
 0000006521 00000 n
-0000006678 00000 n
-0000006928 00000 n
-0000007097 00000 n
-0000007255 00000 n
-0000007349 00000 n
-0000007521 00000 n
-0000007678 00000 n
-0000007720 00000 n
-0000007889 00000 n
-0000008044 00000 n
-0000008066 00000 n
-0000008450 00000 n
-0000008604 00000 n
+0000006675 00000 n
+0000006925 00000 n
+0000007094 00000 n
+0000007249 00000 n
+0000007343 00000 n
+0000007515 00000 n
+0000007669 00000 n
+0000007711 00000 n
+0000007880 00000 n
+0000008032 00000 n
+0000008054 00000 n
+0000008438 00000 n
+0000008589 00000 n
 trailer
 <</Size 27/Root 1 0 R/Info 2 0 R
-/ID[<8c0f30204fda6be035c92f61d73255db><8c0f30204fda6be035c92f61d73255db>]>>
+/ID[<b32d23f22f2105efe7cfacf87bb24bb5><b32d23f22f2105efe7cfacf87bb24bb5>]>>
 startxref
-8956
+8941
 %%EOF

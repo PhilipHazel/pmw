@@ -2428,7 +2428,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 13 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/rm/BaseFont/Times-Roman/FontDescriptor 12 0 R
 /Encoding 10 0 R/FirstChar 32/LastChar 234/Widths 14 0 R>>
 endobj
@@ -2472,7 +2472,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 16 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/rmX/BaseFont/Times-Roman/FontDescriptor 15 0 R
 /Encoding 11 0 R/FirstChar 162/LastChar 162/Widths 17 0 R>>
 endobj
@@ -2491,7 +2491,7 @@ endobj
 /FontBBox[-169 -217 1010 883]>>
 endobj
 19 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/it/BaseFont/Times-Italic/FontDescriptor 18 0 R
 /Encoding 10 0 R/FirstChar 51/LastChar 111/Widths 20 0 R>>
 endobj
@@ -2517,7 +2517,7 @@ endobj
 /FontBBox[-168 -218 1000 935]>>
 endobj
 22 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/bf/BaseFont/Times-Bold/FontDescriptor 21 0 R
 /Encoding 10 0 R/FirstChar 51/LastChar 116/Widths 23 0 R>>
 endobj
@@ -2544,7 +2544,7 @@ endobj
 /FontBBox[-200 -218 996 921]>>
 endobj
 25 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/bi/BaseFont/Times-BoldItalic/FontDescriptor 24 0 R
 /Encoding 10 0 R/FirstChar 112/LastChar 112/Widths 26 0 R>>
 endobj
@@ -2561,7 +2561,7 @@ endobj
 ]>>
 endobj
 28 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 9 0 R
 /Encoding 27 0 R/FirstChar 33/LastChar 125/Widths 29 0 R>>
 endobj
@@ -2595,25 +2595,25 @@ xref
 0000023891 00000 n
 0000023984 00000 n
 0000024153 00000 n
-0000024310 00000 n
-0000024840 00000 n
-0000025009 00000 n
-0000025168 00000 n
-0000025190 00000 n
-0000025362 00000 n
-0000025520 00000 n
-0000025672 00000 n
-0000025841 00000 n
-0000025997 00000 n
-0000026165 00000 n
-0000026341 00000 n
-0000026504 00000 n
-0000026526 00000 n
-0000026842 00000 n
-0000026996 00000 n
+0000024307 00000 n
+0000024837 00000 n
+0000025006 00000 n
+0000025162 00000 n
+0000025184 00000 n
+0000025356 00000 n
+0000025511 00000 n
+0000025663 00000 n
+0000025832 00000 n
+0000025985 00000 n
+0000026153 00000 n
+0000026329 00000 n
+0000026489 00000 n
+0000026511 00000 n
+0000026827 00000 n
+0000026978 00000 n
 trailer
 <</Size 30/Root 1 0 R/Info 2 0 R
-/ID[<ec424d74dd1abfb2ccf8e683109e4582><ec424d74dd1abfb2ccf8e683109e4582>]>>
+/ID[<1112b7cd9c910ab4387b07a79e3cedb4><1112b7cd9c910ab4387b07a79e3cedb4>]>>
 startxref
-27237
+27219
 %%EOF

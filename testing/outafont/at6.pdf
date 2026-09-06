@@ -77,7 +77,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 9 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/rm/BaseFont/Times-Roman/FontDescriptor 8 0 R
 /Encoding 7 0 R/FirstChar 32/LastChar 117/Widths 10 0 R>>
 endobj
@@ -113,7 +113,7 @@ endobj
 /FontFile3 11 0 R/FontBBox[-894 -1122 3555 1792]>>
 endobj
 15 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/xx1X/BaseFont/AdobeArabic-Regular/FontDescriptor 14 0 R
 /Encoding 13 0 R/FirstChar 95/LastChar 95/Widths 16 0 R>>
 endobj
@@ -139,7 +139,7 @@ endobj
 /FontFile3 17 0 R/FontBBox[-68 -584 1096 1117]>>
 endobj
 21 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/xx2/BaseFont/OmArabicRsimms/FontDescriptor 20 0 R
 /Encoding 19 0 R/FirstChar 191/LastChar 220/Widths 22 0 R>>
 endobj
@@ -161,22 +161,22 @@ xref
 0000000688 00000 n
 0000000857 00000 n
 0000001025 00000 n
-0000001179 00000 n
-0000001407 00000 n
-0000001434 00000 n
-0000001450 00000 n
-0000001539 00000 n
-0000001711 00000 n
-0000001877 00000 n
-0000001899 00000 n
-0000001926 00000 n
-0000001942 00000 n
-0000002050 00000 n
-0000002214 00000 n
-0000002376 00000 n
+0000001176 00000 n
+0000001404 00000 n
+0000001431 00000 n
+0000001447 00000 n
+0000001536 00000 n
+0000001708 00000 n
+0000001871 00000 n
+0000001893 00000 n
+0000001920 00000 n
+0000001936 00000 n
+0000002044 00000 n
+0000002208 00000 n
+0000002367 00000 n
 trailer
 <</Size 23/Root 1 0 R/Info 2 0 R
-/ID[<c8bad78f794244399c35223791d069eb><c8bad78f794244399c35223791d069eb>]>>
+/ID[<55edbe9e63207c2ca0739743b33d920b><55edbe9e63207c2ca0739743b33d920b>]>>
 startxref
-2458
+2449
 %%EOF

@@ -862,7 +862,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 17 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/rm/BaseFont/Times-Roman/FontDescriptor 16 0 R
 /Encoding 14 0 R/FirstChar 32/LastChar 122/Widths 18 0 R>>
 endobj
@@ -892,7 +892,7 @@ endobj
 /FontBBox[-168 -218 1000 898]>>
 endobj
 20 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/rmX/BaseFont/Times-Roman/FontDescriptor 19 0 R
 /Encoding 15 0 R/FirstChar 159/LastChar 162/Widths 21 0 R>>
 endobj
@@ -911,7 +911,7 @@ endobj
 /FontBBox[-169 -217 1010 883]>>
 endobj
 23 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/it/BaseFont/Times-Italic/FontDescriptor 22 0 R
 /Encoding 14 0 R/FirstChar 32/LastChar 118/Widths 24 0 R>>
 endobj
@@ -940,7 +940,7 @@ endobj
 /FontBBox[-168 -218 1000 935]>>
 endobj
 26 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/bf/BaseFont/Times-Bold/FontDescriptor 25 0 R
 /Encoding 14 0 R/FirstChar 52/LastChar 52/Widths 27 0 R>>
 endobj
@@ -954,7 +954,7 @@ endobj
 /PMWstave10 74/PMWustem 76/PMWcnh]>>
 endobj
 29 0 obj
-<</Type/Font/Subtype/OpenType
+<</Type/Font/Subtype/Type1
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 13 0 R
 /Encoding 28 0 R/FirstChar 33/LastChar 76/Widths 30 0 R>>
 endobj
@@ -986,22 +986,22 @@ xref
 0000008262 00000 n
 0000008393 00000 n
 0000008562 00000 n
-0000008719 00000 n
-0000008967 00000 n
-0000009136 00000 n
-0000009295 00000 n
-0000009329 00000 n
-0000009501 00000 n
-0000009659 00000 n
-0000009879 00000 n
-0000010048 00000 n
-0000010203 00000 n
-0000010225 00000 n
-0000010449 00000 n
-0000010603 00000 n
+0000008716 00000 n
+0000008964 00000 n
+0000009133 00000 n
+0000009289 00000 n
+0000009323 00000 n
+0000009495 00000 n
+0000009650 00000 n
+0000009870 00000 n
+0000010039 00000 n
+0000010191 00000 n
+0000010213 00000 n
+0000010437 00000 n
+0000010588 00000 n
 trailer
 <</Size 31/Root 1 0 R/Info 2 0 R
-/ID[<f5cf4274fa44928d0b7d912c9e4e16ec><f5cf4274fa44928d0b7d912c9e4e16ec>]>>
+/ID[<ad11ee5a19f1a232fdd3fd409db25335><ad11ee5a19f1a232fdd3fd409db25335>]>>
 startxref
-10729
+10714
 %%EOF

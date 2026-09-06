@@ -84,6 +84,9 @@ documentation is wrong for this; will be corrected.)
 
 24. Allow g-= as well as g=- etc.
 
+25. Fix an issue in PDF output: font type was set to "OpenType" for standard 
+fonts when it should be "Type1".
+
 
 Version 5.33 22-December-2025
 -----------------------------
