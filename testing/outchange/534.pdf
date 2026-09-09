@@ -2671,7 +2671,7 @@ endobj
 /Resources 4 0 R>>
 endobj
 14 0 obj
-<</Length 256>>
+<</Length 1874>>
 stream
 % ------ Page 7 ------
 q
@@ -2696,7 +2696,215 @@ BT
 (CCCCC)Tj
 43 0 Td
 (C)Tj
-190.336 -730 Td
+-43 -44 Td
+(!)Tj
+13 8 Td
+/bf 11.8 Tf
+(2)Tj
+0 -7.85 Td
+(4)Tj
+-13 -44.15 Td
+/mf 10 Tf
+(!)Tj
+13 8 Td
+/bf 11.8 Tf
+(2)Tj
+0 -7.85 Td
+(4)Tj
+-13 43.85 Td
+/mf 10 Tf
+(@)Tj
+0 -16 Td
+(@)Tj
+0 -16 Td
+(@)Tj
+0 -12 Td
+(@)Tj
+-3.5 44 Td
+(\260)Tj
+0 -15 Td
+(B)Tj
+0 -15 Td
+(B)Tj
+0 -14 Td
+(\261)Tj
+
+%1/2
+30.4 2 Td
+(3)Tj
+
+%1/1
+0 44 Td
+(3)Tj
+38.779 -18 Td
+(@)Tj
+0 -12 Td
+(@)Tj
+
+%2/2
+10.576 -14 Td
+(3)Tj
+
+%2/1
+0 44 Td
+(3)Tj
+38.779 -18 Td
+(@)Tj
+0 -12 Td
+(@)Tj
+
+%3/2
+10.576 -14 Td
+(3)Tj
+38.41 -2 Td
+(A)Tj
+
+%3/1
+-38.41 46 Td
+(3)Tj
+38.41 -2 Td
+(A)Tj
+0 -16 Td
+(A)Tj
+0 -12 Td
+(A)Tj
+
+%4/2
+12.576 -14 Td
+(3)Tj
+37.279 -2 Td
+(B)Tj
+-2 0 Td
+(@)Tj
+
+%4/1
+-35.279 46 Td
+(3)Tj
+37.279 -2 Td
+(B)Tj
+0 -16 Td
+(B)Tj
+0 -12 Td
+(B)Tj
+-2 28 Td
+(@)Tj
+0 -16 Td
+(@)Tj
+0 -12 Td
+(@)Tj
+
+%5/2
+14.076 -14 Td
+(3)Tj
+
+%5/1
+0 44 Td
+(3)Tj
+38.779 -18 Td
+(@)Tj
+0 -12 Td
+(@)Tj
+
+%6/2
+10.576 -14 Td
+(3)Tj
+38.779 -2 Td
+(@)Tj
+
+%6/1
+-38.779 46 Td
+(3)Tj
+38.779 -2 Td
+(@)Tj
+0 -16 Td
+(@)Tj
+0 -12 Td
+(@)Tj
+
+%7/2
+10.576 -14 Td
+(3)Tj
+37.279 -2 Td
+(B)Tj
+-2 0 Td
+(@)Tj
+
+%7/1
+-35.279 46 Td
+(3)Tj
+37.279 -2 Td
+(B)Tj
+0 -16 Td
+(B)Tj
+0 -12 Td
+(B)Tj
+-2 28 Td
+(@)Tj
+0 -16 Td
+(@)Tj
+0 -12 Td
+(@)Tj
+
+%8/2
+14.076 -14 Td
+(3)Tj
+
+%8/1
+0 44 Td
+(3)Tj
+38.779 -18 Td
+(@)Tj
+0 -12 Td
+(@)Tj
+
+%9/2
+3.458 -8 Td
+/bf 11.8 Tf
+(3)Tj
+0 -7.85 Td
+(4)Tj
+15.167 1.85 Td
+/mf 10 Tf
+(3)Tj
+8.4 2 Td
+(?)Tj
+38.673 -4 Td
+(B)Tj
+-2 0 Td
+(@)Tj
+
+%9/1
+-60.24 52 Td
+/bf 11.8 Tf
+(3)Tj
+0 -7.85 Td
+(4)Tj
+15.167 1.85 Td
+/mf 10 Tf
+(3)Tj
+8.4 2 Td
+(?)Tj
+38.673 -4 Td
+(B)Tj
+0 -16 Td
+(B)Tj
+0 -12 Td
+(B)Tj
+-2 28 Td
+(@)Tj
+0 -16 Td
+(@)Tj
+0 -12 Td
+(@)Tj
+-476.493 28 Td
+(FFFFCCCCCCC)Tj
+469.993 0 Td
+(C)Tj
+-469.993 -44 Td
+(FFFFCCCCCCC)Tj
+469.993 0 Td
+(C)Tj
+-236.657 -642 Td
 /rm 8 Tf
 (- )Tj
 4.664 0 Td
@@ -2805,25 +3013,26 @@ endobj
 27 0 obj
 [250 0 0 0 0 0 0 0
 0 0 0 0 0 333 0 0
-0 500 500 0 500 500 0 500]
+0 500 500 500 500 500 0 500]
 endobj
 28 0 obj
 <</Type/Encoding/BaseEncoding/WinAnsiEncoding/Differences[
 33/PMWtrebleclef 44/PMWmrest/PMWcrest 50/PMWsemibreve
-53/PMWucrotchet 63/PMWhdot/PMWbarsingle 66/PMWbarthick
-/PMWstave1 70/PMWstave10 135/PMWcross]>>
+/PMWuminim 53/PMWucrotchet 63/PMWhdot/PMWbarsingle
+/PMWbardouble/PMWbarthick/PMWstave1 70/PMWstave10
+135/PMWcross 176/PMWbratop/PMWbrabot]>>
 endobj
 29 0 obj
 <</Type/Font/Subtype/Type1
 /Name/mf/BaseFont/PMW-Music/FontDescriptor 17 0 R
-/Encoding 28 0 R/FirstChar 33/LastChar 135/Widths 30 0 R>>
+/Encoding 28 0 R/FirstChar 33/LastChar 177/Widths 30 0 R>>
 endobj
 30 0 obj
 [1500 0 0 0 0 0 0 0
 0 0 0 660 660 0 0 0
-0 840 0 0 840 0 0 0
+0 840 840 0 840 0 0 0
 0 0 0 0 0 0 400 600
-0 760 1000 0 0 10000 0 0
+760 760 1000 0 0 10000 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
@@ -2831,7 +3040,13 @@ endobj
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0]
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0]
 endobj
 xref
 0 31
@@ -2850,25 +3065,25 @@ xref
 0000021314 00000 n
 0000021653 00000 n
 0000021754 00000 n
-0000022059 00000 n
-0000022091 00000 n
-0000022107 00000 n
-0000022296 00000 n
-0000022500 00000 n
-0000022669 00000 n
-0000022823 00000 n
-0000023061 00000 n
-0000023233 00000 n
-0000023387 00000 n
-0000023501 00000 n
-0000023670 00000 n
-0000023822 00000 n
-0000023902 00000 n
-0000024127 00000 n
-0000024279 00000 n
+0000023678 00000 n
+0000023710 00000 n
+0000023726 00000 n
+0000023915 00000 n
+0000024119 00000 n
+0000024288 00000 n
+0000024442 00000 n
+0000024680 00000 n
+0000024852 00000 n
+0000025006 00000 n
+0000025120 00000 n
+0000025289 00000 n
+0000025441 00000 n
+0000025523 00000 n
+0000025793 00000 n
+0000025945 00000 n
 trailer
 <</Size 31/Root 1 0 R/Info 2 0 R
-/ID[<5aa503fb3d100fc3490cd1418e5c5be2><5aa503fb3d100fc3490cd1418e5c5be2>]>>
+/ID[<e1c0b945c62cf8276a46547fcb5ce064><e1c0b945c62cf8276a46547fcb5ce064>]>>
 startxref
-24527
+26281
 %%EOF

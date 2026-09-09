@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2021 */
 /* This file created: June 2021 */
-/* This file last modified: December 2023 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -606,12 +606,19 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
       }
     }
 
+  /* Convert a normal barline on the last bar into an ending barline, unless
+  the "unfinished" flag is set. Non-zero barline styles apply only to single
+  bar lines. */
+
+  BOOL finalbar = curbarnumber + out_manyrest >= curmovt->barcount;
+  if (barlinetype == barline_normal && finalbar && !MFLAG(mf_unfinished))
+    barlinetype = barline_ending;
+  if (barlinetype != barline_normal) barlinestyle = 0;
+
   /* Now we can output appropriate bits of bar line, except on stave 0. */
 
   if (curstave != 0)
     {
-    BOOL finalbar = curbarnumber + out_manyrest >= curmovt->barcount;
-
     int32_t ytop = out_ystave +
       ((barlinestyle == 2 || barlinestyle == 3)? 16*out_stavemagn :
       (ss->stavelines == 6)? - 4*out_stavemagn : 0);
@@ -622,8 +629,7 @@ for (curstave = out_laststave; curstave >= 0; curstave--)
 
     int barchar =
       (barlinetype == barline_double)? bar_double :
-      (barlinetype == barline_ending ||
-        (finalbar && !MFLAG(mf_unfinished)))? bar_thick :
+      (barlinetype == barline_ending)? bar_thick :
       (barlinestyle == 1 || barlinestyle == 3)? bar_dotted : bar_single;
 
     /* If the bar finished with a right-hand repeat mark, in certain cases we

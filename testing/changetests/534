@@ -91,3 +91,16 @@ g-= g+= G-= G-+= [nocheck] |
 [newpage]
 [page +1] "\p\" G+ |
 [endstave]
+
+[newmovement]
+time 2/4
+barlinestyle 2
+
+[stave 1 treble 1]
+G | G | G || G ||| G | G |0 G ||| G | [time 3/4] G. |
+[endstave]
+
+[stave 2 treble 1]
+G | G | G || G ||| G | G |0 G ||| G | [time 3/4] G. |
+[endstave]
+
