@@ -83,6 +83,7 @@ fbsize 8
 "a"/a r "a"/so/ao r "a"/ol g r |
 "a" r "a"/sf r "a"/fb g r |
 g-= g+= G-= G-+= [nocheck] |
+[line] gg [linegap/"abc"/su] gg [el]
 [endstave]
 
 [newmovement newpage]

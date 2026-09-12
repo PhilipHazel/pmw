@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -1385,7 +1385,7 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
       {
       eprintf("/");
       debug_string(sg->gaptext);
-      if (sg->textsize != 0) eprintf("/%d", sg->textsize);
+      if (sg->textsize != 0) eprintf("/s%d", sg->textsize + 1);
       if ((sg->textflags & text_boxed) != 0) eprintf("/box");
       if ((sg->textflags & text_ringed) != 0) eprintf("/ring");
       }

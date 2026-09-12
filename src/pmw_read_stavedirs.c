@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: February 2021 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -1760,13 +1760,29 @@ while (read_c == '/')
 
         case 's':
         read_nextc();
-        read_expect_integer(&x, FALSE, FALSE);
-        if (x == 0 || --x  >= UserFontSizes)
+        if (!isdigit(read_c))
           {
-          error(ERR75, UserFontSizes);
-          x = 0;
+          if (read_c == 'u') x = ff_offset_ulay;
+          else if (read_c == 'o') x = ff_offset_olay;
+          else if (read_c == 'f') x = ff_offset_fbass;
+          else
+            {
+            error(ERR8, "/su, /so, or /sf");
+            x = 0;
+            }
+          p->textsize = x;
+          read_nextc();
           }
-        p->textsize = x;
+        else
+          {
+          read_expect_integer(&x, FALSE, FALSE);
+          if (x == 0 || --x  >= UserFontSizes)
+            {
+            error(ERR75, UserFontSizes);
+            x = 0;
+            }
+          p->textsize = x;
+          }
         break;
 
         case 'r':
