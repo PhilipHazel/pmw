@@ -282,8 +282,23 @@ while (read_c == '/')
 
     case 's':
     read_nextc();
-    if (!read_expect_integer(&size, FALSE, FALSE)) break;
-    if (--size < 0 || size >= UserFontSizes) error(ERR75, UserFontSizes);
+    if (!isdigit(read_c))
+      {
+      if (read_c == 'u') size = ff_offset_ulay;
+      else if (read_c == 'o') size = ff_offset_olay;
+      else if (read_c == 'f') size = ff_offset_fbass;
+      else
+        {
+        error(ERR8, "/su, /so, or /sf");
+        size = 0;
+        }
+      read_nextc();
+      }
+    else
+      {
+      if (!read_expect_integer(&size, FALSE, FALSE)) break;
+      if (--size < 0 || size >= UserFontSizes) error(ERR75, UserFontSizes);
+      }
     p->size = size;
     break;
 
