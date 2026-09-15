@@ -8,10 +8,10 @@ pmw - a program for typesetting music
 .sp
 PMW (Philip's Music Writer) is a program for typesetting music. It is not an
 interactive program; instead, it reads a description of the music from a
-textual input file, which can be prepared by any text editor. The output from
-PMW is either a PostScript file or a PDF of page images of typeset music. The
-default output format is set when PMW is built, but there are options to select
-either form. A secondary output in the form of a MIDI file can be requested.
+textual input file. The output from PMW is either a PostScript file or a PDF of
+page images of typeset music. The default output format is set when PMW is
+built, but there are options to select either form. A secondary output in the
+form of a MIDI file can be requested.
 
 Support for importing and exporting MusicXML files can optionally be included
 when PMW is built, but this is currently experimental and not yet of production
@@ -212,10 +212,10 @@ When \fB-duplex\fR is set, \fB-tumble\fR causes the PostScript option for
 .SH "MUSICXML OUTPUT OPTIONS"
 .rs
 .sp
-These options are available when PMW has been built with optional MusicXML
-support. If the PMW input file contains more than one movement, and no
-individual movement is selected by \fB-musicxmlmovement\fP, and the file name
-set by \fB-musicxml\fP contains "%d" with optional digits between those two
+These options are available when PMW has been built with MusicXML support. If
+the PMW input file contains more than one movement, and no individual movement
+is selected by \fB-musicxmlmovement\fP, and the file name set by
+\fB-musicxml\fP contains "%d" with optional digits between those two
 characters, each movement is output as a separate MusicXML file, with the "%d"
 sequence replaced by the movement number.
 .TP
@@ -234,6 +234,17 @@ This sets one or more options for MusicXML output. They must be separated from
 each other and from \fB-x\fP by plus signs, with no white space. A list of
 possible options is output when PMW is called with the \fB--help\fP option. The
 PMW manual describes what each one does.
+.
+.
+.SH "PMW SOURCE OUTPUT OPTION"
+.rs
+.sp
+When PMW has been built with MusicXML support this option is available:
+.TP
+\fB-pmw\fR \fI<file>\fR
+In addition to the normal PostScript or PDF output, a PMW \fIinput\fR file with
+the given name is written. This makes it possible to import a MusicXML file and
+then subsequently edit the music.
 .
 .
 .SH "MAINTENANCE AND DEBUGGING OPTIONS"
@@ -298,6 +309,6 @@ warnings, and EXIT_FAILURE (usually 1) otherwise.
   Email domain: \fIgmail.com\fR
 .sp
 .in 0
-Last updated: 19 December 2025
+Last updated: 30 August 2026
 .br
-Copyright (c) 2025 Philip Hazel
+Copyright (c) 2026 Philip Hazel

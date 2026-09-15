@@ -155,13 +155,13 @@
 <title>Philip's Music Writer (PMW)</title>
 <subtitle>A Music Typesetting Program</subtitle>
 <titleabbrev>PMW</titleabbrev>
-<date>10 April 2026</date>
+<date>15 September 2026</date>
 <author><firstname>Philip</firstname><surname>Hazel</surname></author>
 <authorinitials>PH</authorinitials>
 <address>Cambridge, England</address>
 <revhistory><revision>
   <revnumber>5.34</revnumber>
-  <date>10 April 2026</date>
+  <date>15 September 2026</date>
   <authorinitials>PH</authorinitials>
 </revision></revhistory>
 <copyright><year>2026</year><holder>Philip Hazel</holder></copyright>
@@ -217,16 +217,13 @@ The textual encoding is unique to PMW. If you want to get a flavour of PMW
 input before deciding whether or not to install PMW, take a look at chapter
 &<<CHAPfirstintro>>& below.
 
-From release 5.10 PMW can also read and typeset some music encoded as MusicXML,
+From release 5.10 PMW can also read and typeset music encoded as MusicXML,
 which is a format used for interchanging encoded music between different
-processing programs. However, this is still very much an experimental feature
-that is not yet of production quality. Moreover, only a subset of MusicXML
-features are supported. It is very much `work in progress' and therefore
-relegated to appendix &<<APPA>>& of this document.
-
-Similarly, from release 5.33, PMW can optionally write a copy of the music in
-MusicXML format. This, too, is experimental and incomplete. It is documented in
-appendix &<<APPB>>&.
+processing programs. However, this is still very much an experimental feature,
+and not all MusicXML features are supported. The documentation is therefore
+relegated to appendix &<<APPA>>& of this document. Similarly, from release
+5.33, PMW can optionally export a copy of the music in MusicXML format. This,
+too, is experimental and incomplete. It is documented in appendix &<<APPB>>&.
 
 The main output of PMW is either a PostScript or a PDF (Portable Document
 Format) file. The former format can be `encapsulated PostScript', which can be
@@ -452,8 +449,8 @@ This option requires the B2PF library to be installed. See section
 &<<SUBSECTb2pffont>>& for details of how to use this facility.
 .next
 &`--enable-musicxml`& causes PMW to be built with support for reading and
-writing MusicXML files. This is experimental code which is far from complete.
-See appendix &<<APPA>>& and appendix &<<APPB>>& for details.
+writing MusicXML files. This is experimental code. See appendix &<<APPA>>& and
+appendix &<<APPB>>& for details.
 .next
 .index "PDF" "set as default"
 &`--enable-pdf-default`& sets PMW's default main output format to be PDF.
@@ -791,6 +788,7 @@ It is ignored for any of the 2-up printing styles.
 
 .vitem "&%-printscale%& <&'n'&>"
 
+.index "magnification"
 Scale the output page images by <&'n'&>. This differs from the PMW
 &%magnification%& header directive (&R; &<<SECTmagnification>>&) in that it
 affects the size of each page, whereas &%magnification%& applies only to the
@@ -1131,11 +1129,11 @@ given. Otherwise, it returns &`EXIT_FAILURE`& (which is normally 1).
 .index "PDF" "viewing"
 .index "viewing music on screen"
 Any available PDF viewer, including many browsers, should be able to display or
-print a PDF produced by PMW using the &%-pdf%& option, because PMW always
-includes its music font and any additional text fonts within the PDF. For
-PostScript output, however, it is a bit more complicated because PMW's music
-font has to be made available to the processing software. If you are using PDF
-output, you can ignore the next three sections.
+print a PDF produced by PMW, because PMW always includes its music font and any
+additional text fonts within the PDF. For PostScript output, however, it is a
+bit more complicated because PMW's music font has to be made available to the
+processing software. If you are using PDF output, you can ignore the next three
+sections.
 
 
 .section "PostScript processors"
@@ -1143,12 +1141,13 @@ output, you can ignore the next three sections.
 .index "&(evince)& document viewer"
 .index "PDF" "conversion from PostScript"
 &'GhostScript'& is an application for processing PostScript. It can display it
-on the screen or convert it to a PDF via its &(ps2pdf)& command. Such a PDF is
-usually smaller than a PDF written directly by PMW because &'GhostScript'& can
+on the screen or convert it to many different formats. In particular, it can
+convert PostScript to a PDF via its &(ps2pdf)& command. Such a PDF is usually
+smaller than a PDF written directly by PMW because &'GhostScript'& can
 disassemble fonts and include only those characters that are actually used,
-whereas PMW includes entire fonts in its PDF output. Other document
-viewers such as &(evince)& make use of &'GhostScript'& when processing
-PostScript files.
+whereas PMW includes entire fonts in its PDF output. Other document viewers
+such as &(evince)& make use of &'GhostScript'& when processing PostScript
+files.
 
 Any PostScript processor must have access to the PMW-Music font when handling
 PMW output files. If it cannot find a font, it makes a substitution, which in
@@ -1186,8 +1185,8 @@ PostScript program.
 .index "PDF" "conversion from PostScript"
 If you do not use the &%-incPMWfont%& option, &'GhostScript'& needs to be told
 where the PostScript music fonts are before it can correctly display a
-PostScript output file or convert it into a PDF. The easiest way of doing this
-is to set the &`GS_FONTPATH`& environment variable, for example:
+PostScript output file or convert it to another format. The easiest way of
+doing this is to set the &`GS_FONTPATH`& environment variable, for example:
 .code
 export GS_FONTPATH=/usr/local/share/pmw/psfonts
 .endd
@@ -1270,7 +1269,7 @@ lines are output as drawing commands instead of as characters. There is also a
 .section "Printing PMW output"
 .index "printing PMW output"
 In modern Unix-like environments, the CUPS printing system is usually set up to
-handle PDF and PostScript files automatically, so it you can display a PMW
+handle PDF and PostScript files automatically, so if you can display a PMW
 output file on the screen, it should print without problems.
 
 
@@ -1562,7 +1561,7 @@ PMW input files.
 .index "macros" "insertion"
 A &'macro'& is a concept found in computer programming languages and in some
 kinds of wordprocessing systems. The idea is very simple: whenever there is a
-sequence of input characters that are going to be repeated several times in a
+sequence of input characters that is going to be repeated several times in a
 document, the sequence is given a name. Referring to the name later in the
 input calls up the required characters. There are several advantages in using a
 macro for a repeated character sequence. Not only does it save typing, but it
@@ -1891,7 +1890,7 @@ an escape from the string in order to give some control information.
 .index "escaped characters"
 .index "backslash"
 There are a number of `escape sequences' that allow you to specify characters
-that may not be directly available on the keyboard:
+that may not be directly available on the keyboard. For example:
 
 .itable none 0 0 2  40 left  200 left
 .row &`\a'`&  "outputs &aacute;"
@@ -1902,7 +1901,6 @@ that may not be directly available on the keyboard:
 .endtable
 
 .index "accented characters in strings"
-For example, the input string &`"\it\sch\o.ner"`& becomes &'sch&ouml;ner'&.
 Using such escapes makes it possible to encode any character using only ASCII
 codes. However, PMW does also recognize UTF-8 encoding in character strings.
 Changes of font are specified by giving a two-letter font code between a pair
@@ -1915,6 +1913,7 @@ of backslashes:
 .row &`\bi\`&   "change to &*&'bold italic'&*&"
 .endtable
 
+For example, the input string &`"\it\sch\o.ner"`& becomes &'sch&ouml;ner'&.
 .index "font changes"
 There is an in-depth discussion of text fonts and character encodings in
 section &<<SUBSECTuniutf>>&. Section &<<SUBSECTescaped>>& has more details
@@ -3038,11 +3037,14 @@ enough room on the current page for the headings and the first system, or, if
 the first system contains only one stave, two systems. This can be overridden
 by options on the &%[newmovement]%& directive (&R; &<<SUBSECTnewmovement>>&).
 .index "movement" "non-persistent parameters"
+.index "header" "directives affecting just one movement"
+.index "directives" "affecting just one movement"
 In general, most parameters that can be set by header directives persist from
-movement to movement, but &%doublenotes%&, &%halvenotes%&, &%key%&, &%layout%&,
-&%notime%&, &%startbracketbar%&, &%startnotime%&, &%suspend%&, &%time%&,
-&%transpose%&, and &%unfinished%& apply only to the movement for which they are
-specified. &%Notespacing%& persists in one of its forms, but not the other.
+movement to movement, but &%bar%&, &%doublenotes%&, &%halvenotes%&, &%key%&,
+&%layout%&, &%notime%&, &%startbracketbar%&, &%startnotime%&, &%suspend%&,
+&%time%&, &%transpose%&, and &%unfinished%& apply only to the movement in
+which they are specified. &%Notespacing%& persists in one of its forms, but not
+the other.
 .index "&%notespacing%&"
 .code
 notespacing 33 30 24 18 14 12 10 10
@@ -3063,8 +3065,9 @@ However, the following directives may appear at the start of the first movement
 only: &%b2pffont%&, &%drawbarlines%&, &%drawstavelines%&, &%eps%&,
 &%incPMWfont%&, &%landscape%&, &%magnification%&, &%maxvertjustify%&,
 &%midifornotesoff%&, &%musicfont%&, &%nokerning%&, &%nowidechars%&, &%output%&,
-&%page%&, &%pagelength%&, &%righttoleft%&, &%sheetdepth%&, &%sheetsize%&,
-&%sheetwidth%&, and &%textfont%&.
+&%page%&, &%pagelength%&, &%printadjust%&, &%printgutter%&, &%printscale%&,
+&%righttoleft%&, &%sheetdepth%&, &%sheetsize%&, &%sheetwidth%&, and
+&%textfont%&.
 
 
 .section "Input preprocessing" SECTpreprocess
@@ -3140,15 +3143,15 @@ ampersand is then ignored.
 
 .index "semicolon" "after macro name"
 .index "; (semicolon)" "after macro name"
-To avoid ambiguity, a semicolon character can optionally be used to terminate
-the name in a simple macro substitution, for example, if the immediately
-following character is a letter or a digit. The semicolon is removed from the
-text when the substitution takes place. If an actual semicolon is required in
-the input following such a substitution, two semicolons must be entered. If an
-undefined name is encountered following &`&&`&, PMW issues an error message,
-and substitutes an empty string. It is possible to test whether or not a name
-has been defined (&R; &<<SUBSECTconditional>>&). An example of the use of a
-simple macro is given in section &<<SECTmacro>>&.
+A semicolon character can optionally be used to terminate the name in a simple
+macro substitution. This is necessary if the immediately following character is
+a letter or a digit. The semicolon is removed from the text when the
+substitution takes place. If an actual semicolon is required in the input
+following such a substitution, two semicolons must be entered. If an undefined
+name is encountered following &`&&`&, PMW issues an error message, and
+substitutes an empty string. It is possible to test whether or not a name has
+been defined (&R; &<<SUBSECTconditional>>&). An example of the use of a simple
+macro is given in section &<<SECTmacro>>&.
 
 
 .subsection "Macros with arguments" SUBSECTmacarg
@@ -4522,8 +4525,9 @@ syllable.
 .index "fonts" "sizes"
 .index "size" "of fonts"
 The header directives that specify page headings and footings allow arbitrary
-font sizes to be given for those texts. Text within a stave uses 10-point fonts
-by default, but there are various ways of changing this.
+font sizes to be given for those texts. The default size of footnotes is set by
+the &%footnotesize%& directive. Text within a stave uses 10-point fonts by
+default, but there are various ways of changing this.
 
 The &%textsizes%& header directive defines up to 20 settable text sizes, which
 can be accessed by any text string within a stave by means of the &`/s`&
@@ -4536,9 +4540,10 @@ sizes that are accessed by &`/S`& (&R; &<<SUBSECTtextsizeoption>>&).
 .index "underlay" "default size"
 .index "fonts" "default sizes"
 Underlay, overlay, and figured bass have their own separate default sizes,
-which are set up by header directives. All other text defaults to a settable
-size that can specified by the &%[textsize]%& directive, with the ultimate
-default being settable size 1.
+which are set up by header directives. Other text in a stave can use these
+sizes via the &`/su`&, &`/so`&, and &`/sf`& options. Other text defaults to a
+settable size that can be specified by the &%[textsize]%& directive, with the
+ultimate default being settable size 1.
 
 Stave text strings that are not underlay or overlay can be rotated so that they
 appear at an angle. Text at the start of a stave can be rotated so as to run
@@ -5289,7 +5294,7 @@ stack as part of an external call to a drawing function. This value does not
 change when a drawing function is called as a subroutine of another.
 .next
 &%barnumber%&: When used in a bar, this variable contains the bar number. Note
-that if the bar is uncounted, its number includes a decimal fraction (&R;
+that if the bar is uncounted, its number may include a decimal fraction (&R;
 &<<SECTident>>&). If this variable is used in a drawing that is obeyed at the
 start of a system, it contains the number of the first bar in the system. If
 used in headings or footings, it contains zero.
@@ -5479,8 +5484,11 @@ of the following options:
 .row &`/r`&<&'n'&>    "move the string right by <&'n'&> points"
 .row &`/ring`&        "enclose the string in a ring (circular if a short string)"
 .row &`/rot`&<&'n'&>  "rotate the string by <&'n'&> degrees (&R; &<<SECTtextitems>>&)"
-.row &`/s`&<&'n'&>    "output the string at settable size <&'n'&> (&R; &<<SUBSECTtextsizes>>&)"
 .row &`/S`&<&'n'&>    "output the string at fixed size <&'n'&> (&R; &<<SUBSECTtextsizes>>&)"
+.row &`/s`&<&'n'&>    "output the string at settable size <&'n'&> (&R; &<<SUBSECTtextsizes>>&)"
+.row &`/sf`&          "output the string at the default figured bass size"
+.row &`/so`&          "output the string at the default overlay size"
+.row &`/su`&          "output the string at the default underlay size"
 .row &`/u`&<&'n'&>    "move the string up by <&'n'&> points"
 .endtable
 
@@ -5546,8 +5554,8 @@ most cases is zero. There is an example of the use of &%stringwidth%& in the
 section on looping operators below (&R; &<<SECTloopop>>&).
 .next
 .index "drawing facility" "font size"
-The &%fontsize%& operator replaces a string on the stack with the font size
-associated with it.
+The &%fontsize%& operator replaces a string on the stack with its font size in
+points.
 .endlist
 
 
@@ -5970,10 +5978,10 @@ B2PF documentation for more details.
 .index "&%bar%&"
 .index "bar numbers" "starting value"
 .index "movement" "continuing bar numbers"
-This directive must be followed by a number; it causes the numbering of bars to
-begin from a number other than one. This facility is useful for fragments of
-pieces, or continuing a bar number sequence through several movements.
-
+This directive must be followed by an unsigned number; it causes bars to be
+numbered starting at that number. This facility is useful for fragments of
+pieces, or continuing a bar number sequence through several movements. The
+setting applies only to the current movement.
 
 
 .subsection "Barlinesize"
@@ -6021,7 +6029,7 @@ can be ended, but no space must be inserted.
 .index "bar lines" "style"
 .index "bar lines" "dashed"
 .index "bar lines" "between staves only"
-This directive specifies the way in which bar lines are to appear on all
+This directive specifies the way in which single bar lines are to appear on all
 staves. It takes a numerical argument, with a value in the range 0&--5. There
 is also a &%[barlinestyle]%& stave directive that sets the style separately for
 an individual stave. The styles are as follows:
@@ -6041,9 +6049,9 @@ bar line break at any stave where it is used.
 Style 5 causes two very short stub lines to be drawn, above and below the
 stave. It implies a bar line break at any stave where it is used.
 .endlist
-Specifying a double bar by inputting &`||`& overrides the stave or movement
-bar line style, which can also be overridden by inputting a digit immediately
-after the vertical bar character, to force a particular style. The following
+The style of an individual single bar line can be forced by putting a digit
+after the vertical bar character. Specifying a double or ending bar line by
+inputting &`||`& or &`|||`& or overrides the bar line style. The following
 example shows the six available styles:
 
 .music "music33" 64 0,-20 centre
@@ -6096,9 +6104,9 @@ is given, it specifies the interval between bar numbers.
 .code
 barnumbers boxed 10
 .endd
-This example requests a bar number, enclosed in a box, every 10
-bars. The third argument is optional; it specifies the size of the font. The
-default size is 10 points.
+This example requests a bar number, enclosed in a box, every 10 bars. If the
+number is zero, bar numbering is disabled. The third argument is optional; it
+specifies the size of the font. The default size is 10 points.
 .code
 barnumbers line 8.5
 .endd
@@ -6386,12 +6394,14 @@ default settings are:
 .code
 clefwidths 13 16 15 15 0
 .endd
-The values given may include fractions. In a piece which has treble and bass
-clefs in some systems and only treble clefs in others, a setting such as
+The values given must be whole numbers, without any fractions. If fewer than
+five numbers are given, the widths of the remaining clefs are unchanged. In a
+piece that has treble and bass clefs in some systems and only treble clefs in
+others, a setting such as
 .code
 clefwidths 16 16
 .endd
-would ensure that all the key signatures line up.
+would ensure that all the key signatures on a page line up.
 
 
 
@@ -7022,11 +7032,11 @@ control the layout of pages.
 .subsection "Key"
 .index "&%key%&"
 .index "key signatures" "specifying"
-This directive sets a key signature for a movement. It does not carry over to
-any subsequent movements. Naturally, it is also possible to set keys on
-individual staves and to change them in the middle of the music. Setting the
-key in the header is a convenient shorthand. The single argument to the
-directive is a key signature in the format described in section
+This directive sets a default key signature for all the staves in a movement.
+It does not carry over to any subsequent movements. Naturally, it is also
+possible to set keys on individual staves and to change them in the middle of
+the music. Setting the key in the header is a convenient shorthand. The single
+argument to the directive is a key signature in the format described in section
 &<<SECTkeysig>>&.
 .code
 key A$
@@ -7185,10 +7195,9 @@ which is why the thicker style is provided.
 
 .subsection "Leftmargin"
 .index "&%leftmargin%&"
-Normally, PMW centres page images horizontally on the paper. The width of paper
-used for this purpose can be specified by &%sheetwidth%&. The &%leftmargin%&
-directive can be used to specify a particular left-hand margin instead of
-centring.
+Normally, PMW centres page images horizontally. The width of page used for this
+purpose can be specified by &%sheetwidth%&. The &%leftmargin%& directive can be
+used to specify a particular left-hand margin instead of centring.
 
 
 
@@ -7459,7 +7468,8 @@ percussion, see the &%[printpitch]%& directive (&R; &<<SUBSECTprintpitch>>&).
 .index "MIDI" "for invisible notes"
 Notes that are suppressed in by the use of &%[notes off]%& are by default also
 omitted from MIDI output. The header directive &%midifornotesoff%& alters PMW's
-behaviour so that &%[notes off]%& no longer affects MIDI output.
+behaviour so that &%[notes off]%& no longer affects MIDI output. This directive
+is allowed only in the first movement.
 
 
 
@@ -7909,6 +7919,33 @@ If the wrong version is used, a message is output and PMW stops.
 
 
 
+.subsection "Printadjust"
+.index "&%printadjust%&"
+.index "image position adjustment"
+This directive must be followed by two dimensions. They adjust the position of
+the image on the output page in the same way as the &%-printadjust%& command
+line option. If both are used, the effect is cumulative. The movement is
+relative to the normal reading orientation of the page images (which may be
+rotated on the paper). The first value is left-to-right, and the second is up
+and down. Positive values move the image to the right and upwards,
+respectively, and negative values move it in the opposite directions.
+
+
+
+.subsection "Printgutter"
+.index "&%printgutter%&"
+.index "gutter between pages"
+This directive, which must be followed by a dimension, has the same effect as
+the &%-printgutter%& command line option. If both are specified, the effect is
+cumulative. The dimension is a distance by which righthand (recto) page images
+are moved to the right, and lefthand (verso) page images are moved to the left,
+thus creating a `gutter' for binding when the images are printed doublesided.
+The print gutter setting applies only when pages are output 1-up. It is ignored
+for any of the 2-up styles.
+
+
+
+
 .subsection "Printkey" SUBSECTprintkey
 .index "&%printkey%&"
 .index "key signatures" "specifying output format"
@@ -7967,6 +8004,17 @@ the middle line of the stave. Further appearances of &`x`& and &`~`&, and also
 character 119 (&`w`&), which moves down four points, are used to position the
 half flats (character 191) that follow. A similar string is used for the bass
 clef. Details of the music font characters are given in chapter &<<CHAPfont>>&.
+
+
+
+.subsection "Printscale"
+.index "&%printscale%&"
+.index "magnification"
+Scale the output page images by an amount specified in the same way as the
+&%-printscale%& command line option. If both are given, the effect is
+cumulative. This differs from the &%magnification%& header directive (&R;
+&<<SECTmagnification>>&) in that it affects the size of each page, whereas
+&%magnification%& applies only to the contents of the page.
 
 
 
@@ -8217,8 +8265,8 @@ Adjustments to the line length or page length must be made after any appearance
 of &%sheetsize%&, which should also precede any occurrence of the &%landscape%&
 directive. If A5 or B5 is specified and the page is printed on A4 paper, it
 appears by default at the bottom left-hand corner. This position can be
-adjusted by using the &%-printadjust%& command line option, or A5 pages can be
-printed two-up by specifying &%-a5ona4%&.
+adjusted by using the &%printadjust%& directive or the &%-printadjust%& command
+line option, or A5 pages can be printed two-up by specifying &%-a5ona4%&.
 
 
 
@@ -8327,7 +8375,7 @@ signatures in a piece.
 This directive specifies different sizes for certain staves. It is followed by
 pairs of numbers, separated by slashes. The first of each pair is a stave
 number, and the second is the size of the stave relative to the standard stave
-size.
+size. The sizes of staves that are not mentioned are unchanged.
 .code
 stavesize 1/0.8
 stavesizes 4/1.2 5/1.2 6/1.2
@@ -8435,9 +8483,9 @@ notes; however, the stem lengths of individual notes in a beam can be adjusted
 .index "direction of stems"
 .index "changing stem rules"
 This directive is used to alter the way in which PMW chooses stem directions
-for notes lying on the stem swap level for the stave. Specifying this directive
-has the effect of altering rules N5 and N6 as described in section
-&<<SECTstemdir>>& (&'Stem directions'&). Note that rule N3 is &'not'& affected.
+for notes lying on the stem swap level. Specifying this directive has the
+effect of altering rules N5 and N6 as described in section &<<SECTstemdir>>&
+(&'Stem directions'&). Note that rule N3 is &'not'& affected.
 .code
 stemswap up
 .endd
@@ -8461,6 +8509,11 @@ This makes the stem direction depend on the next note to the right that is not
 also on the stem swap level. However, the search for the next note does not
 extend beyond the end of the bar. If the final note(s) of a bar are on the stem
 swap level, their stem direction is taken from the preceding note.
+.code
+stemswap default
+.endd
+This can be used to reset stemwap handling from a previous movement to the
+default behaviour.
 
 
 
@@ -8607,17 +8660,17 @@ Text that is specified with music on a stave can be output in twenty different
 settable sizes in addition to the default sizes for underlay, overlay, and
 figured bass text. The &%textsizes%& directive specifies the sizes that are
 required. It is followed by up to twenty font sizes, which may include
-stretching factors and shear angles. Any unspecified sizes are set to 10
-points.
+stretching factors and shear angles. Any unspecified sizes are unchanged, and
+initially all are set to 10 points.
 .code
 textsizes 10.5 11 7.6 9/1.1
 .endd
 By default, ordinary text is output using the first size specified, but
 underlay, overlay, and figured bass text uses the size specified by the
 &%underlaysize%&, &%overlaysize%&, or &%fbsize%& header directives,
-respectively. To output text at any of the other settable sizes, the &`/s`&
-qualifier must be used. There are also 10 fixed sizes that can be selected by
-the &`/S`& qualifier (&R; &<<SUBSECTtextsizeoption>>&).
+respectively. To output text at any of the other sizes, the &`/s`& qualifier
+must be used. There are also 10 fixed sizes that can be selected by the &`/S`&
+qualifier (&R; &<<SUBSECTtextsizeoption>>&).
 
 
 
@@ -9498,8 +9551,8 @@ note length and an equals sign divides it by four. If used after a lower case
 letter, the number of horizontal lines in these characters is equal to the
 number of `flags' that are attached to the stem of the note. A minus sign is a
 single flag for a quaver, an equals sign is two flags for a semiquaver, an
-equals followed by a minus sign is three flags for a demi-semiquaver, and two
-equals signs are four flags for a hemi-demi-semiquaver.
+equals and a minus sign is three flags for a demi-semiquaver, and two equals
+signs are four flags for a hemi-demi-semiquaver.
 
 .index "&%[doublenotes]%&"
 .index "&%doublenotes%&"
@@ -10458,74 +10511,78 @@ g b {/a e'c' {c'-c'-c'-} }
 
 
 
-.subsection "Options for irregular note groups"
-By default, PMW puts the number of an irregular note group (for example,
-the `3' for a triplet) on the same side of the noteheads as the stems. The
-&%tupletfont%& directive is used to specify the size and type of font used. If
-the notes are beamed, just the number is output; if not, a horizontal
-`bracket' is drawn as well.
+.subsection "Options for irregular note groups" SUBSECTtupopt
+The &%tupletfont%& directive specifies the size and type of font for the number
+that is displayed for an irregular note group (`3' for a triplet, for
+example). In straightforward cases the number is placed on the same side of the
+noteheads as the stems, within a (usually) horizontal `bracket' if none of the
+notes are beamed. There are a number of options that vary this behaviour, for
+use in more complicated cases. Some of them can be set as default by the
+&%[tuplets]%& directive.
 .index "irregular note groups" "suppressing the number"
 .index "irregular note groups" "moving the number"
-The whole mark can be moved, forced to be above or below the stave, and the
-horizontal bracket can be omitted. The mark may also be totally suppressed.
-The &%[tuplets]%& directive can be used to set defaults for some of these
-options. For individual groups, the following qualifiers may appear after the
-opening curly bracket, following any numbers that may be present:
+Qualifiers are placed after the opening curly bracket of an irregular note
+group, following any numbers that may be present. For example:
 
-.itable none 0 0 2  60 left  200 left
-.row &`/a`&          "put mark above"
-.row &`/a`&<&'n'&>   "put mark <&'n'&> points above"
-.row &`/b`&          "put mark below"
-.row &`/b`&<&'n'&>   "put mark <&'n'&> points below"
-.row &`/n`&          "omit bracket"
-.row &`/x`&          "suppress/unsuppress mark"
-.row " "
-.row &`/lx`&         "invert left-hand jog"
-.row &`/rx`&         "invert right-hand jog"
-.row " "
-.row &`/d`&<&'n'&>   "move mark down <&'n'&> points"
-.row &`/l`&<&'n'&>   "move mark left <&'n'&> points"
-.row &`/r`&<&'n'&>   "move mark right <&'n'&> points"
-.row &`/u`&<&'n'&>   "move mark up <&'n'&> points"
-.row " "
+.code
+{3/5/d1 a-a-a-b-b-}  {/b a-b-c-}  {/a/u3 dfg}  {2/d2/n a-a-}
+.endd
+
+The qualifiers are as follows:
+
+.itable none 0 0 2  60 left  250 left
+.row &`/x`&          "suppress or unsuppress the number"
+.endtable
+
+The &`/x`& option suppresses the number unless &%[tuplets]%& has been used to
+suppress all irregular note group numbers, in which case &`/x`& causes the
+number to appear.
+
+.itable none 0 0 2  60 left  250 left
+.row &`/a`&          "put the number above"
+.row &`/a`&<&'n'&>   "put the number <&'n'&> points above the stave"
+.row &`/b`&          "put the number below"
+.row &`/b`&<&'n'&>   "put the number <&'n'&> points below the stave"
+.endtable
+
+When any of the above are used, a bracket is drawn unless the &`/n`& qualifier
+is also present. If no dimension is given after &`/a`& or &`/b`&, the vertical
+position is computed from the positions of the notes that form the group.
+
+.itable none 0 0 2  60 left  250 left
+.row &`/n`&          "no horizontal bracket"
+.row &`/f`&          "force a horizontal bracket"
+.row &`/lx`&         "invert the bracket's left-hand jog"
+.row &`/rx`&         "invert the bracket's right-hand jog"
+.endtable
+
+Very occasionally, when using coupled staves, it is useful to be able to alter
+the direction of the `jog' at one end of a tuplet bracket so that it points in
+the opposite direction to the jog at the other end. The qualifiers &`/lx`& and
+&`/rx`& request this, for the left-hand and right-hand jogs, respectively.
+
+.itable none 0 0 2  60 left  250 left
 .row &`/ld`&<&'n'&>  "move left end of bracket down <&'n'&> points"
 .row &`/lu`&<&'n'&>  "move left end of bracket up <&'n'&> points"
 .row &`/rd`&<&'n'&>  "move right end of bracket down <&'n'&> points"
 .row &`/ru`&<&'n'&>  "move right end of bracket up <&'n'&> points"
 .endtable
 
-The &`/x`& option suppresses the mark unless &%[tuplets]%& has been used to
-suppress all irregular note group marks, in which case &`/x`& causes the mark
-to appear. When a dimension is given after &`/a`& or &`/b`&, the value given is
-the position above or below the stave of the baseline of the numerical text for
-a horizontal bracket. Subsequent adjustment of either end of the bracket is
-then possible, as described above. If no dimension is given after &`/a`& or
-&`/b`&, the vertical position is computed from the positions of the notes that
-form the group. The left and right movements are available only if no
-horizontal bracket is being output; they are ignored otherwise. Here are some
-examples of the use of these options:
-.code
-{3/5/d1 a-a-a-b-b-}  {/b a-b-c-}  {/a/u3 dfg}  {2/d2/n a-a-}
-.endd
-If either of the &`/a`& or &`/b`& options is specified, it is assumed that the
-mark is being moved to the other side of the noteheads, and therefore the
-bracket is automatically added. The &`/n`& qualifier must be used if a bracket
-is not required in this circumstance.
+By default, PMW draws brackets for irregular note groups horizontal.
+Occasionally a sloping bracket is required. The above options have the effect
+of moving the left or right hand ends of the bracket up or down, respectively,
+by an amount specified after the option.
 
-By default, PMW draws the brackets for irregular note groups horizontal.
-Occasionally a sloping bracket is required; these can be obtained by means of
-the &`/lu`&, &`/ld`&, &`/ru`&, and &`/rd`& options on the opening curly
-bracket. They have the effect of moving the left or right hand ends of the
-bracket up or down, respectively, by an amount specified after the option.
-.code
-{/ld10 dfa}
-.endd
-This example moves the left hand end down by 10 points. Very occasionally, when
-using coupled staves, it is useful to be able to alter the direction of the
-`jog' at one end of a tuplet bracket so that it points in the opposite
-direction to the jog at the other end. The qualifiers &`/lx`& and &`/rx`&
-request this, for the left-hand and right-hand jogs, respectively.
+.itable none 0 0 2  60 left  250 left
+.row &`/u`&<&'n'&>   "move the entire mark up <&'n'&> points"
+.row &`/d`&<&'n'&>   "move the entire mark down <&'n'&> points"
+.row &`/l`&<&'n'&>   "move an unbracketed number left <&'n'&> points"
+.row &`/r`&<&'n'&>   "move an unbracketed number right <&'n'&> points"
+.endtable
 
+If any of these options appear more than once, the effect is cumulative. The
+left and right movements are available only if no horizontal bracket is being
+output; they are ignored otherwise.
 
 
 .subsection "Beam breaking in irregular note groups"
@@ -10691,7 +10748,9 @@ a primary beam appears to be too narrow.
 .index "bar lines" "beaming over"
 Consistent syncopation employing beamed notes is more logical and more graphic
 when the beaming is carried across the bar lines. This effect can be achieved
-in PMW by following the bar character by the &`=`& character.
+in PMW by following the bar encoding by an &`=`& character. In the simple case,
+&`=`& just follows a vertical bar, but if there are options (for a double bar,
+or barline style, for example) &`=`& must come last.
 .code
 r- g g- |= g-; g g- |= g-; g r- |
 .endd
@@ -10983,8 +11042,12 @@ are available:
 .row &`/ring`&        "enclose in a ring"    "&BM12;"
 .row &`/rot`&<&'n'&>  "rotate by <&'n'&> degrees"   "&BB12;"
 .row "&~"
-.row &`/s`&<&'n'&>    "use&~settable&~size&~<&'n'&>,&~where&~<&'n'&>&~is&~between&~1&~and&~20"
 .row &`/S`&<&'n'&>    "use&~fixed&~size&~<&'n'&>,&~where&~<&'n'&>&~is&~between&~1&~and&~10"
+.row &`/s`&<&'n'&>    "use&~settable&~size&~<&'n'&>,&~where&~<&'n'&>&~is&~between&~1&~and&~20"
+.row &`/sf`&          "use default figured bass size"
+.row &`/so`&          "use default overlay size"
+.row &`/su`&          "use default underlay size"
+.row "&~"             ""
 .row &`/u`&<&'n'&>    "move up <&'n'&> points"
 .row &`/d`&<&'n'&>    "move down <&'n'&> points"
 .row &`/l`&<&'n'&>    "move left <&'n'&> points"
@@ -11122,9 +11185,9 @@ individual syllable.
 .subsection "Text sizes" SUBSECTtextsizeoption
 .index "text" "sizes"
 .index "size" "of text"
-The &`/s`& option refers to the sizes of text defined by the &%textsizes%&
-header directive (&R; &<<SUBSECTtextsizes>>&); &`/s1`& specifies the first
-size, &`/s2`& specifies the second size, and so on.
+The &`/s`& option, when followed by a number, refers to the sizes of text
+defined by the &%textsizes%& header directive (&R; &<<SUBSECTtextsizes>>&);
+&`/s1`& specifies the first size, &`/s2`& specifies the second size, and so on.
 .code
 "Some text string"/s2
 .endd
@@ -11133,8 +11196,10 @@ for text that is not underlay, overlay, or figured bass is the size set by the
 &%[textsize]%& directive or, if that is not present, the first settable size.
 Underlay, overlay, and figured bass have their own default sizes, set by the
 &%underlaysize%&, &%overlaysize%&, and &%fbsize%& directives. The &`/s`& option
-can, however, be used with underlay, overlay, and figured bass text to specify
-a non-default size for an individual string.
+can be used with underlay, overlay, and figured bass text to specify a
+non-default size for an individual string. You can also set any string to the
+default underlay, overlay, or figured bass size by means of the options
+&`/su`&, &`/so`&, or &`/sf`&.
 
 As well as the 20 settable text sizes, there are 10 fixed sizes that cannot be
 changed. The &`/S`& option is used to select one of these sizes. The following
@@ -11188,10 +11253,10 @@ qualifiers, but a follow-on string must not have any explicit positioning
 qualifiers such as &`/a`&, or &`/ts`&. The starting point for a follow-on
 string is the endpoint of the preceding string. The only qualifiers that are
 permitted for follow-on strings are those for relative movement (&`/u`&,
-&`/d`&, &`/l`&, &`/r`&), &`/s`& or &`/S`& to select a font size, and &`/rot`&
-to specify a text rotation. A follow-on string that follows a rotated string
-starts from the rotated end point. Here are some silly examples (text size 2 is
-defined as 14 points):
+&`/d`&, &`/l`&, &`/r`&), those that select a font size (&`/S`&, &`/s`&,
+&`/sf`&, &`/so`&, &`/su`&), and &`/rot`& to specify a text rotation. A
+follow-on string that follows a rotated string starts from the rotated end
+point. Here are some silly examples (text size 2 is defined as 14 points):
 
 .code
 "small"/a " BIG "/s2/F "small"/F a
@@ -11231,24 +11296,31 @@ option in this example, to centre the text below each note:
 .section "Rehearsal marks" SECTrehearse
 .index "rehearsal marks"
 Rehearsal marks are specified as text items enclosed in square brackets. The
-text may be longer than one character. It is output above the stave, and by
-default is in bold type and enclosed in a rectangular box with mitred corners.
-The &%rehearsalmarks%& directive can be used to change the size and the font,
-to specify round corners for the box, or to specify a ring instead of a box, or
-to specify no enclosure at all. If necessary, a rehearsal mark can be moved up,
-down, left or right, in the same manner as other text. However, any other
-options that are given with the string are ignored (with a warning).
+text may be longer than one character. It is always output above the stave, and
+by default is in bold type and enclosed in a rectangular box with mitred
+corners. The &%rehearsalmarks%& directive can be used to change the size and
+the font, to specify round corners for the box, or to specify a ring instead of
+a box, or to specify no enclosure at all. If necessary, a rehearsal mark can be
+moved up, down, left or right, in the same manner as other text.
 .code
 ["A"/u2]
 .endd
-This example moves the mark two points upwards. Normally, a rehearsal mark is
-given at the start of a bar, and in this case it is immediately to the right of
-the preceding bar line when the bar is not the first in a system (that is, not
-the first in a line). At the start of the first bar in a system, a rehearsal
-mark is by default aligned with the first note in the bar, but the
-&%rehearsalmarks%& directive can be used to move it to the left edge of the
-system instead. If a rehearsal mark is given in the middle of a bar, it is
-aligned horizontally with the next note, exactly as for other text.
+This example moves the mark two points upwards. A rehearsal mark can also be
+positioned at a fixed level above the stave via the &`/a`& string option. For
+example:
+.code
+["B"/a8]
+.endd
+Any other options that are given with the string are ignored (with a warning).
+
+Normally, a rehearsal mark is given at the start of a bar, and in this case it
+is immediately to the right of the preceding bar line when the bar is not the
+first in a system (that is, not the first in a line). At the start of the first
+bar in a system, a rehearsal mark is by default aligned with the first note in
+the bar, but the &%rehearsalmarks%& directive can be used to move it to the
+left edge of the system instead. If a rehearsal mark is given in the middle of
+a bar, it is aligned horizontally with the next note, exactly as for other
+text.
 
 Rehearsal marks normally appear above the top stave of a score only, though in
 very large scores they are sometimes repeated part of the way down. If parts
@@ -11301,19 +11373,19 @@ example is shown in chapter &<<CHAPfirstintro>>&.
 .index "- (hyphen) in underlay string"
 .index "hyphen" "in underlay string"
 .index "strings" "hyphen in underlay"
-Hyphens are used to indicate that a multi-syllable word is to associated with
-several notes. All but the final syllable must end with a hyphen. This applies
-however the input is supplied &-- either as a separate syllable for each note
-or as a longer string that PMW splits up. PMW uses one or more hyphens in the
-output, depending on the distance between the syllables. The header directive
-&%hyphenthreshold%& can be used to specify the distance between syllables at
-which more than one hyphen will be used. The default value is 50 points. If the
-space is less than this, a single hyphen is used, centred in the space.
-Otherwise, a number of hyphens appear, the distance between them being the
-threshold value divided by three. PMW can alternatively use en-dash characters
-(or any other characters) as `hyphens' between syllables of underlaid text. See
-the &%hyphenstring%& header directive for details. Whatever is output, the
-syllable separator in the input remains a single hyphen.
+Hyphens are used to indicate that a multi-syllable word is to be associated
+with several notes. All but the final syllable must end with a hyphen. This
+applies however the input is supplied &-- either as a separate syllable for
+each note or as a longer string that PMW splits up. PMW uses one or more
+hyphens in the output, depending on the distance between the syllables. The
+header directive &%hyphenthreshold%& can be used to specify the distance
+between syllables at which more than one hyphen will be used. The default value
+is 50 points. If the space is less than this, a single hyphen is used, centred
+in the space. Otherwise, a number of hyphens appear, the distance between them
+being the threshold value divided by three. PMW can alternatively use en-dash
+characters (or any other characters) as `hyphens' between syllables of
+underlaid text. See the &%hyphenstring%& header directive for details. Whatever
+is output, the syllable separator in the input remains a single hyphen.
 
 PMW does not check that the number of syllables matches the number of notes,
 except that it warns if text is left over at the end of the stave. Each
@@ -11750,11 +11822,12 @@ The use of this directive is not confined to overprinted staves.
 .index "&%[backup]%&"
 .index "overprinting" "previous note"
 This directive moves the musical position in the bar back to that of the
-previous note, thus allowing the previous note to be overprinted. To overprint
-a whole bar, see &%[reset]%& (&R; &<<SUBSECTreset>>&), and to overprint a whole
-stave, use another stave with zero stavespacing (&R;
-&<<SUBSECTstavespacing>>&). &%[Backup]%& is an alternative to &%[reset]%&
-followed by invisible rests, but is not exactly equivalent:
+previous note, thus allowing the previous note to be overprinted. Only one
+backup is supported. To overprint a whole bar, see &%[reset]%& (&R;
+&<<SUBSECTreset>>&), and to overprint a whole stave, use another stave with
+zero stavespacing (&R; &<<SUBSECTstavespacing>>&). &%[Backup]%& is an
+alternative to &%[reset]%& followed by invisible rests, but is not exactly
+equivalent:
 
 .ilist
 After &%[reset]%& the state of the implied accidentals (relevant for MIDI
@@ -11891,7 +11964,7 @@ than one occurrence on the same page, the last value is used.
 [bottommargin 30]
 .endd
 This example, which may appear in any bar on the page, sets the margin for that
-page to 30 points.
+page to 30 points. See also &%[topmargin]%&.
 
 
 .subsection "[Bowing]"
@@ -12013,7 +12086,8 @@ the bar in which it appears, but it can also be explicitly cancelled by
 .index "ornaments" "complicated"
 In addition to their use for cue bars, &%[cue]%& and &%[endcue]%& can be used
 for handling complicated ornaments or optional notes. Another way of handling
-optional notes is to use the &`\sm\`& note option &R; &<<SUBSECTnoteheads>>&.)
+optional notes is to use the &`\sm\`& (`small') note option &R;
+&<<SUBSECTnoteheads>>&.)
 .index "optional notes"
 When cue notes are dotted, the dots are spaced horizontally in proportion to
 the size of the cue notes. However, when there are small optional notes with
@@ -12036,7 +12110,7 @@ on a stave line. The directive &%[dots]%& is provided for changing this. It
 must be followed by one of the words `above' or `below', and it applies to all
 subsequent notes on the stave, with the exception of certain adjacent notes in
 chords. Note that the position of an individual note's dot can be overridden by
-means of the &`\:\`& note option (&R; &<<SUBSECTnoteexpr>>&).
+means of the &`\:\`& and &`\::\`& note options (&R; &<<SUBSECTnoteexpr>>&).
 
 
 .subsection "[Doublenotes]" SUBSECTstavedoublenotes
@@ -12331,8 +12405,9 @@ tags.
 .index "&%[linegap]%&"
 .index "gaps" "in lines"
 .index "lines" "gaps in"
-The directive &%[linegap]%& requests that a gap be left in a line that was set
-up by the &%[line]%& directive. The following options are provided:
+The directive &%[linegap]%& requests that a gap be left in a line that was
+previously started by the &%[line]%& directive, but has not yet been ended. The
+following options are provided:
 .ilist
 &`/=`&<&'letter'&> is used to identify which line is being referenced, in
 exactly the same way as it is used on the &%[endline]%& directive.
@@ -12352,7 +12427,7 @@ If &`/h`& is used when a line is split between two systems, it is applied to
 whichever part of the line the &%[linegap]%& directive falls in.
 .next
 &`/l`& and &`/r`& are used to move the position of the gap to the left or to
-the right by a given number of points.
+the right by a given number of points along the line.
 .next
 .index "drawing facility" "in line gaps"
 &`/draw`& <&'arguments'&> <&'name'&> specifies that the named drawing is to be
@@ -12360,14 +12435,15 @@ associated with the gap. &*Warning*&: take care not to leave out the &`/`& by
 mistake. If a space is used instead, the drawing is no longer associated with
 the line gap, but with the following note. When defining drawings that are to
 be used with line gaps, it is useful to know that the width of lines drawn by
-&%[line]%& is 0.3 points. The drawing code is obeyed with the origin of the
-coordinate system set to the centre of the gap, and the variables &%linegapx%&
-and &%linegapy%& containing the coordinates of the start of the right-hand
-portion of the line relative to this origin. For a horizontal line,
-&%linegapx%& is half the width of the gap, and &%linegapy%& is zero.
+&%[line]%& is 0.3 points. When the drawing code is obeyed, the coordinate
+system's origin is set to the centre of the gap, but there is no rotation for
+sloping lines. The variables &%linegapx%& and &%linegapy%& contain the
+coordinates of the start of the right-hand portion of the line relative to this
+temporary origin. For a horizontal line, &%linegapx%& is half the width of the
+gap, and &%linegapy%& is zero.
 .next
 .index "text" "in line gaps"
-&`/"`&&'text'&&`"`& associates the text with the gap.
+&`/"`&&'text'&&`"`& associates text with the gap.
 .code
 [linegap/"\it\ad lib."]
 .endd
@@ -12377,9 +12453,9 @@ set to the length of the text plus a little bit. The text is centred in the
 gap, rotated so that it has the same slope as the line. The text option must be
 the last option for &%[linegap]%& because any further options are taken as
 options that apply to the string. The following text options are available:
-&`/u`&, &`/d`&, &`/l`&, &`/r`&, &`/s`&, &`/S`&, &`/box`&, &`/rbox`&, and
-&`/ring`&. The movements are relative to a coordinate system whose `horizontal'
-axis lies on the line joining the ends of the gap.
+&`/u`&, &`/d`&, &`/l`&, &`/r`&, &`/S`&, &`/s`&, &`/sf`&, &`/so`&, &`/su`&,
+&`/box`&, &`/rbox`&, and &`/ring`&. The movements are relative to a coordinate
+system whose `horizontal' axis lies on the line joining the ends of the gap.
 .endlist
 
 A drawing or text string can be associated with the start or end of a line by
@@ -12703,11 +12779,11 @@ header directive.
 .index "odd bar lengths"
 .index "variable bar lengths"
 It is sometimes useful to disable PMW's checking of bar lengths (at the start
-or end of a piece, for example). The directive &%[nocheck]%& suppresses this
-check, for the current bar only. (See the header directive of the same name
-for suppressing the check globally.) You can omit &%[nocheck]%& from completely
-empty bars and bars in which nothing appears other than a whole bar rest
-indication.
+or end of a piece, for example). If &%[nocheck]%& appears anywhere in a bar, it
+suppresses the bar length check, but only for the current bar in the current
+stave. (See the header directive of the same name for suppressing the check
+globally.) You can omit &%[nocheck]%& from completely empty bars and bars in
+which nothing appears other than a whole bar rest indication.
 
 
 .subsection "[Noclef]"
@@ -12902,8 +12978,10 @@ force.
 .index "&%[olevel]%&"
 .index "&%[olhere]%&"
 These directives control the position of the overlay level in exactly the same
-way as &%[ulevel]%& and &%[ulhere]%& for the underlay level (&R;
-&<<SUBSECTulevelhere>>&).
+way as &%[ulevel]%& and &%[ulhere]%& do for the underlay level (&R;
+&<<SUBSECTulevelhere>>&). Note that the fixed position specified by
+&%[olevel]%& is relative to the &'bottom'& line of the stave, so that, for
+example, &`[olevel 20]`& is four points above the top of the stave.
 
 
 .subsection "[Oltextsize]"
@@ -13476,10 +13554,14 @@ r [slur/co3/lu2] G`+ [slurgap/w30/r10] | [key e$] c G' [es] |
 Specifying a gap associated with a text string or a drawing function provides a
 way of adding arbitrary annotation to a slur &-- a width of zero can be given
 if no actual gap in the slur is required. When an associated drawing function
-is obeyed, the origin is halfway along the straight line joining the edges of
-the gap, and the &%linegapx%& and &%linegapy%& variables are set as for
-&%[linegap]%&. Bracketed slurs can be done using a drawing function, but the
-text option is probably easier.
+is obeyed, the coordinate system origin is halfway along the straight line
+joining the edges of the gap, but there is no rotation. The &%linegapx%& and
+&%linegapy%& variables contain the coordinates of the start of the right-hand
+portion of the slur relative to this temporary origin.
+
+
+Bracketed slurs can be done using a drawing
+function, but the text option is probably easier.
 .code
 [slur slurgap/h0/w0/"(  " slurgap/h1/w0/"  )"]
 .endd
@@ -13725,9 +13807,11 @@ When both horn parts are being output, the text is shown halfway between them,
 but if the second stave is suspended, the text aligns with the first stave.
 
 You can specify a size for text at the start of a stave by following the string
-with &`/s`& or &`/S`& and a number. For &`/s`&, the number selects a text size
-from the list given to the &%textsizes%& directive, whereas &`/S`& selects one
-of the fixed sizes (&R; &<<SUBSECTtextsizeoption>>&).
+with &`/S`& or &`/s`& and a number or by &`/sf`&, &`/so`& or &`/su`&. For
+&`/s`&, the number selects a text size from the list given to the &%textsizes%&
+directive, whereas &`/S`& selects one of the fixed sizes (&R;
+&<<SUBSECTtextsizeoption>>&). The others select the default figured bass,
+overlay, or underlay size, respectively.
 .code
 [stave 1 "Flute"/s2]
 .endd
@@ -14053,8 +14137,8 @@ the default size to be used for text that is neither underlay nor overlay nor
 figured bass, which have their own size setting directives. The actual font
 sizes that correspond to the twenty numbers are set by the &%textsizes%&
 header directive. If this directive is not used, the default size is size 1.
-Individual text strings can have their sizes set by means of the &`/s`& option,
-or by &`/S`&, which selects from a set of fixed sizes.
+Individual text strings can have their sizes set by means of the &`/S`&,
+&`/s`&, &`/sf`&, &`/so`& or &`/su`& options.
 
 
 .subsection "[Tick]"
@@ -14077,7 +14161,7 @@ subsequent ties that are not explicitly marked. The argument must be one of the
 words `above', `up', `below', `down', or 'auto' &-- the last causing a
 reversion to the default state.
 .index "chords" "tied"
-The effect of this directove on chords is to force &'all'& the tie marks for a
+The effect of this directive on chords is to force &'all'& the tie marks for a
 chord to the given side of the noteheads by default. However, when overriding
 the default for an individual chord, you can specify that some are above and
 some below the noteheads (&R; &<<SUBSECTshortslur>>&).
@@ -14148,6 +14232,7 @@ This directive provides a way of changing the value given by the &%topmargin%&
 header directive for a single page only. If there is more than one occurrence
 on the same page, the last value is used. To leave 30 points at the top of one
 particular page, for example, use &%[topmargin 30]%& in any bar on that page.
+See also &%[bottommargin]%&.
 
 
 .subsection "[Transpose]"
@@ -14300,14 +14385,14 @@ for subsequent irregular groups.
 This example causes subsequent marks to be four points higher than they would
 otherwise appear. Brackets can be forced or inhibited by means of `bracket' and
 `nobracket'. If neither has been specified, a bracket is drawn unless the note
-group is beamed.
+group contains beamed notes.
 
 The `auto' option resets both the position and the bracketing options to their
 initial states, where the marks are placed above or below the notes, depending
-on their pitch, and the bracket is omitted if the notes are beamed. Options
-given on an individual note group override the defaults set by the
-&%[tuplets]%& directive. Note that the use of &`/a`& or &`/b`& forces a
-bracket to be drawn, unless followed by &`/n`&.
+on their pitch, and the bracket is omitted if there are beamed notes. Options
+given on an individual note group (&R; &<<SUBSECTtupopt>>&) override the
+defaults set by the &%[tuplets]%& directive. Note that the use of &`/a`& or
+&`/b`& forces a bracket to be drawn, unless followed by &`/n`&.
 
 
 .subsection "[Ulevel] and [ulhere]" SUBSECTulevelhere
@@ -15463,15 +15548,29 @@ on its own.
 .display
 &`*comment `&<&'rest of line'&>
 &`*define `&<&'macro name'&>&` `&<&'rest of line'&>
+&`*include `&"&'file name'&"
+&`*if`& <&'condition'&>
 &`*else`&
 &`*fi`&
-&`*if`& <&'condition'&>
-&`*include `&"&'file name'&"
 .endd
 A macro name must be followed by parentheses, with optional default argument
 values, if it is to be used with arguments. A condition may consist of multiple
 sub-conditions, separated by `and' or `or'; each may optionally be preceded by
-`not'.
+`not'. They are processed from left to right. Parentheses are not supported.
+The available conditions are:
+.display
+&`def `&<&'macro name'&>
+&`format`&
+&`part`&
+&`pdf`&
+&`score`&
+&`stave(s) `&<&'stave number or range'&>
+&`transpose `&[<&'n'&>]
+&`undef `&<&'macro name'&>
+.endd
+A word that follows &`*if`& that is not one of the above is assumed to be a
+format word chosen by the user, to be set by the &%-f%& command line option
+when needed.
 
 
 .section "Macro calls"
@@ -15499,7 +15598,7 @@ dagger affect only the movement in which they appear.
 &` Accadjusts `&<&'n'&>&` `&<&'n'&> ... <&'up to 8 numbers'&>
 &` Accspacing `&<&'n1'&>&` `&<&'n2'&>&` `&<&'n3'&>&` `&<&'n4'&>&` `&<&'n5'&>
 &`*B2pffont `&<&'fontword'&>&` `&<&'options'&>&` "`&<&'rules names'&>&`"`&
-&` Bar `&<&'n'&>
+&`&dagger;Bar `&<&'n'&>
 &` Barlinesize `&<&'n'&>
 &` Barlinespace `&<&'n'&>
 &` Barlinestyle `&<&'n'&>
@@ -15612,7 +15711,10 @@ dagger affect only the movement in which they appear.
 &` Pageheading draw `&<&'name'&>&` `&<&'space'&>
 &`*Pagelength `&<&'n'&>
 &` Pmwversion `&<&'n'&>
+&`*Printadjust `&<&'x'&>&` `&<&'y'&>
+&`*Printgutter `&<&'x'&>
 &` Printkey `&<&'key'&>&` `&<&'clef'&>&` "`&<&'string 1'&>&`" "`&<&'string 2'&>&`"`&
+&`*Printscale `&<&'n'&>
 &` Printtime `&<&'time'&>&` "`&<&'string 1'&>&`" "`&<&'string 2'&>&`"`&
 &` Rehearsalmarks `&<&'align'&>&` `&<&'style'&>&` `&<&'fontsize'&>&` `&<&'fontname'&>
 &` Repeatbarfont `&<&'fontsize'&>&` `&<&'font'&>
@@ -15632,7 +15734,7 @@ dagger affect only the movement in which they appear.
 &` Stavespacing `&<&'n'&>&` `&<&'n/b'&> ...
 &` Stavespacing `&<&'n'&>&` `&<&'n/a/b'&> ...
 &` Stemlengths `&<&'n1'&> ... <&'n6'&>
-&` Stemswap `&<&'direction'&>
+&` Stemswap `&<&'rule'&>
 &` Stemswaplevel `&<&'n'&>/<&'m'&> ...
 &`*Stretchrule `&<&'n'&>
 &`&dagger;Suspend `&<&'n'&> ...
@@ -15668,10 +15770,11 @@ dagger affect only the movement in which they appear.
 .section "Note and rest components"
 The order of the items that go to make up one note is given below. Few notes
 require all possible components to be present and many are not relevant for
-rests. An upper case letter sets the initial note length of a minim, and a
-lower case letter is a crotchet, with &`+`&, &`-`&, &`=`&, and &`!`& characters
-available to adjust the length. Except for &`!`&, which may only follow an
-upper case letter, these can be freely intermixed.
+rests. In the default state (no doubling or halving in force) an upper case
+letter sets the note length to be a minim, and a lower case letter is a
+crotchet, with &`+`&, &`-`&, &`=`&, and &`!`& characters available to adjust
+this length. Except for &`!`&, which may only follow an upper case letter,
+these can be freely intermixed.
 
 .itable none 0 0 2  100 left  250 left
 .row "accidental"          "&`# ## $ $$ %`&
@@ -15685,8 +15788,9 @@ upper case letter, these can be freely intermixed.
 .row "&~&~&~moved"         "&`<`& &~or&~ &`<`&&'number'&"
 .row "note or rest letter" "&`a-g A-G q-t Q-T`&"
 .row "octave change"       "&`'`& &~to raise,&~ &```& &~to lower"
-.row "note length flags"   "&`- = =- ==`& &~divide length by 2, 4, 8, or 16"
-.row ""                    "&`+ ++`& &~multiply length by 2 or 4"
+.row "note length flags"   "&`-`& &~divide length by 2"
+.row ""                    "&`=`& &~divide length by 4"
+.row ""                    "&`+`& &~multiply length by 2"
 .row ""                    "&`!`& &~note length is bar length"
 .row "move dot"            "&`>`& &~or&~ &'number'&&`>`&"
 .row "dot(s)"              "&`.`& &~or&~ &`..`& &~or&~ &`...`& &~or&~ &`....`& &~or&~ &`.+`&"
@@ -15706,7 +15810,8 @@ There are two short cuts for note entry:
 .row "pitch only copy"     "&`p`& or &`P`&"
 .endtable
 
-The possible expression/option codes are:
+The possible expression/option codes, which must be between backslashes
+following the note are:
 
 .itable none 0 0 2  48 left  300 left
 .row &`!`&            "accent on stem side, trill or fermata below"
@@ -15886,8 +15991,11 @@ follow-on strings (&R; &<<SUBSECTfollowon>>&).
 .row &`/rc`&<&'n'&>    "position right <&'n'&> crotchets"
 .row &`/ring`&         "enclose in a ring shape"
 .row &`/rot`&<&'n'&>   "rotate <&'n'&> degrees"
-.row &`/s`&<&'n'&>     "use settable font size <&'n'&> (1&--20)"
 .row &`/S`&<&'n'&>     "use fixed font size <&'n'&> (1&--10)"
+.row &`/s`&<&'n'&>     "use settable font size <&'n'&> (1&--20)"
+.row &`/sf`&           "use figured bass font size"
+.row &`/so`&           "use overlay font size"
+.row &`/su`&           "use underlay font size"
 .row &`/ts`&           "position at time signature"
 .row &`/ul`&           "string is underlay"
 .row &`/u`&<&'n'&>     "move up <&'n'&> points"
@@ -15909,8 +16017,11 @@ These are the only options that are recognized for strings given in the
 .row &`/l`&<&'n'&>     "move left <&'n'&> points"
 .row &`/m`&            "position below, halfway to the next stave"
 .row &`/r`&<&'n'&>     "move right <&'n'&> points"
-.row &`/s`&<&'n'&>     "use settable font size <&'n'&> (1&--20)"
 .row &`/S`&<&'n'&>     "use fixed font size <&'n'&> (1&--10)"
+.row &`/s`&<&'n'&>     "use settable font size <&'n'&> (1&--20)"
+.row &`/sf`&           "use figured bass font size"
+.row &`/so`&           "use overlay font size"
+.row &`/su`&           "use underlay font size"
 .row &`/u`&<&'n'&>     "move up <&'n'&> points"
 .row &`/v`&            "rotate to run vertically"
 .row &`/"...`&         "add another string at the same point"
@@ -15934,7 +16045,6 @@ remaining escape sequences insert is summarized here.
 .row &`\t\`&    "transposition (number of semitones)"
 .row &`\t`&&'x'&  "transpose chord name &'x'& (one of A&--G, optionally followed by &`#`& or &`$`&)"
 .row &`\@`&     "start of in-string comment; ends at next &`\`&"
-.row " "
 .row &`\*b\`&   "breve"
 .row &`\*s\`&   "semibreve"
 .row &`\*m\`&   "minim"
@@ -16025,7 +16135,7 @@ rests:
 .row "&`[3rd]`&"                 "third time bar"
 .row "&`[`&<&'n'&>&`th]`&"       "<&'n'&>th time bar"
 .row "&`[""`&&'text'&&`""/`&&'options'&&`]`&"  "rehearsal mark"
-.row " "
+.row "&~"
 .row "&`[all]`&"                             "end 1st/2nd time bars"
 .row "&`[alto `&<&'octave'&>&`]`&"           "select alto clef"
 .row "&`[assume `&<&'setting'&>&`]`&"        "assume key, time, or clef"
@@ -16175,8 +16285,8 @@ rests:
 .row "&`[unbreakbarline]`&"                  "join one barline to next stave"
 .row "&`[underlayfont `&<&'name'&>&`]`&"     "set default underlay font"
 .row "&`[x]`&"                               "synonym for &`[noteheads cross]`&"
-.row "&`[xline]`&"                           "crossing line"
-.row "&`[xslur `&<&'args'&>&`]`&"            "crossing slur"
+.row "&`[xline/`&<&'options'&>&`]`&"         "crossing line"
+.row "&`[xslur/`&<&'options'&>&`]`&"         "crossing slur"
 .row "&`[z]`&"                               "synonym for &`[noteheads none]`&"
 .endtable
 
@@ -16194,8 +16304,9 @@ rests:
 .row &`/h`&           "force horizontal slur"
 .row &`/i`&           "intermittent (dashed) slur"
 .row &`/ip`&          "intermittent point (dotted) slur"
+.row &`/w`&           "wiggly slur"
 .row &`/`&<&'n'&>     "following options apply only to section <&'n'&>"
-.row " "
+.row "&~"
 .row &`/ll`&<&'n'&>   "move the left end left by <&'n'&> points"
 .row &`/lr`&<&'n'&>   "move the left end right by <&'n'&> points"
 .row &`/rl`&<&'n'&>   "move the right end left by <&'n'&> points"
@@ -16206,7 +16317,7 @@ rests:
 .row &`/rlc`&<&'n'&>  "move the right end left by <&'n'&> crotchets"
 .row &`/rrc`&<&'n'&>  "move the right end right by <&'n'&> crotchets"
 .row &`/cx`&          "&`/rlc`& and &`/rrc`& are relative to next note"
-.row " "
+.row "&~"
 .row &`/u`&<&'n'&>    "raise the entire slur by <&'n'&> points"
 .row &`/d`&<&'n'&>    "lower the entire slur by <&'n'&> points"
 .row &`/lu`&<&'n'&>   "raise the left end by <&'n'&> points"
@@ -16215,7 +16326,7 @@ rests:
 .row &`/rd`&<&'n'&>   "lower the right end by <&'n'&> points"
 .row &`/ci`&<&'n'&>   "move the centre in by <&'n'&> points"
 .row &`/co`&<&'n'&>   "move the centre out by <&'n'&> points"
-.row " "
+.row "&~"
 .row &`/clu`&<&'n'&>  "move left control point up <&'n'&> points"
 .row &`/cld`&<&'n'&>  "move left control point down <&'n'&> points"
 .row &`/cll`&<&'n'&>  "move left control point left <&'n'&> points"
@@ -16236,6 +16347,33 @@ lines can take the following options:
 .row &`/ol`&  "requests that the line be `open on the left'"
 .row &`/or`&  "requests that the line be `open on the right'"
 .endtable
+
+Options that begin with any of the letters &`abehiow`& are not permitted after
+an option that selects part of a split slur (for example, &`/2`&).
+
+
+.section "Tuplet options"
+
+.itable none 0 0 2  60 left  250 left
+.row &`/a`&          "put the number above"
+.row &`/a`&<&'n'&>   "put the number <&'n'&> points above the stave"
+.row &`/b`&          "put the number below"
+.row &`/b`&<&'n'&>   "put the number <&'n'&> points below the stave"
+.row &`/d`&<&'n'&>   "move the entire mark down <&'n'&> points"
+.row &`/f`&          "force a horizontal bracket"
+.row &`/l`&<&'n'&>   "move an unbracketed number left <&'n'&> points"
+.row &`/ld`&<&'n'&>  "move left end of bracket down <&'n'&> points"
+.row &`/lu`&<&'n'&>  "move left end of bracket up <&'n'&> points"
+.row &`/lx`&         "invert the bracket's left-hand jog"
+.row &`/n`&          "no horizontal bracket"
+.row &`/r`&<&'n'&>   "move an unbracketed number right <&'n'&> points"
+.row &`/rd`&<&'n'&>  "move right end of bracket down <&'n'&> points"
+.row &`/ru`&<&'n'&>  "move right end of bracket up <&'n'&> points"
+.row &`/rx`&         "invert the bracket's right-hand jog"
+.row &`/u`&<&'n'&>   "move the entire mark up <&'n'&> points"
+.row &`/x`&          "suppress or unsuppress the number"
+.endtable
+
 
 
 .section "Default values"
@@ -16309,22 +16447,23 @@ lines can take the following options:
 .appendix "Reading MusicXML files" "APPA"
 .index "MusicXML" "input files"
 The ability to read MusicXML input in addition to PMW's own input format was
-added in release 5.10. However, this is highly experimental and is currently
-very incomplete (and probably quite buggy). Please do not expect great things
-of it.
+added in release 5.10. MusicXML support is an optional part of PMW. To use it
+you must add &`--enable-musicxml`& when running &`./configure`& before building
+PMW. When this is not done, MusicXML files are still recognized as such, but
+cannot be processed and so cause a hard error.
 
-There is a particular problem with MusicXML parts that use two or more staves.
-PMW can mostly handle a treble/bass clef pair if the notes are straightforward,
-but MusicXML examples exist which do weird things such as ending a slur on one
-stave before starting it on another after `backing up'. This particular case
-causes PMW to give an error, but in other situations the result is just crazy
-output.
+MusicXML support is experimental (and probably quite buggy). Please do not
+expect great things of it. There is a particular problem with MusicXML parts
+that use two or more staves. PMW can mostly handle a treble/bass clef pair if
+the notes are straightforward, but MusicXML examples exist which do weird
+things such as ending a slur on one stave before starting it on another after
+`backing up'. This particular case causes PMW to give an error, but in other
+situations the result is just crazy output.
 
-The MusicXML-reading code is an optional part of PMW. To use it you must add
-&`--enable-musicxml`& when running &`./configure`& before building PMW. When
-this is not done, MusicXML files are still recognized as such, but cannot be
-processed and so cause a hard error. There are two situations in which MusicXML
-files are recognized:
+There is no support for music transposition when reading a MusicXML input file.
+However, if it is converted to a PMW input file (see below) transposition could
+then be applied. There are two situations in which MusicXML files are
+recognized:
 
 .ilist
 If the first line of PMW's input file begins with &`<?xml version=`& the
@@ -16360,6 +16499,18 @@ No transposition is applied to the MusicXML notes.
 Some exotic effects are possible by mixing PMW staves with MusicXML files. The
 full extent has not been explored.
 
+If you want to import a MusicXML file and make changes to the music itself, you
+have to convert the music to a PMW input file that you can edit. The command
+line option
+.display
+&`-pmw`& <&'file name'&>
+.endd
+causes PMW to write a copy of the music to the named file in PMW input format
+in addition to writing the normal PostScript or PDF output. Command line
+options that select staves or pages do not affect this output.
+
+
+
 
 
 . ////////////////////////////////////////////////////////////////////////////
@@ -16376,8 +16527,8 @@ handled as text strings in PMW whereas MusicXML has dedicated elements for
 dynamics.
 
 The ability to write MusicXML output in addition to PostScript, PDF, and MIDI
-was added to PMW in release 5.33. However, this is experimental and currently
-incomplete (and probably quite buggy). Please do not expect great things of it.
+was added to PMW in release 5.33. However, this is experimental (and probably
+quite buggy). Please do not expect great things of it.
 
 MusicXML output is requested by means of the &%-musicxml%& or &%-xml%& command
 line option, which must supply a file name. This output is in addition to the
