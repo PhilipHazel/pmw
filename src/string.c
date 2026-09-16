@@ -2135,37 +2135,11 @@ while (read_c == '/' && main_readbuffer[read_i] != '/')
     break;
 
     case 'S':
-    read_nextc();
-    if (read_expect_integer(&b->size, FALSE, FALSE))
-      {
-      if (b->size == 0 || b->size - 1 >= FixedFontSizes)
-        {
-        error(ERR75, FixedFontSizes);
-        b->size = 0;
-        }
-      else b->size += UserFontSizes - 1;
-      }
+    b->size = pmw_read_fixed_fontsize();
     break;
 
     case 's':
-    read_nextc();
-    if (!isdigit(read_c))
-      {
-      if (read_c == 'u') b->size = ff_offset_ulay;
-      else if (read_c == 'o') b->size = ff_offset_olay;
-      else if (read_c == 'f') b->size = ff_offset_fbass;
-      else error(ERR8, "/su, /so, or /sf");
-      read_nextc();  
-      }   
-    else if (read_expect_integer(&b->size, FALSE, FALSE))
-      {
-      if (b->size == 0 || b->size - 1 >= UserFontSizes)
-        {
-        error(ERR75, UserFontSizes);
-        b->size = 0;
-        }
-      else b->size--;  /* Base 0 offset */
-      }
+    b->size = pmw_read_settable_fontsize();
     break;
 
     case 't':
@@ -2276,14 +2250,14 @@ more = read_basestring(s1, rehearse, NULL, NULL);
 if (s1->string == NULL) return;    /* There's been an error */
 
 /* Non-movement options other than absolute above and size settings are ignored
-on rehearsal marks; they always use the rehearsal marks style and size, and 
+on rehearsal marks; they always use the rehearsal marks style and size, and
 rehearsal marks are always above the stave. */
 
-if (rehearse && 
+if (rehearse &&
      ((s1->flags & ~(text_above|text_absolute)) != 0 || s1->size >= 0 ||
       (s1->flags & text_above) == 0))
   {
-  error(ERR178);  /* Warning */ 
+  error(ERR178);  /* Warning */
   s1->flags = 0;  /* No flags */
   s1->size = -1;  /* Unset */
   }
@@ -2300,13 +2274,13 @@ if (undoverlay)
     {
     default_font = srs.ulfont;
     if (s1->size < 0) s1->size = srs.ulsize;
-    if ((srs.textsuppress & txtsup_underlay) != 0) s1->flags |= text_suppress; 
+    if ((srs.textsuppress & txtsup_underlay) != 0) s1->flags |= text_suppress;
     }
   else
     {
     default_font = srs.olfont;
     if (s1->size < 0) s1->size = srs.olsize;
-    if ((srs.textsuppress & txtsup_overlay) != 0) s1->flags |= text_suppress; 
+    if ((srs.textsuppress & txtsup_overlay) != 0) s1->flags |= text_suppress;
     }
   }
 
@@ -2314,7 +2288,7 @@ else if ((s1->flags & text_fb) != 0)
   {
   default_font = srs.fbfont;
   if (s1->size < 0) s1->size = srs.fbsize;
-  if ((srs.textsuppress & txtsup_fb) != 0) s1->flags |= text_suppress; 
+  if ((srs.textsuppress & txtsup_fb) != 0) s1->flags |= text_suppress;
   }
 
 /* Currently, the size of individual rehearsal marks cannot be changed. */

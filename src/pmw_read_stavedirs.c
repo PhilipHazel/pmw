@@ -258,7 +258,6 @@ while (*ss != 0) if (PCHAR(*ss++) == ss_verticalbar) p->linecount += 1;
 
 while (read_c == '/')
   {
-  int32_t size;
   uschar *t;
   const uschar *s = US"cemv";
 
@@ -274,32 +273,11 @@ while (read_c == '/')
   else switch(read_c)
     {
     case 'S':
-    read_nextc();
-    if (!read_expect_integer(&size, FALSE, FALSE)) break;
-    if (--size < 0 || size >= FixedFontSizes) error(ERR75, FixedFontSizes);
-    p->size = size + UserFontSizes;
+    p->size = pmw_read_fixed_fontsize();
     break;
 
     case 's':
-    read_nextc();
-    if (!isdigit(read_c))
-      {
-      if (read_c == 'u') size = ff_offset_ulay;
-      else if (read_c == 'o') size = ff_offset_olay;
-      else if (read_c == 'f') size = ff_offset_fbass;
-      else
-        {
-        error(ERR8, "/su, /so, or /sf");
-        size = 0;
-        }
-      read_nextc();
-      }
-    else
-      {
-      if (!read_expect_integer(&size, FALSE, FALSE)) break;
-      if (--size < 0 || size >= UserFontSizes) error(ERR75, UserFontSizes);
-      }
-    p->size = size;
+    p->size = pmw_read_settable_fontsize();
     break;
 
     case 'd':
@@ -1763,41 +1741,11 @@ while (read_c == '/')
         break;
 
         case 'S':
-        read_nextc();
-        read_expect_integer(&x, FALSE, FALSE);
-        if (x == 0 || --x  >= FixedFontSizes)
-          {
-          error(ERR75, FixedFontSizes);
-          x = 0;
-          }
-        p->textsize = x + UserFontSizes;
+        p->textsize = pmw_read_fixed_fontsize();
         break;
 
         case 's':
-        read_nextc();
-        if (!isdigit(read_c))
-          {
-          if (read_c == 'u') x = ff_offset_ulay;
-          else if (read_c == 'o') x = ff_offset_olay;
-          else if (read_c == 'f') x = ff_offset_fbass;
-          else
-            {
-            error(ERR8, "/su, /so, or /sf");
-            x = 0;
-            }
-          p->textsize = x;
-          read_nextc();
-          }
-        else
-          {
-          read_expect_integer(&x, FALSE, FALSE);
-          if (x == 0 || --x  >= UserFontSizes)
-            {
-            error(ERR75, UserFontSizes);
-            x = 0;
-            }
-          p->textsize = x;
-          }
+        p->textsize = pmw_read_settable_fontsize();
         break;
 
         case 'r':

@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2025 */
 /* This file created: December 2020 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -761,8 +761,8 @@ for (i = 0; i < (sizeof(clef_shapes)/sizeof(uint8_t)) && isdigit(read_c); i++)
     {
     error(ERR205);
     read_nextc();
-    while (isdigit(read_c)) read_nextc();  
-    }   
+    while (isdigit(read_c)) read_nextc();
+    }
   if (read_c == ',') read_nextc();
   read_sigc();
   for (j = 0; j < CLEF_COUNT; j++)
@@ -1849,7 +1849,7 @@ print_magnification = mac_muldiv(print_magnification, m, 1000);
 *************************************************/
 
 /* Local subroutine to deal with one PMW string possibly followed by /s or /S
-and a number.
+and a number or /sf, /so, /su.
 
 Arguments:
   s          pointer to where to put a pointer to the string
@@ -1866,27 +1866,16 @@ if (*s == NULL) return FALSE;
 
 if (read_c == '/')
   {
-  int32_t size;
   read_nextc();
   if (read_c == 's')
-    {
-    read_nextc();
-    if (!read_expect_integer(&size, FALSE, FALSE)) return FALSE;
-    if ((size -= 1) >= UserFontSizes) return error(ERR75, UserFontSizes);
-    }
+    *sizeptr = pmw_read_settable_fontsize();
   else if (read_c == 'S')
-    {
-    read_nextc();
-    if (!read_expect_integer(&size, FALSE, FALSE)) return FALSE;
-    if ((size -= 1) >= FixedFontSizes) return error(ERR75, FixedFontSizes);
-    size += UserFontSizes;
-    }
+    *sizeptr = pmw_read_fixed_fontsize();
   else
     {
     error(ERR8, "/s or /S");
     return FALSE;
     }
-  *sizeptr = size;
   }
 else *sizeptr = ff_offset_ts;
 

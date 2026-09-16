@@ -87,6 +87,8 @@ documentation is wrong for this; will be corrected.)
 25. Fix an issue in PDF output: font type was set to "OpenType" for standard 
 fonts when it should be "Type1".
 
+26. Consolidate repeated code for handling /s and /S into a subroutine.
+
 
 Version 5.33 22-December-2025
 -----------------------------

@@ -363,7 +363,7 @@ textptr->size = 0;
 
 while (read_c == '/')
   {
-  int32_t delta, size;
+  int32_t delta;
   read_nextc();
 
   switch (read_c)
@@ -408,37 +408,6 @@ while (read_c == '/')
     read_nextc();
     break;
 
-    case 's':
-    read_nextc();
-    if (!isdigit(read_c))
-      {
-      if (read_c == 'u') size = ff_offset_ulay;
-      else if (read_c == 'o') size = ff_offset_olay;
-      else if (read_c == 'f') size = ff_offset_fbass;
-      else error(ERR8, "/su, /so, or /sf");
-      read_nextc();
-      }
-    else if (read_expect_integer(&size, FALSE, FALSE))
-      {
-      if (--size < 0 || size >= UserFontSizes)
-        {
-        error(ERR75, UserFontSizes);
-        size = 0;
-        }
-      }
-    textptr->size = size;
-    break;
-
-    case 'S':
-    read_nextc();
-    if (read_expect_integer(&size, FALSE, FALSE))
-      {
-      if (--size < 0 || size >= FixedFontSizes)
-        { error(ERR75, FixedFontSizes); size = 0; }
-      textptr->size = UserFontSizes + size;
-      }
-    break;
-
     case 'r':
     if (Ustrncmp(main_readbuffer + read_i, "ot", 2) == 0)
       {
@@ -467,6 +436,14 @@ while (read_c == '/')
       read_nextc();
       if (read_expect_integer(&delta, TRUE, TRUE)) textptr->xdelta += delta;
       }
+    break;
+
+    case 'S':
+    textptr->size = pmw_read_fixed_fontsize();
+    break;
+
+    case 's':
+    textptr->size = pmw_read_settable_fontsize();
     break;
 
     case 'u':

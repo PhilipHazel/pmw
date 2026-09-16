@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: December 2020 */
-/* This file last modified: June 2026 */
+/* This file last modified: September 2026 */
 
 /* -------- General functions -------- */
 
@@ -107,7 +107,9 @@ extern void         pout_string(uint32_t *, fontinststr *, int32_t *,
                       int32_t *, BOOL, void(*)(uint32_t *, usint, fontinststr *,
                       int32_t, int32_t, BOOL));
 extern void         pmw_read(void);
+extern int32_t      pmw_read_fixed_fontsize(void);
 extern void         pmw_read_header(void);
+extern int32_t      pmw_read_settable_fontsize(void);
 extern void         pmw_read_stave(void);
 
 extern void         preprocess_line(void);
