@@ -4,7 +4,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: April 2026 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -862,9 +862,9 @@ for (usint movt = 0; movt < movement_count; movt++)
         break;
         }
       }
-    ENDLAYOUT:
     }
-
+  ENDLAYOUT:
+   
   /* ---- Suspend ---- */
 
   if (m->suspend_staves != 0) write_stavebits(m->suspend_staves, "suspend");
@@ -882,7 +882,10 @@ for (usint movt = 0; movt < movement_count; movt++)
 
   /* Some things are known not to be supported (yet?) */
 
+#if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
   if (font_call_b2pf) error(ERR202, "B2PFfont");
+#endif   
+   
   if (draw_tree != NULL) error(ERR202, "draw");
   if (main_keytranspose != NULL) error(ERR202, "keytranspose");
 
@@ -1318,7 +1321,7 @@ for (usint movt = 0; movt < movement_count; movt++)
   /* --- Stemswaplevel ---- */
 
   if (memcmp(m->stemswaplevel, p->stemswaplevel,
-       (max_stave_used + 1)*sizeof(int32_t)) != 0)
+       (max_stave_used + 1)*sizeof(int8_t)) != 0)
     {
     int index = 0;
     int maxcount = 0;
@@ -1877,8 +1880,8 @@ for (usint movt = 0; movt < movement_count; movt++)
         replicated group if it is. A replicated bar is identified by having the
         same next pointer in its initial b_start structure. */
 
-        case b_start:
-        int rcount = 1;
+        case b_start:;    /* Null statement needed for label because */
+        int rcount = 1;   /* this is a declaration. */
         for (int barnext = barno + 1; barnext < st->barcount; barnext++)
           {
           if (barvector[barnext]->next != b->next) break;
@@ -1897,7 +1900,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         P("[all] ");
         break;
 
-        case b_barline:
+        case b_barline:;  /* See above */
         b_barlinestr *bl = (b_barlinestr *)b;
         if (m->barvector[barno] == 0 || (m->barvector[barno] & 0xffffu) != 0)
           P("[nocount] ");
@@ -1921,7 +1924,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         P("\n");
         break;
 
-        case b_barnum:
+        case b_barnum:;  /* See above */
         b_barnumstr *bn = (b_barnumstr *)b;
         P("[barnumber");
         if (!bn->flag) P(" off"); else write_move(bn->x, bn->y);
@@ -1929,7 +1932,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         break;
 
         case b_beamacc:
-        case b_beamrit:
+        case b_beamrit:;  /* See above */
         b_beamaccritstr *ar = (b_beamaccritstr *)b;
         P("[beam%s", (b->type == b_beamacc)? "acc":"rit");
         if (ar->value != accrit)
@@ -1954,7 +1957,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         marked as a free upstemmed quaver or shorter, the beambreak is not
         explicit because if it had been, the note would have been so marked. */
 
-        case b_beambreak:
+        case b_beambreak:;  /* See above */
         int x = ((b_beambreakstr *)b)->value;
         if (x == BEAMBREAK_ALL)
           {
@@ -1991,7 +1994,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         P("// ");
         break;
 
-        case b_clef:
+        case b_clef:;  /* See above */
         b_clefstr *clef = (b_clefstr *)b;
         P("[");
         if (clef->assume) P("assume ");
@@ -2034,7 +2037,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         break;
 
         case b_endslur:
-        case b_endline:
+        case b_endline:; /* See above */
         b_endslurstr *bes = (b_endslurstr *)b;
         P("[%s", (b->type == b_endslur)? "es" : "el");
         if (bes->value != 0) P("/=%c", bes->value);
@@ -2055,7 +2058,7 @@ for (usint movt = 0; movt < movement_count; movt++)
 
         /* Each occurrence has only one flag set */
 
-        case b_justify:
+        case b_justify:; /* See above */
         uint8_t j = ((b_justifystr *)b)->value;
         P("[justify %c", ((j & just_add) == 0)? '-' : '+');
         switch(j & ~just_add)
@@ -2072,7 +2075,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         Also omit naturalizing keys, which are an artefact of processing and
         are not needed (or indeed allowed) in PMW input. */
 
-        case b_key:
+        case b_key:;  /* See above */
         b_keystr *key = (b_keystr *)b;
         if (key->key < 0x80 && (barno != 0 || key->key != m->key))
           {
@@ -2086,7 +2089,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         break;
 
         case b_linegap:
-        case b_slurgap:
+        case b_slurgap:;  /* See above */
         b_slurgapstr *gap = (b_slurgapstr *)b;
         P("[%sgap", (b->type == b_linegap)? "line" : "slur");
         if (gap->id != 0) P("/=%c", gap->id);
@@ -2109,7 +2112,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         P("(: ");
         break;
 
-        case b_move:
+        case b_move:;  /* See above */
         b_movestr *mv = (b_movestr *)b;
         P("[%smove %s", mv->relative? "r" : "", sff(mv->x));
         if (mv->y != 0) P(",%s", sff(mv->y));
@@ -2120,7 +2123,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         P("[name %d] ", ((b_namestr *)b)->value);
         break;
 
-        case b_nbar:
+        case b_nbar:;  /* See above */
         b_nbarstr *nb = (b_nbarstr *)b;
         P("[%d%s", nb->n, (nb->n == 1)? "st" : (nb->n == 2)? "nd" :
           (nb->n == 3)? "rd" : "th");
@@ -2141,7 +2144,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         P("[notes %s] ", ((b_notesstr *)b)->value? "on" : "off");
         break;
 
-        case b_ns:
+        case b_ns:;  /* See above */
         b_nsstr *ns = (b_nsstr *)b;
         P("[ns");
         for (int i = 0; i < NOTETYPE_COUNT; i++) P(" %s", sff(ns->ns[i]));
@@ -2185,7 +2188,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         overbeamset = TRUE;
         break;
 
-        case b_page:
+        case b_page:;  /* See above */
         b_pagestr *pgs = (b_pagestr *)b;
         P("\n[page %s%d] ", pgs->relative? "+" : "", pgs->value);
         break;
@@ -2216,13 +2219,13 @@ for (usint movt = 0; movt < movement_count; movt++)
 
         case b_sgnext:
         P("[sgnext ");
-        SGDATA:
+        SGDATA:;  /* See above */
         b_sgstr *sg = (b_sgstr *)b;
         if (sg->relative && sg->value >= 0) P("+");
         P("%s] ", sff(sg->value));
         break;
 
-        case b_space:
+        case b_space:;  /* See above */
         b_spacestr *sp = (b_spacestr *)b;
         P("[%sspace %s] ", sp->relative? "r" : "", sff(sp->x));
         break;
@@ -2237,7 +2240,7 @@ for (usint movt = 0; movt < movement_count; movt++)
 
         case b_ssnext:
         P("[ssnext ");
-        SSDATA:
+        SSDATA:; /* See above */
         b_ssstr *ss = (b_ssstr *)b;
         if (ss->stave != stave) P("%d/", ss->stave);
         if (ss->relative && ss->value >= 0) P("+");
@@ -2252,7 +2255,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         P("[tick] ");
         break;
 
-        case b_tie:
+        case b_tie:;  /* See above */
         b_tiestr *tie = (b_tiestr *)b;
         P("_");
 
@@ -2279,7 +2282,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         if (b->next->type != b_beambreak) P(" ");
         break;
 
-        case b_time:
+        case b_time:;  /* See above */
         b_timestr *tm = (b_timestr *)b;
         if (barno != 0 || tm->time != m->time)
           {
@@ -2296,14 +2299,14 @@ for (usint movt = 0; movt < movement_count; movt++)
         current transposition, but the value in the item is in quarter tones,
         and is absolute. */
 
-        case b_transpose:
+        case b_transpose:;  /* See above */
         int tpa = ((b_transposestr *)b)->transpose;
         int tpr = tpa - transpose;
         transpose = tpa;
         P("[transpose %d] ", tpr/2);
         break;
 
-        case b_tremolo:
+        case b_tremolo:;  /* See above */
         b_tremolostr *trem = (b_tremolostr *)b;
         P("[tremolo");
         if (trem->count != 2) P("/x%d", trem->count);
@@ -2335,7 +2338,7 @@ for (usint movt = 0; movt < movement_count; movt++)
 
         /* -------- Hairpins -------- */
 
-        case b_hairpin:
+        case b_hairpin:;  /* See above */
         b_hairpinstr *hp = (b_hairpinstr *)b;
 
         P("%s", ((hp->flags & hp_cresc) != 0)? "<" : ">");
@@ -2425,7 +2428,7 @@ for (usint movt = 0; movt < movement_count; movt++)
 
         /* -------- Text -------- */
 
-        case b_text:
+        case b_text:;  /* See above */
         b_textstr *txt = (b_textstr *)b;
         uint32_t fl = txt->flags;
         int32_t yvalue = txt->y;
@@ -2568,7 +2571,7 @@ for (usint movt = 0; movt < movement_count; movt++)
 
         /* -------- Tuplet start -------- */
 
-        case b_plet:
+        case b_plet:;  /* See above */
         b_pletstr *ps = (b_pletstr *)b;
         uint32_t pf = ps->flags;
         P("{");
@@ -2652,7 +2655,7 @@ for (usint movt = 0; movt < movement_count; movt++)
 
         /* -------- Slur or line start -------- */
 
-        case b_slur:
+        case b_slur:;  /* See above */
         b_slurstr *bs = (b_slurstr *)b;
 
         P("[%s%s", ((bs->flags & sflag_x) != 0)? "x" : "",
@@ -2718,7 +2721,7 @@ for (usint movt = 0; movt < movement_count; movt++)
         /* -------- Notes and chords -------- */
 
         case b_chord:
-        case b_note:
+        case b_note:;  /* See above */
         char options[100];
         char *cp = options;
         b_notestr *n = (b_notestr *)b;
@@ -2947,7 +2950,7 @@ for (usint movt = 0; movt < movement_count; movt++)
           }
 
         /* Notehead style */
-
+        
         switch (n->noteheadstyle)
           {
           case nh_normal: break;

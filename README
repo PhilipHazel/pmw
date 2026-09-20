@@ -1,7 +1,7 @@
 PHILIP'S MUSIC WRITER
 ---------------------
 
-Copyright (c) 2025 Philip Hazel
+Copyright (c) 2026 Philip Hazel
 
 
 DISCUSSION GROUP
@@ -30,7 +30,7 @@ There are options for "./configure" that can be seen by running
 
 In particular, note that you can add "--enable-pdf-default" to "./configure" in
 order to make PDF the default output format. Otherwise the default output
-format is PostScript.
+format is PostScript. Ass --enable-musicxml if you want MusicXML support.
 
 If you have cloned the GitHub repository, you will need to run "autoconf"
 first, in order to create the "configure" script.
@@ -77,7 +77,7 @@ doc/HACKNOTES.
 
 
 Philip Hazel <Philip.Hazel [AT] gmail.com>
-June 2025
+September 2026
 
 
 LICENCE

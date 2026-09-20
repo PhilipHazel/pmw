@@ -22,7 +22,6 @@ stavesizes 1/1.08 2/1.08 3/1.08 4/1.08 5/1.08 6/1.08 7/1.08 8/1.08 9/1.08
   20/1.08 21/1.08 22/1.08 23/1.08
 breakbarlinesx 7 13 16 18
 stavespacing 53.2
-stemswaplevel 0
 textsizes 10 8.05 10.028 8.615 15.96
 linelength 719.611
 systemgap 31.6
@@ -777,10 +776,10 @@ r $b= b=, b-; b= b=, b- | @22
 [time 3/4] "\bi\f"/b12.8/c $b= b=, b-; "m\bi\f"/b12.8/c b= b=, b-; "m\bi\p"/b12.8/c
   b= b=, b- | @25
 [ssabove 61.2] [time 4/4] R! | @26
-"\bi\p"/b16.4/c E'+\///\ [reset] q- q== </a0/d30.4/lc0.127/w6.4 q- </lc0.052
-  | @27
+"\bi\p"/b16.4/c E'+\///\ [reset] q- q== </a0/d30.4/lc0.127/w6.4 Q. q=. 
+  </lc0.052 | @27
 [time 3/4] "\bi\f"/b17.2/c E'.\/// sl1.6\ [reset] q= q== >/a0/d30/lc0.095/w6.4
-  >/lc0.074 | @28
+  Q q- q=- >/lc0.074 | @28
 R! | @29
 R! | @30
 R! | @31

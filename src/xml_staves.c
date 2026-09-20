@@ -3,7 +3,7 @@
 *************************************************/
 
 /* Copyright (c) Philip Hazel, 2025 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 
 /* This module contains functions for generating stave data */
@@ -393,9 +393,10 @@ if (bac >= dur) bac -= dur; else
   }
 
 /* bac is now the amount we need to move forward in divisions. Create invisible
-rest(s). */
+rest(s). Need to take precautions for integer overflow which can happen if
+divsions is large. */
 
-int64_t pmwmove = (bac * len_crotchet)/divisions;
+int64_t pmwmove = ((int64_t)bac * (int64_t)len_crotchet)/divisions;
 
 while(pmwmove >= len_hdsquaver)
   {
@@ -411,6 +412,7 @@ while(pmwmove >= len_hdsquaver)
   rest->abspitch = 0;
   rest->spitch = 0;
   rest->acc_orig = ac_no;
+  rest->noteheadstyle = nh_normal;  /* Can be checked in pmwout */ 
 
   /* Notetype is irrelevant to PMW itself for an invisible rest, but it must be
   correct for other output formats (XML, PMW). Ditto for number of dots. */
@@ -3047,13 +3049,13 @@ for (xml_item *mi = measure->next;
             clef_cposition[current_clef[staff]]);
           }
         }
-        
-      /* When divisions is large (e.g. 1024) there is the chance of overflow in 
-      32-bit arithmetic. */ 
+
+      /* When divisions is large (e.g. 1024) there is the chance of overflow in
+      32-bit arithmetic. */
 
       if (whole_bar_rest)
         {
-        newnote->length = 
+        newnote->length =
           (uint32_t)(((uint64_t)note_duration * len_crotchet)/divisions);
         newnote->notetype = semibreve;
         newnote->flags = nf_centre;

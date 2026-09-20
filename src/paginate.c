@@ -5,7 +5,7 @@
 
 /* Copyright Philip Hazel 2026 */
 /* This file created: April 2021 */
-/* This file last modified: August 2026 */
+/* This file last modified: September 2026 */
 
 #include "pmw.h"
 
@@ -1303,7 +1303,7 @@ for (curstave = 0; curstave <= curmovt->laststave; curstave++)
         if (slur_endslur(es) == NULL)
           {
           char buff[8];
-          if (es->value == 0) buff[0] = 0; else sprintf(buff, "\"%c\"",
+          if (es->value == 0) buff[0] = 0; else sprintf(buff, " \"%c\"",
             es->value);
           if (p->type == b_endline)
             error(ERR132, "line", buff, "[endline]");
