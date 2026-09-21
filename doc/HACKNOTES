@@ -99,9 +99,13 @@ are in the file pout.c.
 code in the midi.c file scans the music data (not the pagination data) to
 generate a MIDI file.
 
-6. Similarly, if MusicXML output has been requested, there is a final phase in 
+6. Similarly, if MusicXML output has been requested, there is another phase in 
 which the music and pagination data are used by the code in the xmlout.c file 
 to write one or more MusicXML output files.
+
+7. Finally, if output in PMW input format has been requested (typically to 
+import MusicXML for editing), there is one more phase, the code for which is 
+all in the pmwout.c file.
 
 The names of source modules not mentioned above should give a clue to their
 contents. For example, "font.c" is all about font handling, and "transpose"
@@ -617,4 +621,4 @@ directory. There's a README file with details.
 
 
 Philip Hazel
-September 2025
+September 2026
