@@ -864,7 +864,7 @@ for (usint movt = 0; movt < movement_count; movt++)
       }
     }
   ENDLAYOUT:
-   
+
   /* ---- Suspend ---- */
 
   if (m->suspend_staves != 0) write_stavebits(m->suspend_staves, "suspend");
@@ -884,8 +884,8 @@ for (usint movt = 0; movt < movement_count; movt++)
 
 #if defined SUPPORT_B2PF && SUPPORT_B2PF != 0
   if (font_call_b2pf) error(ERR202, "B2PFfont");
-#endif   
-   
+#endif
+
   if (draw_tree != NULL) error(ERR202, "draw");
   if (main_keytranspose != NULL) error(ERR202, "keytranspose");
 
@@ -2950,7 +2950,7 @@ for (usint movt = 0; movt < movement_count; movt++)
           }
 
         /* Notehead style */
-        
+
         switch (n->noteheadstyle)
           {
           case nh_normal: break;

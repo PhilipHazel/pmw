@@ -906,7 +906,7 @@ typedef struct movtstr {
   uint32_t      topmargin;
    int32_t      transpose;
   uint32_t      tripletlinewidth;
-   int32_t      truelinelength; 
+   int32_t      truelinelength;
    int32_t      underlaydepth;
 
   /* 8-bit fields */

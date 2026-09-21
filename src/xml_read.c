@@ -41,11 +41,11 @@ if (tn->name[0] == '+')
   uschar *eptr = Ustrrchr(tn->name, ':');
   uschar *vptr = Ustrchr(tn->name, '=');
   if (vptr == NULL)
-    (void)fprintf(stderr, "'%.*s' in <%s>\n", (int)(eptr - tn->name - 1), 
+    (void)fprintf(stderr, "'%.*s' in <%s>\n", (int)(eptr - tn->name - 1),
       tn->name + 1, eptr + 1);
   else
-    (void)fprintf(stderr, "'%.*s' value \"%.*s\" in <%s>\n", 
-      (int)(vptr - tn->name - 1), tn->name + 1, (int)(eptr - vptr - 1), 
+    (void)fprintf(stderr, "'%.*s' value \"%.*s\" in <%s>\n",
+      (int)(vptr - tn->name - 1), tn->name + 1, (int)(eptr - vptr - 1),
       vptr + 1, eptr + 1);
   }
 else

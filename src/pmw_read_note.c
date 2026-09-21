@@ -1782,7 +1782,7 @@ for (;;)
       { read_nextc(); pn_notetype += 1; pn_notelength /= 2; }
     else if (read_c == '+')
       { read_nextc(); pn_notetype -= 1; pn_notelength *= 2; }
-    else break;   
+    else break;
     }
 
   /* Deal with non-standard lengths. */

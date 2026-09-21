@@ -288,7 +288,7 @@ static textflag_name textflags[] = {
   { text_middle,    "middle" },
   { text_rehearse,  "rehearse" },
   { text_ringed,    "ringed" },
-  { text_suppress,  "suppressed" }, 
+  { text_suppress,  "suppressed" },
   { text_timealign, "timealign" },
   { text_ul,        "ul" }
 };
@@ -1258,7 +1258,7 @@ for (b = (bstr *)(bar->next); b != NULL; b = b->next)
 
     if (nt->spitch != 0)
       {
-      eprintf(" abspitch=%d", nt->abspitch);   
+      eprintf(" abspitch=%d", nt->abspitch);
       stl = ((int)(nt->spitch) - P_0L)/4;
       eprintf(" P_%d%c", stl/2, ((stl & 1) != 0)? 'S':'L');
       eprintf(" %d%s", nt->abspitch/OCTAVE - 3,

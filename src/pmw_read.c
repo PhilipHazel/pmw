@@ -402,15 +402,15 @@ int32_t
 pmw_read_fixed_fontsize(void)
 {
 int32_t size = 0;
-read_nextc();                                        
+read_nextc();
 if (read_expect_integer(&size, FALSE, FALSE))
-  {   
+  {
   if (--size < 0 || size >= FixedFontSizes)
-    { 
-    error(ERR75, FixedFontSizes); 
+    {
+    error(ERR75, FixedFontSizes);
     size = 0;
     }
-  }                         
+  }
 return UserFontSizes + size;
 }
 
@@ -424,23 +424,23 @@ int32_t
 pmw_read_settable_fontsize(void)
 {
 int32_t size = 0;
-read_nextc();                                                     
+read_nextc();
 if (!isdigit(read_c))
-  {             
+  {
   if (read_c == 'u') size = ff_offset_ulay;
   else if (read_c == 'o') size = ff_offset_olay;
   else if (read_c == 'f') size = ff_offset_fbass;
   else error(ERR8, "/su, /so, or /sf");
   read_nextc();
-  }              
+  }
 else if (read_expect_integer(&size, FALSE, FALSE))
-  {               
+  {
   if (--size < 0 || size >= UserFontSizes)
     {
     error(ERR75, UserFontSizes);
     size = 0;
-    }    
-  }                                                  
+    }
+  }
 return size;
 }
 

@@ -412,7 +412,7 @@ while(pmwmove >= len_hdsquaver)
   rest->abspitch = 0;
   rest->spitch = 0;
   rest->acc_orig = ac_no;
-  rest->noteheadstyle = nh_normal;  /* Can be checked in pmwout */ 
+  rest->noteheadstyle = nh_normal;  /* Can be checked in pmwout */
 
   /* Notetype is irrelevant to PMW itself for an invisible rest, but it must be
   correct for other output formats (XML, PMW). Ditto for number of dots. */

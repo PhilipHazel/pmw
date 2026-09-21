@@ -652,8 +652,8 @@ movtstr default_movtstr = {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-    
-#define DSS DEFAULT_STAVESPACING 
+
+#define DSS DEFAULT_STAVESPACING
   {   0,DSS,DSS,DSS,DSS,DSS,DSS,DSS,  /* stave_spacing */
     DSS,DSS,DSS,DSS,DSS,DSS,DSS,DSS,
     DSS,DSS,DSS,DSS,DSS,DSS,DSS,DSS,
@@ -662,7 +662,7 @@ movtstr default_movtstr = {
     DSS,DSS,DSS,DSS,DSS,DSS,DSS,DSS,
     DSS,DSS,DSS,DSS,DSS,DSS,DSS,DSS,
     DSS,DSS,DSS,DSS,DSS,DSS,DSS,DSS },
-#undef DSS 
+#undef DSS
 
   { 0, 0, 0, 0, 0, 0, 2000, 4000 },  /* stemadjusts */
 

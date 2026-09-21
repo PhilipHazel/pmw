@@ -515,7 +515,7 @@ field in the structure above for items on the stack and for variables. */
 
 /* Code values for where a drawing function is called from. */
 
-enum called_from { cf_note, cf_barline, cf_heading, cf_footing, cf_stavename, 
+enum called_from { cf_note, cf_barline, cf_heading, cf_footing, cf_stavename,
   cf_slurgap, cf_linegap };
 
 /* Justification options */

@@ -377,10 +377,10 @@ uint32_t ss[256];            /* For building continuation strings */
 
 TRACE("out_text()%s\n", ((flags & text_ul) != 0)? " underlay" :
   ((flags & text_fb) != 0)? " figured bass" : "");
-  
+
 /* Do nothing if this text output is suppressed. */
 
-if ((flags & text_suppress) != 0) return; 
+if ((flags & text_suppress) != 0) return;
 
 /* Make a local copy of the relevant font data, and keep a copy of the unscaled
 size before scaling the font. */
@@ -2112,10 +2112,10 @@ if (p->string[2] != NULL)
 
 /* Called from out_page() below.
 
-Arguments:   
+Arguments:
   h         pointer to chain of heading blocks
   from      code to distinguish heading/footing for drawings
-    
+
 Returns:    nothing
 */
 
