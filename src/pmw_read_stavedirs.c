@@ -610,7 +610,7 @@ if (read_c == '+' || read_c == '-')
 
 /* Absolute value is allowed only for above and below */
 
-else if isdigit(read_c)
+else if (isdigit(read_c))
   {
   if ((srs.hairpinflags & (hp_middle|hp_underlay)) == 0)
     {
